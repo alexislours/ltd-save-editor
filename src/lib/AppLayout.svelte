@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import { _ } from 'svelte-i18n';
   import ChangelogDialog from './ChangelogDialog.svelte';
+  import LocaleSwitcher from './LocaleSwitcher.svelte';
   import { getPath, navigate } from './navigation.svelte';
   import { TAB_PILL_CLASS } from './styles';
 
@@ -10,12 +12,12 @@
   const path = $derived(getPath());
   let changelogOpen = $state(false);
 
-  const tabs = [
-    { href: '/player', label: 'Player', wip: false },
-    { href: '/mii', label: 'Mii', wip: false },
-    { href: '/map', label: 'Map', wip: false },
-    { href: '/about', label: 'About', wip: false },
-  ] as const;
+  const tabs = $derived([
+    { href: '/player', label: $_('tab.player'), wip: false },
+    { href: '/mii', label: $_('tab.mii'), wip: false },
+    { href: '/map', label: $_('tab.map'), wip: false },
+    { href: '/about', label: $_('tab.about'), wip: false },
+  ]);
 
   function go(href: string, event: MouseEvent): void {
     event.preventDefault();
@@ -27,17 +29,22 @@
   <header class="bg-amber-300/90 shadow-sm ring-1 ring-amber-400/60">
     <div class="mx-auto flex w-full max-w-5xl items-start justify-between gap-4 px-6 pt-6">
       <div>
-        <p class="text-xs font-bold uppercase tracking-[0.18em] text-orange-700/90">Save editor</p>
-        <h1 class="mt-0.5 text-xl font-bold text-slate-900">Tomodachi Life: Living the Dream</h1>
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-orange-700/90">
+          {$_('app.title')}
+        </p>
+        <h1 class="mt-0.5 text-xl font-bold text-slate-900">{$_('app.game_title')}</h1>
       </div>
-      <button
-        type="button"
-        onclick={() => (changelogOpen = true)}
-        aria-label="Show changelog"
-        class="rounded-full bg-amber-50/80 px-2 py-0.5 font-mono text-xs text-orange-700/90 ring-1 ring-amber-400/60 transition-colors hover:bg-white hover:text-orange-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
-      >
-        v{__APP_VERSION__}
-      </button>
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          onclick={() => (changelogOpen = true)}
+          aria-label="Show changelog"
+          class="rounded-full bg-amber-50/80 px-2 py-0.5 font-mono text-xs text-orange-700/90 ring-1 ring-amber-400/60 transition-colors hover:bg-white hover:text-orange-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+        >
+          v{__APP_VERSION__}
+        </button>
+        <LocaleSwitcher />
+      </div>
     </div>
 
     <nav class="mx-auto mt-4 flex w-full max-w-5xl flex-wrap gap-2 px-6 pb-4" aria-label="Sections">

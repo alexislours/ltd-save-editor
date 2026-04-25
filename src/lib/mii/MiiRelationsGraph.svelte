@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import { untrack } from 'svelte';
   import { SvelteMap, SvelteSet } from 'svelte/reactivity';
   import type { Entry } from '../sav/types';
@@ -10,7 +11,7 @@
     listRelationships,
     populatedMiiIndices,
     readMiiName,
-    subRelationLabel,
+    subRelationKey,
   } from './relations';
   import { computeForceLayout } from './forceLayout';
 
@@ -274,30 +275,43 @@
     }
   }
 
+  function localizeRelationType(name: string): string {
+    if (name.startsWith('0x')) return name;
+    const t = $_(`mii.relations.type.${name}`);
+    return t && t !== `mii.relations.type.${name}` ? t : name;
+  }
+
+  function localizedSub(type: string, meter: number, isFight: boolean): string | null {
+    const k = subRelationKey(type, meter, isFight);
+    if (!k) return null;
+    const t = $_(`mii.relations.sub.${k.key}`);
+    return t && t !== `mii.relations.sub.${k.key}` ? t : null;
+  }
+
   function feeling(type: string, meter: number, isFight: boolean): string {
-    const sub = subRelationLabel(type, meter, isFight);
+    const sub = localizedSub(type, meter, isFight);
     return sub ? ` - ${sub}` : '';
   }
 
   function pairTooltip(p: Pair): string {
-    const fight = p.isFight ? '\n⚔︎ currently fighting' : '';
-    return `${p.nameA} → ${p.nameB}: ${p.typeAB} (${p.meterAB})${feeling(p.typeAB, p.meterAB, p.isFight)}\n${p.nameB} → ${p.nameA}: ${p.typeBA} (${p.meterBA})${feeling(p.typeBA, p.meterBA, p.isFight)}${fight}`;
+    const fight = p.isFight ? `\n⚔︎ ${$_('mii.relations.fight_marker_aria')}` : '';
+    const tab = localizeRelationType(p.typeAB);
+    const tba = localizeRelationType(p.typeBA);
+    return `${p.nameA} → ${p.nameB}: ${tab} (${p.meterAB})${feeling(p.typeAB, p.meterAB, p.isFight)}\n${p.nameB} → ${p.nameA}: ${tba} (${p.meterBA})${feeling(p.typeBA, p.meterBA, p.isFight)}${fight}`;
   }
 </script>
 
 <section class={CARD_CLASS}>
   <div class="mb-3 flex flex-wrap items-end justify-between gap-3">
     <div>
-      <h3 class="text-base font-bold text-slate-900">Relationship graph</h3>
+      <h3 class="text-base font-bold text-slate-900">{$_('mii.relations.graph_title')}</h3>
       <p class="mt-0.5 text-xs text-slate-600">
         {#if viewMode === 'all'}
-          Force-directed view of every relationship between {populated.length}
-          populated Miis. Click any node to focus on that Mii's connections.
+          {$_('mii.relations.graph_intro_all', { values: { count: populated.length } })}
         {:else if focusIndex == null}
-          Pick a Mii below to centre the graph on them.
+          {$_('mii.relations.graph_intro_pick')}
         {:else}
-          Centred on <strong>{focusName}</strong>. Click any peripheral Mii to re-centre the graph
-          on them.
+          {$_('mii.relations.graph_intro_focus', { values: { name: focusName } })}
         {/if}
       </p>
     </div>
@@ -307,7 +321,7 @@
     class="mb-4 flex flex-wrap items-end gap-3 rounded-xl bg-amber-100/70 px-3 py-2.5 ring-1 ring-amber-400/40"
   >
     <label class="flex flex-col gap-1 text-xs text-slate-700">
-      <span class="font-bold text-slate-900">Mii</span>
+      <span class="font-bold text-slate-900">{$_('mii.relations.mii_selector')}</span>
       <select
         class="min-w-50 rounded-lg border border-amber-400/60 bg-white px-2 py-1 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
         value={dropdownIndex ?? ''}
@@ -318,11 +332,13 @@
         disabled={!re || populated.length === 0}
       >
         {#if dropdownIndex == null}
-          <option value="" disabled>(select a Mii)</option>
+          <option value="" disabled>{$_('mii.relations.select_placeholder')}</option>
         {/if}
         {#each populated as idx (idx)}
           <option value={idx}>
-            #{idx + 1} · {re ? readMiiName(re.name, idx) : ''}
+            {$_('mii.panel.slot_label', {
+              values: { index: idx + 1, name: re ? readMiiName(re.name, idx) : '' },
+            })}
           </option>
         {/each}
       </select>
@@ -334,7 +350,7 @@
       disabled={dropdownIndex == null}
       onclick={viewSelected}
     >
-      View relationships
+      {$_('mii.relations.view_relationships')}
     </button>
 
     <button
@@ -343,19 +359,19 @@
       class:!bg-amber-200={viewMode === 'all'}
       onclick={viewAll}
     >
-      View all relationships
+      {$_('mii.relations.view_all')}
     </button>
 
     {#if presentTypes.length > 0}
       <label class="ml-auto flex flex-col gap-1 text-xs text-slate-700">
-        <span class="font-bold text-slate-900">Filter type</span>
+        <span class="font-bold text-slate-900">{$_('mii.relations.filter_type_label')}</span>
         <select
           class="rounded-lg border border-amber-400/60 bg-white px-2 py-1 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
           bind:value={filterType}
         >
-          <option value="all">All types</option>
+          <option value="all">{$_('mii.relations.filter_all')}</option>
           {#each presentTypes as t (t)}
-            <option value={t}>{t}</option>
+            <option value={t}>{localizeRelationType(t)}</option>
           {/each}
         </select>
       </label>
@@ -363,16 +379,14 @@
   </div>
 
   {#if !re}
-    <p class="text-sm text-slate-600">Relationship tables aren't present in this save.</p>
+    <p class="text-sm text-slate-600">{$_('mii.relations.no_table')}</p>
   {:else if populated.length === 0}
-    <p class="text-sm text-slate-600">No populated Miis to graph.</p>
+    <p class="text-sm text-slate-600">{$_('mii.relations.no_populated')}</p>
   {:else if viewMode === 'all' && allPairs.length === 0}
-    <p class="text-sm text-slate-600">
-      No relationships to graph (every pair was hidden by the unknown/Invalid filter).
-    </p>
+    <p class="text-sm text-slate-600">{$_('mii.relations.no_pairs_visible')}</p>
   {:else if viewMode === 'ego' && focusIndex != null && egoEdges.length === 0}
     <p class="text-sm text-slate-600">
-      <strong>{focusName}</strong> doesn't have any recorded relationships.
+      {$_('mii.relations.no_relations_for', { values: { name: focusName } })}
     </p>
   {:else}
     <div class="flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-slate-700">
@@ -385,7 +399,7 @@
             class="inline-block h-2 w-3 rounded-sm"
             style:background-color={TYPE_COLORS[t] ?? FALLBACK_COLOR}
           ></span>
-          {t}
+          {localizeRelationType(t)}
         </span>
       {/each}
     </div>
@@ -395,7 +409,9 @@
         viewBox={`0 0 ${SIZE} ${SIZE}`}
         class="mx-auto block h-auto w-full max-w-190"
         role="img"
-        aria-label={viewMode === 'all' ? 'All Mii relationships' : `Relationships for ${focusName}`}
+        aria-label={viewMode === 'all'
+          ? $_('mii.relations.graph_aria_all')
+          : $_('mii.relations.graph_aria_focus', { values: { name: focusName } })}
       >
         {#if viewMode === 'all'}
           <g fill="none" stroke-linecap="round">
@@ -444,7 +460,7 @@
                 <g
                   role="button"
                   tabindex="0"
-                  aria-label={`Focus on ${name}`}
+                  aria-label={$_('mii.relations.focus_on', { values: { name } })}
                   onmouseenter={() => (hoveredNode = idx)}
                   onmouseleave={() => (hoveredNode = null)}
                   onfocus={() => (hoveredNode = idx)}
@@ -546,11 +562,14 @@
                   ></polygon>
                 {/if}
 
-                {@const subOut = subRelationLabel(e.typeOut, e.meterOut, e.isFight)}
-                {@const subIn = subRelationLabel(e.typeIn, e.meterIn, e.isFight)}
+                {@const subOut = localizedSub(e.typeOut, e.meterOut, e.isFight)}
+                {@const subIn = localizedSub(e.typeIn, e.meterIn, e.isFight)}
                 {@const labelOut =
-                  (subOut ?? e.typeOut) + (e.meterOut !== 0 ? ` (${e.meterOut})` : '')}
-                {@const labelIn = (subIn ?? e.typeIn) + (e.meterIn !== 0 ? ` (${e.meterIn})` : '')}
+                  (subOut ?? localizeRelationType(e.typeOut)) +
+                  (e.meterOut !== 0 ? ` (${e.meterOut})` : '')}
+                {@const labelIn =
+                  (subIn ?? localizeRelationType(e.typeIn)) +
+                  (e.meterIn !== 0 ? ` (${e.meterIn})` : '')}
                 {@const symmetric =
                   showOut && showIn && labelOut === labelIn && e.colorOut === e.colorIn}
                 {#if symmetric}
@@ -635,7 +654,7 @@
                 <g
                   role="button"
                   tabindex="0"
-                  aria-label={`Focus on ${e.otherName}`}
+                  aria-label={$_('mii.relations.focus_on', { values: { name: e.otherName } })}
                   onmouseenter={() => (hoveredNode = e.other)}
                   onmouseleave={() => (hoveredNode = null)}
                   onfocus={() => (hoveredNode = e.other)}
@@ -691,12 +710,17 @@
 
     <p class="mt-3 text-xs text-slate-600">
       {#if viewMode === 'all'}
-        {allPairs.length} pair{allPairs.length === 1 ? '' : 's'}
+        {$_('mii.relations.pair_count', { values: { count: allPairs.length } })}
       {:else}
-        {egoEdges.length} relationship{egoEdges.length === 1 ? '' : 's'}
+        {$_('mii.relations.relation_count', { values: { count: egoEdges.length } })}
       {/if}
-      {#if filterType !== 'all'}· filtered to <strong>{filterType}</strong>{/if}
-      · Other (default "haven't met"), Invalid and unknown types are hidden.
+      {#if filterType !== 'all'}
+        ·
+        {$_('mii.relations.filtered_to', {
+          values: { filter: localizeRelationType(filterType) },
+        })}
+      {/if}
+      · {$_('mii.relations.graph_footnote')}
     </p>
   {/if}
 </section>

@@ -35,15 +35,6 @@ export const GROUP_COLOR: Record<ActorGroup, string> = {
   unknown: '#ef4444', // red-500
 };
 
-export const GROUP_LABEL: Record<ActorGroup, string> = {
-  house: 'House',
-  facility: 'Facility',
-  deco: 'Object',
-  room: 'Room',
-  step: 'Step',
-  unknown: 'Unknown',
-};
-
 function prettifyActorKey(key: string): string {
   let s = key;
   for (const p of ['Obj', 'Facility', 'House', 'Room', 'Deco']) {

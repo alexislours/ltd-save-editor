@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import { SvelteMap } from 'svelte/reactivity';
   import { arrSetEnum, arrSetInt } from '../sav/codec';
   import { enumOptionsFor } from '../sav/knownKeys';
@@ -13,7 +14,7 @@
     isValidPair,
     listRelationships,
     readMiiName,
-    subRelationLabel,
+    subRelationKey,
     subRelationLevels,
   } from './relations';
 
@@ -119,10 +120,17 @@
       markDirty(relEntries.meter);
     }
   }
+
+  /** Translate a base relation type internal name (e.g. "Couple"). Falls back to the raw name. */
+  function localizeRelationType(name: string): string {
+    if (name.startsWith('0x')) return name;
+    const t = $_(`mii.relations.type.${name}`);
+    return t && t !== `mii.relations.type.${name}` ? t : name;
+  }
 </script>
 
 <section class={CARD_CLASS}>
-  <h3 class="text-base font-bold text-slate-900">Relationships</h3>
+  <h3 class="text-base font-bold text-slate-900">{$_('mii.relations.table_title')}</h3>
   <p
     class="mt-2 flex items-start gap-2 rounded-xl bg-red-50 px-3 py-2 text-xs text-red-900 ring-1 ring-red-400/70"
     role="note"
@@ -133,31 +141,28 @@
       >!</span
     >
     <span>
-      <span class="font-bold text-red-700">Warning:</span> some relationship combos can corrupt the save.
-      Edit cautiously and keep a backup before changing relationship types.
+      <span class="font-bold text-red-700">{$_('mii.relations.warning_label')}</span>
+      {$_('mii.relations.warning_text')}
     </span>
   </p>
   {#if !relEntries}
-    <p class="mt-2 text-sm text-slate-600">Relationship tables aren't present in this save.</p>
+    <p class="mt-2 text-sm text-slate-600">{$_('mii.relations.no_table_short')}</p>
   {:else if myRelationships.length === 0}
-    <p class="mt-2 text-sm text-slate-600">
-      No relationships involve this Mii. Save state may not be far enough into the game yet.
-    </p>
+    <p class="mt-2 text-sm text-slate-600">{$_('mii.relations.no_relations_for_self')}</p>
   {:else}
     <p class="mt-0.5 text-xs text-slate-600">
-      {myRelationships.length} relationship{myRelationships.length === 1 ? '' : 's'}. Outgoing = how
-      this Mii regards the other; incoming = how the other regards this Mii.
+      {$_('mii.relations.table_intro', { values: { count: myRelationships.length } })}
     </p>
     <div class="mt-4 overflow-x-auto rounded-xl ring-1 ring-amber-400/40">
       <table class="w-full text-sm">
         <thead class="bg-amber-100/70 text-left text-xs font-bold text-slate-900">
           <tr>
-            <th class="px-3 py-2 font-bold">Other Mii</th>
-            <th class="px-3 py-2 font-bold">Outgoing type</th>
-            <th class="px-3 py-2 font-bold">Outgoing level</th>
-            <th class="px-3 py-2 font-bold">Incoming type</th>
-            <th class="px-3 py-2 font-bold">Incoming level</th>
-            <th class="px-3 py-2 font-bold">Fight?</th>
+            <th class="px-3 py-2 font-bold">{$_('mii.relations.header_other')}</th>
+            <th class="px-3 py-2 font-bold">{$_('mii.relations.header_out_type')}</th>
+            <th class="px-3 py-2 font-bold">{$_('mii.relations.header_out_level')}</th>
+            <th class="px-3 py-2 font-bold">{$_('mii.relations.header_in_type')}</th>
+            <th class="px-3 py-2 font-bold">{$_('mii.relations.header_in_level')}</th>
+            <th class="px-3 py-2 font-bold">{$_('mii.relations.header_fight')}</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-amber-200/60">
@@ -168,9 +173,14 @@
             {@const inFixed = FIXED_METER_TYPES.has(inTypeName)}
             {@const outLevels = subRelationLevels(outTypeName, r.isFight)}
             {@const inLevels = subRelationLevels(inTypeName, r.isFight)}
+            {@const outActive = subRelationKey(outTypeName, r.outMeter, r.isFight)}
+            {@const inActive = subRelationKey(inTypeName, r.inMeter, r.isFight)}
             <tr class="align-middle">
               <td class="px-3 py-2 font-bold text-slate-900">
-                {r.otherName || `(slot #${r.otherIndex + 1})`}
+                {r.otherName ||
+                  $_('mii.relations.slot_placeholder', {
+                    values: { index: r.otherIndex + 1 },
+                  })}
               </td>
               <td class="px-3 py-2">
                 {#if baseTypeOptions}
@@ -181,15 +191,19 @@
                   >
                     {#each baseTypeOptions as opt (opt.hash)}
                       <option value={opt.hash} selected={opt.hash === r.outType}>
-                        {opt.name}
+                        {localizeRelationType(opt.name)}
                       </option>
                     {/each}
                     {#if !baseTypeOptions.some((o) => o.hash === r.outType)}
-                      <option value={r.outType} selected>{baseRelationTypeLabel(r.outType)}</option>
+                      <option value={r.outType} selected
+                        >{localizeRelationType(baseRelationTypeLabel(r.outType))}</option
+                      >
                     {/if}
                   </select>
                 {:else}
-                  <span class="font-mono text-xs">{baseRelationTypeLabel(r.outType)}</span>
+                  <span class="font-mono text-xs"
+                    >{localizeRelationType(baseRelationTypeLabel(r.outType))}</span
+                  >
                 {/if}
               </td>
               <td class="px-3 py-2">
@@ -201,11 +215,8 @@
                     onchange={(e) => commitMeter(r.outIndex, e.currentTarget.value)}
                   >
                     {#each outLevels as lv (lv.index)}
-                      <option
-                        value={lv.meter}
-                        selected={subRelationLabel(outTypeName, r.outMeter, r.isFight) === lv.label}
-                      >
-                        {lv.label}
+                      <option value={lv.meter} selected={outActive?.index === lv.index}>
+                        {$_(`mii.relations.sub.${lv.key}`)}
                       </option>
                     {/each}
                   </select>
@@ -228,15 +239,19 @@
                   >
                     {#each baseTypeOptions as opt (opt.hash)}
                       <option value={opt.hash} selected={opt.hash === r.inType}>
-                        {opt.name}
+                        {localizeRelationType(opt.name)}
                       </option>
                     {/each}
                     {#if !baseTypeOptions.some((o) => o.hash === r.inType)}
-                      <option value={r.inType} selected>{baseRelationTypeLabel(r.inType)}</option>
+                      <option value={r.inType} selected
+                        >{localizeRelationType(baseRelationTypeLabel(r.inType))}</option
+                      >
                     {/if}
                   </select>
                 {:else}
-                  <span class="font-mono text-xs">{baseRelationTypeLabel(r.inType)}</span>
+                  <span class="font-mono text-xs"
+                    >{localizeRelationType(baseRelationTypeLabel(r.inType))}</span
+                  >
                 {/if}
               </td>
               <td class="px-3 py-2">
@@ -248,11 +263,8 @@
                     onchange={(e) => commitMeter(r.inIndex, e.currentTarget.value)}
                   >
                     {#each inLevels as lv (lv.index)}
-                      <option
-                        value={lv.meter}
-                        selected={subRelationLabel(inTypeName, r.inMeter, r.isFight) === lv.label}
-                      >
-                        {lv.label}
+                      <option value={lv.meter} selected={inActive?.index === lv.index}>
+                        {$_(`mii.relations.sub.${lv.key}`)}
                       </option>
                     {/each}
                   </select>
@@ -268,7 +280,11 @@
               </td>
               <td class="px-3 py-2 text-xs">
                 {#if r.isFight}
-                  <span class="text-red-600">⚔︎</span>
+                  <span
+                    class="text-red-600"
+                    aria-label={$_('mii.relations.fight_marker_aria')}
+                    title={$_('mii.relations.fight_marker_aria')}>⚔︎</span
+                  >
                 {:else}
                   <span class="text-slate-400">-</span>
                 {/if}

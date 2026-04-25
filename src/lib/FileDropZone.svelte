@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import { expectedFileName, setSaveFromFile, type SaveKind } from './saveFile.svelte';
 
   type Props = { kind: SaveKind };
@@ -19,7 +20,7 @@
     try {
       await setSaveFromFile(kind, file);
     } catch (e) {
-      error = e instanceof Error ? e.message : 'Failed to read file';
+      error = e instanceof Error ? e.message : $_('save.read_failed');
     }
   }
 
@@ -66,16 +67,16 @@
       />
     </svg>
     <p class="text-base font-bold text-slate-900">
-      Drop <span class="font-mono">{expectedFileName[kind]}</span> here
+      {$_('save.drop_here', { values: { fileName: expectedFileName[kind] } })}
     </p>
-    <p class="text-sm text-slate-600">or click to browse</p>
+    <p class="text-sm text-slate-600">{$_('save.drop_browse')}</p>
 
     <input bind:this={fileInput} type="file" class="hidden" onchange={onPick} />
   </div>
 
   <p class="mt-3 text-center text-xs text-amber-700">
-    <span class="font-semibold">Warning:</span> editing save files can corrupt your game. Always keep
-    a backup of the original file before uploading.
+    <span class="font-semibold">{$_('save.drop_warning_label')}</span>
+    {$_('save.drop_warning_text')}
   </p>
 
   {#if error}

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { SvelteSet } from 'svelte/reactivity';
+  import { _ } from 'svelte-i18n';
   import EntryEditor from '../player/EntryEditor.svelte';
   import PlayerDetail from '../player/PlayerDetail.svelte';
   import PlayerTree from '../player/PlayerTree.svelte';
@@ -158,7 +159,7 @@
 
 <details class={CARD_BASE_CLASS}>
   <summary class="cursor-pointer px-6 py-4 text-base font-bold text-slate-900">
-    Advanced: browse every entry
+    {$_('advanced.header')}
   </summary>
   <div class="border-t border-amber-400/30 px-6 py-4">
     {#if !advWarningAcked}
@@ -171,37 +172,27 @@
           >
           <div class="flex-1">
             <h3 class="text-base font-bold uppercase tracking-wide text-red-700">
-              Here be dragons
+              {$_('advanced.warning_title')}
             </h3>
-            <p class="mt-2 text-sm text-red-900">
-              The advanced panel exposes every raw entry in your save file. Editing values here can <strong
-                >permanently corrupt your save</strong
-              >, brick your progress, or cause the game to crash or refuse to load. There is
-              <strong>no undo</strong>.
-            </p>
+            <p class="mt-2 text-sm text-red-900">{$_('advanced.warning_intro')}</p>
             <ul class="mt-2 list-inside list-disc text-sm text-red-900">
-              <li>
-                <strong>Back up your save file first.</strong> Copy it somewhere safe before changing
-                anything.
-              </li>
-              <li>Only edit entries if you understand what they mean.</li>
-              <li>
-                You're on your own. The authors of this tool take no responsibility for lost saves.
-              </li>
+              <li>{$_('advanced.warning_backup')}</li>
+              <li>{$_('advanced.warning_understand')}</li>
+              <li>{$_('advanced.warning_disclaimer')}</li>
             </ul>
             <button
               type="button"
               class="mt-4 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-red-700 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-600"
               onclick={acknowledgeAdvWarning}
             >
-              I understand, show the advanced panel
+              {$_('advanced.warning_acknowledge')}
             </button>
           </div>
         </div>
       </div>
     {:else}
       <div class="mb-5 flex items-center gap-3 text-sm">
-        <span class="font-bold text-slate-900">View:</span>
+        <span class="font-bold text-slate-900">{$_('advanced.view_label')}</span>
         <div class="inline-flex overflow-hidden rounded-full ring-1 ring-amber-400/60">
           <button
             type="button"
@@ -212,7 +203,7 @@
             class:text-slate-700={advView !== 'tree'}
             onclick={() => (advView = 'tree')}
           >
-            Tree
+            {$_('advanced.view_tree')}
           </button>
           <button
             type="button"
@@ -223,11 +214,12 @@
             class:text-slate-700={advView !== 'table'}
             onclick={() => (advView = 'table')}
           >
-            Flat table
+            {$_('advanced.view_table')}
           </button>
         </div>
         <span class="ml-auto text-xs text-slate-600">
-          Sections: {countsByType
+          {$_('advanced.sections_label')}
+          {countsByType
             .map((c, t) => (c > 0 ? `${DataTypeName[t as DataType]} (${c})` : null))
             .filter(Boolean)
             .slice(0, 4)
@@ -242,12 +234,12 @@
             <input
               type="search"
               class="mb-2 {INPUT_CLASS}"
-              placeholder="Filter by path…"
+              placeholder={$_('advanced.tree_filter_placeholder')}
               bind:value={treeSearch}
             />
             <div class="max-h-160 overflow-auto pr-2">
               {#if visibleTree.length === 0}
-                <p class="text-sm text-slate-600">No entries match this filter.</p>
+                <p class="text-sm text-slate-600">{$_('advanced.tree_no_match')}</p>
               {:else}
                 <PlayerTree
                   nodes={visibleTree}
@@ -266,18 +258,18 @@
             {#if selectedEntry}
               <PlayerDetail entry={selectedEntry} path={selectedPath} {markDirty} />
             {:else}
-              <p class="text-sm text-slate-600">Select an entry from the tree to edit.</p>
+              <p class="text-sm text-slate-600">{$_('advanced.tree_select_prompt')}</p>
             {/if}
           </div>
         </div>
       {:else}
-        <p class="mb-4 text-sm text-slate-600">Full, searchable list of every entry in the save.</p>
+        <p class="mb-4 text-sm text-slate-600">{$_('advanced.table_intro')}</p>
 
         <div class="mb-4 grid gap-3 md:grid-cols-[auto_1fr_1fr] md:items-end">
           <label class="flex flex-col gap-1 text-xs text-slate-700">
-            <span class="font-bold text-slate-900">Type</span>
+            <span class="font-bold text-slate-900">{$_('advanced.filter_type_label')}</span>
             <select class={INPUT_CLASS} bind:value={advTypeFilter}>
-              <option value="all">All</option>
+              <option value="all">{$_('advanced.filter_type_all')}</option>
               {#each countsByType as count, t (t)}
                 {#if count > 0}
                   <option value={t}>{DataTypeName[t as DataType]} ({count})</option>
@@ -287,7 +279,9 @@
           </label>
 
           <label class="flex flex-col gap-1 text-xs text-slate-700">
-            <span class="font-bold text-slate-900">Hash filter (e.g. <code>0xa279320c</code>)</span>
+            <span class="font-bold text-slate-900"
+              >{$_('advanced.filter_hash_label', { values: { example: '0xa279320c' } })}</span
+            >
             <input
               type="text"
               class={MONO_INPUT_CLASS}
@@ -298,12 +292,12 @@
           </label>
 
           <label class="flex flex-col gap-1 text-xs text-slate-700">
-            <span class="font-bold text-slate-900">Find by name (MurmurHash3)</span>
+            <span class="font-bold text-slate-900">{$_('advanced.filter_name_label')}</span>
             <div class="flex gap-2">
               <input
                 type="text"
                 class="flex-1 {INPUT_CLASS}"
-                placeholder="Player.GoodsInfo2.TreasureMap.State"
+                placeholder={$_('advanced.filter_name_placeholder')}
                 bind:value={advNameInput}
                 onkeydown={(e) => e.key === 'Enter' && advSearchByName()}
               />
@@ -313,7 +307,7 @@
                 disabled={advNameHash == null}
                 onclick={advSearchByName}
               >
-                Find
+                {$_('advanced.filter_find_action')}
               </button>
             </div>
             {#if advNameHash != null}
@@ -330,7 +324,7 @@
               bind:checked={advOnlyKnown}
               onchange={() => (advPage = 0)}
             />
-            <span class="text-slate-700">Known keys only</span>
+            <span class="text-slate-700">{$_('advanced.filter_known_only')}</span>
           </label>
           <label class="flex items-center gap-2">
             <input
@@ -339,10 +333,10 @@
               bind:checked={advOnlyEditable}
               onchange={() => (advPage = 0)}
             />
-            <span class="text-slate-700">Editable types only</span>
+            <span class="text-slate-700">{$_('advanced.filter_editable_only')}</span>
           </label>
           <span class="ml-auto text-xs text-slate-600">
-            {advFiltered.length.toLocaleString()} match{advFiltered.length === 1 ? '' : 'es'}
+            {$_('advanced.match_count', { values: { count: advFiltered.length } })}
           </span>
         </div>
 
@@ -350,10 +344,10 @@
           <table class="w-full text-sm">
             <thead class="bg-amber-100/70 text-left text-xs font-bold text-slate-900">
               <tr>
-                <th class="px-3 py-2 font-bold">Hash</th>
-                <th class="px-3 py-2 font-bold">Type</th>
-                <th class="px-3 py-2 font-bold">Name</th>
-                <th class="px-3 py-2 font-bold">Value</th>
+                <th class="px-3 py-2 font-bold">{$_('advanced.table_header_hash')}</th>
+                <th class="px-3 py-2 font-bold">{$_('advanced.table_header_type')}</th>
+                <th class="px-3 py-2 font-bold">{$_('advanced.table_header_name')}</th>
+                <th class="px-3 py-2 font-bold">{$_('advanced.table_header_value')}</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-amber-200/60">
@@ -363,7 +357,7 @@
                     <button
                       type="button"
                       class="font-mono text-xs text-slate-700 hover:text-orange-600"
-                      title="Copy hash"
+                      title={$_('advanced.copy_hash_title')}
                       onclick={() => copyHash(entry.hash)}
                     >
                       {hexU32(entry.hash)}
@@ -382,7 +376,7 @@
               {:else}
                 <tr>
                   <td colspan="4" class="px-3 py-6 text-center text-slate-600"
-                    >No entries match the current filters.</td
+                    >{$_('advanced.table_no_match')}</td
                   >
                 </tr>
               {/each}
@@ -397,10 +391,10 @@
             disabled={advPage <= 0}
             onclick={() => (advPage = Math.max(0, advPage - 1))}
           >
-            Previous
+            {$_('advanced.page_previous')}
           </button>
           <span class="text-xs text-slate-600">
-            Page {advPage + 1} of {advPageCount}
+            {$_('advanced.page_status', { values: { page: advPage + 1, total: advPageCount } })}
           </span>
           <button
             type="button"
@@ -408,7 +402,7 @@
             disabled={advPage >= advPageCount - 1}
             onclick={() => (advPage = Math.min(advPageCount - 1, advPage + 1))}
           >
-            Next
+            {$_('advanced.page_next')}
           </button>
         </div>
       {/if}

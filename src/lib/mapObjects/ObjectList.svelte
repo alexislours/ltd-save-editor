@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import { INPUT_CLASS } from '../styles';
-  import { actorDisplay, GROUP_LABEL, type ActorGroup } from './actors';
+  import { actorDisplay, type ActorGroup } from './actors';
   import { liveRows, objectsState, type MapObjectRow } from './mapObjectsEditor.svelte';
 
   type Props = {
@@ -53,7 +54,7 @@
           ]}
           onclick={() => (groupFilter = g)}
         >
-          {g === 'all' ? 'All' : GROUP_LABEL[g]}
+          {$_(`map.objects.group.${g}`)}
         </button>
       {/each}
     </div>

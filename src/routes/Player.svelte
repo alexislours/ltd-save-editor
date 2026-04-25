@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import AdvancedPanel from '../lib/advanced/AdvancedPanel.svelte';
   import AppLayout from '../lib/AppLayout.svelte';
   import SaveBar from '../lib/SaveBar.svelte';
@@ -30,13 +31,17 @@
 <AppLayout>
   <SaveTab
     kind="player"
-    title="Player"
-    description="Core player stats and game progress."
+    title={$_('player.title')}
+    description={$_('player.description')}
     error={playerState.error}
     ready={playerState.parsed != null}
   >
     {#if playerState.parsed}
-      <SaveBar dirty={playerState.dirty} actionLabel="Download Player.sav" onAction={download} />
+      <SaveBar
+        dirty={playerState.dirty}
+        actionLabel={$_('player.download_action')}
+        onAction={download}
+      />
 
       <Profile entries={playerState.parsed.entries} />
 

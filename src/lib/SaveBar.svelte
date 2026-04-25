@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import { _ } from 'svelte-i18n';
   import { PRIMARY_BUTTON_CLASS } from './styles';
 
   type Props = {
@@ -22,7 +23,7 @@
       aria-hidden="true"
     ></span>
     <p class="text-sm font-bold text-slate-900">
-      {dirty ? 'Unsaved changes' : 'No changes'}
+      {dirty ? $_('save.unsaved_changes') : $_('save.no_changes')}
       {#if extra}{@render extra()}{/if}
     </p>
   </div>

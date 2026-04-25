@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import { arrGetEnum, arrGetInt, arrSetEnum, arrSetInt } from '../sav/codec';
   import type { Entry } from '../sav/types';
   import { markDirty, miiState } from './miiEditor.svelte';
@@ -11,15 +12,16 @@
 
   type SliderField = {
     name: string;
-    label: string;
+    /** Looked up via `mii.voice.<labelKey>`. */
+    labelKey: 'slider_speed' | 'slider_pitch' | 'slider_depth' | 'slider_delivery';
     min: number;
     max: number;
   };
   const SLIDERS: SliderField[] = [
-    { name: 'Mii.Voice.Speed', label: 'Speed', min: 0, max: 50 },
-    { name: 'Mii.Voice.Pitch', label: 'Pitch', min: 0, max: 50 },
-    { name: 'Mii.Voice.Formant', label: 'Depth', min: 0, max: 50 },
-    { name: 'Mii.Voice.Tension', label: 'Rise and fall', min: -25, max: 25 },
+    { name: 'Mii.Voice.Speed', labelKey: 'slider_speed', min: 0, max: 50 },
+    { name: 'Mii.Voice.Pitch', labelKey: 'slider_pitch', min: 0, max: 50 },
+    { name: 'Mii.Voice.Formant', labelKey: 'slider_depth', min: 0, max: 50 },
+    { name: 'Mii.Voice.Tension', labelKey: 'slider_delivery', min: -25, max: 25 },
   ];
 
   const INTONATION_NAME = 'Mii.Voice.Intonation';
@@ -30,7 +32,8 @@
 
   type Preset = {
     type: number;
-    label: string;
+    /** Identifier under `mii.voice.preset.<name>`. */
+    name: string;
     icon: string;
     Speed: number;
     Pitch: number;
@@ -42,7 +45,7 @@
   const PRESETS: Preset[] = [
     {
       type: 589706439,
-      label: 'Boy',
+      name: 'Boy',
       icon: '/voice-icons/voice_00.png',
       Speed: 25,
       Pitch: 28,
@@ -52,7 +55,7 @@
     },
     {
       type: 3235795834,
-      label: 'Girl',
+      name: 'Girl',
       icon: '/voice-icons/voice_01.png',
       Speed: 25,
       Pitch: 39,
@@ -62,7 +65,7 @@
     },
     {
       type: 232570486,
-      label: 'Male',
+      name: 'Male',
       icon: '/voice-icons/voice_02.png',
       Speed: 28,
       Pitch: 16,
@@ -72,7 +75,7 @@
     },
     {
       type: 991922965,
-      label: 'Female',
+      name: 'Female',
       icon: '/voice-icons/voice_03.png',
       Speed: 28,
       Pitch: 34,
@@ -82,7 +85,7 @@
     },
     {
       type: 2037022324,
-      label: 'Old man',
+      name: 'Old man',
       icon: '/voice-icons/voice_04.png',
       Speed: 12,
       Pitch: 14,
@@ -92,7 +95,7 @@
     },
     {
       type: 4013701139,
-      label: 'Old woman',
+      name: 'Old woman',
       icon: '/voice-icons/voice_05.png',
       Speed: 12,
       Pitch: 27,
@@ -102,7 +105,7 @@
     },
     {
       type: 1250167332,
-      label: 'Big',
+      name: 'Big',
       icon: '/voice-icons/voice_07.png',
       Speed: 22,
       Pitch: 13,
@@ -112,7 +115,7 @@
     },
     {
       type: 4091959656,
-      label: 'Small',
+      name: 'Small',
       icon: '/voice-icons/voice_08.png',
       Speed: 35,
       Pitch: 45,
@@ -122,7 +125,7 @@
     },
     {
       type: 2108450225,
-      label: 'Robot L',
+      name: 'Robot L',
       icon: '/voice-icons/voice_09.png',
       Speed: 22,
       Pitch: 10,
@@ -132,7 +135,7 @@
     },
     {
       type: 1755188696,
-      label: 'Robot S',
+      name: 'Robot S',
       icon: '/voice-icons/voice_10.png',
       Speed: 32,
       Pitch: 45,
@@ -265,7 +268,7 @@
         aria-pressed={mode === 'simple'}
         onclick={() => (mode = 'simple')}
       >
-        Simple
+        {$_('mii.voice.mode_simple')}
       </button>
       <button
         type="button"
@@ -278,7 +281,7 @@
         aria-pressed={mode === 'custom'}
         onclick={() => (mode = 'custom')}
       >
-        Custom
+        {$_('mii.voice.mode_custom')}
       </button>
     </div>
 
@@ -286,10 +289,10 @@
       type="button"
       class="ml-auto inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-sm font-bold text-slate-900 shadow ring-1 ring-amber-400/60 transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95"
       onclick={randomize}
-      title="Randomise every voice slider and the intonation step"
+      title={$_('mii.voice.random_title')}
     >
       <img src={RANDOM_ICON} alt="" class="h-5 w-5" />
-      Random
+      {$_('mii.voice.random')}
     </button>
   </div>
 
@@ -300,6 +303,7 @@
     >
       {#each PRESETS as preset, i (preset.type)}
         {@const selected = matchedPresetIndex === i}
+        {@const presetLabel = $_(`mii.voice.preset.${preset.name}`)}
         <button
           type="button"
           class={[
@@ -309,8 +313,8 @@
               : 'bg-white shadow hover:bg-amber-50',
           ]}
           aria-pressed={selected}
-          aria-label={preset.label}
-          title={preset.label}
+          aria-label={presetLabel}
+          title={presetLabel}
           onclick={() => applyPreset(preset)}
         >
           <img
@@ -327,10 +331,11 @@
       {#each sliderState as s (s.name)}
         {#if s.entry}
           {@const p = pct(s.value, s.min, s.max)}
+          {@const sliderLabel = $_(`mii.voice.${s.labelKey}`)}
           <div
             class="grid grid-cols-[7rem_1fr_3rem] items-center gap-3 rounded-full bg-amber-50 px-4 py-2"
           >
-            <span class="text-sm font-bold text-slate-900">{s.label}</span>
+            <span class="text-sm font-bold text-slate-900">{sliderLabel}</span>
             <input
               type="range"
               min={s.min}
@@ -338,7 +343,7 @@
               step="1"
               value={s.value}
               oninput={(e) => onSliderInput(s.name, e.currentTarget.value)}
-              aria-label={s.label}
+              aria-label={sliderLabel}
               class="block h-2 w-full cursor-pointer appearance-none rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600
                      [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-amber-300 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:active:scale-110
                      [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-amber-300 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:transition-transform [&::-moz-range-thumb]:active:scale-110"
@@ -355,7 +360,7 @@
         <div
           class="grid grid-cols-[7rem_1fr] items-center gap-3 rounded-full bg-amber-50 px-4 py-2"
         >
-          <span class="text-sm font-bold text-slate-900">Melody</span>
+          <span class="text-sm font-bold text-slate-900">{$_('mii.voice.tone')}</span>
           <div class="flex justify-between gap-2">
             {#each Array.from({ length: INTONATION_STEPS }, (_, i) => i) as i (i)}
               {@const selected = intonationState.value === i}
@@ -367,7 +372,9 @@
                     ? 'bg-orange-500 text-white shadow-md ring-2 ring-orange-600'
                     : 'bg-white text-slate-900 shadow',
                 ]}
-                aria-label="Melody {i + 1} of {INTONATION_STEPS}"
+                aria-label={$_('mii.voice.tone_step_aria', {
+                  values: { step: i + 1, total: INTONATION_STEPS },
+                })}
                 aria-pressed={selected}
                 onclick={() => onIntonationClick(i)}
               >

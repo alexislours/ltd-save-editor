@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import {
     arrGetEnum,
     arrGetInt,
@@ -52,6 +53,15 @@
     return enumOptionsFor(field.hash);
   });
 
+  // Map a curated enum option name to a localized label, when we have one.
+  function localizeEnumOption(name: string, fallbackLabel: string | undefined): string {
+    if (field.name === 'Mii.Name.PronounType') {
+      const t = $_(`mii.pronoun.${name}`);
+      if (t && t !== `mii.pronoun.${name}`) return t;
+    }
+    return fallbackLabel ?? name;
+  }
+
   function commitString(raw: string): void {
     try {
       arrSetString(entry, index, raw);
@@ -65,21 +75,21 @@
   function commitNumber(raw: string): void {
     const trimmed = raw.replace(/[,\s]/g, '');
     if (trimmed === '') {
-      error = 'Required';
+      error = $_('mii.errors.required');
       return;
     }
     const n = Number(trimmed);
     if (!Number.isFinite(n)) {
-      error = 'Must be a number';
+      error = $_('mii.errors.must_be_number');
       return;
     }
     const truncated = Math.trunc(n);
     if (field.min != null && truncated < field.min) {
-      error = `Must be ≥ ${field.min}`;
+      error = $_('mii.errors.must_be_min', { values: { min: field.min } });
       return;
     }
     if (field.max != null && truncated > field.max) {
-      error = `Must be ≤ ${field.max}`;
+      error = $_('mii.errors.must_be_max', { values: { max: field.max } });
       return;
     }
 
@@ -87,7 +97,7 @@
     try {
       if (field.kind === 'uint') {
         if (stored < 0) {
-          error = 'Must be ≥ 0';
+          error = $_('mii.errors.must_be_non_negative');
           return;
         }
         arrSetUInt(entry, index, stored >>> 0);
@@ -117,7 +127,7 @@
 </script>
 
 <label class="block min-w-0">
-  <span class={LABEL_CLASS}>{field.label}</span>
+  <span class={LABEL_CLASS}>{$_(`mii.fields.${field.labelKey}`)}</span>
 
   {#if field.kind === 'string'}
     <input
@@ -160,7 +170,7 @@
       {#if enumOptions}
         {#each enumOptions as opt (opt.hash)}
           <option value={opt.hash} selected={opt.hash === enumValue}>
-            {opt.label ?? opt.name}
+            {localizeEnumOption(opt.name, opt.label)}
           </option>
         {/each}
         {#if !enumOptions.some((o) => o.hash === enumValue)}
@@ -176,8 +186,10 @@
     </select>
   {/if}
 
-  {#if field.hint}
-    <span class="mt-1 block text-xs text-slate-600">{field.hint}</span>
+  {#if field.hintKey}
+    <span class="mt-1 block text-xs text-slate-600">
+      {$_(`mii.fields.${field.hintKey}`)}
+    </span>
   {/if}
   {#if error}
     <span class="mt-1 block text-xs text-red-600">{error}</span>
