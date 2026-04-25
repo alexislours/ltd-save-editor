@@ -1,6 +1,12 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { expectedFileName, setSaveFromFile, type SaveKind } from './saveFile.svelte';
+  import {
+    detectSaveKindFromBytes,
+    detectSaveKindFromName,
+    expectedFileName,
+    setSaveFromFile,
+    type SaveKind,
+  } from './saveFile.svelte';
 
   type Props = { kind: SaveKind };
   let { kind }: Props = $props();
@@ -17,6 +23,28 @@
   async function handleFile(file: File | undefined): Promise<void> {
     if (!file) return;
     error = null;
+    let bytes: Uint8Array;
+    try {
+      bytes = new Uint8Array(await file.arrayBuffer());
+    } catch {
+      error = $_('save.read_failed');
+      return;
+    }
+    const detected = detectSaveKindFromBytes(bytes) ?? detectSaveKindFromName(file.name);
+    if (detected === null) {
+      error = $_('save.unrecognized_file', { values: { actual: file.name } });
+      return;
+    }
+    if (detected !== kind) {
+      error = $_('save.wrong_tab', {
+        values: {
+          actual: file.name,
+          expectedTab: $_(`tab.${kind}`),
+          correctTab: $_(`tab.${detected}`),
+        },
+      });
+      return;
+    }
     try {
       await setSaveFromFile(kind, file);
     } catch (e) {
@@ -80,6 +108,25 @@
   </p>
 
   {#if error}
-    <p class="mt-3 text-center text-sm text-red-600">{error}</p>
+    <div
+      role="alert"
+      class="mt-3 flex items-start gap-2 rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 shadow-sm"
+    >
+      <svg
+        class="mt-0.5 h-5 w-5 shrink-0 text-red-600"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 9v3.75m0 3.75h.008v.008H12v-.008zM10.342 3.94l-8.4 14.55A1.5 1.5 0 003.243 21h17.514a1.5 1.5 0 001.301-2.51l-8.4-14.55a1.5 1.5 0 00-2.598 0z"
+        />
+      </svg>
+      <p class="font-semibold">{error}</p>
+    </div>
   {/if}
 </div>

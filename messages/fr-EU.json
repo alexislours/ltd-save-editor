@@ -22,7 +22,9 @@
     "drop_browse": "ou clique pour parcourir",
     "drop_warning_label": "Attention :",
     "drop_warning_text": "modifier les fichiers de sauvegarde peut corrompre ta partie. Conserve toujours une copie de l'original avant de l'envoyer.",
-    "read_failed": "Échec de la lecture du fichier"
+    "read_failed": "Échec de la lecture du fichier",
+    "wrong_tab": "{actual} se place dans l'onglet {correctTab}, pas dans l'onglet {expectedTab}.",
+    "unrecognized_file": "{actual} n'est pas un fichier de sauvegarde reconnu. Player.sav, Mii.sav ou Map.sav attendu."
   },
   "player": {
     "title": "Joueur",
