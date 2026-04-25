@@ -1,5 +1,6 @@
 <script lang="ts">
   import { locale } from 'svelte-i18n';
+  import { track } from './analytics';
   import { LOCALES, setAppLocale, type AppLocale } from './i18n';
 
   type LocaleMeta = { name: string; region?: string };
@@ -40,6 +41,7 @@
   function pick(loc: AppLocale): void {
     open = false;
     if (loc === currentValue) return;
+    track('locale_changed', { from: currentValue, to: loc });
     setAppLocale(loc);
   }
 
