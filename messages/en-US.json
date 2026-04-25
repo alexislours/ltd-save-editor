@@ -22,7 +22,9 @@
     "drop_browse": "or click to browse",
     "drop_warning_label": "Warning:",
     "drop_warning_text": "editing save files can corrupt your game. Always keep a backup of the original file before uploading.",
-    "read_failed": "Failed to read file"
+    "read_failed": "Failed to read file",
+    "wrong_tab": "{actual} belongs in the {correctTab} tab, not the {expectedTab} tab.",
+    "unrecognized_file": "{actual} isn't a recognised save file. Expected Player.sav, Mii.sav, or Map.sav."
   },
   "player": {
     "title": "Player",
