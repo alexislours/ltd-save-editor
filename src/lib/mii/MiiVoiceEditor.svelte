@@ -1,0 +1,382 @@
+<script lang="ts">
+  import { arrGetEnum, arrGetInt, arrSetEnum, arrSetInt } from '../sav/codec';
+  import type { Entry } from '../sav/types';
+  import { markDirty, miiState } from './miiEditor.svelte';
+
+  type Props = {
+    miiIndex: number;
+    entriesByName: Map<string, Entry>;
+  };
+  let { miiIndex, entriesByName }: Props = $props();
+
+  type SliderField = {
+    name: string;
+    label: string;
+    min: number;
+    max: number;
+  };
+  const SLIDERS: SliderField[] = [
+    { name: 'Mii.Voice.Speed', label: 'Speed', min: 0, max: 50 },
+    { name: 'Mii.Voice.Pitch', label: 'Pitch', min: 0, max: 50 },
+    { name: 'Mii.Voice.Formant', label: 'Depth', min: 0, max: 50 },
+    { name: 'Mii.Voice.Tension', label: 'Rise and fall', min: -25, max: 25 },
+  ];
+
+  const INTONATION_NAME = 'Mii.Voice.Intonation';
+  const PRESET_NAME = 'Mii.Voice.PresetType';
+  const INTONATION_STEPS = 6;
+
+  const PRESET_CUSTOM = 1658541559; // 0x62db55f7
+
+  type Preset = {
+    type: number;
+    label: string;
+    icon: string;
+    Speed: number;
+    Pitch: number;
+    Formant: number;
+    Tension: number;
+    Intonation: number;
+  };
+
+  const PRESETS: Preset[] = [
+    {
+      type: 589706439,
+      label: 'Boy',
+      icon: '/voice-icons/voice_00.png',
+      Speed: 25,
+      Pitch: 28,
+      Formant: 28,
+      Tension: 5,
+      Intonation: 0,
+    },
+    {
+      type: 3235795834,
+      label: 'Girl',
+      icon: '/voice-icons/voice_01.png',
+      Speed: 25,
+      Pitch: 39,
+      Formant: 31,
+      Tension: 5,
+      Intonation: 0,
+    },
+    {
+      type: 232570486,
+      label: 'Male',
+      icon: '/voice-icons/voice_02.png',
+      Speed: 28,
+      Pitch: 16,
+      Formant: 20,
+      Tension: 5,
+      Intonation: 0,
+    },
+    {
+      type: 991922965,
+      label: 'Female',
+      icon: '/voice-icons/voice_03.png',
+      Speed: 28,
+      Pitch: 34,
+      Formant: 25,
+      Tension: 5,
+      Intonation: 0,
+    },
+    {
+      type: 2037022324,
+      label: 'Old man',
+      icon: '/voice-icons/voice_04.png',
+      Speed: 12,
+      Pitch: 14,
+      Formant: 25,
+      Tension: 5,
+      Intonation: 0,
+    },
+    {
+      type: 4013701139,
+      label: 'Old woman',
+      icon: '/voice-icons/voice_05.png',
+      Speed: 12,
+      Pitch: 27,
+      Formant: 30,
+      Tension: 5,
+      Intonation: 0,
+    },
+    {
+      type: 1250167332,
+      label: 'Big',
+      icon: '/voice-icons/voice_07.png',
+      Speed: 22,
+      Pitch: 13,
+      Formant: 6,
+      Tension: 5,
+      Intonation: 0,
+    },
+    {
+      type: 4091959656,
+      label: 'Small',
+      icon: '/voice-icons/voice_08.png',
+      Speed: 35,
+      Pitch: 45,
+      Formant: 40,
+      Tension: 15,
+      Intonation: 0,
+    },
+    {
+      type: 2108450225,
+      label: 'Robot L',
+      icon: '/voice-icons/voice_09.png',
+      Speed: 22,
+      Pitch: 10,
+      Formant: 33,
+      Tension: 0,
+      Intonation: 0,
+    },
+    {
+      type: 1755188696,
+      label: 'Robot S',
+      icon: '/voice-icons/voice_10.png',
+      Speed: 32,
+      Pitch: 45,
+      Formant: 50,
+      Tension: 0,
+      Intonation: 3,
+    },
+  ];
+  const RANDOM_ICON = '/voice-icons/voice_06.png';
+
+  function safeInt(entry: Entry | undefined, fallback = 0): number {
+    if (!entry) return fallback;
+    try {
+      return arrGetInt(entry, miiIndex);
+    } catch {
+      return fallback;
+    }
+  }
+  function safeEnum(entry: Entry | undefined, fallback = 0): number {
+    if (!entry) return fallback;
+    try {
+      return arrGetEnum(entry, miiIndex);
+    } catch {
+      return fallback;
+    }
+  }
+
+  const sliderState = $derived.by(() => {
+    void miiState.tick;
+    return SLIDERS.map((s) => {
+      const entry = entriesByName.get(s.name);
+      let value = safeInt(entry, s.min);
+      if (value < s.min) value = s.min;
+      if (value > s.max) value = s.max;
+      return { ...s, entry, value };
+    });
+  });
+
+  const intonationState = $derived.by(() => {
+    void miiState.tick;
+    const entry = entriesByName.get(INTONATION_NAME);
+    let value = safeInt(entry, 0);
+    if (value < 0) value = 0;
+    if (value > INTONATION_STEPS - 1) value = INTONATION_STEPS - 1;
+    return { entry, value };
+  });
+
+  const presetState = $derived.by(() => {
+    void miiState.tick;
+    const entry = entriesByName.get(PRESET_NAME);
+    return { entry, value: safeEnum(entry, PRESET_CUSTOM) };
+  });
+
+  const matchedPresetIndex = $derived.by(() => {
+    return PRESETS.findIndex((p) => p.type === presetState.value);
+  });
+
+  let mode = $state<'custom' | 'simple'>('custom');
+  $effect(() => {
+    void miiState.tick;
+    mode = matchedPresetIndex >= 0 ? 'simple' : 'custom';
+  });
+
+  function commitInt(name: string, value: number) {
+    const entry = entriesByName.get(name);
+    if (!entry) return;
+    try {
+      arrSetInt(entry, miiIndex, value | 0);
+      markDirty(entry);
+    } catch {
+      /* schema mismatch handled upstream */
+    }
+  }
+
+  function commitPreset(typeHash: number) {
+    const entry = entriesByName.get(PRESET_NAME);
+    if (!entry) return;
+    try {
+      arrSetEnum(entry, miiIndex, typeHash >>> 0);
+      markDirty(entry);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function applyPreset(p: Preset) {
+    commitInt('Mii.Voice.Speed', p.Speed);
+    commitInt('Mii.Voice.Pitch', p.Pitch);
+    commitInt('Mii.Voice.Formant', p.Formant);
+    commitInt('Mii.Voice.Tension', p.Tension);
+    commitInt(INTONATION_NAME, p.Intonation);
+    commitPreset(p.type);
+  }
+
+  function onSliderInput(name: string, raw: string) {
+    const n = Math.trunc(Number(raw));
+    if (!Number.isFinite(n)) return;
+    commitInt(name, n);
+    if (presetState.value !== PRESET_CUSTOM) commitPreset(PRESET_CUSTOM);
+  }
+
+  function onIntonationClick(displayIndex: number) {
+    commitInt(INTONATION_NAME, displayIndex);
+    if (presetState.value !== PRESET_CUSTOM) commitPreset(PRESET_CUSTOM);
+  }
+
+  function randomize() {
+    const rint = (lo: number, hi: number) => Math.floor(Math.random() * (hi - lo + 1)) + lo;
+    for (const s of SLIDERS) commitInt(s.name, rint(s.min, s.max));
+    commitInt(INTONATION_NAME, rint(0, INTONATION_STEPS - 1));
+    commitPreset(PRESET_CUSTOM);
+  }
+
+  function pct(value: number, min: number, max: number) {
+    return ((value - min) / (max - min)) * 100;
+  }
+</script>
+
+<div class="rounded-2xl bg-amber-300/90 p-4 shadow-sm ring-1 ring-amber-400/60">
+  <div class="flex flex-wrap items-center gap-2">
+    <div class="inline-flex rounded-full bg-amber-200/80 p-1 ring-1 ring-amber-400/50">
+      <button
+        type="button"
+        class={[
+          'rounded-full px-5 py-1.5 text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600',
+          mode === 'simple'
+            ? 'bg-orange-500 text-white shadow'
+            : 'text-slate-700 hover:text-slate-900',
+        ]}
+        aria-pressed={mode === 'simple'}
+        onclick={() => (mode = 'simple')}
+      >
+        Simple
+      </button>
+      <button
+        type="button"
+        class={[
+          'rounded-full px-5 py-1.5 text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600',
+          mode === 'custom'
+            ? 'bg-orange-500 text-white shadow'
+            : 'text-slate-700 hover:text-slate-900',
+        ]}
+        aria-pressed={mode === 'custom'}
+        onclick={() => (mode = 'custom')}
+      >
+        Custom
+      </button>
+    </div>
+
+    <button
+      type="button"
+      class="ml-auto inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-sm font-bold text-slate-900 shadow ring-1 ring-amber-400/60 transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95"
+      onclick={randomize}
+      title="Randomise every voice slider and the intonation step"
+    >
+      <img src={RANDOM_ICON} alt="" class="h-5 w-5" />
+      Random
+    </button>
+  </div>
+
+  {#if mode === 'simple'}
+    <div
+      class="mx-auto mt-4 grid max-w-md grid-flow-col grid-rows-2 gap-2"
+      style="grid-template-columns: repeat(5, minmax(0, 1fr));"
+    >
+      {#each PRESETS as preset, i (preset.type)}
+        {@const selected = matchedPresetIndex === i}
+        <button
+          type="button"
+          class={[
+            'flex aspect-square items-center justify-center rounded-xl p-1.5 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95',
+            selected
+              ? 'bg-orange-500 shadow-md ring-2 ring-orange-600'
+              : 'bg-white shadow hover:bg-amber-50',
+          ]}
+          aria-pressed={selected}
+          aria-label={preset.label}
+          title={preset.label}
+          onclick={() => applyPreset(preset)}
+        >
+          <img
+            src={preset.icon}
+            alt=""
+            class={['h-8 w-8 select-none', selected ? 'brightness-0 invert' : '']}
+            draggable="false"
+          />
+        </button>
+      {/each}
+    </div>
+  {:else}
+    <div class="mt-4 grid gap-3">
+      {#each sliderState as s (s.name)}
+        {#if s.entry}
+          {@const p = pct(s.value, s.min, s.max)}
+          <div
+            class="grid grid-cols-[7rem_1fr_3rem] items-center gap-3 rounded-full bg-amber-50 px-4 py-2"
+          >
+            <span class="text-sm font-bold text-slate-900">{s.label}</span>
+            <input
+              type="range"
+              min={s.min}
+              max={s.max}
+              step="1"
+              value={s.value}
+              oninput={(e) => onSliderInput(s.name, e.currentTarget.value)}
+              aria-label={s.label}
+              class="block h-2 w-full cursor-pointer appearance-none rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600
+                     [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-amber-300 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:active:scale-110
+                     [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-amber-300 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:transition-transform [&::-moz-range-thumb]:active:scale-110"
+              style="background: linear-gradient(to right, rgb(120 113 108) 0%, rgb(120 113 108) {p}%, rgb(168 162 158) {p}%, rgb(168 162 158) 100%);"
+            />
+            <span class="text-right font-mono text-xs tabular-nums text-slate-700">
+              {s.value}
+            </span>
+          </div>
+        {/if}
+      {/each}
+
+      {#if intonationState.entry}
+        <div
+          class="grid grid-cols-[7rem_1fr] items-center gap-3 rounded-full bg-amber-50 px-4 py-2"
+        >
+          <span class="text-sm font-bold text-slate-900">Melody</span>
+          <div class="flex justify-between gap-2">
+            {#each Array.from({ length: INTONATION_STEPS }, (_, i) => i) as i (i)}
+              {@const selected = intonationState.value === i}
+              <button
+                type="button"
+                class={[
+                  'h-9 w-9 rounded-lg text-sm font-bold transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95 sm:h-10 sm:w-10',
+                  selected
+                    ? 'bg-orange-500 text-white shadow-md ring-2 ring-orange-600'
+                    : 'bg-white text-slate-900 shadow',
+                ]}
+                aria-label="Melody {i + 1} of {INTONATION_STEPS}"
+                aria-pressed={selected}
+                onclick={() => onIntonationClick(i)}
+              >
+                {i + 1}
+              </button>
+            {/each}
+          </div>
+        </div>
+      {/if}
+    </div>
+  {/if}
+</div>
