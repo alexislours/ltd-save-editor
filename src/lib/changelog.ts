@@ -6,6 +6,14 @@ export type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.2.0',
+    date: '2026-04-26',
+    changes: [
+      'Added foods, clothes, and treasures unlock editors to the Player tab.',
+      'Added a Mii food preferences editor.',
+    ],
+  },
+  {
     version: '1.1.0',
     date: '2026-04-25',
     changes: [
