@@ -1,3 +1,4 @@
+import { track } from '../analytics';
 import { getSave, type SaveKind, expectedFileName } from '../saveFile.svelte';
 import { createDirtyTracker } from './dirty';
 import { downloadBytes } from './download';
@@ -69,6 +70,7 @@ export function createSaveEditor(kind: SaveKind): SaveEditor {
       state.dirty = false;
       state.tick++;
       tracker.reset();
+      track('save_parse_failed', { kind });
     }
   }
 
@@ -82,6 +84,7 @@ export function createSaveEditor(kind: SaveKind): SaveEditor {
     const bytes = writeSav(state.parsed);
     const save = getSave(kind);
     downloadBytes(bytes, save?.name ?? expectedFileName[kind]);
+    track('save_exported', { kind });
   }
 
   return { state, syncFromSave, markDirty, downloadModified };

@@ -26,6 +26,7 @@ export type MiiSection = {
   /** i18n key under `mii.sections.<descriptionKey>`, optional. */
   descriptionKey?: string;
   fields: MiiField[];
+  spoilerFields?: MiiField[];
 };
 
 function f(
@@ -139,6 +140,30 @@ export const MII_SECTIONS: MiiSection[] = [
       f('bond_meter', 'Mii.MiiMisc.BondInfo.Meter', 'int', DataType.IntArray, {
         min: 0,
         max: 100,
+      }),
+    ],
+  },
+  {
+    titleKey: 'food',
+    fields: [
+      f('eat_fullness', 'Mii.MiiMisc.EatInfo.EatFullness', 'int', DataType.IntArray, {
+        min: 0,
+        max: 100,
+        presentation: 'slider',
+      }),
+    ],
+    spoilerFields: [
+      f('ultra_best_id', 'Mii.MiiMisc.EatInfo.UltraBestId', 'uint', DataType.UIntArray, {
+        min: 0,
+      }),
+      f('best_id', 'Mii.MiiMisc.EatInfo.BestId', 'uint', DataType.UIntArray, {
+        min: 0,
+      }),
+      f('ultra_worst_id', 'Mii.MiiMisc.EatInfo.UltraWorstId', 'uint', DataType.UIntArray, {
+        min: 0,
+      }),
+      f('worst_id', 'Mii.MiiMisc.EatInfo.WorstId', 'uint', DataType.UIntArray, {
+        min: 0,
       }),
     ],
   },

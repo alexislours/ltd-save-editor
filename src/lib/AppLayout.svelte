@@ -3,6 +3,7 @@
   import { _ } from 'svelte-i18n';
   import { CHANGELOG } from './changelog';
   import ChangelogDialog from './ChangelogDialog.svelte';
+  import Lightbox from './Lightbox.svelte';
   import LocaleSwitcher from './LocaleSwitcher.svelte';
   import { getPath, navigate } from './navigation.svelte';
   import { TAB_PILL_CLASS } from './styles';
@@ -115,3 +116,4 @@
 </div>
 
 <ChangelogDialog bind:open={changelogOpen} onClose={() => (changelogOpen = false)} />
+<Lightbox />

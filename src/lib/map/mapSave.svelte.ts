@@ -1,3 +1,4 @@
+import { track } from '../analytics';
 import { createDirtyTracker } from '../sav/dirty';
 import { downloadBytes } from '../sav/download';
 import { parseSav } from '../sav/parse';
@@ -62,6 +63,7 @@ export function ensureParsed(): SavFile | null {
     state.parseRev = (state.parseRev + 1) | 0;
     tracker.reset();
     state.genericDirty = false;
+    track('save_parse_failed', { kind: 'map' });
     return null;
   }
 }
@@ -71,4 +73,5 @@ export function downloadMapSav(defaultName = 'Map.sav'): void {
   const bytes = writeSav(state.parsed);
   const save = getSave('map');
   downloadBytes(bytes, save?.name ?? defaultName);
+  track('save_exported', { kind: 'map' });
 }

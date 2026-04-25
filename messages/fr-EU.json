@@ -10,6 +10,10 @@
     "advanced": "Avancé",
     "about": "À propos"
   },
+  "lightbox": {
+    "open": "Agrandir l'image de {label}",
+    "close": "Fermer l'image agrandie"
+  },
   "save": {
     "no_changes": "Aucune modification",
     "unsaved_changes": "Modifications non enregistrées",
@@ -73,6 +77,52 @@
       "money_max": "Maximum : 999 999,99",
       "invalid_number": "Nombre invalide",
       "unsupported_type": "Type de champ non pris en charge"
+    },
+    "sections_label": "Sections Joueur",
+    "subtab_profile": "Profil",
+    "subtab_foods": "Aliments",
+    "subtab_clothes": "Vêtements",
+    "subtab_treasures": "Trésors",
+    "inventory": {
+      "search": "Recherche",
+      "search_placeholder": "Filtrer par nom…",
+      "bulk_state": "État groupé",
+      "bulk_state_pick": "Choisir un état…",
+      "bulk_qty": "Quantité groupée",
+      "apply": "Appliquer",
+      "empty": "Aucun résultat ne correspond au filtre actuel.",
+      "increment": "Ajouter un",
+      "decrement": "Retirer un",
+      "state": {
+        "Lock": "Verrouillé",
+        "New": "Nouveau",
+        "Arrived": "Arrivé",
+        "Opened": "Ouvert",
+        "Obtained": "Obtenu"
+      },
+      "bulk_summary": "Édition groupée (avancé)",
+      "bulk_warning": "Cela écrasera l'état et/ou la quantité de chaque entrée actuellement visible ({count}). Les modifications ne peuvent pas être annulées sans rouvrir ta sauvegarde. Pense à faire une copie d'abord.",
+      "bulk_confirm": "Appliquer cette édition groupée à {count} entrées ? Cette action est irréversible.",
+      "expand_colors": "Afficher les variantes de couleur",
+      "collapse_colors": "Masquer les variantes de couleur"
+    },
+    "foods": {
+      "heading": "Aliments",
+      "caption": "{count, plural, one {# aliment} other {# aliments}} affichés. Passe à Obtenu pour débloquer en magasin ; OwnNum est la quantité possédée.",
+      "missing": "Cette sauvegarde n'expose pas Player.FoodInfo.State ni OwnNum : les aliments ne peuvent pas être modifiés ici."
+    },
+    "clothes": {
+      "heading": "Vêtements",
+      "caption": "{count, plural, one {# vêtement} other {# vêtements}} affichés. Passe à Obtenu pour débloquer en magasin ; OwnNum est la quantité possédée.",
+      "color_note": "Les contrôles globaux d'un vêtement s'appliquent à chaque variante de couleur. Déplie une ligne pour modifier une couleur précise.",
+      "missing": "Cette sauvegarde n'expose pas Player.ClothInfo.OwnInfoArray.State ni OwnNum : les vêtements ne peuvent pas être modifiés ici.",
+      "color_count": "{count, plural, one {# couleur} other {# couleurs}}",
+      "color_label": "Couleur {index}"
+    },
+    "treasures": {
+      "heading": "Trésors",
+      "caption": "{count, plural, one {# trésor} other {# trésors}} affichés. Passe à Obtenu pour l'ajouter à ta collection ; OwnNum est la quantité possédée.",
+      "missing": "Cette sauvegarde n'expose aucune entrée Player.GoodsInfo2 : les trésors ne peuvent pas être modifiés ici."
     }
   },
   "mii": {
@@ -101,7 +151,18 @@
       "personality": "Personnalité",
       "mood": "Humeur",
       "voice": "Voix",
-      "voice_caption": "Les curseurs vont de 0 à 50 (51 pas). Choisir un préréglage Simple écrase tous les curseurs."
+      "voice_caption": "Les curseurs vont de 0 à 50 (51 pas). Choisir un préréglage Simple écrase tous les curseurs.",
+      "food": "Nourriture"
+    },
+    "spoiler": {
+      "warning": "Avertissement spoiler",
+      "caption": "Ces valeurs peuvent révéler des découvertes en jeu. Cliquez pour développer.",
+      "show": "Afficher",
+      "hide": "Masquer"
+    },
+    "food": {
+      "no_image": "Pas d'image",
+      "unknown": "Plat inconnu (hash {hash})"
     },
     "fields": {
       "level": "Niveau du Mii",
@@ -132,7 +193,12 @@
       "gaiety": "Enjouement",
       "sociability": "Sociabilité",
       "feeling": "Humeur",
-      "bond_meter": "Lien"
+      "bond_meter": "Lien",
+      "eat_fullness": "Satiété",
+      "ultra_best_id": "Plat préféré absolu",
+      "best_id": "2e plat préféré",
+      "ultra_worst_id": "Plat le plus détesté",
+      "worst_id": "2e plat détesté"
     },
     "errors": {
       "required": "Requis",

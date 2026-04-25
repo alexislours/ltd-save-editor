@@ -1,3 +1,4 @@
+import { SvelteSet } from 'svelte/reactivity';
 import { parseSav } from './sav/parse';
 import { murmur3_x86_32 } from './sav/hash';
 
@@ -29,7 +30,7 @@ export function detectSaveKindFromBytes(bytes: Uint8Array): SaveKind | null {
   } catch {
     return null;
   }
-  const hashes = new Set(parsed.entries.map((e) => e.hash));
+  const hashes = new SvelteSet(parsed.entries.map((e) => e.hash));
   for (const kind of Object.keys(SIGNATURE_HASHES) as SaveKind[]) {
     if (hashes.has(SIGNATURE_HASHES[kind])) return kind;
   }

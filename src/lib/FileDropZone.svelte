@@ -1,5 +1,6 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
+  import { track } from './analytics';
   import {
     detectSaveKindFromBytes,
     detectSaveKindFromName,
@@ -28,11 +29,13 @@
       bytes = new Uint8Array(await file.arrayBuffer());
     } catch {
       error = $_('save.read_failed');
+      track('save_load_failed', { kind, reason: 'read_failed' });
       return;
     }
     const detected = detectSaveKindFromBytes(bytes) ?? detectSaveKindFromName(file.name);
     if (detected === null) {
       error = $_('save.unrecognized_file', { values: { actual: file.name } });
+      track('save_load_failed', { kind, reason: 'unrecognized' });
       return;
     }
     if (detected !== kind) {
@@ -43,12 +46,15 @@
           correctTab: $_(`tab.${detected}`),
         },
       });
+      track('save_load_failed', { kind, reason: 'wrong_tab' });
       return;
     }
     try {
       await setSaveFromFile(kind, file);
+      track('save_loaded', { kind, size: file.size });
     } catch (e) {
       error = e instanceof Error ? e.message : $_('save.read_failed');
+      track('save_load_failed', { kind, reason: 'set_failed' });
     }
   }
 
