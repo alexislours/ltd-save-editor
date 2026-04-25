@@ -1,0 +1,4695 @@
+[
+  {
+    "n": "9VDryBattery",
+    "icon": "Treasure_9VDryBattery",
+    "l": {
+      "CNzh": "9V干电池",
+      "EUde": "Blockbatterie",
+      "EUen": "9‑volt battery",
+      "EUes": "pila de 9 V",
+      "EUfr": "pile 9 volts",
+      "EUit": "pila da 9 volt",
+      "EUnl": "9V-batterij",
+      "JPja": "9Vの乾電池",
+      "KRko": "9V 건전지",
+      "TWzh": "9V乾電池",
+      "USen": "9-volt battery",
+      "USes": "batería de 9V",
+      "USfr": "pile 9 volts"
+    }
+  },
+  {
+    "n": "DVDAction",
+    "icon": "Treasure_DVDAction",
+    "l": {
+      "CNzh": "动作电影",
+      "EUde": "Actionfilm",
+      "EUen": "action movie",
+      "EUes": "película de acción",
+      "EUfr": "film d'action",
+      "EUit": "film d'azione",
+      "EUnl": "actiefilm",
+      "JPja": "アクション映画",
+      "KRko": "액션 영화",
+      "TWzh": "動作電影",
+      "USen": "action movie",
+      "USes": "película de acción",
+      "USfr": "film d'action"
+    }
+  },
+  {
+    "n": "GameAdventure",
+    "icon": "Treasure_GameAdventure",
+    "l": {
+      "CNzh": "冒险游戏",
+      "EUde": "Adventure-Spiel",
+      "EUen": "adventure game",
+      "EUes": "juego narrativo",
+      "EUfr": "jeu d'aventure",
+      "EUit": "gioco d'avventura",
+      "EUnl": "avonturengame",
+      "JPja": "アドベンチャーゲーム",
+      "KRko": "어드벤처 게임",
+      "TWzh": "冒險遊戲",
+      "USen": "adventure game",
+      "USes": "juego de aventura",
+      "USfr": "jeu d'aventure"
+    }
+  },
+  {
+    "n": "Alebrijes",
+    "icon": "Treasure_Alebrijes",
+    "l": {
+      "CNzh": "墨西哥手工艺品",
+      "EUde": "Alebrije",
+      "EUen": "alebrije",
+      "EUes": "alebrije",
+      "EUfr": "alberije",
+      "EUit": "alebrije",
+      "EUnl": "alebrije",
+      "JPja": "アレブリヘ",
+      "KRko": "알레브리헤스",
+      "TWzh": "墨西哥手工藝品",
+      "USen": "alebrije",
+      "USes": "alebrije",
+      "USfr": "alberije"
+    }
+  },
+  {
+    "n": "Alpaca",
+    "icon": "Treasure_Alpaca",
+    "l": {
+      "CNzh": "羊驼",
+      "EUde": "Alpaka",
+      "EUen": "alpaca",
+      "EUes": "alpaca",
+      "EUfr": "alpaga",
+      "EUit": "alpaca",
+      "EUnl": "alpaca",
+      "JPja": "アルパカ",
+      "KRko": "알파카",
+      "TWzh": "羊駝",
+      "USen": "alpaca",
+      "USes": "alpaca",
+      "USfr": "alpaga"
+    }
+  },
+  {
+    "n": "Alien",
+    "icon": "Treasure_Alien_00",
+    "l": {
+      "CNzh": "外星人α",
+      "EUde": "Alpha-Alien",
+      "EUen": "alpha alien",
+      "EUes": "alienígena alfa",
+      "EUfr": "extraterrestre α",
+      "EUit": "alieno alfa",
+      "EUnl": "alfa-alien",
+      "JPja": "宇宙人α",
+      "KRko": "우주인α",
+      "TWzh": "外星人α",
+      "USen": "alpha alien",
+      "USes": "alienígena alfa",
+      "USfr": "extraterrestre α"
+    }
+  },
+  {
+    "n": "DuraluminCase",
+    "icon": "Treasure_DuraluminCase",
+    "l": {
+      "CNzh": "铝合金手提箱",
+      "EUde": "Alukoffer",
+      "EUen": "aluminium briefcase",
+      "EUes": "maletín de aluminio",
+      "EUfr": "mallette en aluminium",
+      "EUit": "valigetta d'alluminio",
+      "EUnl": "aluminium koffertje",
+      "JPja": "ジュラルミンケース",
+      "KRko": "두랄루민 케이스",
+      "TWzh": "鋁合金箱",
+      "USen": "aluminum briefcase",
+      "USes": "maletín de aluminio",
+      "USfr": "mallette en aluminium"
+    }
+  },
+  {
+    "n": "Amber",
+    "icon": "Treasure_Amber",
+    "l": {
+      "CNzh": "琥珀",
+      "EUde": "Bernsteinstück",
+      "EUen": "lump of amber",
+      "EUes": "trozo de ámbar",
+      "EUfr": "morceau d'ambre",
+      "EUit": "pezzo di ambra",
+      "EUnl": "barnsteen",
+      "JPja": "琥珀",
+      "KRko": "호박 화석",
+      "TWzh": "琥珀",
+      "USen": "amber",
+      "USes": "ámbar",
+      "USfr": "morceau d'ambre"
+    }
+  },
+  {
+    "n": "AmethystDome",
+    "icon": "Treasure_AmethystDome",
+    "l": {
+      "CNzh": "紫水晶",
+      "EUde": "Amethyst",
+      "EUen": "amethyst",
+      "EUes": "amatista",
+      "EUfr": "géode d'améthyste",
+      "EUit": "ametista",
+      "EUnl": "amethist",
+      "JPja": "アメシスト",
+      "KRko": "자수정",
+      "TWzh": "紫水晶",
+      "USen": "amethyst",
+      "USes": "amatista",
+      "USfr": "améthyste"
+    }
+  },
+  {
+    "n": "Ammonite",
+    "icon": "Treasure018",
+    "l": {
+      "CNzh": "菊石的化石",
+      "EUde": "Ammonit-Fossil",
+      "EUen": "ammonite fossil",
+      "EUes": "amonites",
+      "EUfr": "fossile d'ammonite",
+      "EUit": "ammonite",
+      "EUnl": "fossiel",
+      "JPja": "アンモナイトの化石",
+      "KRko": "암모나이트 화석",
+      "TWzh": "菊石的化石",
+      "USen": "ammonite fossil",
+      "USes": "fósil de amonites",
+      "USfr": "fossile d'ammonite"
+    }
+  },
+  {
+    "n": "AnimalFlowerpot",
+    "icon": "Treasure_AnimalFlowerpot",
+    "l": {
+      "CNzh": "动物造型盆栽",
+      "EUde": "Schildkrötenblumentopf",
+      "EUen": "tortoise-shaped planter",
+      "EUes": "macetero de animal",
+      "EUfr": "plante en pot tortue",
+      "EUit": "fioriera a forma di tartaruga",
+      "EUnl": "schildpad-plantenpot",
+      "JPja": "動物の植木鉢",
+      "KRko": "동물 모양 화분",
+      "TWzh": "動物造型花盆",
+      "USen": "animal-shaped planter",
+      "USes": "maceta de animal",
+      "USfr": "pot de fleurs en forme d'animal"
+    }
+  },
+  {
+    "n": "CDAnimeSong",
+    "icon": "Treasure_CDAnimeSong",
+    "l": {
+      "CNzh": "动漫歌曲唱片",
+      "EUde": "Anime-Soundtrack-Album",
+      "EUen": "anime openings compilation",
+      "EUes": "banda sonora de anime",
+      "EUfr": "B.O. de dessin animé",
+      "EUit": "colonna sonora di anime",
+      "EUnl": "album met animemuziek",
+      "JPja": "アニメソングのレコード",
+      "KRko": "애니메이션 주제가 LP",
+      "TWzh": "動漫歌曲唱片",
+      "USen": "anime-openings compilation",
+      "USes": "colección de música anime",
+      "USfr": "B.O. de dessin animé"
+    }
+  },
+  {
+    "n": "BookSomeonesNote",
+    "icon": "Treasure_BookSomeonesNote",
+    "l": {
+      "CNzh": "某人的笔记本",
+      "EUde": "Notizbuch von irgendwem",
+      "EUen": "misplaced notebook",
+      "EUes": "libreta de alguien",
+      "EUfr": "cahier rempli de notes",
+      "EUit": "taccuino smarrito",
+      "EUnl": "geheim notitieboekje",
+      "JPja": "誰かのノート",
+      "KRko": "누군가의 노트",
+      "TWzh": "某人的筆記本",
+      "USen": "anonymous notebook",
+      "USes": "cuaderno anónimo",
+      "USfr": "cahier anonyme"
+    }
+  },
+  {
+    "n": "FallenLeaves",
+    "icon": "Treasure_FallenLeaves",
+    "l": {
+      "CNzh": "红叶",
+      "EUde": "Herbstblatt",
+      "EUen": "early autumn leaf",
+      "EUes": "hoja otoñal",
+      "EUfr": "feuille d'automne",
+      "EUit": "foglia autunnale",
+      "EUnl": "herfstblad",
+      "JPja": "紅葉した葉っぱ",
+      "KRko": "단풍이 든 낙엽",
+      "TWzh": "紅色落葉",
+      "USen": "autumn leaf",
+      "USes": "hoja otoñal",
+      "USfr": "feuille d'automne"
+    }
+  },
+  {
+    "n": "Axolotl",
+    "icon": "Treasure_Axolotl",
+    "l": {
+      "CNzh": "美西螈",
+      "EUde": "Axolotl",
+      "EUen": "axolotl",
+      "EUes": "ajolote",
+      "EUfr": "axolotl",
+      "EUit": "axolotl",
+      "EUnl": "axolotl",
+      "JPja": "ウーパールーパー",
+      "KRko": "아홀로틀",
+      "TWzh": "美西螈",
+      "USen": "axolotl",
+      "USes": "ajolote",
+      "USfr": "axolotl"
+    }
+  },
+  {
+    "n": "GrandsonsHand",
+    "icon": "Treasure_GrandsonsHand",
+    "l": {
+      "CNzh": "不求人",
+      "EUde": "Rückenkratzer",
+      "EUen": "back-scratcher",
+      "EUes": "rascador de espalda",
+      "EUfr": "gratte-dos",
+      "EUit": "grattaschiena",
+      "EUnl": "ruggenkrabber",
+      "JPja": "孫の手",
+      "KRko": "효자손",
+      "TWzh": "不求人",
+      "USen": "back scratcher",
+      "USes": "rascaespaldas",
+      "USfr": "gratte-dos"
+    }
+  },
+  {
+    "n": "BalloonArt",
+    "icon": "Treasure_BalloonArt",
+    "l": {
+      "CNzh": "气球艺术品",
+      "EUde": "Ballon-Pudel",
+      "EUen": "balloon animal",
+      "EUes": "figura de globo",
+      "EUfr": "animal en ballon",
+      "EUit": "animale di palloncini",
+      "EUnl": "ballondier",
+      "JPja": "バルーンアート",
+      "KRko": "풍선 아트",
+      "TWzh": "氣球工藝品",
+      "USen": "balloon animal",
+      "USes": "figura de globo",
+      "USfr": "animal en ballon"
+    }
+  },
+  {
+    "n": "WickerBasket",
+    "icon": "Treasure109",
+    "l": {
+      "CNzh": "竹编箱子",
+      "EUde": "Flechtkiste",
+      "EUen": "bamboo clothes box",
+      "EUes": "caja de bambú",
+      "EUfr": "boîte en bambou",
+      "EUit": "cesto di vimini",
+      "EUnl": "rieten mand",
+      "JPja": "つづら",
+      "KRko": "대나무 바구니",
+      "TWzh": "藤編箱子",
+      "USen": "bamboo box",
+      "USes": "cesta de bambú",
+      "USfr": "boîte en bambou"
+    }
+  },
+  {
+    "n": "BeardedDragon",
+    "icon": "Treasure_BeardedDragon",
+    "l": {
+      "CNzh": "鬃狮蜥",
+      "EUde": "Bartagame",
+      "EUen": "central bearded dragon",
+      "EUes": "dragón barbudo",
+      "EUfr": "agame barbu",
+      "EUit": "drago barbuto",
+      "EUnl": "baardagame",
+      "JPja": "フトアゴヒゲトカゲ",
+      "KRko": "턱수염도마뱀",
+      "TWzh": "鬃獅蜥",
+      "USen": "bearded dragon",
+      "USes": "dragón barbudo",
+      "USfr": "agame barbu"
+    }
+  },
+  {
+    "n": "BentSpoon",
+    "icon": "Treasure_BentSpoon",
+    "l": {
+      "CNzh": "弯折的勺子",
+      "EUde": "Krummlöffel",
+      "EUen": "bent spoon",
+      "EUes": "cuchara doblada",
+      "EUfr": "cuillère tordue",
+      "EUit": "cucchiaio piegato",
+      "EUnl": "verbogen lepel",
+      "JPja": "曲がったスプーン",
+      "KRko": "구부러진 스푼",
+      "TWzh": "彎曲的湯匙",
+      "USen": "bent spoon",
+      "USes": "cuchara doblada",
+      "USfr": "cuillère tordue"
+    }
+  },
+  {
+    "n": "Alien1",
+    "icon": "Treasure_Alien_01",
+    "l": {
+      "CNzh": "外星人β",
+      "EUde": "Beta-Alien",
+      "EUen": "beta alien",
+      "EUes": "alienígena beta",
+      "EUfr": "extraterrestre β",
+      "EUit": "alieno beta",
+      "EUnl": "bèta-alien",
+      "JPja": "宇宙人β",
+      "KRko": "우주인β",
+      "TWzh": "外星人β",
+      "USen": "beta alien",
+      "USes": "alienígena beta",
+      "USfr": "extraterrestre β"
+    }
+  },
+  {
+    "n": "BigPot",
+    "icon": "Treasure_BigPot",
+    "l": {
+      "CNzh": "大花瓶",
+      "EUde": "Riesenvase",
+      "EUen": "big vase",
+      "EUes": "gran jarrón",
+      "EUfr": "grand vase",
+      "EUit": "vaso grande",
+      "EUnl": "reuzenvaas",
+      "JPja": "大きなツボ",
+      "KRko": "커다란 항아리",
+      "TWzh": "巨大花瓶",
+      "USen": "big vase",
+      "USes": "jarrón grande",
+      "USfr": "grand vase"
+    }
+  },
+  {
+    "n": "Binoculars",
+    "icon": "Treasure024",
+    "l": {
+      "CNzh": "望远镜",
+      "EUde": "Fernglas",
+      "EUen": "pair of binoculars",
+      "EUes": "prismáticos",
+      "EUfr": "jumelles",
+      "EUit": "binocolo",
+      "EUnl": "verrekijker",
+      "JPja": "双眼鏡",
+      "KRko": "쌍안경",
+      "TWzh": "望遠鏡",
+      "USen": "binoculars",
+      "USes": "binoculares",
+      "USfr": "jumelles"
+    }
+  },
+  {
+    "n": "BirdFeathers",
+    "icon": "Treasure_BirdFeathers",
+    "l": {
+      "CNzh": "鸟的羽毛",
+      "EUde": "Vogelfeder",
+      "EUen": "bird feather",
+      "EUes": "pluma de pájaro",
+      "EUfr": "plume d'oiseau",
+      "EUit": "piuma d'uccello",
+      "EUnl": "vogelveer",
+      "JPja": "鳥の羽根",
+      "KRko": "새의 깃털",
+      "TWzh": "鳥羽毛",
+      "USen": "bird feather",
+      "USes": "pluma de pájaro",
+      "USfr": "plume d'oiseau"
+    }
+  },
+  {
+    "n": "SwallowsNest",
+    "icon": "Treasure_SwallowsNest",
+    "l": {
+      "CNzh": "鸟巢",
+      "EUde": "Vogelnest",
+      "EUen": "bird nest",
+      "EUes": "nido de pájaro",
+      "EUfr": "nid d'oiseau",
+      "EUit": "nido di uccelli",
+      "EUnl": "vogelnestje",
+      "JPja": "鳥の巣",
+      "KRko": "새 둥지",
+      "TWzh": "鳥巢",
+      "USen": "bird nest",
+      "USes": "nido de pájaro",
+      "USfr": "nid d'oiseau"
+    }
+  },
+  {
+    "n": "Bonsai",
+    "icon": "Treasure046",
+    "l": {
+      "CNzh": "盆景",
+      "EUde": "Bonsaibaum",
+      "EUen": "bonsai tree",
+      "EUes": "bonsái",
+      "EUfr": "bonsaï",
+      "EUit": "bonsai",
+      "EUnl": "bonsai",
+      "JPja": "盆栽",
+      "KRko": "분재",
+      "TWzh": "盆景",
+      "USen": "bonsai tree",
+      "USes": "bonsái",
+      "USfr": "bonsaï"
+    }
+  },
+  {
+    "n": "BookRiddle",
+    "icon": "Treasure_BookRiddle",
+    "l": {
+      "CNzh": "猜谜书",
+      "EUde": "Quizband",
+      "EUen": "book of brainteasers",
+      "EUes": "libro de acertijos",
+      "EUfr": "recueil d'énigmes",
+      "EUit": "libro di indovinelli",
+      "EUnl": "quizboek",
+      "JPja": "なぞなぞの本",
+      "KRko": "수수께끼 책",
+      "TWzh": "猜謎書籍",
+      "USen": "book of many riddles",
+      "USes": "libro de adivinanzas",
+      "USfr": "recueil d'énigmes"
+    }
+  },
+  {
+    "n": "BookPlant",
+    "icon": "Treasure_BookPlant",
+    "l": {
+      "CNzh": "植物图鉴",
+      "EUde": "Gartenfibel",
+      "EUen": "botanical field guide",
+      "EUes": "guía de botánica",
+      "EUfr": "encyclopédie botanique",
+      "EUit": "guida botanica",
+      "EUnl": "plantengids",
+      "JPja": "植物図鑑",
+      "KRko": "식물도감",
+      "TWzh": "植物圖鑑",
+      "USen": "botanical guidebook",
+      "USes": "guía de botánica",
+      "USfr": "encyclopédie botanique"
+    }
+  },
+  {
+    "n": "TraditionalSpanishWaterBottle",
+    "icon": "Treasure_TraditionalSpanishWaterBottle",
+    "l": {
+      "CNzh": "西班牙传统水壶",
+      "EUde": "Wasserkrug",
+      "EUen": "botijo",
+      "EUes": "botijo",
+      "EUfr": "gargoulette",
+      "EUit": "botijo",
+      "EUnl": "Spaanse waterkruik",
+      "JPja": "スペインの伝統的な水がめ",
+      "KRko": "스페인 전통 물병",
+      "TWzh": "西班牙傳統水壺",
+      "USen": "botijo",
+      "USes": "botijo",
+      "USfr": "gargoulette"
+    }
+  },
+  {
+    "n": "CrownCap",
+    "icon": "Treasure_CrownCap",
+    "l": {
+      "CNzh": "皇冠盖",
+      "EUde": "Kronkorken",
+      "EUen": "bottle cap",
+      "EUes": "chapa de botella",
+      "EUfr": "capsule de bouteille",
+      "EUit": "tappo di bottiglia",
+      "EUnl": "flessendop",
+      "JPja": "ビンの王冠",
+      "KRko": "병뚜껑",
+      "TWzh": "金屬瓶蓋",
+      "USen": "bottle cap",
+      "USes": "tapa de botella",
+      "USfr": "capsule de bouteille"
+    }
+  },
+  {
+    "n": "Bouquet",
+    "icon": "Treasure047",
+    "l": {
+      "CNzh": "花束",
+      "EUde": "Blumenstrauß",
+      "EUen": "bouquet",
+      "EUes": "ramo de flores",
+      "EUfr": "bouquet de fleurs",
+      "EUit": "mazzo di fiori",
+      "EUnl": "boeket",
+      "JPja": "花束",
+      "KRko": "꽃다발",
+      "TWzh": "花束",
+      "USen": "bouquet",
+      "USes": "ramo de flores",
+      "USfr": "bouquet de fleurs"
+    }
+  },
+  {
+    "n": "Tissue",
+    "icon": "Treasure_Tissue",
+    "l": {
+      "CNzh": "纸巾",
+      "EUde": "Taschentuch-Box",
+      "EUen": "box of tissues",
+      "EUes": "caja de pañuelos",
+      "EUfr": "boîte de mouchoirs",
+      "EUit": "scatola di fazzolettini",
+      "EUnl": "doos tissues",
+      "JPja": "ティッシュ",
+      "KRko": "티슈",
+      "TWzh": "面紙",
+      "USen": "box of tissues",
+      "USes": "caja de pañuelos",
+      "USfr": "boîte de mouchoirs"
+    }
+  },
+  {
+    "n": "RandomKey",
+    "icon": "Treasure012",
+    "l": {
+      "CNzh": "某种钥匙",
+      "EUde": "Schlüssel für irgendwas",
+      "EUen": "random key",
+      "EUes": "llave",
+      "EUfr": "clé en cuivre",
+      "EUit": "chiave",
+      "EUnl": "sleutel",
+      "JPja": "何かのカギ",
+      "KRko": "어딘가의 열쇠",
+      "TWzh": "某種鑰匙",
+      "USen": "brass key",
+      "USes": "llave de metal",
+      "USfr": "clé en cuivre"
+    }
+  },
+  {
+    "n": "BrushBronze",
+    "icon": "Treasure_BrushBronze",
+    "l": {
+      "CNzh": "铜笔",
+      "EUde": "Bronzepalette",
+      "EUen": "bronze palette",
+      "EUes": "paleta de bronce",
+      "EUfr": "palette de bronze",
+      "EUit": "tavolozza di bronzo",
+      "EUnl": "bronzen schilderspalet",
+      "JPja": "銅の筆",
+      "KRko": "동 붓",
+      "TWzh": "銅筆",
+      "USen": "bronze palette",
+      "USes": "paleta de bronce",
+      "USfr": "palette de bronze"
+    }
+  },
+  {
+    "n": "SpeechBubbleBronze",
+    "icon": "Treasure_SpeechBubbleBronze",
+    "l": {
+      "CNzh": "铜对话框",
+      "EUde": "Bronze-Sprechblase",
+      "EUen": "bronze speech bubble",
+      "EUes": "bocadillo de bronce",
+      "EUfr": "bulle de bronze",
+      "EUit": "fumetto di bronzo",
+      "EUnl": "bronzen tekstballon",
+      "JPja": "銅のフキダシ",
+      "KRko": "동 말풍선",
+      "TWzh": "銅對話框",
+      "USen": "bronze speech bubble",
+      "USes": "globo de diálogo de bronce",
+      "USfr": "bulle de bronze"
+    }
+  },
+  {
+    "n": "TrophyBronze",
+    "icon": "Treasure032",
+    "l": {
+      "CNzh": "铜奖杯",
+      "EUde": "Bronzetrophäe",
+      "EUen": "bronze trophy",
+      "EUes": "trofeo de bronce",
+      "EUfr": "trophée de bronze",
+      "EUit": "trofeo di bronzo",
+      "EUnl": "bronzen trofee",
+      "JPja": "銅のトロフィー",
+      "KRko": "동 트로피",
+      "TWzh": "銅獎盃",
+      "USen": "bronze trophy",
+      "USes": "trofeo de bronce",
+      "USfr": "trophée de bronze"
+    }
+  },
+  {
+    "n": "BaoshanDecoration",
+    "icon": "Treasure_BaoshanDecoration",
+    "l": {
+      "CNzh": "包山摆件",
+      "EUde": "Deko-Knödelturm",
+      "EUen": "ceremonial mountain of buns",
+      "EUes": "torre de bollos al vapor",
+      "EUfr": "montagne de petits pains",
+      "EUit": "torre cerimoniale di fagottini",
+      "EUnl": "decoratieve broodjesberg",
+      "JPja": "包山の置物",
+      "KRko": "바오산 장식품",
+      "TWzh": "包山擺飾",
+      "USen": "bun-tower figure",
+      "USes": "torre de bollos al vapor",
+      "USfr": "montagne de petits pains"
+    }
+  },
+  {
+    "n": "Butterfly",
+    "icon": "Treasure_Butterfly",
+    "l": {
+      "CNzh": "大紫蛱蝶",
+      "EUde": "Schmetterling",
+      "EUen": "butterfly",
+      "EUes": "mariposa",
+      "EUfr": "papillon",
+      "EUit": "farfalla",
+      "EUnl": "vlinder",
+      "JPja": "オオムラサキ",
+      "KRko": "왕오색나비",
+      "TWzh": "大紫蛺蝶",
+      "USen": "butterfly",
+      "USes": "mariposa",
+      "USfr": "papillon"
+    }
+  },
+  {
+    "n": "CallBell",
+    "icon": "Treasure_CallBell",
+    "l": {
+      "CNzh": "呼叫铃",
+      "EUde": "Empfangsglöckchen",
+      "EUen": "call bell",
+      "EUes": "timbre de recepción",
+      "EUfr": "sonnette de comptoir",
+      "EUit": "campanello",
+      "EUnl": "receptiebel",
+      "JPja": "呼び出しベル",
+      "KRko": "호출 벨",
+      "TWzh": "呼叫鈴",
+      "USen": "call bell",
+      "USes": "timbre de recepción",
+      "USfr": "sonnette de comptoir"
+    }
+  },
+  {
+    "n": "Capybara",
+    "icon": "Treasure_Capybara",
+    "l": {
+      "CNzh": "水豚",
+      "EUde": "Capybara",
+      "EUen": "capybara",
+      "EUes": "capibara",
+      "EUfr": "cabiai",
+      "EUit": "capibara",
+      "EUnl": "capibara",
+      "JPja": "カピバラ",
+      "KRko": "카피바라",
+      "TWzh": "水豚",
+      "USen": "capybara",
+      "USes": "capibara",
+      "USfr": "cabiai"
+    }
+  },
+  {
+    "n": "Carnation",
+    "icon": "Treasure_Carnation",
+    "l": {
+      "CNzh": "康乃馨",
+      "EUde": "Nelkenstrauß",
+      "EUen": "bunch of carnations",
+      "EUes": "ramillete de claveles",
+      "EUfr": "bouquet d'œillets",
+      "EUit": "mazzo di garofani",
+      "EUnl": "anjers",
+      "JPja": "カーネーション",
+      "KRko": "카네이션",
+      "TWzh": "康乃馨",
+      "USen": "carnation",
+      "USes": "ramo de claveles",
+      "USfr": "bouquet d'œillets"
+    }
+  },
+  {
+    "n": "DVDAnimation",
+    "icon": "Treasure_DVDAnimation",
+    "l": {
+      "CNzh": "动漫节目",
+      "EUde": "Zeichentrickfilm",
+      "EUen": "cartoon",
+      "EUes": "serie de dibujos animados",
+      "EUfr": "dessin animé",
+      "EUit": "film d'animazione",
+      "EUnl": "tekenfilm",
+      "JPja": "アニメ番組",
+      "KRko": "TV 애니메이션",
+      "TWzh": "動畫節目",
+      "USen": "cartoon",
+      "USes": "dibujos animados",
+      "USfr": "dessin animé"
+    }
+  },
+  {
+    "n": "Cat",
+    "icon": "Treasure_Cat",
+    "l": {
+      "CNzh": "猫",
+      "EUde": "Katze",
+      "EUen": "cat",
+      "EUes": "gato",
+      "EUfr": "chat",
+      "EUit": "gatto",
+      "EUnl": "kat",
+      "JPja": "ネコ",
+      "KRko": "고양이",
+      "TWzh": "貓",
+      "USen": "cat",
+      "USes": "gato",
+      "USfr": "chat"
+    }
+  },
+  {
+    "n": "CeladonTeapot",
+    "icon": "Treasure_CeladonTeapot",
+    "l": {
+      "CNzh": "青瓷茶壶",
+      "EUde": "Seladon-Teegedeck",
+      "EUen": "celadon porcelain tea set",
+      "EUes": "juego de té de celadón",
+      "EUfr": "service à thé en céladon",
+      "EUit": "set da tè di porcellana celadon",
+      "EUnl": "celadon theeservies",
+      "JPja": "青磁の急須",
+      "KRko": "청자 찻주전자",
+      "TWzh": "青瓷茶壺",
+      "USen": "celadon-porcelain tea set",
+      "USes": "juego de té celadón",
+      "USfr": "service à thé en céladon"
+    }
+  },
+  {
+    "n": "Autograph",
+    "icon": "Treasure_Autograph",
+    "l": {
+      "CNzh": "名人的签名",
+      "EUde": "Promi-Autogramm",
+      "EUen": "celebrity autograph",
+      "EUes": "autógrafo de famoso",
+      "EUfr": "autographe de célébrité",
+      "EUit": "autografo di celebrità",
+      "EUnl": "handtekening van een ster",
+      "JPja": "有名人のサイン",
+      "KRko": "유명인의 사인",
+      "TWzh": "名人的簽名",
+      "USen": "celebrity autograph",
+      "USes": "autógrafo de celebridad",
+      "USfr": "autographe de célébrité"
+    }
+  },
+  {
+    "n": "ChessPieces",
+    "icon": "Treasure_ChessPieces",
+    "l": {
+      "CNzh": "国际象棋的棋子",
+      "EUde": "Schachfigur",
+      "EUen": "chess piece",
+      "EUes": "pieza de ajedrez",
+      "EUfr": "pièce d'échecs",
+      "EUit": "pezzo degli scacchi",
+      "EUnl": "schaakstuk",
+      "JPja": "チェスの駒",
+      "KRko": "체스 말",
+      "TWzh": "西洋棋的棋子",
+      "USen": "chess piece",
+      "USes": "caballo de ajedrez",
+      "USfr": "pièce d'échecs"
+    }
+  },
+  {
+    "n": "Chick",
+    "icon": "Treasure_Chick",
+    "l": {
+      "CNzh": "小鸡",
+      "EUde": "Küken",
+      "EUen": "chick",
+      "EUes": "pollito",
+      "EUfr": "poussin",
+      "EUit": "pulcino",
+      "EUnl": "kuiken",
+      "JPja": "ヒヨコ",
+      "KRko": "병아리",
+      "TWzh": "小雞",
+      "USen": "chick",
+      "USes": "pollito",
+      "USfr": "poussin"
+    }
+  },
+  {
+    "n": "CDNurseryRhyme",
+    "icon": "Treasure_CDNurseryRhyme",
+    "l": {
+      "CNzh": "儿童唱片",
+      "EUde": "Kinderlieder-Album",
+      "EUen": "children's music album",
+      "EUes": "álbum de música infantil",
+      "EUfr": "album pour enfants",
+      "EUit": "album per bambini",
+      "EUnl": "album met kindermuziek",
+      "JPja": "キッズのレコード",
+      "KRko": "동요 LP",
+      "TWzh": "兒童唱片",
+      "USen": "children's album",
+      "USes": "disco de música infantil",
+      "USfr": "album pour enfants"
+    }
+  },
+  {
+    "n": "Chipmunk",
+    "icon": "Treasure_Chipmunk",
+    "l": {
+      "CNzh": "松鼠",
+      "EUde": "Streifenhörnchen",
+      "EUen": "chipmunk",
+      "EUes": "ardilla",
+      "EUfr": "tamia",
+      "EUit": "scoiattolo",
+      "EUnl": "grondeekhoorn",
+      "JPja": "リス",
+      "KRko": "다람쥐",
+      "TWzh": "松鼠",
+      "USen": "chipmunk",
+      "USes": "ardilla",
+      "USfr": "tamia"
+    }
+  },
+  {
+    "n": "CicadaShell",
+    "icon": "Treasure_CicadaShell",
+    "l": {
+      "CNzh": "蝉蜕",
+      "EUde": "Zikadenhülle",
+      "EUen": "cicada shell",
+      "EUes": "muda de cigarra",
+      "EUfr": "mue de cigale",
+      "EUit": "involucro di cicala",
+      "EUnl": "cicadehuid",
+      "JPja": "セミのぬけがら",
+      "KRko": "매미 허물",
+      "TWzh": "蟬殼",
+      "USen": "cicada shell",
+      "USes": "piel de cigarra",
+      "USfr": "mue de cigale"
+    }
+  },
+  {
+    "n": "ElectronicSubstrate",
+    "icon": "Treasure_ElectronicSubstrate",
+    "l": {
+      "CNzh": "电路板",
+      "EUde": "Platine",
+      "EUen": "circuit board",
+      "EUes": "placa base",
+      "EUfr": "circuit imprimé",
+      "EUit": "scheda elettronica",
+      "EUnl": "printplaat",
+      "JPja": "電子基板",
+      "KRko": "전자 기판",
+      "TWzh": "電路板",
+      "USen": "circuit board",
+      "USes": "circuito integrado",
+      "USfr": "circuit imprimé"
+    }
+  },
+  {
+    "n": "CDClassic",
+    "icon": "Treasure_CDClassic",
+    "l": {
+      "CNzh": "古典乐唱片",
+      "EUde": "Klassik-Album",
+      "EUen": "classical album",
+      "EUes": "álbum de música clásica",
+      "EUfr": "album de musique classique",
+      "EUit": "album di musica classica",
+      "EUnl": "album met klassieke muziek",
+      "JPja": "クラシックのレコード",
+      "KRko": "클래식 LP",
+      "TWzh": "古典樂唱片",
+      "USen": "classical album",
+      "USes": "disco de música clásica",
+      "USfr": "album de musique classique"
+    }
+  },
+  {
+    "n": "Haniwa",
+    "icon": "Treasure052",
+    "l": {
+      "CNzh": "陶俑",
+      "EUde": "Tonfigur",
+      "EUen": "clay figure",
+      "EUes": "figura de terracota",
+      "EUfr": "figurine haniwa",
+      "EUit": "figurina di terracotta",
+      "EUnl": "terracottabeeldje",
+      "JPja": "はにわ",
+      "KRko": "토용",
+      "TWzh": "陶俑",
+      "USen": "clay figure",
+      "USes": "muñeco de barro",
+      "USfr": "figurine haniwa"
+    }
+  },
+  {
+    "n": "Clione",
+    "icon": "Treasure_Clione",
+    "l": {
+      "CNzh": "裸海蝶",
+      "EUde": "Ruderschnecke",
+      "EUen": "sea butterfly",
+      "EUes": "ángel de mar",
+      "EUfr": "clione",
+      "EUit": "clione",
+      "EUnl": "zeevlinder",
+      "JPja": "クリオネ",
+      "KRko": "클리오네",
+      "TWzh": "裸海蝶",
+      "USen": "clione",
+      "USes": "mariposa de mar",
+      "USfr": "clione"
+    }
+  },
+  {
+    "n": "Clownfish",
+    "icon": "Treasure_Clownfish",
+    "l": {
+      "CNzh": "小丑鱼",
+      "EUde": "Clownfisch",
+      "EUen": "clownfish",
+      "EUes": "pez payaso",
+      "EUfr": "poisson-clown",
+      "EUit": "pesce pagliaccio",
+      "EUnl": "clownvis",
+      "JPja": "カクレクマノミ",
+      "KRko": "흰동가리",
+      "TWzh": "小丑魚",
+      "USen": "clown fish",
+      "USes": "pez payaso",
+      "USfr": "poisson-clown"
+    }
+  },
+  {
+    "n": "Parrot",
+    "icon": "Treasure_Parrot",
+    "l": {
+      "CNzh": "凤头鹦鹉",
+      "EUde": "Kakadu",
+      "EUen": "cockatoo",
+      "EUes": "cacatúa",
+      "EUfr": "cacatoès",
+      "EUit": "cacatua",
+      "EUnl": "kaketoe",
+      "JPja": "オウム",
+      "KRko": "앵무새",
+      "TWzh": "鳳頭鸚鵡",
+      "USen": "cockatoo",
+      "USes": "cacatúa",
+      "USfr": "cacatoès"
+    }
+  },
+  {
+    "n": "CoconutBowl",
+    "icon": "Treasure_CoconutBowl",
+    "l": {
+      "CNzh": "椰子碗",
+      "EUde": "Kokosnussschale",
+      "EUen": "coconut bowl",
+      "EUes": "cuenco de coco",
+      "EUfr": "bol en noix de coco",
+      "EUit": "scodella di noce di cocco",
+      "EUnl": "kokosnootschaal",
+      "JPja": "ココナッツボウル",
+      "KRko": "코코넛 볼",
+      "TWzh": "椰子碗",
+      "USen": "coconut bowl",
+      "USes": "tazón de coco",
+      "USfr": "bol en noix de coco"
+    }
+  },
+  {
+    "n": "ColorfulBasket",
+    "icon": "Treasure_ColorfulBasket",
+    "l": {
+      "CNzh": "彩色竹篓",
+      "EUde": "Mehrfarb-Bastkorb",
+      "EUen": "colourful basket",
+      "EUes": "cesta colorida",
+      "EUfr": "panier coloré",
+      "EUit": "cesto colorato",
+      "EUnl": "kleurrijke mand",
+      "JPja": "カラフルなかご",
+      "KRko": "컬러풀한 바구니",
+      "TWzh": "彩色竹簍",
+      "USen": "colorful basket",
+      "USes": "cesta colorida",
+      "USfr": "panier coloré"
+    }
+  },
+  {
+    "n": "Compass",
+    "icon": "Treasure043",
+    "l": {
+      "CNzh": "指南针",
+      "EUde": "Kompass",
+      "EUen": "compass",
+      "EUes": "brújula",
+      "EUfr": "boussole",
+      "EUit": "bussola",
+      "EUnl": "kompas",
+      "JPja": "方位磁石",
+      "KRko": "나침반",
+      "TWzh": "羅盤",
+      "USen": "compass",
+      "USes": "brújula",
+      "USfr": "boussole"
+    }
+  },
+  {
+    "n": "DVDCooking",
+    "icon": "Treasure_DVDCooking",
+    "l": {
+      "CNzh": "烹饪节目",
+      "EUde": "Kochratgeber",
+      "EUen": "cooking show",
+      "EUes": "programa de cocina",
+      "EUfr": "émission de cuisine",
+      "EUit": "programma di cucina",
+      "EUnl": "kookprogramma",
+      "JPja": "料理番組",
+      "KRko": "요리 방송",
+      "TWzh": "料理節目",
+      "USen": "cooking show",
+      "USes": "programa de cocina",
+      "USfr": "émission de cuisine"
+    }
+  },
+  {
+    "n": "Coral",
+    "icon": "Treasure064",
+    "l": {
+      "CNzh": "珊瑚",
+      "EUde": "Koralle",
+      "EUen": "piece of coral",
+      "EUes": "trozo de coral",
+      "EUfr": "morceau de corail",
+      "EUit": "pezzo di corallo",
+      "EUnl": "koraal",
+      "JPja": "サンゴ",
+      "KRko": "산호 조각",
+      "TWzh": "珊瑚",
+      "USen": "coral",
+      "USes": "coral",
+      "USfr": "morceau de corail"
+    }
+  },
+  {
+    "n": "BookCover",
+    "icon": "Treasure_BookCover",
+    "l": {
+      "CNzh": "包着书皮的书",
+      "EUde": "Buch der 1000 Geheimnisse",
+      "EUen": "covered book",
+      "EUes": "libro misterioso",
+      "EUfr": "livre relié",
+      "EUit": "libro rilegato",
+      "EUnl": "boek met lege kaft",
+      "JPja": "カバーの付いた本",
+      "KRko": "커버로 싼 책",
+      "TWzh": "裝訂封面的書",
+      "USen": "covered book",
+      "USes": "libro misterioso",
+      "USfr": "livre relié"
+    }
+  },
+  {
+    "n": "Egg",
+    "icon": "Treasure_Egg",
+    "l": {
+      "CNzh": "生物的蛋",
+      "EUde": "Ei irgendeiner Kreatur",
+      "EUen": "mysterious egg",
+      "EUes": "huevo misterioso",
+      "EUfr": "œuf de créature",
+      "EUit": "uovo misterioso",
+      "EUnl": "mysterieus ei",
+      "JPja": "生き物のたまご",
+      "KRko": "어떤 생물의 알",
+      "TWzh": "生物的卵",
+      "USen": "creature egg",
+      "USes": "huevo",
+      "USfr": "œuf de créature"
+    }
+  },
+  {
+    "n": "Crystal",
+    "icon": "Treasure030",
+    "l": {
+      "CNzh": "水晶",
+      "EUde": "Kristall",
+      "EUen": "crystal",
+      "EUes": "cristal",
+      "EUfr": "cristaux",
+      "EUit": "cristallo",
+      "EUnl": "kristal",
+      "JPja": "クリスタル",
+      "KRko": "크리스털",
+      "TWzh": "水晶",
+      "USen": "crystal",
+      "USes": "cristal",
+      "USfr": "cristaux"
+    }
+  },
+  {
+    "n": "CrystalBall",
+    "icon": "Treasure_CrystalBall",
+    "l": {
+      "CNzh": "水晶球",
+      "EUde": "Kristallkugel",
+      "EUen": "crystal ball",
+      "EUes": "bola de cristal",
+      "EUfr": "boule de cristal",
+      "EUit": "sfera di cristallo",
+      "EUnl": "glazen bol",
+      "JPja": "水晶玉",
+      "KRko": "수정 구슬",
+      "TWzh": "水晶球",
+      "USen": "crystal ball",
+      "USes": "bola de cristal",
+      "USfr": "boule de cristal"
+    }
+  },
+  {
+    "n": "GameDance",
+    "icon": "Treasure_GameDance",
+    "l": {
+      "CNzh": "跳舞游戏",
+      "EUde": "Dancing-Spiel",
+      "EUen": "dancing game",
+      "EUes": "juego de baile",
+      "EUfr": "jeu de danse",
+      "EUit": "gioco di danza",
+      "EUnl": "dansgame",
+      "JPja": "ダンスゲーム",
+      "KRko": "댄스 게임",
+      "TWzh": "跳舞遊戲",
+      "USen": "dancing game",
+      "USes": "juego de baile",
+      "USfr": "jeu de danse"
+    }
+  },
+  {
+    "n": "Daruma",
+    "icon": "Treasure092",
+    "l": {
+      "CNzh": "不倒翁",
+      "EUde": "Daruma-Figur",
+      "EUen": "Daruma doll",
+      "EUes": "daruma",
+      "EUfr": "daruma",
+      "EUit": "bambola daruma",
+      "EUnl": "daruma-popje",
+      "JPja": "だるま",
+      "KRko": "달마 인형",
+      "TWzh": "不倒翁",
+      "USen": "Daruma",
+      "USes": "muñeco Daruma",
+      "USfr": "daruma"
+    }
+  },
+  {
+    "n": "DarumaDrop",
+    "icon": "Treasure069",
+    "l": {
+      "CNzh": "敲不倒翁",
+      "EUde": "Daruma-Otoshi-Spiel",
+      "EUen": "Daruma-otoshi game",
+      "EUes": "juego de bloques en torre",
+      "EUfr": "daruma-otoshi",
+      "EUit": "gioco daruma-otoshi",
+      "EUnl": "daruma-otoshi-spel",
+      "JPja": "だるま落とし",
+      "KRko": "달마 치기",
+      "TWzh": "敲打不倒翁",
+      "USen": "Daruma Otoshi game",
+      "USes": "juego Daruma Otoshi",
+      "USfr": "daruma-otoshi"
+    }
+  },
+  {
+    "n": "GameLoveSimulation",
+    "icon": "Treasure_GameLoveSimulation",
+    "l": {
+      "CNzh": "恋爱模拟游戏",
+      "EUde": "Dating-Spiel",
+      "EUen": "dating sim game",
+      "EUes": "juego de simulación de citas",
+      "EUfr": "jeu de simulation romantique",
+      "EUit": "simulatore di appuntamenti",
+      "EUnl": "liefdesgame",
+      "JPja": "恋愛シミュレーションゲーム",
+      "KRko": "연애 시뮬레이션 게임",
+      "TWzh": "戀愛模擬遊戲",
+      "USen": "dating-sim game",
+      "USes": "juego de citas",
+      "USfr": "jeu de simulation romantique"
+    }
+  },
+  {
+    "n": "Diamond",
+    "icon": "Treasure_Diamond",
+    "l": {
+      "CNzh": "钻石",
+      "EUde": "Diamant",
+      "EUen": "diamond",
+      "EUes": "diamante",
+      "EUfr": "diamant",
+      "EUit": "diamante",
+      "EUnl": "diamant",
+      "JPja": "ダイヤモンド",
+      "KRko": "다이아몬드",
+      "TWzh": "鑽石",
+      "USen": "diamond",
+      "USes": "diamante",
+      "USfr": "diamant"
+    }
+  },
+  {
+    "n": "Dice",
+    "icon": "Treasure059",
+    "l": {
+      "CNzh": "骰子",
+      "EUde": "Würfel",
+      "EUen": "die",
+      "EUes": "dado",
+      "EUfr": "dé",
+      "EUit": "dado",
+      "EUnl": "dobbelsteen",
+      "JPja": "サイコロ",
+      "KRko": "주사위",
+      "TWzh": "骰子",
+      "USen": "die",
+      "USes": "dado",
+      "USfr": "dé"
+    }
+  },
+  {
+    "n": "DirtySocks",
+    "icon": "Treasure000",
+    "l": {
+      "CNzh": "脏袜子",
+      "EUde": "Stinkesocke",
+      "EUen": "dirty sock",
+      "EUes": "calcetín apestoso",
+      "EUfr": "chaussette sale",
+      "EUit": "calzino puzzolente",
+      "EUnl": "stinksok",
+      "JPja": "汚れたくつ下",
+      "KRko": "냄새나는 양말",
+      "TWzh": "髒襪子",
+      "USen": "dirty sock",
+      "USes": "calcetín sucio",
+      "USfr": "bas sale"
+    }
+  },
+  {
+    "n": "MirrorBall",
+    "icon": "Treasure102",
+    "l": {
+      "CNzh": "镜球",
+      "EUde": "Discokugel",
+      "EUen": "disco ball",
+      "EUes": "bola de discoteca",
+      "EUfr": "boule à facettes",
+      "EUit": "sfera a specchio",
+      "EUnl": "discobal",
+      "JPja": "ミラーボール",
+      "KRko": "미러볼",
+      "TWzh": "迪斯可球",
+      "USen": "disco ball",
+      "USes": "bola de disco",
+      "USfr": "boule de disco"
+    }
+  },
+  {
+    "n": "Dog",
+    "icon": "Treasure_Dog",
+    "l": {
+      "CNzh": "狗",
+      "EUde": "Hund",
+      "EUen": "dog",
+      "EUes": "perro",
+      "EUfr": "chien",
+      "EUit": "cane",
+      "EUnl": "hond",
+      "JPja": "イヌ",
+      "KRko": "강아지",
+      "TWzh": "狗",
+      "USen": "dog",
+      "USes": "perro",
+      "USfr": "chien"
+    }
+  },
+  {
+    "n": "ClayFigure",
+    "icon": "Treasure_ClayFigure",
+    "l": {
+      "CNzh": "土偶",
+      "EUde": "Dogū-Figur",
+      "EUen": "dogū figure",
+      "EUes": "figura dogū",
+      "EUfr": "statuette dogū",
+      "EUit": "figurina dogū",
+      "EUnl": "kleibeeldje",
+      "JPja": "土偶",
+      "KRko": "토우",
+      "TWzh": "土偶",
+      "USen": "dogū figure",
+      "USes": "figura dogū",
+      "USfr": "statuette dogū"
+    }
+  },
+  {
+    "n": "Knob",
+    "icon": "Treasure135",
+    "l": {
+      "CNzh": "门把",
+      "EUde": "Türklinke",
+      "EUen": "door handle",
+      "EUes": "manija de puerta",
+      "EUfr": "poignée de porte",
+      "EUit": "maniglia",
+      "EUnl": "deurklink",
+      "JPja": "ドアノブ",
+      "KRko": "손잡이",
+      "TWzh": "門把",
+      "USen": "door handle",
+      "USes": "manilla",
+      "USfr": "poignée de porte"
+    }
+  },
+  {
+    "n": "Quoll",
+    "icon": "Treasure_Quoll",
+    "l": {
+      "CNzh": "东袋鼬",
+      "EUde": "Tüpfelbeutelmarder",
+      "EUen": "eastern quoll",
+      "EUes": "quol oriental",
+      "EUfr": "chat marsupial moucheté",
+      "EUit": "quoll orientale",
+      "EUnl": "buidelmarter",
+      "JPja": "フクロネコ",
+      "KRko": "주머니고양이",
+      "TWzh": "東袋鼬",
+      "USen": "eastern quoll",
+      "USes": "quol oriental",
+      "USfr": "chat marsupial moucheté"
+    }
+  },
+  {
+    "n": "GameEducation",
+    "icon": "Treasure_GameEducation",
+    "l": {
+      "CNzh": "教育游戏",
+      "EUde": "Edutainment-Spiel",
+      "EUen": "educational game",
+      "EUes": "juego educativo",
+      "EUfr": "jeu éducatif",
+      "EUit": "gioco educativo",
+      "EUnl": "leergame",
+      "JPja": "教育ゲーム",
+      "KRko": "교육 게임",
+      "TWzh": "教育遊戲",
+      "USen": "educational game",
+      "USes": "juego educacional",
+      "USfr": "jeu éducatif"
+    }
+  },
+  {
+    "n": "EmbroideryWallHanging",
+    "icon": "Treasure_EmbroideryWallHanging",
+    "l": {
+      "CNzh": "刺绣壁挂",
+      "EUde": "Kunststickerei",
+      "EUen": "embroidered decoration",
+      "EUes": "bastidor con bordado",
+      "EUfr": "broderie",
+      "EUit": "decorazione ricamata",
+      "EUnl": "borduurwerkje",
+      "JPja": "刺繍の壁掛け",
+      "KRko": "자수 벽걸이",
+      "TWzh": "刺繡壁掛",
+      "USen": "embroidered decoration",
+      "USes": "bastidor con bordado",
+      "USfr": "broderie"
+    }
+  },
+  {
+    "n": "EmbroideredHandkerchief",
+    "icon": "Treasure_EmbroideredHandkerchief",
+    "l": {
+      "CNzh": "刺绣手帕",
+      "EUde": "Sticktaschentuch",
+      "EUen": "embroidered handkerchief",
+      "EUes": "pañuelo bordado",
+      "EUfr": "mouchoir brodé",
+      "EUit": "fazzoletto ricamato",
+      "EUnl": "geborduurde zakdoek",
+      "JPja": "刺繍のハンカチ",
+      "KRko": "자수 손수건",
+      "TWzh": "刺繡手帕",
+      "USen": "embroidered handkerchief",
+      "USes": "pañuelo bordado",
+      "USfr": "mouchoir brodé"
+    }
+  },
+  {
+    "n": "EngagementRing",
+    "icon": "Treasure_EngagementRing",
+    "l": {
+      "CNzh": "订婚戒指",
+      "EUde": "Trauring",
+      "EUen": "engagement ring",
+      "EUes": "anillo de compromiso",
+      "EUfr": "bague de fiançailles",
+      "EUit": "anello di fidanzamento",
+      "EUnl": "verlovingsring",
+      "JPja": "婚約指輪",
+      "KRko": "약혼반지",
+      "TWzh": "訂婚戒指",
+      "USen": "engagement ring",
+      "USes": "anillo de compromiso",
+      "USfr": "bague de fiançailles"
+    }
+  },
+  {
+    "n": "ExpensivePot",
+    "icon": "Treasure_ExpensivePot",
+    "l": {
+      "CNzh": "看似昂贵的壶",
+      "EUde": "Edelvase",
+      "EUen": "supposedly expensive vase",
+      "EUes": "jarrón valioso",
+      "EUfr": "vase précieux",
+      "EUit": "vaso pregiato",
+      "EUnl": "kostbare vaas",
+      "JPja": "高そうなツボ",
+      "KRko": "비싸 보이는 항아리",
+      "TWzh": "看起來很昂貴的壺",
+      "USen": "expensive-looking vase",
+      "USes": "jarrón lujoso",
+      "USfr": "vase précieux"
+    }
+  },
+  {
+    "n": "FamousMountainCalendar",
+    "icon": "Treasure_FamousMountainCalendar",
+    "l": {
+      "CNzh": "名山日历",
+      "EUde": "Bergkalender",
+      "EUen": "famous mountains calendar",
+      "EUes": "calendario de montañas",
+      "EUfr": "calendrier à montagnes",
+      "EUit": "calendario con monti famosi",
+      "EUnl": "bergkalender",
+      "JPja": "名山カレンダー",
+      "KRko": "명산 캘린더",
+      "TWzh": "名山月曆",
+      "USen": "famous-mountains calendar",
+      "USes": "calendario montañas famosas",
+      "USfr": "calendrier à montagnes"
+    }
+  },
+  {
+    "n": "Faucet",
+    "icon": "Treasure010",
+    "l": {
+      "CNzh": "水龙头",
+      "EUde": "Wasserhahn",
+      "EUen": "tap",
+      "EUes": "grifo",
+      "EUfr": "robinet",
+      "EUit": "rubinetto",
+      "EUnl": "kraan",
+      "JPja": "蛇口",
+      "KRko": "수도꼭지",
+      "TWzh": "水龍頭",
+      "USen": "faucet",
+      "USes": "grifo",
+      "USfr": "robinet"
+    }
+  },
+  {
+    "n": "GameAction",
+    "icon": "Treasure_GameAction",
+    "l": {
+      "CNzh": "格斗游戏",
+      "EUde": "Kampfspiel",
+      "EUen": "fighting game",
+      "EUes": "juego de lucha",
+      "EUfr": "jeu de combat",
+      "EUit": "gioco di lotta",
+      "EUnl": "vechtgame",
+      "JPja": "格闘ゲーム",
+      "KRko": "격투 게임",
+      "TWzh": "格鬥遊戲",
+      "USen": "fighting game",
+      "USes": "juego de pelea",
+      "USfr": "jeu de combat"
+    }
+  },
+  {
+    "n": "Lure",
+    "icon": "Treasure_Lure",
+    "l": {
+      "CNzh": "假饵",
+      "EUde": "Fischköder",
+      "EUen": "fishing lure",
+      "EUes": "señuelo de pesca",
+      "EUfr": "leurre",
+      "EUit": "esca",
+      "EUnl": "visaas",
+      "JPja": "ルアー",
+      "KRko": "낚시 루어",
+      "TWzh": "假餌",
+      "USen": "fishing lure",
+      "USes": "señuelo de pesca",
+      "USfr": "leurre"
+    }
+  },
+  {
+    "n": "Flamingo",
+    "icon": "Treasure_Flamingo",
+    "l": {
+      "CNzh": "火烈鸟",
+      "EUde": "Flamingo",
+      "EUen": "flamingo",
+      "EUes": "flamenco",
+      "EUfr": "flamant rose",
+      "EUit": "fenicottero",
+      "EUnl": "flamingo",
+      "JPja": "フラミンゴ",
+      "KRko": "플라밍고",
+      "TWzh": "紅鶴",
+      "USen": "flamingo",
+      "USes": "flamingo",
+      "USfr": "flamant rose"
+    }
+  },
+  {
+    "n": "Floppy",
+    "icon": "Treasure_Floppy",
+    "l": {
+      "CNzh": "软盘",
+      "EUde": "Diskette",
+      "EUen": "floppy disk",
+      "EUes": "disquete",
+      "EUfr": "disquette",
+      "EUit": "floppy disk",
+      "EUnl": "diskette",
+      "JPja": "フロッピーディスク",
+      "KRko": "플로피 디스크",
+      "TWzh": "磁片",
+      "USen": "floppy disk",
+      "USes": "disquete",
+      "USfr": "disquette"
+    }
+  },
+  {
+    "n": "FlySwatter",
+    "icon": "Treasure_FlySwatter",
+    "l": {
+      "CNzh": "苍蝇拍",
+      "EUde": "Fliegenklatsche",
+      "EUen": "fly swatter",
+      "EUes": "matamoscas",
+      "EUfr": "tapette à mouches",
+      "EUit": "scacciamosche",
+      "EUnl": "vliegenmepper",
+      "JPja": "ハエ叩き",
+      "KRko": "파리채",
+      "TWzh": "蒼蠅拍",
+      "USen": "flyswatter",
+      "USes": "matamoscas",
+      "USfr": "tapette à mouches"
+    }
+  },
+  {
+    "n": "Crover",
+    "icon": "Treasure016",
+    "l": {
+      "CNzh": "四叶草",
+      "EUde": "Glücksklee",
+      "EUen": "four-leaf clover",
+      "EUes": "trébol de cuatro hojas",
+      "EUfr": "trèfle à quatre feuilles",
+      "EUit": "quadrifoglio",
+      "EUnl": "klavertjevier",
+      "JPja": "四つ葉のクローバー",
+      "KRko": "네 잎 클로버",
+      "TWzh": "四葉草",
+      "USen": "four-leaf clover",
+      "USes": "trébol de cuatro hojas",
+      "USfr": "trèfle à quatre feuilles"
+    }
+  },
+  {
+    "n": "Nekojarashi",
+    "icon": "Treasure_Nekojarashi",
+    "l": {
+      "CNzh": "狗尾草",
+      "EUde": "Grün-Borstenhirse",
+      "EUen": "foxtail frond",
+      "EUes": "tallo de almorejo",
+      "EUfr": "sétaire verte",
+      "EUit": "fronda di coda di volpe",
+      "EUnl": "plantenstengel",
+      "JPja": "ネコじゃらし",
+      "KRko": "강아지풀",
+      "TWzh": "狗尾草",
+      "USen": "foxtail",
+      "USes": "cola de zorro",
+      "USfr": "sétaire verte"
+    }
+  },
+  {
+    "n": "Frog",
+    "icon": "Treasure_Frog",
+    "l": {
+      "CNzh": "青蛙",
+      "EUde": "Frosch",
+      "EUen": "frog",
+      "EUes": "rana",
+      "EUfr": "grenouille",
+      "EUit": "rana",
+      "EUnl": "kikker",
+      "JPja": "カエル",
+      "KRko": "개구리",
+      "TWzh": "青蛙",
+      "USen": "frog",
+      "USes": "rana",
+      "USfr": "grenouille"
+    }
+  },
+  {
+    "n": "BookManga",
+    "icon": "Treasure_BookManga",
+    "l": {
+      "CNzh": "搞笑漫画",
+      "EUde": "Lach-Comic",
+      "EUen": "comic",
+      "EUes": "cómic",
+      "EUfr": "bande dessinée comique",
+      "EUit": "fumetto",
+      "EUnl": "grappig stripverhaal",
+      "JPja": "ギャグ漫画",
+      "KRko": "개그 만화",
+      "TWzh": "搞笑漫畫",
+      "USen": "funny comic",
+      "USes": "cómic de humor",
+      "USfr": "bande dessinée comique"
+    }
+  },
+  {
+    "n": "Alien2",
+    "icon": "Treasure_Alien_02",
+    "l": {
+      "CNzh": "外星人γ",
+      "EUde": "Gamma-Alien",
+      "EUen": "gamma alien",
+      "EUes": "alienígena gamma",
+      "EUfr": "extraterrestre γ",
+      "EUit": "alieno gamma",
+      "EUnl": "gamma-alien",
+      "JPja": "宇宙人γ",
+      "KRko": "우주인γ",
+      "TWzh": "外星人γ",
+      "USen": "gamma alien",
+      "USes": "alienígena gamma",
+      "USfr": "extraterrestre γ"
+    }
+  },
+  {
+    "n": "GearParts",
+    "icon": "Treasure_GearParts",
+    "l": {
+      "CNzh": "齿轮",
+      "EUde": "Zahnräder",
+      "EUen": "cogs",
+      "EUes": "engranajes",
+      "EUfr": "roues d'engrenage",
+      "EUit": "ingranaggi",
+      "EUnl": "tandwielen",
+      "JPja": "歯車",
+      "KRko": "톱니바퀴",
+      "TWzh": "齒輪",
+      "USen": "gears",
+      "USes": "engranajes",
+      "USfr": "engrenage"
+    }
+  },
+  {
+    "n": "Ghost",
+    "icon": "Treasure_Ghost",
+    "l": {
+      "CNzh": "幽灵",
+      "EUde": "Gespenst",
+      "EUen": "ghost",
+      "EUes": "fantasma",
+      "EUfr": "fantôme",
+      "EUit": "fantasma",
+      "EUnl": "spook",
+      "JPja": "オバケ",
+      "KRko": "유령",
+      "TWzh": "幽靈",
+      "USen": "ghost",
+      "USes": "fantasma",
+      "USfr": "fantôme"
+    }
+  },
+  {
+    "n": "GlassZaiku",
+    "icon": "Treasure_GlassZaiku",
+    "l": {
+      "CNzh": "玻璃艺术品",
+      "EUde": "Glasornament",
+      "EUen": "cut-glass ornament",
+      "EUes": "figura de vidrio",
+      "EUfr": "bibelot",
+      "EUit": "soprammobile di vetro",
+      "EUnl": "glazen zwanenbeeldje",
+      "JPja": "ガラス細工",
+      "KRko": "유리 공예품",
+      "TWzh": "玻璃藝術品",
+      "USen": "glass ornament",
+      "USes": "adorno de vidrio",
+      "USfr": "bibelot"
+    }
+  },
+  {
+    "n": "TerrestrialGlobe",
+    "icon": "Treasure180",
+    "l": {
+      "CNzh": "地球仪",
+      "EUde": "Globus",
+      "EUen": "globe",
+      "EUes": "globo terráqueo",
+      "EUfr": "globe terrestre",
+      "EUit": "mappamondo",
+      "EUnl": "wereldbol",
+      "JPja": "地球儀",
+      "KRko": "지구본",
+      "TWzh": "地球儀",
+      "USen": "globe",
+      "USes": "globo terráqueo",
+      "USfr": "globe terrestre"
+    }
+  },
+  {
+    "n": "GoldBar",
+    "icon": "Treasure_GoldBar",
+    "l": {
+      "CNzh": "金条",
+      "EUde": "Goldbarren",
+      "EUen": "gold ingot",
+      "EUes": "lingote de oro",
+      "EUfr": "lingot d'or",
+      "EUit": "lingotto d'oro",
+      "EUnl": "goudstaaf",
+      "JPja": "金の延べ棒",
+      "KRko": "금괴",
+      "TWzh": "金條",
+      "USen": "gold bar",
+      "USes": "lingote de oro",
+      "USfr": "lingot d'or"
+    }
+  },
+  {
+    "n": "CoinGold",
+    "icon": "Treasure_CoinGold",
+    "l": {
+      "CNzh": "金币",
+      "EUde": "Goldmünze",
+      "EUen": "gold coin",
+      "EUes": "moneda de oro",
+      "EUfr": "pièce d'or",
+      "EUit": "moneta d'oro",
+      "EUnl": "gouden munt",
+      "JPja": "金貨",
+      "KRko": "금화",
+      "TWzh": "金幣",
+      "USen": "gold coin",
+      "USes": "moneda de oro",
+      "USfr": "pièce d'or"
+    }
+  },
+  {
+    "n": "BrushGold",
+    "icon": "Treasure_BrushGold",
+    "l": {
+      "CNzh": "金笔",
+      "EUde": "Goldpalette",
+      "EUen": "gold palette",
+      "EUes": "paleta de oro",
+      "EUfr": "palette d'or",
+      "EUit": "tavolozza d'oro",
+      "EUnl": "gouden schilderspalet",
+      "JPja": "金の筆",
+      "KRko": "금 붓",
+      "TWzh": "金筆",
+      "USen": "gold palette",
+      "USes": "paleta de oro",
+      "USfr": "palette d'or"
+    }
+  },
+  {
+    "n": "SpeechBubbleGold",
+    "icon": "Treasure_SpeechBubbleGold",
+    "l": {
+      "CNzh": "金对话框",
+      "EUde": "Gold-Sprechblase",
+      "EUen": "gold speech bubble",
+      "EUes": "bocadillo de oro",
+      "EUfr": "bulle d'or",
+      "EUit": "fumetto d'oro",
+      "EUnl": "gouden tekstballon",
+      "JPja": "金のフキダシ",
+      "KRko": "금 말풍선",
+      "TWzh": "金對話框",
+      "USen": "gold speech bubble",
+      "USes": "globo de diálogo de oro",
+      "USfr": "bulle d'or"
+    }
+  },
+  {
+    "n": "TrophyGold",
+    "icon": "Treasure034",
+    "l": {
+      "CNzh": "金奖杯",
+      "EUde": "Goldtrophäe",
+      "EUen": "gold trophy",
+      "EUes": "trofeo de oro",
+      "EUfr": "trophée d'or",
+      "EUit": "trofeo d'oro",
+      "EUnl": "gouden trofee",
+      "JPja": "金のトロフィー",
+      "KRko": "금 트로피",
+      "TWzh": "金獎盃",
+      "USen": "gold trophy",
+      "USes": "trofeo de oro",
+      "USfr": "trophée d'or"
+    }
+  },
+  {
+    "n": "Goldfish",
+    "icon": "Treasure_Goldfish",
+    "l": {
+      "CNzh": "金鱼",
+      "EUde": "Goldfisch",
+      "EUen": "goldfish",
+      "EUes": "pez dorado",
+      "EUfr": "poisson rouge",
+      "EUit": "pesce rosso",
+      "EUnl": "goudvis",
+      "JPja": "金魚",
+      "KRko": "금붕어",
+      "TWzh": "金魚",
+      "USen": "goldfish",
+      "USes": "pez dorado",
+      "USfr": "poisson rouge"
+    }
+  },
+  {
+    "n": "Hamster",
+    "icon": "Treasure_Hamster",
+    "l": {
+      "CNzh": "仓鼠",
+      "EUde": "Hamster",
+      "EUen": "hamster",
+      "EUes": "hámster",
+      "EUfr": "hamster",
+      "EUit": "criceto",
+      "EUnl": "hamster",
+      "JPja": "ハムスター",
+      "KRko": "햄스터",
+      "TWzh": "倉鼠",
+      "USen": "hamster",
+      "USes": "hámster",
+      "USfr": "hamster"
+    }
+  },
+  {
+    "n": "HandMirror",
+    "icon": "Treasure_HandMirror",
+    "l": {
+      "CNzh": "手持镜",
+      "EUde": "Taschenspiegel",
+      "EUen": "hand mirror",
+      "EUes": "espejo de mano",
+      "EUfr": "miroir à main",
+      "EUit": "specchio da mano",
+      "EUnl": "handspiegel",
+      "JPja": "手鏡",
+      "KRko": "손거울",
+      "TWzh": "隨身鏡",
+      "USen": "hand mirror",
+      "USes": "espejo de mano",
+      "USfr": "miroir à main"
+    }
+  },
+  {
+    "n": "HawaiiKeyChain",
+    "icon": "Treasure124",
+    "l": {
+      "CNzh": "夏威夷钥匙圈",
+      "EUde": "Hawaii-Schlüsselanhänger",
+      "EUen": "Hawaiian key ring",
+      "EUes": "llavero de Hawái",
+      "EUfr": "porte-clé hawaïen",
+      "EUit": "portachiavi hawaiano",
+      "EUnl": "hawaïsleutelhanger",
+      "JPja": "ハワイのキーホルダー",
+      "KRko": "하와이 열쇠고리",
+      "TWzh": "夏威夷鑰匙圈",
+      "USen": "Hawaiian key chain",
+      "USes": "llavero hawaiano",
+      "USfr": "porte-clé hawaïen"
+    }
+  },
+  {
+    "n": "Hedgehog",
+    "icon": "Treasure_Hedgehog",
+    "l": {
+      "CNzh": "刺猬",
+      "EUde": "Igel",
+      "EUen": "hedgehog",
+      "EUes": "erizo",
+      "EUfr": "hérisson",
+      "EUit": "riccio",
+      "EUnl": "egel",
+      "JPja": "ハリネズミ",
+      "KRko": "고슴도치",
+      "TWzh": "刺蝟",
+      "USen": "hedgehog",
+      "USes": "erizo",
+      "USfr": "hérisson"
+    }
+  },
+  {
+    "n": "Beetle",
+    "icon": "Treasure_Beetle",
+    "l": {
+      "CNzh": "长戟大兜虫",
+      "EUde": "Herkuleskäfer",
+      "EUen": "Hercules beetle",
+      "EUes": "escarabajo hércules",
+      "EUfr": "dynaste Hercule",
+      "EUit": "scarabeo Ercole",
+      "EUnl": "herculeskever",
+      "JPja": "ヘラクレスオオカブト",
+      "KRko": "헤라클레스장수풍뎅이",
+      "TWzh": "長戟大兜蟲",
+      "USen": "Hercules beetle",
+      "USes": "escarabajo hércules",
+      "USfr": "dynaste Hercule"
+    }
+  },
+  {
+    "n": "PlasterFigure",
+    "icon": "Treasure162",
+    "l": {
+      "CNzh": "胸像",
+      "EUde": "Antik-Büste",
+      "EUen": "historical bust",
+      "EUes": "busto",
+      "EUfr": "buste",
+      "EUit": "busto",
+      "EUnl": "buste",
+      "JPja": "半身像",
+      "KRko": "석고상",
+      "TWzh": "胸像",
+      "USen": "historical bust",
+      "USes": "busto histórico",
+      "USfr": "buste"
+    }
+  },
+  {
+    "n": "BookhHistorical",
+    "icon": "Treasure_BookHistorical",
+    "l": {
+      "CNzh": "古文书",
+      "EUde": "Buch aus dem Antiquariat",
+      "EUen": "historical document",
+      "EUes": "libro antiguo",
+      "EUfr": "livre ancien",
+      "EUit": "documento storico",
+      "EUnl": "historisch document",
+      "JPja": "古文書",
+      "KRko": "고문서",
+      "TWzh": "古文書",
+      "USen": "historical document",
+      "USes": "libro antiguo",
+      "USfr": "livre ancien"
+    }
+  },
+  {
+    "n": "GameHorror",
+    "icon": "Treasure_GameHorror",
+    "l": {
+      "CNzh": "恐怖游戏",
+      "EUde": "Gruselspiel",
+      "EUen": "horror game",
+      "EUes": "juego de terror",
+      "EUfr": "jeu d'horreur",
+      "EUit": "gioco horror",
+      "EUnl": "horrorgame",
+      "JPja": "ホラーゲーム",
+      "KRko": "공포 게임",
+      "TWzh": "恐怖遊戲",
+      "USen": "horror game",
+      "USes": "juego de terror",
+      "USfr": "jeu d'horreur"
+    }
+  },
+  {
+    "n": "DVDHorror",
+    "icon": "Treasure_DVDHorror",
+    "l": {
+      "CNzh": "恐怖电影",
+      "EUde": "Horrorfilm",
+      "EUen": "horror film",
+      "EUes": "película de terror",
+      "EUfr": "film d'horreur",
+      "EUit": "film horror",
+      "EUnl": "horrorfilm",
+      "JPja": "ホラー映画",
+      "KRko": "공포 영화",
+      "TWzh": "恐怖電影",
+      "USen": "horror movie",
+      "USes": "película de terror",
+      "USfr": "film d'horreur"
+    }
+  },
+  {
+    "n": "BookHorror",
+    "icon": "Treasure_BookHorror",
+    "l": {
+      "CNzh": "恐怖小说",
+      "EUde": "Gruselroman",
+      "EUen": "horror novel",
+      "EUes": "novela de terror",
+      "EUfr": "roman d'horreur",
+      "EUit": "romanzo horror",
+      "EUnl": "griezelboek",
+      "JPja": "ホラー小説",
+      "KRko": "공포 소설",
+      "TWzh": "恐怖小說",
+      "USen": "horror novel",
+      "USes": "novela de terror",
+      "USfr": "roman d'horreur"
+    }
+  },
+  {
+    "n": "Horse",
+    "icon": "Treasure_Horse",
+    "l": {
+      "CNzh": "马",
+      "EUde": "Pferd",
+      "EUen": "horse",
+      "EUes": "caballo",
+      "EUfr": "cheval",
+      "EUit": "cavallo",
+      "EUnl": "paard",
+      "JPja": "ウマ",
+      "KRko": "말",
+      "TWzh": "馬",
+      "USen": "horse",
+      "USes": "caballo",
+      "USfr": "cheval"
+    }
+  },
+  {
+    "n": "Sandglass",
+    "icon": "Treasure027",
+    "l": {
+      "CNzh": "沙漏",
+      "EUde": "Sanduhr",
+      "EUen": "hourglass",
+      "EUes": "reloj de arena",
+      "EUfr": "sablier",
+      "EUit": "clessidra",
+      "EUnl": "zandloper",
+      "JPja": "砂時計",
+      "KRko": "모래시계",
+      "TWzh": "沙漏",
+      "USen": "hourglass",
+      "USes": "reloj de arena",
+      "USfr": "sablier"
+    }
+  },
+  {
+    "n": "IncenseBurner",
+    "icon": "Treasure_IncenseBurner",
+    "l": {
+      "CNzh": "香炉",
+      "EUde": "Räuchergefäß",
+      "EUen": "incense burner",
+      "EUes": "quemador de incienso",
+      "EUfr": "brûle-encens",
+      "EUit": "bruciatore d'incenso",
+      "EUnl": "wierookbrander",
+      "JPja": "香炉",
+      "KRko": "향로",
+      "TWzh": "香爐",
+      "USen": "incense burner",
+      "USes": "quemador de incienso",
+      "USfr": "encensoir"
+    }
+  },
+  {
+    "n": "InsectSpecimen",
+    "icon": "Treasure_InsectSpecimen",
+    "l": {
+      "CNzh": "昆虫标本",
+      "EUde": "Insektensammlung",
+      "EUen": "insect collection",
+      "EUes": "colección de insectos",
+      "EUfr": "collection d'insectes",
+      "EUit": "collezione d'insetti",
+      "EUnl": "insectenverzameling",
+      "JPja": "昆虫標本",
+      "KRko": "곤충 표본",
+      "TWzh": "昆蟲標本",
+      "USen": "insect collection",
+      "USes": "colección de insectos",
+      "USfr": "collection d'insectes"
+    }
+  },
+  {
+    "n": "CDIdol",
+    "icon": "Treasure_CDIdol",
+    "l": {
+      "CNzh": "偶像唱片",
+      "EUde": "Pop-Idol-Album",
+      "EUen": "pop idol album",
+      "EUes": "álbum de estrella del pop",
+      "EUfr": "album de girls band",
+      "EUit": "album di musica idol",
+      "EUnl": "popsterrenalbum",
+      "JPja": "アイドルのレコード",
+      "KRko": "아이돌 LP",
+      "TWzh": "偶像唱片",
+      "USen": "J-pop album",
+      "USes": "disco de música pop japonesa",
+      "USfr": "album de vedette"
+    }
+  },
+  {
+    "n": "CDJazz",
+    "icon": "Treasure_CDJazz",
+    "l": {
+      "CNzh": "爵士乐唱片",
+      "EUde": "Jazz-Album",
+      "EUen": "jazz album",
+      "EUes": "álbum de jazz",
+      "EUfr": "album de jazz",
+      "EUit": "album jazz",
+      "EUnl": "jazzalbum",
+      "JPja": "ジャズのレコード",
+      "KRko": "재즈 LP",
+      "TWzh": "爵士樂唱片",
+      "USen": "jazz album",
+      "USes": "disco de jazz",
+      "USfr": "album de jazz"
+    }
+  },
+  {
+    "n": "Jellyfish",
+    "icon": "Treasure_Jellyfish",
+    "l": {
+      "CNzh": "水母",
+      "EUde": "Qualle",
+      "EUen": "jellyfish",
+      "EUes": "medusa",
+      "EUfr": "méduse",
+      "EUit": "medusa",
+      "EUnl": "kwal",
+      "JPja": "クラゲ",
+      "KRko": "해파리",
+      "TWzh": "水母",
+      "USen": "jellyfish",
+      "USes": "medusa",
+      "USfr": "méduse"
+    }
+  },
+  {
+    "n": "JewelleryBox",
+    "icon": "Treasure166",
+    "l": {
+      "CNzh": "珠宝盒",
+      "EUde": "Schmuckkästchen",
+      "EUen": "jewellery box",
+      "EUes": "joyero",
+      "EUfr": "boîte à bijoux",
+      "EUit": "portagioie",
+      "EUnl": "juwelenkistje",
+      "JPja": "宝石箱",
+      "KRko": "보석 상자",
+      "TWzh": "寶石箱",
+      "USen": "jewelry box",
+      "USes": "joyero",
+      "USfr": "boîte à bijoux"
+    }
+  },
+  {
+    "n": "JomonPottery",
+    "icon": "Treasure_JomonPottery",
+    "l": {
+      "CNzh": "绳文陶器",
+      "EUde": "Jōmon-Tongefäß",
+      "EUen": "Jōmon-era pottery",
+      "EUes": "jarrón Jōmon",
+      "EUfr": "poterie Jōmon",
+      "EUit": "vaso del periodo Jōmon",
+      "EUnl": "Jomonvaas",
+      "JPja": "縄文土器",
+      "KRko": "조몬 토기",
+      "TWzh": "繩文陶器",
+      "USen": "Jōmon-period pottery",
+      "USes": "jarrón Jomon",
+      "USfr": "poterie Jōmon"
+    }
+  },
+  {
+    "n": "Kangaroo",
+    "icon": "Treasure_Kangaroo",
+    "l": {
+      "CNzh": "袋鼠",
+      "EUde": "Känguru",
+      "EUen": "kangaroo",
+      "EUes": "canguro",
+      "EUfr": "kangourou",
+      "EUit": "canguro",
+      "EUnl": "kangoeroe",
+      "JPja": "カンガルー",
+      "KRko": "캥거루",
+      "TWzh": "袋鼠",
+      "USen": "kangaroo",
+      "USes": "canguro",
+      "USfr": "kangourou"
+    }
+  },
+  {
+    "n": "KeseranPasaran",
+    "icon": "Treasure_KeseranPasaran",
+    "l": {
+      "CNzh": "凯瑟朗帕瑟朗",
+      "EUde": "Keseran-Pasaran",
+      "EUen": "Keseran-Pasaran",
+      "EUes": "espíritu Keseran Pasaran",
+      "EUfr": "keseran-pasaran",
+      "EUit": "Keseran-pasaran",
+      "EUnl": "Keseran-Pasaran",
+      "JPja": "ケセランパサラン",
+      "KRko": "엔젤 헤어",
+      "TWzh": "凱瑟朗帕瑟朗",
+      "USen": "Keseran-Pasaran",
+      "USes": "Keseran-Pasaran",
+      "USfr": "keseran-pasaran"
+    }
+  },
+  {
+    "n": "Kettle",
+    "icon": "Treasure071",
+    "l": {
+      "CNzh": "烧水壶",
+      "EUde": "Teekanne",
+      "EUen": "kettle",
+      "EUes": "tetera",
+      "EUfr": "bouilloire",
+      "EUit": "teiera",
+      "EUnl": "waterketel",
+      "JPja": "やかん",
+      "KRko": "주전자",
+      "TWzh": "茶壺",
+      "USen": "kettle",
+      "USes": "tetera",
+      "USfr": "bouilloire"
+    }
+  },
+  {
+    "n": "KoalaStuffedToy",
+    "icon": "Treasure_KoalaStuffedToy",
+    "l": {
+      "CNzh": "树袋熊布偶",
+      "EUde": "Kuschel-Koala",
+      "EUen": "koala cuddly toy",
+      "EUes": "koala de peluche",
+      "EUfr": "peluche de koala",
+      "EUit": "koala di peluche",
+      "EUnl": "koalaknuffel",
+      "JPja": "コアラのぬいぐるみ",
+      "KRko": "코알라 인형",
+      "TWzh": "無尾熊布偶",
+      "USen": "koala plush",
+      "USes": "koala de peluche",
+      "USfr": "toutou de koala"
+    }
+  },
+  {
+    "n": "KokeshiDoll",
+    "icon": "Treasure_KokeshiDoll",
+    "l": {
+      "CNzh": "木芥子",
+      "EUde": "Kokeshi-Püppchen",
+      "EUen": "kokeshi doll",
+      "EUes": "muñeca kokeshi",
+      "EUfr": "poupée kokeshi",
+      "EUit": "bambola kokeshi",
+      "EUnl": "kokeshi-pop",
+      "JPja": "こけし",
+      "KRko": "목각 인형",
+      "TWzh": "木芥子娃娃",
+      "USen": "kokeshi doll",
+      "USes": "muñeca kokeshi",
+      "USfr": "poupée kokeshi"
+    }
+  },
+  {
+    "n": "LightBulb",
+    "icon": "Treasure_LightBulb",
+    "l": {
+      "CNzh": "灯泡",
+      "EUde": "Glühbirne",
+      "EUen": "lightbulb",
+      "EUes": "bombilla",
+      "EUfr": "ampoule électrique",
+      "EUit": "lampadina",
+      "EUnl": "lichtpeer",
+      "JPja": "電球",
+      "KRko": "전구",
+      "TWzh": "燈泡",
+      "USen": "light bulb",
+      "USes": "bombilla",
+      "USfr": "ampoule électrique"
+    }
+  },
+  {
+    "n": "Lion",
+    "icon": "Treasure_Lion",
+    "l": {
+      "CNzh": "狮子",
+      "EUde": "Löwe",
+      "EUen": "lion",
+      "EUes": "león",
+      "EUfr": "lion",
+      "EUit": "leone",
+      "EUnl": "leeuw",
+      "JPja": "ライオン",
+      "KRko": "사자",
+      "TWzh": "獅子",
+      "USen": "lion",
+      "USes": "león",
+      "USfr": "lion"
+    }
+  },
+  {
+    "n": "DVDLive",
+    "icon": "Treasure_DVDLive",
+    "l": {
+      "CNzh": "演唱会影片",
+      "EUde": "Konzertvideo",
+      "EUen": "live concert video",
+      "EUes": "vídeo de un concierto",
+      "EUfr": "concert",
+      "EUit": "video di un concerto",
+      "EUnl": "concertopname",
+      "JPja": "ライブ映像",
+      "KRko": "라이브 영상",
+      "TWzh": "演唱會影片",
+      "USen": "live-concert video",
+      "USes": "concierto en vivo",
+      "USfr": "concert"
+    }
+  },
+  {
+    "n": "OneEarphoneIsMisissing",
+    "icon": "Treasure_OneEarphoneIsMisissing",
+    "l": {
+      "CNzh": "剩余单边耳机",
+      "EUde": "Einzelkopfhörer",
+      "EUen": "solitary earbud",
+      "EUes": "caja con un auricular",
+      "EUfr": "écouteur sans fil solitaire",
+      "EUit": "auricolare solitario",
+      "EUnl": "doosje met één oordopje",
+      "JPja": "片方なくしたイヤホン",
+      "KRko": "한쪽을 잃어버린 이어폰",
+      "TWzh": "弄丟一邊的耳機",
+      "USen": "lonely earbud",
+      "USes": "audífono solitario",
+      "USfr": "écouteur sans fil solitaire"
+    }
+  },
+  {
+    "n": "Loofah",
+    "icon": "Treasure028",
+    "l": {
+      "CNzh": "丝瓜布",
+      "EUde": "Luffa",
+      "EUen": "loofah",
+      "EUes": "esponja vegetal",
+      "EUfr": "éponge luffa",
+      "EUit": "spugna di luffa",
+      "EUnl": "luffa",
+      "JPja": "ヘチマスポンジ",
+      "KRko": "천연 수세미",
+      "TWzh": "絲瓜布",
+      "USen": "loofah",
+      "USes": "esponja de lufa",
+      "USfr": "éponge luffa"
+    }
+  },
+  {
+    "n": "BookLove",
+    "icon": "Treasure_BookLove",
+    "l": {
+      "CNzh": "言情小说",
+      "EUde": "Liebesroman",
+      "EUen": "love story",
+      "EUes": "novela romántica",
+      "EUfr": "roman d'amour",
+      "EUit": "romanzo d'amore",
+      "EUnl": "liefdesverhaal",
+      "JPja": "恋愛小説",
+      "KRko": "연애 소설",
+      "TWzh": "戀愛小說",
+      "USen": "love story",
+      "USes": "historia de amor",
+      "USfr": "roman d'amour"
+    }
+  },
+  {
+    "n": "LuckyCat",
+    "icon": "Treasure053",
+    "l": {
+      "CNzh": "招财猫",
+      "EUde": "Winkekatze",
+      "EUen": "lucky cat",
+      "EUes": "gato de la fortuna",
+      "EUfr": "chat porte-bonheur",
+      "EUit": "gatto portafortuna",
+      "EUnl": "gelukskatje",
+      "JPja": "招き猫",
+      "KRko": "복고양이",
+      "TWzh": "招財貓",
+      "USen": "lucky cat",
+      "USes": "gato de la suerte",
+      "USfr": "chat porte-bonheur"
+    }
+  },
+  {
+    "n": "MagnifyingGlass",
+    "icon": "Treasure107",
+    "l": {
+      "CNzh": "放大镜",
+      "EUde": "Lupe",
+      "EUen": "magnifying glass",
+      "EUes": "lupa",
+      "EUfr": "loupe",
+      "EUit": "lente d'ingrandimento",
+      "EUnl": "vergrootglas",
+      "JPja": "虫メガネ",
+      "KRko": "돋보기",
+      "TWzh": "放大鏡",
+      "USen": "magnifying glass",
+      "USes": "lupa",
+      "USfr": "loupe"
+    }
+  },
+  {
+    "n": "MahjongTile",
+    "icon": "Treasure011",
+    "l": {
+      "CNzh": "麻将牌",
+      "EUde": "Mahjongg-Spielstein",
+      "EUen": "mah‑jong tile",
+      "EUes": "pieza de mahjong",
+      "EUfr": "tuile de mah-jong",
+      "EUit": "tessera del mah‑jong",
+      "EUnl": "mahjongsteen",
+      "JPja": "麻雀牌",
+      "KRko": "마작 패",
+      "TWzh": "麻將牌",
+      "USen": "mahjong tile",
+      "USes": "pieza de mahjong",
+      "USfr": "tuile de mah-jong"
+    }
+  },
+  {
+    "n": "MakeupBox",
+    "icon": "Treasure_MakeupBox",
+    "l": {
+      "CNzh": "化妆盒",
+      "EUde": "Kosmetikkoffer",
+      "EUen": "make-up box",
+      "EUes": "kit de maquillaje",
+      "EUfr": "boîte de maquillage",
+      "EUit": "set di trucchi",
+      "EUnl": "make-upkoffer",
+      "JPja": "メイクボックス",
+      "KRko": "메이크업 박스",
+      "TWzh": "化妝盒",
+      "USen": "makeup box",
+      "USes": "kit de maquillaje",
+      "USfr": "boîte de maquillage"
+    }
+  },
+  {
+    "n": "MapleSyrupSamplingPort",
+    "icon": "Treasure_MapleSyrupSamplingPort",
+    "l": {
+      "CNzh": "枫糖浆采收口",
+      "EUde": "Ahornsaftzapfen",
+      "EUen": "maple syrup tap",
+      "EUes": "extractor de savia de arce",
+      "EUfr": "chalumeau à sirop d'érable",
+      "EUit": "estrattore di linfa d'acero",
+      "EUnl": "boomsaptap",
+      "JPja": "メープルシロップの採取口",
+      "KRko": "메이플 시럽 채취구",
+      "TWzh": "楓糖漿採收口",
+      "USen": "maple-syrup tap",
+      "USes": "extractor de savia de arce",
+      "USfr": "chalumeau d'érable"
+    }
+  },
+  {
+    "n": "Marble",
+    "icon": "Treasure021",
+    "l": {
+      "CNzh": "弹珠",
+      "EUde": "Murmel",
+      "EUen": "marble",
+      "EUes": "canica",
+      "EUfr": "bille",
+      "EUit": "biglia",
+      "EUnl": "knikker",
+      "JPja": "ビー玉",
+      "KRko": "구슬",
+      "TWzh": "彈珠",
+      "USen": "marble",
+      "USes": "canica",
+      "USfr": "bille"
+    }
+  },
+  {
+    "n": "Marionette",
+    "icon": "Treasure113",
+    "l": {
+      "CNzh": "提线木偶",
+      "EUde": "Marionette",
+      "EUen": "marionette",
+      "EUes": "marioneta",
+      "EUfr": "pantin",
+      "EUit": "marionetta",
+      "EUnl": "marionet",
+      "JPja": "あやつり人形",
+      "KRko": "꼭두각시 인형",
+      "TWzh": "提線木偶",
+      "USen": "marionette",
+      "USes": "marioneta",
+      "USfr": "marionnette"
+    }
+  },
+  {
+    "n": "MartianStone",
+    "icon": "Treasure122",
+    "l": {
+      "CNzh": "火星岩石",
+      "EUde": "Marsgesteinsbrocken",
+      "EUen": "Martian rock",
+      "EUes": "roca de Marte",
+      "EUfr": "caillou de Mars",
+      "EUit": "pietra marziana",
+      "EUnl": "brok Marsgesteente",
+      "JPja": "火星の石",
+      "KRko": "화성의 돌멩이",
+      "TWzh": "火星岩石",
+      "USen": "martian rock",
+      "USes": "roca marciana",
+      "USfr": "caillou de Mars"
+    }
+  },
+  {
+    "n": "MessageBottle",
+    "icon": "Treasure_MessageBottle",
+    "l": {
+      "CNzh": "漂流瓶",
+      "EUde": "Flaschenpost",
+      "EUen": "message in a bottle",
+      "EUes": "botella con mensaje",
+      "EUfr": "message dans une bouteille",
+      "EUit": "messaggio in bottiglia",
+      "EUnl": "flessenpost",
+      "JPja": "メッセージボトル",
+      "KRko": "메시지 보틀",
+      "TWzh": "瓶中信",
+      "USen": "message in a bottle",
+      "USes": "botella con mensaje",
+      "USfr": "message dans une bouteille"
+    }
+  },
+  {
+    "n": "MiniCar",
+    "icon": "Treasure_MiniCar",
+    "l": {
+      "CNzh": "迷你车",
+      "EUde": "Modellauto",
+      "EUen": "miniature car",
+      "EUes": "coche en miniatura",
+      "EUfr": "petite voiture",
+      "EUit": "auto in miniatura",
+      "EUnl": "modelauto",
+      "JPja": "ミニカー",
+      "KRko": "미니 카",
+      "TWzh": "迷你車",
+      "USen": "mini car",
+      "USes": "miniauto",
+      "USfr": "petite voiture"
+    }
+  },
+  {
+    "n": "TrainModel",
+    "icon": "Treasure_TrainModel",
+    "l": {
+      "CNzh": "火车模型",
+      "EUde": "Modelldampflok",
+      "EUen": "model train",
+      "EUes": "tren en miniatura",
+      "EUfr": "locomotive miniature",
+      "EUit": "modellino di treno",
+      "EUnl": "modeltrein",
+      "JPja": "列車の模型",
+      "KRko": "열차 모형",
+      "TWzh": "火車模型",
+      "USen": "model train",
+      "USes": "modelo de tren",
+      "USfr": "train miniature"
+    }
+  },
+  {
+    "n": "MosquitoCoil",
+    "icon": "Treasure087",
+    "l": {
+      "CNzh": "蚊香",
+      "EUde": "Mückenspirale",
+      "EUen": "mosquito coil",
+      "EUes": "incienso antimosquitos",
+      "EUfr": "spirale anti-moustiques",
+      "EUit": "zampirone",
+      "EUnl": "anti-muggenspiraal",
+      "JPja": "蚊取り線香",
+      "KRko": "모기향",
+      "TWzh": "蚊香",
+      "USen": "mosquito coil",
+      "USes": "espiral contra mosquitos",
+      "USfr": "spirale anti-moustiques"
+    }
+  },
+  {
+    "n": "MysteriousLiquid",
+    "icon": "Treasure_MysteriousLiquid",
+    "l": {
+      "CNzh": "神秘液体",
+      "EUde": "Wunderflüssigkeit",
+      "EUen": "mysterious solution",
+      "EUes": "matraz misterioso",
+      "EUfr": "liquide mystérieux",
+      "EUit": "soluzione misteriosa",
+      "EUnl": "mysterieus goedje",
+      "JPja": "謎の液体",
+      "KRko": "수수께끼의 액체",
+      "TWzh": "神秘液體",
+      "USen": "mysterious liquid",
+      "USes": "líquido misterioso",
+      "USfr": "liquide mystérieux"
+    }
+  },
+  {
+    "n": "NailPolish",
+    "icon": "Treasure_NailPolish",
+    "l": {
+      "CNzh": "指甲油",
+      "EUde": "Nagellack",
+      "EUen": "bottle of nail polish",
+      "EUes": "pintaúñas",
+      "EUfr": "vernis à ongles",
+      "EUit": "smalto per unghie",
+      "EUnl": "nagellak",
+      "JPja": "マニキュア",
+      "KRko": "매니큐어",
+      "TWzh": "指甲油",
+      "USen": "nail polish",
+      "USes": "esmalte de uñas",
+      "USfr": "vernis à ongles"
+    }
+  },
+  {
+    "n": "NatureDVD",
+    "icon": "Treasure_DVDNature",
+    "l": {
+      "CNzh": "大自然的影片",
+      "EUde": "Naturvideo",
+      "EUen": "nature documentary",
+      "EUes": "documental de naturaleza",
+      "EUfr": "documentaire animalier",
+      "EUit": "documentario naturalistico",
+      "EUnl": "natuurfilm",
+      "JPja": "大自然の映像",
+      "KRko": "대자연의 영상",
+      "TWzh": "大自然的影片",
+      "USen": "nature video",
+      "USes": "documental de naturaleza",
+      "USfr": "documentaire animalier"
+    }
+  },
+  {
+    "n": "Octahydrone",
+    "icon": "Treasure_Octahydrone",
+    "l": {
+      "CNzh": "正八面体石",
+      "EUde": "Doppelpyramidenstein",
+      "EUen": "octahedral stone",
+      "EUes": "octaedro de cristal",
+      "EUfr": "pierre octaèdre",
+      "EUit": "cristallo ottaedrico",
+      "EUnl": "achtvlakkig kristal",
+      "JPja": "正八面体の石",
+      "KRko": "정팔면체 돌",
+      "TWzh": "正八面體石",
+      "USen": "octahedral stone",
+      "USes": "octaedro de cristal",
+      "USfr": "pierre octaèdre"
+    }
+  },
+  {
+    "n": "Octopus",
+    "icon": "Treasure_Octopus",
+    "l": {
+      "CNzh": "章鱼",
+      "EUde": "Tintenfisch",
+      "EUen": "octopus",
+      "EUes": "pulpo",
+      "EUfr": "poulpe",
+      "EUit": "polpo",
+      "EUnl": "octopus",
+      "JPja": "タコ",
+      "KRko": "문어",
+      "TWzh": "章魚",
+      "USen": "octopus",
+      "USes": "pulpo",
+      "USfr": "poulpe"
+    }
+  },
+  {
+    "n": "OliveSoap",
+    "icon": "Treasure_OliveSoap",
+    "l": {
+      "CNzh": "橄榄油皂",
+      "EUde": "Olivenöl-Seife",
+      "EUen": "bar of olive oil soap",
+      "EUes": "jabón de aceite de oliva",
+      "EUfr": "savon à l'huile d'olive",
+      "EUit": "sapone all'olio d'oliva",
+      "EUnl": "olijfoliezeep",
+      "JPja": "オリーブ石鹸",
+      "KRko": "올리브 비누",
+      "TWzh": "橄欖肥皂",
+      "USen": "olive-oil soap",
+      "USes": "jabón de aceite de oliva",
+      "USfr": "savon à l'huile d'olive"
+    }
+  },
+  {
+    "n": "Amulet",
+    "icon": "Treasure067",
+    "l": {
+      "CNzh": "护身符",
+      "EUde": "Talisman",
+      "EUen": "good-luck charm",
+      "EUes": "amuleto japonés",
+      "EUfr": "amulette japonaise",
+      "EUit": "amuleto portafortuna",
+      "EUnl": "Japanse geluksbrenger",
+      "JPja": "お守り",
+      "KRko": "주머니 부적",
+      "TWzh": "護身符",
+      "USen": "omamori",
+      "USes": "amuleto de buena suerte",
+      "USfr": "amulette japonaise"
+    }
+  },
+  {
+    "n": "Ticket",
+    "icon": "Treasure_Ticket",
+    "l": {
+      "CNzh": "单程票",
+      "EUde": "Einzelfahrschein",
+      "EUen": "one-way ticket",
+      "EUes": "billete de ida",
+      "EUfr": "billet aller simple",
+      "EUit": "biglietto di sola andata",
+      "EUnl": "enkeltje",
+      "JPja": "片道切符",
+      "KRko": "편도 티켓",
+      "TWzh": "單程票",
+      "USen": "one-way ticket",
+      "USes": "boleto de ida",
+      "USfr": "billet aller simple"
+    }
+  },
+  {
+    "n": "PaperCrane",
+    "icon": "Treasure054",
+    "l": {
+      "CNzh": "纸鹤",
+      "EUde": "Origami-Kranich",
+      "EUen": "origami crane",
+      "EUes": "grulla de origami",
+      "EUfr": "grue en origami",
+      "EUit": "origami",
+      "EUnl": "origami-kraanvogel",
+      "JPja": "折り鶴",
+      "KRko": "종이학",
+      "TWzh": "紙鶴",
+      "USen": "origami crane",
+      "USes": "grulla de origami",
+      "USfr": "grue en origami"
+    }
+  },
+  {
+    "n": "Bill",
+    "icon": "Treasure_Bill",
+    "l": {
+      "CNzh": "符纸",
+      "EUde": "Papiertalisman",
+      "EUen": "paper talisman",
+      "EUes": "pergamino antiguo",
+      "EUfr": "talisman en papier",
+      "EUit": "talismano di carta",
+      "EUnl": "papieren talisman",
+      "JPja": "お札",
+      "KRko": "부적",
+      "TWzh": "符紙",
+      "USen": "paper talisman",
+      "USes": "pergamino antiguo",
+      "USfr": "talisman en papier"
+    }
+  },
+  {
+    "n": "Parakeet",
+    "icon": "Treasure_Parakeet",
+    "l": {
+      "CNzh": "鹦鹉",
+      "EUde": "Wellensittich",
+      "EUen": "budgie",
+      "EUes": "periquito",
+      "EUfr": "perruche",
+      "EUit": "pappagallo",
+      "EUnl": "parkiet",
+      "JPja": "インコ",
+      "KRko": "잉꼬",
+      "TWzh": "鸚鵡",
+      "USen": "parrot",
+      "USes": "loro",
+      "USfr": "perruche"
+    }
+  },
+  {
+    "n": "Pearl",
+    "icon": "Treasure_Pearl",
+    "l": {
+      "CNzh": "珍珠",
+      "EUde": "Muschel mit Perle",
+      "EUen": "shell with pearl",
+      "EUes": "concha con perla",
+      "EUfr": "perle dans une coquille",
+      "EUit": "conchiglia con perla",
+      "EUnl": "oester met parel",
+      "JPja": "真珠",
+      "KRko": "진주",
+      "TWzh": "珍珠",
+      "USen": "pearl",
+      "USes": "ostra con perla",
+      "USfr": "perle"
+    }
+  },
+  {
+    "n": "RadenAccessoryCase",
+    "icon": "Treasure_RadenAccessoryCase",
+    "l": {
+      "CNzh": "贝雕收纳盒",
+      "EUde": "Lackschatulle",
+      "EUen": "inlaid accessory case",
+      "EUes": "caja ornamentada",
+      "EUfr": "coffret en bois nacré",
+      "EUit": "scatola in legno e madreperla",
+      "EUnl": "versierd kistje",
+      "JPja": "貝細工の小物入れ",
+      "KRko": "자개함",
+      "TWzh": "貝殼雕刻收納盒",
+      "USen": "pearlescent accessory case",
+      "USes": "caja ornamentada",
+      "USfr": "coffret en bois nacré"
+    }
+  },
+  {
+    "n": "SonohenNoIshikoro",
+    "icon": "Treasure080",
+    "l": {
+      "CNzh": "路边的石头",
+      "EUde": "Stein",
+      "EUen": "pebble",
+      "EUes": "piedra",
+      "EUfr": "caillou",
+      "EUit": "ciottolo",
+      "EUnl": "kiezelsteen",
+      "JPja": "その辺の石ころ",
+      "KRko": "흔한 돌멩이",
+      "TWzh": "路邊的石頭",
+      "USen": "pebble",
+      "USes": "piedrita",
+      "USfr": "caillou"
+    }
+  },
+  {
+    "n": "Penguin",
+    "icon": "Treasure_Penguin",
+    "l": {
+      "CNzh": "企鹅",
+      "EUde": "Pinguin",
+      "EUen": "penguin",
+      "EUes": "pingüino",
+      "EUfr": "manchot",
+      "EUit": "pinguino",
+      "EUnl": "pinguïn",
+      "JPja": "ペンギン",
+      "KRko": "펭귄",
+      "TWzh": "企鵝",
+      "USen": "penguin",
+      "USes": "pingüino",
+      "USfr": "pingouin"
+    }
+  },
+  {
+    "n": "Perfume",
+    "icon": "Treasure_Perfume",
+    "l": {
+      "CNzh": "香水",
+      "EUde": "Parfümfläschchen",
+      "EUen": "bottle of perfume",
+      "EUes": "frasco de perfume",
+      "EUfr": "parfum",
+      "EUit": "profumo",
+      "EUnl": "flesje parfum",
+      "JPja": "香水",
+      "KRko": "향수",
+      "TWzh": "香水",
+      "USen": "perfume",
+      "USes": "perfume",
+      "USfr": "parfum"
+    }
+  },
+  {
+    "n": "BookPicture",
+    "icon": "Treasure_BookPicture",
+    "l": {
+      "CNzh": "图画书",
+      "EUde": "Bilderbuch",
+      "EUen": "picture book",
+      "EUes": "libro ilustrado",
+      "EUfr": "livre d'images",
+      "EUit": "libro illustrato",
+      "EUnl": "plaatjesboek",
+      "JPja": "絵本",
+      "KRko": "그림책",
+      "TWzh": "繪本",
+      "USen": "picture book",
+      "USes": "libro ilustrado",
+      "USfr": "livre d'images"
+    }
+  },
+  {
+    "n": "PostcardSet",
+    "icon": "Treasure_PostcardSet",
+    "l": {
+      "CNzh": "风景明信片组",
+      "EUde": "Postkartenset",
+      "EUen": "picture postcard set",
+      "EUes": "set de postales",
+      "EUfr": "set de cartes postales",
+      "EUit": "set di cartoline",
+      "EUnl": "ansichtkaartenset",
+      "JPja": "絵葉書セット",
+      "KRko": "그림엽서 세트",
+      "TWzh": "風景明信片組",
+      "USen": "picture-postcards set",
+      "USes": "postales de paisajes",
+      "USfr": "lot de cartes postales"
+    }
+  },
+  {
+    "n": "Pig",
+    "icon": "Treasure_Pig",
+    "l": {
+      "CNzh": "猪",
+      "EUde": "Schwein",
+      "EUen": "pig",
+      "EUes": "cerdo",
+      "EUfr": "cochon",
+      "EUit": "maiale",
+      "EUnl": "varkentje",
+      "JPja": "ブタ",
+      "KRko": "돼지",
+      "TWzh": "豬",
+      "USen": "pig",
+      "USes": "cerdito",
+      "USfr": "cochon"
+    }
+  },
+  {
+    "n": "PigPiggyBank",
+    "icon": "Treasure_PigPiggyBank",
+    "l": {
+      "CNzh": "小猪储蓄罐",
+      "EUde": "Sparschwein",
+      "EUen": "piggy bank",
+      "EUes": "hucha de cerdito",
+      "EUfr": "tirelire cochon",
+      "EUit": "salvadanaio",
+      "EUnl": "spaarvarken",
+      "JPja": "ブタの貯金箱",
+      "KRko": "돼지 저금통",
+      "TWzh": "小豬存錢筒",
+      "USen": "piggy bank",
+      "USes": "alcancía",
+      "USfr": "tirelire cochon"
+    }
+  },
+  {
+    "n": "Document",
+    "icon": "Treasure_Document",
+    "l": {
+      "CNzh": "成堆的文件",
+      "EUde": "Aktenstapel",
+      "EUen": "overdue paperwork",
+      "EUes": "pila de documentos",
+      "EUfr": "pile de documents",
+      "EUit": "pila di scartoffie",
+      "EUnl": "stapel papieren",
+      "JPja": "書類の山",
+      "KRko": "서류 더미",
+      "TWzh": "成堆的文件",
+      "USen": "pile of documents",
+      "USes": "montón de documentos",
+      "USfr": "pile de documents"
+    }
+  },
+  {
+    "n": "Pinecone",
+    "icon": "Treasure094",
+    "l": {
+      "CNzh": "松果",
+      "EUde": "Tannenzapfen",
+      "EUen": "pine cone",
+      "EUes": "piña de pino",
+      "EUfr": "pomme de pin",
+      "EUit": "pigna",
+      "EUnl": "dennenappel",
+      "JPja": "松ぼっくり",
+      "KRko": "솔방울",
+      "TWzh": "松毬",
+      "USen": "pine cone",
+      "USes": "piña de pino",
+      "USfr": "cocotte"
+    }
+  },
+  {
+    "n": "Pinata",
+    "icon": "Treasure_Pinata",
+    "l": {
+      "CNzh": "皮纳塔",
+      "EUde": "Piñata",
+      "EUen": "piñata",
+      "EUes": "piñata",
+      "EUfr": "piñata",
+      "EUit": "pignatta",
+      "EUnl": "piñata",
+      "JPja": "ピニャータ",
+      "KRko": "피냐타",
+      "TWzh": "皮納塔",
+      "USen": "piñata",
+      "USes": "piñata",
+      "USfr": "piñata"
+    }
+  },
+  {
+    "n": "PlasticModelParts",
+    "icon": "Treasure_PlasticModelParts",
+    "l": {
+      "CNzh": "模型零件剩余框架",
+      "EUde": "Modellbau-Plastikreste",
+      "EUen": "plastic model sprues",
+      "EUes": "grapa de plástico sobrante",
+      "EUfr": "restes de modèle en plastique",
+      "EUit": "telaio per pezzi di modellino",
+      "EUnl": "resten van een schaalmodel",
+      "JPja": "プラモデルのパーツの残り",
+      "KRko": "만들고 남은 플라스틱 모델 부품",
+      "TWzh": "模型零件剩餘框架",
+      "USen": "plastic-model leftovers",
+      "USes": "plástico sobrante",
+      "USfr": "restes de modèle en plastique"
+    }
+  },
+  {
+    "n": "BrushPlatinum",
+    "icon": "Treasure_BrushPlatinum",
+    "l": {
+      "CNzh": "铂金笔",
+      "EUde": "Platinpalette",
+      "EUen": "platinum palette",
+      "EUes": "paleta de platino",
+      "EUfr": "palette de platine",
+      "EUit": "tavolozza di platino",
+      "EUnl": "platina schilderspalet",
+      "JPja": "プラチナの筆",
+      "KRko": "플래티넘 붓",
+      "TWzh": "白金筆",
+      "USen": "platinum palette",
+      "USes": "paleta de platino",
+      "USfr": "palette de platine"
+    }
+  },
+  {
+    "n": "SpeechBubblePlatinum",
+    "icon": "Treasure_SpeechBubblePlatinum",
+    "l": {
+      "CNzh": "铂金对话框",
+      "EUde": "Platin-Sprechblase",
+      "EUen": "platinum speech bubble",
+      "EUes": "bocadillo de platino",
+      "EUfr": "bulle de platine",
+      "EUit": "fumetto di platino",
+      "EUnl": "platina tekstballon",
+      "JPja": "プラチナのフキダシ",
+      "KRko": "플래티넘 말풍선",
+      "TWzh": "白金對話框",
+      "USen": "platinum speech bubble",
+      "USes": "globo de diálogo de platino",
+      "USfr": "bulle de platine"
+    }
+  },
+  {
+    "n": "TrophyPlatinum",
+    "icon": "Treasure035",
+    "l": {
+      "CNzh": "铂金奖杯",
+      "EUde": "Platintrophäe",
+      "EUen": "platinum trophy",
+      "EUes": "trofeo de platino",
+      "EUfr": "trophée de platine",
+      "EUit": "trofeo di platino",
+      "EUnl": "platina trofee",
+      "JPja": "プラチナのトロフィー",
+      "KRko": "플래티넘 트로피",
+      "TWzh": "白金獎盃",
+      "USen": "platinum trophy",
+      "USes": "trofeo de platino",
+      "USfr": "trophée de platine"
+    }
+  },
+  {
+    "n": "StuffedToyBear",
+    "icon": "Treasure_StuffedToyBear",
+    "l": {
+      "CNzh": "熊猫布偶",
+      "EUde": "Kuschel-Panda",
+      "EUen": "panda cuddly toy",
+      "EUes": "oso panda de peluche",
+      "EUfr": "peluche de panda",
+      "EUit": "panda di peluche",
+      "EUnl": "pandaknuffel",
+      "JPja": "パンダのぬいぐるみ",
+      "KRko": "판다 인형",
+      "TWzh": "熊貓布偶",
+      "USen": "plush panda",
+      "USes": "panda de peluche",
+      "USfr": "toutou de panda"
+    }
+  },
+  {
+    "n": "PocketWatch",
+    "icon": "Treasure045",
+    "l": {
+      "CNzh": "怀表",
+      "EUde": "Taschenuhr",
+      "EUen": "pocket watch",
+      "EUes": "reloj de bolsillo",
+      "EUfr": "montre de gousset",
+      "EUit": "orologio da taschino",
+      "EUnl": "zakhorloge",
+      "JPja": "懐中時計",
+      "KRko": "회중시계",
+      "TWzh": "懷錶",
+      "USen": "pocket watch",
+      "USes": "reloj de bolsillo",
+      "USfr": "montre de poche"
+    }
+  },
+  {
+    "n": "CDPopMusic",
+    "icon": "Treasure_CDPopMusic",
+    "l": {
+      "CNzh": "流行音乐唱片",
+      "EUde": "Pop-Album",
+      "EUen": "pop album",
+      "EUes": "álbum de pop",
+      "EUfr": "album de pop",
+      "EUit": "album pop",
+      "EUnl": "popalbum",
+      "JPja": "ポップミュージックのレコード",
+      "KRko": "팝 뮤직 LP",
+      "TWzh": "流行音樂唱片",
+      "USen": "pop album",
+      "USes": "disco de música pop",
+      "USfr": "album de pop"
+    }
+  },
+  {
+    "n": "GamePuzzle",
+    "icon": "Treasure_GamePuzzle",
+    "l": {
+      "CNzh": "益智游戏",
+      "EUde": "Knobelspiel",
+      "EUen": "puzzle game",
+      "EUes": "juego de puzles",
+      "EUfr": "jeu de puzzle",
+      "EUit": "gioco di rompicapi",
+      "EUnl": "puzzelgame",
+      "JPja": "パズルゲーム",
+      "KRko": "퍼즐 게임",
+      "TWzh": "益智遊戲",
+      "USen": "puzzle game",
+      "USes": "juego de rompecabezas",
+      "USfr": "jeu de casse-tête"
+    }
+  },
+  {
+    "n": "Rabbit",
+    "icon": "Treasure_Rabbit",
+    "l": {
+      "CNzh": "兔子",
+      "EUde": "Kaninchen",
+      "EUen": "rabbit",
+      "EUes": "conejo",
+      "EUfr": "lapin",
+      "EUit": "coniglio",
+      "EUnl": "konijn",
+      "JPja": "うさぎ",
+      "KRko": "토끼",
+      "TWzh": "兔子",
+      "USen": "rabbit",
+      "USes": "conejo",
+      "USfr": "lapin"
+    }
+  },
+  {
+    "n": "GameRacing",
+    "icon": "Treasure_GameRacing",
+    "l": {
+      "CNzh": "竞速游戏",
+      "EUde": "Rennspiel",
+      "EUen": "racing game",
+      "EUes": "juego de carreras",
+      "EUfr": "jeu de course",
+      "EUit": "gioco di corse",
+      "EUnl": "racegame",
+      "JPja": "レースゲーム",
+      "KRko": "레이싱 게임",
+      "TWzh": "競速遊戲",
+      "USen": "racing game",
+      "USes": "juego de carreras",
+      "USfr": "jeu de course"
+    }
+  },
+  {
+    "n": "Receipt",
+    "icon": "Treasure_Receipt",
+    "l": {
+      "CNzh": "收据",
+      "EUde": "Kassenbon",
+      "EUen": "old receipt",
+      "EUes": "recibo",
+      "EUfr": "ticket de caisse",
+      "EUit": "scontrino",
+      "EUnl": "kassabon",
+      "JPja": "レシート",
+      "KRko": "영수증",
+      "TWzh": "購物明細",
+      "USen": "receipt",
+      "USes": "recibo",
+      "USfr": "reçu"
+    }
+  },
+  {
+    "n": "CDReggae",
+    "icon": "Treasure_CDReggae",
+    "l": {
+      "CNzh": "雷鬼乐唱片",
+      "EUde": "Reggae-Album",
+      "EUen": "reggae album",
+      "EUes": "álbum de reggae",
+      "EUfr": "album de reggae",
+      "EUit": "album reggae",
+      "EUnl": "reggaealbum",
+      "JPja": "レゲエのレコード",
+      "KRko": "레게 LP",
+      "TWzh": "雷鬼樂唱片",
+      "USen": "reggae album",
+      "USes": "disco de reggae",
+      "USfr": "album de reggae"
+    }
+  },
+  {
+    "n": "RestaurantMenu",
+    "icon": "Treasure_RestaurantMenu",
+    "l": {
+      "CNzh": "餐厅的菜单",
+      "EUde": "Speisekarte",
+      "EUen": "restaurant menu",
+      "EUes": "menú de restaurante",
+      "EUfr": "menu de restaurant",
+      "EUit": "menu di ristorante",
+      "EUnl": "menukaart",
+      "JPja": "レストランのメニュー",
+      "KRko": "레스토랑 메뉴",
+      "TWzh": "餐廳的菜單",
+      "USen": "restaurant menu",
+      "USes": "menú de restaurante",
+      "USfr": "menu de restaurant"
+    }
+  },
+  {
+    "n": "Robot",
+    "icon": "Treasure_Robot",
+    "l": {
+      "CNzh": "机器人",
+      "EUde": "Roboter",
+      "EUen": "robot",
+      "EUes": "robot",
+      "EUfr": "robot",
+      "EUit": "robot",
+      "EUnl": "robot",
+      "JPja": "ロボット",
+      "KRko": "로봇",
+      "TWzh": "機器人",
+      "USen": "robot",
+      "USes": "robot",
+      "USfr": "robot"
+    }
+  },
+  {
+    "n": "CDRock",
+    "icon": "Treasure_CDRock",
+    "l": {
+      "CNzh": "摇滚乐唱片",
+      "EUde": "Rock-and-Roll-Album",
+      "EUen": "rock 'n' roll album",
+      "EUes": "álbum de rock",
+      "EUfr": "album de rock",
+      "EUit": "album rock",
+      "EUnl": "rockalbum",
+      "JPja": "ロックのレコード",
+      "KRko": "록 LP",
+      "TWzh": "搖滾樂唱片",
+      "USen": "rock album",
+      "USes": "disco de rock",
+      "USfr": "album de rock"
+    }
+  },
+  {
+    "n": "StoneSpecimen",
+    "icon": "Treasure_StoneSpecimen",
+    "l": {
+      "CNzh": "石头标本",
+      "EUde": "Steinesammlung",
+      "EUen": "rock collection",
+      "EUes": "colección de piedras",
+      "EUfr": "collection de pierres",
+      "EUit": "collezione di rocce",
+      "EUnl": "stenenverzameling",
+      "JPja": "石の標本",
+      "KRko": "암석 표본",
+      "TWzh": "石頭標本",
+      "USen": "rock collection",
+      "USes": "colección de rocas",
+      "USfr": "collection de pierres"
+    }
+  },
+  {
+    "n": "GameRoleplaying",
+    "icon": "Treasure_GameRoleplaying",
+    "l": {
+      "CNzh": "角色扮演游戏",
+      "EUde": "Rollenspiel",
+      "EUen": "role-playing game",
+      "EUes": "juego de rol",
+      "EUfr": "jeu de rôle",
+      "EUit": "gioco di ruolo",
+      "EUnl": "rollenspelgame",
+      "JPja": "ロールプレイングゲーム",
+      "KRko": "롤플레잉 게임",
+      "TWzh": "角色扮演遊戲",
+      "USen": "role-playing game",
+      "USes": "juego de rol",
+      "USfr": "jeu de rôle"
+    }
+  },
+  {
+    "n": "DVDLove",
+    "icon": "Treasure_DVDLove",
+    "l": {
+      "CNzh": "言情连续剧",
+      "EUde": "Herzschmerz-Drama",
+      "EUen": "romantic drama",
+      "EUes": "película romántica",
+      "EUfr": "série romantique",
+      "EUit": "film romantico",
+      "EUnl": "romantische dramafilm",
+      "JPja": "恋愛ドラマ",
+      "KRko": "로맨스 드라마",
+      "TWzh": "戀愛連續劇",
+      "USen": "romantic movie",
+      "USes": "película romántica",
+      "USfr": "série romantique"
+    }
+  },
+  {
+    "n": "Tile",
+    "icon": "Treasure_Tile",
+    "l": {
+      "CNzh": "瓦片",
+      "EUde": "Dachziegel",
+      "EUen": "roof tiles",
+      "EUes": "pila de tejas",
+      "EUfr": "tuiles",
+      "EUit": "tegole",
+      "EUnl": "stapel dakpannen",
+      "JPja": "瓦",
+      "KRko": "기와",
+      "TWzh": "瓦片",
+      "USen": "roof tiles",
+      "USes": "tejas",
+      "USfr": "tuiles"
+    }
+  },
+  {
+    "n": "Rose",
+    "icon": "Treasure061",
+    "l": {
+      "CNzh": "玫瑰",
+      "EUde": "Rose",
+      "EUen": "rose",
+      "EUes": "rosa",
+      "EUfr": "rose",
+      "EUit": "rosa",
+      "EUnl": "roos",
+      "JPja": "バラ",
+      "KRko": "장미",
+      "TWzh": "玫瑰",
+      "USen": "rose",
+      "USes": "rosa",
+      "USfr": "rose"
+    }
+  },
+  {
+    "n": "DucksToy",
+    "icon": "Treasure040",
+    "l": {
+      "CNzh": "鸭子玩具",
+      "EUde": "Gummientchen",
+      "EUen": "rubber duck",
+      "EUes": "patito de goma",
+      "EUfr": "canard en plastique",
+      "EUit": "paperella di gomma",
+      "EUnl": "badeendje",
+      "JPja": "アヒルのおもちゃ",
+      "KRko": "오리 장난감",
+      "TWzh": "玩具小鴨",
+      "USen": "rubber ducky",
+      "USes": "patito de goma",
+      "USfr": "canard en caoutchouc"
+    }
+  },
+  {
+    "n": "Ruby",
+    "icon": "Treasure_Ruby",
+    "l": {
+      "CNzh": "红宝石",
+      "EUde": "Rubin",
+      "EUen": "ruby",
+      "EUes": "rubí",
+      "EUfr": "rubis",
+      "EUit": "rubino",
+      "EUnl": "robijn",
+      "JPja": "ルビー",
+      "KRko": "루비",
+      "TWzh": "紅寶石",
+      "USen": "ruby",
+      "USes": "rubí",
+      "USfr": "rubis"
+    }
+  },
+  {
+    "n": "Cashbox",
+    "icon": "Treasure_Cashbox",
+    "l": {
+      "CNzh": "保险箱",
+      "EUde": "Tresor",
+      "EUen": "safe",
+      "EUes": "caja fuerte",
+      "EUfr": "coffre-fort",
+      "EUit": "cassaforte",
+      "EUnl": "kluis",
+      "JPja": "金庫",
+      "KRko": "금고",
+      "TWzh": "保險箱",
+      "USen": "safe",
+      "USes": "caja fuerte",
+      "USfr": "coffre-fort"
+    }
+  },
+  {
+    "n": "Antenna",
+    "icon": "Treasure_Antenna",
+    "l": {
+      "CNzh": "卫星天线",
+      "EUde": "Satellitenschüssel",
+      "EUen": "satellite dish",
+      "EUes": "antena parabólica",
+      "EUfr": "antenne parabolique",
+      "EUit": "parabola satellitare",
+      "EUnl": "schotelantenne",
+      "JPja": "パラボラアンテナ",
+      "KRko": "접시형 안테나",
+      "TWzh": "衛星天線",
+      "USen": "satellite dish",
+      "USes": "antena parabólica",
+      "USfr": "antenne parabolique"
+    }
+  },
+  {
+    "n": "Vihta",
+    "icon": "Treasure_Vihta",
+    "l": {
+      "CNzh": "白桦枝叶",
+      "EUde": "Sauna-Birkenbüschel",
+      "EUen": "sauna whisk",
+      "EUes": "haz de ramas para sauna",
+      "EUfr": "fouet de sauna",
+      "EUit": "frusta da sauna",
+      "EUnl": "saunaklopper",
+      "JPja": "ヴィヒタ",
+      "KRko": "비흐타",
+      "TWzh": "白樺枝葉",
+      "USen": "sauna whisk",
+      "USes": "ramo de hojas para sauna",
+      "USfr": "fouet de sauna"
+    }
+  },
+  {
+    "n": "AromaCandle",
+    "icon": "Treasure085",
+    "l": {
+      "CNzh": "香氛蜡烛",
+      "EUde": "Duftkerze",
+      "EUen": "scented candle",
+      "EUes": "vela aromática",
+      "EUfr": "bougie parfumée",
+      "EUit": "candela profumata",
+      "EUnl": "geurkaars",
+      "JPja": "アロマキャンドル",
+      "KRko": "아로마 양초",
+      "TWzh": "香氛蠟燭",
+      "USen": "scented candle",
+      "USes": "vela aromática",
+      "USfr": "bougie parfumée"
+    }
+  },
+  {
+    "n": "DVDSF",
+    "icon": "Treasure_DVDSF",
+    "l": {
+      "CNzh": "科幻电影",
+      "EUde": "Sci‑Fi-Film",
+      "EUen": "sci‑fi film",
+      "EUes": "película de ciencia ficción",
+      "EUfr": "film de science-fiction",
+      "EUit": "film di fantascienza",
+      "EUnl": "sciencefictionfilm",
+      "JPja": "SF映画",
+      "KRko": "SF 영화",
+      "TWzh": "科幻電影",
+      "USen": "sci-fi movie",
+      "USes": "película de ciencia ficción",
+      "USfr": "film de science-fiction"
+    }
+  },
+  {
+    "n": "Screw",
+    "icon": "Treasure015",
+    "l": {
+      "CNzh": "螺丝",
+      "EUde": "Schraube",
+      "EUen": "screw",
+      "EUes": "tornillo",
+      "EUfr": "vis",
+      "EUit": "vite",
+      "EUnl": "schroef",
+      "JPja": "ネジ",
+      "KRko": "나사",
+      "TWzh": "螺絲",
+      "USen": "screw",
+      "USes": "tornillo",
+      "USfr": "vis"
+    }
+  },
+  {
+    "n": "SeaUrchinBone",
+    "icon": "Treasure_SeaUrchinBone",
+    "l": {
+      "CNzh": "海胆骨骼",
+      "EUde": "Seeigelskelett",
+      "EUen": "sea urchin skeleton",
+      "EUes": "esqueleto de erizo de mar",
+      "EUfr": "squelette d'oursin",
+      "EUit": "guscio di riccio di mare",
+      "EUnl": "skelet van een zee-egel",
+      "JPja": "ウニの骨",
+      "KRko": "성게 뼈",
+      "TWzh": "海膽骨骼",
+      "USen": "sea-urchin skeleton",
+      "USes": "esqueleto de erizo de mar",
+      "USfr": "squelette d'oursin"
+    }
+  },
+  {
+    "n": "Shell",
+    "icon": "Treasure013",
+    "l": {
+      "CNzh": "贝壳",
+      "EUde": "Muschelschale",
+      "EUen": "seashell",
+      "EUes": "caracola",
+      "EUfr": "coquillage",
+      "EUit": "conchiglia",
+      "EUnl": "zeeschelp",
+      "JPja": "貝殻",
+      "KRko": "소라 껍데기",
+      "TWzh": "貝殼",
+      "USen": "seashell",
+      "USes": "caracola",
+      "USfr": "coquillage"
+    }
+  },
+  {
+    "n": "SecurityCamera",
+    "icon": "Treasure118",
+    "l": {
+      "CNzh": "监控摄像头",
+      "EUde": "Überwachungskamera",
+      "EUen": "security camera",
+      "EUes": "cámara de seguridad",
+      "EUfr": "caméra de surveillance",
+      "EUit": "videocamera di sicurezza",
+      "EUnl": "beveiligingscamera",
+      "JPja": "防犯カメラ",
+      "KRko": "방범 카메라",
+      "TWzh": "防盜攝影機",
+      "USen": "security camera",
+      "USes": "cámara de seguridad",
+      "USfr": "caméra de surveillance"
+    }
+  },
+  {
+    "n": "BookSelfDevelopment",
+    "icon": "Treasure_BookDevelopment",
+    "l": {
+      "CNzh": "自我启蒙书",
+      "EUde": "Ratgeber",
+      "EUen": "self-help book",
+      "EUes": "libro de autoayuda",
+      "EUfr": "guide d'essor personnel",
+      "EUit": "manuale di auto‑aiuto",
+      "EUnl": "zelfhulpboek",
+      "JPja": "自己啓発本",
+      "KRko": "자기 계발서",
+      "TWzh": "自我啟蒙書籍",
+      "USen": "self-help book",
+      "USes": "libro de autoayuda",
+      "USfr": "guide d'essor personnel"
+    }
+  },
+  {
+    "n": "BlackTipReefShark",
+    "icon": "Treasure_BlackTipReefShark",
+    "l": {
+      "CNzh": "鲨鱼",
+      "EUde": "Hai",
+      "EUen": "shark",
+      "EUes": "tiburón",
+      "EUfr": "requin",
+      "EUit": "squalo",
+      "EUnl": "haai",
+      "JPja": "サメ",
+      "KRko": "상어",
+      "TWzh": "鯊魚",
+      "USen": "shark",
+      "USes": "tiburón",
+      "USfr": "requin"
+    }
+  },
+  {
+    "n": "GlitterBeads",
+    "icon": "Treasure_GlitterBeads",
+    "l": {
+      "CNzh": "闪亮串珠",
+      "EUde": "Glasperlen",
+      "EUen": "colourful beads",
+      "EUes": "abalorios de colores",
+      "EUfr": "perles multicolores",
+      "EUit": "perline colorate",
+      "EUnl": "gekleurde kralen",
+      "JPja": "キラキラビーズ",
+      "KRko": "반짝반짝 비즈",
+      "TWzh": "閃亮串珠",
+      "USen": "shiny beads",
+      "USes": "cuentas de colores",
+      "USfr": "perles multicolores"
+    }
+  },
+  {
+    "n": "BottleShip",
+    "icon": "Treasure_BottleShip",
+    "l": {
+      "CNzh": "瓶中船",
+      "EUde": "Flaschenschiff",
+      "EUen": "ship in a bottle",
+      "EUes": "barco en botella",
+      "EUfr": "bateau en bouteille",
+      "EUit": "veliero in bottiglia",
+      "EUnl": "schip in een fles",
+      "JPja": "ボトルシップ",
+      "KRko": "보틀쉽",
+      "TWzh": "瓶中船",
+      "USen": "ship in a bottle",
+      "USes": "barco en botella",
+      "USfr": "bateau en bouteille"
+    }
+  },
+  {
+    "n": "Ohsho",
+    "icon": "Treasure055",
+    "l": {
+      "CNzh": "将棋摆件",
+      "EUde": "Shogi-König",
+      "EUen": "Shogi \"King\" piece",
+      "EUes": "pieza de ajedrez japonés",
+      "EUfr": "pièce de shogi du roi",
+      "EUit": "pezzo del re dello shogi",
+      "EUnl": "shogi-koning",
+      "JPja": "王将",
+      "KRko": "일본 장기짝",
+      "TWzh": "將棋王將",
+      "USen": "shogi \"king\" piece",
+      "USes": "pieza \"rey\" de Shogi",
+      "USfr": "pièce de shogi du roi"
+    }
+  },
+  {
+    "n": "DVDShopping",
+    "icon": "Treasure_DVDShopping",
+    "l": {
+      "CNzh": "购物节目",
+      "EUde": "Teleshopping-Video",
+      "EUen": "teleshopping show",
+      "EUes": "programa de teletienda",
+      "EUfr": "émission de téléachat",
+      "EUit": "programma di televendite",
+      "EUnl": "tv-winkelprogramma",
+      "JPja": "通販番組",
+      "KRko": "홈 쇼핑 방송",
+      "TWzh": "購物節目",
+      "USen": "shopping-channel show",
+      "USes": "canal de compras",
+      "USfr": "émission de téléachat"
+    }
+  },
+  {
+    "n": "CoinSilver",
+    "icon": "Treasure_CoinSilver",
+    "l": {
+      "CNzh": "银币",
+      "EUde": "Silbermünze",
+      "EUen": "silver coin",
+      "EUes": "moneda de plata",
+      "EUfr": "pièce d'argent",
+      "EUit": "moneta d'argento",
+      "EUnl": "zilveren munt",
+      "JPja": "銀貨",
+      "KRko": "은화",
+      "TWzh": "銀幣",
+      "USen": "silver coin",
+      "USes": "moneda de plata",
+      "USfr": "pièce d'argent"
+    }
+  },
+  {
+    "n": "BrushSilver",
+    "icon": "Treasure_BrushSilver",
+    "l": {
+      "CNzh": "银笔",
+      "EUde": "Silberpalette",
+      "EUen": "silver palette",
+      "EUes": "paleta de plata",
+      "EUfr": "palette d'argent",
+      "EUit": "tavolozza d'argento",
+      "EUnl": "zilveren schilderspalet",
+      "JPja": "銀の筆",
+      "KRko": "은 붓",
+      "TWzh": "銀筆",
+      "USen": "silver palette",
+      "USes": "paleta de plata",
+      "USfr": "palette d'argent"
+    }
+  },
+  {
+    "n": "SpeechBubbleSilver",
+    "icon": "Treasure_SpeechBubbleSilver",
+    "l": {
+      "CNzh": "银对话框",
+      "EUde": "Silber-Sprechblase",
+      "EUen": "silver speech bubble",
+      "EUes": "bocadillo de plata",
+      "EUfr": "bulle d'argent",
+      "EUit": "fumetto d'argento",
+      "EUnl": "zilveren tekstballon",
+      "JPja": "銀のフキダシ",
+      "KRko": "은 말풍선",
+      "TWzh": "銀對話框",
+      "USen": "silver speech bubble",
+      "USes": "globo de diálogo de plata",
+      "USfr": "bulle d'argent"
+    }
+  },
+  {
+    "n": "TrophySilver",
+    "icon": "Treasure033",
+    "l": {
+      "CNzh": "银奖杯",
+      "EUde": "Silbertrophäe",
+      "EUen": "silver trophy",
+      "EUes": "trofeo de plata",
+      "EUfr": "trophée d'argent",
+      "EUit": "trofeo d'argento",
+      "EUnl": "zilveren trofee",
+      "JPja": "銀のトロフィー",
+      "KRko": "은 트로피",
+      "TWzh": "銀獎盃",
+      "USen": "silver trophy",
+      "USes": "trofeo de plata",
+      "USfr": "trophée d'argent"
+    }
+  },
+  {
+    "n": "Slime",
+    "icon": "Treasure_Slime",
+    "l": {
+      "CNzh": "史莱姆",
+      "EUde": "Schleim",
+      "EUen": "jar of slime",
+      "EUes": "bote de sustancia viscosa",
+      "EUfr": "slime",
+      "EUit": "barattolo di slime",
+      "EUnl": "beker met slijm",
+      "JPja": "スライム",
+      "KRko": "슬라임",
+      "TWzh": "史萊姆",
+      "USen": "slime",
+      "USes": "slime",
+      "USfr": "slime"
+    }
+  },
+  {
+    "n": "SolarPanel",
+    "icon": "Treasure138",
+    "l": {
+      "CNzh": "太阳能板",
+      "EUde": "Solarmodul",
+      "EUen": "solar panel",
+      "EUes": "panel solar",
+      "EUfr": "panneau solaire",
+      "EUit": "pannello solare",
+      "EUnl": "zonnepaneel",
+      "JPja": "ソーラーパネル",
+      "KRko": "태양광 패널",
+      "TWzh": "太陽能板",
+      "USen": "solar panel",
+      "USes": "panel solar",
+      "USfr": "panneau solaire"
+    }
+  },
+  {
+    "n": "GoldCup",
+    "icon": "Treasure_GoldCup",
+    "l": {
+      "CNzh": "纯金羽觞",
+      "EUde": "Massivgold-Tasse",
+      "EUen": "pure gold cup",
+      "EUes": "plato de oro puro",
+      "EUfr": "coupelle en or pur",
+      "EUit": "coppetta d'oro puro",
+      "EUnl": "massief gouden kopje",
+      "JPja": "純金の盃",
+      "KRko": "순금 잔",
+      "TWzh": "純金羽觴",
+      "USen": "solid-gold cup",
+      "USes": "copa de oro sólido",
+      "USfr": "coupelle en or massif"
+    }
+  },
+  {
+    "n": "Top",
+    "icon": "Treasure031",
+    "l": {
+      "CNzh": "陀螺",
+      "EUde": "Kreisel",
+      "EUen": "spinning top",
+      "EUes": "peonza",
+      "EUfr": "toupie",
+      "EUit": "trottola",
+      "EUnl": "draaitol",
+      "JPja": "コマ",
+      "KRko": "팽이",
+      "TWzh": "陀螺",
+      "USen": "spinning top",
+      "USes": "trompo",
+      "USfr": "toupie"
+    }
+  },
+  {
+    "n": "Spirit",
+    "icon": "Treasure_Spirit",
+    "l": {
+      "CNzh": "精灵",
+      "EUde": "Irrgeist",
+      "EUen": "spirit",
+      "EUes": "espíritu",
+      "EUfr": "esprit",
+      "EUit": "spiritello",
+      "EUnl": "geest",
+      "JPja": "精霊",
+      "KRko": "정령",
+      "TWzh": "精靈",
+      "USen": "spirit",
+      "USes": "espíritu",
+      "USfr": "esprit"
+    }
+  },
+  {
+    "n": "DVDSports",
+    "icon": "Treasure_DVDSports",
+    "l": {
+      "CNzh": "体育节目",
+      "EUde": "Sportvideo",
+      "EUen": "sports show",
+      "EUes": "programa de deportes",
+      "EUfr": "émission de sport",
+      "EUit": "programma sportivo",
+      "EUnl": "sportprogramma",
+      "JPja": "スポーツ番組",
+      "KRko": "스포츠 방송",
+      "TWzh": "運動節目",
+      "USen": "sports show",
+      "USes": "programa de deportes",
+      "USfr": "émission de sport"
+    }
+  },
+  {
+    "n": "SatueOfLiberty",
+    "icon": "Treasure_SatueOfLiberty",
+    "l": {
+      "CNzh": "自由女神摆件",
+      "EUde": "Freiheitsstatuette",
+      "EUen": "Statue of Liberty figurine",
+      "EUes": "mini Estatua de la Libertad",
+      "EUfr": "mini-statue de la Liberté",
+      "EUit": "mini Statua della Libertà",
+      "EUnl": "miniatuurvrijheidsbeeld",
+      "JPja": "自由の女神の置物",
+      "KRko": "자유의 여신상 모형",
+      "TWzh": "自由女神擺飾",
+      "USen": "Statue of Liberty figurine",
+      "USes": "miniestatua de la Libertad",
+      "USfr": "mini-statue de la Liberté"
+    }
+  },
+  {
+    "n": "Stopwatch",
+    "icon": "Treasure_Stopwatch",
+    "l": {
+      "CNzh": "计时器",
+      "EUde": "Stoppuhr",
+      "EUen": "stopwatch",
+      "EUes": "cronómetro",
+      "EUfr": "chronomètre",
+      "EUit": "cronometro",
+      "EUnl": "stopwatch",
+      "JPja": "ストップウォッチ",
+      "KRko": "스톱워치",
+      "TWzh": "計時器",
+      "USen": "stopwatch",
+      "USes": "cronómetro",
+      "USfr": "chronomètre"
+    }
+  },
+  {
+    "n": "SugarGlider",
+    "icon": "Treasure_SugarGlider",
+    "l": {
+      "CNzh": "蜜袋鼯",
+      "EUde": "Kurzkopfgleitbeutler",
+      "EUen": "sugar glider",
+      "EUes": "petauro del azúcar",
+      "EUfr": "phalanger volant",
+      "EUit": "petauro dello zucchero",
+      "EUnl": "suikereekhoorn",
+      "JPja": "フクロモモンガ",
+      "KRko": "하늘다람쥐",
+      "TWzh": "蜜袋鼯",
+      "USen": "sugar glider",
+      "USes": "petauro del azúcar",
+      "USfr": "phalanger volant"
+    }
+  },
+  {
+    "n": "Superscope",
+    "icon": "Treasure_Superscope",
+    "l": {
+      "CNzh": "Super Scope",
+      "EUde": "Nintendo Scope",
+      "EUen": "Nintendo Scope",
+      "EUes": "Nintendo Scope",
+      "EUfr": "Nintendo Scope",
+      "EUit": "Nintendo Scope",
+      "EUnl": "Nintendo Scope",
+      "JPja": "スーパースコープ",
+      "KRko": "슈퍼스코프",
+      "TWzh": "Super Scope",
+      "USen": "Super Scope",
+      "USes": "Super Scope",
+      "USfr": "Nintendo Scope"
+    }
+  },
+  {
+    "n": "SuspiciousSwitch",
+    "icon": "Treasure_SuspiciousSwitch",
+    "l": {
+      "CNzh": "怪异按钮",
+      "EUde": "Schalter für Risikofreudige",
+      "EUen": "really tempting button",
+      "EUes": "botón misterioso",
+      "EUfr": "interrupteur suspect",
+      "EUit": "pulsante sospetto",
+      "EUnl": "mysterieuze knop",
+      "JPja": "怪しいスイッチ",
+      "KRko": "수상한 스위치",
+      "TWzh": "怪異按鈕",
+      "USen": "suspicious button",
+      "USes": "botón misterioso",
+      "USfr": "interrupteur suspect"
+    }
+  },
+  {
+    "n": "MoodLight",
+    "icon": "Treasure_MoodLight",
+    "l": {
+      "CNzh": "台灯",
+      "EUde": "Stimmungslampe",
+      "EUen": "moon-shaped lamp",
+      "EUes": "lámpara lunar",
+      "EUfr": "lampe lune",
+      "EUit": "lampada lunare",
+      "EUnl": "sfeerlamp",
+      "JPja": "卓上ライト",
+      "KRko": "무드 등",
+      "TWzh": "桌燈",
+      "USen": "tabletop light",
+      "USes": "lámpara de mesa",
+      "USfr": "lampe d'ambiance"
+    }
+  },
+  {
+    "n": "ShigarakiWare",
+    "icon": "Treasure091",
+    "l": {
+      "CNzh": "狸猫摆件",
+      "EUde": "Tanuki-Statue",
+      "EUen": "tanuki statue",
+      "EUes": "estatua de tanuki",
+      "EUfr": "statuette de tanuki",
+      "EUit": "statua di tanuki",
+      "EUnl": "tanuki-beeldje",
+      "JPja": "たぬきの置物",
+      "KRko": "너구리 모형",
+      "TWzh": "狸貓擺飾",
+      "USen": "tanuki statue",
+      "USes": "estatua tanuki",
+      "USfr": "statue de tanuki"
+    }
+  },
+  {
+    "n": "ScrubbingBrush",
+    "icon": "Treasure096",
+    "l": {
+      "CNzh": "棕刷",
+      "EUde": "Gemüsebürste",
+      "EUen": "tawashi scrub brush",
+      "EUes": "cepillo de fibras de coco",
+      "EUfr": "brosse tawashi",
+      "EUit": "spazzola in fibra naturale",
+      "EUnl": "groenteborstel",
+      "JPja": "たわし",
+      "KRko": "수세미",
+      "TWzh": "棕刷",
+      "USen": "tawashi scrub brush",
+      "USes": "cepillo tawashi",
+      "USfr": "brosse tawashi"
+    }
+  },
+  {
+    "n": "CDDance",
+    "icon": "Treasure_CDDance",
+    "l": {
+      "CNzh": "舞蹈音乐唱片",
+      "EUde": "Dance-Album",
+      "EUen": "dance music album",
+      "EUes": "álbum de música electrónica",
+      "EUfr": "album de dance",
+      "EUit": "album di musica dance",
+      "EUnl": "dancealbum",
+      "JPja": "ダンスミュージックのレコード",
+      "KRko": "댄스 뮤직 LP",
+      "TWzh": "舞蹈音樂唱片",
+      "USen": "techno album",
+      "USes": "disco de música tecno",
+      "USfr": "album de danse"
+    }
+  },
+  {
+    "n": "MiniTerrarium",
+    "icon": "Treasure_MiniTerrarium",
+    "l": {
+      "CNzh": "苔藓生态瓶",
+      "EUde": "Miniterrarium",
+      "EUen": "mini terrarium",
+      "EUes": "miniterrario",
+      "EUfr": "mini-terrarium",
+      "EUit": "terrario di muschio",
+      "EUnl": "flessentuintje",
+      "JPja": "苔テラリウム",
+      "KRko": "이끼 테라리움",
+      "TWzh": "青苔景觀盆栽",
+      "USen": "tiny terrarium",
+      "USes": "miniterrario",
+      "USfr": "mini-terrarium"
+    }
+  },
+  {
+    "n": "ToiletPaper",
+    "icon": "Treasure003",
+    "l": {
+      "CNzh": "卫生纸",
+      "EUde": "Klopapierrolle",
+      "EUen": "roll of toilet paper",
+      "EUes": "rollo de papel higiénico",
+      "EUfr": "papier toilette",
+      "EUit": "rotolo di carta igienica",
+      "EUnl": "rol toiletpapier",
+      "JPja": "トイレットペーパー",
+      "KRko": "화장지",
+      "TWzh": "衛生紙",
+      "USen": "toilet paper",
+      "USes": "rollo de papel higiénico",
+      "USfr": "papier de toilette"
+    }
+  },
+  {
+    "n": "TomodachiCollection",
+    "icon": "Treasure_TomodachiCollection",
+    "l": {
+      "CNzh": "Tomodachi Life",
+      "EUde": "Tomodachi Life-Spiel",
+      "EUen": "Tomodachi Life",
+      "EUes": "juego de Tomodachi Life",
+      "EUfr": "jeu Tomodachi Life",
+      "EUit": "gioco Tomodachi Life",
+      "EUnl": "Tomodachi Life-game",
+      "JPja": "トモダチコレクション",
+      "KRko": "친구모아 아파트",
+      "TWzh": "Tomodachi Life",
+      "USen": "Tomodachi Life",
+      "USes": "juego Tomodachi Life",
+      "USfr": "jeu Tomodachi Life"
+    }
+  },
+  {
+    "n": "TinToy",
+    "icon": "Treasure022",
+    "l": {
+      "CNzh": "锡玩具",
+      "EUde": "Blechroboter",
+      "EUen": "tin robot toy",
+      "EUes": "robot de hojalata",
+      "EUfr": "robot en fer-blanc",
+      "EUit": "robot di latta",
+      "EUnl": "tinnen robot",
+      "JPja": "ブリキのおもちゃ",
+      "KRko": "로봇 장난감",
+      "TWzh": "錫製玩具",
+      "USen": "toy robot",
+      "USes": "robot de juguete",
+      "USfr": "robot jouet"
+    }
+  },
+  {
+    "n": "TreasureMap",
+    "icon": "Treasure_TreasureMap",
+    "l": {
+      "CNzh": "藏宝图",
+      "EUde": "Schatzkarte",
+      "EUen": "treasure map",
+      "EUes": "mapa del tesoro",
+      "EUfr": "carte au trésor",
+      "EUit": "mappa del tesoro",
+      "EUnl": "schatkaart",
+      "JPja": "お宝の地図",
+      "KRko": "보물 지도",
+      "TWzh": "寶物地圖",
+      "USen": "treasure map",
+      "USes": "mapa de tesoro",
+      "USfr": "carte au trésor"
+    }
+  },
+  {
+    "n": "TreeBranch",
+    "icon": "Treasure_TreeBranch",
+    "l": {
+      "CNzh": "树枝",
+      "EUde": "Zweig",
+      "EUen": "stick",
+      "EUes": "rama de árbol",
+      "EUfr": "bâton",
+      "EUit": "ramo d'albero",
+      "EUnl": "tak",
+      "JPja": "木の枝",
+      "KRko": "나뭇가지",
+      "TWzh": "樹枝",
+      "USen": "tree branch",
+      "USes": "rama de árbol",
+      "USfr": "branche d'arbre"
+    }
+  },
+  {
+    "n": "Tuna",
+    "icon": "Treasure_Tuna",
+    "l": {
+      "CNzh": "金枪鱼",
+      "EUde": "Thunfisch",
+      "EUen": "tuna",
+      "EUes": "atún",
+      "EUfr": "thon",
+      "EUit": "tonno",
+      "EUnl": "tonijn",
+      "JPja": "マグロ",
+      "KRko": "참치",
+      "TWzh": "鮪魚",
+      "USen": "tuna",
+      "USes": "atún",
+      "USfr": "thon"
+    }
+  },
+  {
+    "n": "Turtle",
+    "icon": "Treasure_Turtle",
+    "l": {
+      "CNzh": "乌龟",
+      "EUde": "Schildkröte",
+      "EUen": "turtle",
+      "EUes": "tortuga",
+      "EUfr": "tortue",
+      "EUit": "tartaruga",
+      "EUnl": "schildpad",
+      "JPja": "カメ",
+      "KRko": "거북이",
+      "TWzh": "烏龜",
+      "USen": "turtle",
+      "USes": "tortuga",
+      "USfr": "tortue"
+    }
+  },
+  {
+    "n": "Tyrannosaurus",
+    "icon": "Treasure_Tyrannosaurus",
+    "l": {
+      "CNzh": "暴龙",
+      "EUde": "Tyrannosaurier",
+      "EUen": "Tyrannosaurus",
+      "EUes": "tiranosaurio",
+      "EUfr": "tyrannosaure",
+      "EUit": "tirannosauro",
+      "EUnl": "tyrannosaurus",
+      "JPja": "ティラノサウルス",
+      "KRko": "티라노사우루스",
+      "TWzh": "暴龍",
+      "USen": "Tyrannosaurus",
+      "USes": "tiranosaurio",
+      "USfr": "tyrannosaure"
+    }
+  },
+  {
+    "n": "Ufo",
+    "icon": "Treasure_Ufo",
+    "l": {
+      "CNzh": "UFO",
+      "EUde": "Ufo",
+      "EUen": "UFO",
+      "EUes": "ovni",
+      "EUfr": "ovni",
+      "EUit": "UFO",
+      "EUnl": "vliegende schotel",
+      "JPja": "UFO",
+      "KRko": "UFO",
+      "TWzh": "UFO",
+      "USen": "UFO",
+      "USes": "ovni",
+      "USfr": "ovni"
+    }
+  },
+  {
+    "n": "Unicorn",
+    "icon": "Treasure_Unicorn",
+    "l": {
+      "CNzh": "独角兽",
+      "EUde": "Einhorn",
+      "EUen": "unicorn",
+      "EUes": "unicornio",
+      "EUfr": "licorne",
+      "EUit": "unicorno",
+      "EUnl": "eenhoorn",
+      "JPja": "ユニコーン",
+      "KRko": "유니콘",
+      "TWzh": "獨角獸",
+      "USen": "unicorn",
+      "USes": "unicornio",
+      "USfr": "licorne"
+    }
+  },
+  {
+    "n": "VacuumTube",
+    "icon": "Treasure_VacuumTube",
+    "l": {
+      "CNzh": "真空管",
+      "EUde": "Vakuumröhre",
+      "EUen": "vacuum tube",
+      "EUes": "válvula de vacío",
+      "EUfr": "tube électronique",
+      "EUit": "valvola termoionica",
+      "EUnl": "elektronenbuis",
+      "JPja": "真空管",
+      "KRko": "진공관",
+      "TWzh": "真空管",
+      "USen": "vacuum tube",
+      "USes": "válvula de vacío",
+      "USfr": "tube électronique"
+    }
+  },
+  {
+    "n": "DVDWideShow",
+    "icon": "Treasure_DVDWideShow",
+    "l": {
+      "CNzh": "杂闻秀",
+      "EUde": "Fernsehshow-Sammlung",
+      "EUen": "variety show",
+      "EUes": "programa de variedades",
+      "EUfr": "émission de variété",
+      "EUit": "varietà",
+      "EUnl": "amusementsprogramma",
+      "JPja": "ワイドショー",
+      "KRko": "와이드 쇼",
+      "TWzh": "雜聞秀",
+      "USen": "variety show",
+      "USes": "programa de variedades",
+      "USfr": "émission de variété"
+    }
+  },
+  {
+    "n": "VenetianGlass",
+    "icon": "Treasure_VenetianGlass",
+    "l": {
+      "CNzh": "威尼斯玻璃杯",
+      "EUde": "Muranoglas",
+      "EUen": "Venetian glass",
+      "EUes": "copa de vidrio veneciano",
+      "EUfr": "verre vénitien",
+      "EUit": "bicchiere in vetro di Murano",
+      "EUnl": "Venetiaans glas",
+      "JPja": "ベネチアングラス",
+      "KRko": "베네치아 유리컵",
+      "TWzh": "威尼斯玻璃杯",
+      "USen": "Venetian glass",
+      "USes": "copa de vidrio veneciano",
+      "USfr": "verre vénitien"
+    }
+  },
+  {
+    "n": "CDGameMusic",
+    "icon": "Treasure_CDGameMusic",
+    "l": {
+      "CNzh": "游戏音乐唱片",
+      "EUde": "Spiele-Soundtrack-Album",
+      "EUen": "video game soundtrack",
+      "EUes": "banda sonora de juego",
+      "EUfr": "B.O. de jeu vidéo",
+      "EUit": "colonna sonora di videogioco",
+      "EUnl": "album met videogamemuziek",
+      "JPja": "ゲームミュージックのレコード",
+      "KRko": "게임 OST LP",
+      "TWzh": "遊戲音樂唱片",
+      "USen": "video-game soundtrack",
+      "USes": "banda sonora de videojuego",
+      "USfr": "trame sonore de jeu vidéo"
+    }
+  },
+  {
+    "n": "VirtualBoy",
+    "icon": "Treasure_VirtualBoy",
+    "l": {
+      "CNzh": "Virtual Boy",
+      "EUde": "Virtual Boy",
+      "EUen": "Virtual Boy",
+      "EUes": "Virtual Boy",
+      "EUfr": "Virtual Boy",
+      "EUit": "Virtual Boy",
+      "EUnl": "Virtual Boy",
+      "JPja": "バーチャルボーイ",
+      "KRko": "버추얼보이",
+      "TWzh": "Virtual Boy",
+      "USen": "Virtual Boy",
+      "USes": "Virtual Boy",
+      "USfr": "Virtual Boy"
+    }
+  },
+  {
+    "n": "Daphnia",
+    "icon": "Treasure_Daphnia",
+    "l": {
+      "CNzh": "水虱",
+      "EUde": "Wasserfloh",
+      "EUen": "water flea",
+      "EUes": "pulga de agua",
+      "EUfr": "puce d'eau",
+      "EUit": "pulce d'acqua",
+      "EUnl": "watervlo",
+      "JPja": "ミジンコ",
+      "KRko": "물벼룩",
+      "TWzh": "水蚤",
+      "USen": "water flea",
+      "USes": "pulga de agua",
+      "USfr": "puce d'eau"
+    }
+  },
+  {
+    "n": "RubberString",
+    "icon": "Treasure_RubberString",
+    "l": {
+      "CNzh": "不牢靠的弹跳绳",
+      "EUde": "Gummiband mit Schwächen",
+      "EUen": "weak-looking elastic cord",
+      "EUes": "cinta elástica dada de sí",
+      "EUfr": "élastique fragile",
+      "EUit": "elastico molle",
+      "EUnl": "uitgelubberd elastiek",
+      "JPja": "弱そうなゴムひも",
+      "KRko": "약해 보이는 고무줄",
+      "TWzh": "不牢靠的彈跳繩",
+      "USen": "weak-looking elastic rope",
+      "USes": "cuerda débil",
+      "USfr": "élastique fragile"
+    }
+  },
+  {
+    "n": "WindUpTeeth",
+    "icon": "Treasure175",
+    "l": {
+      "CNzh": "发条式假牙玩具",
+      "EUde": "Klappergebiss",
+      "EUen": "wind-up teeth",
+      "EUes": "dentadura de broma",
+      "EUfr": "dentier mécanique",
+      "EUit": "dentiera a molla",
+      "EUnl": "klappergebit",
+      "JPja": "ゼンマイ式の入れ歯",
+      "KRko": "틀니",
+      "TWzh": "發條式假牙玩具",
+      "USen": "wind-up teeth",
+      "USes": "dientes de cuerda",
+      "USfr": "dentier mécanique"
+    }
+  },
+  {
+    "n": "CircleOfWisdom",
+    "icon": "Treasure_CircleOfWisdom",
+    "l": {
+      "CNzh": "九连环",
+      "EUde": "Entwirrspiel",
+      "EUen": "wire puzzle",
+      "EUes": "rompecabezas de metal",
+      "EUfr": "casse-tête en métal",
+      "EUit": "rompicapo di scioglimento",
+      "EUnl": "metalen denkpuzzel",
+      "JPja": "知恵の輪",
+      "KRko": "지혜의 고리",
+      "TWzh": "益智環",
+      "USen": "wire puzzle",
+      "USes": "rompecabezas de metal",
+      "USfr": "casse-tête en métal"
+    }
+  },
+  {
+    "n": "WoodenCarvingBear",
+    "icon": "Treasure_WoodenCarvingBear",
+    "l": {
+      "CNzh": "木雕熊",
+      "EUde": "Holzbärenstatue",
+      "EUen": "wooden bear statue",
+      "EUes": "figura tallada de oso",
+      "EUfr": "ours en bois",
+      "EUit": "orsetto di legno",
+      "EUnl": "houten berenbeeldje",
+      "JPja": "木彫りの熊",
+      "KRko": "목제 곰 조각",
+      "TWzh": "木雕熊",
+      "USen": "wooden bear statue",
+      "USes": "oso de madera",
+      "USfr": "ours en bois"
+    }
+  },
+  {
+    "n": "WoolFelt",
+    "icon": "Treasure_WoolFelt",
+    "l": {
+      "CNzh": "羊毛毡手工艺品",
+      "EUde": "Plüschschaf",
+      "EUen": "needle-felted sheep",
+      "EUes": "peluche de fieltro",
+      "EUfr": "mouton en feutre",
+      "EUit": "pecorella in feltro di lana",
+      "EUnl": "vilten schaap",
+      "JPja": "羊毛フェルト",
+      "KRko": "양모 펠트",
+      "TWzh": "羊毛氈",
+      "USen": "wool-felt sheep",
+      "USes": "peluche de fieltro",
+      "USfr": "feutre de laine de mouton"
+    }
+  }
+]

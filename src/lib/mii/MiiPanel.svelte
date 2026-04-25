@@ -6,6 +6,7 @@
   import type { Entry } from '../sav/types';
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
   import MiiElementEditor from './MiiElementEditor.svelte';
+  import MiiFoodPicker from './MiiFoodPicker.svelte';
   import MiiPersonalityEditor from './MiiPersonalityEditor.svelte';
   import MiiRelationsTable from './MiiRelationsTable.svelte';
   import MiiVoiceEditor from './MiiVoiceEditor.svelte';
@@ -105,17 +106,24 @@
     return m;
   });
 
+  function resolveFields(fields: MiiField[] | undefined) {
+    const out: { field: MiiField; entry: Entry }[] = [];
+    if (!fields) return out;
+    for (const f of fields) {
+      const e = byHash.get(f.hash);
+      if (!e) continue;
+      if (e.type !== f.expectedType) continue;
+      out.push({ field: f, entry: e });
+    }
+    return out;
+  }
+
   const sectionsResolved = $derived.by(() => {
-    return MII_SECTIONS.map((sec) => {
-      const fields: { field: MiiField; entry: Entry }[] = [];
-      for (const f of sec.fields) {
-        const e = byHash.get(f.hash);
-        if (!e) continue;
-        if (e.type !== f.expectedType) continue;
-        fields.push({ field: f, entry: e });
-      }
-      return { ...sec, resolved: fields };
-    }).filter((sec) => sec.resolved.length > 0);
+    return MII_SECTIONS.map((sec) => ({
+      ...sec,
+      resolved: resolveFields(sec.fields),
+      resolvedSpoiler: resolveFields(sec.spoilerFields),
+    })).filter((sec) => sec.resolved.length > 0 || sec.resolvedSpoiler.length > 0);
   });
 
   function slotLabel(slot: Slot): string {
@@ -219,12 +227,38 @@
             <div class="mt-4">
               <MiiPersonalityEditor miiIndex={selectedIndex} entriesByName={byName} />
             </div>
-          {:else}
+          {:else if sec.resolved.length > 0}
             <div class="mt-4 grid gap-4 sm:grid-cols-2">
               {#each sec.resolved as r (r.field.hash)}
                 <MiiElementEditor entry={r.entry} index={selectedIndex} field={r.field} />
               {/each}
             </div>
+          {/if}
+          {#if sec.resolvedSpoiler.length > 0}
+            <details class="group mt-3 rounded-md border border-amber-300 bg-amber-50 p-3">
+              <summary
+                class="flex cursor-pointer list-none items-center justify-between gap-2 text-sm font-bold text-amber-900 select-none"
+              >
+                <span class="flex items-center gap-2">
+                  <span aria-hidden="true">⚠</span>
+                  <span>{$_('mii.spoiler.warning')}</span>
+                </span>
+                <span class="text-xs font-normal text-amber-800">
+                  <span class="group-open:hidden">{$_('mii.spoiler.show')}</span>
+                  <span class="hidden group-open:inline">{$_('mii.spoiler.hide')}</span>
+                </span>
+              </summary>
+              <p class="mt-1 text-xs text-amber-900">{$_('mii.spoiler.caption')}</p>
+              <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                {#each sec.resolvedSpoiler as r (r.field.hash)}
+                  {#if sec.titleKey === 'food'}
+                    <MiiFoodPicker entry={r.entry} index={selectedIndex} field={r.field} />
+                  {:else}
+                    <MiiElementEditor entry={r.entry} index={selectedIndex} field={r.field} />
+                  {/if}
+                {/each}
+              </div>
+            </details>
           {/if}
         </section>
       {/each}

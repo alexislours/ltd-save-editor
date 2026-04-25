@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Component } from 'svelte';
+  import { SvelteMap } from 'svelte/reactivity';
   import { getPath, matchRoute } from './navigation.svelte';
 
   type RouteLoader = () => Promise<{ default: Component }>;
@@ -10,7 +11,7 @@
   };
   let { routes, fallback }: Props = $props();
 
-  const cache = new Map<RouteLoader, Component>();
+  const cache = new SvelteMap<RouteLoader, Component>();
   let Current = $state<Component | null>(null);
   let error = $state<unknown>(null);
 
