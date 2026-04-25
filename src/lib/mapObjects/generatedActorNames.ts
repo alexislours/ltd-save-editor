@@ -64,13 +64,7 @@ export const ACTOR_NAMES: ReadonlyMap<number, ActorInfo> = new Map([
   [0x1dd946b9, { key: 'ObjLighthouse_02', category: 'MapObject_Obje_Island' }],
   [0x1e702ae2, { key: 'ObjDrinkingFountain_02', category: 'MapObject_Obje_Island' }],
   [0x1eb0ff5c, { key: 'ObjJackOLantern', category: 'MapObject_Obje_Island' }],
-  [
-    0x1f1eb32d,
-    {
-      key: 'FacilityFamilyRestaurant',
-      category: 'MapObject_Facility_Location',
-    },
-  ],
+  [0x1f1eb32d, { key: 'FacilityFamilyRestaurant', category: 'MapObject_Facility_Location' }],
   [0x20e67c30, { key: 'ObjFenceBarbed_02', category: 'MapObject_Obje_Island' }],
   [0x225d91bf, { key: 'ObjStepIron_03', category: 'MapObject_IslandStep' }],
   [0x22f85aa9, { key: 'FacilityItemShop', category: 'MapObject_Facility_Shop' }],
@@ -408,14 +402,7 @@ export const ACTOR_NAMES: ReadonlyMap<number, ActorInfo> = new Map([
 // Actors without an entry here default to a 1x1 footprint centered on
 // the anchor. Verified: every placeable actor in sample/Map.sav with
 // a multi-cell model has a WalkingGrid entry; small props do not.
-export const DEFAULT_FOOTPRINT: ActorFootprint = {
-  x0: 0,
-  y0: 0,
-  w: 1,
-  h: 1,
-  goalX: 0,
-  goalY: 0,
-};
+export const DEFAULT_FOOTPRINT: ActorFootprint = { x0: 0, y0: 0, w: 1, h: 1, goalX: 0, goalY: 0 };
 
 export const ACTOR_FOOTPRINT: ReadonlyMap<number, ActorFootprint> = new Map([
   [0x00783c5e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceIron_07 (1×1)

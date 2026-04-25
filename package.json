@@ -12,7 +12,7 @@
     "format": "prettier --write .",
     "i18n:check": "node tools/i18n-sync.ts check",
     "i18n:sync": "node tools/i18n-sync.ts sync",
-    "deploy": "npm run build && wrangler pages deploy dist --project-name=ltd-save-editor --branch=main"
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=ltd-save-editor"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

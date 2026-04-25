@@ -101,7 +101,18 @@
       "personality": "Personality",
       "mood": "Mood",
       "voice": "Voice",
-      "voice_caption": "Sliders cover 0-50 (51 steps). Picking a Simple preset overwrites every slider."
+      "voice_caption": "Sliders cover 0-50 (51 steps). Picking a Simple preset overwrites every slider.",
+      "food": "Food"
+    },
+    "spoiler": {
+      "warning": "Spoiler warning",
+      "caption": "These values may reveal in-game discoveries. Click to expand.",
+      "show": "Show",
+      "hide": "Hide"
+    },
+    "food": {
+      "no_image": "No image",
+      "unknown": "Unknown food (hash {hash})"
     },
     "fields": {
       "level": "Mii level",
@@ -132,7 +143,12 @@
       "gaiety": "Gaiety",
       "sociability": "Sociability",
       "feeling": "Feeling",
-      "bond_meter": "Bond meter"
+      "bond_meter": "Bond meter",
+      "eat_fullness": "Stomach fullness",
+      "ultra_best_id": "All-time favourite food",
+      "best_id": "2nd favourite food",
+      "ultra_worst_id": "All-time hated food",
+      "worst_id": "2nd hated food"
     },
     "errors": {
       "required": "Required",

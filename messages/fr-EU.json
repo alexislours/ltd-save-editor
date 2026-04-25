@@ -101,7 +101,18 @@
       "personality": "Personnalité",
       "mood": "Humeur",
       "voice": "Voix",
-      "voice_caption": "Les curseurs vont de 0 à 50 (51 pas). Choisir un préréglage Simple écrase tous les curseurs."
+      "voice_caption": "Les curseurs vont de 0 à 50 (51 pas). Choisir un préréglage Simple écrase tous les curseurs.",
+      "food": "Nourriture"
+    },
+    "spoiler": {
+      "warning": "Avertissement spoiler",
+      "caption": "Ces valeurs peuvent révéler des découvertes en jeu. Cliquez pour développer.",
+      "show": "Afficher",
+      "hide": "Masquer"
+    },
+    "food": {
+      "no_image": "Pas d'image",
+      "unknown": "Plat inconnu (hash {hash})"
     },
     "fields": {
       "level": "Niveau du Mii",
@@ -132,7 +143,12 @@
       "gaiety": "Enjouement",
       "sociability": "Sociabilité",
       "feeling": "Humeur",
-      "bond_meter": "Lien"
+      "bond_meter": "Lien",
+      "eat_fullness": "Satiété",
+      "ultra_best_id": "Plat préféré absolu",
+      "best_id": "2e plat préféré",
+      "ultra_worst_id": "Plat le plus détesté",
+      "worst_id": "2e plat détesté"
     },
     "errors": {
       "required": "Requis",
