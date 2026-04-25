@@ -1,5 +1,6 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
+  import { openLightbox } from '../lightboxState.svelte';
   import { INPUT_CLASS } from '../styles';
   import { STATE_OPTIONS } from './stateOptions';
 
@@ -30,10 +31,13 @@
 </script>
 
 <li class="inventory-row flex items-center gap-3 px-3 py-2">
-  <div
-    class="flex h-14 w-14 shrink-0 items-center justify-center rounded-md border border-amber-200 bg-white"
-  >
-    {#if imageUrl}
+  {#if imageUrl}
+    <button
+      type="button"
+      onclick={() => openLightbox(imageUrl, label)}
+      aria-label={$_('lightbox.open', { values: { label } })}
+      class="flex h-14 w-14 shrink-0 cursor-zoom-in items-center justify-center overflow-hidden rounded-md border border-amber-200 bg-white transition-colors hover:border-orange-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+    >
       <img
         src={imageUrl}
         alt={label}
@@ -41,10 +45,14 @@
         decoding="async"
         class="h-full w-full object-contain p-1"
       />
-    {:else}
+    </button>
+  {:else}
+    <div
+      class="flex h-14 w-14 shrink-0 items-center justify-center rounded-md border border-amber-200 bg-white"
+    >
       <span class="text-[10px] text-slate-400">·</span>
-    {/if}
-  </div>
+    </div>
+  {/if}
 
   <div class="min-w-0 flex-1">
     <div class="truncate text-sm font-bold text-slate-900">{label}</div>
