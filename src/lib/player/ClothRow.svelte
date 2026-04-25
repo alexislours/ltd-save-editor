@@ -1,5 +1,6 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
+  import { openLightbox } from '../lightboxState.svelte';
   import { type Cloth, clothImageUrl } from '../sav/clothList.svelte';
   import { INPUT_CLASS } from '../styles';
   import { STATE_OPTIONS } from './stateOptions';
@@ -50,8 +51,11 @@
       <span class:rotate-90={expanded} class="transition-transform">▶</span>
     </button>
 
-    <div
-      class="flex h-14 w-14 shrink-0 items-center justify-center rounded-md border border-amber-200 bg-white"
+    <button
+      type="button"
+      onclick={() => openLightbox(clothImageUrl(cloth, 0), label)}
+      aria-label={$_('lightbox.open', { values: { label } })}
+      class="flex h-14 w-14 shrink-0 cursor-zoom-in items-center justify-center overflow-hidden rounded-md border border-amber-200 bg-white transition-colors hover:border-orange-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
     >
       <img
         src={clothImageUrl(cloth, 0)}
@@ -60,7 +64,7 @@
         decoding="async"
         class="h-full w-full object-contain p-1"
       />
-    </div>
+    </button>
 
     <div class="min-w-0 flex-1">
       <div class="truncate text-sm font-bold text-slate-900">{label}</div>
@@ -152,18 +156,22 @@
         {@const colorState = readState(ci)}
         {@const colorQty = readQty(ci)}
         {@const colorMatched = STATE_OPTIONS.some((o) => o.hash === colorState >>> 0)}
+        {@const colorLabel = `${label} #${ci + 1}`}
         <li class="flex items-center gap-3 py-1.5 pl-9">
-          <div
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-amber-200 bg-white"
+          <button
+            type="button"
+            onclick={() => openLightbox(clothImageUrl(cloth, ci), colorLabel)}
+            aria-label={$_('lightbox.open', { values: { label: colorLabel } })}
+            class="flex h-10 w-10 shrink-0 cursor-zoom-in items-center justify-center overflow-hidden rounded-md border border-amber-200 bg-white transition-colors hover:border-orange-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
           >
             <img
               src={clothImageUrl(cloth, ci)}
-              alt="{label} #{ci + 1}"
+              alt={colorLabel}
               loading="lazy"
               decoding="async"
               class="h-full w-full object-contain p-1"
             />
-          </div>
+          </button>
           <div class="min-w-0 flex-1">
             <div class="text-xs font-semibold text-slate-700">
               {$_('player.clothes.color_label', { values: { index: ci + 1 } })}

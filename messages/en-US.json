@@ -10,6 +10,10 @@
     "advanced": "Advanced",
     "about": "About"
   },
+  "lightbox": {
+    "open": "Enlarge image of {label}",
+    "close": "Close enlarged image"
+  },
   "save": {
     "no_changes": "No changes",
     "unsaved_changes": "Unsaved changes",

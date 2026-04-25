@@ -10,6 +10,10 @@
     "advanced": "Avancé",
     "about": "À propos"
   },
+  "lightbox": {
+    "open": "Agrandir l'image de {label}",
+    "close": "Fermer l'image agrandie"
+  },
   "save": {
     "no_changes": "Aucune modification",
     "unsaved_changes": "Modifications non enregistrées",
