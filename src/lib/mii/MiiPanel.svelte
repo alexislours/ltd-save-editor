@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import { SvelteMap } from 'svelte/reactivity';
   import { arrayCount, arrGetInt, arrGetString } from '../sav/codec';
   import { murmur3_x86_32 } from '../sav/hash';
@@ -118,30 +119,29 @@
   });
 
   function slotLabel(slot: Slot): string {
-    const lvl = slot.level == null ? '' : ` · Lv ${slot.level}`;
-    return `#${slot.index + 1} · ${slot.name}${lvl}`;
+    const params = { index: slot.index + 1, name: slot.name };
+    if (slot.level == null) {
+      return $_('mii.panel.slot_label', { values: params });
+    }
+    return $_('mii.panel.slot_label_with_level', {
+      values: { ...params, level: slot.level },
+    });
   }
 </script>
 
 {#if !nameEntry}
   <section class={CARD_CLASS}>
-    <p class="text-sm text-slate-600">
-      This save doesn't expose the Mii.Name.Name spine - there's nothing to enumerate. Use the
-      Player tab's advanced panel to inspect raw entries.
-    </p>
+    <p class="text-sm text-slate-600">{$_('mii.panel.no_name_spine')}</p>
   </section>
 {:else if slots.length === 0}
   <section class={CARD_CLASS}>
-    <p class="text-sm text-slate-600">
-      No populated Mii slots were found. Slots are detected by checking Mii.Name.Name for a
-      non-empty string.
-    </p>
+    <p class="text-sm text-slate-600">{$_('mii.panel.no_slots')}</p>
   </section>
 {:else}
   <div class="grid gap-4">
     <section class={CARD_CLASS}>
       <label class="block min-w-0">
-        <span class={LABEL_CLASS}>Mii</span>
+        <span class={LABEL_CLASS}>{$_('mii.panel.selector_label')}</span>
         <select
           class="{FORM_INPUT_CLASS} max-w-md"
           value={selectedIndex ?? ''}
@@ -155,7 +155,7 @@
           {/each}
         </select>
         <span class="mt-1 block text-xs text-slate-600">
-          {slots.length} populated slot{slots.length === 1 ? '' : 's'}
+          {$_('mii.panel.slot_count', { values: { count: slots.length } })}
         </span>
       </label>
 
@@ -169,17 +169,19 @@
               class="rounded-full bg-amber-200 px-2.5 py-0.5 font-mono text-xs font-bold text-amber-900"
               title="Mii.MiiMisc.SatisfyInfo.Level"
             >
-              Level {selectedSlot.level}
+              {$_('mii.panel.level_pill', { values: { level: selectedSlot.level } })}
             </span>
           {/if}
           <span class="text-xs text-slate-600">
-            slot #{selectedSlot.index + 1}
+            {$_('mii.panel.slot_short', { values: { index: selectedSlot.index + 1 } })}
           </span>
         </div>
         {#if selectedSlot.xpPercent != null}
           <div class="mt-3 max-w-md" title="Mii.MiiMisc.SatisfyInfo.Meter">
             <div class="flex items-baseline justify-between">
-              <span class="text-sm font-bold text-slate-900">Level %</span>
+              <span class="text-sm font-bold text-slate-900">
+                {$_('mii.panel.level_meter_label')}
+              </span>
               <span class="font-mono text-xs text-slate-700">
                 {selectedSlot.xpPercent}%
               </span>
@@ -202,13 +204,17 @@
     </section>
 
     {#if selectedIndex != null}
-      {#each sectionsResolved as sec (sec.title)}
+      {#each sectionsResolved as sec (sec.titleKey)}
         <section class={CARD_CLASS}>
-          <h3 class="text-base font-bold text-slate-900">{sec.title}</h3>
-          {#if sec.description}
-            <p class="mt-0.5 text-xs text-slate-600">{sec.description}</p>
+          <h3 class="text-base font-bold text-slate-900">
+            {$_(`mii.sections.${sec.titleKey}`)}
+          </h3>
+          {#if sec.descriptionKey}
+            <p class="mt-0.5 text-xs text-slate-600">
+              {$_(`mii.sections.${sec.descriptionKey}`)}
+            </p>
           {/if}
-          {#if sec.title === 'Personality'}
+          {#if sec.titleKey === 'personality'}
             {@const byName = new Map(sec.resolved.map((r) => [r.field.name, r.entry]))}
             <div class="mt-4">
               <MiiPersonalityEditor miiIndex={selectedIndex} entriesByName={byName} />
@@ -225,10 +231,8 @@
 
       {#if voiceEntriesByName.size > 0}
         <section class={CARD_CLASS}>
-          <h3 class="text-base font-bold text-slate-900">Voice</h3>
-          <p class="mt-0.5 text-xs text-slate-600">
-            Sliders cover 0-50 (51 steps). Picking a Simple preset overwrites every slider.
-          </p>
+          <h3 class="text-base font-bold text-slate-900">{$_('mii.sections.voice')}</h3>
+          <p class="mt-0.5 text-xs text-slate-600">{$_('mii.sections.voice_caption')}</p>
           <div class="mt-4">
             <MiiVoiceEditor miiIndex={selectedIndex} entriesByName={voiceEntriesByName} />
           </div>

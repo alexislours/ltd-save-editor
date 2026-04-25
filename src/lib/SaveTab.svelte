@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import { _ } from 'svelte-i18n';
   import Card from './Card.svelte';
   import FileDropZone from './FileDropZone.svelte';
   import { clearSave, expectedFileName, getSave, type SaveKind } from './saveFile.svelte';
@@ -37,7 +38,8 @@
           {save.name}
         </p>
         <p class="mt-0.5 text-xs text-slate-700">
-          {save.size.toLocaleString()} bytes · {new Date(save.lastModified).toLocaleString()}
+          {save.size.toLocaleString()}
+          {$_('save.bytes_unit')} · {new Date(save.lastModified).toLocaleString()}
         </p>
       </div>
       <button
@@ -45,19 +47,19 @@
         class="shrink-0 rounded-full bg-white px-4 py-1.5 text-xs font-bold text-slate-900 shadow ring-1 ring-amber-400/60 transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95"
         onclick={() => clearSave(kind)}
       >
-        Replace
+        {$_('save.replace_action')}
       </button>
     </div>
 
     {#if error}
       <Card>
         <p class="text-sm text-red-600">
-          Failed to parse {fileName}: {error}
+          {$_('save.parse_failed', { values: { fileName, error } })}
         </p>
       </Card>
     {:else if !ready}
       <Card>
-        <p class="text-sm text-slate-600">Waiting for {fileName}…</p>
+        <p class="text-sm text-slate-600">{$_('save.waiting', { values: { fileName } })}</p>
       </Card>
     {:else}
       {@render children()}
@@ -65,11 +67,7 @@
   {:else}
     <Card>
       <p class="mb-4 text-sm text-neutral-600">
-        Upload your <span
-          class="rounded-md bg-amber-100 px-1.5 py-0.5 font-mono text-xs font-bold text-amber-900"
-          >{fileName}</span
-        >
-        to begin.
+        {$_('save.upload_prompt', { values: { fileName } })}
       </p>
       <FileDropZone {kind} />
     </Card>

@@ -15,13 +15,14 @@
   } from '../sav/codec';
   import { DataType } from '../sav/dataType';
   import { murmur3_x86_32 } from '../sav/hash';
-  import { enumOptionsFor } from '../sav/knownKeys';
+  import { _ } from 'svelte-i18n';
+  import { enumOptionsFor, type EnumOption } from '../sav/knownKeys';
   import type { Entry } from '../sav/types';
   import { markDirty } from '../playerEditor.svelte';
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
   import DateField from './DateField.svelte';
   import EntryEditor from './EntryEditor.svelte';
-  import { HAND_SWATCHES } from './profileFields';
+  import { HAND_COLORS } from './profileFields';
   import SwatchPicker from './SwatchPicker.svelte';
 
   type Props = { entries: Entry[] };
@@ -107,13 +108,13 @@
         case DataType.UInt:
         case DataType.Enum: {
           const n = Number(trimmed);
-          if (!Number.isFinite(n) || n < 0) return 'Must be a non-negative integer';
+          if (!Number.isFinite(n) || n < 0) return $_('player.errors.non_negative_integer');
           setUInt(entry, Math.trunc(n));
           break;
         }
         case DataType.Int: {
           const n = Number(trimmed);
-          if (!Number.isFinite(n)) return 'Must be an integer';
+          if (!Number.isFinite(n)) return $_('player.errors.integer');
           setUInt(entry, Math.trunc(n) >>> 0);
           break;
         }
@@ -123,18 +124,18 @@
         }
         case DataType.UInt64: {
           const n = BigInt(trimmed);
-          if (n < 0n) return 'Must be a non-negative integer';
+          if (n < 0n) return $_('player.errors.non_negative_integer');
           setUInt64(entry, n);
           break;
         }
         default:
-          return 'Unsupported field type';
+          return $_('player.errors.unsupported_type');
       }
       markDirty(entry);
       tick++;
       return null;
     } catch {
-      return 'Invalid number';
+      return $_('player.errors.invalid_number');
     }
   }
 
@@ -165,15 +166,15 @@
     } else {
       intPart = cleaned.replace(/\./g, '');
     }
-    if (intPart === '' && fracPart === '') return 'Must be a number';
+    if (intPart === '' && fracPart === '') return $_('player.errors.number');
     if (!/^\d*$/.test(intPart) || !/^\d*$/.test(fracPart)) {
-      return 'Must be a non-negative number';
+      return $_('player.errors.non_negative_number');
     }
     const cents = (fracPart + '00').slice(0, 2);
     const totalStr = (intPart || '0') + cents;
     const total = Number(totalStr);
-    if (!Number.isFinite(total) || total < 0) return 'Must be a non-negative number';
-    if (total > MAX_MONEY_CENTS) return 'Max is 999,999.99';
+    if (!Number.isFinite(total) || total < 0) return $_('player.errors.non_negative_number');
+    if (total > MAX_MONEY_CENTS) return $_('player.errors.money_max');
     try {
       switch (entry.type) {
         case DataType.UInt:
@@ -188,13 +189,13 @@
           setUInt64(entry, BigInt(totalStr));
           break;
         default:
-          return 'Unsupported field type';
+          return $_('player.errors.unsupported_type');
       }
       markDirty(entry);
       tick++;
       return null;
     } catch {
-      return 'Invalid number';
+      return $_('player.errors.invalid_number');
     }
   }
 
@@ -222,6 +223,23 @@
 
   const currencyOptions = $derived(currency ? enumOptionsFor(currency.hash) : null);
   const currencyRaw = $derived.by(() => (void tick, currency ? getEnum(currency) : 0));
+
+  const regionOptions = $derived(region ? enumOptionsFor(region.hash) : null);
+  const regionRaw = $derived.by(() => (void tick, region ? getEnum(region) : 0));
+
+  const handSwatches = $derived(
+    HAND_COLORS.map((color, i) => ({
+      value: i,
+      color,
+      label: $_(`player.hand_tones.${i}`),
+    })),
+  );
+
+  function localizeRegion(opt: EnumOption): string {
+    const key = `player.regions.${opt.name}`;
+    const t = $_(key);
+    return t === key ? (opt.label ?? opt.name) : t;
+  }
 
   let nameError = $state<string | null>(null);
   let islandError = $state<string | null>(null);
@@ -259,10 +277,7 @@
 
 {#if !anyFound}
   <section class={CARD_CLASS}>
-    <p class="text-sm text-slate-600">
-      None of the curated Player fields were found in this save. Use the Advanced section below to
-      browse everything.
-    </p>
+    <p class="text-sm text-slate-600">{$_('player.empty_state')}</p>
   </section>
 {:else}
   <div class="grid gap-4">
@@ -270,14 +285,20 @@
       <div class="grid gap-5 sm:grid-cols-2">
         <div class="grid gap-3">
           {#if name}
-            {@render textField(name, 'Player name', nameValue, (m) => (nameError = m), nameError)}
+            {@render textField(
+              name,
+              $_('player.name_label'),
+              nameValue,
+              (msg) => (nameError = msg),
+              nameError,
+            )}
           {/if}
           {#if howCallName}
             {@render textField(
               howCallName,
-              'Pronounced',
+              $_('player.name_pronounced_label'),
               phoneticNameValue,
-              (m) => (phoneticNameError = m),
+              (msg) => (phoneticNameError = msg),
               phoneticNameError,
             )}
           {/if}
@@ -287,18 +308,18 @@
           {#if islandName}
             {@render textField(
               islandName,
-              'Island',
+              $_('player.island_label'),
               islandValue,
-              (m) => (islandError = m),
+              (msg) => (islandError = msg),
               islandError,
             )}
           {/if}
           {#if howCallIsland}
             {@render textField(
               howCallIsland,
-              'Pronounced',
+              $_('player.island_pronounced_label'),
               phoneticIslandValue,
-              (m) => (phoneticIslandError = m),
+              (msg) => (phoneticIslandError = msg),
               phoneticIslandError,
             )}
           {/if}
@@ -307,9 +328,9 @@
 
       {#if skin}
         <div class="mt-6 border-t border-amber-200/60 pt-5">
-          <span class={LABEL_CLASS}>Skin tone</span>
+          <span class={LABEL_CLASS}>{$_('player.skin_tone_label')}</span>
           <div class="mt-2">
-            <SwatchPicker swatches={HAND_SWATCHES} value={getUInt(skin)} onChange={setSkin} />
+            <SwatchPicker swatches={handSwatches} value={getUInt(skin)} onChange={setSkin} />
           </div>
         </div>
       {/if}
@@ -320,7 +341,7 @@
         <div class="flex flex-wrap gap-x-8 gap-y-5">
           {#if money}
             <div class="min-w-0">
-              <span class={LABEL_CLASS}>Money</span>
+              <span class={LABEL_CLASS}>{$_('player.money_label')}</span>
               <div class="flex items-stretch gap-2">
                 <input
                   type="text"
@@ -364,7 +385,7 @@
 
           {#if bdayDay && bdayMonth && bdayYear}
             <div class="min-w-0">
-              <span class={LABEL_CLASS}>Birthday</span>
+              <span class={LABEL_CLASS}>{$_('player.birthday_label')}</span>
               <div class="mt-1.5">
                 <DateField day={bdayDay} month={bdayMonth} year={bdayYear} />
               </div>
@@ -373,7 +394,7 @@
 
           {#if playTime}
             <div class="min-w-0">
-              <span class={LABEL_CLASS}>Play time</span>
+              <span class={LABEL_CLASS}>{$_('player.play_time_label')}</span>
               <div class="mt-1.5 flex items-center gap-2">
                 <input
                   type="text"
@@ -385,7 +406,7 @@
                   }}
                 />
                 <span class="text-xs text-slate-700">
-                  seconds ·
+                  {$_('player.play_time_unit')} ·
                   <span class="font-mono text-slate-900">
                     {formatPlayTime(playTimeValue)}
                   </span>
@@ -399,7 +420,7 @@
 
           {#if bootNum}
             <div class="min-w-0">
-              <span class={LABEL_CLASS}>Boots</span>
+              <span class={LABEL_CLASS}>{$_('player.boots_label')}</span>
               <div class="mt-1.5">
                 <input
                   type="text"
@@ -422,17 +443,44 @@
 
     {#if region || regionCode || nameLang || islandLang}
       <section class={CARD_CLASS}>
-        <h3 class="mb-4 text-sm font-semibold text-neutral-900">Region & language</h3>
+        <h3 class="mb-4 text-sm font-semibold text-neutral-900">{$_('player.region_section')}</h3>
         <div class="grid gap-4 sm:grid-cols-2">
           {#if region}
             <label class="block min-w-0">
-              <span class={LABEL_CLASS}>Region</span>
-              <div class="mt-1.5 max-w-xs"><EntryEditor entry={region} /></div>
+              <span class={LABEL_CLASS}>{$_('player.region_label')}</span>
+              <div class="mt-1.5 max-w-xs">
+                {#if regionOptions && regionOptions.length > 0}
+                  <select
+                    class={compactSelectClass}
+                    onchange={(e) => {
+                      const n = Number.parseInt(e.currentTarget.value, 10);
+                      if (Number.isFinite(n)) {
+                        setEnum(region!, n);
+                        markDirty(region!);
+                        tick++;
+                      }
+                    }}
+                  >
+                    {#each regionOptions as opt (opt.hash)}
+                      <option value={opt.hash} selected={opt.hash === regionRaw}>
+                        {localizeRegion(opt)}
+                      </option>
+                    {/each}
+                    {#if !regionOptions.some((o) => o.hash === regionRaw)}
+                      <option value={regionRaw} selected>
+                        0x{regionRaw.toString(16).padStart(8, '0')}
+                      </option>
+                    {/if}
+                  </select>
+                {:else}
+                  <EntryEditor entry={region} />
+                {/if}
+              </div>
             </label>
           {/if}
           {#if regionCode}
             <label class="block min-w-0">
-              <span class={LABEL_CLASS}>Region code</span>
+              <span class={LABEL_CLASS}>{$_('player.region_code_label')}</span>
               <div class="mt-1.5 max-w-xs">
                 <EntryEditor entry={regionCode} />
               </div>
@@ -440,7 +488,7 @@
           {/if}
           {#if nameLang}
             <label class="block min-w-0">
-              <span class={LABEL_CLASS}>Name language</span>
+              <span class={LABEL_CLASS}>{$_('player.name_language_label')}</span>
               <div class="mt-1.5 max-w-xs">
                 <EntryEditor entry={nameLang} />
               </div>
@@ -448,7 +496,7 @@
           {/if}
           {#if islandLang}
             <label class="block min-w-0">
-              <span class={LABEL_CLASS}>Island name language</span>
+              <span class={LABEL_CLASS}>{$_('player.island_language_label')}</span>
               <div class="mt-1.5 max-w-xs">
                 <EntryEditor entry={islandLang} />
               </div>

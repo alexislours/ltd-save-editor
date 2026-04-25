@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import { arrGetInt, arrSetInt } from '../sav/codec';
   import type { Entry } from '../sav/types';
   import { markDirty, miiState } from './miiEditor.svelte';
@@ -12,41 +13,15 @@
 
   type Axis = {
     name: string;
-    label: string;
-    minWord: string;
-    maxWord: string;
+    /** Used to look up `mii.personality.axis.<axisKey>` etc. */
+    axisKey: 'movement' | 'speech' | 'energy' | 'thinking' | 'overall';
   };
   const AXES: Axis[] = [
-    {
-      name: 'Mii.CharacterParam.Gaiety',
-      label: 'Movement',
-      minWord: 'Slow',
-      maxWord: 'Quick',
-    },
-    {
-      name: 'Mii.CharacterParam.Activeness',
-      label: 'Speech',
-      minWord: 'Polite',
-      maxWord: 'Honest',
-    },
-    {
-      name: 'Mii.CharacterParam.Audaciousness',
-      label: 'Energy',
-      minWord: 'Flat',
-      maxWord: 'Varied',
-    },
-    {
-      name: 'Mii.CharacterParam.Sociability',
-      label: 'Thinking',
-      minWord: 'Serious',
-      maxWord: 'Chill',
-    },
-    {
-      name: 'Mii.CharacterParam.Commonsense',
-      label: 'Overall',
-      minWord: 'Normal',
-      maxWord: 'Quirky',
-    },
+    { name: 'Mii.CharacterParam.Gaiety', axisKey: 'movement' },
+    { name: 'Mii.CharacterParam.Activeness', axisKey: 'speech' },
+    { name: 'Mii.CharacterParam.Audaciousness', axisKey: 'energy' },
+    { name: 'Mii.CharacterParam.Sociability', axisKey: 'thinking' },
+    { name: 'Mii.CharacterParam.Commonsense', axisKey: 'overall' },
   ];
 
   const STEPS = 8;
@@ -110,19 +85,27 @@
 <div class="rounded-2xl bg-amber-300/90 p-3 shadow-sm ring-1 ring-amber-400/60">
   {#if personality}
     <div class="mb-2 flex items-baseline justify-between rounded-full bg-amber-50 px-4 py-2">
-      <span class="text-sm font-bold text-slate-900">Personality</span>
+      <span class="text-sm font-bold text-slate-900">{$_('mii.personality.label')}</span>
       <span class="text-base font-bold text-orange-600">
-        {personality.parent} &middot; {personality.child}
+        {$_('mii.personality.summary', {
+          values: {
+            parent: $_(`mii.personality.parent.${personality.parent}`),
+            child: $_(`mii.personality.child.${personality.child}`),
+          },
+        })}
       </span>
     </div>
   {/if}
   <div class="grid gap-2">
     {#each resolved as axis (axis.name)}
+      {@const axisLabel = $_(`mii.personality.axis.${axis.axisKey}`)}
+      {@const minWord = $_(`mii.personality.axis_min.${axis.axisKey}`)}
+      {@const maxWord = $_(`mii.personality.axis_max.${axis.axisKey}`)}
       <div
         class="grid grid-cols-[7rem_4rem_1fr_4rem] items-center gap-3 rounded-full bg-amber-50 px-4 py-2"
       >
-        <span class="text-sm font-bold text-slate-900">{axis.label}</span>
-        <span class="text-right text-xs text-slate-700">{axis.minWord}</span>
+        <span class="text-sm font-bold text-slate-900">{axisLabel}</span>
+        <span class="text-right text-xs text-slate-700">{minWord}</span>
         <div class="flex justify-between gap-1">
           {#each Array.from({ length: STEPS }, (_, i) => i) as i (i)}
             {@const selected = axis.value === i + 1}
@@ -132,9 +115,14 @@
                 'relative h-7 w-7 rounded-md transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95 sm:h-8 sm:w-8',
                 selected ? 'bg-orange-500 shadow-md ring-2 ring-orange-600' : BOX_TINTS[i],
               ]}
-              aria-label="{axis.label}: {i + 1} of {STEPS} ({i + 1 <= STEPS / 2
-                ? axis.minWord
-                : axis.maxWord} side)"
+              aria-label={$_('mii.personality.step_aria', {
+                values: {
+                  label: axisLabel,
+                  step: i + 1,
+                  total: STEPS,
+                  side: i + 1 <= STEPS / 2 ? minWord : maxWord,
+                },
+              })}
               aria-pressed={selected}
               onclick={() => setValue(axis.entry, i)}
             >
@@ -155,7 +143,7 @@
             </button>
           {/each}
         </div>
-        <span class="text-xs text-slate-700">{axis.maxWord}</span>
+        <span class="text-xs text-slate-700">{maxWord}</span>
       </div>
     {/each}
   </div>

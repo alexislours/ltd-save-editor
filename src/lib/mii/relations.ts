@@ -95,8 +95,8 @@ export function readMiiName(nameEntry: Entry, index: number): string {
   }
 }
 
-export { subRelationLabel, subRelationLevels, subRelationLevelIndex } from './subRelationLabels';
-export type { SubRelationLevel } from './subRelationLabels';
+export { subRelationKey, subRelationLevels, subRelationLevelIndex } from './subRelationLabels';
+export type { SubRelationLevel, SubRelationKey } from './subRelationLabels';
 
 const COUNTERPARTS: Record<string, string[]> = {
   Parent: ['Child'],

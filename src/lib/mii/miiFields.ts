@@ -6,12 +6,14 @@ export type MiiFieldKind = 'string' | 'uint' | 'int' | 'enum';
 export type MiiFieldPresentation = 'input' | 'slider';
 
 export type MiiField = {
-  label: string;
+  /** i18n key under `mii.fields.<labelKey>`. */
+  labelKey: string;
   name: string;
   hash: number;
   kind: MiiFieldKind;
   expectedType: DataType;
-  hint?: string;
+  /** i18n key under `mii.fields.<hintKey>`, optional. */
+  hintKey?: string;
   min?: number;
   max?: number;
   displayOffset?: number;
@@ -19,20 +21,24 @@ export type MiiField = {
 };
 
 export type MiiSection = {
-  title: string;
-  description?: string;
+  /** i18n key under `mii.sections.<titleKey>`. */
+  titleKey: string;
+  /** i18n key under `mii.sections.<descriptionKey>`, optional. */
+  descriptionKey?: string;
   fields: MiiField[];
 };
 
 function f(
-  label: string,
+  labelKey: string,
   name: string,
   kind: MiiFieldKind,
   expectedType: DataType,
-  extras: Partial<Pick<MiiField, 'hint' | 'min' | 'max' | 'displayOffset' | 'presentation'>> = {},
+  extras: Partial<
+    Pick<MiiField, 'hintKey' | 'min' | 'max' | 'displayOffset' | 'presentation'>
+  > = {},
 ): MiiField {
   return {
-    label,
+    labelKey,
     name,
     hash: murmur3_x86_32(name) >>> 0,
     kind,
@@ -46,43 +52,43 @@ export const NAME_FIELD_HASH = murmur3_x86_32(NAME_FIELD_NAME) >>> 0;
 
 export const MII_SECTIONS: MiiSection[] = [
   {
-    title: 'Level',
+    titleKey: 'level',
     fields: [
-      f('Mii level', 'Mii.MiiMisc.SatisfyInfo.Level', 'int', DataType.IntArray, {
+      f('level', 'Mii.MiiMisc.SatisfyInfo.Level', 'int', DataType.IntArray, {
         displayOffset: 1,
         min: 1,
       }),
-      f('Level %', 'Mii.MiiMisc.SatisfyInfo.Meter', 'int', DataType.IntArray, {
+      f('level_meter', 'Mii.MiiMisc.SatisfyInfo.Meter', 'int', DataType.IntArray, {
         min: 0,
         max: 100,
         presentation: 'slider',
-        hint: 'Progress through the current level (0–100).',
+        hintKey: 'level_meter_hint',
       }),
     ],
   },
   {
-    title: 'Identity',
+    titleKey: 'identity',
     fields: [
-      f('Name', 'Mii.Name.Name', 'string', DataType.WString32Array),
-      f('First-person word', 'Mii.Name.FirstPerson', 'string', DataType.WString32Array, {
-        hint: 'How this Mii refers to themselves (e.g. "I", "me", or in Japanese 私/僕/俺).',
+      f('name', 'Mii.Name.Name', 'string', DataType.WString32Array),
+      f('first_person', 'Mii.Name.FirstPerson', 'string', DataType.WString32Array, {
+        hintKey: 'first_person_hint',
       }),
-      f('Name pronunciation', 'Mii.Name.HowToCallName', 'string', DataType.WString64Array, {
-        hint: 'Phonetic spelling used by voice playback.',
+      f('name_pronunciation', 'Mii.Name.HowToCallName', 'string', DataType.WString64Array, {
+        hintKey: 'name_pronunciation_hint',
       }),
       f(
-        'First-person pronunciation',
+        'first_person_pronunciation',
         'Mii.Name.HowToCallFirstPerson',
         'string',
         DataType.WString64Array,
-        { hint: 'Phonetic spelling of the first-person word above.' },
+        { hintKey: 'first_person_pronunciation_hint' },
       ),
-      f('Third-person pronoun', 'Mii.Name.PronounType', 'enum', DataType.EnumArray, {
-        hint: 'How others refer to this Mii (he / she / they).',
+      f('pronoun_type', 'Mii.Name.PronounType', 'enum', DataType.EnumArray, {
+        hintKey: 'pronoun_type_hint',
       }),
-      f('Name language', 'Mii.Name.NameRegionLanguageID', 'enum', DataType.EnumArray),
+      f('name_language', 'Mii.Name.NameRegionLanguageID', 'enum', DataType.EnumArray),
       f(
-        'First-person word language',
+        'first_person_language',
         'Mii.Name.FirstPersonRegionLanguageID',
         'enum',
         DataType.EnumArray,
@@ -90,47 +96,47 @@ export const MII_SECTIONS: MiiSection[] = [
     ],
   },
   {
-    title: 'Wallet',
+    titleKey: 'wallet',
     fields: [
-      f('Money', 'Mii.Belongings.Money', 'uint', DataType.UIntArray, {
+      f('money', 'Mii.Belongings.Money', 'uint', DataType.UIntArray, {
         min: 0,
-        hint: "This Mii's wallet, distinct from the player's Money on the Player tab. Often 0 in early-game saves.",
+        hintKey: 'money_hint',
       }),
     ],
   },
   {
-    title: 'Birthday',
+    titleKey: 'birthday',
     fields: [
-      f('Day', 'Mii.MiiMisc.BirthdayInfo.Day', 'int', DataType.IntArray, {
+      f('birthday_day', 'Mii.MiiMisc.BirthdayInfo.Day', 'int', DataType.IntArray, {
         min: 1,
         max: 31,
       }),
-      f('Month', 'Mii.MiiMisc.BirthdayInfo.Month', 'int', DataType.IntArray, {
+      f('birthday_month', 'Mii.MiiMisc.BirthdayInfo.Month', 'int', DataType.IntArray, {
         min: 1,
         max: 12,
       }),
-      f('Year', 'Mii.MiiMisc.BirthdayInfo.Year', 'int', DataType.IntArray),
-      f('Direct age', 'Mii.MiiMisc.BirthdayInfo.DirectAge', 'int', DataType.IntArray, {
-        hint: '-1 means "use Year"; a positive value overrides the calculated age.',
+      f('birthday_year', 'Mii.MiiMisc.BirthdayInfo.Year', 'int', DataType.IntArray),
+      f('direct_age', 'Mii.MiiMisc.BirthdayInfo.DirectAge', 'int', DataType.IntArray, {
+        hintKey: 'direct_age_hint',
       }),
-      f('Age type', 'Mii.MiiMisc.BirthdayInfo.AgeType', 'enum', DataType.EnumArray),
+      f('age_type', 'Mii.MiiMisc.BirthdayInfo.AgeType', 'enum', DataType.EnumArray),
     ],
   },
   {
-    title: 'Personality',
+    titleKey: 'personality',
     fields: [
-      f('Activeness', 'Mii.CharacterParam.Activeness', 'int', DataType.IntArray),
-      f('Audaciousness', 'Mii.CharacterParam.Audaciousness', 'int', DataType.IntArray),
-      f('Common sense', 'Mii.CharacterParam.Commonsense', 'int', DataType.IntArray),
-      f('Gaiety', 'Mii.CharacterParam.Gaiety', 'int', DataType.IntArray),
-      f('Sociability', 'Mii.CharacterParam.Sociability', 'int', DataType.IntArray),
+      f('activeness', 'Mii.CharacterParam.Activeness', 'int', DataType.IntArray),
+      f('audaciousness', 'Mii.CharacterParam.Audaciousness', 'int', DataType.IntArray),
+      f('common_sense', 'Mii.CharacterParam.Commonsense', 'int', DataType.IntArray),
+      f('gaiety', 'Mii.CharacterParam.Gaiety', 'int', DataType.IntArray),
+      f('sociability', 'Mii.CharacterParam.Sociability', 'int', DataType.IntArray),
     ],
   },
   {
-    title: 'Mood',
+    titleKey: 'mood',
     fields: [
-      f('Feeling', 'Mii.Feeling.Type', 'enum', DataType.EnumArray),
-      f('Bond meter', 'Mii.MiiMisc.BondInfo.Meter', 'int', DataType.IntArray, {
+      f('feeling', 'Mii.Feeling.Type', 'enum', DataType.EnumArray),
+      f('bond_meter', 'Mii.MiiMisc.BondInfo.Meter', 'int', DataType.IntArray, {
         min: 0,
         max: 100,
       }),

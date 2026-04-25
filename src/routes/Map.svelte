@@ -38,6 +38,7 @@
     objectsState,
     syncFromSave as syncObjectsFromSave,
   } from '../lib/mapObjects/mapObjectsEditor.svelte';
+  import { _ } from 'svelte-i18n';
   import { getSave } from '../lib/saveFile.svelte';
   import { CARD_BASE_CLASS, TOOLBAR_CLASS } from '../lib/styles';
 
@@ -52,11 +53,11 @@
   type SubTab = 'floor' | 'objects' | 'advanced';
   let subTab = $state<SubTab>('floor');
 
-  const SUB_TABS: { value: SubTab; label: string }[] = [
-    { value: 'floor', label: 'Floor' },
-    { value: 'objects', label: 'Objects' },
-    { value: 'advanced', label: 'Advanced' },
-  ];
+  const SUB_TABS: { value: SubTab; label: string }[] = $derived([
+    { value: 'floor', label: $_('map.subtab_floor') },
+    { value: 'objects', label: $_('map.subtab_objects') },
+    { value: 'advanced', label: $_('tab.advanced') },
+  ]);
 
   let selectedTileHash = $state<number>(TILE_DEFS[0].hash);
   let tool = $state<ToolKind>('brush');
@@ -84,7 +85,6 @@
     return [...unknown].map((h) => ({
       hash: h,
       code: `0x${h.toString(16).padStart(8, '0')}`,
-      label: `0x${h.toString(16).padStart(8, '0')}`,
       color: tileColorForHash(h),
     }));
   });
@@ -158,29 +158,33 @@
 <AppLayout>
   <SaveTab
     kind="map"
-    title="Map"
-    description="Island layout, tile grid, and placed objects."
+    title={$_('map.title')}
+    description={$_('map.description')}
     error={mapState.error || objectsState.error}
     ready={mapState.entry != null}
   >
     {#if mapState.entry}
-      <SaveBar {dirty} actionLabel="Download Map.sav" onAction={download}>
+      <SaveBar {dirty} actionLabel={$_('map.download_action')} onAction={download}>
         {#snippet extra()}
           {#if subTab === 'objects' && objectsState.count > 0}
             <span class="font-normal text-slate-700">
-              · {liveCount.toLocaleString()} placed / {objectsState.count.toLocaleString()}
-              slots
+              {$_('map.object_slots_status', {
+                values: {
+                  placed: liveCount.toLocaleString(),
+                  total: objectsState.count.toLocaleString(),
+                },
+              })}
             </span>
           {/if}
         {/snippet}
       </SaveBar>
 
-      <SubTabs tabs={SUB_TABS} bind:value={subTab} label="Map sections" />
+      <SubTabs tabs={SUB_TABS} bind:value={subTab} label={$_('map.sections_label')} />
 
       {#if subTab === 'floor'}
         <div class={TOOLBAR_CLASS}>
           <div class="inline-flex overflow-hidden rounded-full ring-1 ring-amber-400/60">
-            {#each [{ id: 'brush', label: 'Brush', title: 'Brush (click + drag to paint)' }, { id: 'fill', label: 'Fill', title: 'Bucket (click to flood fill)' }, { id: 'picker', label: 'Picker', title: 'Picker (click to sample a tile from the map)' }] as t, i (t.id)}
+            {#each [{ id: 'brush', label: $_('map.floor.tool_brush'), title: $_('map.floor.tool_brush_title') }, { id: 'fill', label: $_('map.floor.tool_fill'), title: $_('map.floor.tool_fill_title') }, { id: 'picker', label: $_('map.floor.tool_picker'), title: $_('map.floor.tool_picker_title') }] as t, i (t.id)}
               <button
                 type="button"
                 class={[
@@ -202,25 +206,25 @@
               class="bg-white px-3 py-1.5 text-sm font-bold text-slate-700 hover:bg-amber-50 disabled:opacity-40"
               disabled={!canUndo()}
               onclick={undo}
-              title="Undo (⌘Z)"
+              title={$_('map.floor.undo_title')}
             >
-              Undo
+              {$_('map.floor.undo')}
             </button>
             <button
               type="button"
               class="border-l border-amber-400/60 bg-white px-3 py-1.5 text-sm font-bold text-slate-700 hover:bg-amber-50 disabled:opacity-40"
               disabled={!canRedo()}
               onclick={redo}
-              title="Redo (⇧⌘Z)"
+              title={$_('map.floor.redo_title')}
             >
-              Redo
+              {$_('map.floor.redo')}
             </button>
           </div>
 
           <ZoomControls bind:value={floorTileSize} />
 
           <span class="ml-auto text-xs text-slate-600">
-            Right-click anywhere to sample a tile.
+            {$_('map.floor.right_click_hint')}
           </span>
         </div>
 
@@ -236,9 +240,17 @@
 
             <div class="mt-2 font-mono text-xs text-slate-600">
               {#if floorHover && hoveredHash != null}
-                X {floorHover.x}, Y {floorHover.y} · {tileLabelForHash(hoveredHash)}
+                {$_('map.floor.hover_position', {
+                  values: {
+                    x: floorHover.x,
+                    y: floorHover.y,
+                    label: tileLabelForHash(hoveredHash, $_),
+                  },
+                })}
               {:else}
-                {MAP_WIDTH} × {MAP_HEIGHT} tiles - hover for coordinates
+                {$_('map.floor.size_hint', {
+                  values: { width: MAP_WIDTH, height: MAP_HEIGHT },
+                })}
               {/if}
             </div>
           </div>
@@ -252,7 +264,7 @@
               aria-hidden="true"
             ></span>
             <span class="truncate font-bold text-slate-900">
-              {tileLabelForHash(selectedTileHash)}
+              {tileLabelForHash(selectedTileHash, $_)}
             </span>
             {#if tileDefForHash(selectedTileHash)}
               <span class="ml-auto font-mono text-[11px] text-slate-500">
@@ -270,7 +282,7 @@
         <div class={TOOLBAR_CLASS}>
           <ZoomControls bind:value={objectsTileSize} />
           <span class="ml-auto text-xs text-slate-600">
-            Click a footprint to select · drag to move · floor shown dimmed.
+            {$_('map.objects.click_hint')}
           </span>
         </div>
 
@@ -284,11 +296,22 @@
             />
             <div class="mt-2 font-mono text-xs text-slate-600">
               {#if objectsHover && hoveredObjectInfo}
-                X {objectsHover.x}, Y {objectsHover.y} · {hoveredObjectInfo.display.label} ({hoveredObjectInfo.size})
+                {$_('map.objects.hover_with_object', {
+                  values: {
+                    x: objectsHover.x,
+                    y: objectsHover.y,
+                    label: hoveredObjectInfo.display.label,
+                    size: hoveredObjectInfo.size,
+                  },
+                })}
               {:else if objectsHover}
-                X {objectsHover.x}, Y {objectsHover.y} - empty
+                {$_('map.objects.hover_empty', {
+                  values: { x: objectsHover.x, y: objectsHover.y },
+                })}
               {:else}
-                {objectsState.count.toLocaleString()} slots - hover for coordinates
+                {$_('map.objects.slots_hint', {
+                  values: { count: objectsState.count.toLocaleString() },
+                })}
               {/if}
             </div>
           </div>
@@ -302,7 +325,7 @@
                 onCleared={() => (selectedObjectIndex = null)}
               />
             {:else}
-              <p class="text-xs text-slate-600">Select an object on the map to edit.</p>
+              <p class="text-xs text-slate-600">{$_('map.objects.select_prompt')}</p>
             {/if}
           </div>
 
@@ -315,7 +338,7 @@
         </div>
       {:else if subTab === 'objects'}
         <Card>
-          <p class="text-sm text-slate-600">No object slots were found in this Map.sav.</p>
+          <p class="text-sm text-slate-600">{$_('map.no_object_slots')}</p>
         </Card>
       {:else}
         <AdvancedPanel

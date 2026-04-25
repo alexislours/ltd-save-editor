@@ -12,6 +12,7 @@
     hasIndexedElementEditor,
     isArrayType,
   } from '../sav/codec';
+  import { _ } from 'svelte-i18n';
   import { DataType, DataTypeName } from '../sav/dataType';
   import { hexU32, parseMaybeHex } from '../sav/format';
   import type { Entry } from '../sav/types';
@@ -154,7 +155,7 @@
 <div>
   <header class="mb-4 flex flex-wrap items-baseline gap-x-4 gap-y-1">
     <h3 class="text-lg font-bold text-slate-900">
-      {path ?? '< Unknown >'}
+      {path ?? $_('advanced.detail_unknown_path')}
     </h3>
     <span class="font-mono text-xs text-slate-600">
       {hexU32(entry.hash)} · {DataTypeName[entry.type]}{isArray ? `[${count}]` : ''}
@@ -167,16 +168,16 @@
     </div>
   {:else if !canEditElements}
     <p class="text-sm text-slate-600">
-      {DataTypeName[entry.type]} browsing is read-only in this editor.
+      {$_('advanced.detail_readonly_browsing', { values: { type: DataTypeName[entry.type] } })}
     </p>
   {:else if count === 0}
-    <p class="text-sm text-slate-600">Empty array.</p>
+    <p class="text-sm text-slate-600">{$_('advanced.detail_empty_array')}</p>
   {:else}
     {#if bulkSupported}
       <div
         class="mb-3 flex flex-wrap items-center gap-2 rounded-xl bg-amber-100/80 p-2 ring-1 ring-amber-400/40"
       >
-        <span class="text-xs font-bold text-slate-900">Bulk edit:</span>
+        <span class="text-xs font-bold text-slate-900">{$_('advanced.bulk_label')}</span>
         <input
           type="text"
           class={bulkInputClass}
@@ -185,7 +186,7 @@
           onkeydown={(e) => e.key === 'Enter' && applyBulk()}
         />
         <button type="button" class={PILL_BUTTON_CLASS} onclick={applyBulk}>
-          Apply to all {count}
+          {$_('advanced.bulk_apply_action', { values: { count } })}
         </button>
         {#if bulkError}
           <span class="text-xs text-red-600">{bulkError}</span>
@@ -198,8 +199,8 @@
         <table class="w-full text-sm">
           <thead class="bg-amber-100/70 text-left text-xs font-bold text-slate-900">
             <tr>
-              <th class="w-20 px-3 py-2 font-bold">Index</th>
-              <th class="px-3 py-2 font-bold">Value</th>
+              <th class="w-20 px-3 py-2 font-bold">{$_('advanced.table_header_index')}</th>
+              <th class="px-3 py-2 font-bold">{$_('advanced.table_header_value')}</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-amber-200/60">
@@ -226,10 +227,12 @@
           disabled={page <= 0}
           onclick={() => (page = Math.max(0, page - 1))}
         >
-          Previous
+          {$_('advanced.page_previous')}
         </button>
         <span class="text-xs text-slate-600">
-          Elements {start}–{end - 1} of {count} · Page {page + 1}/{pageCount}
+          {$_('advanced.page_elements_status', {
+            values: { start, end: end - 1, count, page: page + 1, total: pageCount },
+          })}
         </span>
         <button
           type="button"
@@ -237,7 +240,7 @@
           disabled={page >= pageCount - 1}
           onclick={() => (page = Math.min(pageCount - 1, page + 1))}
         >
-          Next
+          {$_('advanced.page_next')}
         </button>
       </div>
     {/if}
