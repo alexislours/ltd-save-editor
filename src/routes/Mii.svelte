@@ -7,6 +7,7 @@
   import MiiPanel from '../lib/mii/MiiPanel.svelte';
   import MiiRelationsGraph from '../lib/mii/MiiRelationsGraph.svelte';
   import { downloadModified, markDirty, miiState, syncFromSave } from '../lib/mii/miiEditor.svelte';
+  import { _ } from 'svelte-i18n';
   import { getSave } from '../lib/saveFile.svelte';
 
   const save = $derived(getSave('mii'));
@@ -20,11 +21,11 @@
 
   let selectedIndex = $state<number | null>(null);
 
-  const SUB_TABS: { value: SubTab; label: string }[] = [
-    { value: 'profile', label: 'Profile' },
-    { value: 'relationships', label: 'Relationships graph' },
-    { value: 'advanced', label: 'Advanced' },
-  ];
+  const SUB_TABS: { value: SubTab; label: string }[] = $derived([
+    { value: 'profile', label: $_('mii.subtab_profile') },
+    { value: 'relationships', label: $_('mii.subtab_relationships') },
+    { value: 'advanced', label: $_('tab.advanced') },
+  ]);
 
   function download(): void {
     try {
@@ -38,17 +39,17 @@
 <AppLayout>
   <SaveTab
     kind="mii"
-    title="Mii"
-    description="Edit individual Miis on your island."
+    title={$_('mii.title')}
+    description={$_('mii.description')}
     error={miiState.error}
     ready={miiState.parsed != null}
   >
     {#if miiState.parsed}
       {@const parsed = miiState.parsed}
 
-      <SaveBar dirty={miiState.dirty} actionLabel="Download Mii.sav" onAction={download} />
+      <SaveBar dirty={miiState.dirty} actionLabel={$_('mii.download_action')} onAction={download} />
 
-      <SubTabs tabs={SUB_TABS} bind:value={subTab} label="Mii sections" />
+      <SubTabs tabs={SUB_TABS} bind:value={subTab} label={$_('mii.sections_label')} />
 
       {#if subTab === 'profile'}
         <MiiPanel entries={parsed.entries} bind:selectedIndex />

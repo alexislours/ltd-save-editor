@@ -1,6 +1,7 @@
 <script lang="ts">
   import { SvelteSet } from 'svelte/reactivity';
-  import { TILE_DEFS, type TileDef } from './tiles';
+  import { _ } from 'svelte-i18n';
+  import { TILE_DEFS, tileLabelForHash, type TileDef } from './tiles';
 
   type Props = {
     selectedHash: number;
@@ -16,14 +17,14 @@
     for (const t of extraTiles) {
       if (!knownHashes.has(t.hash >>> 0)) merged.push(t);
     }
-    return merged.sort((a, b) =>
-      a.label.localeCompare(b.label, undefined, { sensitivity: 'base' }),
-    );
+    return merged
+      .map((t) => ({ tile: t, label: tileLabelForHash(t.hash, $_) }))
+      .sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: 'base' }));
   });
 </script>
 
 <ul class="grid grid-cols-2 gap-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-  {#each items as tile (tile.hash)}
+  {#each items as { tile, label } (tile.hash)}
     {@const active = tile.hash >>> 0 === selectedHash >>> 0}
     <li>
       <button
@@ -41,7 +42,7 @@
           style="background-color: {tile.color}"
           aria-hidden="true"
         ></span>
-        <span class="truncate">{tile.label}</span>
+        <span class="truncate">{label}</span>
       </button>
     </li>
   {/each}

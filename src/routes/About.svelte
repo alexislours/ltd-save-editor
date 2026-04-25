@@ -1,28 +1,29 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import AppLayout from '../lib/AppLayout.svelte';
   import Card from '../lib/Card.svelte';
 
   const repoUrl = 'https://github.com/alexislours/ltd-save-editor';
   const discordUrl = 'https://discord.gg/YHFNTvXrdE';
 
-  const credits = [
+  const credits: Array<{ href?: string; label: string; noteKey: string }> = [
     {
       href: 'https://github.com/tlmodding/living-the-dream-save-editor',
       label: 'tlmodding/living-the-dream-save-editor',
-      note: 'For the base structure of the save file.',
+      noteKey: 'about.credits.save_structure_note',
     },
     {
       href: 'https://github.com/tlmodding/ltd-gamedata',
       label: 'tlmodding/ltd-gamedata',
-      note: 'The hash list shipped to the client.',
+      noteKey: 'about.credits.hash_list_note',
     },
     {
       label: 'Rafa',
-      note: 'For providing test save files.',
+      noteKey: 'about.credits.test_saves_note',
     },
     {
       label: 'SuperSpazzy',
-      note: 'For the work on the hash list.',
+      noteKey: 'about.credits.hash_work_note',
     },
   ];
 </script>
@@ -35,38 +36,26 @@
     >
       <span aria-hidden="true" class="text-lg leading-none">⚠️</span>
       <div>
-        <p class="font-bold">Always back up your save files before editing.</p>
-        <p class="mt-1 text-red-800">
-          Make a copy of your <code class="rounded bg-red-100 px-1 py-0.5 text-xs">Mii.sav</code>,
-          <code class="rounded bg-red-100 px-1 py-0.5 text-xs">Player.sav</code>, and
-          <code class="rounded bg-red-100 px-1 py-0.5 text-xs">Map.sav</code> files somewhere safe before
-          loading them here. A bad edit can corrupt your save and there is no in-game recovery.
-        </p>
+        <p class="font-bold">{$_('about.backup_warning_title')}</p>
+        <p class="mt-1 text-red-800">{$_('about.backup_warning_body')}</p>
       </div>
     </div>
 
-    <Card title="About">
-      <p class="text-sm text-slate-700">
-        A browser-based save editor for <em>Tomodachi Life: Living the Dream</em>
-        (Nintendo Switch). Drop your
-        <code class="rounded bg-amber-100 px-1 py-0.5 text-xs">Mii.sav</code>,
-        <code class="rounded bg-amber-100 px-1 py-0.5 text-xs">Player.sav</code>, and
-        <code class="rounded bg-amber-100 px-1 py-0.5 text-xs">Map.sav</code> files in, edit, and download
-        a patched copy. Everything runs locally - files never leave your machine.
-      </p>
+    <Card title={$_('about.title')}>
+      <p class="text-sm text-slate-700">{$_('about.intro')}</p>
       <p class="mt-3 text-sm text-slate-700">
-        Community:
+        {$_('about.community_label')}
         <a
           href={discordUrl}
           target="_blank"
           rel="noopener noreferrer"
           class="font-medium text-orange-700 underline-offset-2 hover:underline"
         >
-          Tomodachi Life Modding Hub (Discord)
+          {$_('about.community_link')}
         </a>
       </p>
       <p class="mt-3 text-sm text-slate-700">
-        Source code:
+        {$_('about.source_label')}
         <a
           href={repoUrl}
           target="_blank"
@@ -78,7 +67,7 @@
       </p>
     </Card>
 
-    <Card title="Credits">
+    <Card title={$_('about.credits_title')}>
       <ul class="space-y-3 text-sm text-slate-700">
         {#each credits as credit (credit.label)}
           <li>
@@ -94,16 +83,14 @@
             {:else}
               <span class="font-medium text-slate-900">{credit.label}</span>
             {/if}
-            <span class="text-slate-600"> - {credit.note}</span>
+            <span class="text-slate-600"> - {$_(credit.noteKey)}</span>
           </li>
         {/each}
       </ul>
     </Card>
 
-    <Card title="Disclaimer">
-      <p class="text-sm text-slate-700">
-        This is an unofficial, fan-made tool. <em>Tomodachi Life: Living the Dream</em> is © Nintendo.
-      </p>
+    <Card title={$_('about.disclaimer_title')}>
+      <p class="text-sm text-slate-700">{$_('about.disclaimer')}</p>
     </Card>
   </div>
 </AppLayout>

@@ -1,196 +1,103 @@
-type SubRelation = {
+// Maps a relation's internal name + meter (+ fight flag) to a sub-relation key
+// understood by i18n (e.g. "Couple_Fight_3"). Component code is responsible
+// for resolving these via $_('mii.relations.sub.<key>').
+
+type SubGroup = {
   thresholds: readonly number[];
-  labels: readonly string[];
-  fightLabels?: readonly string[];
+  /** Base i18n key prefix (e.g. "Couple"). */
+  prefix: string;
+  /** Optional fight prefix (e.g. "Couple_Fight"). */
+  fightPrefix?: string;
 };
 
-const FAMILY_LABELS = [
-  'Not getting along',
-  'Kinda getting along',
-  'Getting along well',
-  'Cares for',
-  'Cares a lot for',
-  'Cares deeply for',
-  'Cherishes',
-] as const;
 const FAMILY_THRESHOLDS = [40, 60, 80, 120, 140, 160] as const;
 
-const ONESIDE_LOVE_LABELS = [
-  'Giving up',
-  'Close to giving up',
-  'Has some hope',
-  'Likes a lot',
-  'Crushing',
-  'Head over heels',
-  'Ready to risk it all',
-] as const;
-const ONESIDE_LOVE_FIGHT = [
-  'Giving up?',
-  'Close to giving up?',
-  'Still interested?',
-  'Still likes?',
-  'Still crushing?',
-  'Still head over heels?',
-  'Still ready to risk it all?',
-] as const;
-
-const SUB_RELATIONS: Record<string, SubRelation> = {
+const SUB_RELATIONS: Record<string, SubGroup> = {
   Couple: {
     thresholds: [50, 80, 90, 110, 120, 150],
-    labels: [
-      'Not getting along',
-      'Making it work',
-      'Happy',
-      'In love',
-      'Very in love',
-      'Super in love',
-      'Soulmates',
-    ],
-    fightLabels: [
-      'Still trying?',
-      'Making it work?',
-      'Still happy?',
-      'Still in love?',
-      'Still very in love?',
-      'Still super in love?',
-      'Still soulmates?',
-    ],
+    prefix: 'Couple',
+    fightPrefix: 'Couple_Fight',
   },
   Divorce: {
     thresholds: [80, 90, 90, 110, 120, 160],
-    labels: [
-      'Enemies',
-      'Tries to avoid',
-      'Not speaking',
-      'No hard feelings',
-      'On good terms',
-      'Still great friends',
-      'Would try again',
-    ],
+    prefix: 'Divorce',
   },
   ExFriend: {
     thresholds: [80, 90, 90, 110, 120, 160],
-    labels: [
-      'Enemies',
-      'Tries to avoid',
-      'Not speaking',
-      'Strained',
-      "It's complicated",
-      'Thinks about often',
-      'Hopes to make up',
-    ],
+    prefix: 'ExFriend',
   },
   ExLover: {
     thresholds: [80, 90, 90, 110, 120, 160],
-    labels: [
-      'Enemies',
-      'Tries to avoid',
-      'Not speaking',
-      'No hard feelings',
-      'On good terms',
-      'Still great friends',
-      'Would try again',
-    ],
+    prefix: 'ExLover',
   },
-  Family: { thresholds: FAMILY_THRESHOLDS, labels: FAMILY_LABELS },
-  Relative: { thresholds: FAMILY_THRESHOLDS, labels: FAMILY_LABELS },
-  Parent: { thresholds: FAMILY_THRESHOLDS, labels: FAMILY_LABELS },
-  Child: { thresholds: FAMILY_THRESHOLDS, labels: FAMILY_LABELS },
-  BrotherSisterOlder: {
-    thresholds: FAMILY_THRESHOLDS,
-    labels: FAMILY_LABELS,
-  },
-  BrotherSisterYounger: {
-    thresholds: FAMILY_THRESHOLDS,
-    labels: FAMILY_LABELS,
-  },
-  GrandParent: { thresholds: FAMILY_THRESHOLDS, labels: FAMILY_LABELS },
-  GrandChild: { thresholds: FAMILY_THRESHOLDS, labels: FAMILY_LABELS },
+  Family: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
+  Relative: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
+  Parent: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
+  Child: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
+  BrotherSisterOlder: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
+  BrotherSisterYounger: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
+  GrandParent: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
+  GrandChild: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
   Friend: {
     thresholds: [40, 60, 80, 120, 140, 160],
-    labels: [
-      'Not getting along',
-      'Kinda getting along',
-      'Friends',
-      'Good friends',
-      'Great friends',
-      'Best friends',
-      'Ultra friends',
-    ],
-    fightLabels: [
-      'Not getting along?',
-      'Kinda getting along?',
-      'Still friends?',
-      'Still good friends?',
-      'Still great friends?',
-      'Still best friends?',
-      'Still ultra friends?',
-    ],
+    prefix: 'Friend',
+    fightPrefix: 'Friend_Fight',
   },
   FriendOneSideLove: {
     thresholds: [40, 60, 80, 120, 140, 160],
-    labels: ONESIDE_LOVE_LABELS,
-    fightLabels: ONESIDE_LOVE_FIGHT,
+    prefix: 'OnesideLove',
+    fightPrefix: 'OnesideLove_Fight',
   },
   Know: {
     thresholds: [40, 60, 80, 120, 160, 200],
-    labels: [
-      'Not interested',
-      'Indifferent',
-      'Some interest',
-      'Getting familiar',
-      'Seems like-minded',
-      'Vibes with',
-      'Wants to be friends',
-    ],
+    prefix: 'Know',
   },
   KnowOneSideLove: {
     thresholds: [40, 60, 80, 120, 160, 200],
-    labels: ONESIDE_LOVE_LABELS,
-    fightLabels: ONESIDE_LOVE_FIGHT,
+    prefix: 'OnesideLove',
+    fightPrefix: 'OnesideLove_Fight',
   },
   Lover: {
     thresholds: [50, 70, 80, 120, 130, 150],
-    labels: [
-      'Not getting along',
-      'Kinda getting along',
-      'Really likes',
-      'Falling in love',
-      'In love',
-      'Super in love',
-      'Wants to marry!',
-    ],
-    fightLabels: [
-      'Not getting along?',
-      'Kinda getting along?',
-      'Still really likes?',
-      'Still falling in love?',
-      'Still in love?',
-      'Still super in love?',
-      'Still wants to marry?',
-    ],
+    prefix: 'Lover',
+    fightPrefix: 'Lover_Fight',
   },
 };
 
-export function subRelationLabel(
-  internalName: string,
-  meter: number,
-  isFight: boolean,
-): string | null {
-  const def = SUB_RELATIONS[internalName];
-  if (!def) return null;
-  const labels = isFight && def.fightLabels ? def.fightLabels : def.labels;
-  for (let i = 0; i < def.thresholds.length; i++) {
-    if (meter < def.thresholds[i]) return labels[i];
-  }
-  return labels[labels.length - 1];
-}
+/** Resolved sub-relation pointer at a given meter value. */
+export type SubRelationKey = {
+  /** i18n leaf under `mii.relations.sub` (e.g. "Couple_Fight_3"). */
+  key: string;
+  /** Step index (0..6). */
+  index: number;
+};
 
+/** Discrete level options usable to render a dropdown. */
 export type SubRelationLevel = {
   index: number;
   meter: number;
-  label: string;
+  /** i18n leaf under `mii.relations.sub`. */
+  key: string;
 };
+
+function activePrefix(group: SubGroup, isFight: boolean): string {
+  return isFight && group.fightPrefix ? group.fightPrefix : group.prefix;
+}
+
+export function subRelationKey(
+  internalName: string,
+  meter: number,
+  isFight: boolean,
+): SubRelationKey | null {
+  const def = SUB_RELATIONS[internalName];
+  if (!def) return null;
+  const prefix = activePrefix(def, isFight);
+  for (let i = 0; i < def.thresholds.length; i++) {
+    if (meter < def.thresholds[i]) return { key: `${prefix}_${i}`, index: i };
+  }
+  const last = def.thresholds.length;
+  return { key: `${prefix}_${last}`, index: last };
+}
 
 export function subRelationLevels(
   internalName: string,
@@ -198,11 +105,12 @@ export function subRelationLevels(
 ): SubRelationLevel[] | null {
   const def = SUB_RELATIONS[internalName];
   if (!def) return null;
-  const labels = isFight && def.fightLabels ? def.fightLabels : def.labels;
+  const prefix = activePrefix(def, isFight);
+  const total = def.thresholds.length + 1;
   const out: SubRelationLevel[] = [];
-  for (let i = 0; i < labels.length; i++) {
+  for (let i = 0; i < total; i++) {
     const meter = i === 0 ? 0 : def.thresholds[i - 1];
-    out.push({ index: i, meter, label: labels[i] });
+    out.push({ index: i, meter, key: `${prefix}_${i}` });
   }
   return out;
 }

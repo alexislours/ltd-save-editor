@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { _ } from 'svelte-i18n';
   import { hexU32 } from '../sav/format';
   import { INPUT_CLASS, LABEL_CLASS } from '../styles';
-  import { actorDisplay, allActors, footprintSizeLabel, GROUP_LABEL } from './actors';
+  import { actorDisplay, allActors, footprintSizeLabel } from './actors';
   import {
     clearSlot,
     getRow,
@@ -72,7 +73,7 @@
         {/if}
         {#each actorOptions as a (a.hash)}
           <option value={'0x' + a.hash.toString(16).padStart(8, '0')}>
-            [{GROUP_LABEL[a.group]}] {a.label}
+            [{$_(`map.objects.group.${a.group}`)}] {a.label}
           </option>
         {/each}
       </select>

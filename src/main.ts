@@ -1,5 +1,6 @@
 import { mount } from 'svelte';
 import './app.css';
+import './lib/i18n';
 import App from './App.svelte';
 import { loadHashList } from './lib/sav/hashList.svelte';
 

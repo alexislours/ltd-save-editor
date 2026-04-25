@@ -9,6 +9,15 @@ A browser-based save editor for _Tomodachi Life: Living the Dream_ (Nintendo Swi
 - **Map tab** - island layout from `Map.sav`, with placement-aware footprints sourced from the game's `WalkingGrid` data.
 - **Advanced** - raw hash-keyed entry browser for fields the structured tabs don't cover yet.
 
+## Adding a Localization
+
+Translations live in `messages/<locale>.json`. `en-US` is the source of truth; locales are auto-discovered at build time.
+
+1. **Create the file.** Copy `messages/en-US.json` to `messages/<locale>.json` (e.g. `de-DE.json`, `ja-JP.json`).
+2. **Backfill keys.** Run `npm run i18n:sync` to mirror the `en-US` structure into your new file.
+3. **Translate.** Edit the values.
+4. **Verify.** Run `npm run i18n:check`, then `npm run dev` and pick the new language from the switcher.
+
 ## Credits
 
 - [tlmodding/living-the-dream-save-editor](https://github.com/tlmodding/living-the-dream-save-editor) - For the base structure of the save file

@@ -10,16 +10,43 @@
   };
   let { routes, fallback }: Props = $props();
 
+  const cache = new Map<RouteLoader, Component>();
+  let Current = $state<Component | null>(null);
+  let error = $state<unknown>(null);
+
   const match = $derived(matchRoute(getPath(), routes));
   const Resolved = $derived((match?.component ?? fallback) as RouteLoader);
+
+  $effect(() => {
+    const loader = Resolved;
+    const cached = cache.get(loader);
+    if (cached) {
+      Current = cached;
+      error = null;
+      return;
+    }
+    let cancelled = false;
+    loader().then(
+      (mod) => {
+        if (cancelled) return;
+        cache.set(loader, mod.default);
+        Current = mod.default;
+        error = null;
+      },
+      (err) => {
+        if (!cancelled) error = err;
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
+  });
 </script>
 
-{#key Resolved}
-  {#await Resolved() then mod}
-    <mod.default />
-  {:catch err}
-    <p class="p-6 text-sm text-red-600">
-      Failed to load page: {err instanceof Error ? err.message : String(err)}
-    </p>
-  {/await}
-{/key}
+{#if error}
+  <p class="p-6 text-sm text-red-600">
+    Failed to load page: {error instanceof Error ? error.message : String(error)}
+  </p>
+{:else if Current}
+  <Current />
+{/if}
