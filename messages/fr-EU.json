@@ -78,6 +78,7 @@
     "subtab_profile": "Profil",
     "subtab_foods": "Aliments",
     "subtab_clothes": "Vêtements",
+    "subtab_treasures": "Trésors",
     "inventory": {
       "search": "Recherche",
       "search_placeholder": "Filtrer par nom…",
@@ -113,6 +114,11 @@
       "missing": "Cette sauvegarde n'expose pas Player.ClothInfo.OwnInfoArray.State ni OwnNum : les vêtements ne peuvent pas être modifiés ici.",
       "color_count": "{count, plural, one {# couleur} other {# couleurs}}",
       "color_label": "Couleur {index}"
+    },
+    "treasures": {
+      "heading": "Trésors",
+      "caption": "{count, plural, one {# trésor} other {# trésors}} affichés. Passe à Obtenu pour l'ajouter à ta collection ; OwnNum est la quantité possédée.",
+      "missing": "Cette sauvegarde n'expose aucune entrée Player.GoodsInfo2 : les trésors ne peuvent pas être modifiés ici."
     }
   },
   "mii": {

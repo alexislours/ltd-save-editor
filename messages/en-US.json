@@ -78,6 +78,7 @@
     "subtab_profile": "Profile",
     "subtab_foods": "Foods",
     "subtab_clothes": "Clothes",
+    "subtab_treasures": "Treasures",
     "inventory": {
       "search": "Search",
       "search_placeholder": "Filter by name…",
@@ -113,6 +114,11 @@
       "color_count": "{count, plural, one {# color} other {# colors}}",
       "color_label": "Color {index}",
       "missing": "This save does not expose Player.ClothInfo.OwnInfoArray.State or OwnNum, so clothes can't be edited here."
+    },
+    "treasures": {
+      "heading": "Treasures",
+      "caption": "{count, plural, one {# treasure} other {# treasures}} shown. Mark as Obtained to add it to your collection; OwnNum is the inventory count.",
+      "missing": "This save does not expose any Player.GoodsInfo2 entries, so treasures can't be edited here."
     }
   },
   "mii": {

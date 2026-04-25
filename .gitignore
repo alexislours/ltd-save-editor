@@ -32,6 +32,8 @@ public/GameData.txt
 public/food-icons
 # Generated from romfs/Icon by scripts/generate-cloth-data.mjs (WebP)
 public/cloth-icons
+# Generated from romfs/Icon by scripts/generate-treasure-data.mjs (WebP)
+public/treasure-icons
 
 # Local-only generation/inspection scripts (require romfs paths on disk)
 scripts
