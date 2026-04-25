@@ -1,5 +1,6 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
+  import { track } from '../analytics';
   import { INPUT_CLASS, PILL_BUTTON_CLASS } from '../styles';
   import { STATE_OPTIONS } from './stateOptions';
 
@@ -22,6 +23,7 @@
     );
     if (!ok) return;
     onApplyState(bulkState >>> 0);
+    track('bulk_edit_used', { field: 'state', count: visibleCount });
   }
 
   function clickQty(): void {
@@ -31,6 +33,7 @@
     );
     if (!ok) return;
     onApplyQty(Math.max(0, Math.trunc(Number(bulkQty))));
+    track('bulk_edit_used', { field: 'qty', count: visibleCount });
   }
 </script>
 
