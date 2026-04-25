@@ -73,6 +73,46 @@
       "money_max": "Max is 999,999.99",
       "invalid_number": "Invalid number",
       "unsupported_type": "Unsupported field type"
+    },
+    "sections_label": "Player sections",
+    "subtab_profile": "Profile",
+    "subtab_foods": "Foods",
+    "subtab_clothes": "Clothes",
+    "inventory": {
+      "search": "Search",
+      "search_placeholder": "Filter by name…",
+      "bulk_summary": "Bulk edit (advanced)",
+      "bulk_warning": "This will overwrite the state and/or quantity of every entry currently visible ({count}). Edits cannot be undone except by re-opening your save. Make sure you have a backup.",
+      "bulk_confirm": "Apply this bulk edit to {count} entries? This cannot be undone.",
+      "bulk_state": "Bulk state",
+      "bulk_state_pick": "Pick a state…",
+      "bulk_qty": "Bulk quantity",
+      "apply": "Apply",
+      "empty": "Nothing matches the current filter.",
+      "increment": "Add one",
+      "decrement": "Remove one",
+      "expand_colors": "Show color variants",
+      "collapse_colors": "Hide color variants",
+      "state": {
+        "Lock": "Locked",
+        "New": "New",
+        "Arrived": "Arrived",
+        "Opened": "Opened",
+        "Obtained": "Obtained"
+      }
+    },
+    "foods": {
+      "heading": "Foods",
+      "caption": "{count, plural, one {# food} other {# foods}} shown. Mark as Obtained to unlock in your store; OwnNum is the inventory count.",
+      "missing": "This save does not expose Player.FoodInfo.State or OwnNum, so foods can't be edited here."
+    },
+    "clothes": {
+      "heading": "Clothes",
+      "caption": "{count, plural, one {# garment} other {# garments}} shown. Mark as Obtained to unlock in your store; OwnNum is the inventory count.",
+      "color_note": "Cloth-level controls apply to every color variant. Expand a row to edit a single color.",
+      "color_count": "{count, plural, one {# color} other {# colors}}",
+      "color_label": "Color {index}",
+      "missing": "This save does not expose Player.ClothInfo.OwnInfoArray.State or OwnNum, so clothes can't be edited here."
     }
   },
   "mii": {

@@ -28,8 +28,10 @@ sample
 # Downloaded by the gamedata-hash-list Vite plugin
 public/GameData.txt
 
-# Copied from romfs/Icon by scripts/generate-food-data.mjs
+# Generated from romfs/Icon by scripts/generate-food-data.mjs (WebP)
 public/food-icons
+# Generated from romfs/Icon by scripts/generate-cloth-data.mjs (WebP)
+public/cloth-icons
 
 # Local-only generation/inspection scripts (require romfs paths on disk)
 scripts

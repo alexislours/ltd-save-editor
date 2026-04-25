@@ -2,8 +2,8 @@
   import { _ } from 'svelte-i18n';
   import AdvancedPanel from '../lib/advanced/AdvancedPanel.svelte';
   import AppLayout from '../lib/AppLayout.svelte';
-  import SaveBar from '../lib/SaveBar.svelte';
-  import SaveTab from '../lib/SaveTab.svelte';
+  import ClothesPanel from '../lib/player/ClothesPanel.svelte';
+  import FoodsPanel from '../lib/player/FoodsPanel.svelte';
   import Profile from '../lib/player/Profile.svelte';
   import {
     downloadModified,
@@ -11,13 +11,26 @@
     playerState,
     syncFromSave,
   } from '../lib/playerEditor.svelte';
+  import SaveBar from '../lib/SaveBar.svelte';
+  import SaveTab from '../lib/SaveTab.svelte';
   import { getSave } from '../lib/saveFile.svelte';
+  import SubTabs from '../lib/SubTabs.svelte';
 
   const save = $derived(getSave('player'));
   $effect(() => {
     void save;
     syncFromSave();
   });
+
+  type SubTab = 'profile' | 'foods' | 'clothes' | 'advanced';
+  let subTab = $state<SubTab>('profile');
+
+  const SUB_TABS: { value: SubTab; label: string }[] = $derived([
+    { value: 'profile', label: $_('player.subtab_profile') },
+    { value: 'foods', label: $_('player.subtab_foods') },
+    { value: 'clothes', label: $_('player.subtab_clothes') },
+    { value: 'advanced', label: $_('tab.advanced') },
+  ]);
 
   function download(): void {
     try {
@@ -37,19 +50,25 @@
     ready={playerState.parsed != null}
   >
     {#if playerState.parsed}
+      {@const parsed = playerState.parsed}
+
       <SaveBar
         dirty={playerState.dirty}
         actionLabel={$_('player.download_action')}
         onAction={download}
       />
 
-      <Profile entries={playerState.parsed.entries} />
+      <SubTabs tabs={SUB_TABS} bind:value={subTab} label={$_('player.sections_label')} />
 
-      <AdvancedPanel
-        entries={playerState.parsed.entries}
-        {markDirty}
-        parseSignal={playerState.parsed}
-      />
+      {#if subTab === 'profile'}
+        <Profile entries={parsed.entries} />
+      {:else if subTab === 'foods'}
+        <FoodsPanel entries={parsed.entries} />
+      {:else if subTab === 'clothes'}
+        <ClothesPanel entries={parsed.entries} />
+      {:else}
+        <AdvancedPanel entries={parsed.entries} {markDirty} parseSignal={playerState.parsed} />
+      {/if}
     {/if}
   </SaveTab>
 </AppLayout>
