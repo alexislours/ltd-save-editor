@@ -27,6 +27,7 @@ export type MiiSection = {
   descriptionKey?: string;
   fields: MiiField[];
   spoilerFields?: MiiField[];
+  postSpoilerFields?: MiiField[];
 };
 
 function f(
@@ -168,6 +169,12 @@ export const MII_SECTIONS: MiiSection[] = [
       f('worst_id', 'Mii.MiiMisc.EatInfo.WorstId', 'uint', DataType.UIntArray, {
         min: 0,
       }),
+    ],
+    postSpoilerFields: [
+      f('ranked_food_id', 'Mii.MiiMisc.EatInfo.RankedFoodId.Id', 'uint', DataType.UIntArray, {
+        hintKey: 'ranked_food_id_hint',
+      }),
+      f('given_flag', 'Mii.MiiMisc.EatInfo.GivenFlag', 'uint', DataType.BinaryArray),
     ],
   },
 ];

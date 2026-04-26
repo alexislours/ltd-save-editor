@@ -173,7 +173,15 @@
     },
     "food": {
       "no_image": "Pas d'image",
-      "unknown": "Plat inconnu (hash {hash})"
+      "unknown": "Plat inconnu (hash {hash})",
+      "empty_rank": "—",
+      "rank_marker": "n°{rank}",
+      "given_count": "{tried} / {total} goûtés",
+      "search_placeholder": "Rechercher un plat…",
+      "filter_all": "Tous",
+      "filter_tried": "Déjà goûtés",
+      "filter_untried": "Pas encore goûtés",
+      "no_results": "Aucun plat trouvé."
     },
     "fields": {
       "level": "Niveau du Mii",
@@ -213,7 +221,10 @@
       "ultra_best_id": "Plat préféré absolu",
       "best_id": "2e plat préféré",
       "ultra_worst_id": "Plat le plus détesté",
-      "worst_id": "2e plat détesté"
+      "worst_id": "2e plat détesté",
+      "ranked_food_id": "Plats les mieux notés",
+      "ranked_food_id_hint": "Les trois plats que ce Mii note actuellement le plus haut, dans l'ordre. Mis à jour à chaque nouveau plat goûté.",
+      "given_flag": "Plats déjà goûtés"
     },
     "errors": {
       "required": "Requis",

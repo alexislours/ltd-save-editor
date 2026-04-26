@@ -7,8 +7,10 @@
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
   import MiiElementEditor from './MiiElementEditor.svelte';
   import MiiFoodPicker from './MiiFoodPicker.svelte';
+  import MiiGivenFlagPicker from './MiiGivenFlagPicker.svelte';
   import MiiLoveGenderEditor from './MiiLoveGenderEditor.svelte';
   import MiiPersonalityEditor from './MiiPersonalityEditor.svelte';
+  import MiiRankedFoodPicker from './MiiRankedFoodPicker.svelte';
   import MiiRelationsTable from './MiiRelationsTable.svelte';
   import MiiVoiceEditor from './MiiVoiceEditor.svelte';
   import { miiState } from './miiEditor.svelte';
@@ -126,7 +128,13 @@
       ...sec,
       resolved: resolveFields(sec.fields),
       resolvedSpoiler: resolveFields(sec.spoilerFields),
-    })).filter((sec) => sec.resolved.length > 0 || sec.resolvedSpoiler.length > 0);
+      resolvedPostSpoiler: resolveFields(sec.postSpoilerFields),
+    })).filter(
+      (sec) =>
+        sec.resolved.length > 0 ||
+        sec.resolvedSpoiler.length > 0 ||
+        sec.resolvedPostSpoiler.length > 0,
+    );
   });
 
   function slotLabel(slot: Slot): string {
@@ -269,6 +277,19 @@
                 {/each}
               </div>
             </details>
+          {/if}
+          {#if sec.resolvedPostSpoiler.length > 0}
+            <div class="mt-4 grid gap-4 sm:grid-cols-2">
+              {#each sec.resolvedPostSpoiler as r (r.field.hash)}
+                {#if sec.titleKey === 'food' && r.field.name === 'Mii.MiiMisc.EatInfo.RankedFoodId.Id'}
+                  <MiiRankedFoodPicker entry={r.entry} index={selectedIndex} field={r.field} />
+                {:else if sec.titleKey === 'food' && r.field.name === 'Mii.MiiMisc.EatInfo.GivenFlag'}
+                  <MiiGivenFlagPicker entry={r.entry} index={selectedIndex} field={r.field} />
+                {:else}
+                  <MiiElementEditor entry={r.entry} index={selectedIndex} field={r.field} />
+                {/if}
+              {/each}
+            </div>
           {/if}
         </section>
       {/each}

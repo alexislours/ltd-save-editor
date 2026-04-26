@@ -173,7 +173,15 @@
     },
     "food": {
       "no_image": "Sem imagem",
-      "unknown": "Comida desconhecida (hash {hash})"
+      "unknown": "Comida desconhecida (hash {hash})",
+      "empty_rank": "—",
+      "rank_marker": "nº{rank}",
+      "given_count": "{tried} / {total} provadas",
+      "search_placeholder": "Buscar comidas…",
+      "filter_all": "Todas",
+      "filter_tried": "Já provadas",
+      "filter_untried": "Ainda não provadas",
+      "no_results": "Nenhuma comida encontrada."
     },
     "fields": {
       "level": "Nível do Mii",
@@ -213,7 +221,10 @@
       "ultra_best_id": "Comida favorita de todos os tempos",
       "best_id": "2ª comida favorita",
       "ultra_worst_id": "Comida odiada de todos os tempos",
-      "worst_id": "2ª comida odiada"
+      "worst_id": "2ª comida odiada",
+      "ranked_food_id": "Comidas mais bem avaliadas",
+      "ranked_food_id_hint": "As três comidas que este Mii avalia melhor no momento, em ordem. Atualiza conforme novas comidas são provadas.",
+      "given_flag": "Comidas já provadas"
     },
     "errors": {
       "required": "Obrigatório",
