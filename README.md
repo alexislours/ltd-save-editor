@@ -29,4 +29,4 @@ This is an unofficial, fan-made tool. _Tomodachi Life: Living the Dream_ is © N
 
 ## License
 
-[MIT](./LICENSE)
+[AGPL-3.0-or-later](./LICENSE)
