@@ -84,6 +84,10 @@ function activePrefix(group: SubGroup, isFight: boolean): string {
   return isFight && group.fightPrefix ? group.fightPrefix : group.prefix;
 }
 
+export function hasFightVariant(internalName: string): boolean {
+  return SUB_RELATIONS[internalName]?.fightPrefix !== undefined;
+}
+
 export function subRelationKey(
   internalName: string,
   meter: number,
