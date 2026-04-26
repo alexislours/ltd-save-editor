@@ -15,9 +15,10 @@
   import { _ } from 'svelte-i18n';
   import { DataType, DataTypeName } from '../sav/dataType';
   import { hexU32, parseMaybeHex } from '../sav/format';
+  import { enumOptionsFor } from '../sav/knownKeys';
   import type { Entry } from '../sav/types';
   import { markDirty as playerMarkDirty } from '../playerEditor.svelte';
-  import { MONO_INPUT_CLASS, PILL_BUTTON_CLASS } from '../styles';
+  import { INPUT_CLASS, MONO_INPUT_CLASS, PILL_BUTTON_CLASS } from '../styles';
   import ArrayElementEditor from './ArrayElementEditor.svelte';
   import EntryEditor from './EntryEditor.svelte';
 
@@ -130,6 +131,9 @@
     DataType.WString64Array,
   ]);
   const bulkSupported = $derived(BULK_SUPPORTED_TYPES.has(entry.type));
+  const bulkEnumOptions = $derived(
+    entry.type === DataType.EnumArray ? (enumOptionsFor(entry.hash) ?? null) : null,
+  );
 
   const indices = $derived(Array.from({ length: Math.max(0, end - start) }, (_, k) => start + k));
 
@@ -150,6 +154,7 @@
   }
 
   const bulkInputClass = `w-48 ${MONO_INPUT_CLASS}`;
+  const bulkSelectClass = `w-64 ${INPUT_CLASS}`;
 </script>
 
 <div>
@@ -178,13 +183,26 @@
         class="mb-3 flex flex-wrap items-center gap-2 rounded-xl bg-amber-100/80 p-2 ring-1 ring-amber-400/40"
       >
         <span class="text-xs font-bold text-slate-900">{$_('advanced.bulk_label')}</span>
-        <input
-          type="text"
-          class={bulkInputClass}
-          placeholder={placeholderFor(entry.type)}
-          bind:value={bulkInput}
-          onkeydown={(e) => e.key === 'Enter' && applyBulk()}
-        />
+        {#if bulkEnumOptions && bulkEnumOptions.length > 0}
+          <select
+            class={bulkSelectClass}
+            value={bulkInput}
+            onchange={(e) => (bulkInput = e.currentTarget.value)}
+          >
+            <option value="">{$_('advanced.bulk_enum_pick')}</option>
+            {#each bulkEnumOptions as opt (opt.hash)}
+              <option value={String(opt.hash)}>{opt.label ?? opt.name}</option>
+            {/each}
+          </select>
+        {:else}
+          <input
+            type="text"
+            class={bulkInputClass}
+            placeholder={placeholderFor(entry.type)}
+            bind:value={bulkInput}
+            onkeydown={(e) => e.key === 'Enter' && applyBulk()}
+          />
+        {/if}
         <button type="button" class={PILL_BUTTON_CLASS} onclick={applyBulk}>
           {$_('advanced.bulk_apply_action', { values: { count } })}
         </button>

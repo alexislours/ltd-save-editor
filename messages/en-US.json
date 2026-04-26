@@ -156,9 +156,11 @@
     },
     "spoiler": {
       "warning": "Spoiler warning",
-      "caption": "These values may reveal in-game discoveries. Click to expand.",
       "show": "Show",
-      "hide": "Hide"
+      "hide": "Hide",
+      "captions": {
+        "food": "Reveals this Mii's favourite and least favourite foods."
+      }
     },
     "food": {
       "no_image": "No image",
@@ -560,6 +562,7 @@
     "detail_empty_array": "Empty array.",
     "bulk_label": "Bulk edit:",
     "bulk_apply_action": "Apply to all {count}",
+    "bulk_enum_pick": "Pick a value…",
     "page_elements_status": "Elements {start}-{end} of {count} · Page {page}/{total}"
   },
   "about": {

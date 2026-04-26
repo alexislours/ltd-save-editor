@@ -237,18 +237,22 @@
           {#if sec.resolvedSpoiler.length > 0}
             <details class="group mt-3 rounded-md border border-amber-300 bg-amber-50 p-3">
               <summary
-                class="flex cursor-pointer list-none items-center justify-between gap-2 text-sm font-bold text-amber-900 select-none"
+                class="flex cursor-pointer list-none items-start justify-between gap-3 select-none"
               >
-                <span class="flex items-center gap-2">
-                  <span aria-hidden="true">⚠</span>
-                  <span>{$_('mii.spoiler.warning')}</span>
+                <span class="flex items-start gap-2 text-sm text-amber-900">
+                  <span aria-hidden="true" class="leading-5">⚠</span>
+                  <span class="flex flex-col gap-0.5">
+                    <span class="font-bold">{$_('mii.spoiler.warning')}</span>
+                    <span class="text-xs font-normal"
+                      >{$_(`mii.spoiler.captions.${sec.titleKey}`)}</span
+                    >
+                  </span>
                 </span>
-                <span class="text-xs font-normal text-amber-800">
+                <span class="shrink-0 text-xs font-normal text-amber-800">
                   <span class="group-open:hidden">{$_('mii.spoiler.show')}</span>
                   <span class="hidden group-open:inline">{$_('mii.spoiler.hide')}</span>
                 </span>
               </summary>
-              <p class="mt-1 text-xs text-amber-900">{$_('mii.spoiler.caption')}</p>
               <div class="mt-4 grid gap-4 sm:grid-cols-2">
                 {#each sec.resolvedSpoiler as r (r.field.hash)}
                   {#if sec.titleKey === 'food'}
