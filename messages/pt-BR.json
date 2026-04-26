@@ -188,6 +188,10 @@
       "first_person_pronunciation_hint": "Grafia fonética da palavra em primeira pessoa acima.",
       "pronoun_type": "Pronome em terceira pessoa",
       "pronoun_type_hint": "Como outros se referem a este Mii (ele / ela / elu).",
+      "gender": "Gênero",
+      "gender_hint": "Usado pelo jogo para coabitação, relacionamentos e roupas.",
+      "love_gender": "Atraído(a) por",
+      "love_gender_hint": "Gêneros pelos quais este Mii pode se apaixonar. Necessário para Namorado(a) / Cônjuge.",
       "name_language": "Idioma do nome",
       "first_person_language": "Idioma da palavra em primeira pessoa",
       "money": "Dinheiro",
@@ -297,6 +301,12 @@
       "She": "Ela/Dela",
       "They": "Elu/Delu"
     },
+    "gender": {
+      "Invalid": "Não especificado",
+      "Male": "Homem",
+      "Female": "Mulher",
+      "Third": "Não-binário"
+    },
     "relations": {
       "graph_title": "Grafo de relacionamentos",
       "graph_intro_all": "Visualização por força de todos os relacionamentos entre {count} Miis preenchidos. Clique em qualquer nó para focar nas conexões desse Mii.",
@@ -340,7 +350,29 @@
       "crush_requires_friend_know": "A paixão só se aplica quando o relacionamento de saída é Amigo ou Conhecido",
       "crush_locked_existing": "Este Mii já está apaixonado por outra pessoa; marcar aqui vai mover a paixão para este Mii",
       "crush_blocked_by_fight": "Paixão não pode coexistir com briga. Termine a briga primeiro",
+      "crush_blocked_gender": "Este Mii não é atraído pelo gênero do outro Mii. Ajuste \"Atraído(a) por\" primeiro.",
+      "crush_blocked_blood": "Paixão não pode ser definida entre parentes consanguíneos.",
       "fight_unavailable": "Briga só se aplica a relacionamentos de Amigo, Cônjuge ou Namorado(a)",
+      "couple_blocked_gender": "Namorado(a) / Cônjuge exige que ambos os Miis sejam atraídos pelo gênero um do outro. Ajuste \"Atraído(a) por\" ou o Gênero primeiro.",
+      "couple_blocked_blood": "Namorado(a) / Cônjuge não pode ser definido entre parentes consanguíneos.",
+      "couple_blocked_self_paired": "Este Mii já está em um relacionamento de Namorado(a) / Cônjuge. Termine o relacionamento existente primeiro.",
+      "couple_blocked_other_paired": "O outro Mii já está em um relacionamento de Namorado(a) / Cônjuge. Termine o relacionamento existente primeiro.",
+      "option_blocked_suffix": "(indisponível)",
+      "change_blocked_title": "Alteração bloqueada",
+      "change_blocked_dismiss": "Fechar",
+      "popup_ok": "Entendi",
+      "popup_note_crush_too": "Isso também impede marcar Paixão entre esses dois Miis.",
+      "chip": {
+        "gender": "Não atraídos",
+        "blood": "Parentes",
+        "self_paired": "Já em par",
+        "other_paired": "Outro em par",
+        "crush_type": "Precisa Amigo / Conhecido",
+        "crush_fight": "Em briga",
+        "crush_gender": "Não atraído(a)",
+        "crush_blood": "Parentes",
+        "crush_other": "Paixão ocupada"
+      },
       "header_type_set_time": "Definido em",
       "type_set_time_aria": "Quando o tipo de relacionamento atual foi definido; controla os contadores de dias no jogo",
       "type": {

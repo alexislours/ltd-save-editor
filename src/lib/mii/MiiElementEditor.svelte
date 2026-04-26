@@ -59,6 +59,10 @@
       const t = $_(`mii.pronoun.${name}`);
       if (t && t !== `mii.pronoun.${name}`) return t;
     }
+    if (field.name === 'Mii.MiiMisc.FaceInfo.Gender') {
+      const t = $_(`mii.gender.${name}`);
+      if (t && t !== `mii.gender.${name}`) return t;
+    }
     return fallbackLabel ?? name;
   }
 

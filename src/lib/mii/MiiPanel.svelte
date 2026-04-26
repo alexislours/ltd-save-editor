@@ -7,6 +7,7 @@
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
   import MiiElementEditor from './MiiElementEditor.svelte';
   import MiiFoodPicker from './MiiFoodPicker.svelte';
+  import MiiLoveGenderEditor from './MiiLoveGenderEditor.svelte';
   import MiiPersonalityEditor from './MiiPersonalityEditor.svelte';
   import MiiRelationsTable from './MiiRelationsTable.svelte';
   import MiiVoiceEditor from './MiiVoiceEditor.svelte';
@@ -38,8 +39,10 @@
 
   const SATISFY_LEVEL_HASH = murmur3_x86_32('Mii.MiiMisc.SatisfyInfo.Level') >>> 0;
   const SATISFY_METER_HASH = murmur3_x86_32('Mii.MiiMisc.SatisfyInfo.Meter') >>> 0;
+  const LOVE_GENDER_HASH = murmur3_x86_32('Mii.MiiMisc.FaceInfo.IsLoveGender') >>> 0;
   const levelEntry = $derived(byHash.get(SATISFY_LEVEL_HASH) ?? null);
   const meterEntry = $derived(byHash.get(SATISFY_METER_HASH) ?? null);
+  const loveGenderEntry = $derived(byHash.get(LOVE_GENDER_HASH) ?? null);
 
   type Slot = {
     index: number;
@@ -232,6 +235,9 @@
               {#each sec.resolved as r (r.field.hash)}
                 <MiiElementEditor entry={r.entry} index={selectedIndex} field={r.field} />
               {/each}
+              {#if sec.titleKey === 'identity' && loveGenderEntry}
+                <MiiLoveGenderEditor entry={loveGenderEntry} miiIndex={selectedIndex} />
+              {/if}
             </div>
           {/if}
           {#if sec.resolvedSpoiler.length > 0}
