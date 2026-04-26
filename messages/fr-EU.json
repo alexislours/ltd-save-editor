@@ -3,6 +3,12 @@
     "title": "SAVE EDITOR",
     "game_title": "Tomodachi Life : Une vie de rêve"
   },
+  "beta": {
+    "badge": "BÊTA",
+    "warning": "Vous utilisez la version bêta. Des fonctionnalités peuvent être instables - conservez une sauvegarde de vos fichiers.",
+    "try_link": "Essayer la bêta →",
+    "stable_link": "← Version stable"
+  },
   "tab": {
     "player": "Joueur",
     "mii": "Mii",

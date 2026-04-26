@@ -11,6 +11,11 @@
   type Props = { children: Snippet };
   let { children }: Props = $props();
 
+  const BETA_URL = 'https://beta.ltd-save-editor.pages.dev';
+  const STABLE_URL = 'https://ltd-save-editor.pages.dev';
+  const isBeta =
+    typeof window !== 'undefined' && window.location.hostname === 'beta.ltd-save-editor.pages.dev';
+
   const path = $derived(getPath());
   let changelogOpen = $state(false);
 
@@ -50,15 +55,53 @@
 </script>
 
 <div class="flex flex-1 flex-col">
-  <header class="bg-amber-300/90 shadow-sm ring-1 ring-amber-400/60">
+  {#if isBeta}
+    <div
+      role="alert"
+      class="bg-rose-600 px-6 py-2 text-center text-sm font-semibold text-white shadow-md"
+    >
+      {$_('beta.warning')}
+    </div>
+  {/if}
+  <header
+    class={[
+      'shadow-sm',
+      isBeta
+        ? 'bg-rose-300/90 ring-1 ring-rose-500/70'
+        : 'bg-amber-300/90 ring-1 ring-amber-400/60',
+    ]}
+  >
     <div class="mx-auto flex w-full max-w-5xl items-start justify-between gap-4 px-6 pt-6">
       <div>
-        <p class="text-xs font-bold uppercase tracking-[0.18em] text-orange-700/90">
-          {$_('app.title')}
+        <p
+          class={[
+            'text-xs font-bold uppercase tracking-[0.18em]',
+            isBeta ? 'text-rose-800' : 'text-orange-700/90',
+          ]}
+        >
+          {$_('app.title')}{#if isBeta}<span
+              class="ml-2 inline-block rounded bg-rose-700 px-1.5 py-0.5 text-[10px] tracking-[0.2em] text-white"
+              >{$_('beta.badge')}</span
+            >{/if}
         </p>
         <h1 class="mt-0.5 text-xl font-bold text-slate-900">{$_('app.game_title')}</h1>
       </div>
       <div class="flex items-center gap-2">
+        {#if isBeta}
+          <a
+            href={STABLE_URL}
+            class="rounded-full bg-rose-50/80 px-2 py-0.5 font-mono text-xs text-rose-800 ring-1 ring-rose-500/60 transition-colors hover:bg-white hover:text-rose-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-700"
+          >
+            {$_('beta.stable_link')}
+          </a>
+        {:else}
+          <a
+            href={BETA_URL}
+            class="rounded-full bg-rose-600 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm ring-1 ring-rose-700 transition-colors hover:bg-rose-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-800"
+          >
+            {$_('beta.try_link')}
+          </a>
+        {/if}
         <button
           type="button"
           onclick={openChangelog}
@@ -70,7 +113,7 @@
             <span class="sr-only">— new updates available</span>
             <span
               aria-hidden="true"
-              class="absolute -top-2.5 -left-3 rotate-[-12deg] rounded-full bg-orange-600 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white shadow-sm ring-1 ring-white"
+              class="absolute -top-2.5 -left-3 -rotate-12 rounded-full bg-orange-600 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white shadow-sm ring-1 ring-white"
             >
               New
             </span>

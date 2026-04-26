@@ -3,6 +3,12 @@
     "title": "EDITOR DE SAVE",
     "game_title": "Tomodachi Life: Living the Dream"
   },
+  "beta": {
+    "badge": "BETA",
+    "warning": "Você está usando a versão beta. Os recursos podem ser instáveis - mantenha um backup dos seus arquivos de save.",
+    "try_link": "Experimentar a beta →",
+    "stable_link": "← Versão estável"
+  },
   "tab": {
     "player": "Jogador",
     "mii": "Mii",
