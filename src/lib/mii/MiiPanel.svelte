@@ -139,11 +139,11 @@
 
 {#if !nameEntry}
   <section class={CARD_CLASS}>
-    <p class="text-sm text-slate-600">{$_('mii.panel.no_name_spine')}</p>
+    <p class="text-sm text-content-muted">{$_('mii.panel.no_name_spine')}</p>
   </section>
 {:else if slots.length === 0}
   <section class={CARD_CLASS}>
-    <p class="text-sm text-slate-600">{$_('mii.panel.no_slots')}</p>
+    <p class="text-sm text-content-muted">{$_('mii.panel.no_slots')}</p>
   </section>
 {:else}
   <div class="grid gap-4">
@@ -162,40 +162,40 @@
             <option value={slot.index}>{slotLabel(slot)}</option>
           {/each}
         </select>
-        <span class="mt-1 block text-xs text-slate-600">
+        <span class="mt-1 block text-xs text-content-muted">
           {$_('mii.panel.slot_count', { values: { count: slots.length } })}
         </span>
       </label>
 
       {#if selectedSlot}
         <div class="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <span class="text-2xl font-bold text-slate-900">
+          <span class="text-2xl font-bold text-content-strong">
             {selectedSlot.name}
           </span>
           {#if selectedSlot.level != null}
             <span
-              class="rounded-full bg-amber-200 px-2.5 py-0.5 font-mono text-xs font-bold text-amber-900"
+              class="rounded-full bg-surface-sunken px-2.5 py-0.5 font-mono text-xs font-bold text-warn"
               title="Mii.MiiMisc.SatisfyInfo.Level"
             >
               {$_('mii.panel.level_pill', { values: { level: selectedSlot.level } })}
             </span>
           {/if}
-          <span class="text-xs text-slate-600">
+          <span class="text-xs text-content-muted">
             {$_('mii.panel.slot_short', { values: { index: selectedSlot.index + 1 } })}
           </span>
         </div>
         {#if selectedSlot.xpPercent != null}
           <div class="mt-3 max-w-md" title="Mii.MiiMisc.SatisfyInfo.Meter">
             <div class="flex items-baseline justify-between">
-              <span class="text-sm font-bold text-slate-900">
+              <span class="text-sm font-bold text-content-strong">
                 {$_('mii.panel.level_meter_label')}
               </span>
-              <span class="font-mono text-xs text-slate-700">
+              <span class="font-mono text-xs text-content">
                 {selectedSlot.xpPercent}%
               </span>
             </div>
             <div
-              class="mt-1 h-2 overflow-hidden rounded-full bg-amber-100"
+              class="mt-1 h-2 overflow-hidden rounded-full bg-surface-sunken"
               role="progressbar"
               aria-valuemin="0"
               aria-valuemax="100"
@@ -214,11 +214,11 @@
     {#if selectedIndex != null}
       {#each sectionsResolved as sec (sec.titleKey)}
         <section class={CARD_CLASS}>
-          <h3 class="text-base font-bold text-slate-900">
+          <h3 class="text-base font-bold text-content-strong">
             {$_(`mii.sections.${sec.titleKey}`)}
           </h3>
           {#if sec.descriptionKey}
-            <p class="mt-0.5 text-xs text-slate-600">
+            <p class="mt-0.5 text-xs text-content-muted">
               {$_(`mii.sections.${sec.descriptionKey}`)}
             </p>
           {/if}
@@ -235,11 +235,11 @@
             </div>
           {/if}
           {#if sec.resolvedSpoiler.length > 0}
-            <details class="group mt-3 rounded-md border border-amber-300 bg-amber-50 p-3">
+            <details class="group mt-3 rounded-md border border-edge/60 bg-surface-muted p-3">
               <summary
                 class="flex cursor-pointer list-none items-start justify-between gap-3 select-none"
               >
-                <span class="flex items-start gap-2 text-sm text-amber-900">
+                <span class="flex items-start gap-2 text-sm text-warn">
                   <span aria-hidden="true" class="leading-5">⚠</span>
                   <span class="flex flex-col gap-0.5">
                     <span class="font-bold">{$_('mii.spoiler.warning')}</span>
@@ -248,7 +248,7 @@
                     >
                   </span>
                 </span>
-                <span class="shrink-0 text-xs font-normal text-amber-800">
+                <span class="shrink-0 text-xs font-normal text-warn">
                   <span class="group-open:hidden">{$_('mii.spoiler.show')}</span>
                   <span class="hidden group-open:inline">{$_('mii.spoiler.hide')}</span>
                 </span>
@@ -269,8 +269,8 @@
 
       {#if voiceEntriesByName.size > 0}
         <section class={CARD_CLASS}>
-          <h3 class="text-base font-bold text-slate-900">{$_('mii.sections.voice')}</h3>
-          <p class="mt-0.5 text-xs text-slate-600">{$_('mii.sections.voice_caption')}</p>
+          <h3 class="text-base font-bold text-content-strong">{$_('mii.sections.voice')}</h3>
+          <p class="mt-0.5 text-xs text-content-muted">{$_('mii.sections.voice_caption')}</p>
           <div class="mt-4">
             <MiiVoiceEditor miiIndex={selectedIndex} entriesByName={voiceEntriesByName} />
           </div>

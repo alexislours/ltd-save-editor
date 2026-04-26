@@ -67,11 +67,11 @@
     aria-expanded={open}
     aria-label="Change language"
     onclick={() => (open = !open)}
-    class="flex items-center gap-1.5 rounded-full bg-amber-50/80 px-3 py-1 text-xs font-semibold leading-none text-orange-700/90 ring-1 ring-amber-400/60 transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+    class="flex items-center gap-1.5 rounded-full bg-surface-muted/80 px-3 py-1 text-xs font-semibold leading-none text-brand/90 ring-1 ring-edge/60 transition-colors hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
   >
     <span>{META[currentValue].name}</span>
     {#if META[currentValue].region}
-      <span class="text-[10px] font-bold uppercase tracking-wider text-orange-700/70">
+      <span class="text-[10px] font-bold uppercase tracking-wider text-brand/70">
         {META[currentValue].region}
       </span>
     {/if}
@@ -81,7 +81,7 @@
     <ul
       role="listbox"
       aria-label="Language"
-      class="absolute right-0 z-20 mt-2 max-h-80 w-48 overflow-y-auto rounded-lg bg-white py-1 shadow-lg ring-1 ring-amber-400/60"
+      class="absolute right-0 z-20 mt-2 max-h-80 w-48 overflow-y-auto rounded-lg bg-surface py-1 shadow-lg ring-1 ring-edge/60"
     >
       {#each LOCALES as loc (loc)}
         {@const meta = META[loc]}
@@ -95,13 +95,15 @@
             class={[
               'flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm transition-colors',
               active
-                ? 'bg-orange-100 font-semibold text-orange-700'
-                : 'text-slate-700 hover:bg-amber-50',
+                ? 'bg-orange-500/15 font-semibold text-brand'
+                : 'text-content hover:bg-surface-muted',
             ]}
           >
             <span class="flex-1">{meta.name}</span>
             {#if meta.region}
-              <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              <span
+                class="font-mono text-[10px] font-bold uppercase tracking-wider text-content-faint"
+              >
                 {meta.region}
               </span>
             {/if}

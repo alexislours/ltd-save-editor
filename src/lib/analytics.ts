@@ -9,6 +9,7 @@ type Events = {
   save_exported: { kind: SaveKind };
   bulk_edit_used: { field: 'state' | 'qty'; count: number };
   locale_changed: { from: string; to: string };
+  theme_changed: { from: 'light' | 'dark'; to: 'light' | 'dark' };
 };
 
 type Umami = {

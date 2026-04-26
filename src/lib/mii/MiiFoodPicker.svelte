@@ -55,7 +55,7 @@
 
   <div class="mt-1.5 flex items-start gap-3">
     <div
-      class="flex h-16 w-16 shrink-0 items-center justify-center rounded-md border border-amber-200 bg-white"
+      class="flex h-16 w-16 shrink-0 items-center justify-center rounded-md border border-edge/40 bg-surface"
     >
       {#if imageUrl}
         <img
@@ -65,12 +65,12 @@
           class="h-full w-full object-contain p-1"
         />
       {:else}
-        <span class="text-[10px] text-slate-400">{$_('mii.food.no_image')}</span>
+        <span class="text-[10px] text-content-faint">{$_('mii.food.no_image')}</span>
       {/if}
     </div>
 
     <div class="min-w-0 flex-1">
-      <div class="text-sm font-bold text-slate-900">
+      <div class="text-sm font-bold text-content-strong">
         {#if currentFood}
           {foodLabel(currentFood, ui)}
         {:else}
@@ -95,11 +95,11 @@
   </div>
 
   {#if field.hintKey}
-    <span class="mt-1 block text-xs text-slate-600">
+    <span class="mt-1 block text-xs text-content-muted">
       {$_(`mii.fields.${field.hintKey}`)}
     </span>
   {/if}
   {#if error}
-    <span class="mt-1 block text-xs text-red-600">{error}</span>
+    <span class="mt-1 block text-xs text-danger">{error}</span>
   {/if}
 </label>

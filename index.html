@@ -23,6 +23,13 @@
     <meta name="twitter:description" content="Save editor for Tomodachi Life: Living the Dream." />
   </head>
   <body>
+    <script>
+      try {
+        if (localStorage.getItem('ltd-save-editor:theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch {}
+    </script>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <script

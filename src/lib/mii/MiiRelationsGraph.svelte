@@ -304,8 +304,8 @@
 <section class={CARD_CLASS}>
   <div class="mb-3 flex flex-wrap items-end justify-between gap-3">
     <div>
-      <h3 class="text-base font-bold text-slate-900">{$_('mii.relations.graph_title')}</h3>
-      <p class="mt-0.5 text-xs text-slate-600">
+      <h3 class="text-base font-bold text-content-strong">{$_('mii.relations.graph_title')}</h3>
+      <p class="mt-0.5 text-xs text-content-muted">
         {#if viewMode === 'all'}
           {$_('mii.relations.graph_intro_all', { values: { count: populated.length } })}
         {:else if focusIndex == null}
@@ -318,12 +318,12 @@
   </div>
 
   <div
-    class="mb-4 flex flex-wrap items-end gap-3 rounded-xl bg-amber-100/70 px-3 py-2.5 ring-1 ring-amber-400/40"
+    class="mb-4 flex flex-wrap items-end gap-3 rounded-xl bg-surface-sunken/70 px-3 py-2.5 ring-1 ring-edge/40"
   >
-    <label class="flex flex-col gap-1 text-xs text-slate-700">
-      <span class="font-bold text-slate-900">{$_('mii.relations.mii_selector')}</span>
+    <label class="flex flex-col gap-1 text-xs text-content">
+      <span class="font-bold text-content-strong">{$_('mii.relations.mii_selector')}</span>
       <select
-        class="min-w-50 rounded-lg border border-amber-400/60 bg-white px-2 py-1 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+        class="min-w-50 rounded-lg border border-edge/60 bg-surface px-2 py-1 text-sm text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
         value={dropdownIndex ?? ''}
         onchange={(e) => {
           const n = Number.parseInt(e.currentTarget.value, 10);
@@ -355,18 +355,18 @@
 
     <button
       type="button"
-      class="rounded-full border border-amber-400/60 bg-white px-4 py-1.5 text-sm font-bold text-slate-700 shadow-sm transition hover:bg-amber-50"
-      class:!bg-amber-200={viewMode === 'all'}
+      class="rounded-full border border-edge/60 bg-surface px-4 py-1.5 text-sm font-bold text-content shadow-sm transition hover:bg-surface-muted"
+      class:!bg-surface-sunken={viewMode === 'all'}
       onclick={viewAll}
     >
       {$_('mii.relations.view_all')}
     </button>
 
     {#if presentTypes.length > 0}
-      <label class="ml-auto flex flex-col gap-1 text-xs text-slate-700">
-        <span class="font-bold text-slate-900">{$_('mii.relations.filter_type_label')}</span>
+      <label class="ml-auto flex flex-col gap-1 text-xs text-content">
+        <span class="font-bold text-content-strong">{$_('mii.relations.filter_type_label')}</span>
         <select
-          class="rounded-lg border border-amber-400/60 bg-white px-2 py-1 text-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+          class="rounded-lg border border-edge/60 bg-surface px-2 py-1 text-sm text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
           bind:value={filterType}
         >
           <option value="all">{$_('mii.relations.filter_all')}</option>
@@ -379,17 +379,17 @@
   </div>
 
   {#if !re}
-    <p class="text-sm text-slate-600">{$_('mii.relations.no_table')}</p>
+    <p class="text-sm text-content-muted">{$_('mii.relations.no_table')}</p>
   {:else if populated.length === 0}
-    <p class="text-sm text-slate-600">{$_('mii.relations.no_populated')}</p>
+    <p class="text-sm text-content-muted">{$_('mii.relations.no_populated')}</p>
   {:else if viewMode === 'all' && allPairs.length === 0}
-    <p class="text-sm text-slate-600">{$_('mii.relations.no_pairs_visible')}</p>
+    <p class="text-sm text-content-muted">{$_('mii.relations.no_pairs_visible')}</p>
   {:else if viewMode === 'ego' && focusIndex != null && egoEdges.length === 0}
-    <p class="text-sm text-slate-600">
+    <p class="text-sm text-content-muted">
       {$_('mii.relations.no_relations_for', { values: { name: focusName } })}
     </p>
   {:else}
-    <div class="flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-slate-700">
+    <div class="flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-content">
       {#each presentTypes as t (t)}
         <span
           class="inline-flex items-center gap-1.5"
@@ -479,8 +479,16 @@
                     cx={pos.x}
                     cy={pos.y}
                     r={isHover || isSelected ? 7 : NODE_RADIUS}
-                    fill={isHover ? '#fef3c7' : isSelected ? '#dbeafe' : '#fff'}
-                    stroke={isHover ? '#b45309' : isSelected ? '#1d4ed8' : '#1f2937'}
+                    fill={isHover
+                      ? 'var(--color-surface-sunken)'
+                      : isSelected
+                        ? 'var(--color-surface-muted)'
+                        : 'var(--color-surface)'}
+                    stroke={isHover
+                      ? 'var(--color-brand-soft)'
+                      : isSelected
+                        ? 'var(--color-brand)'
+                        : 'var(--color-content-strong)'}
                     stroke-width={isHover || isSelected ? 2 : 1.25}
                     pointer-events="none"
                   ></circle>
@@ -491,7 +499,7 @@
                       text-anchor="middle"
                       font-size="12"
                       font-weight="600"
-                      fill="#1f2937"
+                      fill="var(--color-content-strong)"
                       style="pointer-events:none; user-select:none;"
                     >
                       {name}
@@ -502,7 +510,7 @@
                       y={pos.y + 18}
                       text-anchor="middle"
                       font-size="10"
-                      fill="#475569"
+                      fill="var(--color-content-muted)"
                       opacity={populated.length > 40 ? 0.55 : 0.85}
                       style="pointer-events:none; user-select:none;"
                     >
@@ -582,7 +590,7 @@
                     font-size="9.5"
                     fill={e.colorOut}
                     opacity={dim}
-                    style="pointer-events:none; user-select:none; paint-order:stroke; stroke:#fff; stroke-width:3;"
+                    style="pointer-events:none; user-select:none; paint-order:stroke; stroke:var(--color-surface); stroke-width:3;"
                   >
                     {labelOut}
                   </text>
@@ -597,7 +605,7 @@
                       font-size="9.5"
                       fill={e.colorOut}
                       opacity={dim}
-                      style="pointer-events:none; user-select:none; paint-order:stroke; stroke:#fff; stroke-width:3;"
+                      style="pointer-events:none; user-select:none; paint-order:stroke; stroke:var(--color-surface); stroke-width:3;"
                     >
                       {labelOut}
                     </text>
@@ -612,7 +620,7 @@
                       font-size="9.5"
                       fill={e.colorIn}
                       opacity={dim}
-                      style="pointer-events:none; user-select:none; paint-order:stroke; stroke:#fff; stroke-width:3;"
+                      style="pointer-events:none; user-select:none; paint-order:stroke; stroke:var(--color-surface); stroke-width:3;"
                     >
                       {labelIn}
                     </text>
@@ -627,8 +635,8 @@
               cx={CENTER_X}
               cy={CENTER_Y}
               r={NODE_RADIUS_FOCUS}
-              fill="#fef3c7"
-              stroke="#b45309"
+              fill="var(--color-surface-sunken)"
+              stroke="var(--color-brand-soft)"
               stroke-width={2}
             ></circle>
             <text
@@ -637,7 +645,7 @@
               text-anchor="middle"
               font-size="13"
               font-weight="600"
-              fill="#1f2937"
+              fill="var(--color-content-strong)"
               style="pointer-events:none; user-select:none;"
             >
               {focusName}
@@ -673,8 +681,8 @@
                     cx={p.x}
                     cy={p.y}
                     r={isHover ? 7 : NODE_RADIUS}
-                    fill={isHover ? '#fef3c7' : '#fff'}
-                    stroke={isHover ? '#b45309' : '#1f2937'}
+                    fill={isHover ? 'var(--color-surface-sunken)' : 'var(--color-surface)'}
+                    stroke={isHover ? 'var(--color-brand-soft)' : 'var(--color-content-strong)'}
                     stroke-width={isHover ? 2 : 1.25}
                     pointer-events="none"
                   ></circle>
@@ -683,7 +691,7 @@
                     y={labelY}
                     text-anchor="middle"
                     font-size="11"
-                    fill="#1f2937"
+                    fill="var(--color-content-strong)"
                     style="pointer-events:none; user-select:none;"
                   >
                     {e.otherName}
@@ -708,7 +716,7 @@
       </svg>
     </div>
 
-    <p class="mt-3 text-xs text-slate-600">
+    <p class="mt-3 text-xs text-content-muted">
       {#if viewMode === 'all'}
         {$_('mii.relations.pair_count', { values: { count: allPairs.length } })}
       {:else}

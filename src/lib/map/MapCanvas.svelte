@@ -154,7 +154,7 @@
 </script>
 
 <div
-  class="inline-block max-w-full overflow-auto rounded-lg border border-neutral-200 bg-neutral-100"
+  class="inline-block max-w-full overflow-auto rounded-lg border border-edge/40 bg-surface-muted"
 >
   <canvas
     bind:this={canvas}

@@ -34,7 +34,7 @@
           'flex w-full items-center gap-2 rounded-lg border px-2 py-1.5 text-left text-xs font-medium transition-colors',
           active
             ? 'border-orange-600 bg-orange-500 text-white shadow'
-            : 'border-amber-400/60 bg-white text-slate-700 hover:bg-amber-50',
+            : 'border-edge/60 bg-surface text-content hover:bg-surface-muted',
         ]}
       >
         <span

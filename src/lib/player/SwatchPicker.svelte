@@ -55,7 +55,7 @@
           'h-8 w-8 rounded-full border-2 shadow-sm transition focus:outline-none focus:ring-2 focus:ring-orange-500/40',
           selected
             ? 'border-orange-500 ring-2 ring-orange-500'
-            : 'border-amber-400/60 hover:border-orange-400',
+            : 'border-edge/60 hover:border-orange-400',
         ]}
         style:background-color={s.color}
         onclick={() => onChange(s.value)}
@@ -63,6 +63,6 @@
     {/each}
   </div>
   {#if current}
-    <span class="text-xs text-slate-600">{current.label}</span>
+    <span class="text-xs text-content-muted">{current.label}</span>
   {/if}
 </div>

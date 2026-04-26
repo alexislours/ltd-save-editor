@@ -52,10 +52,10 @@
         aria-hidden="true"
       ></span>
       <div class="min-w-0 flex-1">
-        <p class="truncate text-sm font-bold text-slate-900">
+        <p class="truncate text-sm font-bold text-content-strong">
           {display.label}
         </p>
-        <p class="truncate font-mono text-[11px] text-slate-500">
+        <p class="truncate font-mono text-[11px] text-content-faint">
           {display.key || hexU32(row.actor)}
           · {footprintSizeLabel(row.actor)}
           · slot #{row.index}
@@ -116,15 +116,17 @@
 
     <div class="grid gap-1.5">
       <span class={labelClass}>Rotation</span>
-      <div class="inline-flex overflow-hidden rounded-full ring-1 ring-amber-400/60">
+      <div class="inline-flex overflow-hidden rounded-full ring-1 ring-edge/60">
         {#each ROTATIONS as deg (deg)}
           {@const selected = row.rot === displayToStored(deg)}
           <button
             type="button"
             class={[
               'flex-1 px-2 py-1.5 text-sm font-bold transition-colors',
-              selected ? 'bg-orange-500 text-white' : 'bg-white text-slate-700 hover:bg-amber-50',
-              deg !== 0 ? 'border-l border-amber-400/60' : '',
+              selected
+                ? 'bg-orange-500 text-white'
+                : 'bg-surface text-content hover:bg-surface-muted',
+              deg !== 0 ? 'border-l border-edge/60' : '',
             ]}
             onclick={() => setRotation(row.index, displayToStored(deg))}
           >
@@ -133,7 +135,7 @@
         {/each}
       </div>
       {#if ![0, 90, 180, 270].includes(row.rot)}
-        <p class="text-[11px] text-orange-700">
+        <p class="text-[11px] text-brand">
           Non-standard angle: {(((360 - row.rot) % 360) + 360) % 360}° (preserved)
         </p>
       {/if}
@@ -142,7 +144,7 @@
     <label class="grid gap-1.5">
       <span class={labelClass}>
         Linked map
-        <span class="font-normal text-slate-500">(-1 = none)</span>
+        <span class="font-normal text-content-faint">(-1 = none)</span>
       </span>
       <input
         type="number"
@@ -159,18 +161,18 @@
 
     <button
       type="button"
-      class="rounded-full border border-red-300 bg-white px-3 py-1.5 text-sm font-bold text-red-700 shadow-sm transition hover:bg-red-50"
+      class="rounded-full border border-danger-edge bg-surface px-3 py-1.5 text-sm font-bold text-danger shadow-sm transition hover:bg-danger-bg"
       onclick={() => {
         if (clearSlot(row.index)) onCleared();
       }}
     >
       Delete object
     </button>
-    <p class="-mt-2 text-[11px] text-slate-500">
+    <p class="-mt-2 text-[11px] text-content-faint">
       Deletes the object by zeroing its <code class="font-mono">ActorKey</code>. Position and
       rotation bytes are preserved for round-trip safety.
     </p>
   </div>
 {:else}
-  <p class="text-xs text-slate-600">No object selected.</p>
+  <p class="text-xs text-content-muted">No object selected.</p>
 {/if}

@@ -63,7 +63,7 @@
   {#if entry.type === DataType.BoolArray}
     <input
       type="checkbox"
-      class="h-4 w-4 rounded border-amber-400/60 text-orange-500 focus:ring-orange-500/30"
+      class="h-4 w-4 rounded border-edge/60 text-orange-500 focus:ring-orange-500/30"
       checked={arrGetBool(entry, index)}
       onchange={(e) => commit(() => arrSetBool(entry, index, e.currentTarget.checked))}
     />
@@ -94,7 +94,7 @@
         }}
       />
       {#if optName}
-        <span class="text-[11px] text-slate-500">≈ {optName}</span>
+        <span class="text-[11px] text-content-faint">≈ {optName}</span>
       {/if}
     </div>
   {:else if entry.type === DataType.FloatArray}
@@ -141,7 +141,7 @@
           }}
         />
         {#if optName}
-          <span class="text-[11px] text-slate-500">= {optName}</span>
+          <span class="text-[11px] text-content-faint">= {optName}</span>
         {/if}
       </div>
     {/if}
@@ -248,14 +248,14 @@
     />
   {:else if entry.type === DataType.BinaryArray}
     {@const el = binaryArrayElements(entry)[index]}
-    <span class="font-mono text-xs text-slate-500">
+    <span class="font-mono text-xs text-content-faint">
       {el ? `${el.size} bytes` : 'n/a'}
     </span>
   {:else}
-    <span class="text-xs text-slate-500">n/a</span>
+    <span class="text-xs text-content-faint">n/a</span>
   {/if}
 
   {#if error}
-    <p class="mt-1 text-xs text-red-600">{error}</p>
+    <p class="mt-1 text-xs text-danger">{error}</p>
   {/if}
 {/key}

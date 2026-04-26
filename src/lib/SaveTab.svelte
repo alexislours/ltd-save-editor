@@ -23,28 +23,28 @@
 
 <div class="grid gap-6">
   <header>
-    <h2 class="text-2xl font-bold tracking-tight text-slate-900">
+    <h2 class="text-2xl font-bold tracking-tight text-content-strong">
       {title}
     </h2>
-    <p class="mt-1 text-sm text-slate-700">{description}</p>
+    <p class="mt-1 text-sm text-content">{description}</p>
   </header>
 
   {#if save}
     <div
-      class="flex items-center justify-between gap-4 rounded-full bg-amber-300/90 px-5 py-2.5 shadow-sm ring-1 ring-amber-400/60"
+      class="flex items-center justify-between gap-4 rounded-full bg-header/90 px-5 py-2.5 shadow-sm ring-1 ring-edge/60"
     >
       <div class="min-w-0">
-        <p class="truncate font-mono text-sm font-bold text-slate-900">
+        <p class="truncate font-mono text-sm font-bold text-content-strong">
           {save.name}
         </p>
-        <p class="mt-0.5 text-xs text-slate-700">
+        <p class="mt-0.5 text-xs text-content">
           {save.size.toLocaleString()}
           {$_('save.bytes_unit')} · {new Date(save.lastModified).toLocaleString()}
         </p>
       </div>
       <button
         type="button"
-        class="shrink-0 rounded-full bg-white px-4 py-1.5 text-xs font-bold text-slate-900 shadow ring-1 ring-amber-400/60 transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95"
+        class="shrink-0 rounded-full bg-surface px-4 py-1.5 text-xs font-bold text-content-strong shadow ring-1 ring-edge/60 transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95"
         onclick={() => clearSave(kind)}
       >
         {$_('save.replace_action')}
@@ -53,20 +53,20 @@
 
     {#if error}
       <Card>
-        <p class="text-sm text-red-600">
+        <p class="text-sm text-danger">
           {$_('save.parse_failed', { values: { fileName, error } })}
         </p>
       </Card>
     {:else if !ready}
       <Card>
-        <p class="text-sm text-slate-600">{$_('save.waiting', { values: { fileName } })}</p>
+        <p class="text-sm text-content-muted">{$_('save.waiting', { values: { fileName } })}</p>
       </Card>
     {:else}
       {@render children()}
     {/if}
   {:else}
     <Card>
-      <p class="mb-4 text-sm text-neutral-600">
+      <p class="mb-4 text-sm text-content-muted">
         {$_('save.upload_prompt', { values: { fileName } })}
       </p>
       <FileDropZone {kind} />

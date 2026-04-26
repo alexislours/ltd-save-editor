@@ -22,10 +22,10 @@
       {#if isFolder}
         <button
           type="button"
-          class="flex w-full items-center gap-1 rounded-md px-1 py-0.5 text-left text-sm font-medium text-slate-800 hover:bg-amber-100/70"
+          class="flex w-full items-center gap-1 rounded-md px-1 py-0.5 text-left text-sm font-medium text-content-strong hover:bg-surface-sunken/70"
           onclick={() => onToggle(node.path)}
         >
-          <span class="inline-block w-3 text-[10px] text-slate-500" aria-hidden="true">
+          <span class="inline-block w-3 text-[10px] text-content-faint" aria-hidden="true">
             {isOpen ? '▼' : '▶'}
           </span>
           <span class="truncate">{node.label}</span>
@@ -47,7 +47,7 @@
             'flex w-full items-center gap-1 rounded-md px-1 py-0.5 text-left text-sm',
             isSelected
               ? 'bg-orange-500 font-bold text-white'
-              : 'text-slate-800 hover:bg-amber-100/70',
+              : 'text-content-strong hover:bg-surface-sunken/70',
           ]}
           onclick={() => onSelect(node)}
         >

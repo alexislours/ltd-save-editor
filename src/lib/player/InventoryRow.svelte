@@ -36,7 +36,7 @@
       type="button"
       onclick={() => openLightbox(imageUrl, label)}
       aria-label={$_('lightbox.open', { values: { label } })}
-      class="flex h-14 w-14 shrink-0 cursor-zoom-in items-center justify-center overflow-hidden rounded-md border border-amber-200 bg-white transition-colors hover:border-orange-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+      class="flex h-14 w-14 shrink-0 cursor-zoom-in items-center justify-center overflow-hidden rounded-md border border-edge/40 bg-surface transition-colors hover:border-orange-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
     >
       <img
         src={imageUrl}
@@ -48,15 +48,15 @@
     </button>
   {:else}
     <div
-      class="flex h-14 w-14 shrink-0 items-center justify-center rounded-md border border-amber-200 bg-white"
+      class="flex h-14 w-14 shrink-0 items-center justify-center rounded-md border border-edge/40 bg-surface"
     >
-      <span class="text-[10px] text-slate-400">·</span>
+      <span class="text-[10px] text-content-faint">·</span>
     </div>
   {/if}
 
   <div class="min-w-0 flex-1">
-    <div class="truncate text-sm font-bold text-slate-900">{label}</div>
-    <div class="truncate font-mono text-[11px] text-slate-500">{internalName}</div>
+    <div class="truncate text-sm font-bold text-content-strong">{label}</div>
+    <div class="truncate font-mono text-[11px] text-content-faint">{internalName}</div>
   </div>
 
   {#if hasState}
@@ -79,7 +79,7 @@
       <button
         type="button"
         aria-label={$_('player.inventory.decrement')}
-        class="qty-btn h-7 w-7 rounded-full border border-amber-300 bg-white text-slate-700 hover:bg-amber-50 disabled:opacity-40"
+        class="qty-btn h-7 w-7 rounded-full border border-edge/60 bg-surface text-content hover:bg-surface-muted disabled:opacity-40"
         disabled={qty <= 0}
         onclick={() => onQtyChange(qty - 1)}
       >
@@ -109,7 +109,7 @@
       <button
         type="button"
         aria-label={$_('player.inventory.increment')}
-        class="qty-btn h-7 w-7 rounded-full border border-amber-300 bg-white text-slate-700 hover:bg-amber-50"
+        class="qty-btn h-7 w-7 rounded-full border border-edge/60 bg-surface text-content hover:bg-surface-muted"
         onclick={() => onQtyChange(qty + 1)}
       >
         <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" class="h-3 w-3">

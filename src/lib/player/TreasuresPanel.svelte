@@ -145,14 +145,16 @@
 
 {#if !hasAny}
   <section class={CARD_CLASS}>
-    <p class="text-sm text-slate-600">{$_('player.treasures.missing')}</p>
+    <p class="text-sm text-content-muted">{$_('player.treasures.missing')}</p>
   </section>
 {:else}
   <section class={CARD_CLASS}>
     <header class="flex flex-wrap items-center justify-between gap-3">
       <div>
-        <h3 class="text-base font-semibold text-slate-900">{$_('player.treasures.heading')}</h3>
-        <p class="text-xs text-slate-600">
+        <h3 class="text-base font-semibold text-content-strong">
+          {$_('player.treasures.heading')}
+        </h3>
+        <p class="text-xs text-content-muted">
           {$_('player.treasures.caption', { values: { count: visibleTreasures.length } })}
         </p>
       </div>
@@ -160,7 +162,7 @@
 
     <div class="mt-4">
       <label class="block">
-        <span class="block text-xs font-bold text-slate-700">{$_('player.inventory.search')}</span>
+        <span class="block text-xs font-bold text-content">{$_('player.inventory.search')}</span>
         <input
           type="search"
           class="{INPUT_CLASS} mt-1 w-full"
@@ -181,12 +183,12 @@
     </div>
 
     <div
-      class="mt-4 max-h-160 overflow-y-auto rounded-xl border border-amber-200/60 bg-amber-50/40"
+      class="mt-4 max-h-160 overflow-y-auto rounded-xl border border-edge/40 bg-surface-muted/40"
     >
       {#if visibleTreasures.length === 0}
-        <p class="p-6 text-sm text-slate-600">{$_('player.inventory.empty')}</p>
+        <p class="p-6 text-sm text-content-muted">{$_('player.inventory.empty')}</p>
       {:else}
-        <ul class="divide-y divide-amber-200/60">
+        <ul class="divide-y divide-edge/40">
           {#each visibleTreasures as treasure (treasure.name)}
             {@const stateEntry = byHash.get(treasure.stateHash) ?? null}
             {@const ownNumEntry = byHash.get(treasure.ownNumHash) ?? null}

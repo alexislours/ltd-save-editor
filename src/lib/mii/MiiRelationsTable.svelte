@@ -245,9 +245,9 @@
 </script>
 
 <section class={CARD_CLASS}>
-  <h3 class="text-base font-bold text-slate-900">{$_('mii.relations.table_title')}</h3>
+  <h3 class="text-base font-bold text-content-strong">{$_('mii.relations.table_title')}</h3>
   <p
-    class="mt-2 flex items-start gap-2 rounded-xl bg-red-50 px-3 py-2 text-xs text-red-900 ring-1 ring-red-400/70"
+    class="mt-2 flex items-start gap-2 rounded-xl bg-danger-bg px-3 py-2 text-xs text-danger ring-1 ring-danger-edge/70"
     role="note"
   >
     <span
@@ -256,21 +256,21 @@
       >!</span
     >
     <span>
-      <span class="font-bold text-red-700">{$_('mii.relations.warning_label')}</span>
+      <span class="font-bold">{$_('mii.relations.warning_label')}</span>
       {$_('mii.relations.warning_text')}
     </span>
   </p>
   {#if !relEntries}
-    <p class="mt-2 text-sm text-slate-600">{$_('mii.relations.no_table_short')}</p>
+    <p class="mt-2 text-sm text-content-muted">{$_('mii.relations.no_table_short')}</p>
   {:else if myRelationships.length === 0}
-    <p class="mt-2 text-sm text-slate-600">{$_('mii.relations.no_relations_for_self')}</p>
+    <p class="mt-2 text-sm text-content-muted">{$_('mii.relations.no_relations_for_self')}</p>
   {:else}
-    <p class="mt-0.5 text-xs text-slate-600">
+    <p class="mt-0.5 text-xs text-content-muted">
       {$_('mii.relations.table_intro', { values: { count: myRelationships.length } })}
     </p>
-    <div class="mt-4 overflow-x-auto rounded-xl ring-1 ring-amber-400/40">
+    <div class="mt-4 overflow-x-auto rounded-xl ring-1 ring-edge/40">
       <table class="w-full text-sm">
-        <thead class="bg-amber-100/70 text-left text-xs font-bold text-slate-900">
+        <thead class="bg-surface-sunken/70 text-left text-xs font-bold text-content-strong">
           <tr>
             <th class="px-3 py-2 font-bold">{$_('mii.relations.header_other')}</th>
             <th class="px-3 py-2 font-bold">{$_('mii.relations.header_out_type')}</th>
@@ -304,8 +304,8 @@
                 : crushBlockedByOther
                   ? $_('mii.relations.crush_locked_existing')
                   : $_('mii.relations.crush_label_aria')}
-            <tr class="align-middle {i > 0 ? 'border-t border-amber-200/60' : ''}">
-              <td class="px-3 py-2 font-bold text-slate-900">
+            <tr class="align-middle {i > 0 ? 'border-t border-edge/40' : ''}">
+              <td class="px-3 py-2 font-bold text-content-strong">
                 {r.otherName ||
                   $_('mii.relations.slot_placeholder', {
                     values: { index: r.otherIndex + 1 },
@@ -314,7 +314,7 @@
               <td class="px-3 py-2">
                 {#if baseTypeOptions}
                   <select
-                    class="rounded-lg border border-amber-400/60 bg-white px-2 py-1 text-xs focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+                    class="rounded-lg border border-edge/60 bg-surface px-2 py-1 text-xs text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
                     onchange={(e) =>
                       commitType(r.outIndex, r.inIndex, r.inType, e.currentTarget.value)}
                   >
@@ -337,10 +337,10 @@
               </td>
               <td class="px-3 py-2">
                 {#if outFixed}
-                  <span class="font-mono text-xs text-slate-500">-</span>
+                  <span class="font-mono text-xs text-content-faint">-</span>
                 {:else if outLevels}
                   <select
-                    class="rounded-lg border border-amber-400/60 bg-white px-2 py-1 text-xs focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+                    class="rounded-lg border border-edge/60 bg-surface px-2 py-1 text-xs text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
                     onchange={(e) => commitMeter(r.outIndex, e.currentTarget.value)}
                   >
                     {#each outLevels as lv (lv.index)}
@@ -353,7 +353,7 @@
                   <input
                     type="text"
                     inputmode="numeric"
-                    class="w-20 rounded-lg border border-amber-400/60 bg-white px-2 py-1 text-right font-mono text-xs focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+                    class="w-20 rounded-lg border border-edge/60 bg-surface px-2 py-1 text-right font-mono text-xs text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
                     value={r.outMeter.toString()}
                     onchange={(e) => commitMeter(r.outIndex, e.currentTarget.value)}
                   />
@@ -362,7 +362,7 @@
               <td class="px-3 py-2">
                 {#if baseTypeOptions}
                   <select
-                    class="rounded-lg border border-amber-400/60 bg-white px-2 py-1 text-xs focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+                    class="rounded-lg border border-edge/60 bg-surface px-2 py-1 text-xs text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
                     onchange={(e) =>
                       commitType(r.inIndex, r.outIndex, r.outType, e.currentTarget.value)}
                   >
@@ -385,10 +385,10 @@
               </td>
               <td class="px-3 py-2">
                 {#if inFixed}
-                  <span class="font-mono text-xs text-slate-500">-</span>
+                  <span class="font-mono text-xs text-content-faint">-</span>
                 {:else if inLevels}
                   <select
-                    class="rounded-lg border border-amber-400/60 bg-white px-2 py-1 text-xs focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+                    class="rounded-lg border border-edge/60 bg-surface px-2 py-1 text-xs text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
                     onchange={(e) => commitMeter(r.inIndex, e.currentTarget.value)}
                   >
                     {#each inLevels as lv (lv.index)}
@@ -401,7 +401,7 @@
                   <input
                     type="text"
                     inputmode="numeric"
-                    class="w-20 rounded-lg border border-amber-400/60 bg-white px-2 py-1 text-right font-mono text-xs focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+                    class="w-20 rounded-lg border border-edge/60 bg-surface px-2 py-1 text-right font-mono text-xs text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
                     value={r.inMeter.toString()}
                     onchange={(e) => commitMeter(r.inIndex, e.currentTarget.value)}
                   />
@@ -412,7 +412,7 @@
               <td class="px-3 pb-2 pt-0"></td>
               <td class="px-3 pb-2 pt-0">
                 <label
-                  class="inline-flex items-center gap-1.5 text-xs text-slate-700"
+                  class="inline-flex items-center gap-1.5 text-xs text-content"
                   title={crushTitle}
                 >
                   <input
@@ -436,7 +436,7 @@
               </td>
               <td class="px-3 pb-2 pt-0">
                 <label
-                  class="inline-flex items-center gap-1.5 text-xs text-slate-700"
+                  class="inline-flex items-center gap-1.5 text-xs text-content"
                   title={fightAvailable
                     ? $_('mii.relations.header_fight_label')
                     : $_('mii.relations.fight_unavailable')}
@@ -455,12 +455,12 @@
               </td>
               <td class="px-3 pb-2 pt-0"></td>
               <td class="px-3 pb-2 pt-0">
-                <label class="inline-flex items-center gap-1.5 text-xs text-slate-700">
+                <label class="inline-flex items-center gap-1.5 text-xs text-content">
                   <span>{$_('mii.relations.header_type_set_time')}</span>
                   <input
                     type="datetime-local"
                     step="1"
-                    class="rounded-md border border-amber-400/60 bg-white px-1.5 py-0.5 font-mono text-xs focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+                    class="rounded-md border border-edge/60 bg-surface px-1.5 py-0.5 font-mono text-xs text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
                     value={unixSecsToDateTimeLocal(r.typeSetSec)}
                     disabled={!relEntries?.typeSetTime}
                     title={$_('mii.relations.type_set_time_aria')}
