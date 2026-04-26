@@ -562,6 +562,7 @@
     "detail_empty_array": "Tableau vide.",
     "bulk_label": "Modification groupée :",
     "bulk_apply_action": "Appliquer aux {count}",
+    "bulk_enum_pick": "Choisir une valeur…",
     "page_elements_status": "Éléments {start}-{end} sur {count} · Page {page}/{total}"
   },
   "about": {
