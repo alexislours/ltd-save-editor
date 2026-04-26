@@ -173,7 +173,15 @@
     },
     "food": {
       "no_image": "No image",
-      "unknown": "Unknown food (hash {hash})"
+      "unknown": "Unknown food (hash {hash})",
+      "empty_rank": "—",
+      "rank_marker": "#{rank}",
+      "given_count": "{tried} / {total} tasted",
+      "search_placeholder": "Search foods…",
+      "filter_all": "All",
+      "filter_tried": "Tasted",
+      "filter_untried": "Untasted",
+      "no_results": "No matching foods."
     },
     "fields": {
       "level": "Mii level",
@@ -213,7 +221,10 @@
       "ultra_best_id": "All-time favourite food",
       "best_id": "2nd favourite food",
       "ultra_worst_id": "All-time hated food",
-      "worst_id": "2nd hated food"
+      "worst_id": "2nd hated food",
+      "ranked_food_id": "Top ranked foods",
+      "ranked_food_id_hint": "The three foods this Mii currently rates highest, in order. Updates as they try new foods.",
+      "given_flag": "Foods tasted"
     },
     "errors": {
       "required": "Required",
