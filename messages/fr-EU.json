@@ -51,6 +51,9 @@
     "play_time_label": "Temps de jeu",
     "play_time_unit": "secondes",
     "boots_label": "Démarrages",
+    "fountain_section": "Fontaine",
+    "fountain_level_label": "Niveau de la fontaine",
+    "wishes_label": "Vœux",
     "region_section": "Région et langue",
     "region_label": "Région",
     "region_code_label": "Code de région",
@@ -595,7 +598,8 @@
       "save_structure_note": "Pour la structure de base du fichier de sauvegarde.",
       "hash_list_note": "La liste de hashs livrée avec le client.",
       "test_saves_note": "Pour avoir fourni des fichiers de sauvegarde de test.",
-      "hash_work_note": "Pour son travail sur la liste de hashs."
+      "hash_work_note": "Pour son travail sur la liste de hashs.",
+      "wish_offset_note": "Pour avoir trouvé l'offset du compteur de vœux."
     },
     "translations_title": "Traductions",
     "disclaimer": "Ceci est un outil non officiel, créé par des fans. Tomodachi Life : Une vie de rêve est © Nintendo."

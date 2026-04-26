@@ -57,12 +57,18 @@
   const bdayMonth = $derived(findHash(0xc754bef3));
   const bdayYear = $derived(findHash(0x11996629));
 
+  const fountainLevel = $derived(find('Liberation.FountainLevel'));
+  // Liberation.<Unknown_55D4C49B> — controls the number of wishes available.
+  const wishes = $derived(findHash(0xa32f7e47));
+
   const anyFound = $derived(
     name != null ||
       islandName != null ||
       money != null ||
       playTime != null ||
       skin != null ||
+      fountainLevel != null ||
+      wishes != null ||
       (bdayDay != null && bdayMonth != null && bdayYear != null),
   );
 
@@ -212,6 +218,10 @@
   const moneyValue = $derived.by(() => (void tick, money ? readNumber(money) : null));
   const playTimeValue = $derived.by(() => (void tick, playTime ? readNumber(playTime) : null));
   const bootValue = $derived.by(() => (void tick, bootNum ? readNumber(bootNum) : null));
+  const fountainLevelValue = $derived.by(
+    () => (void tick, fountainLevel ? readNumber(fountainLevel) : null),
+  );
+  const wishesValue = $derived.by(() => (void tick, wishes ? readNumber(wishes) : null));
   const nameValue = $derived.by(() => (void tick, name ? getString(name) : ''));
   const islandValue = $derived.by(() => (void tick, islandName ? getString(islandName) : ''));
   const phoneticNameValue = $derived.by(
@@ -248,6 +258,8 @@
   let moneyError = $state<string | null>(null);
   let playTimeError = $state<string | null>(null);
   let bootError = $state<string | null>(null);
+  let fountainLevelError = $state<string | null>(null);
+  let wishesError = $state<string | null>(null);
 
   const numberInputClass = `${FORM_INPUT_CLASS} font-mono`;
   const compactSelectClass =
@@ -434,6 +446,55 @@
               </div>
               {#if bootError}
                 <p class="mt-1 text-xs text-red-600">{bootError}</p>
+              {/if}
+            </div>
+          {/if}
+        </div>
+      </section>
+    {/if}
+
+    {#if fountainLevel || wishes}
+      <section class={CARD_CLASS}>
+        <h3 class="mb-4 text-sm font-semibold text-neutral-900">
+          {$_('player.fountain_section')}
+        </h3>
+        <div class="flex flex-wrap gap-x-8 gap-y-5">
+          {#if fountainLevel}
+            <div class="min-w-0">
+              <span class={LABEL_CLASS}>{$_('player.fountain_level_label')}</span>
+              <div class="mt-1.5">
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  class="{numberInputClass} w-28"
+                  value={fountainLevelValue == null ? '' : fountainLevelValue.toString()}
+                  onchange={(e) => {
+                    fountainLevelError = writeNumber(fountainLevel!, e.currentTarget.value);
+                  }}
+                />
+              </div>
+              {#if fountainLevelError}
+                <p class="mt-1 text-xs text-red-600">{fountainLevelError}</p>
+              {/if}
+            </div>
+          {/if}
+
+          {#if wishes}
+            <div class="min-w-0">
+              <span class={LABEL_CLASS}>{$_('player.wishes_label')}</span>
+              <div class="mt-1.5">
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  class="{numberInputClass} w-28"
+                  value={wishesValue == null ? '' : wishesValue.toString()}
+                  onchange={(e) => {
+                    wishesError = writeNumber(wishes!, e.currentTarget.value);
+                  }}
+                />
+              </div>
+              {#if wishesError}
+                <p class="mt-1 text-xs text-red-600">{wishesError}</p>
               {/if}
             </div>
           {/if}

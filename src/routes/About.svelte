@@ -25,6 +25,10 @@
       label: 'SuperSpazzy',
       noteKey: 'about.credits.hash_work_note',
     },
+    {
+      label: 'Camille',
+      noteKey: 'about.credits.wish_offset_note',
+    },
   ];
 
   const TRANSLATORS: Record<string, string[]> = {

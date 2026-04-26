@@ -51,6 +51,9 @@
     "play_time_label": "Play time",
     "play_time_unit": "seconds",
     "boots_label": "Boots",
+    "fountain_section": "Fountain",
+    "fountain_level_label": "Fountain level",
+    "wishes_label": "Wishes",
     "region_section": "Region & language",
     "region_label": "Region",
     "region_code_label": "Region code",
@@ -595,7 +598,8 @@
       "save_structure_note": "For the base structure of the save file.",
       "hash_list_note": "The hash list shipped to the client.",
       "test_saves_note": "For providing test save files.",
-      "hash_work_note": "For the work on the hash list."
+      "hash_work_note": "For the work on the hash list.",
+      "wish_offset_note": "For finding the wish counter offset."
     },
     "translations_title": "Translations",
     "disclaimer": "This is an unofficial, fan-made tool. Tomodachi Life: Living the Dream is © Nintendo."

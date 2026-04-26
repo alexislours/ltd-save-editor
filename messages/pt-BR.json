@@ -51,6 +51,9 @@
     "play_time_label": "Tempo de jogo",
     "play_time_unit": "segundos",
     "boots_label": "Inicializações",
+    "fountain_section": "Fonte",
+    "fountain_level_label": "Nível da fonte",
+    "wishes_label": "Desejos",
     "region_section": "Região e idioma",
     "region_label": "Região",
     "region_code_label": "Código da região",
@@ -595,7 +598,8 @@
       "save_structure_note": "Pela estrutura base do arquivo de save.",
       "hash_list_note": "Pela lista de hashes enviada ao cliente.",
       "test_saves_note": "Por fornecer arquivos de save de teste.",
-      "hash_work_note": "Pelo trabalho na lista de hashes."
+      "hash_work_note": "Pelo trabalho na lista de hashes.",
+      "wish_offset_note": "Por encontrar o offset do contador de desejos."
     },
     "translations_title": "Traduções",
     "disclaimer": "Esta é uma ferramenta não oficial, feita por fãs. Tomodachi Life: Living the Dream é © Nintendo."
