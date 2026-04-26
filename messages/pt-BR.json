@@ -156,9 +156,11 @@
     },
     "spoiler": {
       "warning": "Aviso de spoiler",
-      "caption": "Estes valores podem revelar descobertas do jogo. Clique para expandir.",
       "show": "Mostrar",
-      "hide": "Ocultar"
+      "hide": "Ocultar",
+      "captions": {
+        "food": "Revela as comidas favoritas e menos favoritas deste Mii."
+      }
     },
     "food": {
       "no_image": "Sem imagem",
@@ -560,6 +562,7 @@
     "detail_empty_array": "Array vazio.",
     "bulk_label": "Edição em massa:",
     "bulk_apply_action": "Aplicar a todos os {count}",
+    "bulk_enum_pick": "Escolha um valor…",
     "page_elements_status": "Elementos {start}-{end} de {count} · Página {page}/{total}"
   },
   "about": {
@@ -578,6 +581,7 @@
       "test_saves_note": "Por fornecer arquivos de save de teste.",
       "hash_work_note": "Pelo trabalho na lista de hashes."
     },
+    "translations_title": "Traduções",
     "disclaimer": "Esta é uma ferramenta não oficial, feita por fãs. Tomodachi Life: Living the Dream é © Nintendo."
   }
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _, locale } from 'svelte-i18n';
   import AppLayout from '../lib/AppLayout.svelte';
   import Card from '../lib/Card.svelte';
 
@@ -26,6 +26,25 @@
       noteKey: 'about.credits.hash_work_note',
     },
   ];
+
+  const TRANSLATORS: Record<string, string[]> = {
+    'pt-BR': ['Rafa'],
+  };
+
+  const listFormatter = $derived(
+    new Intl.ListFormat($locale ?? 'en-US', { style: 'long', type: 'conjunction' }),
+  );
+  const languageNames = $derived(
+    new Intl.DisplayNames([$locale ?? 'en-US'], { type: 'language' }),
+  );
+
+  const translations = $derived(
+    Object.entries(TRANSLATORS).map(([tag, authors]) => ({
+      tag,
+      language: languageNames.of(tag) ?? tag,
+      authors: listFormatter.format(authors),
+    })),
+  );
 </script>
 
 <AppLayout>
@@ -84,6 +103,17 @@
               <span class="font-medium text-slate-900">{credit.label}</span>
             {/if}
             <span class="text-slate-600"> - {$_(credit.noteKey)}</span>
+          </li>
+        {/each}
+      </ul>
+    </Card>
+
+    <Card title={$_('about.translations_title')}>
+      <ul class="space-y-3 text-sm text-slate-700">
+        {#each translations as translation (translation.tag)}
+          <li>
+            <span class="font-medium text-slate-900">{translation.language}</span>
+            <span class="text-slate-600"> - {translation.authors}</span>
           </li>
         {/each}
       </ul>
