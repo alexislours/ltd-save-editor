@@ -156,9 +156,11 @@
     },
     "spoiler": {
       "warning": "Avertissement spoiler",
-      "caption": "Ces valeurs peuvent révéler des découvertes en jeu. Cliquez pour développer.",
       "show": "Afficher",
-      "hide": "Masquer"
+      "hide": "Masquer",
+      "captions": {
+        "food": "Révèle les plats préférés et détestés de ce Mii."
+      }
     },
     "food": {
       "no_image": "Pas d'image",
@@ -560,6 +562,7 @@
     "detail_empty_array": "Tableau vide.",
     "bulk_label": "Modification groupée :",
     "bulk_apply_action": "Appliquer aux {count}",
+    "bulk_enum_pick": "Choisir une valeur…",
     "page_elements_status": "Éléments {start}-{end} sur {count} · Page {page}/{total}"
   },
   "about": {
@@ -578,6 +581,7 @@
       "test_saves_note": "Pour avoir fourni des fichiers de sauvegarde de test.",
       "hash_work_note": "Pour son travail sur la liste de hashs."
     },
+    "translations_title": "Traductions",
     "disclaimer": "Ceci est un outil non officiel, créé par des fans. Tomodachi Life : Une vie de rêve est © Nintendo."
   }
 }
