@@ -156,9 +156,11 @@
     },
     "spoiler": {
       "warning": "Avertissement spoiler",
-      "caption": "Ces valeurs peuvent révéler des découvertes en jeu. Cliquez pour développer.",
       "show": "Afficher",
-      "hide": "Masquer"
+      "hide": "Masquer",
+      "captions": {
+        "food": "Révèle les plats préférés et détestés de ce Mii."
+      }
     },
     "food": {
       "no_image": "Pas d'image",
