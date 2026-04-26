@@ -34,9 +34,7 @@
   const listFormatter = $derived(
     new Intl.ListFormat($locale ?? 'en-US', { style: 'long', type: 'conjunction' }),
   );
-  const languageNames = $derived(
-    new Intl.DisplayNames([$locale ?? 'en-US'], { type: 'language' }),
-  );
+  const languageNames = $derived(new Intl.DisplayNames([$locale ?? 'en-US'], { type: 'language' }));
 
   const translations = $derived(
     Object.entries(TRANSLATORS).map(([tag, authors]) => ({
