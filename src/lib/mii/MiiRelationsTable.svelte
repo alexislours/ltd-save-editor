@@ -13,7 +13,6 @@
     crushAllowedForType,
     findCrushTarget,
     findRelationEntries,
-    hasCrush,
     hasFightVariant,
     isValidPair,
     listRelationships,
@@ -185,21 +184,6 @@
     if (setTypeSetSec(relEntries, slot, secs)) markDirty(relEntries.typeSetTime);
   }
 
-  function commitFight(slot: number, value: boolean) {
-    if (!relEntries?.isFight) return;
-    if (!setFight(relEntries, slot, value)) return;
-    markDirty(relEntries.isFight);
-
-    if (value && relEntries.bitFlag) {
-      const ab = 2 * slot;
-      const ba = 2 * slot + 1;
-      let dirty = false;
-      if (hasCrush(relEntries.bitFlag, ab) && setCrush(relEntries, ab, false)) dirty = true;
-      if (hasCrush(relEntries.bitFlag, ba) && setCrush(relEntries, ba, false)) dirty = true;
-      if (dirty) markDirty(relEntries.bitFlag);
-    }
-  }
-
   function commitCrush(dirIndex: number, otherIndex: number, value: boolean): void {
     if (!relEntries?.bitFlag) return;
     let prevCrushSlots: number[] = [];
@@ -289,9 +273,6 @@
             {@const inLevels = subRelationLevels(inTypeName, r.isFight)}
             {@const outActive = subRelationKey(outTypeName, r.outMeter, r.isFight)}
             {@const inActive = subRelationKey(inTypeName, r.inMeter, r.isFight)}
-            {@const pairHasCrush = r.crushOut || r.crushIn}
-            {@const fightAvailable =
-              !pairHasCrush && (hasFightVariant(outTypeName) || hasFightVariant(inTypeName))}
             {@const crushTypeAllowed = crushAllowedForType(r.outType)}
             {@const crushBlockedByOther =
               existingCrushTarget !== null && existingCrushTarget !== r.otherIndex && !r.crushOut}
@@ -435,23 +416,15 @@
                 </label>
               </td>
               <td class="px-3 pb-2 pt-0">
-                <label
-                  class="inline-flex items-center gap-1.5 text-xs text-content"
-                  title={fightAvailable
-                    ? $_('mii.relations.header_fight_label')
-                    : $_('mii.relations.fight_unavailable')}
-                >
-                  <input
-                    type="checkbox"
-                    class="h-3.5 w-3.5 accent-red-600"
-                    checked={r.isFight && fightAvailable}
-                    disabled={!relEntries?.isFight || !fightAvailable}
+                {#if r.isFight}
+                  <span
+                    class="inline-flex items-center gap-1.5 text-xs text-content"
                     aria-label={$_('mii.relations.fight_marker_aria')}
-                    onchange={(e) => commitFight(r.slot, e.currentTarget.checked)}
-                  />
-                  <span class="text-red-600" aria-hidden="true">⚔︎</span>
-                  <span>{$_('mii.relations.header_fight_label')}</span>
-                </label>
+                  >
+                    <span class="text-red-600" aria-hidden="true">⚔︎</span>
+                    <span>{$_('mii.relations.header_fight_label')}</span>
+                  </span>
+                {/if}
               </td>
               <td class="px-3 pb-2 pt-0"></td>
               <td class="px-3 pb-2 pt-0">
