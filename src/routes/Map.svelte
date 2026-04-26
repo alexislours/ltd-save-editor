@@ -167,7 +167,7 @@
       <SaveBar {dirty} actionLabel={$_('map.download_action')} onAction={download}>
         {#snippet extra()}
           {#if subTab === 'objects' && objectsState.count > 0}
-            <span class="font-normal text-slate-700">
+            <span class="font-normal text-content">
               {$_('map.object_slots_status', {
                 values: {
                   placed: liveCount.toLocaleString(),
@@ -183,14 +183,14 @@
 
       {#if subTab === 'floor'}
         <div class={TOOLBAR_CLASS}>
-          <div class="inline-flex overflow-hidden rounded-full ring-1 ring-amber-400/60">
+          <div class="inline-flex overflow-hidden rounded-full ring-1 ring-edge/60">
             {#each [{ id: 'brush', label: $_('map.floor.tool_brush'), title: $_('map.floor.tool_brush_title') }, { id: 'fill', label: $_('map.floor.tool_fill'), title: $_('map.floor.tool_fill_title') }, { id: 'picker', label: $_('map.floor.tool_picker'), title: $_('map.floor.tool_picker_title') }] as t, i (t.id)}
               <button
                 type="button"
                 class={[
                   'px-3 py-1.5 text-sm font-bold transition-colors',
-                  i > 0 && 'border-l border-amber-400/60',
-                  tool === t.id ? 'bg-orange-500 text-white' : 'bg-white text-slate-700',
+                  i > 0 && 'border-l border-edge/60',
+                  tool === t.id ? 'bg-orange-500 text-white' : 'bg-surface text-content',
                 ]}
                 onclick={() => (tool = t.id as ToolKind)}
                 title={t.title}
@@ -200,10 +200,10 @@
             {/each}
           </div>
 
-          <div class="inline-flex overflow-hidden rounded-full ring-1 ring-amber-400/60">
+          <div class="inline-flex overflow-hidden rounded-full ring-1 ring-edge/60">
             <button
               type="button"
-              class="bg-white px-3 py-1.5 text-sm font-bold text-slate-700 hover:bg-amber-50 disabled:opacity-40"
+              class="bg-surface px-3 py-1.5 text-sm font-bold text-content hover:bg-surface-muted disabled:opacity-40"
               disabled={!canUndo()}
               onclick={undo}
               title={$_('map.floor.undo_title')}
@@ -212,7 +212,7 @@
             </button>
             <button
               type="button"
-              class="border-l border-amber-400/60 bg-white px-3 py-1.5 text-sm font-bold text-slate-700 hover:bg-amber-50 disabled:opacity-40"
+              class="border-l border-edge/60 bg-surface px-3 py-1.5 text-sm font-bold text-content hover:bg-surface-muted disabled:opacity-40"
               disabled={!canRedo()}
               onclick={redo}
               title={$_('map.floor.redo_title')}
@@ -223,7 +223,7 @@
 
           <ZoomControls bind:value={floorTileSize} />
 
-          <span class="ml-auto text-xs text-slate-600">
+          <span class="ml-auto text-xs text-content-muted">
             {$_('map.floor.right_click_hint')}
           </span>
         </div>
@@ -238,7 +238,7 @@
               onPickTile={(hash) => (selectedTileHash = hash >>> 0)}
             />
 
-            <div class="mt-2 font-mono text-xs text-slate-600">
+            <div class="mt-2 font-mono text-xs text-content-muted">
               {#if floorHover && hoveredHash != null}
                 {$_('map.floor.hover_position', {
                   values: {
@@ -263,11 +263,11 @@
               style="background-color: {tileColorForHash(selectedTileHash)}"
               aria-hidden="true"
             ></span>
-            <span class="truncate font-bold text-slate-900">
+            <span class="truncate font-bold text-content-strong">
               {tileLabelForHash(selectedTileHash, $_)}
             </span>
             {#if tileDefForHash(selectedTileHash)}
-              <span class="ml-auto font-mono text-[11px] text-slate-500">
+              <span class="ml-auto font-mono text-[11px] text-content-faint">
                 {tileDefForHash(selectedTileHash)!.code}
               </span>
             {/if}
@@ -281,7 +281,7 @@
       {:else if subTab === 'objects' && objectsState.count > 0}
         <div class={TOOLBAR_CLASS}>
           <ZoomControls bind:value={objectsTileSize} />
-          <span class="ml-auto text-xs text-slate-600">
+          <span class="ml-auto text-xs text-content-muted">
             {$_('map.objects.click_hint')}
           </span>
         </div>
@@ -294,7 +294,7 @@
               onSelect={(i) => (selectedObjectIndex = i)}
               onHover={(c) => (objectsHover = c)}
             />
-            <div class="mt-2 font-mono text-xs text-slate-600">
+            <div class="mt-2 font-mono text-xs text-content-muted">
               {#if objectsHover && hoveredObjectInfo}
                 {$_('map.objects.hover_with_object', {
                   values: {
@@ -325,7 +325,7 @@
                 onCleared={() => (selectedObjectIndex = null)}
               />
             {:else}
-              <p class="text-xs text-slate-600">{$_('map.objects.select_prompt')}</p>
+              <p class="text-xs text-content-muted">{$_('map.objects.select_prompt')}</p>
             {/if}
           </div>
 
@@ -338,7 +338,7 @@
         </div>
       {:else if subTab === 'objects'}
         <Card>
-          <p class="text-sm text-slate-600">{$_('map.no_object_slots')}</p>
+          <p class="text-sm text-content-muted">{$_('map.no_object_slots')}</p>
         </Card>
       {:else}
         <AdvancedPanel

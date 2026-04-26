@@ -45,7 +45,7 @@
 </script>
 
 {#if error}
-  <p class="p-6 text-sm text-red-600">
+  <p class="p-6 text-sm text-danger">
     Failed to load page: {error instanceof Error ? error.message : String(error)}
   </p>
 {:else if Current}

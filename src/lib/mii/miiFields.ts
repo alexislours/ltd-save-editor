@@ -87,6 +87,9 @@ export const MII_SECTIONS: MiiSection[] = [
       f('pronoun_type', 'Mii.Name.PronounType', 'enum', DataType.EnumArray, {
         hintKey: 'pronoun_type_hint',
       }),
+      f('gender', 'Mii.MiiMisc.FaceInfo.Gender', 'enum', DataType.EnumArray, {
+        hintKey: 'gender_hint',
+      }),
       f('name_language', 'Mii.Name.NameRegionLanguageID', 'enum', DataType.EnumArray),
       f(
         'first_person_language',

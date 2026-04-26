@@ -19,7 +19,7 @@
         TAB_PILL_CLASS,
         active
           ? 'bg-orange-500 text-white shadow'
-          : 'bg-amber-200/70 text-slate-700 hover:text-slate-900',
+          : 'bg-surface-sunken/70 text-content hover:text-content-strong',
       ]}
       onclick={() => (value = tab.value)}
       aria-current={active ? 'page' : undefined}

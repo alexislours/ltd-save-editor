@@ -23,10 +23,10 @@
 >
   {#if lightbox.src}
     <div
-      class="lightbox-card relative overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-amber-400/60"
+      class="lightbox-card relative overflow-hidden rounded-3xl bg-surface shadow-2xl ring-1 ring-edge/60"
     >
       <div
-        class="flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-100/70 p-8 sm:p-10"
+        class="flex items-center justify-center bg-gradient-to-br from-surface-muted to-surface-sunken/70 p-8 sm:p-10"
       >
         <img
           src={lightbox.src}
@@ -36,15 +36,15 @@
         />
       </div>
       {#if lightbox.alt}
-        <div class="border-t border-amber-200/70 bg-amber-50/60 px-5 py-3 text-center">
-          <p class="truncate text-sm font-bold text-slate-900">{lightbox.alt}</p>
+        <div class="border-t border-edge/40 bg-surface-muted/60 px-5 py-3 text-center">
+          <p class="truncate text-sm font-bold text-content-strong">{lightbox.alt}</p>
         </div>
       {/if}
       <button
         type="button"
         onclick={closeLightbox}
         aria-label={$_('lightbox.close')}
-        class="absolute top-3 right-3 grid h-9 w-9 place-items-center rounded-full bg-white/90 text-base font-bold text-slate-700 shadow-md ring-1 ring-amber-400/60 backdrop-blur-sm transition-all hover:scale-105 hover:bg-white hover:text-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+        class="absolute top-3 right-3 grid h-9 w-9 place-items-center rounded-full bg-surface/90 text-base font-bold text-content shadow-md ring-1 ring-edge/60 backdrop-blur-sm transition-all hover:scale-105 hover:bg-surface hover:text-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
       >
         ✕
       </button>

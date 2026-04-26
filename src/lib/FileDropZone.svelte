@@ -17,9 +17,9 @@
   let fileInput: HTMLInputElement;
 
   const baseClass =
-    'group flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed bg-white p-12 text-center transition-colors';
-  const draggingClass = 'border-orange-500 bg-amber-100';
-  const idleClass = 'border-amber-400/70 hover:border-orange-500';
+    'group flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed bg-surface p-12 text-center transition-colors';
+  const draggingClass = 'border-orange-500 bg-surface-sunken';
+  const idleClass = 'border-edge/70 hover:border-orange-500';
 
   async function handleFile(file: File | undefined): Promise<void> {
     if (!file) return;
@@ -100,15 +100,15 @@
         d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
       />
     </svg>
-    <p class="text-base font-bold text-slate-900">
+    <p class="text-base font-bold text-content-strong">
       {$_('save.drop_here', { values: { fileName: expectedFileName[kind] } })}
     </p>
-    <p class="text-sm text-slate-600">{$_('save.drop_browse')}</p>
+    <p class="text-sm text-content-muted">{$_('save.drop_browse')}</p>
 
     <input bind:this={fileInput} type="file" class="hidden" onchange={onPick} />
   </div>
 
-  <p class="mt-3 text-center text-xs text-amber-700">
+  <p class="mt-3 text-center text-xs text-warn">
     <span class="font-semibold">{$_('save.drop_warning_label')}</span>
     {$_('save.drop_warning_text')}
   </p>
@@ -116,10 +116,10 @@
   {#if error}
     <div
       role="alert"
-      class="mt-3 flex items-start gap-2 rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 shadow-sm"
+      class="mt-3 flex items-start gap-2 rounded-lg border border-danger-edge bg-danger-bg px-4 py-3 text-sm text-danger shadow-sm"
     >
       <svg
-        class="mt-0.5 h-5 w-5 shrink-0 text-red-600"
+        class="mt-0.5 h-5 w-5 shrink-0 text-danger"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"

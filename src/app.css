@@ -1,21 +1,97 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Semantic surface tokens — light mode (default) */
+  --color-bg: #fef3c7; /* amber-100-ish, page background */
+  --color-header: #fcd34d; /* amber-300, header bar */
+  --color-surface: #ffffff; /* cards, popovers, dialogs */
+  --color-surface-muted: #fffbeb; /* amber-50, chips, hover */
+  --color-surface-sunken: #fef3c7; /* amber-100, sub-bg */
+
+  /* Semantic text tokens */
+  --color-content: #334155; /* slate-700, default body text */
+  --color-content-strong: #0f172a; /* slate-900, headings */
+  --color-content-muted: #475569; /* slate-600 */
+  --color-content-faint: #64748b; /* slate-500 */
+
+  /* Borders/rings */
+  --color-edge: #fbbf24; /* amber-400 */
+  --color-edge-strong: #f59e0b; /* amber-500 */
+
+  /* Brand accent — readable text/icon color over the header & chip backgrounds */
+  --color-brand: #c2410c; /* orange-700 */
+  --color-brand-soft: #ea580c; /* orange-600 */
+
+  /* Status surfaces */
+  --color-danger: #b91c1c; /* red-700 */
+  --color-danger-bg: #fef2f2; /* red-50 */
+  --color-danger-edge: #fca5a5; /* red-300 */
+  --color-warn: #b45309; /* amber-700 */
+
+  /* Beta theme accents */
+  --color-beta: #fda4af; /* rose-300 */
+  --color-beta-edge: #f43f5e; /* rose-500 */
+  --color-beta-content: #9f1239; /* rose-800 */
+}
+
+html.dark {
+  --color-bg: #0a0a0a; /* neutral-950 */
+  --color-header: #171717; /* neutral-900 */
+  --color-surface: #171717; /* neutral-900 */
+  --color-surface-muted: #262626; /* neutral-800 */
+  --color-surface-sunken: #0a0a0a;
+
+  --color-content: #d4d4d4; /* neutral-300 */
+  --color-content-strong: #f5f5f5; /* neutral-100 */
+  --color-content-muted: #a3a3a3; /* neutral-400 */
+  --color-content-faint: #737373; /* neutral-500 */
+
+  --color-edge: #525252; /* neutral-600 */
+  --color-edge-strong: #737373; /* neutral-500 */
+
+  --color-brand: #fdba74; /* orange-300 */
+  --color-brand-soft: #fb923c; /* orange-400 */
+
+  --color-danger: #fca5a5; /* red-300 */
+  --color-danger-bg: #450a0a; /* red-950 */
+  --color-danger-edge: #b91c1c; /* red-700 */
+  --color-warn: #fbbf24; /* amber-400 */
+
+  --color-beta: #881337; /* rose-900 */
+  --color-beta-edge: #be123c; /* rose-700 */
+  --color-beta-content: #fecdd3; /* rose-200 */
+}
+
 html,
 body,
 #app {
   height: 100%;
 }
 
+html {
+  color-scheme: light;
+  background: var(--color-bg);
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
 body {
   margin: 0;
-  color-scheme: light;
-  color: #1a1a19;
-  background: #f7f6f3;
+  color: var(--color-content-strong);
+  background: transparent;
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
   background: rgba(99, 102, 241, 0.18);
+}
+
+html.dark ::selection {
+  background: rgba(251, 146, 60, 0.35);
 }
 
 @layer base {

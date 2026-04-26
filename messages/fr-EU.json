@@ -3,6 +3,12 @@
     "title": "SAVE EDITOR",
     "game_title": "Tomodachi Life : Une vie de rêve"
   },
+  "beta": {
+    "badge": "BÊTA",
+    "warning": "Vous utilisez la version bêta. Des fonctionnalités peuvent être instables - conservez une sauvegarde de vos fichiers.",
+    "try_link": "Essayer la bêta →",
+    "stable_link": "← Version stable"
+  },
   "tab": {
     "player": "Joueur",
     "mii": "Mii",
@@ -45,6 +51,9 @@
     "play_time_label": "Temps de jeu",
     "play_time_unit": "secondes",
     "boots_label": "Démarrages",
+    "fountain_section": "Fontaine",
+    "fountain_level_label": "Niveau de la fontaine",
+    "wishes_label": "Vœux",
     "region_section": "Région et langue",
     "region_label": "Région",
     "region_code_label": "Code de région",
@@ -179,6 +188,10 @@
       "first_person_pronunciation_hint": "Orthographe phonétique du pronom personnel ci-dessus.",
       "pronoun_type": "Pronom à la troisième personne",
       "pronoun_type_hint": "Comment les autres désignent ce Mii (il / elle / iel).",
+      "gender": "Genre",
+      "gender_hint": "Utilisé par le jeu pour la cohabitation, les relations et les vêtements.",
+      "love_gender": "Attiré(e) par",
+      "love_gender_hint": "Genres dont ce Mii peut tomber amoureux. Requis pour Petit(e) ami(e) / Conjoint(e).",
       "name_language": "Langue du nom",
       "first_person_language": "Langue du pronom personnel",
       "money": "Argent",
@@ -288,6 +301,12 @@
       "She": "Elle",
       "They": "Iel"
     },
+    "gender": {
+      "Invalid": "Non précisé",
+      "Male": "Homme",
+      "Female": "Femme",
+      "Third": "Non-binaire"
+    },
     "relations": {
       "graph_title": "Graphe des relations",
       "graph_intro_all": "Vue à forces dirigées de toutes les relations entre les {count} Miis remplis. Clique sur un nœud pour te concentrer sur les relations de ce Mii.",
@@ -322,8 +341,40 @@
       "header_in_type": "Type entrant",
       "header_in_level": "Niveau entrant",
       "header_fight": "Dispute ?",
+      "header_fight_label": "Dispute",
+      "header_crush": "Béguin",
       "slot_placeholder": "(emplacement n°{index})",
       "fight_marker_aria": "En pleine dispute",
+      "crush_label_aria": "Ce Mii a le béguin pour l'autre Mii",
+      "crush_incoming_aria": "L'autre Mii a le béguin pour ce Mii",
+      "crush_requires_friend_know": "Le béguin n'est possible que lorsque la relation sortante est Ami ou Connaissance",
+      "crush_locked_existing": "Ce Mii a déjà le béguin pour quelqu'un d'autre ; cocher ici déplacera le béguin vers ce Mii",
+      "crush_blocked_by_fight": "Impossible d'avoir le béguin pendant une dispute. Termine la dispute d'abord",
+      "crush_blocked_gender": "Ce Mii n'est pas attiré par le genre de l'autre Mii. Ajuste « Attiré(e) par » d'abord.",
+      "crush_blocked_blood": "Le béguin n'est pas autorisé entre membres de la même famille de sang.",
+      "fight_unavailable": "La dispute ne s'applique qu'aux relations Ami, Conjoint ou Petit(e) ami(e)",
+      "couple_blocked_gender": "Petit(e) ami(e) / Conjoint(e) requiert que les deux Miis soient attirés par le genre de l'autre. Ajuste « Attiré(e) par » ou le genre d'abord.",
+      "couple_blocked_blood": "Petit(e) ami(e) / Conjoint(e) impossible entre membres de la même famille de sang.",
+      "couple_blocked_self_paired": "Ce Mii est déjà en couple (Petit(e) ami(e) / Conjoint(e)). Romps d'abord la relation existante.",
+      "couple_blocked_other_paired": "L'autre Mii est déjà en couple (Petit(e) ami(e) / Conjoint(e)). Romps d'abord sa relation existante.",
+      "option_blocked_suffix": "(indisponible)",
+      "change_blocked_title": "Modification bloquée",
+      "change_blocked_dismiss": "Fermer",
+      "popup_ok": "Compris",
+      "popup_note_crush_too": "Cela empêche aussi de cocher Béguin entre ces deux Miis.",
+      "chip": {
+        "gender": "Pas attirés",
+        "blood": "Famille",
+        "self_paired": "Déjà en couple",
+        "other_paired": "Autre en couple",
+        "crush_type": "Demande Ami / Connaissance",
+        "crush_fight": "En dispute",
+        "crush_gender": "Pas attiré(e)",
+        "crush_blood": "Famille",
+        "crush_other": "Béguin pris"
+      },
+      "header_type_set_time": "Défini le",
+      "type_set_time_aria": "Date à laquelle le type de relation actuel a été défini ; détermine les compteurs en jours en jeu",
       "type": {
         "Couple": "Conjoint",
         "Lover": "Petit(e) ami(e)",
@@ -579,7 +630,8 @@
       "save_structure_note": "Pour la structure de base du fichier de sauvegarde.",
       "hash_list_note": "La liste de hashs livrée avec le client.",
       "test_saves_note": "Pour avoir fourni des fichiers de sauvegarde de test.",
-      "hash_work_note": "Pour son travail sur la liste de hashs."
+      "hash_work_note": "Pour son travail sur la liste de hashs.",
+      "wish_offset_note": "Pour avoir trouvé l'offset du compteur de vœux."
     },
     "translations_title": "Traductions",
     "disclaimer": "Ceci est un outil non officiel, créé par des fans. Tomodachi Life : Une vie de rêve est © Nintendo."

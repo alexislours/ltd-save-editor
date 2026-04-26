@@ -37,21 +37,20 @@
   }
 </script>
 
-<details class="group rounded-xl border border-red-300 bg-red-50/70 px-4 py-3">
+<details class="group rounded-xl border border-danger-edge bg-danger-bg/70 px-4 py-3">
   <summary
-    class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-bold text-red-800 marker:hidden"
+    class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-bold text-danger marker:hidden"
   >
     <span class="flex items-center gap-2">
       <span aria-hidden="true">⚠️</span>
       {$_('player.inventory.bulk_summary')}
     </span>
-    <span class="text-xs font-normal text-red-600 transition-transform group-open:rotate-180"
-      >▼</span
+    <span class="text-xs font-normal text-danger transition-transform group-open:rotate-180">▼</span
     >
   </summary>
 
   <div class="mt-3 space-y-3">
-    <p class="rounded-md bg-red-100 px-3 py-2 text-xs font-semibold text-red-900">
+    <p class="rounded-md bg-danger-bg px-3 py-2 text-xs font-semibold text-danger">
       {$_('player.inventory.bulk_warning', { values: { count: visibleCount } })}
     </p>
 
@@ -59,7 +58,7 @@
       {#if hasState}
         <div class="flex items-end gap-2">
           <label class="block">
-            <span class="block text-xs font-bold text-slate-700">
+            <span class="block text-xs font-bold text-content">
               {$_('player.inventory.bulk_state')}
             </span>
             <select
@@ -90,7 +89,7 @@
       {#if hasQty}
         <div class="flex items-end gap-2">
           <label class="block">
-            <span class="block text-xs font-bold text-slate-700">
+            <span class="block text-xs font-bold text-content">
               {$_('player.inventory.bulk_qty')}
             </span>
             <input

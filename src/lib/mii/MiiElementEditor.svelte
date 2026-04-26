@@ -59,6 +59,10 @@
       const t = $_(`mii.pronoun.${name}`);
       if (t && t !== `mii.pronoun.${name}`) return t;
     }
+    if (field.name === 'Mii.MiiMisc.FaceInfo.Gender') {
+      const t = $_(`mii.gender.${name}`);
+      if (t && t !== `mii.gender.${name}`) return t;
+    }
     return fallbackLabel ?? name;
   }
 
@@ -148,11 +152,11 @@
           value={numberValue}
           oninput={(e) => commitNumber(e.currentTarget.value)}
           class="block h-2 w-full cursor-pointer appearance-none rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/40
-                 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-amber-300 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:active:scale-110
-                 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-amber-300 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:transition-transform [&::-moz-range-thumb]:active:scale-110"
+                 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-edge [&::-webkit-slider-thumb]:bg-surface [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:active:scale-110
+                 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-edge [&::-moz-range-thumb]:bg-surface [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:transition-transform [&::-moz-range-thumb]:active:scale-110"
           style="background: linear-gradient(to right, rgb(249 115 22) 0%, rgb(249 115 22) {pct}%, rgb(254 215 170) {pct}%, rgb(254 215 170) 100%);"
         />
-        <span class="w-12 shrink-0 text-right font-mono text-xs tabular-nums text-slate-700">
+        <span class="w-12 shrink-0 text-right font-mono text-xs tabular-nums text-content">
           {numberValue}
         </span>
       </div>
@@ -187,11 +191,11 @@
   {/if}
 
   {#if field.hintKey}
-    <span class="mt-1 block text-xs text-slate-600">
+    <span class="mt-1 block text-xs text-content-muted">
       {$_(`mii.fields.${field.hintKey}`)}
     </span>
   {/if}
   {#if error}
-    <span class="mt-1 block text-xs text-red-600">{error}</span>
+    <span class="mt-1 block text-xs text-danger">{error}</span>
   {/if}
 </label>

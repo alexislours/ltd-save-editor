@@ -159,10 +159,10 @@
 
 <div>
   <header class="mb-4 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-    <h3 class="text-lg font-bold text-slate-900">
+    <h3 class="text-lg font-bold text-content-strong">
       {path ?? $_('advanced.detail_unknown_path')}
     </h3>
-    <span class="font-mono text-xs text-slate-600">
+    <span class="font-mono text-xs text-content-muted">
       {hexU32(entry.hash)} · {DataTypeName[entry.type]}{isArray ? `[${count}]` : ''}
     </span>
   </header>
@@ -172,17 +172,17 @@
       <EntryEditor {entry} {markDirty} />
     </div>
   {:else if !canEditElements}
-    <p class="text-sm text-slate-600">
+    <p class="text-sm text-content-muted">
       {$_('advanced.detail_readonly_browsing', { values: { type: DataTypeName[entry.type] } })}
     </p>
   {:else if count === 0}
-    <p class="text-sm text-slate-600">{$_('advanced.detail_empty_array')}</p>
+    <p class="text-sm text-content-muted">{$_('advanced.detail_empty_array')}</p>
   {:else}
     {#if bulkSupported}
       <div
-        class="mb-3 flex flex-wrap items-center gap-2 rounded-xl bg-amber-100/80 p-2 ring-1 ring-amber-400/40"
+        class="mb-3 flex flex-wrap items-center gap-2 rounded-xl bg-surface-sunken/80 p-2 ring-1 ring-edge/40"
       >
-        <span class="text-xs font-bold text-slate-900">{$_('advanced.bulk_label')}</span>
+        <span class="text-xs font-bold text-content-strong">{$_('advanced.bulk_label')}</span>
         {#if bulkEnumOptions && bulkEnumOptions.length > 0}
           <select
             class={bulkSelectClass}
@@ -207,24 +207,24 @@
           {$_('advanced.bulk_apply_action', { values: { count } })}
         </button>
         {#if bulkError}
-          <span class="text-xs text-red-600">{bulkError}</span>
+          <span class="text-xs text-danger">{bulkError}</span>
         {/if}
       </div>
     {/if}
 
     {#key bulkTick}
-      <div class="overflow-x-auto rounded-xl ring-1 ring-amber-400/40">
+      <div class="overflow-x-auto rounded-xl ring-1 ring-edge/40">
         <table class="w-full text-sm">
-          <thead class="bg-amber-100/70 text-left text-xs font-bold text-slate-900">
+          <thead class="bg-surface-sunken/70 text-left text-xs font-bold text-content-strong">
             <tr>
               <th class="w-20 px-3 py-2 font-bold">{$_('advanced.table_header_index')}</th>
               <th class="px-3 py-2 font-bold">{$_('advanced.table_header_value')}</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-amber-200/60">
+          <tbody class="divide-y divide-edge/40">
             {#each indices as i (i)}
               <tr>
-                <td class="px-3 py-1.5 font-mono text-xs text-slate-600">
+                <td class="px-3 py-1.5 font-mono text-xs text-content-muted">
                   {i}
                 </td>
                 <td class="px-3 py-1.5">
@@ -247,7 +247,7 @@
         >
           {$_('advanced.page_previous')}
         </button>
-        <span class="text-xs text-slate-600">
+        <span class="text-xs text-content-muted">
           {$_('advanced.page_elements_status', {
             values: { start, end: end - 1, count, page: page + 1, total: pageCount },
           })}

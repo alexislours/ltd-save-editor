@@ -57,12 +57,18 @@
   const bdayMonth = $derived(findHash(0xc754bef3));
   const bdayYear = $derived(findHash(0x11996629));
 
+  const fountainLevel = $derived(find('Liberation.FountainLevel'));
+  // Liberation.<Unknown_55D4C49B> — controls the number of wishes available.
+  const wishes = $derived(findHash(0xa32f7e47));
+
   const anyFound = $derived(
     name != null ||
       islandName != null ||
       money != null ||
       playTime != null ||
       skin != null ||
+      fountainLevel != null ||
+      wishes != null ||
       (bdayDay != null && bdayMonth != null && bdayYear != null),
   );
 
@@ -212,6 +218,10 @@
   const moneyValue = $derived.by(() => (void tick, money ? readNumber(money) : null));
   const playTimeValue = $derived.by(() => (void tick, playTime ? readNumber(playTime) : null));
   const bootValue = $derived.by(() => (void tick, bootNum ? readNumber(bootNum) : null));
+  const fountainLevelValue = $derived.by(
+    () => (void tick, fountainLevel ? readNumber(fountainLevel) : null),
+  );
+  const wishesValue = $derived.by(() => (void tick, wishes ? readNumber(wishes) : null));
   const nameValue = $derived.by(() => (void tick, name ? getString(name) : ''));
   const islandValue = $derived.by(() => (void tick, islandName ? getString(islandName) : ''));
   const phoneticNameValue = $derived.by(
@@ -248,10 +258,12 @@
   let moneyError = $state<string | null>(null);
   let playTimeError = $state<string | null>(null);
   let bootError = $state<string | null>(null);
+  let fountainLevelError = $state<string | null>(null);
+  let wishesError = $state<string | null>(null);
 
   const numberInputClass = `${FORM_INPUT_CLASS} font-mono`;
   const compactSelectClass =
-    'mt-1.5 rounded-lg border border-amber-400/60 bg-white px-2.5 py-2 text-sm text-slate-900 shadow-sm transition-colors focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30';
+    'mt-1.5 rounded-lg border border-edge/60 bg-surface px-2.5 py-2 text-sm text-content-strong shadow-sm transition-colors focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30';
 </script>
 
 {#snippet textField(
@@ -270,14 +282,14 @@
       onchange={(e) => onError(commitString(entry, e.currentTarget.value))}
     />
     {#if error}
-      <span class="mt-1 block text-xs font-bold text-red-700">{error}</span>
+      <span class="mt-1 block text-xs font-bold text-danger">{error}</span>
     {/if}
   </label>
 {/snippet}
 
 {#if !anyFound}
   <section class={CARD_CLASS}>
-    <p class="text-sm text-slate-600">{$_('player.empty_state')}</p>
+    <p class="text-sm text-content-muted">{$_('player.empty_state')}</p>
   </section>
 {:else}
   <div class="grid gap-4">
@@ -327,7 +339,7 @@
       </div>
 
       {#if skin}
-        <div class="mt-6 border-t border-amber-200/60 pt-5">
+        <div class="mt-6 border-t border-edge/40 pt-5">
           <span class={LABEL_CLASS}>{$_('player.skin_tone_label')}</span>
           <div class="mt-2">
             <SwatchPicker swatches={handSwatches} value={getUInt(skin)} onChange={setSkin} />
@@ -378,7 +390,7 @@
                 {/if}
               </div>
               {#if moneyError}
-                <p class="mt-1 text-xs font-bold text-red-700">{moneyError}</p>
+                <p class="mt-1 text-xs font-bold text-danger">{moneyError}</p>
               {/if}
             </div>
           {/if}
@@ -405,15 +417,15 @@
                     playTimeError = writeNumber(playTime!, e.currentTarget.value);
                   }}
                 />
-                <span class="text-xs text-slate-700">
+                <span class="text-xs text-content">
                   {$_('player.play_time_unit')} ·
-                  <span class="font-mono text-slate-900">
+                  <span class="font-mono text-content-strong">
                     {formatPlayTime(playTimeValue)}
                   </span>
                 </span>
               </div>
               {#if playTimeError}
-                <p class="mt-1 text-xs text-red-600">{playTimeError}</p>
+                <p class="mt-1 text-xs text-danger">{playTimeError}</p>
               {/if}
             </div>
           {/if}
@@ -433,7 +445,56 @@
                 />
               </div>
               {#if bootError}
-                <p class="mt-1 text-xs text-red-600">{bootError}</p>
+                <p class="mt-1 text-xs text-danger">{bootError}</p>
+              {/if}
+            </div>
+          {/if}
+        </div>
+      </section>
+    {/if}
+
+    {#if fountainLevel || wishes}
+      <section class={CARD_CLASS}>
+        <h3 class="mb-4 text-sm font-semibold text-content-strong">
+          {$_('player.fountain_section')}
+        </h3>
+        <div class="flex flex-wrap gap-x-8 gap-y-5">
+          {#if fountainLevel}
+            <div class="min-w-0">
+              <span class={LABEL_CLASS}>{$_('player.fountain_level_label')}</span>
+              <div class="mt-1.5">
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  class="{numberInputClass} w-28"
+                  value={fountainLevelValue == null ? '' : fountainLevelValue.toString()}
+                  onchange={(e) => {
+                    fountainLevelError = writeNumber(fountainLevel!, e.currentTarget.value);
+                  }}
+                />
+              </div>
+              {#if fountainLevelError}
+                <p class="mt-1 text-xs text-danger">{fountainLevelError}</p>
+              {/if}
+            </div>
+          {/if}
+
+          {#if wishes}
+            <div class="min-w-0">
+              <span class={LABEL_CLASS}>{$_('player.wishes_label')}</span>
+              <div class="mt-1.5">
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  class="{numberInputClass} w-28"
+                  value={wishesValue == null ? '' : wishesValue.toString()}
+                  onchange={(e) => {
+                    wishesError = writeNumber(wishes!, e.currentTarget.value);
+                  }}
+                />
+              </div>
+              {#if wishesError}
+                <p class="mt-1 text-xs text-danger">{wishesError}</p>
               {/if}
             </div>
           {/if}
@@ -443,7 +504,9 @@
 
     {#if region || regionCode || nameLang || islandLang}
       <section class={CARD_CLASS}>
-        <h3 class="mb-4 text-sm font-semibold text-neutral-900">{$_('player.region_section')}</h3>
+        <h3 class="mb-4 text-sm font-semibold text-content-strong">
+          {$_('player.region_section')}
+        </h3>
         <div class="grid gap-4 sm:grid-cols-2">
           {#if region}
             <label class="block min-w-0">

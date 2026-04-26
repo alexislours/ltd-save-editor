@@ -3,6 +3,12 @@
     "title": "SAVE EDITOR",
     "game_title": "Tomodachi Life: Living the Dream"
   },
+  "beta": {
+    "badge": "BETA",
+    "warning": "You are using the beta version. Features may be unstable - keep a backup of your save files.",
+    "try_link": "Try the beta →",
+    "stable_link": "← Stable version"
+  },
   "tab": {
     "player": "Player",
     "mii": "Mii",
@@ -45,6 +51,9 @@
     "play_time_label": "Play time",
     "play_time_unit": "seconds",
     "boots_label": "Boots",
+    "fountain_section": "Fountain",
+    "fountain_level_label": "Fountain level",
+    "wishes_label": "Wishes",
     "region_section": "Region & language",
     "region_label": "Region",
     "region_code_label": "Region code",
@@ -179,6 +188,10 @@
       "first_person_pronunciation_hint": "Phonetic spelling of the first-person word above.",
       "pronoun_type": "Third-person pronoun",
       "pronoun_type_hint": "How others refer to this Mii (he / she / they).",
+      "gender": "Gender",
+      "gender_hint": "Used by the game to gate cohabitation, relationship and clothing logic.",
+      "love_gender": "Attracted to",
+      "love_gender_hint": "Genders this Mii can fall for. Required for Sweetheart / Spouse pairings.",
       "name_language": "Name language",
       "first_person_language": "First-person word language",
       "money": "Money",
@@ -288,6 +301,12 @@
       "She": "She/Her",
       "They": "They/Them"
     },
+    "gender": {
+      "Invalid": "Unspecified",
+      "Male": "Male",
+      "Female": "Female",
+      "Third": "Non-binary"
+    },
     "relations": {
       "graph_title": "Relationship graph",
       "graph_intro_all": "Force-directed view of every relationship between {count} populated Miis. Click any node to focus on that Mii's connections.",
@@ -322,8 +341,40 @@
       "header_in_type": "Incoming type",
       "header_in_level": "Incoming level",
       "header_fight": "Fight?",
+      "header_fight_label": "Fight",
+      "header_crush": "Crush",
       "slot_placeholder": "(slot #{index})",
       "fight_marker_aria": "Currently fighting",
+      "crush_label_aria": "This Mii has a crush on the other Mii",
+      "crush_incoming_aria": "The other Mii has a crush on this Mii",
+      "crush_requires_friend_know": "Crush only applies when the outgoing relationship is Friend or Acquaintance",
+      "crush_locked_existing": "This Mii already has a crush on someone else; toggling here will move the crush to this Mii",
+      "crush_blocked_by_fight": "Crush can't coexist with a fight. End the fight first",
+      "crush_blocked_gender": "This Mii isn't attracted to the other Mii's gender. Adjust their \"Attracted to\" first.",
+      "crush_blocked_blood": "Crushes can't be set on blood relatives.",
+      "fight_unavailable": "Fight only applies to Friend, Couple or Sweetheart relationships",
+      "couple_blocked_gender": "Sweetheart / Spouse needs both Miis to be attracted to each other's gender. Adjust their \"Attracted to\" or Gender first.",
+      "couple_blocked_blood": "Sweetheart / Spouse can't be set on blood relatives.",
+      "couple_blocked_self_paired": "This Mii is already in a Sweetheart / Spouse relationship. Break the existing one first.",
+      "couple_blocked_other_paired": "The other Mii is already in a Sweetheart / Spouse relationship. Break the existing one first.",
+      "option_blocked_suffix": "(unavailable)",
+      "change_blocked_title": "Change blocked",
+      "change_blocked_dismiss": "Dismiss",
+      "popup_ok": "Got it",
+      "popup_note_crush_too": "This also blocks setting a Crush between these two Miis.",
+      "chip": {
+        "gender": "Not attracted",
+        "blood": "Blood relatives",
+        "self_paired": "Already paired",
+        "other_paired": "Other paired",
+        "crush_type": "Need Friend / Acquaintance",
+        "crush_fight": "Fighting",
+        "crush_gender": "Not attracted",
+        "crush_blood": "Blood relatives",
+        "crush_other": "Crush taken"
+      },
+      "header_type_set_time": "Set on",
+      "type_set_time_aria": "When the current relationship type was set; drives in-game day counters",
       "type": {
         "Couple": "Spouse",
         "Lover": "Sweetheart",
@@ -579,7 +630,8 @@
       "save_structure_note": "For the base structure of the save file.",
       "hash_list_note": "The hash list shipped to the client.",
       "test_saves_note": "For providing test save files.",
-      "hash_work_note": "For the work on the hash list."
+      "hash_work_note": "For the work on the hash list.",
+      "wish_offset_note": "For finding the wish counter offset."
     },
     "translations_title": "Translations",
     "disclaimer": "This is an unofficial, fan-made tool. Tomodachi Life: Living the Dream is © Nintendo."

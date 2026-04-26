@@ -50,7 +50,7 @@
             'rounded-full px-2.5 py-0.5 text-xs font-bold transition-colors',
             active
               ? 'bg-orange-500 text-white shadow'
-              : 'bg-amber-100/70 text-slate-700 ring-1 ring-amber-400/50 hover:bg-amber-200/70',
+              : 'bg-surface-sunken/70 text-content ring-1 ring-edge/50 hover:bg-surface-sunken',
           ]}
           onclick={() => (groupFilter = g)}
         >
@@ -58,18 +58,18 @@
         </button>
       {/each}
     </div>
-    <p class="text-xs text-slate-600">
+    <p class="text-xs text-content-muted">
       {filtered.length.toLocaleString()} of {rows.length.toLocaleString()} placed
     </p>
   </div>
 
   <div
-    class="min-h-0 max-h-[60vh] flex-1 overflow-y-auto rounded-xl bg-white ring-1 ring-amber-400/40"
+    class="min-h-0 max-h-[60vh] flex-1 overflow-y-auto rounded-xl bg-surface ring-1 ring-edge/40"
   >
     {#if filtered.length === 0}
-      <p class="p-3 text-xs text-slate-600">No objects match.</p>
+      <p class="p-3 text-xs text-content-muted">No objects match.</p>
     {:else}
-      <ul class="divide-y divide-amber-200/60">
+      <ul class="divide-y divide-edge/40">
         {#each filtered as row (row.index)}
           {@const d = actorDisplay(row.actor)}
           {@const active = selectedIndex === row.index}
@@ -78,7 +78,7 @@
               type="button"
               class={[
                 'flex w-full items-center gap-2 px-2.5 py-1.5 text-left text-xs transition',
-                active ? 'bg-orange-500 text-white' : 'text-slate-700 hover:bg-amber-50',
+                active ? 'bg-orange-500 text-white' : 'text-content hover:bg-surface-muted',
               ]}
               onclick={() => onSelect(row.index)}
             >
@@ -91,7 +91,7 @@
               <span
                 class={[
                   'shrink-0 font-mono tabular-nums',
-                  active ? 'text-white/80' : 'text-slate-500',
+                  active ? 'text-white/80' : 'text-content-faint',
                 ]}
               >
                 {row.x},{row.y}

@@ -158,12 +158,15 @@
 </script>
 
 <details class={CARD_BASE_CLASS}>
-  <summary class="cursor-pointer px-6 py-4 text-base font-bold text-slate-900">
+  <summary class="cursor-pointer px-6 py-4 text-base font-bold text-content-strong">
     {$_('advanced.header')}
   </summary>
-  <div class="border-t border-amber-400/30 px-6 py-4">
+  <div class="border-t border-edge/30 px-6 py-4">
     {#if !advWarningAcked}
-      <div role="alert" class="mb-5 rounded-xl border-2 border-red-500 bg-red-50 p-5 shadow-sm">
+      <div
+        role="alert"
+        class="mb-5 rounded-xl border-2 border-danger-edge bg-danger-bg p-5 shadow-sm"
+      >
         <div class="flex items-start gap-3">
           <span
             aria-hidden="true"
@@ -171,11 +174,11 @@
             >!</span
           >
           <div class="flex-1">
-            <h3 class="text-base font-bold uppercase tracking-wide text-red-700">
+            <h3 class="text-base font-bold uppercase tracking-wide text-danger">
               {$_('advanced.warning_title')}
             </h3>
-            <p class="mt-2 text-sm text-red-900">{$_('advanced.warning_intro')}</p>
-            <ul class="mt-2 list-inside list-disc text-sm text-red-900">
+            <p class="mt-2 text-sm text-danger">{$_('advanced.warning_intro')}</p>
+            <ul class="mt-2 list-inside list-disc text-sm text-danger">
               <li>{$_('advanced.warning_backup')}</li>
               <li>{$_('advanced.warning_understand')}</li>
               <li>{$_('advanced.warning_disclaimer')}</li>
@@ -192,32 +195,32 @@
       </div>
     {:else}
       <div class="mb-5 flex items-center gap-3 text-sm">
-        <span class="font-bold text-slate-900">{$_('advanced.view_label')}</span>
-        <div class="inline-flex overflow-hidden rounded-full ring-1 ring-amber-400/60">
+        <span class="font-bold text-content-strong">{$_('advanced.view_label')}</span>
+        <div class="inline-flex overflow-hidden rounded-full ring-1 ring-edge/60">
           <button
             type="button"
             class="px-3 py-1 text-sm font-bold transition-colors"
             class:bg-orange-500={advView === 'tree'}
             class:text-white={advView === 'tree'}
-            class:bg-white={advView !== 'tree'}
-            class:text-slate-700={advView !== 'tree'}
+            class:bg-surface={advView !== 'tree'}
+            class:text-content={advView !== 'tree'}
             onclick={() => (advView = 'tree')}
           >
             {$_('advanced.view_tree')}
           </button>
           <button
             type="button"
-            class="border-l border-amber-400/60 px-3 py-1 text-sm font-bold transition-colors"
+            class="border-l border-edge/60 px-3 py-1 text-sm font-bold transition-colors"
             class:bg-orange-500={advView === 'table'}
             class:text-white={advView === 'table'}
-            class:bg-white={advView !== 'table'}
-            class:text-slate-700={advView !== 'table'}
+            class:bg-surface={advView !== 'table'}
+            class:text-content={advView !== 'table'}
             onclick={() => (advView = 'table')}
           >
             {$_('advanced.view_table')}
           </button>
         </div>
-        <span class="ml-auto text-xs text-slate-600">
+        <span class="ml-auto text-xs text-content-muted">
           {$_('advanced.sections_label')}
           {countsByType
             .map((c, t) => (c > 0 ? `${DataTypeName[t as DataType]} (${c})` : null))
@@ -239,7 +242,7 @@
             />
             <div class="max-h-160 overflow-auto pr-2">
               {#if visibleTree.length === 0}
-                <p class="text-sm text-slate-600">{$_('advanced.tree_no_match')}</p>
+                <p class="text-sm text-content-muted">{$_('advanced.tree_no_match')}</p>
               {:else}
                 <PlayerTree
                   nodes={visibleTree}
@@ -252,22 +255,22 @@
             </div>
           </div>
 
-          <div class="hidden bg-amber-400/40 md:block"></div>
+          <div class="hidden bg-edge/40 md:block"></div>
 
           <div class="min-h-120 md:pl-6">
             {#if selectedEntry}
               <PlayerDetail entry={selectedEntry} path={selectedPath} {markDirty} />
             {:else}
-              <p class="text-sm text-slate-600">{$_('advanced.tree_select_prompt')}</p>
+              <p class="text-sm text-content-muted">{$_('advanced.tree_select_prompt')}</p>
             {/if}
           </div>
         </div>
       {:else}
-        <p class="mb-4 text-sm text-slate-600">{$_('advanced.table_intro')}</p>
+        <p class="mb-4 text-sm text-content-muted">{$_('advanced.table_intro')}</p>
 
         <div class="mb-4 grid gap-3 md:grid-cols-[auto_1fr_1fr] md:items-end">
-          <label class="flex flex-col gap-1 text-xs text-slate-700">
-            <span class="font-bold text-slate-900">{$_('advanced.filter_type_label')}</span>
+          <label class="flex flex-col gap-1 text-xs text-content">
+            <span class="font-bold text-content-strong">{$_('advanced.filter_type_label')}</span>
             <select class={INPUT_CLASS} bind:value={advTypeFilter}>
               <option value="all">{$_('advanced.filter_type_all')}</option>
               {#each countsByType as count, t (t)}
@@ -278,8 +281,8 @@
             </select>
           </label>
 
-          <label class="flex flex-col gap-1 text-xs text-slate-700">
-            <span class="font-bold text-slate-900"
+          <label class="flex flex-col gap-1 text-xs text-content">
+            <span class="font-bold text-content-strong"
               >{$_('advanced.filter_hash_label', { values: { example: '0xa279320c' } })}</span
             >
             <input
@@ -291,8 +294,8 @@
             />
           </label>
 
-          <label class="flex flex-col gap-1 text-xs text-slate-700">
-            <span class="font-bold text-slate-900">{$_('advanced.filter_name_label')}</span>
+          <label class="flex flex-col gap-1 text-xs text-content">
+            <span class="font-bold text-content-strong">{$_('advanced.filter_name_label')}</span>
             <div class="flex gap-2">
               <input
                 type="text"
@@ -311,7 +314,7 @@
               </button>
             </div>
             {#if advNameHash != null}
-              <span class="font-mono text-[11px] text-slate-600">→ {hexU32(advNameHash)}</span>
+              <span class="font-mono text-[11px] text-content-muted">→ {hexU32(advNameHash)}</span>
             {/if}
           </label>
         </div>
@@ -320,29 +323,29 @@
           <label class="flex items-center gap-2">
             <input
               type="checkbox"
-              class="h-4 w-4 rounded border-amber-400/60 text-orange-500 focus:ring-orange-500/30"
+              class="h-4 w-4 rounded border-edge/60 text-orange-500 focus:ring-orange-500/30"
               bind:checked={advOnlyKnown}
               onchange={() => (advPage = 0)}
             />
-            <span class="text-slate-700">{$_('advanced.filter_known_only')}</span>
+            <span class="text-content">{$_('advanced.filter_known_only')}</span>
           </label>
           <label class="flex items-center gap-2">
             <input
               type="checkbox"
-              class="h-4 w-4 rounded border-amber-400/60 text-orange-500 focus:ring-orange-500/30"
+              class="h-4 w-4 rounded border-edge/60 text-orange-500 focus:ring-orange-500/30"
               bind:checked={advOnlyEditable}
               onchange={() => (advPage = 0)}
             />
-            <span class="text-slate-700">{$_('advanced.filter_editable_only')}</span>
+            <span class="text-content">{$_('advanced.filter_editable_only')}</span>
           </label>
-          <span class="ml-auto text-xs text-slate-600">
+          <span class="ml-auto text-xs text-content-muted">
             {$_('advanced.match_count', { values: { count: advFiltered.length } })}
           </span>
         </div>
 
-        <div class="overflow-x-auto rounded-xl ring-1 ring-amber-400/40">
+        <div class="overflow-x-auto rounded-xl ring-1 ring-edge/40">
           <table class="w-full text-sm">
-            <thead class="bg-amber-100/70 text-left text-xs font-bold text-slate-900">
+            <thead class="bg-surface-sunken/70 text-left text-xs font-bold text-content-strong">
               <tr>
                 <th class="px-3 py-2 font-bold">{$_('advanced.table_header_hash')}</th>
                 <th class="px-3 py-2 font-bold">{$_('advanced.table_header_type')}</th>
@@ -350,23 +353,23 @@
                 <th class="px-3 py-2 font-bold">{$_('advanced.table_header_value')}</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-amber-200/60">
+            <tbody class="divide-y divide-edge/40">
               {#each advPageEntries as entry (entry)}
                 <tr class="align-top">
                   <td class="px-3 py-2">
                     <button
                       type="button"
-                      class="font-mono text-xs text-slate-700 hover:text-orange-600"
+                      class="font-mono text-xs text-content hover:text-brand-soft"
                       title={$_('advanced.copy_hash_title')}
                       onclick={() => copyHash(entry.hash)}
                     >
                       {hexU32(entry.hash)}
                     </button>
                   </td>
-                  <td class="px-3 py-2 text-xs text-slate-600">
+                  <td class="px-3 py-2 text-xs text-content-muted">
                     {DataTypeName[entry.type]}
                   </td>
-                  <td class="px-3 py-2 text-xs text-slate-700">
+                  <td class="px-3 py-2 text-xs text-content">
                     {nameForHash(entry.hash) ?? ''}
                   </td>
                   <td class="px-3 py-2">
@@ -375,7 +378,7 @@
                 </tr>
               {:else}
                 <tr>
-                  <td colspan="4" class="px-3 py-6 text-center text-slate-600"
+                  <td colspan="4" class="px-3 py-6 text-center text-content-muted"
                     >{$_('advanced.table_no_match')}</td
                   >
                 </tr>
@@ -393,7 +396,7 @@
           >
             {$_('advanced.page_previous')}
           </button>
-          <span class="text-xs text-slate-600">
+          <span class="text-xs text-content-muted">
             {$_('advanced.page_status', { values: { page: advPage + 1, total: advPageCount } })}
           </span>
           <button

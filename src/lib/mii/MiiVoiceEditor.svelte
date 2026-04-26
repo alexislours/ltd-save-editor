@@ -254,16 +254,16 @@
   }
 </script>
 
-<div class="rounded-2xl bg-amber-300/90 p-4 shadow-sm ring-1 ring-amber-400/60">
+<div class="rounded-2xl bg-header/90 p-4 shadow-sm ring-1 ring-edge/60">
   <div class="flex flex-wrap items-center gap-2">
-    <div class="inline-flex rounded-full bg-amber-200/80 p-1 ring-1 ring-amber-400/50">
+    <div class="inline-flex rounded-full bg-surface-sunken/80 p-1 ring-1 ring-edge/50">
       <button
         type="button"
         class={[
           'rounded-full px-5 py-1.5 text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600',
           mode === 'simple'
             ? 'bg-orange-500 text-white shadow'
-            : 'text-slate-700 hover:text-slate-900',
+            : 'text-content hover:text-content-strong',
         ]}
         aria-pressed={mode === 'simple'}
         onclick={() => (mode = 'simple')}
@@ -276,7 +276,7 @@
           'rounded-full px-5 py-1.5 text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600',
           mode === 'custom'
             ? 'bg-orange-500 text-white shadow'
-            : 'text-slate-700 hover:text-slate-900',
+            : 'text-content hover:text-content-strong',
         ]}
         aria-pressed={mode === 'custom'}
         onclick={() => (mode = 'custom')}
@@ -287,7 +287,7 @@
 
     <button
       type="button"
-      class="ml-auto inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-sm font-bold text-slate-900 shadow ring-1 ring-amber-400/60 transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95"
+      class="ml-auto inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1.5 text-sm font-bold text-content-strong shadow ring-1 ring-edge/60 transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95"
       onclick={randomize}
       title={$_('mii.voice.random_title')}
     >
@@ -310,7 +310,7 @@
             'flex aspect-square items-center justify-center rounded-xl p-1.5 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95',
             selected
               ? 'bg-orange-500 shadow-md ring-2 ring-orange-600'
-              : 'bg-white shadow hover:bg-amber-50',
+              : 'bg-surface shadow hover:bg-surface-muted',
           ]}
           aria-pressed={selected}
           aria-label={presetLabel}
@@ -333,9 +333,9 @@
           {@const p = pct(s.value, s.min, s.max)}
           {@const sliderLabel = $_(`mii.voice.${s.labelKey}`)}
           <div
-            class="grid grid-cols-[7rem_1fr_3rem] items-center gap-3 rounded-full bg-amber-50 px-4 py-2"
+            class="grid grid-cols-[7rem_1fr_3rem] items-center gap-3 rounded-full bg-surface-muted px-4 py-2"
           >
-            <span class="text-sm font-bold text-slate-900">{sliderLabel}</span>
+            <span class="text-sm font-bold text-content-strong">{sliderLabel}</span>
             <input
               type="range"
               min={s.min}
@@ -345,11 +345,11 @@
               oninput={(e) => onSliderInput(s.name, e.currentTarget.value)}
               aria-label={sliderLabel}
               class="block h-2 w-full cursor-pointer appearance-none rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600
-                     [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-amber-300 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:active:scale-110
-                     [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-amber-300 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:transition-transform [&::-moz-range-thumb]:active:scale-110"
+                     [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-edge [&::-webkit-slider-thumb]:bg-surface [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:active:scale-110
+                     [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-edge [&::-moz-range-thumb]:bg-surface [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:transition-transform [&::-moz-range-thumb]:active:scale-110"
               style="background: linear-gradient(to right, rgb(120 113 108) 0%, rgb(120 113 108) {p}%, rgb(168 162 158) {p}%, rgb(168 162 158) 100%);"
             />
-            <span class="text-right font-mono text-xs tabular-nums text-slate-700">
+            <span class="text-right font-mono text-xs tabular-nums text-content">
               {s.value}
             </span>
           </div>
@@ -358,9 +358,9 @@
 
       {#if intonationState.entry}
         <div
-          class="grid grid-cols-[7rem_1fr] items-center gap-3 rounded-full bg-amber-50 px-4 py-2"
+          class="grid grid-cols-[7rem_1fr] items-center gap-3 rounded-full bg-surface-muted px-4 py-2"
         >
-          <span class="text-sm font-bold text-slate-900">{$_('mii.voice.tone')}</span>
+          <span class="text-sm font-bold text-content-strong">{$_('mii.voice.tone')}</span>
           <div class="flex justify-between gap-2">
             {#each Array.from({ length: INTONATION_STEPS }, (_, i) => i) as i (i)}
               {@const selected = intonationState.value === i}
@@ -370,7 +370,7 @@
                   'h-9 w-9 rounded-lg text-sm font-bold transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95 sm:h-10 sm:w-10',
                   selected
                     ? 'bg-orange-500 text-white shadow-md ring-2 ring-orange-600'
-                    : 'bg-white text-slate-900 shadow',
+                    : 'bg-surface text-content-strong shadow',
                 ]}
                 aria-label={$_('mii.voice.tone_step_aria', {
                   values: { step: i + 1, total: INTONATION_STEPS },

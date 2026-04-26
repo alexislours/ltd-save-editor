@@ -6,6 +6,17 @@ export type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.3.0',
+    date: '2026-04-27',
+    changes: [
+      'Added a Mii gender and attraction editor in the Mii tab.',
+      'Added a way to edit fountain level and wish counter in the Player tab.',
+      'Added dark mode support.',
+      'Added a link to the beta version.',
+      'Added editing of crush and relationship-set timestamps in the Mii tab.',
+    ],
+  },
+  {
     version: '1.2.1',
     date: '2026-04-26',
     changes: [

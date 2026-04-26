@@ -67,11 +67,11 @@
   <label class="flex items-center gap-2">
     <input
       type="checkbox"
-      class="h-4 w-4 rounded border-amber-400/60 text-orange-500 focus:ring-orange-500/30"
+      class="h-4 w-4 rounded border-edge/60 text-orange-500 focus:ring-orange-500/30"
       checked={getBool(entry)}
       onchange={(e) => commit(() => setBool(entry, e.currentTarget.checked))}
     />
-    <span class="text-sm text-slate-700">{getBool(entry) ? 'true' : 'false'}</span>
+    <span class="text-sm text-content">{getBool(entry) ? 'true' : 'false'}</span>
   </label>
 {:else if entry.type === DataType.Int}
   <input
@@ -140,7 +140,7 @@
         }}
       />
       {#if optionName}
-        <span class="text-xs text-slate-500">= {optionName}</span>
+        <span class="text-xs text-content-faint">= {optionName}</span>
       {/if}
     </div>
   {/if}
@@ -232,13 +232,13 @@
     }}
   />
 {:else if isInline(entry.type)}
-  <span class="font-mono text-xs text-slate-600">{hexU32(entry.inlineRaw ?? 0)}</span>
+  <span class="font-mono text-xs text-content-muted">{hexU32(entry.inlineRaw ?? 0)}</span>
 {:else}
-  <span class="font-mono text-xs text-slate-500">{heapPreview(entry)}</span>
+  <span class="font-mono text-xs text-content-faint">{heapPreview(entry)}</span>
 {/if}
 
 {#if error}
-  <p class="mt-1 text-xs text-red-600">{error}</p>
+  <p class="mt-1 text-xs text-danger">{error}</p>
 {/if}
 
 <span class="sr-only">{DataTypeName[entry.type]}</span>

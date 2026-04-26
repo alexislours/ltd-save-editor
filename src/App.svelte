@@ -12,6 +12,6 @@
   const fallback = () => import('./routes/Index.svelte');
 </script>
 
-<main class="flex min-h-svh flex-col bg-amber-50 text-neutral-900">
+<main class="flex min-h-svh flex-col bg-bg text-content">
   <Router {routes} {fallback} />
 </main>

@@ -58,6 +58,6 @@
     onchange={(e) => onChange(e.currentTarget.value)}
   />
   {#if error}
-    <span class="text-xs text-red-600">{error}</span>
+    <span class="text-xs text-danger">{error}</span>
   {/if}
 </div>

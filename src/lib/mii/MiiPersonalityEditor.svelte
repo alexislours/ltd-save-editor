@@ -82,11 +82,11 @@
   ];
 </script>
 
-<div class="rounded-2xl bg-amber-300/90 p-3 shadow-sm ring-1 ring-amber-400/60">
+<div class="rounded-2xl bg-header/90 p-3 shadow-sm ring-1 ring-edge/60">
   {#if personality}
-    <div class="mb-2 flex items-baseline justify-between rounded-full bg-amber-50 px-4 py-2">
-      <span class="text-sm font-bold text-slate-900">{$_('mii.personality.label')}</span>
-      <span class="text-base font-bold text-orange-600">
+    <div class="mb-2 flex items-baseline justify-between rounded-full bg-surface-muted px-4 py-2">
+      <span class="text-sm font-bold text-content-strong">{$_('mii.personality.label')}</span>
+      <span class="text-base font-bold text-brand-soft">
         {$_('mii.personality.summary', {
           values: {
             parent: $_(`mii.personality.parent.${personality.parent}`),
@@ -102,10 +102,10 @@
       {@const minWord = $_(`mii.personality.axis_min.${axis.axisKey}`)}
       {@const maxWord = $_(`mii.personality.axis_max.${axis.axisKey}`)}
       <div
-        class="grid grid-cols-[7rem_4rem_1fr_4rem] items-center gap-3 rounded-full bg-amber-50 px-4 py-2"
+        class="grid grid-cols-[7rem_4rem_1fr_4rem] items-center gap-3 rounded-full bg-surface-muted px-4 py-2"
       >
-        <span class="text-sm font-bold text-slate-900">{axisLabel}</span>
-        <span class="text-right text-xs text-slate-700">{minWord}</span>
+        <span class="text-sm font-bold text-content-strong">{axisLabel}</span>
+        <span class="text-right text-xs text-content">{minWord}</span>
         <div class="flex justify-between gap-1">
           {#each Array.from({ length: STEPS }, (_, i) => i) as i (i)}
             {@const selected = axis.value === i + 1}
@@ -143,7 +143,7 @@
             </button>
           {/each}
         </div>
-        <span class="text-xs text-slate-700">{maxWord}</span>
+        <span class="text-xs text-content">{maxWord}</span>
       </div>
     {/each}
   </div>

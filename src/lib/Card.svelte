@@ -14,10 +14,10 @@
   {#if title || description}
     <header class="mb-4">
       {#if title}
-        <h2 class="text-base font-bold text-slate-900">{title}</h2>
+        <h2 class="text-base font-bold text-content-strong">{title}</h2>
       {/if}
       {#if description}
-        <p class="mt-0.5 text-sm text-slate-700">{description}</p>
+        <p class="mt-0.5 text-sm text-content">{description}</p>
       {/if}
     </header>
   {/if}
