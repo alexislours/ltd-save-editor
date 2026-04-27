@@ -13,6 +13,7 @@
     "format": "prettier --write .",
     "i18n:check": "node tools/i18n-sync.ts check",
     "i18n:sync": "node tools/i18n-sync.ts sync",
+    "sav:diff": "node scripts/sav-diff.ts",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=ltd-save-editor",
     "deploy:beta": "vite build --mode beta && wrangler pages deploy dist --project-name=ltd-save-editor --branch=beta"
   },
