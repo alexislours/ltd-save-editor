@@ -127,15 +127,7 @@ export function getString(e: Entry): string {
 
 export function stringEncodedSize(t: DataType, s: string): number {
   if (NARROW_STRINGS.has(t)) return new TextEncoder().encode(s).byteLength;
-  if (WIDE_STRINGS.has(t)) {
-    let units = 0;
-    for (let i = 0; i < s.length; i++) {
-      const c = s.charCodeAt(i);
-      void c;
-      units++;
-    }
-    return units * 2;
-  }
+  if (WIDE_STRINGS.has(t)) return s.length * 2;
   throw new Error(`Not a string type: ${t}`);
 }
 
