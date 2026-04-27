@@ -92,6 +92,7 @@
     "subtab_foods": "Foods",
     "subtab_clothes": "Clothes",
     "subtab_treasures": "Treasures",
+    "subtab_interiors": "Interiors",
     "inventory": {
       "search": "Search",
       "search_placeholder": "Filter by name…",
@@ -107,6 +108,8 @@
       "decrement": "Remove one",
       "expand_colors": "Show color variants",
       "collapse_colors": "Hide color variants",
+      "expand_variants": "Show variants",
+      "collapse_variants": "Hide variants",
       "state": {
         "Lock": "Locked",
         "New": "New",
@@ -132,6 +135,14 @@
       "heading": "Treasures",
       "caption": "{count, plural, one {# treasure} other {# treasures}} shown. Mark as Obtained to add it to your collection; OwnNum is the inventory count.",
       "missing": "This save does not expose any Player.GoodsInfo2 entries, so treasures can't be edited here."
+    },
+    "interiors": {
+      "heading": "Interiors",
+      "caption": "{count, plural, one {# style group} other {# style groups}} shown. Mark as Obtained to unlock the interior set; OwnNum is the inventory count.",
+      "missing": "This save does not expose any Player.InteriorRoomStyleInfo entries, so interiors can't be edited here.",
+      "variant_note": "Group-level controls apply to every variant in the set. Expand a row to edit a single variant.",
+      "variant_count": "{count, plural, one {# variant} other {# variants}}",
+      "variant_label": "Variant {index}"
     }
   },
   "mii": {

@@ -92,6 +92,7 @@
     "subtab_foods": "Aliments",
     "subtab_clothes": "Vêtements",
     "subtab_treasures": "Trésors",
+    "subtab_interiors": "Intérieurs",
     "inventory": {
       "search": "Recherche",
       "search_placeholder": "Filtrer par nom…",
@@ -113,7 +114,9 @@
       "bulk_warning": "Cela écrasera l'état et/ou la quantité de chaque entrée actuellement visible ({count}). Les modifications ne peuvent pas être annulées sans rouvrir ta sauvegarde. Pense à faire une copie d'abord.",
       "bulk_confirm": "Appliquer cette édition groupée à {count} entrées ? Cette action est irréversible.",
       "expand_colors": "Afficher les variantes de couleur",
-      "collapse_colors": "Masquer les variantes de couleur"
+      "collapse_colors": "Masquer les variantes de couleur",
+      "expand_variants": "Afficher les variantes",
+      "collapse_variants": "Masquer les variantes"
     },
     "foods": {
       "heading": "Aliments",
@@ -132,6 +135,14 @@
       "heading": "Trésors",
       "caption": "{count, plural, one {# trésor} other {# trésors}} affichés. Passe à Obtenu pour l'ajouter à ta collection ; OwnNum est la quantité possédée.",
       "missing": "Cette sauvegarde n'expose aucune entrée Player.GoodsInfo2 : les trésors ne peuvent pas être modifiés ici."
+    },
+    "interiors": {
+      "heading": "Intérieurs",
+      "caption": "{count, plural, one {# groupe de styles} other {# groupes de styles}} affichés. Passe à Obtenu pour débloquer le décor ; OwnNum est la quantité possédée.",
+      "missing": "Cette sauvegarde n'expose aucune entrée Player.InteriorRoomStyleInfo : les intérieurs ne peuvent pas être modifiés ici.",
+      "variant_note": "Les contrôles globaux s'appliquent à chaque variante du groupe. Déplie une ligne pour modifier une variante précise.",
+      "variant_count": "{count, plural, one {# variante} other {# variantes}}",
+      "variant_label": "Variante {index}"
     }
   },
   "mii": {

@@ -1,0 +1,2205 @@
+[
+  {
+    "g": "Game",
+    "l": {
+      "CNzh": "8bit风格",
+      "EUde": "8‑Bit-Set",
+      "EUen": "8‑Bit set",
+      "EUes": "Set de 8 bits",
+      "EUfr": "style 8-bit",
+      "EUit": "set 8 bit",
+      "EUnl": "8-bit-stijl",
+      "JPja": "8bitスタイル",
+      "KRko": "8bit 스타일",
+      "TWzh": "8bit風格",
+      "USen": "8-Bit set",
+      "USes": "Set 8 bits",
+      "USfr": "style 8-bit"
+    },
+    "v": [
+      { "n": "Game00", "i": 0 },
+      { "n": "Game01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Gym",
+    "l": {
+      "CNzh": "体育馆风格",
+      "EUde": "Sporthallenset",
+      "EUen": "Shooting Hoops set",
+      "EUes": "Set de polideportivo",
+      "EUfr": "style gymnase",
+      "EUit": "set pallacanestro",
+      "EUnl": "Gymzaalstijl",
+      "JPja": "体育館スタイル",
+      "KRko": "체육관 스타일",
+      "TWzh": "體育館風格",
+      "USen": "Alley-Oop set",
+      "USes": "Set deportivo",
+      "USfr": "style gymnase"
+    },
+    "v": [
+      { "n": "Gym00", "i": 0 },
+      { "n": "Gym01", "i": 1 },
+      { "n": "Gym02", "i": 2 }
+    ]
+  },
+  {
+    "g": "Antarctic",
+    "l": {
+      "CNzh": "南极风格",
+      "EUde": "Antarktis-Set",
+      "EUen": "Antarctic set",
+      "EUes": "Set antártico",
+      "EUfr": "style antarctique",
+      "EUit": "set antartico",
+      "EUnl": "Antarctische stijl",
+      "JPja": "南極スタイル",
+      "KRko": "남극 스타일",
+      "TWzh": "南極風格",
+      "USen": "Antarctic set",
+      "USes": "Set antártico",
+      "USfr": "style antarctique"
+    },
+    "v": [{ "n": "Antarctic00", "i": 0 }]
+  },
+  {
+    "g": "Damask",
+    "l": {
+      "CNzh": "古董风格",
+      "EUde": "Salon-Set",
+      "EUen": "Damask set",
+      "EUes": "Set de damasco",
+      "EUfr": "style damassé",
+      "EUit": "set damascato",
+      "EUnl": "Damasten stijl",
+      "JPja": "アンティークスタイル",
+      "KRko": "앤티크 스타일",
+      "TWzh": "古董風格",
+      "USen": "Antique set",
+      "USes": "Set damasco",
+      "USfr": "style damassé"
+    },
+    "v": [
+      { "n": "Damask00", "i": 0 },
+      { "n": "Damask01", "i": 1 },
+      { "n": "Damask02", "i": 2 },
+      { "n": "Damask03", "i": 3 },
+      { "n": "Damask04", "i": 4 },
+      { "n": "Damask05", "i": 5 },
+      { "n": "Damask06", "i": 6 },
+      { "n": "Damask07", "i": 7 }
+    ]
+  },
+  {
+    "g": "Nobility",
+    "l": {
+      "CNzh": "贵族风格",
+      "EUde": "Aristokratenset",
+      "EUen": "Aristocrat set",
+      "EUes": "Set aristocrático",
+      "EUfr": "style aristocrate",
+      "EUit": "set aristocratico",
+      "EUnl": "Aristocratische stijl",
+      "JPja": "貴族スタイル",
+      "KRko": "귀족 스타일",
+      "TWzh": "貴族風格",
+      "USen": "Aristocrat set",
+      "USes": "Set aristocracia",
+      "USfr": "style aristocrate"
+    },
+    "v": [
+      { "n": "Nobility00", "i": 0 },
+      { "n": "Nobility01", "i": 1 },
+      { "n": "Nobility02", "i": 2 }
+    ]
+  },
+  {
+    "g": "Street",
+    "l": {
+      "CNzh": "街头风格",
+      "EUde": "Streetart-Set",
+      "EUen": "Urban Underground set",
+      "EUes": "Set urbano",
+      "EUfr": "style graffiti",
+      "EUit": "set graffiti",
+      "EUnl": "Skaterstijl",
+      "JPja": "ストリートスタイル",
+      "KRko": "뒷골목 스타일",
+      "TWzh": "街頭風格",
+      "USen": "Artistic Expression set",
+      "USes": "Set arte callejero",
+      "USfr": "style art urbain"
+    },
+    "v": [{ "n": "Street00", "i": 0 }]
+  },
+  {
+    "g": "Training",
+    "l": {
+      "CNzh": "喜好运动风格",
+      "EUde": "Kraftraum-Set",
+      "EUen": "Gym Rat set",
+      "EUes": "Set de gimnasio",
+      "EUfr": "style salle de muscu",
+      "EUit": "set palestra",
+      "EUnl": "Sportschoolstijl",
+      "JPja": "運動好きスタイル",
+      "KRko": "운동광 스타일",
+      "TWzh": "喜好運動風格",
+      "USen": "Athletic set",
+      "USes": "Set gimnasio",
+      "USfr": "style athlétique"
+    },
+    "v": [{ "n": "Training00", "i": 0 }]
+  },
+  {
+    "g": "PublicBath",
+    "l": {
+      "CNzh": "澡堂风格",
+      "EUde": "Badehaus-Set",
+      "EUen": "Bathhouse set",
+      "EUes": "Set de baño público",
+      "EUfr": "style bains publics",
+      "EUit": "set centro benessere",
+      "EUnl": "Badhuisstijl",
+      "JPja": "銭湯スタイル",
+      "KRko": "대중목욕탕 스타일",
+      "TWzh": "澡堂風格",
+      "USen": "Bathhouse set",
+      "USes": "Set baño público",
+      "USfr": "style bains publics"
+    },
+    "v": [{ "n": "PublicBath00", "i": 0 }]
+  },
+  {
+    "g": "Bathroom",
+    "l": {
+      "CNzh": "浴室风格",
+      "EUde": "Badezimmer-Set",
+      "EUen": "Bathroom set",
+      "EUes": "Set de baño",
+      "EUfr": "style salle de bain",
+      "EUit": "set bagno",
+      "EUnl": "Badkamerstijl",
+      "JPja": "お風呂スタイル",
+      "KRko": "욕실 스타일",
+      "TWzh": "浴室風格",
+      "USen": "Bathroom set",
+      "USes": "Set baño",
+      "USfr": "style salle de bain"
+    },
+    "v": [
+      { "n": "Bathroom00", "i": 0 },
+      { "n": "Bathroom01", "i": 1 },
+      { "n": "Bathroom02", "i": 2 },
+      { "n": "Bathroom03", "i": 3 },
+      { "n": "Bathroom04", "i": 4 }
+    ]
+  },
+  {
+    "g": "Beach",
+    "l": {
+      "CNzh": "海滩风格",
+      "EUde": "Strand-Set",
+      "EUen": "Island Paradise set",
+      "EUes": "Set de playa",
+      "EUfr": "style plage",
+      "EUit": "set spiaggia",
+      "EUnl": "Strandstijl",
+      "JPja": "ビーチスタイル",
+      "KRko": "비치 스타일",
+      "TWzh": "海灘風格",
+      "USen": "Beach set",
+      "USes": "Set playa",
+      "USfr": "style plage"
+    },
+    "v": [{ "n": "Beach00", "i": 0 }]
+  },
+  {
+    "g": "WhiteRoom",
+    "l": {
+      "CNzh": "全白房间风格",
+      "EUde": "Puristenset",
+      "EUen": "Nothing But Mii set",
+      "EUes": "Set blanco níveo",
+      "EUfr": "style tout blanc",
+      "EUit": "set asettico",
+      "EUnl": "Blancostijl",
+      "JPja": "真っ白な部屋スタイル",
+      "KRko": "새하얀 방 스타일",
+      "TWzh": "全白房間風格",
+      "USen": "Blank Canvas set",
+      "USes": "Set vacío",
+      "USfr": "style tout blanc"
+    },
+    "v": [{ "n": "WhiteRoom00", "i": 0 }]
+  },
+  {
+    "g": "Book",
+    "l": {
+      "CNzh": "书柜风格",
+      "EUde": "Bücherwurm-Set",
+      "EUen": "Bookworm set",
+      "EUes": "Set de biblioteca",
+      "EUfr": "style bibliothèque",
+      "EUit": "set bibliotecario",
+      "EUnl": "Studeerkamerstijl",
+      "JPja": "本棚スタイル",
+      "KRko": "독서광 스타일",
+      "TWzh": "書櫃風格",
+      "USen": "Bookworm set",
+      "USes": "Set biblioteca",
+      "USfr": "style bibliothèque"
+    },
+    "v": [
+      { "n": "Book00", "i": 0 },
+      { "n": "Book01", "i": 1 },
+      { "n": "Book02", "i": 2 }
+    ]
+  },
+  {
+    "g": "Botanical",
+    "l": {
+      "CNzh": "植物园风格",
+      "EUde": "Zimmerpflanzenset",
+      "EUen": "Plant Parent set",
+      "EUes": "Set botánico",
+      "EUfr": "style botanique",
+      "EUit": "set botanico",
+      "EUnl": "Botanische stijl",
+      "JPja": "ボタニカルスタイル",
+      "KRko": "보태니컬 스타일",
+      "TWzh": "植物園風格",
+      "USen": "Botanical set",
+      "USes": "Set botánico",
+      "USfr": "style botanique"
+    },
+    "v": [{ "n": "Botanical00", "i": 0 }]
+  },
+  {
+    "g": "Camouflage",
+    "l": {
+      "CNzh": "室内露营风格",
+      "EUde": "Tarnfarbenset",
+      "EUen": "Camo Campsite set",
+      "EUes": "Set de camuflaje",
+      "EUfr": "style camouflage",
+      "EUit": "set mimetico",
+      "EUnl": "Kampeerstijl",
+      "JPja": "おうちキャンプスタイル",
+      "KRko": "실내 캠핑 스타일",
+      "TWzh": "居家露營風格",
+      "USen": "Camo Campsite set",
+      "USes": "Set camuflaje",
+      "USfr": "style camouflage"
+    },
+    "v": [
+      { "n": "Camouflage00", "i": 0 },
+      { "n": "Camouflage01", "i": 1 },
+      { "n": "Camouflage02", "i": 2 },
+      { "n": "Camouflage03", "i": 3 }
+    ]
+  },
+  {
+    "g": "StainedGlass",
+    "l": {
+      "CNzh": "彩色玻璃风格",
+      "EUde": "Buntglasfenster-Set",
+      "EUen": "Cathedral set",
+      "EUes": "Set de vidrieras",
+      "EUfr": "style vitraux",
+      "EUit": "set vetrate colorate",
+      "EUnl": "Balzaalstijl",
+      "JPja": "ステンドグラススタイル",
+      "KRko": "스테인드글라스 스타일",
+      "TWzh": "彩色玻璃風格",
+      "USen": "Cathedral set",
+      "USes": "Set catedral",
+      "USfr": "style cathédrale"
+    },
+    "v": [
+      { "n": "StainedGlass00", "i": 0 },
+      { "n": "StainedGlass01", "i": 1 },
+      { "n": "StainedGlass02", "i": 2 }
+    ]
+  },
+  {
+    "g": "Atelier",
+    "l": {
+      "CNzh": "工坊风格",
+      "EUde": "Kunstatelier-Set",
+      "EUen": "Outside the Lines set",
+      "EUes": "Set de estudio artístico",
+      "EUfr": "style atelier de peintre",
+      "EUit": "set atelier di pittura",
+      "EUnl": "Kunstatelierstijl",
+      "JPja": "アトリエスタイル",
+      "KRko": "아틀리에 스타일",
+      "TWzh": "工坊風格",
+      "USen": "Chaos Canvas set",
+      "USes": "Set explosión artística",
+      "USfr": "style atelier de peintre"
+    },
+    "v": [
+      { "n": "Atelier00", "i": 0 },
+      { "n": "Atelier01", "i": 1 }
+    ]
+  },
+  {
+    "g": "WesternStyle",
+    "l": {
+      "CNzh": "优雅配色风格",
+      "EUde": "Modefarbenset",
+      "EUen": "Monochromatic set",
+      "EUes": "Set sobrio",
+      "EUfr": "style monochrome",
+      "EUit": "set monocromatico",
+      "EUnl": "Klassieke stijl",
+      "JPja": "シックカラースタイル",
+      "KRko": "시크 컬러 스타일",
+      "TWzh": "優雅配色風格",
+      "USen": "Chic set",
+      "USes": "Set chic",
+      "USfr": "style chic"
+    },
+    "v": [
+      { "n": "WesternStyle00", "i": 0 },
+      { "n": "WesternStyle01", "i": 1 },
+      { "n": "WesternStyle02", "i": 2 },
+      { "n": "WesternStyle03", "i": 3 },
+      { "n": "WesternStyle04", "i": 4 },
+      { "n": "WesternStyle05", "i": 5 },
+      { "n": "WesternStyle06", "i": 6 },
+      { "n": "WesternStyle07", "i": 7 }
+    ]
+  },
+  {
+    "g": "Gold",
+    "l": {
+      "CNzh": "黄金风格",
+      "EUde": "Gold-Prunksaal-Set",
+      "EUen": "All That Glitters set",
+      "EUes": "Set dorado",
+      "EUfr": "style doré",
+      "EUit": "set dorato",
+      "EUnl": "Gouden stijl",
+      "JPja": "ゴールデンスタイル",
+      "KRko": "황금 스타일",
+      "TWzh": "黃金風格",
+      "USen": "City of Gold set",
+      "USes": "Set dorado",
+      "USfr": "style doré"
+    },
+    "v": [{ "n": "Gold00", "i": 0 }]
+  },
+  {
+    "g": "Classroom",
+    "l": {
+      "CNzh": "教室风格",
+      "EUde": "Klassenzimmer-Set",
+      "EUen": "Classroom set",
+      "EUes": "Set escolar",
+      "EUfr": "style classe d'école",
+      "EUit": "set scolastico",
+      "EUnl": "Schoolstijl",
+      "JPja": "教室スタイル",
+      "KRko": "교실 스타일",
+      "TWzh": "教室風格",
+      "USen": "Classroom set",
+      "USes": "Set salón de clases",
+      "USfr": "style classe d'école"
+    },
+    "v": [
+      { "n": "Classroom00", "i": 0 },
+      { "n": "Classroom01", "i": 1 }
+    ]
+  },
+  {
+    "g": "LightStick",
+    "l": {
+      "CNzh": "圆顶演唱会风格",
+      "EUde": "Open-Air-Konzert-Set",
+      "EUen": "Stadium Show set",
+      "EUes": "Set de concierto",
+      "EUfr": "style concert",
+      "EUit": "set concerto",
+      "EUnl": "Podiumstijl",
+      "JPja": "ドームライブスタイル",
+      "KRko": "돔 라이브 스타일",
+      "TWzh": "圓頂演唱會風格",
+      "USen": "Concert Stadium set",
+      "USes": "Set estadio de concierto",
+      "USfr": "style concert en arène"
+    },
+    "v": [
+      { "n": "LightStick00", "i": 0 },
+      { "n": "LightStick01", "i": 1 },
+      { "n": "LightStick02", "i": 2 },
+      { "n": "LightStick03", "i": 3 },
+      { "n": "LightStick04", "i": 4 },
+      { "n": "LightStick05", "i": 5 },
+      { "n": "LightStick06", "i": 6 },
+      { "n": "LightStick07", "i": 7 }
+    ]
+  },
+  {
+    "g": "BlueSheet",
+    "l": {
+      "CNzh": "施工现场风格",
+      "EUde": "Baustellenset",
+      "EUen": "Under Construction set",
+      "EUes": "Set de zona de construcción",
+      "EUfr": "style chantier",
+      "EUit": "set cantiere",
+      "EUnl": "Bouwterreinstijl",
+      "JPja": "工事現場スタイル",
+      "KRko": "공사 현장 스타일",
+      "TWzh": "施工現場風格",
+      "USen": "Construction Site set",
+      "USes": "Set en construcción",
+      "USfr": "style chantier de construction"
+    },
+    "v": [{ "n": "BlueSheet00", "i": 0 }]
+  },
+  {
+    "g": "TropicalSea",
+    "l": {
+      "CNzh": "珊瑚海风格",
+      "EUde": "Korallenriff-Set",
+      "EUen": "Something's Fishy set",
+      "EUes": "Set de arrecife coralino",
+      "EUfr": "style récif de corail",
+      "EUit": "set subacqueo",
+      "EUnl": "Onderwaterstijl",
+      "JPja": "サンゴの海スタイル",
+      "KRko": "산호초 바다 스타일",
+      "TWzh": "珊瑚之海風格",
+      "USen": "Coral Reef set",
+      "USes": "Set bajo del mar",
+      "USfr": "style récif de corail"
+    },
+    "v": [{ "n": "TropicalSea00", "i": 0 }]
+  },
+  {
+    "g": "Field",
+    "l": {
+      "CNzh": "农田风格",
+      "EUde": "Acker-Set",
+      "EUen": "Crop Field set",
+      "EUes": "Set campestre",
+      "EUfr": "style champ",
+      "EUit": "set agricolo",
+      "EUnl": "Akkerveldstijl",
+      "JPja": "畑スタイル",
+      "KRko": "밭 스타일",
+      "TWzh": "農田風格",
+      "USen": "Crop Field set",
+      "USes": "Set campo de cultivo",
+      "USfr": "style champ"
+    },
+    "v": [
+      { "n": "Field00", "i": 0 },
+      { "n": "Field01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Cute",
+    "l": {},
+    "v": [
+      { "n": "Cute00", "i": 0 },
+      { "n": "Cute01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Desert",
+    "l": {
+      "CNzh": "沙漠风格",
+      "EUde": "Oasenset",
+      "EUen": "Desert Oasis set",
+      "EUes": "Set desértico",
+      "EUfr": "style désert",
+      "EUit": "set oasi nel deserto",
+      "EUnl": "Woestijnstijl",
+      "JPja": "砂漠スタイル",
+      "KRko": "사막 스타일",
+      "TWzh": "沙漠風格",
+      "USen": "Desert Oasis set",
+      "USes": "Set oasis del desierto",
+      "USfr": "style oasis du désert"
+    },
+    "v": [{ "n": "Desert00", "i": 0 }]
+  },
+  {
+    "g": "Dilapidated",
+    "l": {
+      "CNzh": "破旧风格",
+      "EUde": "Bruchbudenset",
+      "EUen": "Shabby set",
+      "EUes": "Set destartalado",
+      "EUfr": "style délabré",
+      "EUit": "set fatiscente",
+      "EUnl": "Bouwvallige stijl",
+      "JPja": "おんぼろスタイル",
+      "KRko": "낡아 빠진 스타일",
+      "TWzh": "破舊風格",
+      "USen": "Dilapidated set",
+      "USes": "Set en ruinas",
+      "USfr": "style délabré"
+    },
+    "v": [{ "n": "Dilapidated00", "i": 0 }]
+  },
+  {
+    "g": "Dinosaur",
+    "l": {},
+    "v": [
+      { "n": "Dinosaur00", "i": 0 },
+      { "n": "Dinosaur01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Dog",
+    "l": {
+      "CNzh": "狗屋风格",
+      "EUde": "Hundehaus-Set",
+      "EUen": "In the Doghouse set",
+      "EUes": "Set de caseta de perro",
+      "EUfr": "style niche",
+      "EUit": "set cuccia del cane",
+      "EUnl": "Hondenhokstijl",
+      "JPja": "イヌ小屋スタイル",
+      "KRko": "개집 스타일",
+      "TWzh": "狗屋風格",
+      "USen": "Dog House set",
+      "USes": "Set casa de perro",
+      "USfr": "style niche"
+    },
+    "v": [
+      { "n": "Dog00", "i": 0 },
+      { "n": "Dog01", "i": 1 }
+    ]
+  },
+  { "g": "DropCurtain", "l": {}, "v": [{ "n": "DropCurtain00", "i": 0 }] },
+  {
+    "g": "Asianresort",
+    "l": {
+      "CNzh": "亚洲度假村风格",
+      "EUde": "Rattan-Set",
+      "EUen": "Emperor's Chambers set",
+      "EUes": "Set de hotel asiático",
+      "EUfr": "style rotin",
+      "EUit": "set hotel asiatico",
+      "EUnl": "Aziatische stijl",
+      "JPja": "アジアンリゾートスタイル",
+      "KRko": "아시아 리조트 스타일",
+      "TWzh": "亞洲度假村風格",
+      "USen": "Emperor's Chambers set",
+      "USes": "Set hotel asiático",
+      "USfr": "style chambres de l'empereur"
+    },
+    "v": [
+      { "n": "Asianresort00", "i": 0 },
+      { "n": "Asianresort01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Garden",
+    "l": {
+      "CNzh": "英国庭院风格",
+      "EUde": "Englischer-Garten-Set",
+      "EUen": "English Garden set",
+      "EUes": "Set de jardín inglés",
+      "EUfr": "style jardin anglais",
+      "EUit": "set giardino inglese",
+      "EUnl": "Engelsetuinstijl",
+      "JPja": "英国庭園スタイル",
+      "KRko": "영국 정원 스타일",
+      "TWzh": "英國庭園風格",
+      "USen": "English Garden set",
+      "USes": "Set jardín inglés",
+      "USfr": "style jardin anglais"
+    },
+    "v": [{ "n": "Garden00", "i": 0 }]
+  },
+  {
+    "g": "Formula",
+    "l": {
+      "CNzh": "天才风格",
+      "EUde": "Forschergenie-Set",
+      "EUen": "Eureka set",
+      "EUes": "Set científico",
+      "EUfr": "style génie",
+      "EUit": "set scientifico",
+      "EUnl": "Krijtbordstijl",
+      "JPja": "天才スタイル",
+      "KRko": "천재 스타일",
+      "TWzh": "天才風格",
+      "USen": "Eureka set",
+      "USes": "Set científico",
+      "USfr": "style génie"
+    },
+    "v": [
+      { "n": "Formula00", "i": 0 },
+      { "n": "Formula01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Brick",
+    "l": {
+      "CNzh": "砖块风格",
+      "EUde": "Backstein-Set",
+      "EUen": "Exposed Brick set",
+      "EUes": "Set de ladrillos",
+      "EUfr": "style briques",
+      "EUit": "set mattoni a vista",
+      "EUnl": "Bakstenenstijl",
+      "JPja": "レンガスタイル",
+      "KRko": "벽돌 스타일",
+      "TWzh": "磚塊風格",
+      "USen": "Exposed Brick set",
+      "USes": "Set ladrillos",
+      "USfr": "style briques"
+    },
+    "v": [
+      { "n": "Brick00", "i": 0 },
+      { "n": "Brick01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Factry",
+    "l": {
+      "CNzh": "工厂风格",
+      "EUde": "Fabrik-Set",
+      "EUen": "Assembly Line set",
+      "EUes": "Set industrial",
+      "EUfr": "style usine",
+      "EUit": "set industriale",
+      "EUnl": "Fabriekstijl",
+      "JPja": "工場スタイル",
+      "KRko": "공장 스타일",
+      "TWzh": "工廠風格",
+      "USen": "Factory set",
+      "USes": "Set industrial",
+      "USfr": "style usine"
+    },
+    "v": [{ "n": "Factry00", "i": 0 }]
+  },
+  {
+    "g": "Jail",
+    "l": {
+      "CNzh": "单人牢房风格",
+      "EUde": "Gefängniszellenset",
+      "EUen": "Jailbird set",
+      "EUes": "Set de prisión",
+      "EUfr": "style cellule de prison",
+      "EUit": "set prigione",
+      "EUnl": "Gevangenisstijl",
+      "JPja": "独房スタイル",
+      "KRko": "감옥 스타일",
+      "TWzh": "單人牢房風格",
+      "USen": "Failed Outlaw set",
+      "USes": "Set prisión",
+      "USfr": "style cellule de prison"
+    },
+    "v": [{ "n": "Jail00", "i": 0 }]
+  },
+  {
+    "g": "Fantasy",
+    "l": {
+      "CNzh": "幻想森林风格",
+      "EUde": "Zauberwald-Set",
+      "EUen": "Fairytale Forest set",
+      "EUes": "Set de bosque encantado",
+      "EUfr": "style forêt enchantée",
+      "EUit": "set foresta incantata",
+      "EUnl": "Toverbosstijl",
+      "JPja": "幻想の森スタイル",
+      "KRko": "환상의 숲 스타일",
+      "TWzh": "幻想森林風格",
+      "USen": "Fairy-Tale Forest set",
+      "USes": "Set bosque encantado",
+      "USfr": "style forêt enchantée"
+    },
+    "v": [
+      { "n": "Fantasy00", "i": 0 },
+      { "n": "Fantasy01", "i": 1 },
+      { "n": "Fantasy02", "i": 2 }
+    ]
+  },
+  {
+    "g": "Flowergarden",
+    "l": {
+      "CNzh": "花圃风格",
+      "EUde": "Blumenwiesenset",
+      "EUen": "Flower Meadow set",
+      "EUes": "Set de prado de flores",
+      "EUfr": "style prairie fleurie",
+      "EUit": "set campo di fiori",
+      "EUnl": "Weilandstijl",
+      "JPja": "お花畑スタイル",
+      "KRko": "꽃밭 스타일",
+      "TWzh": "花圃風格",
+      "USen": "Flower Meadow set",
+      "USes": "Set jardín de flores",
+      "USfr": "style prairie fleurie"
+    },
+    "v": [{ "n": "Flowergarden00", "i": 0 }]
+  },
+  {
+    "g": "Market",
+    "l": {
+      "CNzh": "超市风格",
+      "EUde": "Supermarkt-Set",
+      "EUen": "Supermarket set",
+      "EUes": "Set de supermercado",
+      "EUfr": "style supermarché",
+      "EUit": "set supermercato",
+      "EUnl": "Supermarktstijl",
+      "JPja": "スーパーマーケットスタイル",
+      "KRko": "슈퍼마켓 스타일",
+      "TWzh": "超市風格",
+      "USen": "Food Mart set",
+      "USes": "Set supermercado",
+      "USfr": "style épicerie"
+    },
+    "v": [{ "n": "Market00", "i": 0 }]
+  },
+  {
+    "g": "Strata",
+    "l": {
+      "CNzh": "化石风格",
+      "EUde": "Paläontologie-Set",
+      "EUen": "Fossil Finder set",
+      "EUes": "Set geológico",
+      "EUfr": "style site de fouilles",
+      "EUit": "set geologico",
+      "EUnl": "Paleontologenstijl",
+      "JPja": "化石スタイル",
+      "KRko": "화석 스타일",
+      "TWzh": "化石風格",
+      "USen": "Fossil Finder set",
+      "USes": "Set geológico",
+      "USfr": "style site de fouilles"
+    },
+    "v": [{ "n": "Strata00", "i": 0 }]
+  },
+  {
+    "g": "Lace",
+    "l": {
+      "CNzh": "可爱公主蕾丝风格",
+      "EUde": "Spitzenborten-Set",
+      "EUen": "Frill-Seeker set",
+      "EUes": "Set refinado",
+      "EUfr": "style dentelle",
+      "EUit": "set barocco",
+      "EUnl": "Kanten stijl",
+      "JPja": "ひめかわレーススタイル",
+      "KRko": "공주 레이스 스타일",
+      "TWzh": "可愛公主蕾絲風格",
+      "USen": "Frill-Seeker set",
+      "USes": "Set refinado",
+      "USfr": "style dentelle"
+    },
+    "v": [
+      { "n": "Lace00", "i": 0 },
+      { "n": "Lace01", "i": 1 },
+      { "n": "Lace02", "i": 2 },
+      { "n": "Lace03", "i": 3 },
+      { "n": "Lace04", "i": 4 },
+      { "n": "Lace05", "i": 5 }
+    ]
+  },
+  {
+    "g": "Fruit",
+    "l": {
+      "CNzh": "水果风格",
+      "EUde": "Obst-Set",
+      "EUen": "Fruit Salad set",
+      "EUes": "Set frutal",
+      "EUfr": "style fruité",
+      "EUit": "set frutta",
+      "EUnl": "Fruitstijl",
+      "JPja": "フルーツスタイル",
+      "KRko": "과일 스타일",
+      "TWzh": "水果風格",
+      "USen": "Fruit set",
+      "USes": "Set frutal",
+      "USfr": "style fruité"
+    },
+    "v": [
+      { "n": "Fruit00", "i": 0 },
+      { "n": "Fruit01", "i": 1 },
+      { "n": "Fruit02", "i": 2 },
+      { "n": "Fruit03", "i": 3 },
+      { "n": "Fruit04", "i": 4 },
+      { "n": "Fruit05", "i": 5 },
+      { "n": "Fruit06", "i": 6 },
+      { "n": "Fruit07", "i": 7 }
+    ]
+  },
+  {
+    "g": "Garage",
+    "l": {
+      "CNzh": "车库风格",
+      "EUde": "Autowerkstatt-Set",
+      "EUen": "Garage set",
+      "EUes": "Set de garaje",
+      "EUfr": "style garage",
+      "EUit": "set garage",
+      "EUnl": "Garagestijl",
+      "JPja": "ガレージスタイル",
+      "KRko": "차고 스타일",
+      "TWzh": "車庫風格",
+      "USen": "Garage set",
+      "USes": "Set garage",
+      "USfr": "style garage"
+    },
+    "v": [
+      { "n": "Garage00", "i": 0 },
+      { "n": "Garage01", "i": 1 },
+      { "n": "Garage02", "i": 2 },
+      { "n": "Garage03", "i": 3 },
+      { "n": "Garage04", "i": 4 },
+      { "n": "Garage05", "i": 5 },
+      { "n": "Garage06", "i": 6 },
+      { "n": "Garage07", "i": 7 }
+    ]
+  },
+  {
+    "g": "GardenWedding",
+    "l": {
+      "CNzh": "花园婚礼风格",
+      "EUde": "Gartenhochzeitsset",
+      "EUen": "Fair-weather Wedding set",
+      "EUes": "Set nupcial de jardín",
+      "EUfr": "style mariage en plein air",
+      "EUit": "set nozze in giardino",
+      "EUnl": "Buitenbruiloftstijl",
+      "JPja": "ガーデンウェディングスタイル",
+      "KRko": "가든 웨딩 스타일",
+      "TWzh": "庭園婚禮風格",
+      "USen": "Garden Wedding set",
+      "USes": "Set boda de jardín",
+      "USfr": "style mariage en plein air"
+    },
+    "v": [{ "n": "GardenWedding00", "i": 0 }]
+  },
+  {
+    "g": "Grassland",
+    "l": {
+      "CNzh": "草原风格",
+      "EUde": "Steppenset",
+      "EUen": "Humble Herder set",
+      "EUes": "Set de pradera",
+      "EUfr": "style pâturage",
+      "EUit": "set pascolo",
+      "EUnl": "Herderstijl",
+      "JPja": "草原スタイル",
+      "KRko": "초원 스타일",
+      "TWzh": "草原風格",
+      "USen": "Grassy Meadow set",
+      "USes": "Set pradera",
+      "USfr": "style pâturage"
+    },
+    "v": [{ "n": "Grassland00", "i": 0 }]
+  },
+  {
+    "g": "Cemetery",
+    "l": {
+      "CNzh": "墓地风格",
+      "EUde": "Friedhofsset",
+      "EUen": "Spooky Cemetery set",
+      "EUes": "Set de cementerio",
+      "EUfr": "style cimetière",
+      "EUit": "set cimitero",
+      "EUnl": "Begraafplaatsstijl",
+      "JPja": "墓地スタイル",
+      "KRko": "묘지 스타일",
+      "TWzh": "墓地風格",
+      "USen": "Graveyard set",
+      "USes": "Set cementerio",
+      "USfr": "style cimetière"
+    },
+    "v": [{ "n": "Cemetery00", "i": 0 }]
+  },
+  {
+    "g": "Midcentury",
+    "l": {
+      "CNzh": "世纪中期现代主义风格",
+      "EUde": "Retro-Set",
+      "EUen": "Retro set",
+      "EUes": "Set retro",
+      "EUfr": "style années 50",
+      "EUit": "set anni '50",
+      "EUnl": "Retrostijl",
+      "JPja": "ミッドセンチュリースタイル",
+      "KRko": "빈티지 스타일",
+      "TWzh": "世紀中期現代主義風格",
+      "USen": "Groovy set",
+      "USes": "Set retro",
+      "USfr": "style années 50"
+    },
+    "v": [
+      { "n": "Midcentury00", "i": 0 },
+      { "n": "Midcentury01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Cage",
+    "l": {
+      "CNzh": "仓鼠之家风格",
+      "EUde": "Hamsterkäfig-Set",
+      "EUen": "Hamster House set",
+      "EUes": "Set de jaula de hámster",
+      "EUfr": "style cage de hamster",
+      "EUit": "set gabbia dei criceti",
+      "EUnl": "Hamsterkooistijl",
+      "JPja": "ハムスターハウススタイル",
+      "KRko": "햄스터 하우스 스타일",
+      "TWzh": "倉鼠之家風格",
+      "USen": "Hamster House set",
+      "USes": "Set casita de hámster",
+      "USfr": "style cage de hamster"
+    },
+    "v": [{ "n": "Cage00", "i": 0 }]
+  },
+  {
+    "g": "Horror",
+    "l": {
+      "CNzh": "恐怖洋楼风格",
+      "EUde": "Gruselvilla-Set",
+      "EUen": "Haunted House set",
+      "EUes": "Set de mansión encantada",
+      "EUfr": "style manoir hanté",
+      "EUit": "set maniero spettrale",
+      "EUnl": "Griezelstijl",
+      "JPja": "ホラーな洋館スタイル",
+      "KRko": "무서운 서양 건물 스타일",
+      "TWzh": "恐怖洋樓風格",
+      "USen": "Haunted Manor set",
+      "USes": "Set mansión encantada",
+      "USfr": "style manoir hanté"
+    },
+    "v": [
+      { "n": "Horror00", "i": 0 },
+      { "n": "Horror01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Heart",
+    "l": {
+      "CNzh": "爱心风格",
+      "EUde": "Herzenset",
+      "EUen": "Heart Overload set",
+      "EUes": "Set de corazones",
+      "EUfr": "style cœurs",
+      "EUit": "set millecuori",
+      "EUnl": "Hartjesstijl",
+      "JPja": "ハートスタイル",
+      "KRko": "하트 스타일",
+      "TWzh": "愛心風格",
+      "USen": "Heart Overload set",
+      "USes": "Set corazones",
+      "USfr": "style plein de cœurs"
+    },
+    "v": [
+      { "n": "Heart00", "i": 0 },
+      { "n": "Heart01", "i": 1 },
+      { "n": "Heart02", "i": 2 },
+      { "n": "Heart03", "i": 3 },
+      { "n": "Heart04", "i": 4 }
+    ]
+  },
+  {
+    "g": "Western",
+    "l": {
+      "CNzh": "西部风格",
+      "EUde": "Western-Set",
+      "EUen": "Old West set",
+      "EUes": "Set del salvaje Oeste",
+      "EUfr": "style western",
+      "EUit": "set western",
+      "EUnl": "Westernstijl",
+      "JPja": "ウエスタンスタイル",
+      "KRko": "웨스턴 스타일",
+      "TWzh": "西部風格",
+      "USen": "High Noon set",
+      "USes": "Set atardecer Viejo Oeste",
+      "USfr": "style western"
+    },
+    "v": [{ "n": "Western00", "i": 0 }]
+  },
+  {
+    "g": "Christmas",
+    "l": {
+      "CNzh": "节庆风格",
+      "EUde": "Weihnachtsset",
+      "EUen": "Happy Holidays set",
+      "EUes": "Set festivo",
+      "EUfr": "style fêtes de fin d'année",
+      "EUit": "set natalizio",
+      "EUnl": "Feestdagenstijl",
+      "JPja": "ホリデースタイル",
+      "KRko": "홀리데이 스타일",
+      "TWzh": "節慶風格",
+      "USen": "Holiday Celebration set",
+      "USes": "Set festivo",
+      "USfr": "style du temps des fêtes"
+    },
+    "v": [
+      { "n": "Christmas00", "i": 0 },
+      { "n": "Christmas01", "i": 1 }
+    ]
+  },
+  {
+    "g": "HoneycombTile",
+    "l": {
+      "CNzh": "蜂窝风格",
+      "EUde": "Bienenwabenset",
+      "EUen": "Honeycomb set",
+      "EUes": "Set de panal de abeja",
+      "EUfr": "style rayon de miel",
+      "EUit": "set alveare",
+      "EUnl": "Honingraatstijl",
+      "JPja": "ハニカムスタイル",
+      "KRko": "벌집 스타일",
+      "TWzh": "蜂窩風格",
+      "USen": "Honeycomb set",
+      "USes": "Set panal de abejas",
+      "USfr": "style rayons de miel"
+    },
+    "v": [
+      { "n": "HoneycombTile00", "i": 0 },
+      { "n": "HoneycombTile01", "i": 1 },
+      { "n": "HoneycombTile02", "i": 2 },
+      { "n": "HoneycombTile03", "i": 3 },
+      { "n": "HoneycombTile04", "i": 4 }
+    ]
+  },
+  {
+    "g": "Hospital",
+    "l": {
+      "CNzh": "医院风格",
+      "EUde": "Krankenhaus-Set",
+      "EUen": "Hospital set",
+      "EUes": "Set de hospital",
+      "EUfr": "style hôpital",
+      "EUit": "set ospedaliero",
+      "EUnl": "Ziekenhuisstijl",
+      "JPja": "病院スタイル",
+      "KRko": "병원 스타일",
+      "TWzh": "醫院風格",
+      "USen": "Hospital set",
+      "USes": "Set hospital",
+      "USfr": "style hôpital"
+    },
+    "v": [{ "n": "Hospital00", "i": 0 }]
+  },
+  {
+    "g": "MonitorRoom",
+    "l": {
+      "CNzh": "监控室风格",
+      "EUde": "Überwachungsraum-Set",
+      "EUen": "Panopticon set",
+      "EUes": "Set de sala de cámaras",
+      "EUfr": "style salle de surveillance",
+      "EUit": "set sala monitor",
+      "EUnl": "Controlekamerstijl",
+      "JPja": "モニタールームスタイル",
+      "KRko": "모니터 룸 스타일",
+      "TWzh": "監控房風格",
+      "USen": "I See Everything set",
+      "USes": "Set vigilancia",
+      "USfr": "style salle de surveillance"
+    },
+    "v": [
+      { "n": "MonitorRoom00", "i": 0 },
+      { "n": "MonitorRoom01", "i": 1 },
+      { "n": "MonitorRoom02", "i": 2 }
+    ]
+  },
+  {
+    "g": "IceRink",
+    "l": {
+      "CNzh": "滑冰场风格",
+      "EUde": "Eisbahn-Set",
+      "EUen": "Skating Rink set",
+      "EUes": "Set de pista de hielo",
+      "EUfr": "style patinoire",
+      "EUit": "set palaghiaccio",
+      "EUnl": "IJsbaanstijl",
+      "JPja": "アイスリンクスタイル",
+      "KRko": "아이스링크 스타일",
+      "TWzh": "滑冰場風格",
+      "USen": "Ice Rink set",
+      "USes": "Set pista de hielo",
+      "USfr": "style patinoire"
+    },
+    "v": [{ "n": "IceRink00", "i": 0 }]
+  },
+  {
+    "g": "Wedding",
+    "l": {
+      "CNzh": "婚礼风格",
+      "EUde": "Hochzeitsset",
+      "EUen": "Wedding set",
+      "EUes": "Set nupcial",
+      "EUfr": "style nuptial",
+      "EUit": "set nuziale",
+      "EUnl": "Bruiloftstijl",
+      "JPja": "ウェディングスタイル",
+      "KRko": "웨딩 스타일",
+      "TWzh": "婚禮風格",
+      "USen": "Indoor Wedding set",
+      "USes": "Set nupcial",
+      "USfr": "style nuptial"
+    },
+    "v": [
+      { "n": "Wedding00", "i": 0 },
+      { "n": "Wedding01", "i": 1 },
+      { "n": "Wedding02", "i": 2 },
+      { "n": "Wedding03", "i": 3 }
+    ]
+  },
+  {
+    "g": "Festival",
+    "l": {
+      "CNzh": "祭典风格",
+      "EUde": "Japan-Festival-Set",
+      "EUen": "Tokyo Nights set",
+      "EUes": "Set de festival japonés",
+      "EUfr": "style festival",
+      "EUit": "set festival giapponese",
+      "EUnl": "Japans-festivalstijl",
+      "JPja": "お祭りスタイル",
+      "KRko": "축제 스타일",
+      "TWzh": "祭典風格",
+      "USen": "Japanese Festival set",
+      "USes": "Set festival japonés",
+      "USfr": "style festival"
+    },
+    "v": [{ "n": "Festival00", "i": 0 }]
+  },
+  {
+    "g": "Jungle",
+    "l": {
+      "CNzh": "丛林风格",
+      "EUde": "Dschungel-Set",
+      "EUen": "Jungle set",
+      "EUes": "Set de la jungla",
+      "EUfr": "style jungle",
+      "EUit": "set giungla",
+      "EUnl": "Junglestijl",
+      "JPja": "ジャングルスタイル",
+      "KRko": "정글 스타일",
+      "TWzh": "叢林風格",
+      "USen": "Jungle set",
+      "USes": "Set selva",
+      "USfr": "style jungle"
+    },
+    "v": [{ "n": "Jungle00", "i": 0 }]
+  },
+  {
+    "g": "BigFlower",
+    "l": {
+      "CNzh": "厨房风格",
+      "EUde": "Küchenset",
+      "EUen": "Pots 'n' Pans set",
+      "EUes": "Set de cocina",
+      "EUfr": "style cuisine",
+      "EUit": "set culinario",
+      "EUnl": "Keukenstijl",
+      "JPja": "キッチンスタイル",
+      "KRko": "부엌 스타일",
+      "TWzh": "廚房風格",
+      "USen": "Kitchen set",
+      "USes": "Set cocina",
+      "USfr": "style cuisine"
+    },
+    "v": [
+      { "n": "BigFlower00", "i": 0 },
+      { "n": "BigFlower01", "i": 1 },
+      { "n": "BigFlower02", "i": 2 },
+      { "n": "BigFlower03", "i": 3 }
+    ]
+  },
+  {
+    "g": "Labo",
+    "l": {
+      "CNzh": "研究所风格",
+      "EUde": "Labor-Set",
+      "EUen": "Mad Scientist set",
+      "EUes": "Set de laboratorio",
+      "EUfr": "style laboratoire",
+      "EUit": "set laboratorio",
+      "EUnl": "Laboratoriumstijl",
+      "JPja": "研究所スタイル",
+      "KRko": "연구소 스타일",
+      "TWzh": "研究所風格",
+      "USen": "Laboratory set",
+      "USes": "Set laboratorio",
+      "USfr": "style laboratoire"
+    },
+    "v": [{ "n": "Labo00", "i": 0 }]
+  },
+  {
+    "g": "LockerRoom",
+    "l": {
+      "CNzh": "更衣室风格",
+      "EUde": "Umkleide-Set",
+      "EUen": "Locker Room set",
+      "EUes": "Set de taquillas",
+      "EUfr": "style vestiaire",
+      "EUit": "set spogliatoio",
+      "EUnl": "Sportkleedkamerstijl",
+      "JPja": "ロッカールームスタイル",
+      "KRko": "탈의실 스타일",
+      "TWzh": "更衣室風格",
+      "USen": "Locker Room set",
+      "USes": "Set casilleros",
+      "USfr": "style vestiaire"
+    },
+    "v": [
+      { "n": "LockerRoom00", "i": 0 },
+      { "n": "LockerRoom01", "i": 1 },
+      { "n": "LockerRoom02", "i": 2 }
+    ]
+  },
+  {
+    "g": "Log",
+    "l": {
+      "CNzh": "木屋风格",
+      "EUde": "Blockhüttenset",
+      "EUen": "Log Cabin set",
+      "EUes": "Set de cabaña",
+      "EUfr": "style cabane en bois",
+      "EUit": "set boscaiolo",
+      "EUnl": "Blokhutstijl",
+      "JPja": "ログハウススタイル",
+      "KRko": "통나무집 스타일",
+      "TWzh": "木屋風格",
+      "USen": "Log Cabin set",
+      "USes": "Set cabaña",
+      "USfr": "style cabane en bois"
+    },
+    "v": [{ "n": "Log00", "i": 0 }]
+  },
+  {
+    "g": "Marble",
+    "l": {
+      "CNzh": "大理石风格",
+      "EUde": "Marmor-Set",
+      "EUen": "Marble set",
+      "EUes": "Set de mármol",
+      "EUfr": "style marbre",
+      "EUit": "set marmoreo",
+      "EUnl": "Marmerstijl",
+      "JPja": "大理石スタイル",
+      "KRko": "대리석 스타일",
+      "TWzh": "大理石風格",
+      "USen": "Marble set",
+      "USes": "Set mármol",
+      "USfr": "style marbré"
+    },
+    "v": [
+      { "n": "Marble00", "i": 0 },
+      { "n": "Marble01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Sloppy",
+    "l": {
+      "CNzh": "脏乱房间风格",
+      "EUde": "Schlamper-Set",
+      "EUen": "Total Tip set",
+      "EUes": "Set caótico",
+      "EUfr": "style négligé",
+      "EUit": "set caotico",
+      "EUnl": "Sloddervosstijl",
+      "JPja": "汚部屋スタイル",
+      "KRko": "더러운 방 스타일",
+      "TWzh": "髒亂房間風格",
+      "USen": "Messy Room set",
+      "USes": "Set descuidado",
+      "USfr": "style désordre"
+    },
+    "v": [
+      { "n": "Sloppy00", "i": 0 },
+      { "n": "Sloppy01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Minimul",
+    "l": {
+      "CNzh": "极简主义风格",
+      "EUde": "Minimalismus-Set",
+      "EUen": "Minimalist set",
+      "EUes": "Set minimalista",
+      "EUfr": "style minimaliste",
+      "EUit": "set minimalista",
+      "EUnl": "Minimalistische stijl",
+      "JPja": "ミニマリストスタイル",
+      "KRko": "미니멀리스트 스타일",
+      "TWzh": "極簡主義風格",
+      "USen": "Minimalist set",
+      "USes": "Set minimalista",
+      "USfr": "style minimaliste"
+    },
+    "v": [
+      { "n": "Minimul00", "i": 0 },
+      { "n": "Minimul01", "i": 1 },
+      { "n": "Minimul02", "i": 2 },
+      { "n": "Minimul03", "i": 3 },
+      { "n": "Minimul04", "i": 4 },
+      { "n": "Minimul05", "i": 5 },
+      { "n": "Minimul06", "i": 6 },
+      { "n": "Minimul07", "i": 7 }
+    ]
+  },
+  {
+    "g": "Triangle",
+    "l": {
+      "CNzh": "北欧现代风格",
+      "EUde": "Skandinavien-Set",
+      "EUen": "Tri As You Might set",
+      "EUes": "Set escandinavo",
+      "EUfr": "style scandinave",
+      "EUit": "set scandinavo",
+      "EUnl": "Scandinavische stijl",
+      "JPja": "北欧モダンスタイル",
+      "KRko": "스칸디나비아 스타일",
+      "TWzh": "北歐現代風格",
+      "USen": "Modern Triangle set",
+      "USes": "Set escandinavo",
+      "USfr": "style scandinave"
+    },
+    "v": [
+      { "n": "Triangle00", "i": 0 },
+      { "n": "Triangle01", "i": 1 },
+      { "n": "Triangle02", "i": 2 },
+      { "n": "Triangle03", "i": 3 },
+      { "n": "Triangle04", "i": 4 },
+      { "n": "Triangle05", "i": 5 }
+    ]
+  },
+  {
+    "g": "MovingBox",
+    "l": {
+      "CNzh": "纸箱风格",
+      "EUde": "Einzugsset",
+      "EUen": "Moving In set",
+      "EUes": "Set de cajas de mudanza",
+      "EUfr": "style cartons",
+      "EUit": "set trasloco",
+      "EUnl": "Kartonnendozenstijl",
+      "JPja": "ダンボールスタイル",
+      "KRko": "종이 상자 스타일",
+      "TWzh": "紙箱風格",
+      "USen": "Moving In set",
+      "USes": "Set mudanza",
+      "USfr": "style déménagement"
+    },
+    "v": [
+      { "n": "MovingBox00", "i": 0 },
+      { "n": "MovingBox01", "i": 1 }
+    ]
+  },
+  {
+    "g": "MultiDot",
+    "l": {},
+    "v": [
+      { "n": "MultiDot00", "i": 0 },
+      { "n": "MultiDot01", "i": 1 },
+      { "n": "MultiDot02", "i": 2 },
+      { "n": "MultiDot03", "i": 3 }
+    ]
+  },
+  {
+    "g": "MusicRoom",
+    "l": {
+      "CNzh": "音乐家风格",
+      "EUde": "Tonstudio-Set",
+      "EUen": "Home Studio set",
+      "EUes": "Set de estudio de sonido",
+      "EUfr": "style studio d'enregistrement",
+      "EUit": "set studio discografico",
+      "EUnl": "Muziekstudiostijl",
+      "JPja": "ミュージシャンスタイル",
+      "KRko": "뮤지션 스타일",
+      "TWzh": "音樂家風格",
+      "USen": "Music Major set",
+      "USes": "Set estudio de grabación",
+      "USfr": "style studio d'enregistrement"
+    },
+    "v": [{ "n": "MusicRoom00", "i": 0 }]
+  },
+  {
+    "g": "SmallFlower",
+    "l": {
+      "CNzh": "自然风格",
+      "EUde": "Massivholz-Set",
+      "EUen": "Natural Wood set",
+      "EUes": "Set rústico",
+      "EUfr": "style naturel",
+      "EUit": "set legno naturale",
+      "EUnl": "Houten stijl",
+      "JPja": "ナチュラルスタイル",
+      "KRko": "내추럴 스타일",
+      "TWzh": "自然風格",
+      "USen": "Natural Wood set",
+      "USes": "Set rústico",
+      "USfr": "style naturel"
+    },
+    "v": [
+      { "n": "SmallFlower00", "i": 0 },
+      { "n": "SmallFlower01", "i": 1 },
+      { "n": "SmallFlower02", "i": 2 },
+      { "n": "SmallFlower03", "i": 3 },
+      { "n": "SmallFlower04", "i": 4 },
+      { "n": "SmallFlower05", "i": 5 },
+      { "n": "SmallFlower06", "i": 6 },
+      { "n": "SmallFlower07", "i": 7 }
+    ]
+  },
+  {
+    "g": "Galaxy",
+    "l": {
+      "CNzh": "银河风格",
+      "EUde": "Galaxie-Set",
+      "EUen": "Lost in Space set",
+      "EUes": "Set galáctico",
+      "EUfr": "style intergalactique",
+      "EUit": "set galattico",
+      "EUnl": "Galactische stijl",
+      "JPja": "銀河スタイル",
+      "KRko": "은하계 스타일",
+      "TWzh": "銀河風格",
+      "USen": "Nebula Drifter set",
+      "USes": "Set nebulosa",
+      "USfr": "style intergalactique"
+    },
+    "v": [{ "n": "Galaxy00", "i": 0 }]
+  },
+  {
+    "g": "NeonSign",
+    "l": {
+      "CNzh": "霓虹灯风格",
+      "EUde": "Neonschilder-Set",
+      "EUen": "Neon Signs set",
+      "EUes": "Set de neón",
+      "EUfr": "style enseignes lumineuses",
+      "EUit": "set neon",
+      "EUnl": "Neonbordenstijl",
+      "JPja": "ネオン看板スタイル",
+      "KRko": "네온 간판 스타일",
+      "TWzh": "霓虹燈風格",
+      "USen": "Neon Signs set",
+      "USes": "Set letreros",
+      "USfr": "style enseignes néon"
+    },
+    "v": [{ "n": "NeonSign00", "i": 0 }]
+  },
+  {
+    "g": "Club",
+    "l": {
+      "CNzh": "俱乐部风格",
+      "EUde": "Disco-Set",
+      "EUen": "In the Club set",
+      "EUes": "Set discotequero",
+      "EUfr": "style boîte de nuit",
+      "EUit": "set discoteca",
+      "EUnl": "Discostijl",
+      "JPja": "クラブスタイル",
+      "KRko": "클럽 스타일",
+      "TWzh": "俱樂部風格",
+      "USen": "Nightclub set",
+      "USes": "Set discoteca",
+      "USfr": "style boîte de nuit"
+    },
+    "v": [{ "n": "Club00", "i": 0 }]
+  },
+  {
+    "g": "Otaku",
+    "l": {
+      "CNzh": "追星风格",
+      "EUde": "Fan-Set",
+      "EUen": "Biggest Fan set",
+      "EUes": "Set de superfán",
+      "EUfr": "style super fan",
+      "EUit": "set superfan",
+      "EUnl": "Superfanstijl",
+      "JPja": "推し活スタイル",
+      "KRko": "열성팬 스타일",
+      "TWzh": "追星風格",
+      "USen": "No. 1 Fan set",
+      "USes": "Set superfán",
+      "USfr": "style super fan"
+    },
+    "v": [
+      { "n": "Otaku00", "i": 0 },
+      { "n": "Otaku02", "i": 1 },
+      { "n": "Otaku03", "i": 2 },
+      { "n": "Otaku04", "i": 3 }
+    ]
+  },
+  {
+    "g": "Baby",
+    "l": {
+      "CNzh": "婴儿房风格",
+      "EUde": "Babyzimmer-Set",
+      "EUen": "Nursery set",
+      "EUes": "Set infantil",
+      "EUfr": "style chambre de bébé",
+      "EUit": "set stanza da bebè",
+      "EUnl": "Babykamerstijl",
+      "JPja": "赤ちゃん部屋スタイル",
+      "KRko": "아기방 스타일",
+      "TWzh": "嬰兒房風格",
+      "USen": "Nursery set",
+      "USes": "Set habitación de bebé",
+      "USfr": "style chambre de bébé"
+    },
+    "v": [
+      { "n": "Baby00", "i": 0 },
+      { "n": "Baby01", "i": 1 },
+      { "n": "Baby02", "i": 2 }
+    ]
+  },
+  {
+    "g": "Office",
+    "l": {
+      "CNzh": "办公室风格",
+      "EUde": "Büro-Set",
+      "EUen": "Office set",
+      "EUes": "Set de oficina",
+      "EUfr": "style bureau",
+      "EUit": "set ufficio",
+      "EUnl": "Kantoorstijl",
+      "JPja": "オフィススタイル",
+      "KRko": "사무실 스타일",
+      "TWzh": "辦公室風格",
+      "USen": "Office set",
+      "USes": "Set oficina",
+      "USfr": "style bureau"
+    },
+    "v": [
+      { "n": "Office00", "i": 0 },
+      { "n": "Office01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Chinese",
+    "l": {
+      "CNzh": "中式风格",
+      "EUde": "China-Set",
+      "EUen": "Ornate set",
+      "EUes": "Set de estilo chino",
+      "EUfr": "style chinois",
+      "EUit": "set orientale",
+      "EUnl": "Chinese stijl",
+      "JPja": "中華スタイル",
+      "KRko": "중화 스타일",
+      "TWzh": "中華風格",
+      "USen": "Ornate set",
+      "USes": "Set estilo chino",
+      "USfr": "style chinois"
+    },
+    "v": [
+      { "n": "Chinese00", "i": 0 },
+      { "n": "Chinese01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Abduction",
+    "l": {
+      "CNzh": "超自然体验风格",
+      "EUde": "Ufo-Set",
+      "EUen": "Paranormal Experience set",
+      "EUes": "Set de abducción alienígena",
+      "EUfr": "style ovni",
+      "EUit": "set paranormale",
+      "EUnl": "Vliegendeschotelstijl",
+      "JPja": "オカルト体験スタイル",
+      "KRko": "오컬트 체험 스타일",
+      "TWzh": "超自然體驗風格",
+      "USen": "Paranormal Experience set",
+      "USes": "Set abducción alienígena",
+      "USfr": "style OVNI"
+    },
+    "v": [{ "n": "Abduction00", "i": 0 }]
+  },
+  {
+    "g": "Party",
+    "l": {
+      "CNzh": "派对风格",
+      "EUde": "Geburtstagsfeier-Set",
+      "EUen": "Birthday Blowout set",
+      "EUes": "Set de fiesta",
+      "EUfr": "style fête",
+      "EUit": "set festaiolo",
+      "EUnl": "Feeststijl",
+      "JPja": "パーティースタイル",
+      "KRko": "파티 스타일",
+      "TWzh": "派對風格",
+      "USen": "Party set",
+      "USes": "Set fiesta",
+      "USfr": "style fête"
+    },
+    "v": [
+      { "n": "Party00", "i": 0 },
+      { "n": "Party01", "i": 1 },
+      { "n": "Party02", "i": 2 },
+      { "n": "Party03", "i": 3 },
+      { "n": "Party04", "i": 4 },
+      { "n": "Party05", "i": 5 },
+      { "n": "Party06", "i": 6 },
+      { "n": "Party07", "i": 7 }
+    ]
+  },
+  {
+    "g": "Heaven",
+    "l": {
+      "CNzh": "天国风格",
+      "EUde": "Pastell-Wolkenset",
+      "EUen": "Pastel Clouds set",
+      "EUes": "Set de nubes",
+      "EUfr": "style nuages pastel",
+      "EUit": "set nuvole pastello",
+      "EUnl": "Wolkenstijl",
+      "JPja": "天国スタイル",
+      "KRko": "천국 스타일",
+      "TWzh": "天國風格",
+      "USen": "Pastel Clouds set",
+      "USes": "Set nubes pasteles",
+      "USfr": "style paradis"
+    },
+    "v": [{ "n": "Heaven00", "i": 0 }]
+  },
+  {
+    "g": "Dot",
+    "l": {
+      "CNzh": "时尚新手风格",
+      "EUde": "Punktmuster-Set",
+      "EUen": "Polka Dot set",
+      "EUes": "Set de lunares",
+      "EUfr": "style pois",
+      "EUit": "set a pois",
+      "EUnl": "Stippenstijl",
+      "JPja": "かけだしオシャレスタイル",
+      "KRko": "꾸미기 초심자 스타일",
+      "TWzh": "時尚新手風格",
+      "USen": "Polka Dot set",
+      "USes": "Set lunares",
+      "USfr": "style pois"
+    },
+    "v": [
+      { "n": "Dot00", "i": 0 },
+      { "n": "Dot01", "i": 1 },
+      { "n": "Dot02", "i": 2 },
+      { "n": "Dot03", "i": 3 },
+      { "n": "Dot04", "i": 4 },
+      { "n": "Dot05", "i": 5 },
+      { "n": "Dot06", "i": 6 },
+      { "n": "Dot07", "i": 7 }
+    ]
+  },
+  {
+    "g": "Sakura",
+    "l": {
+      "CNzh": "樱花飘落风格",
+      "EUde": "Kirschblütenset",
+      "EUen": "Cherry Blossom set",
+      "EUes": "Set de cerezos en flor",
+      "EUfr": "style cerisiers en fleur",
+      "EUit": "set ciliegi in fiore",
+      "EUnl": "Kersenbloesemstijl",
+      "JPja": "さくら吹雪スタイル",
+      "KRko": "벚꽃 꽃보라 스타일",
+      "TWzh": "櫻花飄落風格",
+      "USen": "Sakura Bloom set",
+      "USes": "Set cerezos",
+      "USfr": "style cerisiers en fleur"
+    },
+    "v": [{ "n": "Sakura00", "i": 0 }]
+  },
+  {
+    "g": "Sauna",
+    "l": {
+      "CNzh": "桑拿风格",
+      "EUde": "Sauna-Set",
+      "EUen": "Sauna set",
+      "EUes": "Set de sauna",
+      "EUfr": "style sauna",
+      "EUit": "set sauna",
+      "EUnl": "Saunastijl",
+      "JPja": "サウナスタイル",
+      "KRko": "사우나 스타일",
+      "TWzh": "三溫暖風格",
+      "USen": "Sauna set",
+      "USes": "Set sauna",
+      "USfr": "style sauna"
+    },
+    "v": [{ "n": "Sauna00", "i": 0 }]
+  },
+  {
+    "g": "SF",
+    "l": {
+      "CNzh": "科幻风格",
+      "EUde": "Sci‑Fi-Set",
+      "EUen": "Sci‑fi set",
+      "EUes": "Set de ciencia ficción",
+      "EUfr": "style science-fiction",
+      "EUit": "set fantascientifico",
+      "EUnl": "Futuristische stijl",
+      "JPja": "SFスタイル",
+      "KRko": "SF 스타일",
+      "TWzh": "SF風格",
+      "USen": "Sci-Fi set",
+      "USes": "Set ciencia ficción",
+      "USfr": "style science-fiction"
+    },
+    "v": [
+      { "n": "SF00", "i": 0 },
+      { "n": "SF01", "i": 1 },
+      { "n": "SF02", "i": 2 },
+      { "n": "SF03", "i": 3 },
+      { "n": "SF04", "i": 4 },
+      { "n": "SF05", "i": 5 }
+    ]
+  },
+  {
+    "g": "Pirate",
+    "l": {
+      "CNzh": "海盗风格",
+      "EUde": "Piratenset",
+      "EUen": "Seven Seas set",
+      "EUes": "Set pirata",
+      "EUfr": "style bateau pirate",
+      "EUit": "set piratesco",
+      "EUnl": "Piratenstijl",
+      "JPja": "海賊スタイル",
+      "KRko": "해적 스타일",
+      "TWzh": "海盜風格",
+      "USen": "Sea Captain set",
+      "USes": "Set pirata",
+      "USfr": "style capitaine des mers"
+    },
+    "v": [{ "n": "Pirate00", "i": 0 }]
+  },
+  {
+    "g": "Shogun",
+    "l": {
+      "CNzh": "将军风格",
+      "EUde": "Shogun-Set",
+      "EUen": "Shogun set",
+      "EUes": "Set de sogún",
+      "EUfr": "style shogun",
+      "EUit": "set shogun",
+      "EUnl": "Shogunstijl",
+      "JPja": "将軍スタイル",
+      "KRko": "장군 스타일",
+      "TWzh": "將軍風格",
+      "USen": "Shogun set",
+      "USes": "Set Shogun",
+      "USfr": "style shogun"
+    },
+    "v": [{ "n": "Shogun00", "i": 0 }]
+  },
+  {
+    "g": "Japanese",
+    "l": {
+      "CNzh": "昭和怀旧风格",
+      "EUde": "Japan-in-den-50ern-Set",
+      "EUen": "Japanese Throwback set",
+      "EUes": "Set japonés vintage",
+      "EUfr": "style japonais rétro",
+      "EUit": "set giapponese rétro",
+      "EUnl": "Japan in de jaren 50-stijl",
+      "JPja": "昭和ノスタルジースタイル",
+      "KRko": "노스탤직 다다미 스타일",
+      "TWzh": "昭和懷舊風格",
+      "USen": "Shōwa-Era Nostalgia set",
+      "USes": "Set japonés vintage",
+      "USfr": "style japonais rétro"
+    },
+    "v": [
+      { "n": "Japanese00", "i": 0 },
+      { "n": "Japanese01", "i": 1 },
+      { "n": "Japanese02", "i": 2 },
+      { "n": "Japanese03", "i": 3 },
+      { "n": "Japanese04", "i": 4 },
+      { "n": "Japanese05", "i": 5 }
+    ]
+  },
+  { "g": "Simple", "l": {}, "v": [{ "n": "Simple00", "i": 0 }] },
+  {
+    "g": "WoodBoard",
+    "l": {
+      "CNzh": "简朴居家风格",
+      "EUde": "Apartment-Set",
+      "EUen": "Simple Living set",
+      "EUes": "Set acogedor",
+      "EUfr": "style frugal",
+      "EUit": "set vita semplice",
+      "EUnl": "Studio-appartementstijl",
+      "JPja": "シンプルな暮らしスタイル",
+      "KRko": "심플 리빙 스타일",
+      "TWzh": "簡樸居家風格",
+      "USen": "Simple Living set",
+      "USes": "Set hogareño",
+      "USfr": "style vie simple"
+    },
+    "v": [
+      { "n": "WoodBoard00", "i": 0 },
+      { "n": "WoodBoard01", "i": 1 },
+      { "n": "WoodBoard02", "i": 2 },
+      { "n": "WoodBoard03", "i": 3 },
+      { "n": "WoodBoard04", "i": 4 },
+      { "n": "WoodBoard05", "i": 5 },
+      { "n": "WoodBoard06", "i": 6 },
+      { "n": "WoodBoard07", "i": 7 }
+    ]
+  },
+  {
+    "g": "Stadium",
+    "l": {
+      "CNzh": "体育场风格",
+      "EUde": "Stadion-Set",
+      "EUen": "Back of the Net set",
+      "EUes": "Set de estadio deportivo",
+      "EUfr": "style stade",
+      "EUit": "set stadio",
+      "EUnl": "Stadionstijl",
+      "JPja": "スタジアムスタイル",
+      "KRko": "스타디움 스타일",
+      "TWzh": "體育場風格",
+      "USen": "Stadium set",
+      "USes": "Set estadio",
+      "USfr": "style stade"
+    },
+    "v": [
+      { "n": "Stadium00", "i": 0 },
+      { "n": "Stadium01", "i": 1 },
+      { "n": "Stadium02", "i": 2 }
+    ]
+  },
+  {
+    "g": "StarPrint",
+    "l": {},
+    "v": [
+      { "n": "StarPrint00", "i": 0 },
+      { "n": "StarPrint01", "i": 1 },
+      { "n": "StarPrint02", "i": 2 },
+      { "n": "StarPrint03", "i": 3 },
+      { "n": "StarPrint04", "i": 4 }
+    ]
+  },
+  {
+    "g": "Steampunk",
+    "l": {
+      "CNzh": "蒸汽朋克风格",
+      "EUde": "Steampunk-Set",
+      "EUen": "Steampunk set",
+      "EUes": "Set steampunk",
+      "EUfr": "style steampunk",
+      "EUit": "set steampunk",
+      "EUnl": "Steampunkstijl",
+      "JPja": "スチームパンクスタイル",
+      "KRko": "스팀펑크 스타일",
+      "TWzh": "蒸氣龐克風格",
+      "USen": "Steampunk set",
+      "USes": "Set steampunk",
+      "USfr": "style steampunk"
+    },
+    "v": [{ "n": "Steampunk00", "i": 0 }]
+  },
+  {
+    "g": "SFX",
+    "l": {
+      "CNzh": "巨大特摄风格",
+      "EUde": "Großstadt-Filmset",
+      "EUen": "Mind Your Step set",
+      "EUes": "Set de decorado",
+      "EUfr": "style décor carton-pâte",
+      "EUit": "set città di cartone",
+      "EUnl": "Miniatuurstadstijl",
+      "JPja": "巨大特撮スタイル",
+      "KRko": "특수 촬영 스타일",
+      "TWzh": "巨大特攝風格",
+      "USen": "Stock Skyline set",
+      "USes": "Set rascacielos",
+      "USfr": "style gratte-ciel"
+    },
+    "v": [
+      { "n": "SFX00", "i": 0 },
+      { "n": "SFX01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Rain",
+    "l": {
+      "CNzh": "寒冷雨天风格",
+      "EUde": "Regen-Set",
+      "EUen": "Raining Buckets set",
+      "EUes": "Set lluvioso",
+      "EUfr": "style pluvieux",
+      "EUit": "set piovoso",
+      "EUnl": "Regenachtige stijl",
+      "JPja": "冷たい雨スタイル",
+      "KRko": "차가운 비 스타일",
+      "TWzh": "寒冷雨天風格",
+      "USen": "Stormy set",
+      "USes": "Set lluvioso",
+      "USfr": "style pluvieux"
+    },
+    "v": [{ "n": "Rain00", "i": 0 }]
+  },
+  {
+    "g": "Stuffed",
+    "l": {},
+    "v": [
+      { "n": "Stuffed00", "i": 0 },
+      { "n": "Stuffed01", "i": 1 },
+      { "n": "Stuffed02", "i": 2 },
+      { "n": "Stuffed03", "i": 3 }
+    ]
+  },
+  {
+    "g": "Candy",
+    "l": {
+      "CNzh": "甜品风格",
+      "EUde": "Süßigkeiten-Set",
+      "EUen": "Sweet Treat set",
+      "EUes": "Set dulce",
+      "EUfr": "style sucreries",
+      "EUit": "set dolciumi",
+      "EUnl": "Snoephuisjestijl",
+      "JPja": "お菓子スタイル",
+      "KRko": "디저트 스타일",
+      "TWzh": "甜品風格",
+      "USen": "Sugar Rush set",
+      "USes": "Set dulces",
+      "USfr": "style sucreries"
+    },
+    "v": [
+      { "n": "Candy00", "i": 0 },
+      { "n": "Candy01", "i": 1 },
+      { "n": "Candy02", "i": 2 }
+    ]
+  },
+  {
+    "g": "Sushi",
+    "l": {
+      "CNzh": "寿司风格",
+      "EUde": "Sushi-Set",
+      "EUen": "Sushi set",
+      "EUes": "Set de restaurante de sushi",
+      "EUfr": "style sushi",
+      "EUit": "set ristorante di sushi",
+      "EUnl": "Sushistijl",
+      "JPja": "寿司スタイル",
+      "KRko": "초밥 스타일",
+      "TWzh": "壽司風格",
+      "USen": "Sushi set",
+      "USes": "Set restaurante de sushi",
+      "USfr": "style sushi"
+    },
+    "v": [{ "n": "Sushi00", "i": 0 }]
+  },
+  {
+    "g": "Shoji",
+    "l": {
+      "CNzh": "茶室风格",
+      "EUde": "Teezimmer-Set",
+      "EUen": "Teahouse set",
+      "EUes": "Set japonés tradicional",
+      "EUfr": "style cérémonie du thé",
+      "EUit": "set cerimonia del tè",
+      "EUnl": "Japanse-theekamerstijl",
+      "JPja": "茶室スタイル",
+      "KRko": "다도실 스타일",
+      "TWzh": "茶室風格",
+      "USen": "Teahouse set",
+      "USes": "Set casa de té",
+      "USfr": "style cérémonie du thé"
+    },
+    "v": [
+      { "n": "Shoji00", "i": 0 },
+      { "n": "Shoji01", "i": 1 },
+      { "n": "Shoji02", "i": 2 }
+    ]
+  },
+  {
+    "g": "Stage",
+    "l": {
+      "CNzh": "舞台风格",
+      "EUde": "Theater-Set",
+      "EUen": "Theatre set",
+      "EUes": "Set teatral",
+      "EUfr": "style scène de théâtre",
+      "EUit": "set teatrale",
+      "EUnl": "Theaterstijl",
+      "JPja": "舞台スタイル",
+      "KRko": "뮤지컬 스타일",
+      "TWzh": "舞台風格",
+      "USen": "Theater set",
+      "USes": "Set teatro",
+      "USfr": "style scène de théâtre"
+    },
+    "v": [{ "n": "Stage00", "i": 0 }]
+  },
+  {
+    "g": "InterviewBoard",
+    "l": {
+      "CNzh": "访谈背景风格",
+      "EUde": "Fernsehstudio-Set",
+      "EUen": "This Just In set",
+      "EUes": "Set de entrevista televisiva",
+      "EUfr": "style journal télé",
+      "EUit": "set studio televisivo",
+      "EUnl": "Tv-studiostijl",
+      "JPja": "インタビューボードスタイル",
+      "KRko": "포토 월 인터뷰 스타일",
+      "TWzh": "訪談背景風格",
+      "USen": "This Just In set",
+      "USes": "Set últimas noticias",
+      "USfr": "style téléjournal"
+    },
+    "v": [{ "n": "InterviewBoard00", "i": 0 }]
+  },
+  {
+    "g": "NightView",
+    "l": {
+      "CNzh": "夜景风格",
+      "EUde": "Luxus-Panorama-Set",
+      "EUen": "Top Floor set",
+      "EUes": "Set de vistas nocturnas",
+      "EUfr": "style nocturne",
+      "EUit": "set attico con vista",
+      "EUnl": "Nachtelijke-skylinestijl",
+      "JPja": "夜景スタイル",
+      "KRko": "야경 스타일",
+      "TWzh": "夜景風格",
+      "USen": "Top Floor set",
+      "USes": "Set vista nocturna",
+      "USfr": "style nocturne"
+    },
+    "v": [{ "n": "NightView00", "i": 0 }]
+  },
+  {
+    "g": "Train",
+    "l": {
+      "CNzh": "车窗风格",
+      "EUde": "Waggon-Set",
+      "EUen": "All Aboard set",
+      "EUes": "Set ferroviario",
+      "EUfr": "style wagon",
+      "EUit": "set vagone",
+      "EUnl": "Treinwagonstijl",
+      "JPja": "車窓スタイル",
+      "KRko": "차창 스타일",
+      "TWzh": "車窗風格",
+      "USen": "Train Car set",
+      "USes": "Set cabina de tren",
+      "USfr": "style wagon de train"
+    },
+    "v": [
+      { "n": "Train00", "i": 0 },
+      { "n": "Train01", "i": 1 }
+    ]
+  },
+  {
+    "g": "Success",
+    "l": {
+      "CNzh": "成功人士风格",
+      "EUde": "Trophäenzimmer-Set",
+      "EUen": "Trophy Room set",
+      "EUes": "Set triunfador",
+      "EUfr": "style champion",
+      "EUit": "set sala dei trofei",
+      "EUnl": "Trofeeënkamerstijl",
+      "JPja": "成功者スタイル",
+      "KRko": "성공 스타일",
+      "TWzh": "成功者風格",
+      "USen": "Trophy Room set",
+      "USes": "Set sala de trofeos",
+      "USfr": "style champion"
+    },
+    "v": [{ "n": "Success00", "i": 0 }]
+  },
+  {
+    "g": "Temple",
+    "l": {
+      "CNzh": "神殿风格",
+      "EUde": "Tempel-Set",
+      "EUen": "Veni Vidi Vici set",
+      "EUes": "Set de templo",
+      "EUfr": "style temple",
+      "EUit": "set tempio",
+      "EUnl": "Zuilenstijl",
+      "JPja": "神殿スタイル",
+      "KRko": "신전 스타일",
+      "TWzh": "神殿風格",
+      "USen": "Veni Vidi Vici set",
+      "USes": "Set romano",
+      "USfr": "style temple"
+    },
+    "v": [{ "n": "Temple00", "i": 0 }]
+  },
+  {
+    "g": "Snow",
+    "l": {
+      "CNzh": "雪景风格",
+      "EUde": "Schnee-Set",
+      "EUen": "Winter Wonderland set",
+      "EUes": "Set nevado",
+      "EUfr": "style enneigé",
+      "EUit": "set paesaggio innevato",
+      "EUnl": "Sneeuwlandschapstijl",
+      "JPja": "雪景色スタイル",
+      "KRko": "설경 스타일",
+      "TWzh": "雪景風格",
+      "USen": "Winter Wonderland set",
+      "USes": "Set bosque nevado",
+      "USfr": "style enneigé"
+    },
+    "v": [{ "n": "Snow00", "i": 0 }]
+  },
+  {
+    "g": "Halloween",
+    "l": {
+      "CNzh": "魔法师风格",
+      "EUde": "Zauberer-Set",
+      "EUen": "Magician's Abode set",
+      "EUes": "Set de estudio mágico",
+      "EUfr": "style sorcellerie",
+      "EUit": "set Halloween",
+      "EUnl": "Tovenaarstijl",
+      "JPja": "魔法使いスタイル",
+      "KRko": "마법사 스타일",
+      "TWzh": "魔法師風格",
+      "USen": "Witch's Study set",
+      "USes": "Set estudio mágico",
+      "USfr": "style sorcellerie"
+    },
+    "v": [{ "n": "Halloween00", "i": 0 }]
+  },
+  {
+    "g": "Wrestling",
+    "l": {
+      "CNzh": "摔角场风格",
+      "EUde": "Wrestling-Ring-Set",
+      "EUen": "Heavyweight set",
+      "EUes": "Set de cuadrilátero",
+      "EUfr": "style catcheur",
+      "EUit": "set wrestling",
+      "EUnl": "Worstelringstijl",
+      "JPja": "リングスタイル",
+      "KRko": "링 스타일",
+      "TWzh": "摔角場風格",
+      "USen": "Wrestling Ring set",
+      "USes": "Set cuadrilátero",
+      "USfr": "style lutteur"
+    },
+    "v": [{ "n": "Wrestling00", "i": 0 }]
+  }
+]
