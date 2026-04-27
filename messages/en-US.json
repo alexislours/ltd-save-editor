@@ -14,6 +14,7 @@
     "mii": "Mii",
     "map": "Map",
     "advanced": "Advanced",
+    "faq": "FAQ",
     "about": "About"
   },
   "lightbox": {
@@ -637,6 +638,82 @@
     "bulk_apply_action": "Apply to all {count}",
     "bulk_enum_pick": "Pick a value…",
     "page_elements_status": "Elements {start}-{end} of {count} · Page {page}/{total}"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "Common questions about the editor. Click a question to expand.",
+    "items": {
+      "brick": {
+        "q": "Can this corrupt my save?",
+        "intro": "Yes, a bad edit can corrupt your save and there's no in-game recovery, so the only way back is the backup you made before editing.",
+        "a1": "The editor does a few things to prevent corrupting your save:",
+        "a2": "It never overwrites your original file, it creates a new one for you to download, so if something goes wrong the original is still safe.",
+        "a3": "The editor will block some edits that are known to cause corruption, and warn you about risky ones."
+      },
+      "backup": {
+        "q": "Should I back up my save first?",
+        "a": "Yes, always. Copy your Mii.sav, Player.sav, and Map.sav files somewhere safe before loading them here. A bad edit can corrupt your save with no in-game recovery, and the only way back is the backup you made."
+      },
+      "upload": {
+        "q": "Will my save be uploaded anywhere?",
+        "a1": "No. The editor runs entirely in your browser, files are parsed and rewritten locally, and your save data isn't sent to any server.",
+        "a2_prefix": "The site is also open source, so you can read the code yourself on ",
+        "a2_link": "GitHub",
+        "a2_suffix": "."
+      },
+      "sav_files": {
+        "q": "What's the difference between Player.sav, Mii.sav, and Map.sav?",
+        "intro": "The game splits its data across three files, and the editor has a tab for each:",
+        "player": "- your player data: your name, island name, money, play time, everything you unlocked...",
+        "mii": "- per-Mii data for everyone living on your island: personalities, voices, relationships...",
+        "map": "- the layout of your island: where each building is placed, what each tile on the ground is...",
+        "outro": "The three files are independent, you can edit one without touching the others, and you only need to upload the ones you actually want to change."
+      },
+      "advanced": {
+        "q": "What is the Advanced tab for?",
+        "a1": "The structured tabs (Player, Mii, Map) cover the fields the editor knows how to render with proper labels and pickers. The Advanced section, found at the bottom of each tab, is a raw entry browser that lists every key found in the save, including ones that haven't been mapped to a friendly UI yet. Use it if you need to inspect or edit something the structured tabs don't expose.",
+        "a2": "Treat it as power-user territory. Some fields are cryptic, and editing them blindly is a good way to corrupt a save, back up first. Anything done here is at your own risk."
+      },
+      "hashes": {
+        "q": "Why are some entries shown as numbers or unknown names?",
+        "a": "Save files reference content (clothes, food, treasures, room styles, and so on) by hash, not by readable name. The editor ships a hash list that translates as many of those hashes as possible back into names. When an entry shows up as a hex number or as \"Unknown\", it's a hash that isn't in the list yet. If you identify one, please open an issue or share it on Discord so it can be added for everyone."
+      },
+      "stable_beta": {
+        "q": "Stable vs Beta, which should I use?",
+        "stable_label": "Stable",
+        "stable_body": "the version you should probably use. This is the tested, polished version of the editor, where features are less likely to be broken and bugs are less likely to cause corruption. Useful for most people, especially if you're new to save editing.",
+        "beta_label": "Beta",
+        "beta_body": "the experimental build, where new features land first. Expect more bugs and occasional broken behaviour. Useful if you want to try something that isn't on Stable yet, or if a fix you reported has just been merged.",
+        "switch_hint": "You can switch between the two using the link next to the version badge in the header. Whichever you pick, always back up your saves first."
+      },
+      "translation": {
+        "q": "How do I add a translation?",
+        "a_prefix": "See the ",
+        "a_link": "Adding a Localization section in the repo's README",
+        "a_suffix": ", it has the full set of steps."
+      },
+      "bug": {
+        "q": "I've found a bug",
+        "intro_prefix": "Please open an issue on GitHub, the \"Report an issue\" link in the footer takes you straight to the new-issue form, or you can use ",
+        "intro_link": "this link",
+        "intro_suffix": ". Helpful things to include:",
+        "item_what": "What you were trying to do.",
+        "item_actual": "What happened instead.",
+        "item_version": "Whether you were on Stable or Beta, and the version number from the header.",
+        "item_screenshot": "A screenshot if it's a UI issue.",
+        "item_save": "The save file itself if you're comfortable sharing it. Saves help reproduce a bug a lot faster than descriptions alone.",
+        "discord_prefix": "If you'd rather not file an issue, the ",
+        "discord_link": "Discord",
+        "discord_suffix": " works too."
+      },
+      "cant_do_x": {
+        "q": "I can't do X",
+        "intro": "If something you want to edit isn't in the structured tabs, it's almost always one of two things:",
+        "item_unmapped": "Nobody has mapped that field to the editor yet, the data is in the save, but no UI has been built for it.",
+        "item_unsafe": "The field can't be edited safely on its own, it might be derived from other values, or part of a structure where changing one piece without the rest would corrupt the save.",
+        "outro": "Either way, the right move is to open an issue or ask on Discord describing what you're trying to change. New features get prioritised based on what people actually want."
+      }
+    }
   },
   "about": {
     "title": "About",

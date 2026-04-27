@@ -14,7 +14,8 @@
     "mii": "Mii",
     "map": "Mapa",
     "advanced": "Avançado",
-    "about": "Sobre"
+    "about": "Sobre",
+    "faq": "FAQ"
   },
   "lightbox": {
     "open": "Ampliar imagem de {label}",
@@ -664,5 +665,81 @@
     "report_issue": "Reportar um problema",
     "discord": "Discord",
     "license": "AGPL-3.0"
+  },
+  "faq": {
+    "title": "Perguntas frequentes",
+    "subtitle": "Perguntas comuns sobre o editor. Clique em uma pergunta para expandir.",
+    "items": {
+      "brick": {
+        "q": "Isso pode corromper meu save?",
+        "intro": "Sim, uma edição ruim pode corromper seu save e não há recuperação dentro do jogo, então a única forma de voltar é o backup que você fez antes de editar.",
+        "a1": "O editor toma algumas precauções para reduzir o risco:",
+        "a2": "Ele nunca sobrescreve o arquivo original, ele cria um novo para você baixar, então se algo der errado o original continua intacto.",
+        "a3": "O editor bloqueia algumas edições conhecidas por causarem corrupção, e avisa sobre as que são arriscadas."
+      },
+      "backup": {
+        "q": "Devo fazer backup do meu save antes?",
+        "a": "Sim, sempre. Faça uma cópia dos seus arquivos Mii.sav, Player.sav e Map.sav em algum lugar seguro antes de carregá-los aqui. Uma edição ruim pode corromper seu save sem recuperação dentro do jogo, e a única forma de voltar é o backup que você fez."
+      },
+      "upload": {
+        "q": "Meu save é enviado para algum lugar?",
+        "a1": "Não. O editor roda inteiramente no seu navegador, os arquivos são lidos e reescritos localmente, e os dados do seu save não são enviados a nenhum servidor.",
+        "a2_prefix": "O site também é open source, então você pode ler o código por conta própria no ",
+        "a2_link": "GitHub",
+        "a2_suffix": "."
+      },
+      "sav_files": {
+        "q": "Qual a diferença entre Player.sav, Mii.sav e Map.sav?",
+        "intro": "O jogo divide seus dados em três arquivos, e o editor tem uma aba para cada um:",
+        "player": "- seus dados de jogador: seu nome, o nome da ilha, dinheiro, tempo de jogo, tudo que você desbloqueou…",
+        "mii": "- dados de cada Mii que mora na sua ilha: personalidades, vozes, relações…",
+        "map": "- o layout da sua ilha: onde cada prédio está, o que tem em cada bloco do chão…",
+        "outro": "Os três arquivos são independentes, você pode editar um sem encostar nos outros, e só precisa carregar os que realmente quer alterar."
+      },
+      "advanced": {
+        "q": "Para que serve a aba Avançado?",
+        "a1": "As abas estruturadas (Jogador, Mii, Mapa) cobrem os campos que o editor sabe renderizar com rótulos e seletores apropriados. A seção Avançado, no final de cada aba, é um navegador de entradas brutas que lista todas as chaves encontradas no save, incluindo as que ainda não têm uma interface amigável. Use-a se precisar inspecionar ou editar algo que as abas estruturadas não expõem.",
+        "a2": "Trate como território de usuário avançado. Alguns campos são crípticos, e editá-los às cegas é uma boa forma de corromper um save: faça backup antes. Qualquer coisa feita aqui é por sua conta e risco."
+      },
+      "hashes": {
+        "q": "Por que algumas entradas aparecem como números ou nomes desconhecidos?",
+        "a": "Os arquivos de save referenciam o conteúdo (roupas, comidas, tesouros, estilos de cômodo, etc.) por hash, não por nome legível. O editor traz uma lista de hashes que traduz o máximo possível desses hashes de volta para nomes. Quando uma entrada aparece como número hexadecimal ou como \"Unknown\", é porque é um hash que ainda não está na lista. Se você identificar um, por favor abra uma issue ou compartilhe no Discord para que ele seja adicionado para todo mundo."
+      },
+      "stable_beta": {
+        "q": "Stable ou Beta, qual devo usar?",
+        "stable_label": "Stable",
+        "stable_body": "a versão que você provavelmente deve usar. É a versão testada e polida do editor, em que as funcionalidades têm menos chance de estar quebradas e os bugs têm menos chance de causar corrupção. Boa para a maioria das pessoas, especialmente se você está começando a editar saves.",
+        "beta_label": "Beta",
+        "beta_body": "a versão experimental, em que as funcionalidades novas chegam primeiro. Espere mais bugs e comportamentos quebrados ocasionais. Útil se você quer testar algo que ainda não está na Stable, ou se uma correção que você reportou acabou de ser mesclada.",
+        "switch_hint": "Você pode alternar entre as duas pelo link ao lado do selo de versão no cabeçalho. Independente da escolha, sempre faça backup dos seus saves antes."
+      },
+      "translation": {
+        "q": "Como adiciono uma tradução?",
+        "a_prefix": "Veja a ",
+        "a_link": "seção \"Adding a Localization\" no README do repositório",
+        "a_suffix": ", ela tem todos os passos."
+      },
+      "bug": {
+        "q": "Encontrei um bug",
+        "intro_prefix": "Por favor, abra uma issue no GitHub: o link \"Report an issue\" no rodapé leva direto ao formulário, ou você pode usar ",
+        "intro_link": "este link",
+        "intro_suffix": ". Coisas úteis para incluir:",
+        "item_what": "O que você estava tentando fazer.",
+        "item_actual": "O que aconteceu no lugar.",
+        "item_version": "Se você estava na Stable ou na Beta, e o número da versão no cabeçalho.",
+        "item_screenshot": "Um screenshot, se for um problema de interface.",
+        "item_save": "O arquivo de save em si, se você se sentir à vontade para compartilhá-lo. Saves ajudam a reproduzir um bug muito mais rápido do que descrições.",
+        "discord_prefix": "Se preferir não abrir uma issue, o ",
+        "discord_link": "Discord",
+        "discord_suffix": " também serve."
+      },
+      "cant_do_x": {
+        "q": "Não consigo fazer X",
+        "intro": "Se algo que você quer editar não está nas abas estruturadas, é quase sempre por uma destas duas razões:",
+        "item_unmapped": "Ninguém ainda mapeou esse campo para o editor: o dado está no save, mas nenhuma interface foi construída para ele.",
+        "item_unsafe": "O campo não pode ser editado sozinho com segurança: ele pode ser derivado de outros valores, ou fazer parte de uma estrutura em que mudar uma peça sem o resto corromperia o save.",
+        "outro": "Em qualquer caso, o caminho certo é abrir uma issue ou perguntar no Discord descrevendo o que você quer mudar. Funcionalidades novas são priorizadas com base no que as pessoas realmente pedem."
+      }
+    }
   }
 }
