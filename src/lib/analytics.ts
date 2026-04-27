@@ -14,7 +14,6 @@ type Events = {
 
 type Umami = {
   track: (name: string, data?: Record<string, unknown>) => void;
-  identify: (data: Record<string, unknown>) => void;
 };
 
 declare global {
@@ -26,21 +25,4 @@ declare global {
 export function track<K extends keyof Events>(name: K, data: Events[K]): void {
   if (typeof window === 'undefined') return;
   window.umami?.track(name, data);
-}
-
-export function identify(data: Record<string, unknown>): void {
-  if (typeof window === 'undefined') return;
-  if (window.umami) {
-    window.umami.identify(data);
-    return;
-  }
-  const start = Date.now();
-  const tick = (): void => {
-    if (window.umami) {
-      window.umami.identify(data);
-    } else if (Date.now() - start < 10_000) {
-      setTimeout(tick, 200);
-    }
-  };
-  setTimeout(tick, 200);
 }
