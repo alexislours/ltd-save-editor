@@ -1,0 +1,172 @@
+{
+  "names": [
+    "TalkStart",
+    "TalkEnd",
+    "Phrase",
+    "Happy",
+    "Sad",
+    "Angry",
+    "Greeting",
+    "TalkInSleep",
+    "ShoutToSea",
+    "BeforeEat"
+  ],
+  "labels": {
+    "CNzh": {
+      "TalkStart": "讲话开头",
+      "TalkEnd": "讲话结尾",
+      "Phrase": "可能会说的话语",
+      "Happy": "开心时",
+      "Sad": "难过时",
+      "Angry": "生气时",
+      "Greeting": "打招呼",
+      "TalkInSleep": "梦话",
+      "ShoutToSea": "面朝大海呐喊的话语",
+      "BeforeEat": "用餐前的话语"
+    },
+    "EUde": {
+      "TalkStart": "Beginn einer Aussage",
+      "TalkEnd": "Ende einer Aussage",
+      "Phrase": "Typische Phrase",
+      "Happy": "Glückliche Momente",
+      "Sad": "Traurige Momente",
+      "Angry": "Momente der Wut",
+      "Greeting": "Begrüßung",
+      "TalkInSleep": "Im Schlaf",
+      "ShoutToSea": "Aufs Meer rausschreien",
+      "BeforeEat": "Vor dem Essen"
+    },
+    "EUen": {
+      "TalkStart": "Starting a sentence",
+      "TalkEnd": "Ending a sentence",
+      "Phrase": "A pet phrase",
+      "Happy": "When happy",
+      "Sad": "When sad",
+      "Angry": "When angry",
+      "Greeting": "Greeting",
+      "TalkInSleep": "While sleeping",
+      "ShoutToSea": "Shouted at the sea",
+      "BeforeEat": "Before eating"
+    },
+    "EUes": {
+      "TalkStart": "Al inicio de frase",
+      "TalkEnd": "Al final de frase",
+      "Phrase": "Expresión habitual",
+      "Happy": "Situaciones felices",
+      "Sad": "Situaciones tristes",
+      "Angry": "Situaciones indignantes",
+      "Greeting": "Al saludar",
+      "TalkInSleep": "En sueños",
+      "ShoutToSea": "Al gritar al mar",
+      "BeforeEat": "Justo antes de comer"
+    },
+    "EUfr": {
+      "TalkStart": "En début de phrase",
+      "TalkEnd": "En fin de phrase",
+      "Phrase": "Expression typique",
+      "Happy": "Bonheur",
+      "Sad": "Tristesse",
+      "Angry": "Colère",
+      "Greeting": "Salutation",
+      "TalkInSleep": "En dormant",
+      "ShoutToSea": "Cri à la mer",
+      "BeforeEat": "Avant de manger"
+    },
+    "EUit": {
+      "TalkStart": "A inizio discorso",
+      "TalkEnd": "A fine discorso",
+      "Phrase": "Abitualmente",
+      "Happy": "Quando è felice",
+      "Sad": "Quando è triste",
+      "Angry": "Quando si arrabbia",
+      "Greeting": "Quando saluta",
+      "TalkInSleep": "Quando dorme",
+      "ShoutToSea": "Urlando al mare",
+      "BeforeEat": "Prima di mangiare"
+    },
+    "EUnl": {
+      "TalkStart": "Begin van een zin",
+      "TalkEnd": "Einde van een zin",
+      "Phrase": "Typische uitspraak",
+      "Happy": "Vrolijke momenten",
+      "Sad": "Droevige momenten",
+      "Angry": "Boze momenten",
+      "Greeting": "Groet",
+      "TalkInSleep": "Tijdens het slapen",
+      "ShoutToSea": "Uitroep naar zee",
+      "BeforeEat": "Voor het eten"
+    },
+    "JPja": {
+      "TalkStart": "話し始め",
+      "TalkEnd": "話し終わり",
+      "Phrase": "言いそうなことば",
+      "Happy": "うれしいとき",
+      "Sad": "悲しいとき",
+      "Angry": "怒ったとき",
+      "Greeting": "あいさつ",
+      "TalkInSleep": "寝言",
+      "ShoutToSea": "海に叫ぶことば",
+      "BeforeEat": "食事前のあいさつ"
+    },
+    "KRko": {
+      "TalkStart": "대화를 시작할 때",
+      "TalkEnd": "대화를 끝낼 때",
+      "Phrase": "많이 쓸 것 같은 말",
+      "Happy": "기쁠 때",
+      "Sad": "슬플 때",
+      "Angry": "화날 때",
+      "Greeting": "인사",
+      "TalkInSleep": "잠꼬대",
+      "ShoutToSea": "바다에서 외치고 싶은 말",
+      "BeforeEat": "밥 먹기 전 인사"
+    },
+    "TWzh": {
+      "TalkStart": "開頭話語",
+      "TalkEnd": "結尾話語",
+      "Phrase": "可能會說的話語",
+      "Happy": "開心時",
+      "Sad": "難過時",
+      "Angry": "生氣時",
+      "Greeting": "打招呼",
+      "TalkInSleep": "夢話",
+      "ShoutToSea": "對著大海吶喊的話語",
+      "BeforeEat": "用餐前的話語"
+    },
+    "USen": {
+      "TalkStart": "Starting a sentence",
+      "TalkEnd": "Ending a sentence",
+      "Phrase": "As a catchphrase",
+      "Happy": "When happy",
+      "Sad": "When sad",
+      "Angry": "When angry",
+      "Greeting": "When greeting",
+      "TalkInSleep": "While sleeping",
+      "ShoutToSea": "Shouted at the sea",
+      "BeforeEat": "Before eating"
+    },
+    "USes": {
+      "TalkStart": "Al inicio de frase",
+      "TalkEnd": "Al final de frase",
+      "Phrase": "Expresión habitual",
+      "Happy": "Situaciones felices",
+      "Sad": "Situaciones tristes",
+      "Angry": "Situaciones molestas",
+      "Greeting": "Al saludar",
+      "TalkInSleep": "En sueños",
+      "ShoutToSea": "Al gritar al mar",
+      "BeforeEat": "Justo antes de comer"
+    },
+    "USfr": {
+      "TalkStart": "En début de phrase",
+      "TalkEnd": "En fin de phrase",
+      "Phrase": "Expression habituelle",
+      "Happy": "Bonheur",
+      "Sad": "Tristesse",
+      "Angry": "Colère",
+      "Greeting": "Salutation",
+      "TalkInSleep": "En dormant",
+      "ShoutToSea": "Cri à la mer",
+      "BeforeEat": "Avant de manger"
+    }
+  }
+}

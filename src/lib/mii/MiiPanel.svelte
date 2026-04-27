@@ -15,6 +15,7 @@
   import MiiRelationsTable from './MiiRelationsTable.svelte';
   import MiiSlotSelector from './MiiSlotSelector.svelte';
   import MiiVoiceEditor from './MiiVoiceEditor.svelte';
+  import MiiWordsEditor from './MiiWordsEditor.svelte';
   import { miiState } from './miiEditor.svelte';
   import { MII_SECTIONS, NAME_FIELD_HASH, type MiiField } from './miiFields';
 
@@ -179,6 +180,14 @@
         </div>
       </section>
     {/if}
+
+    <section class={CARD_CLASS}>
+      <h3 class="text-base font-bold text-content-strong">{$_('mii.sections.words')}</h3>
+      <p class="mt-0.5 text-xs text-content-muted">{$_('mii.sections.words_caption')}</p>
+      <div class="mt-4">
+        <MiiWordsEditor {entries} miiIndex={selectedIndex} />
+      </div>
+    </section>
 
     <MiiRelationsTable {entries} miiIndex={selectedIndex} />
   {/if}

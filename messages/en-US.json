@@ -286,7 +286,9 @@
       "mood": "Mood",
       "voice": "Voice",
       "voice_caption": "Sliders cover 0-50 (51 steps). Picking a Simple preset overwrites every slider.",
-      "food": "Food"
+      "food": "Food",
+      "words": "Words",
+      "words_caption": "Custom phrases this Mii speaks during dialogue."
     },
     "spoiler": {
       "warning": "Spoiler warning",
@@ -431,6 +433,26 @@
         "Robot L": "Robot L",
         "Robot S": "Robot S"
       }
+    },
+    "words": {
+      "missing": "This save doesn't expose the Mii Words arrays.",
+      "summary": "{filled} of {total} slots filled",
+      "show_empty": "Show empty slots",
+      "add_slot": "Add slot",
+      "empty_hint": "No words yet. Use \"Add slot\" to create one.",
+      "kind_label": "Mood",
+      "kind_invalid": "(empty slot)",
+      "region_label": "Word region",
+      "text_label": "Word text",
+      "text_placeholder": "What this Mii says…",
+      "how_label": "Pronunciation",
+      "how_placeholder": "Same as Word text",
+      "how_hint": "Phonetic spelling used by voice playback. Leave blank to mirror Word text.",
+      "clear_action": "Clear",
+      "clear_tip": "Empty this slot",
+      "clear_confirm": "Clear this word slot? Mood, text and pronunciation will be reset.",
+      "error_too_long": "Max {max} characters",
+      "error_split_surrogate": "Last character splits an emoji — drop one"
     },
     "pronoun": {
       "He": "He/Him",

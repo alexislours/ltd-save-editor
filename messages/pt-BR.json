@@ -191,7 +191,9 @@
       "mood": "Humor",
       "voice": "Voz",
       "voice_caption": "Os controles deslizantes vão de 0 a 50 (51 etapas). Escolher uma predefinição Simples substitui todos os controles.",
-      "food": "Comida"
+      "food": "Comida",
+      "words": "Palavras",
+      "words_caption": "Frases personalizadas que este Mii fala em diálogos."
     },
     "spoiler": {
       "warning": "Aviso de spoiler",
@@ -336,6 +338,26 @@
         "Robot L": "Robô G",
         "Robot S": "Robô P"
       }
+    },
+    "words": {
+      "missing": "Este save não expõe os arrays de palavras do Mii.",
+      "summary": "{filled} de {total} espaços preenchidos",
+      "show_empty": "Mostrar espaços vazios",
+      "add_slot": "Adicionar espaço",
+      "empty_hint": "Nenhuma palavra ainda. Use \"Adicionar espaço\" para criar uma.",
+      "kind_label": "Humor",
+      "kind_invalid": "(espaço vazio)",
+      "region_label": "Região da palavra",
+      "text_label": "Texto da palavra",
+      "text_placeholder": "O que este Mii diz…",
+      "how_label": "Pronúncia",
+      "how_placeholder": "Igual ao texto da palavra",
+      "how_hint": "Grafia fonética usada pela voz. Deixe em branco para reaproveitar o texto da palavra.",
+      "clear_action": "Limpar",
+      "clear_tip": "Esvazia este espaço",
+      "clear_confirm": "Limpar este espaço de palavra? Humor, texto e pronúncia serão redefinidos.",
+      "error_too_long": "Máximo de {max} caracteres",
+      "error_split_surrogate": "O último caractere divide um emoji — remova um"
     },
     "pronoun": {
       "He": "Ele/Dele",

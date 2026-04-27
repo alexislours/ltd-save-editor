@@ -191,7 +191,9 @@
       "mood": "Humeur",
       "voice": "Voix",
       "voice_caption": "Les curseurs vont de 0 à 50 (51 pas). Choisir un préréglage Simple écrase tous les curseurs.",
-      "food": "Nourriture"
+      "food": "Nourriture",
+      "words": "Mots",
+      "words_caption": "Phrases personnalisées que ce Mii dit dans les dialogues."
     },
     "spoiler": {
       "warning": "Avertissement spoiler",
@@ -336,6 +338,26 @@
         "Robot L": "Robot grave",
         "Robot S": "Robot aigu"
       }
+    },
+    "words": {
+      "missing": "Cette sauvegarde n'expose pas les tableaux de mots du Mii.",
+      "summary": "{filled} emplacements remplis sur {total}",
+      "show_empty": "Afficher les emplacements vides",
+      "add_slot": "Ajouter un emplacement",
+      "empty_hint": "Aucun mot pour le moment. Utilisez « Ajouter un emplacement » pour en créer un.",
+      "kind_label": "Humeur",
+      "kind_invalid": "(emplacement vide)",
+      "region_label": "Région du mot",
+      "text_label": "Texte du mot",
+      "text_placeholder": "Ce que ce Mii dit…",
+      "how_label": "Prononciation",
+      "how_placeholder": "Identique au texte du mot",
+      "how_hint": "Orthographe phonétique utilisée par la voix. Laissez vide pour reprendre le texte du mot.",
+      "clear_action": "Vider",
+      "clear_tip": "Vide cet emplacement",
+      "clear_confirm": "Vider cet emplacement de mot ? L'humeur, le texte et la prononciation seront réinitialisés.",
+      "error_too_long": "Maximum {max} caractères",
+      "error_split_surrogate": "Le dernier caractère coupe un emoji — retirez-en un"
     },
     "pronoun": {
       "He": "Il/Lui",
