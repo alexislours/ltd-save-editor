@@ -17,5 +17,6 @@
     "moduleDetection": "force",
     "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "messages/*.json"]
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "messages/*.json"],
+  "exclude": ["src/**/*.test.ts"]
 }

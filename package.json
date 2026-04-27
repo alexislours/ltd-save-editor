@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
+    "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json && tsc -p tsconfig.test.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "i18n:check": "node tools/i18n-sync.ts check",
@@ -36,6 +38,7 @@
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.0",
     "vite": "^8.0.10",
+    "vitest": "^4.1.5",
     "wrangler": "^4.85.0"
   },
   "dependencies": {
