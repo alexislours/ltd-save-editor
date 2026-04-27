@@ -75,7 +75,7 @@
       isBeta ? 'bg-beta/90 ring-1 ring-beta-edge/70' : 'bg-header/90 ring-1 ring-edge/60',
     ]}
   >
-    <div class="mx-auto flex w-full max-w-5xl items-start justify-between gap-4 px-6 pt-6">
+    <div class="mx-auto flex w-full max-w-6xl items-start justify-between gap-4 px-6 pt-6">
       <div>
         <p
           class={[
@@ -128,7 +128,7 @@
       </div>
     </div>
 
-    <nav class="mx-auto mt-4 flex w-full max-w-5xl flex-wrap gap-2 px-6 pb-4" aria-label="Sections">
+    <nav class="mx-auto mt-4 flex w-full max-w-6xl flex-wrap gap-2 px-6 pb-4" aria-label="Sections">
       {#each tabs as tab (tab.href)}
         {@const active = path === tab.href}
         <a
@@ -158,7 +158,7 @@
     </nav>
   </header>
 
-  <div class="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
+  <div class="mx-auto w-full max-w-6xl flex-1 px-6 py-10">
     {@render children()}
   </div>
 
