@@ -663,6 +663,8 @@
       "tool_brush_title": "Pinceau (clic + glisser pour peindre)",
       "tool_fill": "Remplir",
       "tool_fill_title": "Pot de peinture (clic pour remplir une zone)",
+      "tool_rectangle": "Rectangle",
+      "tool_rectangle_title": "Rectangle (clic + glisser pour remplir une zone rectangulaire)",
       "tool_picker": "Pipette",
       "tool_picker_title": "Pipette (clic pour échantillonner une tuile de la carte)",
       "undo": "Annuler",

@@ -663,6 +663,8 @@
       "tool_brush_title": "Pincel (clique + arraste para pintar)",
       "tool_fill": "Preencher",
       "tool_fill_title": "Balde (clique para preencher área)",
+      "tool_rectangle": "Retângulo",
+      "tool_rectangle_title": "Retângulo (clique + arraste para preencher uma área retangular)",
       "tool_picker": "Conta-gotas",
       "tool_picker_title": "Conta-gotas (clique para copiar um piso do mapa)",
       "undo": "Desfazer",

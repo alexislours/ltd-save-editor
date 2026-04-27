@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { inBounds, indexFromXY, MAP_HEIGHT, MAP_WIDTH, mapState } from './mapEditor.svelte';
   import { packColorRGBA, tileColorForHash } from './tiles';
-  import { BrushStroke, floodFill, type ToolKind } from './tools';
+  import { BrushStroke, floodFill, RectangleStroke, type ToolKind } from './tools';
 
   type Props = {
     tileSize: number;
@@ -20,7 +20,7 @@
   let offImage: ImageData;
   let offBuf32: Uint32Array;
 
-  let stroke: BrushStroke | null = null;
+  let stroke: BrushStroke | RectangleStroke | null = null;
   let picking = false;
 
   onMount(() => {
@@ -105,6 +105,10 @@
     }
     if (tool === 'fill') {
       floodFill(c.x, c.y, selectedTileHash);
+      return;
+    }
+    if (tool === 'rectangle') {
+      stroke = new RectangleStroke(selectedTileHash, c.x, c.y);
       return;
     }
     stroke = new BrushStroke(selectedTileHash, c.x, c.y);

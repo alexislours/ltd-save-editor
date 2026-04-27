@@ -663,6 +663,8 @@
       "tool_brush_title": "Brush (click + drag to paint)",
       "tool_fill": "Fill",
       "tool_fill_title": "Bucket (click to flood fill)",
+      "tool_rectangle": "Rectangle",
+      "tool_rectangle_title": "Rectangle (click + drag to fill a rectangular area)",
       "tool_picker": "Picker",
       "tool_picker_title": "Picker (click to sample a tile from the map)",
       "undo": "Undo",
