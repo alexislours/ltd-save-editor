@@ -1,26 +1,15 @@
 <script lang="ts">
-  import {
-    arrayCount,
-    arrSetBool,
-    arrSetEnum,
-    arrSetFloat,
-    arrSetInt,
-    arrSetInt64,
-    arrSetString,
-    arrSetUInt,
-    arrSetUInt64,
-    hasIndexedElementEditor,
-    isArrayType,
-  } from '../sav/codec';
+  import { arrayCount, hasIndexedElementEditor, isArrayType } from '../sav/codec';
   import { _ } from 'svelte-i18n';
   import { DataType, DataTypeName } from '../sav/dataType';
-  import { hexU32, parseMaybeHex } from '../sav/format';
+  import { hexU32 } from '../sav/format';
   import { enumOptionsFor } from '../sav/knownKeys';
   import type { Entry } from '../sav/types';
   import { markDirty as playerMarkDirty } from '../playerEditor.svelte';
   import { INPUT_CLASS, MONO_INPUT_CLASS, PILL_BUTTON_CLASS } from '../styles';
   import ArrayElementEditor from './ArrayElementEditor.svelte';
   import EntryEditor from './EntryEditor.svelte';
+  import { arrayElementScalarAccess, parseBulkValueForArrayType } from './scalarFieldAccess';
 
   type Props = {
     entry: Entry;
@@ -51,62 +40,18 @@
 
   function applyBulk(): void {
     bulkError = null;
-    const input = bulkInput;
+    const parsed = parseBulkValueForArrayType(entry.type, bulkInput);
+    if (!parsed.ok) {
+      bulkError = parsed.error;
+      return;
+    }
+    const value = parsed.value;
     try {
-      switch (entry.type) {
-        case DataType.BoolArray: {
-          const v = input.trim().toLowerCase();
-          if (v !== 'true' && v !== 'false') throw new Error('Enter "true" or "false"');
-          const bool = v === 'true';
-          for (let i = 0; i < count; i++) arrSetBool(entry, i, bool);
-          break;
-        }
-        case DataType.IntArray: {
-          const n = Number(input);
-          if (!Number.isFinite(n)) throw new Error('Enter an integer');
-          for (let i = 0; i < count; i++) arrSetInt(entry, i, Math.trunc(n));
-          break;
-        }
-        case DataType.UIntArray: {
-          const n = Number(input);
-          if (!Number.isFinite(n) || n < 0) throw new Error('Enter a non-negative integer');
-          for (let i = 0; i < count; i++) arrSetUInt(entry, i, Math.trunc(n));
-          break;
-        }
-        case DataType.FloatArray: {
-          const n = Number(input);
-          if (!Number.isFinite(n)) throw new Error('Enter a number');
-          for (let i = 0; i < count; i++) arrSetFloat(entry, i, n);
-          break;
-        }
-        case DataType.EnumArray: {
-          const n = parseMaybeHex(input);
-          if (n == null) throw new Error('Enter decimal or 0x-hex');
-          for (let i = 0; i < count; i++) arrSetEnum(entry, i, n);
-          break;
-        }
-        case DataType.Int64Array: {
-          const n = BigInt(input.trim());
-          for (let i = 0; i < count; i++) arrSetInt64(entry, i, n);
-          break;
-        }
-        case DataType.UInt64Array: {
-          const n = BigInt(input.trim());
-          if (n < 0n) throw new Error('Enter a non-negative integer');
-          for (let i = 0; i < count; i++) arrSetUInt64(entry, i, n);
-          break;
-        }
-        case DataType.String16Array:
-        case DataType.String32Array:
-        case DataType.String64Array:
-        case DataType.WString16Array:
-        case DataType.WString32Array:
-        case DataType.WString64Array: {
-          for (let i = 0; i < count; i++) arrSetString(entry, i, input);
-          break;
-        }
-        default:
-          throw new Error('Bulk edit not supported for this type');
+      for (let i = 0; i < count; i++) {
+        const access = arrayElementScalarAccess(entry, i);
+        if (!access) throw new Error('Bulk edit not supported for this type');
+        // The parser guarantees `value` matches `access.kind` for this entry type.
+        (access.write as (v: typeof value) => void)(value);
       }
       markDirty(entry);
       bulkTick++;
