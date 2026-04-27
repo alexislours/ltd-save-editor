@@ -7,12 +7,14 @@ import { loadFoodList } from './lib/sav/foodList.svelte';
 import { loadHashList } from './lib/sav/hashList.svelte';
 import { loadRoomStyleList } from './lib/sav/roomStyleList.svelte';
 import { loadTreasureList } from './lib/sav/treasureList.svelte';
+import { loadTroubleList } from './lib/sav/troubleList.svelte';
 
 loadHashList();
 loadFoodList();
 loadClothList();
 loadTreasureList();
 loadRoomStyleList();
+loadTroubleList();
 
 const app = mount(App, {
   target: document.getElementById('app')!,

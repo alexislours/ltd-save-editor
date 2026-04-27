@@ -88,13 +88,17 @@
               {:else if id === 'stable_beta'}
                 <ul class={listClass}>
                   <li>
-                    <strong class="text-content-strong">{$_('faq.items.stable_beta.stable_label')}</strong>
+                    <strong class="text-content-strong"
+                      >{$_('faq.items.stable_beta.stable_label')}</strong
+                    >
                     (<a href={stableUrl} target="_blank" rel="noopener noreferrer" class={linkClass}
                       >ltd-save-editor.pages.dev</a
                     >) - {$_('faq.items.stable_beta.stable_body')}
                   </li>
                   <li>
-                    <strong class="text-content-strong">{$_('faq.items.stable_beta.beta_label')}</strong>
+                    <strong class="text-content-strong"
+                      >{$_('faq.items.stable_beta.beta_label')}</strong
+                    >
                     (<a href={betaUrl} target="_blank" rel="noopener noreferrer" class={linkClass}
                       >beta.ltd-save-editor.pages.dev</a
                     >) - {$_('faq.items.stable_beta.beta_body')}

@@ -6,6 +6,7 @@
   import SubTabs from '../lib/SubTabs.svelte';
   import MiiPanel from '../lib/mii/MiiPanel.svelte';
   import MiiRelationsGraph from '../lib/mii/MiiRelationsGraph.svelte';
+  import MiiTroublePanel from '../lib/mii/MiiTroublePanel.svelte';
   import { downloadModified, markDirty, miiState, syncFromSave } from '../lib/mii/miiEditor.svelte';
   import { _ } from 'svelte-i18n';
   import { getSave } from '../lib/saveFile.svelte';
@@ -16,7 +17,7 @@
     syncFromSave();
   });
 
-  type SubTab = 'profile' | 'relationships' | 'advanced';
+  type SubTab = 'profile' | 'relationships' | 'troubles' | 'advanced';
   let subTab = $state<SubTab>('profile');
 
   let selectedIndex = $state<number | null>(null);
@@ -24,6 +25,7 @@
   const SUB_TABS: { value: SubTab; label: string }[] = $derived([
     { value: 'profile', label: $_('mii.subtab_profile') },
     { value: 'relationships', label: $_('mii.subtab_relationships') },
+    { value: 'troubles', label: $_('mii.subtab_troubles') },
     { value: 'advanced', label: $_('tab.advanced') },
   ]);
 
@@ -59,6 +61,8 @@
           {selectedIndex}
           onSelect={(i) => (selectedIndex = i)}
         />
+      {:else if subTab === 'troubles'}
+        <MiiTroublePanel entries={parsed.entries} bind:selectedIndex />
       {:else}
         <AdvancedPanel entries={parsed.entries} {markDirty} parseSignal={miiState.parsed} />
       {/if}
