@@ -547,14 +547,8 @@
               onclick={revertAll}
               title={$_('mii.troubles.revert_tip')}
             >
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 16 16"
-                class="h-3.5 w-3.5 fill-current"
-              >
-                <path
-                  d="M5 4V1L0 5l5 4V6h6a3 3 0 0 1 0 6H4v2h7a5 5 0 0 0 0-10H5z"
-                />
+              <svg aria-hidden="true" viewBox="0 0 16 16" class="h-3.5 w-3.5 fill-current">
+                <path d="M5 4V1L0 5l5 4V6h6a3 3 0 0 1 0 6H4v2h7a5 5 0 0 0 0-10H5z" />
               </svg>
               {$_('mii.troubles.revert_action')}
             </button>
@@ -565,11 +559,7 @@
                 onclick={() => commitTroubleId('0')}
                 title={$_('mii.troubles.reset_trouble_tip')}
               >
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 16 16"
-                  class="h-3.5 w-3.5 fill-current"
-                >
+                <svg aria-hidden="true" viewBox="0 0 16 16" class="h-3.5 w-3.5 fill-current">
                   <path
                     d="M12.71 4.71 11.29 3.29 8 6.59 4.71 3.29 3.29 4.71 6.59 8l-3.3 3.29 1.42 1.42L8 9.41l3.29 3.3 1.42-1.42L9.41 8z"
                   />

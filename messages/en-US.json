@@ -37,6 +37,24 @@
     "wrong_tab": "{actual} belongs in the {correctTab} tab, not the {expectedTab} tab.",
     "unrecognized_file": "{actual} isn't a recognised save file. Expected Player.sav, Mii.sav, or Map.sav."
   },
+  "bulk": {
+    "drop_hint": "Drop one or more .sav files, a folder, or a .zip. Each file is routed to the right tab.",
+    "open_all": "Open files…",
+    "export_all": "Export all ({count})",
+    "loaded_count": "Loaded {count, plural, one {# save} other {# saves}}",
+    "skipped_count": "{count, plural, one {# file skipped} other {# files skipped}} (unrecognised).",
+    "none_recognized": "No recognised save files found. Expected Player.sav, Mii.sav, or Map.sav.",
+    "overwrite_title": "Replace already-loaded saves?",
+    "overwrite_intro": "The following tabs already have a save loaded. Continuing will replace them with the new files:",
+    "overwrite_warning": "any unsaved edits in those tabs will be lost. Make sure you've downloaded any changes first.",
+    "overwrite_confirm": "Replace",
+    "clear_all": "Clear all",
+    "clear_title": "Clear loaded saves?",
+    "clear_intro": "This will remove the following saves from the editor:",
+    "clear_warning": "any unsaved edits will be lost. Make sure you've downloaded any changes first.",
+    "clear_confirm": "Clear",
+    "cancel": "Cancel"
+  },
   "player": {
     "title": "Player",
     "description": "Core player stats and game progress.",

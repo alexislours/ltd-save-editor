@@ -1,19 +1,15 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
   import { track } from './analytics';
-  import {
-    detectSaveKindFromBytes,
-    detectSaveKindFromName,
-    expectedFileName,
-    setSaveFromFile,
-    type SaveKind,
-  } from './saveFile.svelte';
+  import { bulkLoadFiles, bulkLoadFromDataTransfer } from './bulkLoader.svelte';
+  import { expectedFileName, type SaveKind } from './saveFile.svelte';
 
   type Props = { kind: SaveKind };
   let { kind }: Props = $props();
 
   let dragging = $state(false);
   let error = $state<string | null>(null);
+  let summary = $state<{ loaded: SaveKind[]; skipped: number } | null>(null);
   let fileInput: HTMLInputElement;
 
   const baseClass =
@@ -21,47 +17,38 @@
   const draggingClass = 'border-orange-500 bg-surface-sunken';
   const idleClass = 'border-edge/70 hover:border-orange-500';
 
-  async function handleFile(file: File | undefined): Promise<void> {
-    if (!file) return;
+  function reset(): void {
     error = null;
-    let bytes: Uint8Array;
-    try {
-      bytes = new Uint8Array(await file.arrayBuffer());
-    } catch {
-      error = $_('save.read_failed');
-      track('save_load_failed', { kind, reason: 'read_failed' });
-      return;
-    }
-    const detected = detectSaveKindFromBytes(bytes) ?? detectSaveKindFromName(file.name);
-    if (detected === null) {
-      error = $_('save.unrecognized_file', { values: { actual: file.name } });
+    summary = null;
+  }
+
+  function reportOutcome(loaded: SaveKind[], skipped: number, totalSeen: number): void {
+    if (loaded.length === 0) {
+      if (totalSeen === 0) error = $_('save.read_failed');
+      else error = $_('bulk.none_recognized');
       track('save_load_failed', { kind, reason: 'unrecognized' });
       return;
     }
-    if (detected !== kind) {
-      error = $_('save.wrong_tab', {
-        values: {
-          actual: file.name,
-          expectedTab: $_(`tab.${kind}`),
-          correctTab: $_(`tab.${detected}`),
-        },
-      });
-      track('save_load_failed', { kind, reason: 'wrong_tab' });
-      return;
-    }
-    try {
-      await setSaveFromFile(kind, file);
-      track('save_loaded', { kind, size: file.size });
-    } catch (e) {
-      error = e instanceof Error ? e.message : $_('save.read_failed');
-      track('save_load_failed', { kind, reason: 'set_failed' });
-    }
+    summary = { loaded, skipped };
   }
 
-  function onDrop(event: DragEvent): void {
+  async function handleFiles(files: File[]): Promise<void> {
+    reset();
+    if (files.length === 0) return;
+    const outcome = await bulkLoadFiles(files);
+    if (outcome.cancelled) return;
+    reportOutcome(outcome.loaded, outcome.skipped.length, files.length);
+  }
+
+  async function onDrop(event: DragEvent): Promise<void> {
     event.preventDefault();
     dragging = false;
-    void handleFile(event.dataTransfer?.files?.[0]);
+    if (!event.dataTransfer) return;
+    reset();
+    const outcome = await bulkLoadFromDataTransfer(event.dataTransfer);
+    if (outcome.cancelled) return;
+    const seen = outcome.loaded.length + outcome.skipped.length;
+    reportOutcome(outcome.loaded, outcome.skipped.length, seen);
   }
 
   function onDragOver(event: DragEvent): void {
@@ -71,7 +58,9 @@
 
   function onPick(event: Event): void {
     const target = event.target as HTMLInputElement;
-    void handleFile(target.files?.[0]);
+    const files = target.files ? Array.from(target.files) : [];
+    void handleFiles(files);
+    target.value = '';
   }
 </script>
 
@@ -103,15 +92,68 @@
     <p class="text-base font-bold text-content-strong">
       {$_('save.drop_here', { values: { fileName: expectedFileName[kind] } })}
     </p>
-    <p class="text-sm text-content-muted">{$_('save.drop_browse')}</p>
+    <p class="text-sm text-content-muted">{$_('bulk.drop_hint')}</p>
 
-    <input bind:this={fileInput} type="file" class="hidden" onchange={onPick} />
+    <button
+      type="button"
+      class="mt-2 rounded-full bg-surface-muted px-3 py-1 text-xs font-bold text-content-strong shadow-sm ring-1 ring-edge/60 transition-colors hover:bg-surface-sunken"
+      onclick={(e) => {
+        e.stopPropagation();
+        fileInput.click();
+      }}
+    >
+      {$_('save.drop_browse')}
+    </button>
+
+    <input
+      bind:this={fileInput}
+      type="file"
+      class="hidden"
+      multiple
+      accept=".sav,.zip"
+      onchange={onPick}
+    />
   </div>
 
   <p class="mt-3 text-center text-xs text-warn">
     <span class="font-semibold">{$_('save.drop_warning_label')}</span>
     {$_('save.drop_warning_text')}
   </p>
+
+  {#if summary}
+    <div
+      role="status"
+      class="mt-3 flex items-start gap-2 rounded-lg border border-edge/60 bg-surface-muted px-4 py-3 text-sm text-content shadow-sm"
+    >
+      <svg
+        class="mt-0.5 h-5 w-5 shrink-0 text-orange-500"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <div>
+        <p class="font-semibold text-content-strong">
+          {$_('bulk.loaded_count', { values: { count: summary.loaded.length } })}
+        </p>
+        <p class="mt-0.5 text-xs">
+          {summary.loaded.map((k) => $_(`tab.${k}`)).join(', ')}
+        </p>
+        {#if summary.skipped > 0}
+          <p class="mt-0.5 text-xs text-warn">
+            {$_('bulk.skipped_count', { values: { count: summary.skipped } })}
+          </p>
+        {/if}
+      </div>
+    </div>
+  {/if}
 
   {#if error}
     <div

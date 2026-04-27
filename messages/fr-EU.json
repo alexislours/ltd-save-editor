@@ -37,6 +37,24 @@
     "wrong_tab": "{actual} se place dans l'onglet {correctTab}, pas dans l'onglet {expectedTab}.",
     "unrecognized_file": "{actual} n'est pas un fichier de sauvegarde reconnu. Player.sav, Mii.sav ou Map.sav attendu."
   },
+  "bulk": {
+    "drop_hint": "Dépose un ou plusieurs fichiers .sav, un dossier ou un .zip. Chaque fichier est dirigé vers le bon onglet.",
+    "open_all": "Ouvrir des fichiers…",
+    "export_all": "Tout exporter ({count})",
+    "loaded_count": "{count, plural, one {# sauvegarde chargée} other {# sauvegardes chargées}}",
+    "skipped_count": "{count, plural, one {# fichier ignoré} other {# fichiers ignorés}} (non reconnu).",
+    "none_recognized": "Aucun fichier de sauvegarde reconnu. Player.sav, Mii.sav ou Map.sav attendu.",
+    "overwrite_title": "Remplacer les sauvegardes déjà chargées ?",
+    "overwrite_intro": "Les onglets suivants contiennent déjà une sauvegarde. Continuer les remplacera par les nouveaux fichiers :",
+    "overwrite_warning": "toutes les modifications non enregistrées dans ces onglets seront perdues. Assure-toi d'avoir téléchargé tes changements avant.",
+    "overwrite_confirm": "Remplacer",
+    "clear_all": "Tout effacer",
+    "clear_title": "Effacer les sauvegardes chargées ?",
+    "clear_intro": "Cela retirera les sauvegardes suivantes de l'éditeur :",
+    "clear_warning": "toutes les modifications non enregistrées seront perdues. Assure-toi d'avoir téléchargé tes changements avant.",
+    "clear_confirm": "Effacer",
+    "cancel": "Annuler"
+  },
   "player": {
     "title": "Joueur",
     "description": "Statistiques principales du joueur et progression de la partie.",

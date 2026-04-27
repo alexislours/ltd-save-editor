@@ -37,6 +37,24 @@
     "wrong_tab": "{actual} pertence à aba {correctTab}, não à aba {expectedTab}.",
     "unrecognized_file": "{actual} não é um arquivo de save reconhecido. Esperado Player.sav, Mii.sav ou Map.sav."
   },
+  "bulk": {
+    "drop_hint": "Solte um ou mais arquivos .sav, uma pasta ou um .zip. Cada arquivo é direcionado para a aba certa.",
+    "open_all": "Abrir arquivos…",
+    "export_all": "Exportar tudo ({count})",
+    "loaded_count": "{count, plural, one {# save carregado} other {# saves carregados}}",
+    "skipped_count": "{count, plural, one {# arquivo ignorado} other {# arquivos ignorados}} (não reconhecido).",
+    "none_recognized": "Nenhum arquivo de save reconhecido. Esperado Player.sav, Mii.sav ou Map.sav.",
+    "overwrite_title": "Substituir saves já carregados?",
+    "overwrite_intro": "As abas a seguir já possuem um save carregado. Continuar irá substituí-los pelos novos arquivos:",
+    "overwrite_warning": "todas as edições não salvas nessas abas serão perdidas. Certifique-se de ter baixado suas alterações antes.",
+    "overwrite_confirm": "Substituir",
+    "clear_all": "Limpar tudo",
+    "clear_title": "Limpar saves carregados?",
+    "clear_intro": "Isto irá remover os seguintes saves do editor:",
+    "clear_warning": "todas as edições não salvas serão perdidas. Certifique-se de ter baixado suas alterações antes.",
+    "clear_confirm": "Limpar",
+    "cancel": "Cancelar"
+  },
   "player": {
     "title": "Jogador",
     "description": "Estatísticas principais do jogador e progresso do jogo.",

@@ -7,6 +7,9 @@ type Events = {
   save_load_failed: { kind: SaveKind; reason: LoadFailReason };
   save_parse_failed: { kind: SaveKind };
   save_exported: { kind: SaveKind };
+  bulk_load: { loaded: number; skipped: number; conflicts: number };
+  bulk_load_cancelled: { conflicts: number };
+  bulk_export: { count: number };
   bulk_edit_used: { field: 'state' | 'qty'; count: number };
   locale_changed: { from: string; to: string };
   theme_changed: { from: 'light' | 'dark'; to: 'light' | 'dark' };
