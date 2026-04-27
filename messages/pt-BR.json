@@ -92,6 +92,7 @@
     "subtab_foods": "Comidas",
     "subtab_clothes": "Roupas",
     "subtab_treasures": "Tesouros",
+    "subtab_interiors": "Interiores",
     "inventory": {
       "search": "Pesquisar",
       "search_placeholder": "Filtrar por nome…",
@@ -107,6 +108,8 @@
       "decrement": "Remover um",
       "expand_colors": "Mostrar variantes de cor",
       "collapse_colors": "Ocultar variantes de cor",
+      "expand_variants": "Mostrar variantes",
+      "collapse_variants": "Ocultar variantes",
       "state": {
         "Lock": "Bloqueado",
         "New": "Novo",
@@ -132,6 +135,14 @@
       "heading": "Tesouros",
       "caption": "{count, plural, one {# tesouro} other {# tesouros}} exibido(s). Marque como Obtido para adicioná-lo à sua coleção; OwnNum é a quantidade no inventário.",
       "missing": "Este save não expõe nenhuma entrada Player.GoodsInfo2, então os tesouros não podem ser editados aqui."
+    },
+    "interiors": {
+      "heading": "Interiores",
+      "caption": "{count, plural, one {# grupo de estilos} other {# grupos de estilos}} exibido(s). Marque como Obtido para desbloquear o conjunto; OwnNum é a quantidade no inventário.",
+      "missing": "Este save não expõe nenhuma entrada Player.InteriorRoomStyleInfo, então os interiores não podem ser editados aqui.",
+      "variant_note": "Os controles do grupo aplicam-se a todas as variantes. Expanda uma linha para editar uma única variante.",
+      "variant_count": "{count, plural, one {# variante} other {# variantes}}",
+      "variant_label": "Variante {index}"
     }
   },
   "mii": {
