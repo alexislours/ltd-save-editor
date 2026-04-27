@@ -12,11 +12,11 @@ export function setBool(e: Entry, v: boolean): void {
 
 export function getInt(e: Entry): number {
   assertType(e, DataType.Int);
-  return new Int32Array([e.inlineRaw ?? 0])[0];
+  return (e.inlineRaw ?? 0) | 0;
 }
 export function setInt(e: Entry, v: number): void {
   assertType(e, DataType.Int);
-  e.inlineRaw = new Uint32Array([v | 0])[0];
+  e.inlineRaw = (v | 0) >>> 0;
 }
 
 export function getUInt(e: Entry): number {
