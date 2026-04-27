@@ -3,6 +3,7 @@
   import { _ } from 'svelte-i18n';
   import { CHANGELOG } from './changelog';
   import ChangelogDialog from './ChangelogDialog.svelte';
+  import Footer from './Footer.svelte';
   import Lightbox from './Lightbox.svelte';
   import LocaleSwitcher from './LocaleSwitcher.svelte';
   import { getPath, navigate } from './navigation.svelte';
@@ -156,6 +157,8 @@
   <div class="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
     {@render children()}
   </div>
+
+  <Footer />
 </div>
 
 <ChangelogDialog bind:open={changelogOpen} onClose={() => (changelogOpen = false)} />

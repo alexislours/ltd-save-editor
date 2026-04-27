@@ -657,5 +657,12 @@
     },
     "translations_title": "Translations",
     "disclaimer": "This is an unofficial, fan-made tool. Tomodachi Life: Living the Dream is © Nintendo."
+  },
+  "footer": {
+    "github": "GitHub",
+    "github_aria": "View source on GitHub",
+    "report_issue": "Report an issue",
+    "discord": "Discord",
+    "license": "AGPL-3.0"
   }
 }

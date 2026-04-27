@@ -657,5 +657,12 @@
     },
     "translations_title": "Traductions",
     "disclaimer": "Ceci est un outil non officiel, créé par des fans. Tomodachi Life : Une vie de rêve est © Nintendo."
+  },
+  "footer": {
+    "github": "GitHub",
+    "github_aria": "Voir le code source sur GitHub",
+    "report_issue": "Signaler un problème",
+    "discord": "Discord",
+    "license": "AGPL-3.0"
   }
 }
