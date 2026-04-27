@@ -14,7 +14,8 @@
     "mii": "Mii",
     "map": "Mapa",
     "advanced": "Avançado",
-    "about": "Sobre"
+    "about": "Sobre",
+    "faq": "FAQ"
   },
   "lightbox": {
     "open": "Ampliar imagem de {label}",
@@ -35,6 +36,24 @@
     "read_failed": "Falha ao ler o arquivo",
     "wrong_tab": "{actual} pertence à aba {correctTab}, não à aba {expectedTab}.",
     "unrecognized_file": "{actual} não é um arquivo de save reconhecido. Esperado Player.sav, Mii.sav ou Map.sav."
+  },
+  "bulk": {
+    "drop_hint": "Solte um ou mais arquivos .sav, uma pasta ou um .zip. Cada arquivo é direcionado para a aba certa.",
+    "open_all": "Abrir arquivos…",
+    "export_all": "Exportar tudo ({count})",
+    "loaded_count": "{count, plural, one {# save carregado} other {# saves carregados}}",
+    "skipped_count": "{count, plural, one {# arquivo ignorado} other {# arquivos ignorados}} (não reconhecido).",
+    "none_recognized": "Nenhum arquivo de save reconhecido. Esperado Player.sav, Mii.sav ou Map.sav.",
+    "overwrite_title": "Substituir saves já carregados?",
+    "overwrite_intro": "As abas a seguir já possuem um save carregado. Continuar irá substituí-los pelos novos arquivos:",
+    "overwrite_warning": "todas as edições não salvas nessas abas serão perdidas. Certifique-se de ter baixado suas alterações antes.",
+    "overwrite_confirm": "Substituir",
+    "clear_all": "Limpar tudo",
+    "clear_title": "Limpar saves carregados?",
+    "clear_intro": "Isto irá remover os seguintes saves do editor:",
+    "clear_warning": "todas as edições não salvas serão perdidas. Certifique-se de ter baixado suas alterações antes.",
+    "clear_confirm": "Limpar",
+    "cancel": "Cancelar"
   },
   "player": {
     "title": "Jogador",
@@ -92,6 +111,7 @@
     "subtab_foods": "Comidas",
     "subtab_clothes": "Roupas",
     "subtab_treasures": "Tesouros",
+    "subtab_interiors": "Interiores",
     "inventory": {
       "search": "Pesquisar",
       "search_placeholder": "Filtrar por nome…",
@@ -107,6 +127,8 @@
       "decrement": "Remover um",
       "expand_colors": "Mostrar variantes de cor",
       "collapse_colors": "Ocultar variantes de cor",
+      "expand_variants": "Mostrar variantes",
+      "collapse_variants": "Ocultar variantes",
       "state": {
         "Lock": "Bloqueado",
         "New": "Novo",
@@ -132,6 +154,14 @@
       "heading": "Tesouros",
       "caption": "{count, plural, one {# tesouro} other {# tesouros}} exibido(s). Marque como Obtido para adicioná-lo à sua coleção; OwnNum é a quantidade no inventário.",
       "missing": "Este save não expõe nenhuma entrada Player.GoodsInfo2, então os tesouros não podem ser editados aqui."
+    },
+    "interiors": {
+      "heading": "Interiores",
+      "caption": "{count, plural, one {# grupo de estilos} other {# grupos de estilos}} exibido(s). Marque como Obtido para desbloquear o conjunto; OwnNum é a quantidade no inventário.",
+      "missing": "Este save não expõe nenhuma entrada Player.InteriorRoomStyleInfo, então os interiores não podem ser editados aqui.",
+      "variant_note": "Os controles do grupo aplicam-se a todas as variantes. Expanda uma linha para editar uma única variante.",
+      "variant_count": "{count, plural, one {# variante} other {# variantes}}",
+      "variant_label": "Variante {index}"
     }
   },
   "mii": {
@@ -161,7 +191,9 @@
       "mood": "Humor",
       "voice": "Voz",
       "voice_caption": "Os controles deslizantes vão de 0 a 50 (51 etapas). Escolher uma predefinição Simples substitui todos os controles.",
-      "food": "Comida"
+      "food": "Comida",
+      "words": "Palavras",
+      "words_caption": "Frases personalizadas que este Mii fala em diálogos."
     },
     "spoiler": {
       "warning": "Aviso de spoiler",
@@ -173,7 +205,15 @@
     },
     "food": {
       "no_image": "Sem imagem",
-      "unknown": "Comida desconhecida (hash {hash})"
+      "unknown": "Comida desconhecida (hash {hash})",
+      "empty_rank": "—",
+      "rank_marker": "nº{rank}",
+      "given_count": "{tried} / {total} provadas",
+      "search_placeholder": "Buscar comidas…",
+      "filter_all": "Todas",
+      "filter_tried": "Já provadas",
+      "filter_untried": "Ainda não provadas",
+      "no_results": "Nenhuma comida encontrada."
     },
     "fields": {
       "level": "Nível do Mii",
@@ -213,7 +253,10 @@
       "ultra_best_id": "Comida favorita de todos os tempos",
       "best_id": "2ª comida favorita",
       "ultra_worst_id": "Comida odiada de todos os tempos",
-      "worst_id": "2ª comida odiada"
+      "worst_id": "2ª comida odiada",
+      "ranked_food_id": "Comidas mais bem avaliadas",
+      "ranked_food_id_hint": "As três comidas que este Mii avalia melhor no momento, em ordem. Atualiza conforme novas comidas são provadas.",
+      "given_flag": "Comidas já provadas"
     },
     "errors": {
       "required": "Obrigatório",
@@ -295,6 +338,26 @@
         "Robot L": "Robô G",
         "Robot S": "Robô P"
       }
+    },
+    "words": {
+      "missing": "Este save não expõe os arrays de palavras do Mii.",
+      "summary": "{filled} de {total} espaços preenchidos",
+      "show_empty": "Mostrar espaços vazios",
+      "add_slot": "Adicionar espaço",
+      "empty_hint": "Nenhuma palavra ainda. Use \"Adicionar espaço\" para criar uma.",
+      "kind_label": "Humor",
+      "kind_invalid": "(espaço vazio)",
+      "region_label": "Região da palavra",
+      "text_label": "Texto da palavra",
+      "text_placeholder": "O que este Mii diz…",
+      "how_label": "Pronúncia",
+      "how_placeholder": "Igual ao texto da palavra",
+      "how_hint": "Grafia fonética usada pela voz. Deixe em branco para reaproveitar o texto da palavra.",
+      "clear_action": "Limpar",
+      "clear_tip": "Esvazia este espaço",
+      "clear_confirm": "Limpar este espaço de palavra? Humor, texto e pronúncia serão redefinidos.",
+      "error_too_long": "Máximo de {max} caracteres",
+      "error_split_surrogate": "O último caractere divide um emoji — remova um"
     },
     "pronoun": {
       "He": "Ele/Dele",
@@ -489,6 +552,101 @@
         "OnesideLove_Fight_5": "Ainda completamente apaixonado(a)?",
         "OnesideLove_Fight_6": "Ainda pronto(a) para arriscar tudo?"
       }
+    },
+    "subtab_troubles": "Problemas",
+    "troubles": {
+      "missing": "Este save não expõe os campos Mii.Trouble.*, então os problemas não podem ser editados aqui.",
+      "section_active": "Problema ativo",
+      "section_active_caption": "Cada Mii pode ter no máximo um problema ativo. Escolher \"Sem problema\" limpa todos os alvos e temporizadores associados.",
+      "active_label": "Problema",
+      "active_none": "Sem problema",
+      "preview_label": "Pré-visualização",
+      "unknown": "Problema desconhecido ({hash})",
+      "schedule_heading": "Agenda",
+      "schedule_caption": "Os horários são em segundos Unix epoch (o jogo usa o relógio do seu sistema). 0 significa desativado.",
+      "next_label": "Próximo tick",
+      "end_label": "Termina em",
+      "first_demo_label": "Cutscene de primeira demonstração exibida",
+      "end_before_next_warning": "O horário de falha automática é anterior à próxima verificação, então o problema será resolvido como falha no próximo tick.",
+      "disabled": "desativado",
+      "now_action": "Agora",
+      "plus_hour_action": "+1 hora",
+      "plus_day_action": "+1 dia",
+      "disable_action": "Desativar",
+      "targets_heading": "Alvos",
+      "target_none": "(nenhum)",
+      "target_food": "Comida solicitada",
+      "target_cloth": "Roupa solicitada",
+      "target_goods": "Tesouro solicitado",
+      "target_coordinate": "Look solicitado (hash do coordinate)",
+      "target_coordinate_hint": "Hash numérico de RSDB/Coordinate; deixe 0 para nenhum.",
+      "target_mii": "Mii alvo {n}",
+      "target_mii_unknown": "(slot desconhecido)",
+      "target_ugc_food": "Índice de comida UGC",
+      "target_ugc_goods": "Índice de item UGC",
+      "target_ugc_text": "Índice de texto UGC",
+      "target_item_type": "Tipo de item",
+      "target_preset_index": "Índice de preset",
+      "map_objects_heading": "Objetos do mapa",
+      "map_object_label": "Slot {n}",
+      "cooldowns_heading": "Tempos de espera",
+      "child_birth_block_label": "Nascimento bloqueado até",
+      "item_type": {
+        "invalid": "Inválido",
+        "food": "Comida",
+        "goods": "Item",
+        "cloth": "Roupa",
+        "coordinate": "Look",
+        "mapObject": "Objeto do mapa",
+        "mapFloor": "Piso do mapa",
+        "ugcFood": "Comida UGC",
+        "ugcGoods": "Item UGC"
+      },
+      "category": {
+        "Cloth": "Roupas",
+        "Depress": "Tristeza",
+        "Fight": "Briga",
+        "Food": "Comida",
+        "Goods": "Itens",
+        "Introduction": "Tutorial",
+        "IslandEdit": "Edição da ilha",
+        "Other": "Outro",
+        "Question": "Pergunta",
+        "Relation": "Relacionamentos",
+        "RoomStyle": "Estilo de quarto"
+      },
+      "epoch_label": "epoch {seconds}",
+      "duration_minutes": "{n}m",
+      "duration_hours": "{n}h",
+      "duration_days": "{n}d",
+      "meta": {
+        "category_tip": "Categoria do problema",
+        "method_tip": "MethodKey: handler interno usado pelo motor",
+        "target_mii_num": "{n, plural, one {# Mii alvo} other {# Miis alvo}}",
+        "target_mii_num_tip": "Quantos índices de Mii o motor lê do save",
+        "duration_tip": "Temporizador padrão de falha automática (EndMinute)",
+        "cooldown_tip": "Tempo de espera pós-resolução (NextTimeMinute) antes que este problema possa ser disparado novamente",
+        "rescue_day": "resgate após {n}d",
+        "rescue_day_tip": "Dias após os quais o motor resolve forçadamente o problema a seu favor",
+        "gated_tip": "Este problema está bloqueado por um marco de introdução / tutorial",
+        "prices_tip": "Possíveis faixas de custo para edição da ilha",
+        "scripted": "Apenas roteirizado",
+        "scripted_tip": "GenerateRate = 0: o motor nunca sorteia este problema aleatoriamente; ele aparece apenas em eventos roteirizados específicos"
+      },
+      "flag": {
+        "isLove": "Amor",
+        "isConfession": "Confissão",
+        "isFightReconcile": "Briga (reconciliável)",
+        "isTargetMiiSetLater": "Alvo definido depois"
+      },
+      "next_hint": "Quando o motor avaliará a próxima vez a lógica de problemas deste Mii. Enquanto o slot não tem problema ativo, isso atua como tempo de espera: a próxima tentativa de sortear um novo problema não pode disparar antes desse horário.",
+      "end_hint": "Quando o problema ativo expira. Se já passou, o motor resolverá o problema como falha no próximo tick.",
+      "reset_schedule_action": "Resetar agenda",
+      "reset_schedule_tip": "Define Próxima verificação = agora, Falha automática = agora + {minutes} min (duração padrão do problema).",
+      "reset_trouble_action": "Limpar problema",
+      "reset_trouble_tip": "Limpa o problema ativo deste Mii: zera o Id do problema, todos os alvos e a agenda.",
+      "revert_action": "Reverter alterações",
+      "revert_tip": "Restaura todos os campos de problema deste Mii para os valores do save originalmente carregado."
     }
   },
   "map": {
@@ -635,5 +793,88 @@
     },
     "translations_title": "Traduções",
     "disclaimer": "Esta é uma ferramenta não oficial, feita por fãs. Tomodachi Life: Living the Dream é © Nintendo."
+  },
+  "footer": {
+    "github": "GitHub",
+    "github_aria": "Ver o código-fonte no GitHub",
+    "report_issue": "Reportar um problema",
+    "discord": "Discord",
+    "license": "AGPL-3.0"
+  },
+  "faq": {
+    "title": "Perguntas frequentes",
+    "subtitle": "Perguntas comuns sobre o editor. Clique em uma pergunta para expandir.",
+    "items": {
+      "brick": {
+        "q": "Isso pode corromper meu save?",
+        "intro": "Sim, uma edição ruim pode corromper seu save e não há recuperação dentro do jogo, então a única forma de voltar é o backup que você fez antes de editar.",
+        "a1": "O editor toma algumas precauções para reduzir o risco:",
+        "a2": "Ele nunca sobrescreve o arquivo original, ele cria um novo para você baixar, então se algo der errado o original continua intacto.",
+        "a3": "O editor bloqueia algumas edições conhecidas por causarem corrupção, e avisa sobre as que são arriscadas."
+      },
+      "backup": {
+        "q": "Devo fazer backup do meu save antes?",
+        "a": "Sim, sempre. Faça uma cópia dos seus arquivos Mii.sav, Player.sav e Map.sav em algum lugar seguro antes de carregá-los aqui. Uma edição ruim pode corromper seu save sem recuperação dentro do jogo, e a única forma de voltar é o backup que você fez."
+      },
+      "upload": {
+        "q": "Meu save é enviado para algum lugar?",
+        "a1": "Não. O editor roda inteiramente no seu navegador, os arquivos são lidos e reescritos localmente, e os dados do seu save não são enviados a nenhum servidor.",
+        "a2_prefix": "O site também é open source, então você pode ler o código por conta própria no ",
+        "a2_link": "GitHub",
+        "a2_suffix": "."
+      },
+      "sav_files": {
+        "q": "Qual a diferença entre Player.sav, Mii.sav e Map.sav?",
+        "intro": "O jogo divide seus dados em três arquivos, e o editor tem uma aba para cada um:",
+        "player": "- seus dados de jogador: seu nome, o nome da ilha, dinheiro, tempo de jogo, tudo que você desbloqueou…",
+        "mii": "- dados de cada Mii que mora na sua ilha: personalidades, vozes, relações…",
+        "map": "- o layout da sua ilha: onde cada prédio está, o que tem em cada bloco do chão…",
+        "outro": "Os três arquivos são independentes, você pode editar um sem encostar nos outros, e só precisa carregar os que realmente quer alterar."
+      },
+      "advanced": {
+        "q": "Para que serve a aba Avançado?",
+        "a1": "As abas estruturadas (Jogador, Mii, Mapa) cobrem os campos que o editor sabe renderizar com rótulos e seletores apropriados. A seção Avançado, no final de cada aba, é um navegador de entradas brutas que lista todas as chaves encontradas no save, incluindo as que ainda não têm uma interface amigável. Use-a se precisar inspecionar ou editar algo que as abas estruturadas não expõem.",
+        "a2": "Trate como território de usuário avançado. Alguns campos são crípticos, e editá-los às cegas é uma boa forma de corromper um save: faça backup antes. Qualquer coisa feita aqui é por sua conta e risco."
+      },
+      "hashes": {
+        "q": "Por que algumas entradas aparecem como números ou nomes desconhecidos?",
+        "a": "Os arquivos de save referenciam o conteúdo (roupas, comidas, tesouros, estilos de cômodo, etc.) por hash, não por nome legível. O editor traz uma lista de hashes que traduz o máximo possível desses hashes de volta para nomes. Quando uma entrada aparece como número hexadecimal ou como \"Unknown\", é porque é um hash que ainda não está na lista. Se você identificar um, por favor abra uma issue ou compartilhe no Discord para que ele seja adicionado para todo mundo."
+      },
+      "stable_beta": {
+        "q": "Stable ou Beta, qual devo usar?",
+        "stable_label": "Stable",
+        "stable_body": "a versão que você provavelmente deve usar. É a versão testada e polida do editor, em que as funcionalidades têm menos chance de estar quebradas e os bugs têm menos chance de causar corrupção. Boa para a maioria das pessoas, especialmente se você está começando a editar saves.",
+        "beta_label": "Beta",
+        "beta_body": "a versão experimental, em que as funcionalidades novas chegam primeiro. Espere mais bugs e comportamentos quebrados ocasionais. Útil se você quer testar algo que ainda não está na Stable, ou se uma correção que você reportou acabou de ser mesclada.",
+        "switch_hint": "Você pode alternar entre as duas pelo link ao lado do selo de versão no cabeçalho. Independente da escolha, sempre faça backup dos seus saves antes."
+      },
+      "translation": {
+        "q": "Como adiciono uma tradução?",
+        "a_prefix": "Veja a ",
+        "a_link": "seção \"Adding a Localization\" no README do repositório",
+        "a_suffix": ", ela tem todos os passos."
+      },
+      "bug": {
+        "q": "Encontrei um bug",
+        "intro_prefix": "Por favor, abra uma issue no GitHub: o link \"Report an issue\" no rodapé leva direto ao formulário, ou você pode usar ",
+        "intro_link": "este link",
+        "intro_suffix": ". Coisas úteis para incluir:",
+        "item_what": "O que você estava tentando fazer.",
+        "item_actual": "O que aconteceu no lugar.",
+        "item_version": "Se você estava na Stable ou na Beta, e o número da versão no cabeçalho.",
+        "item_screenshot": "Um screenshot, se for um problema de interface.",
+        "item_save": "O arquivo de save em si, se você se sentir à vontade para compartilhá-lo. Saves ajudam a reproduzir um bug muito mais rápido do que descrições.",
+        "discord_prefix": "Se preferir não abrir uma issue, o ",
+        "discord_link": "Discord",
+        "discord_suffix": " também serve."
+      },
+      "cant_do_x": {
+        "q": "Não consigo fazer X",
+        "intro": "Se algo que você quer editar não está nas abas estruturadas, é quase sempre por uma destas duas razões:",
+        "item_unmapped": "Ninguém ainda mapeou esse campo para o editor: o dado está no save, mas nenhuma interface foi construída para ele.",
+        "item_unsafe": "O campo não pode ser editado sozinho com segurança: ele pode ser derivado de outros valores, ou fazer parte de uma estrutura em que mudar uma peça sem o resto corromperia o save.",
+        "outro": "Em qualquer caso, o caminho certo é abrir uma issue ou perguntar no Discord descrevendo o que você quer mudar. Funcionalidades novas são priorizadas com base no que as pessoas realmente pedem."
+      }
+    }
   }
 }

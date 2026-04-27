@@ -1,7 +1,7 @@
 {
   "name": "ltd-save-editor",
   "private": true,
-  "version": "1.3.0",
+  "version": "1.4.0",
   "type": "module",
   "license": "AGPL-3.0-or-later",
   "scripts": {
@@ -13,6 +13,7 @@
     "format": "prettier --write .",
     "i18n:check": "node tools/i18n-sync.ts check",
     "i18n:sync": "node tools/i18n-sync.ts sync",
+    "sav:diff": "node scripts/sav-diff.ts",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=ltd-save-editor",
     "deploy:beta": "vite build --mode beta && wrangler pages deploy dist --project-name=ltd-save-editor --branch=beta"
   },
@@ -38,6 +39,7 @@
     "wrangler": "^4.85.0"
   },
   "dependencies": {
+    "fflate": "^0.8.2",
     "svelte-i18n": "^4.0.1"
   }
 }

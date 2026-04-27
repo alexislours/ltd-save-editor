@@ -14,7 +14,8 @@
     "mii": "Mii",
     "map": "Carte",
     "advanced": "Avancé",
-    "about": "À propos"
+    "about": "À propos",
+    "faq": "FAQ"
   },
   "lightbox": {
     "open": "Agrandir l'image de {label}",
@@ -35,6 +36,24 @@
     "read_failed": "Échec de la lecture du fichier",
     "wrong_tab": "{actual} se place dans l'onglet {correctTab}, pas dans l'onglet {expectedTab}.",
     "unrecognized_file": "{actual} n'est pas un fichier de sauvegarde reconnu. Player.sav, Mii.sav ou Map.sav attendu."
+  },
+  "bulk": {
+    "drop_hint": "Dépose un ou plusieurs fichiers .sav, un dossier ou un .zip. Chaque fichier est dirigé vers le bon onglet.",
+    "open_all": "Ouvrir des fichiers…",
+    "export_all": "Tout exporter ({count})",
+    "loaded_count": "{count, plural, one {# sauvegarde chargée} other {# sauvegardes chargées}}",
+    "skipped_count": "{count, plural, one {# fichier ignoré} other {# fichiers ignorés}} (non reconnu).",
+    "none_recognized": "Aucun fichier de sauvegarde reconnu. Player.sav, Mii.sav ou Map.sav attendu.",
+    "overwrite_title": "Remplacer les sauvegardes déjà chargées ?",
+    "overwrite_intro": "Les onglets suivants contiennent déjà une sauvegarde. Continuer les remplacera par les nouveaux fichiers :",
+    "overwrite_warning": "toutes les modifications non enregistrées dans ces onglets seront perdues. Assure-toi d'avoir téléchargé tes changements avant.",
+    "overwrite_confirm": "Remplacer",
+    "clear_all": "Tout effacer",
+    "clear_title": "Effacer les sauvegardes chargées ?",
+    "clear_intro": "Cela retirera les sauvegardes suivantes de l'éditeur :",
+    "clear_warning": "toutes les modifications non enregistrées seront perdues. Assure-toi d'avoir téléchargé tes changements avant.",
+    "clear_confirm": "Effacer",
+    "cancel": "Annuler"
   },
   "player": {
     "title": "Joueur",
@@ -92,6 +111,7 @@
     "subtab_foods": "Aliments",
     "subtab_clothes": "Vêtements",
     "subtab_treasures": "Trésors",
+    "subtab_interiors": "Intérieurs",
     "inventory": {
       "search": "Recherche",
       "search_placeholder": "Filtrer par nom…",
@@ -113,7 +133,9 @@
       "bulk_warning": "Cela écrasera l'état et/ou la quantité de chaque entrée actuellement visible ({count}). Les modifications ne peuvent pas être annulées sans rouvrir ta sauvegarde. Pense à faire une copie d'abord.",
       "bulk_confirm": "Appliquer cette édition groupée à {count} entrées ? Cette action est irréversible.",
       "expand_colors": "Afficher les variantes de couleur",
-      "collapse_colors": "Masquer les variantes de couleur"
+      "collapse_colors": "Masquer les variantes de couleur",
+      "expand_variants": "Afficher les variantes",
+      "collapse_variants": "Masquer les variantes"
     },
     "foods": {
       "heading": "Aliments",
@@ -132,6 +154,14 @@
       "heading": "Trésors",
       "caption": "{count, plural, one {# trésor} other {# trésors}} affichés. Passe à Obtenu pour l'ajouter à ta collection ; OwnNum est la quantité possédée.",
       "missing": "Cette sauvegarde n'expose aucune entrée Player.GoodsInfo2 : les trésors ne peuvent pas être modifiés ici."
+    },
+    "interiors": {
+      "heading": "Intérieurs",
+      "caption": "{count, plural, one {# groupe de styles} other {# groupes de styles}} affichés. Passe à Obtenu pour débloquer le décor ; OwnNum est la quantité possédée.",
+      "missing": "Cette sauvegarde n'expose aucune entrée Player.InteriorRoomStyleInfo : les intérieurs ne peuvent pas être modifiés ici.",
+      "variant_note": "Les contrôles globaux s'appliquent à chaque variante du groupe. Déplie une ligne pour modifier une variante précise.",
+      "variant_count": "{count, plural, one {# variante} other {# variantes}}",
+      "variant_label": "Variante {index}"
     }
   },
   "mii": {
@@ -161,7 +191,9 @@
       "mood": "Humeur",
       "voice": "Voix",
       "voice_caption": "Les curseurs vont de 0 à 50 (51 pas). Choisir un préréglage Simple écrase tous les curseurs.",
-      "food": "Nourriture"
+      "food": "Nourriture",
+      "words": "Mots",
+      "words_caption": "Phrases personnalisées que ce Mii dit dans les dialogues."
     },
     "spoiler": {
       "warning": "Avertissement spoiler",
@@ -173,7 +205,15 @@
     },
     "food": {
       "no_image": "Pas d'image",
-      "unknown": "Plat inconnu (hash {hash})"
+      "unknown": "Plat inconnu (hash {hash})",
+      "empty_rank": "—",
+      "rank_marker": "n°{rank}",
+      "given_count": "{tried} / {total} goûtés",
+      "search_placeholder": "Rechercher un plat…",
+      "filter_all": "Tous",
+      "filter_tried": "Déjà goûtés",
+      "filter_untried": "Pas encore goûtés",
+      "no_results": "Aucun plat trouvé."
     },
     "fields": {
       "level": "Niveau du Mii",
@@ -213,7 +253,10 @@
       "ultra_best_id": "Plat préféré absolu",
       "best_id": "2e plat préféré",
       "ultra_worst_id": "Plat le plus détesté",
-      "worst_id": "2e plat détesté"
+      "worst_id": "2e plat détesté",
+      "ranked_food_id": "Plats les mieux notés",
+      "ranked_food_id_hint": "Les trois plats que ce Mii note actuellement le plus haut, dans l'ordre. Mis à jour à chaque nouveau plat goûté.",
+      "given_flag": "Plats déjà goûtés"
     },
     "errors": {
       "required": "Requis",
@@ -295,6 +338,26 @@
         "Robot L": "Robot grave",
         "Robot S": "Robot aigu"
       }
+    },
+    "words": {
+      "missing": "Cette sauvegarde n'expose pas les tableaux de mots du Mii.",
+      "summary": "{filled} emplacements remplis sur {total}",
+      "show_empty": "Afficher les emplacements vides",
+      "add_slot": "Ajouter un emplacement",
+      "empty_hint": "Aucun mot pour le moment. Utilisez « Ajouter un emplacement » pour en créer un.",
+      "kind_label": "Humeur",
+      "kind_invalid": "(emplacement vide)",
+      "region_label": "Région du mot",
+      "text_label": "Texte du mot",
+      "text_placeholder": "Ce que ce Mii dit…",
+      "how_label": "Prononciation",
+      "how_placeholder": "Identique au texte du mot",
+      "how_hint": "Orthographe phonétique utilisée par la voix. Laissez vide pour reprendre le texte du mot.",
+      "clear_action": "Vider",
+      "clear_tip": "Vide cet emplacement",
+      "clear_confirm": "Vider cet emplacement de mot ? L'humeur, le texte et la prononciation seront réinitialisés.",
+      "error_too_long": "Maximum {max} caractères",
+      "error_split_surrogate": "Le dernier caractère coupe un emoji — retirez-en un"
     },
     "pronoun": {
       "He": "Il/Lui",
@@ -489,6 +552,101 @@
         "OnesideLove_Fight_5": "Obsession ?",
         "OnesideLove_Fight_6": "Désir de se déclarer ?"
       }
+    },
+    "subtab_troubles": "Soucis",
+    "troubles": {
+      "missing": "Cette sauvegarde n'expose pas les champs Mii.Trouble.*, les soucis ne peuvent donc pas être édités ici.",
+      "section_active": "Souci en cours",
+      "section_active_caption": "Chaque Mii ne peut avoir qu'un seul souci en cours. Choisir « Aucun souci » efface les cibles et les minuteurs associés.",
+      "active_label": "Souci",
+      "active_none": "Aucun souci",
+      "preview_label": "Aperçu",
+      "unknown": "Souci inconnu ({hash})",
+      "schedule_heading": "Programmation",
+      "schedule_caption": "Les heures sont en secondes Unix epoch (le jeu utilise l'horloge de ton système). 0 signifie désactivé.",
+      "next_label": "Prochain tick",
+      "end_label": "Se termine à",
+      "first_demo_label": "Cinématique de première démonstration vue",
+      "end_before_next_warning": "L'heure d'échec automatique est antérieure à la prochaine vérification, le souci se résoudra donc en échec au prochain tick.",
+      "disabled": "désactivé",
+      "now_action": "Maintenant",
+      "plus_hour_action": "+1 heure",
+      "plus_day_action": "+1 jour",
+      "disable_action": "Désactiver",
+      "targets_heading": "Cibles",
+      "target_none": "(aucune)",
+      "target_food": "Plat demandé",
+      "target_cloth": "Vêtement demandé",
+      "target_goods": "Trésor demandé",
+      "target_coordinate": "Tenue demandée (hash de coordinate)",
+      "target_coordinate_hint": "Hash numérique de RSDB/Coordinate ; laisse 0 pour aucun.",
+      "target_mii": "Mii ciblé n°{n}",
+      "target_mii_unknown": "(emplacement inconnu)",
+      "target_ugc_food": "Index UGC plat",
+      "target_ugc_goods": "Index UGC objet",
+      "target_ugc_text": "Index UGC texte",
+      "target_item_type": "Type d'objet",
+      "target_preset_index": "Index du préréglage",
+      "map_objects_heading": "Objets de la carte",
+      "map_object_label": "Emplacement n°{n}",
+      "cooldowns_heading": "Délais d'attente",
+      "child_birth_block_label": "Naissance bloquée jusqu'au",
+      "item_type": {
+        "invalid": "Invalide",
+        "food": "Plat",
+        "goods": "Trésor",
+        "cloth": "Vêtement",
+        "coordinate": "Tenue",
+        "mapObject": "Objet de carte",
+        "mapFloor": "Sol de carte",
+        "ugcFood": "Plat UGC",
+        "ugcGoods": "Trésor UGC"
+      },
+      "category": {
+        "Cloth": "Vêtements",
+        "Depress": "Déprime",
+        "Fight": "Dispute",
+        "Food": "Plats",
+        "Goods": "Trésors",
+        "Introduction": "Tutoriel",
+        "IslandEdit": "Aménagement de l'île",
+        "Other": "Autre",
+        "Question": "Question",
+        "Relation": "Relations",
+        "RoomStyle": "Style de pièce"
+      },
+      "epoch_label": "epoch {seconds}",
+      "duration_minutes": "{n} min",
+      "duration_hours": "{n} h",
+      "duration_days": "{n} j",
+      "meta": {
+        "category_tip": "Catégorie de souci",
+        "method_tip": "MethodKey : gestionnaire interne utilisé par le moteur",
+        "target_mii_num": "{n, plural, one {# Mii ciblé} other {# Miis ciblés}}",
+        "target_mii_num_tip": "Nombre d'index de Mii que le moteur lit dans la sauvegarde",
+        "duration_tip": "Minuteur d'échec automatique par défaut (EndMinute)",
+        "cooldown_tip": "Délai après résolution (NextTimeMinute) avant que ce souci puisse se redéclencher",
+        "rescue_day": "secours après {n} j",
+        "rescue_day_tip": "Nombre de jours après lesquels le moteur résout de force le souci en ta faveur",
+        "gated_tip": "Ce souci est verrouillé derrière un jalon d'introduction / tutoriel",
+        "prices_tip": "Paliers de coût possibles pour l'aménagement de l'île",
+        "scripted": "Scripté uniquement",
+        "scripted_tip": "GenerateRate = 0 : le moteur ne tire jamais ce souci au hasard ; il n'apparaît que via des événements scriptés spécifiques"
+      },
+      "flag": {
+        "isLove": "Amour",
+        "isConfession": "Déclaration",
+        "isFightReconcile": "Dispute (réconciliable)",
+        "isTargetMiiSetLater": "Cible définie plus tard"
+      },
+      "next_hint": "Moment où le moteur évaluera la prochaine fois la logique de souci de ce Mii. Tant que l'emplacement n'a pas de souci en cours, ceci sert de délai d'attente : la prochaine tentative de tirer un nouveau souci ne pourra pas se déclencher avant cette heure.",
+      "end_hint": "Moment où le souci en cours expire. Si c'est dans le passé, le moteur résoudra le souci en échec au prochain tick.",
+      "reset_schedule_action": "Réinitialiser la programmation",
+      "reset_schedule_tip": "Définit Prochaine vérification = maintenant, Échec automatique = maintenant + {minutes} min (durée par défaut du souci).",
+      "reset_trouble_action": "Effacer le souci",
+      "reset_trouble_tip": "Efface le souci en cours pour ce Mii : remet à zéro l'Id du souci, toutes les cibles et la programmation.",
+      "revert_action": "Annuler les modifications",
+      "revert_tip": "Restaure tous les champs de souci pour ce Mii avec les valeurs de la sauvegarde initialement chargée."
     }
   },
   "map": {
@@ -635,5 +793,88 @@
     },
     "translations_title": "Traductions",
     "disclaimer": "Ceci est un outil non officiel, créé par des fans. Tomodachi Life : Une vie de rêve est © Nintendo."
+  },
+  "footer": {
+    "github": "GitHub",
+    "github_aria": "Voir le code source sur GitHub",
+    "report_issue": "Signaler un problème",
+    "discord": "Discord",
+    "license": "AGPL-3.0"
+  },
+  "faq": {
+    "title": "Foire aux questions",
+    "subtitle": "Questions fréquentes sur l'éditeur. Clique sur une question pour la déplier.",
+    "items": {
+      "brick": {
+        "q": "Est-ce que ça peut corrompre ma sauvegarde ?",
+        "intro": "Oui. Une mauvaise modification peut corrompre ta sauvegarde, et il n'y a aucun moyen de revenir en arrière dans le jeu : ta seule porte de sortie, c'est la copie que tu as faite avant de modifier.",
+        "a1": "L'éditeur prend quand même quelques précautions :",
+        "a2": "Il n'écrase jamais ton fichier d'origine. Il te génère une nouvelle copie à télécharger, comme ça si quelque chose tourne mal, l'original est toujours là.",
+        "a3": "Il bloque les modifications connues pour corrompre les sauvegardes, et t'avertit pour celles qui sont juste risquées."
+      },
+      "backup": {
+        "q": "Dois-je faire une copie de mes fichiers avant ?",
+        "a": "Oui, toujours. Fais une copie de tes fichiers Mii.sav, Player.sav et Map.sav dans un endroit sûr avant de les charger ici. Une mauvaise modification peut corrompre ta sauvegarde sans qu'il soit possible de revenir en arrière dans le jeu : ta seule porte de sortie, c'est cette copie."
+      },
+      "upload": {
+        "q": "Mes fichiers sont-ils envoyés quelque part ?",
+        "a1": "Non. L'éditeur fonctionne entièrement dans ton navigateur, les fichiers sont lus et réécrits en local, et tes données de sauvegarde ne sont envoyées à aucun serveur.",
+        "a2_prefix": "Le site est aussi open source, tu peux donc consulter le code toi-même sur ",
+        "a2_link": "GitHub",
+        "a2_suffix": "."
+      },
+      "sav_files": {
+        "q": "Quelle est la différence entre Player.sav, Mii.sav et Map.sav ?",
+        "intro": "Le jeu répartit ses données entre trois fichiers, et l'éditeur propose un onglet pour chacun :",
+        "player": "- tes données de joueur : ton nom, le nom de ton île, ton argent, ton temps de jeu, tout ce que tu as débloqué…",
+        "mii": "- les données par Mii pour chaque habitant de ton île : personnalités, voix, relations…",
+        "map": "- la disposition de ton île : l'emplacement de chaque bâtiment, ce qu'il y a sur chaque case du sol…",
+        "outro": "Les trois fichiers sont indépendants, tu peux modifier l'un sans toucher aux autres, et tu n'as besoin de charger que ceux que tu veux réellement modifier."
+      },
+      "advanced": {
+        "q": "L'onglet Avancé, c'est quoi ?",
+        "a1": "Les onglets structurés (Joueur, Mii, Carte) couvrent les champs que l'éditeur sait afficher avec des libellés clairs et des champs adaptés. La section Avancée, en bas de chaque onglet, est une vue brute qui liste toutes les clés trouvées dans la sauvegarde, y compris celles qui n'ont pas encore leur propre interface. Utilise-la si tu as besoin d'inspecter ou de modifier quelque chose qui n'apparaît pas dans les onglets structurés.",
+        "a2": "C'est un onglet réservé aux utilisateurs avertis. Certains champs sont obscurs, et les modifier à l'aveugle est un bon moyen de corrompre ta sauvegarde : fais une copie avant. Tout ce qui s'y fait est à tes risques et périls."
+      },
+      "hashes": {
+        "q": "Pourquoi certaines entrées s'affichent-elles avec des numéros ou des noms inconnus ?",
+        "a": "Les fichiers de sauvegarde référencent leur contenu (vêtements, plats, trésors, styles de pièce, etc.) par hash, pas par nom lisible. L'éditeur embarque une liste de hashs qui retraduit autant que possible ces hashs en noms. Quand une entrée s'affiche sous forme de nombre hexadécimal ou comme « Unknown », c'est qu'il s'agit d'un hash qui n'est pas encore dans la liste. Si tu en identifies un, ouvre une issue ou partage-le sur Discord pour qu'il soit ajouté pour tout le monde."
+      },
+      "stable_beta": {
+        "q": "Stable ou Bêta, laquelle utiliser ?",
+        "stable_label": "Stable",
+        "stable_body": "la version qu'il vaut mieux utiliser. C'est la version testée et peaufinée de l'éditeur, où les fonctionnalités ont moins de risques d'être cassées et où les bugs ont moins de risques de causer une corruption. Adaptée à la plupart des gens, surtout si tu débutes avec l'édition de sauvegardes.",
+        "beta_label": "Bêta",
+        "beta_body": "la version expérimentale, où les nouvelles fonctionnalités atterrissent en premier. Attends-toi à plus de bugs et à des comportements parfois cassés. Utile si tu veux essayer quelque chose qui n'est pas encore dans la Stable, ou si un correctif que tu as signalé vient juste d'être intégré.",
+        "switch_hint": "Tu peux passer de l'une à l'autre via le lien à côté du badge de version dans l'en-tête. Quel que soit ton choix, fais d'abord une copie de tes sauvegardes."
+      },
+      "translation": {
+        "q": "Comment ajouter une traduction ?",
+        "a_prefix": "Consulte la ",
+        "a_link": "section « Adding a Localization » du README du dépôt",
+        "a_suffix": ", elle contient toutes les étapes."
+      },
+      "bug": {
+        "q": "J'ai trouvé un bug",
+        "intro_prefix": "Ouvre une issue sur GitHub : le lien « Report an issue » dans le pied de page mène directement au formulaire, ou tu peux utiliser ",
+        "intro_link": "ce lien",
+        "intro_suffix": ". Éléments utiles à fournir :",
+        "item_what": "Ce que tu essayais de faire.",
+        "item_actual": "Ce qui s'est passé à la place.",
+        "item_version": "Si tu étais sur Stable ou Bêta, et le numéro de version affiché dans l'en-tête.",
+        "item_screenshot": "Une capture d'écran s'il s'agit d'un problème d'interface.",
+        "item_save": "Le fichier de sauvegarde lui-même si tu es à l'aise pour le partager. Une sauvegarde aide à reproduire un bug bien plus vite qu'une simple description.",
+        "discord_prefix": "Si tu préfères ne pas ouvrir d'issue, le ",
+        "discord_link": "Discord",
+        "discord_suffix": " marche aussi."
+      },
+      "cant_do_x": {
+        "q": "Je n'arrive pas à faire X",
+        "intro": "Si quelque chose que tu veux modifier n'est pas dans les onglets structurés, c'est presque toujours pour l'une de ces deux raisons :",
+        "item_unmapped": "Personne n'a encore relié ce champ à l'éditeur : la donnée est dans la sauvegarde, mais aucune interface n'a été construite pour elle.",
+        "item_unsafe": "Le champ ne peut pas être modifié seul de manière sûre : il peut être dérivé d'autres valeurs, ou faire partie d'une structure où changer un élément sans le reste corromprait la sauvegarde.",
+        "outro": "Dans les deux cas, la bonne démarche est d'ouvrir une issue ou de demander sur Discord en décrivant ce que tu veux changer. Les nouvelles fonctionnalités sont priorisées en fonction de ce que les gens demandent vraiment."
+      }
+    }
   }
 }

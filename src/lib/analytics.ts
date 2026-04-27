@@ -7,6 +7,9 @@ type Events = {
   save_load_failed: { kind: SaveKind; reason: LoadFailReason };
   save_parse_failed: { kind: SaveKind };
   save_exported: { kind: SaveKind };
+  bulk_load: { loaded: number; skipped: number; conflicts: number };
+  bulk_load_cancelled: { conflicts: number };
+  bulk_export: { count: number };
   bulk_edit_used: { field: 'state' | 'qty'; count: number };
   locale_changed: { from: string; to: string };
   theme_changed: { from: 'light' | 'dark'; to: 'light' | 'dark' };
@@ -14,7 +17,6 @@ type Events = {
 
 type Umami = {
   track: (name: string, data?: Record<string, unknown>) => void;
-  identify: (data: Record<string, unknown>) => void;
 };
 
 declare global {
@@ -26,21 +28,4 @@ declare global {
 export function track<K extends keyof Events>(name: K, data: Events[K]): void {
   if (typeof window === 'undefined') return;
   window.umami?.track(name, data);
-}
-
-export function identify(data: Record<string, unknown>): void {
-  if (typeof window === 'undefined') return;
-  if (window.umami) {
-    window.umami.identify(data);
-    return;
-  }
-  const start = Date.now();
-  const tick = (): void => {
-    if (window.umami) {
-      window.umami.identify(data);
-    } else if (Date.now() - start < 10_000) {
-      setTimeout(tick, 200);
-    }
-  };
-  setTimeout(tick, 200);
 }

@@ -6,6 +6,7 @@
     '/player': () => import('./routes/Player.svelte'),
     '/mii': () => import('./routes/Mii.svelte'),
     '/map': () => import('./routes/Map.svelte'),
+    '/faq': () => import('./routes/Faq.svelte'),
     '/about': () => import('./routes/About.svelte'),
   };
 

@@ -1,7 +1,10 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { PRIMARY_BUTTON_CLASS } from './styles';
+  import { exportAllSaves, loadedKinds } from './bulkExport';
+  import { bulkLoadFiles } from './bulkLoader.svelte';
+  import { requestClearAll } from './clearAll.svelte';
+  import { PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from './styles';
 
   type Props = {
     dirty: boolean;
@@ -10,6 +13,26 @@
     extra?: Snippet;
   };
   let { dirty, actionLabel, onAction, extra }: Props = $props();
+
+  let fileInput: HTMLInputElement;
+
+  const exportableCount = $derived(loadedKinds().length);
+
+  function onPick(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const files = target.files ? Array.from(target.files) : [];
+    target.value = '';
+    if (files.length === 0) return;
+    void bulkLoadFiles(files);
+  }
+
+  function exportAll(): void {
+    try {
+      exportAllSaves();
+    } catch (e) {
+      alert(e instanceof Error ? e.message : String(e));
+    }
+  }
 </script>
 
 <div
@@ -27,7 +50,37 @@
       {#if extra}{@render extra()}{/if}
     </p>
   </div>
-  <button type="button" class={PRIMARY_BUTTON_CLASS} onclick={onAction}>
-    {actionLabel}
-  </button>
+  <div class="flex flex-wrap items-center gap-2">
+    <button type="button" class={PILL_BUTTON_CLASS} onclick={() => fileInput.click()}>
+      {$_('bulk.open_all')}
+    </button>
+    <button
+      type="button"
+      class={PILL_BUTTON_CLASS}
+      onclick={exportAll}
+      disabled={exportableCount === 0}
+    >
+      {$_('bulk.export_all', { values: { count: exportableCount } })}
+    </button>
+    <button
+      type="button"
+      class={PILL_BUTTON_CLASS}
+      onclick={requestClearAll}
+      disabled={exportableCount === 0}
+    >
+      {$_('bulk.clear_all')}
+    </button>
+    <button type="button" class={PRIMARY_BUTTON_CLASS} onclick={onAction}>
+      {actionLabel}
+    </button>
+  </div>
+
+  <input
+    bind:this={fileInput}
+    type="file"
+    class="hidden"
+    multiple
+    accept=".sav,.zip"
+    onchange={onPick}
+  />
 </div>

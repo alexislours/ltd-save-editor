@@ -57,14 +57,38 @@ export function getSave(kind: SaveKind): LoadedSave | null {
 
 export async function setSaveFromFile(kind: SaveKind, file: File): Promise<void> {
   const bytes = new Uint8Array(await file.arrayBuffer());
-  saves[kind] = {
+  setSaveFromBytes(kind, {
     name: file.name,
-    size: file.size,
-    lastModified: file.lastModified,
     bytes,
+    lastModified: file.lastModified,
+  });
+}
+
+export function setSaveFromBytes(
+  kind: SaveKind,
+  input: { name: string; bytes: Uint8Array; lastModified?: number },
+): void {
+  saves[kind] = {
+    name: input.name,
+    size: input.bytes.byteLength,
+    lastModified: input.lastModified ?? Date.now(),
+    bytes: input.bytes,
   };
 }
 
+export const SAVE_KINDS: readonly SaveKind[] = ['player', 'mii', 'map'];
+
 export function clearSave(kind: SaveKind): void {
   saves[kind] = null;
+}
+
+export function clearAllSaves(): SaveKind[] {
+  const cleared: SaveKind[] = [];
+  for (const kind of SAVE_KINDS) {
+    if (saves[kind]) {
+      saves[kind] = null;
+      cleared.push(kind);
+    }
+  }
+  return cleared;
 }

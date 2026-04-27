@@ -14,6 +14,7 @@
     "mii": "Mii",
     "map": "Map",
     "advanced": "Advanced",
+    "faq": "FAQ",
     "about": "About"
   },
   "lightbox": {
@@ -35,6 +36,24 @@
     "read_failed": "Failed to read file",
     "wrong_tab": "{actual} belongs in the {correctTab} tab, not the {expectedTab} tab.",
     "unrecognized_file": "{actual} isn't a recognised save file. Expected Player.sav, Mii.sav, or Map.sav."
+  },
+  "bulk": {
+    "drop_hint": "Drop one or more .sav files, a folder, or a .zip. Each file is routed to the right tab.",
+    "open_all": "Open files…",
+    "export_all": "Export all ({count})",
+    "loaded_count": "Loaded {count, plural, one {# save} other {# saves}}",
+    "skipped_count": "{count, plural, one {# file skipped} other {# files skipped}} (unrecognised).",
+    "none_recognized": "No recognised save files found. Expected Player.sav, Mii.sav, or Map.sav.",
+    "overwrite_title": "Replace already-loaded saves?",
+    "overwrite_intro": "The following tabs already have a save loaded. Continuing will replace them with the new files:",
+    "overwrite_warning": "any unsaved edits in those tabs will be lost. Make sure you've downloaded any changes first.",
+    "overwrite_confirm": "Replace",
+    "clear_all": "Clear all",
+    "clear_title": "Clear loaded saves?",
+    "clear_intro": "This will remove the following saves from the editor:",
+    "clear_warning": "any unsaved edits will be lost. Make sure you've downloaded any changes first.",
+    "clear_confirm": "Clear",
+    "cancel": "Cancel"
   },
   "player": {
     "title": "Player",
@@ -92,6 +111,7 @@
     "subtab_foods": "Foods",
     "subtab_clothes": "Clothes",
     "subtab_treasures": "Treasures",
+    "subtab_interiors": "Interiors",
     "inventory": {
       "search": "Search",
       "search_placeholder": "Filter by name…",
@@ -107,6 +127,8 @@
       "decrement": "Remove one",
       "expand_colors": "Show color variants",
       "collapse_colors": "Hide color variants",
+      "expand_variants": "Show variants",
+      "collapse_variants": "Hide variants",
       "state": {
         "Lock": "Locked",
         "New": "New",
@@ -132,6 +154,14 @@
       "heading": "Treasures",
       "caption": "{count, plural, one {# treasure} other {# treasures}} shown. Mark as Obtained to add it to your collection; OwnNum is the inventory count.",
       "missing": "This save does not expose any Player.GoodsInfo2 entries, so treasures can't be edited here."
+    },
+    "interiors": {
+      "heading": "Interiors",
+      "caption": "{count, plural, one {# style group} other {# style groups}} shown. Mark as Obtained to unlock the interior set; OwnNum is the inventory count.",
+      "missing": "This save does not expose any Player.InteriorRoomStyleInfo entries, so interiors can't be edited here.",
+      "variant_note": "Group-level controls apply to every variant in the set. Expand a row to edit a single variant.",
+      "variant_count": "{count, plural, one {# variant} other {# variants}}",
+      "variant_label": "Variant {index}"
     }
   },
   "mii": {
@@ -141,6 +171,101 @@
     "sections_label": "Mii sections",
     "subtab_profile": "Profile",
     "subtab_relationships": "Relationships graph",
+    "subtab_troubles": "Troubles",
+    "troubles": {
+      "missing": "This save does not expose Mii.Trouble.* fields, so troubles can't be edited here.",
+      "section_active": "Active trouble",
+      "section_active_caption": "Each Mii can have at most one active trouble. Picking \"No trouble\" clears any associated targets and timers.",
+      "active_label": "Trouble",
+      "active_none": "No trouble",
+      "preview_label": "Preview",
+      "unknown": "Unknown trouble ({hash})",
+      "schedule_heading": "Schedule",
+      "schedule_caption": "Times use your local wall clock (the game stores them as Unix epoch seconds). Empty means disabled.",
+      "epoch_label": "epoch {seconds}",
+      "reset_schedule_action": "Reset schedule",
+      "reset_schedule_tip": "Set Next check = now, Auto-fail = now + {minutes} min (the trouble's default duration).",
+      "reset_trouble_action": "Clear trouble",
+      "reset_trouble_tip": "Clear the active trouble for this Mii: zeroes the trouble Id, all targets, and the schedule.",
+      "revert_action": "Revert changes",
+      "revert_tip": "Restore every trouble field for this Mii to the values from the originally loaded save.",
+      "next_label": "Next check",
+      "next_hint": "When the engine will next evaluate this Mii's trouble logic. While the slot has no active trouble this acts as the cooldown: the next attempt to roll a new trouble can't fire before this time.",
+      "end_label": "Auto-fail at",
+      "end_hint": "When the active trouble expires. If this is in the past the engine will resolve the trouble as a failure on the next tick.",
+      "duration_minutes": "{n}m",
+      "duration_hours": "{n}h",
+      "duration_days": "{n}d",
+      "meta": {
+        "category_tip": "Trouble category",
+        "method_tip": "MethodKey: internal handler used by the engine",
+        "target_mii_num": "{n, plural, one {# target Mii} other {# target Miis}}",
+        "target_mii_num_tip": "How many Mii indices the engine reads from the save",
+        "duration_tip": "Default auto-fail timer (EndMinute)",
+        "cooldown_tip": "Post-resolution cooldown (NextTimeMinute) before this trouble can re-trigger",
+        "rescue_day": "rescue after {n}d",
+        "rescue_day_tip": "Days after which the engine forcibly resolves the trouble in your favor",
+        "gated_tip": "This trouble is gated by an introduction / tutorial milestone",
+        "prices_tip": "Possible island-edit cost tiers",
+        "scripted": "Scripted-only",
+        "scripted_tip": "GenerateRate = 0: the engine never rolls this trouble at random; it appears only via specific scripted events"
+      },
+      "flag": {
+        "isLove": "Love",
+        "isConfession": "Confession",
+        "isFightReconcile": "Fight (reconcilable)",
+        "isTargetMiiSetLater": "Target set later"
+      },
+      "first_demo_label": "First-demo cutscene shown",
+      "end_before_next_warning": "Auto-fail time is before the next check, so the trouble will resolve as a failure on the next tick.",
+      "disabled": "disabled",
+      "now_action": "Now",
+      "plus_hour_action": "+1 hour",
+      "plus_day_action": "+1 day",
+      "disable_action": "Disable",
+      "targets_heading": "Targets",
+      "target_none": "(none)",
+      "target_food": "Requested food",
+      "target_cloth": "Requested clothing",
+      "target_goods": "Requested treasure",
+      "target_coordinate": "Requested outfit (coordinate hash)",
+      "target_coordinate_hint": "Numeric hash from RSDB/Coordinate; leave 0 for none.",
+      "target_mii": "Target Mii {n}",
+      "target_mii_unknown": "(unknown slot)",
+      "target_ugc_food": "UGC food index",
+      "target_ugc_goods": "UGC goods index",
+      "target_ugc_text": "UGC text index",
+      "target_item_type": "Item type",
+      "target_preset_index": "Preset index",
+      "map_objects_heading": "Map objects",
+      "map_object_label": "Slot {n}",
+      "cooldowns_heading": "Cooldowns",
+      "child_birth_block_label": "Child-birth blocked until",
+      "item_type": {
+        "invalid": "Invalid",
+        "food": "Food",
+        "goods": "Goods",
+        "cloth": "Clothing",
+        "coordinate": "Coordinate",
+        "mapObject": "Map object",
+        "mapFloor": "Map floor",
+        "ugcFood": "UGC food",
+        "ugcGoods": "UGC goods"
+      },
+      "category": {
+        "Cloth": "Clothing",
+        "Depress": "Depression",
+        "Fight": "Fight",
+        "Food": "Food",
+        "Goods": "Goods",
+        "Introduction": "Tutorial",
+        "IslandEdit": "Island edit",
+        "Other": "Other",
+        "Question": "Question",
+        "Relation": "Relationships",
+        "RoomStyle": "Room style"
+      }
+    },
     "panel": {
       "no_name_spine": "This save doesn't expose the Mii.Name.Name spine - there's nothing to enumerate. Use the Player tab's advanced panel to inspect raw entries.",
       "no_slots": "No populated Mii slots were found. Slots are detected by checking Mii.Name.Name for a non-empty string.",
@@ -161,7 +286,9 @@
       "mood": "Mood",
       "voice": "Voice",
       "voice_caption": "Sliders cover 0-50 (51 steps). Picking a Simple preset overwrites every slider.",
-      "food": "Food"
+      "food": "Food",
+      "words": "Words",
+      "words_caption": "Custom phrases this Mii speaks during dialogue."
     },
     "spoiler": {
       "warning": "Spoiler warning",
@@ -173,7 +300,15 @@
     },
     "food": {
       "no_image": "No image",
-      "unknown": "Unknown food (hash {hash})"
+      "unknown": "Unknown food (hash {hash})",
+      "empty_rank": "—",
+      "rank_marker": "#{rank}",
+      "given_count": "{tried} / {total} tasted",
+      "search_placeholder": "Search foods…",
+      "filter_all": "All",
+      "filter_tried": "Tasted",
+      "filter_untried": "Untasted",
+      "no_results": "No matching foods."
     },
     "fields": {
       "level": "Mii level",
@@ -213,7 +348,10 @@
       "ultra_best_id": "All-time favourite food",
       "best_id": "2nd favourite food",
       "ultra_worst_id": "All-time hated food",
-      "worst_id": "2nd hated food"
+      "worst_id": "2nd hated food",
+      "ranked_food_id": "Top ranked foods",
+      "ranked_food_id_hint": "The three foods this Mii currently rates highest, in order. Updates as they try new foods.",
+      "given_flag": "Foods tasted"
     },
     "errors": {
       "required": "Required",
@@ -295,6 +433,26 @@
         "Robot L": "Robot L",
         "Robot S": "Robot S"
       }
+    },
+    "words": {
+      "missing": "This save doesn't expose the Mii Words arrays.",
+      "summary": "{filled} of {total} slots filled",
+      "show_empty": "Show empty slots",
+      "add_slot": "Add slot",
+      "empty_hint": "No words yet. Use \"Add slot\" to create one.",
+      "kind_label": "Mood",
+      "kind_invalid": "(empty slot)",
+      "region_label": "Word region",
+      "text_label": "Word text",
+      "text_placeholder": "What this Mii says…",
+      "how_label": "Pronunciation",
+      "how_placeholder": "Same as Word text",
+      "how_hint": "Phonetic spelling used by voice playback. Leave blank to mirror Word text.",
+      "clear_action": "Clear",
+      "clear_tip": "Empty this slot",
+      "clear_confirm": "Clear this word slot? Mood, text and pronunciation will be reset.",
+      "error_too_long": "Max {max} characters",
+      "error_split_surrogate": "Last character splits an emoji — drop one"
     },
     "pronoun": {
       "He": "He/Him",
@@ -616,6 +774,82 @@
     "bulk_enum_pick": "Pick a value…",
     "page_elements_status": "Elements {start}-{end} of {count} · Page {page}/{total}"
   },
+  "faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "Common questions about the editor. Click a question to expand.",
+    "items": {
+      "brick": {
+        "q": "Can this corrupt my save?",
+        "intro": "Yes, a bad edit can corrupt your save and there's no in-game recovery, so the only way back is the backup you made before editing.",
+        "a1": "The editor does a few things to prevent corrupting your save:",
+        "a2": "It never overwrites your original file, it creates a new one for you to download, so if something goes wrong the original is still safe.",
+        "a3": "The editor will block some edits that are known to cause corruption, and warn you about risky ones."
+      },
+      "backup": {
+        "q": "Should I back up my save first?",
+        "a": "Yes, always. Copy your Mii.sav, Player.sav, and Map.sav files somewhere safe before loading them here. A bad edit can corrupt your save with no in-game recovery, and the only way back is the backup you made."
+      },
+      "upload": {
+        "q": "Will my save be uploaded anywhere?",
+        "a1": "No. The editor runs entirely in your browser, files are parsed and rewritten locally, and your save data isn't sent to any server.",
+        "a2_prefix": "The site is also open source, so you can read the code yourself on ",
+        "a2_link": "GitHub",
+        "a2_suffix": "."
+      },
+      "sav_files": {
+        "q": "What's the difference between Player.sav, Mii.sav, and Map.sav?",
+        "intro": "The game splits its data across three files, and the editor has a tab for each:",
+        "player": "- your player data: your name, island name, money, play time, everything you unlocked...",
+        "mii": "- per-Mii data for everyone living on your island: personalities, voices, relationships...",
+        "map": "- the layout of your island: where each building is placed, what each tile on the ground is...",
+        "outro": "The three files are independent, you can edit one without touching the others, and you only need to upload the ones you actually want to change."
+      },
+      "advanced": {
+        "q": "What is the Advanced tab for?",
+        "a1": "The structured tabs (Player, Mii, Map) cover the fields the editor knows how to render with proper labels and pickers. The Advanced section, found at the bottom of each tab, is a raw entry browser that lists every key found in the save, including ones that haven't been mapped to a friendly UI yet. Use it if you need to inspect or edit something the structured tabs don't expose.",
+        "a2": "Treat it as power-user territory. Some fields are cryptic, and editing them blindly is a good way to corrupt a save, back up first. Anything done here is at your own risk."
+      },
+      "hashes": {
+        "q": "Why are some entries shown as numbers or unknown names?",
+        "a": "Save files reference content (clothes, food, treasures, room styles, and so on) by hash, not by readable name. The editor ships a hash list that translates as many of those hashes as possible back into names. When an entry shows up as a hex number or as \"Unknown\", it's a hash that isn't in the list yet. If you identify one, please open an issue or share it on Discord so it can be added for everyone."
+      },
+      "stable_beta": {
+        "q": "Stable vs Beta, which should I use?",
+        "stable_label": "Stable",
+        "stable_body": "the version you should probably use. This is the tested, polished version of the editor, where features are less likely to be broken and bugs are less likely to cause corruption. Useful for most people, especially if you're new to save editing.",
+        "beta_label": "Beta",
+        "beta_body": "the experimental build, where new features land first. Expect more bugs and occasional broken behaviour. Useful if you want to try something that isn't on Stable yet, or if a fix you reported has just been merged.",
+        "switch_hint": "You can switch between the two using the link next to the version badge in the header. Whichever you pick, always back up your saves first."
+      },
+      "translation": {
+        "q": "How do I add a translation?",
+        "a_prefix": "See the ",
+        "a_link": "Adding a Localization section in the repo's README",
+        "a_suffix": ", it has the full set of steps."
+      },
+      "bug": {
+        "q": "I've found a bug",
+        "intro_prefix": "Please open an issue on GitHub, the \"Report an issue\" link in the footer takes you straight to the new-issue form, or you can use ",
+        "intro_link": "this link",
+        "intro_suffix": ". Helpful things to include:",
+        "item_what": "What you were trying to do.",
+        "item_actual": "What happened instead.",
+        "item_version": "Whether you were on Stable or Beta, and the version number from the header.",
+        "item_screenshot": "A screenshot if it's a UI issue.",
+        "item_save": "The save file itself if you're comfortable sharing it. Saves help reproduce a bug a lot faster than descriptions alone.",
+        "discord_prefix": "If you'd rather not file an issue, the ",
+        "discord_link": "Discord",
+        "discord_suffix": " works too."
+      },
+      "cant_do_x": {
+        "q": "I can't do X",
+        "intro": "If something you want to edit isn't in the structured tabs, it's almost always one of two things:",
+        "item_unmapped": "Nobody has mapped that field to the editor yet, the data is in the save, but no UI has been built for it.",
+        "item_unsafe": "The field can't be edited safely on its own, it might be derived from other values, or part of a structure where changing one piece without the rest would corrupt the save.",
+        "outro": "Either way, the right move is to open an issue or ask on Discord describing what you're trying to change. New features get prioritised based on what people actually want."
+      }
+    }
+  },
   "about": {
     "title": "About",
     "credits_title": "Credits",
@@ -635,5 +869,12 @@
     },
     "translations_title": "Translations",
     "disclaimer": "This is an unofficial, fan-made tool. Tomodachi Life: Living the Dream is © Nintendo."
+  },
+  "footer": {
+    "github": "GitHub",
+    "github_aria": "View source on GitHub",
+    "report_issue": "Report an issue",
+    "discord": "Discord",
+    "license": "AGPL-3.0"
   }
 }

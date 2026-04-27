@@ -6,6 +6,19 @@ export type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.4.0',
+    date: '2026-04-27',
+    changes: [
+      'Added a Mii troubles editor in the Mii tab.',
+      'Added a Mii Words editor in the Mii tab.',
+      'Added editors for each Mii’s ranked foods and tasted-foods history.',
+      'Added an interiors unlocker grouped by room-style variation in the Player tab.',
+      'Added bulk loading and exporting of saves: drop a folder or .zip to route each file to the right tab, and export everything at once.',
+      'Added a Frequently Asked Questions page.',
+      'Added a site-wide footer with links to GitHub, the issue tracker, Discord, and the license.',
+    ],
+  },
+  {
     version: '1.3.0',
     date: '2026-04-27',
     changes: [

@@ -1,8 +1,12 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { _ } from 'svelte-i18n';
+  import { cancelOverwrite, confirmOverwrite, overwriteModal } from './bulkLoader.svelte';
   import { CHANGELOG } from './changelog';
   import ChangelogDialog from './ChangelogDialog.svelte';
+  import { cancelClearAll, clearAllModal, confirmClearAll } from './clearAll.svelte';
+  import ConfirmListModal from './ConfirmListModal.svelte';
+  import Footer from './Footer.svelte';
   import Lightbox from './Lightbox.svelte';
   import LocaleSwitcher from './LocaleSwitcher.svelte';
   import { getPath, navigate } from './navigation.svelte';
@@ -46,6 +50,7 @@
     { href: '/player', label: $_('tab.player'), wip: false },
     { href: '/mii', label: $_('tab.mii'), wip: false },
     { href: '/map', label: $_('tab.map'), wip: false },
+    { href: '/faq', label: $_('tab.faq'), wip: false },
     { href: '/about', label: $_('tab.about'), wip: false },
   ]);
 
@@ -156,7 +161,29 @@
   <div class="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
     {@render children()}
   </div>
+
+  <Footer />
 </div>
 
 <ChangelogDialog bind:open={changelogOpen} onClose={() => (changelogOpen = false)} />
+<ConfirmListModal
+  bind:open={overwriteModal.open}
+  items={overwriteModal.conflicts}
+  title={$_('bulk.overwrite_title')}
+  intro={$_('bulk.overwrite_intro')}
+  warning={$_('bulk.overwrite_warning')}
+  confirmLabel={$_('bulk.overwrite_confirm')}
+  onConfirm={confirmOverwrite}
+  onCancel={cancelOverwrite}
+/>
+<ConfirmListModal
+  bind:open={clearAllModal.open}
+  items={clearAllModal.items}
+  title={$_('bulk.clear_title')}
+  intro={$_('bulk.clear_intro')}
+  warning={$_('bulk.clear_warning')}
+  confirmLabel={$_('bulk.clear_confirm')}
+  onConfirm={confirmClearAll}
+  onCancel={cancelClearAll}
+/>
 <Lightbox />
