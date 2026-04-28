@@ -127,19 +127,16 @@ function bytesEqual(a: Uint8Array, b: Uint8Array): boolean {
 }
 
 describe.runIf(existsSync(resolve('sample/Player.sav')))('real save fixtures', () => {
-  it.each(['Player.sav', 'Mii.sav', 'Map.sav'])(
-    'parses and re-encodes %s idempotently',
-    (name) => {
-      const path = resolve('sample', name);
-      if (!existsSync(path)) return;
-      const bytes = new Uint8Array(readFileSync(path));
-      const parsed = parseSav(bytes);
-      const rewritten = writeSav(parsed);
-      const reparsed = parseSav(rewritten);
-      expect(reparsed.entries).toHaveLength(parsed.entries.length);
-      const rewrittenAgain = writeSav(reparsed);
-      expect(rewrittenAgain.byteLength).toBe(rewritten.byteLength);
-      expect(bytesEqual(rewrittenAgain, rewritten)).toBe(true);
-    },
-  );
+  it.each(['Player.sav', 'Mii.sav', 'Map.sav'])('parses and re-encodes %s idempotently', (name) => {
+    const path = resolve('sample', name);
+    if (!existsSync(path)) return;
+    const bytes = new Uint8Array(readFileSync(path));
+    const parsed = parseSav(bytes);
+    const rewritten = writeSav(parsed);
+    const reparsed = parseSav(rewritten);
+    expect(reparsed.entries).toHaveLength(parsed.entries.length);
+    const rewrittenAgain = writeSav(reparsed);
+    expect(rewrittenAgain.byteLength).toBe(rewritten.byteLength);
+    expect(bytesEqual(rewrittenAgain, rewritten)).toBe(true);
+  });
 });

@@ -25,8 +25,8 @@ const base = Object.entries(modules).map(([path, messages]) => {
 });
 
 const baseByTag = new Map(base);
-const aliased: ReadonlyArray<readonly [string, LocaleMessages]> = Object.entries(ALIASES)
-  .map(([alias, target]) => {
+const aliased: ReadonlyArray<readonly [string, LocaleMessages]> = Object.entries(ALIASES).map(
+  ([alias, target]) => {
     const messages = baseByTag.get(target);
     if (!messages) {
       throw new Error(`Alias ${alias} → ${target} cannot resolve: messages/${target}.json missing`);
@@ -35,7 +35,8 @@ const aliased: ReadonlyArray<readonly [string, LocaleMessages]> = Object.entries
       throw new Error(`Alias ${alias} conflicts with existing messages/${alias}.json`);
     }
     return [alias, messages] as const;
-  });
+  },
+);
 
 const discovered = [...base, ...aliased].sort(([a], [b]) => {
   if (a === FALLBACK_LOCALE) return -1;

@@ -1,6 +1,6 @@
 name: Feature request
 description: A new field to expose, a new save area to support, or a UX improvement
-labels: ["enhancement"]
+labels: ['enhancement']
 body:
   - type: markdown
     attributes:
