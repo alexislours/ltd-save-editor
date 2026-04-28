@@ -1,0 +1,2000 @@
+[
+  {
+    "n": "FacilityItemShop",
+    "l": {
+      "CNzh": "的宝物商店",
+      "EUde": "Schatzladen von",
+      "EUen": "'s Treasure Shop",
+      "EUes": "Bazar de",
+      "EUfr": "Trésors",
+      "EUit": "I tesori di",
+      "EUnl": "Schatkamer van",
+      "JPja": "のお宝屋さん",
+      "KRko": "의 보물 가게",
+      "TWzh": "的寶物商店",
+      "USen": "'s treasure shop",
+      "USes": "bazar de",
+      "USfr": "Trésors"
+    },
+    "v": [{ "n": "FacilityItemShop", "h": 586701481, "c": "Default" }],
+    "p": 100000,
+    "t": "f"
+  },
+  {
+    "n": "ObjFireworksAerial",
+    "l": {
+      "CNzh": "烟花",
+      "EUde": "Höhenfeuerwerk",
+      "EUen": "aerial tube firework",
+      "EUes": "Cañón de fuegos artificiales",
+      "EUfr": "feu d'artifice aérien",
+      "EUit": "tubo pirotecnico",
+      "EUnl": "staande romeinse kaars",
+      "JPja": "打ち上げ花火",
+      "KRko": "폭죽",
+      "TWzh": "煙火",
+      "USen": "aerial firework",
+      "USes": "cañón de fuegos artificiales",
+      "USfr": "feu d'artifice fusée"
+    },
+    "v": [{ "n": "ObjFireworksAerial", "h": 1928007034, "c": "Default" }],
+    "p": 1000,
+    "t": "m"
+  },
+  {
+    "n": "ObjFlowerAnemone",
+    "l": {
+      "CNzh": "银莲花",
+      "EUde": "Anemonen",
+      "EUen": "anemone flowers",
+      "EUes": "Parterre de anémonas",
+      "EUfr": "anémones",
+      "EUit": "anemoni",
+      "EUnl": "anemonen",
+      "JPja": "アネモネ",
+      "KRko": "아네모네",
+      "TWzh": "銀蓮花",
+      "USen": "anemone flowers",
+      "USes": "anémonas",
+      "USfr": "anémones"
+    },
+    "v": [
+      { "n": "ObjFlowerAnemone", "h": 4137214859, "c": "Pink" },
+      { "n": "ObjFlowerAnemone_01", "h": 2757042465, "c": "Red" },
+      { "n": "ObjFlowerAnemone_02", "h": 3064429186, "c": "Indigo" }
+    ],
+    "p": 200,
+    "t": "m"
+  },
+  {
+    "n": "ObjFlowerNemophila",
+    "l": {
+      "CNzh": "粉蝶花",
+      "EUde": "Hainblumen",
+      "EUen": "baby blue eyes flowers",
+      "EUes": "Parterre de nemophilas",
+      "EUfr": "némophiles",
+      "EUit": "fiori dagli occhi azzurri",
+      "EUnl": "bosliefjes",
+      "JPja": "ネモフィラ",
+      "KRko": "네모필라",
+      "TWzh": "粉蝶花",
+      "USen": "baby blue eyes flowers",
+      "USes": "nemophilas",
+      "USfr": "némophiles"
+    },
+    "v": [{ "n": "ObjFlowerNemophila", "h": 3793508587, "c": "Blue" }],
+    "p": 250,
+    "t": "m"
+  },
+  {
+    "n": "ObjFenceBarbed",
+    "l": {
+      "CNzh": "带刺铁丝栅栏",
+      "EUde": "Stacheldrahtzaun",
+      "EUen": "barbed wire fencing",
+      "EUes": "Valla con alambre de espino",
+      "EUfr": "clôture barbelée",
+      "EUit": "recinzione con filo spinato",
+      "EUnl": "gaashekwerk met prikkeldraad",
+      "JPja": "有刺鉄線の柵",
+      "KRko": "가시철조망",
+      "TWzh": "有刺鐵絲柵欄",
+      "USen": "barbed-wire fence",
+      "USes": "valla de alambre de púas",
+      "USfr": "clôture barbelée"
+    },
+    "v": [
+      { "n": "ObjFenceBarbed", "h": 2459334013, "c": "Black" },
+      { "n": "ObjFenceBarbed_01", "h": 2396271908, "c": "Gray" },
+      { "n": "ObjFenceBarbed_02", "h": 551975984, "c": "Cyan" },
+      { "n": "ObjFenceBarbed_03", "h": 2293045448, "c": "Brown" },
+      { "n": "ObjFenceBarbed_04", "h": 2096577602, "c": "Yellow" },
+      { "n": "ObjFenceBarbed_05", "h": 3037496341, "c": "Red" },
+      { "n": "ObjFenceBarbed_06", "h": 680101376, "c": "Green" },
+      { "n": "ObjFenceBarbed_07", "h": 4274830798, "c": "Blue" }
+    ],
+    "p": 420,
+    "t": "m"
+  },
+  {
+    "n": "ObjStandingTorch",
+    "l": {
+      "CNzh": "篝火",
+      "EUde": "Feuerkorbfackel",
+      "EUen": "brazier",
+      "EUes": "Brasero",
+      "EUfr": "flambeau",
+      "EUit": "braciere",
+      "EUnl": "houten driepootvuurkorf",
+      "JPja": "かがり火",
+      "KRko": "화톳불",
+      "TWzh": "篝火",
+      "USen": "basket torch",
+      "USes": "antorcha de fogata",
+      "USfr": "flambeau"
+    },
+    "v": [{ "n": "ObjStandingTorch", "h": 1006898933, "c": "Orange" }],
+    "p": 500,
+    "t": "m"
+  },
+  {
+    "n": "ObjBeachBed",
+    "l": {
+      "CNzh": "沙滩躺椅",
+      "EUde": "Sonnenliege",
+      "EUen": "deck chair",
+      "EUes": "Tumbona",
+      "EUfr": "bain de soleil",
+      "EUit": "lettino",
+      "EUnl": "ligstoel",
+      "JPja": "ビーチベッド",
+      "KRko": "선베드",
+      "TWzh": "沙灘躺椅",
+      "USen": "beach lounger",
+      "USes": "camastro de playa",
+      "USfr": "chaise longue de plage"
+    },
+    "v": [
+      { "n": "ObjBeachBed", "h": 907312580, "c": "White" },
+      { "n": "ObjBeachBed_01", "h": 1403381172, "c": "Gray" },
+      { "n": "ObjBeachBed_02", "h": 3369108085, "c": "Ocher" },
+      { "n": "ObjBeachBed_03", "h": 3637821916, "c": "Orange" },
+      { "n": "ObjBeachBed_04", "h": 605862410, "c": "Yellow" },
+      { "n": "ObjBeachBed_05", "h": 2898059670, "c": "Pink" },
+      { "n": "ObjBeachBed_06", "h": 2260693628, "c": "LimeGreen" },
+      { "n": "ObjBeachBed_07", "h": 1662672605, "c": "Cyan" }
+    ],
+    "p": 3000,
+    "t": "m"
+  },
+  {
+    "n": "ObjStepIron",
+    "l": {
+      "CNzh": "海滩的阶梯（铁）",
+      "EUde": "Metall-Strandtreppe",
+      "EUen": "beach steps (metal)",
+      "EUes": "Escalinata de playa de metal",
+      "EUfr": "escalier de plage en métal",
+      "EUit": "scala di metallo",
+      "EUnl": "strandtrap van metaal",
+      "JPja": "浜辺の階段（鉄）",
+      "KRko": "해변의 계단(철)",
+      "TWzh": "海灘的階梯（鐵）",
+      "USen": "beach stairs (steel)",
+      "USes": "escaleras de playa metal",
+      "USfr": "escalier de plage en métal"
+    },
+    "v": [
+      { "n": "ObjStepIron", "h": 2010128532, "c": "Gray" },
+      { "n": "ObjStepIron_01", "h": 4114125466, "c": "Black" },
+      { "n": "ObjStepIron_02", "h": 1678503578, "c": "Turquoise" },
+      { "n": "ObjStepIron_03", "h": 576557503, "c": "Brown" },
+      { "n": "ObjStepIron_04", "h": 1038377354, "c": "Yellow" },
+      { "n": "ObjStepIron_05", "h": 3961792497, "c": "Red" },
+      { "n": "ObjStepIron_06", "h": 2368225891, "c": "Green" },
+      { "n": "ObjStepIron_07", "h": 2898389404, "c": "Blue" }
+    ],
+    "p": 999,
+    "t": "m"
+  },
+  {
+    "n": "ObjStepStone",
+    "l": {
+      "CNzh": "海滩的阶梯（石）",
+      "EUde": "Stein-Strandtreppe",
+      "EUen": "beach steps (stone)",
+      "EUes": "Escalinata de playa de piedra",
+      "EUfr": "escalier de plage en pierre",
+      "EUit": "scala di pietra",
+      "EUnl": "strandtrap van steen",
+      "JPja": "浜辺の階段（石）",
+      "KRko": "해변의 계단(돌)",
+      "TWzh": "海灘的階梯（石）",
+      "USen": "beach stairs (stone)",
+      "USes": "escaleras de playa piedra",
+      "USfr": "escalier de plage en pierre"
+    },
+    "v": [
+      { "n": "ObjStepStone", "h": 4070299352, "c": "Gray" },
+      { "n": "ObjStepStone_01", "h": 746891274, "c": "Brown" },
+      { "n": "ObjStepStone_02", "h": 91632957, "c": "White" }
+    ],
+    "p": 1000,
+    "t": "m"
+  },
+  {
+    "n": "ObjStepWood",
+    "l": {
+      "CNzh": "海滩的阶梯（木）",
+      "EUde": "Holz-Strandtreppe",
+      "EUen": "beach steps (wooden)",
+      "EUes": "Escalinata de playa de madera",
+      "EUfr": "escalier de plage en bois",
+      "EUit": "scala di legno",
+      "EUnl": "strandtrap van hout",
+      "JPja": "浜辺の階段（木）",
+      "KRko": "해변의 계단(나무)",
+      "TWzh": "海灘的階梯（木）",
+      "USen": "beach stairs (wooden)",
+      "USes": "escaleras de playa madera",
+      "USfr": "escalier de plage en bois"
+    },
+    "v": [
+      { "n": "ObjStepWood", "h": 378559713, "c": "Ocher" },
+      { "n": "ObjStepWood_01", "h": 1979613473, "c": "White" },
+      { "n": "ObjStepWood_02", "h": 3990298880, "c": "Brown" },
+      { "n": "ObjStepWood_03", "h": 3656109814, "c": "Black" },
+      { "n": "ObjStepWood_04", "h": 3648443616, "c": "Yellow" },
+      { "n": "ObjStepWood_05", "h": 3840247168, "c": "Pink" },
+      { "n": "ObjStepWood_06", "h": 2781634385, "c": "LimeGreen" },
+      { "n": "ObjStepWood_07", "h": 2878543142, "c": "Cyan" }
+    ],
+    "p": 999,
+    "t": "m"
+  },
+  {
+    "n": "ObjBeachParasol",
+    "l": {
+      "CNzh": "遮阳伞",
+      "EUde": "Sonnenschirm",
+      "EUen": "parasol",
+      "EUes": "Sombrilla",
+      "EUfr": "parasol",
+      "EUit": "ombrellone",
+      "EUnl": "parasol",
+      "JPja": "パラソル",
+      "KRko": "파라솔",
+      "TWzh": "陽傘",
+      "USen": "beach umbrella",
+      "USes": "sombrilla de playa",
+      "USfr": "parasol"
+    },
+    "v": [
+      { "n": "ObjBeachParasol", "h": 4035110090, "c": "White" },
+      { "n": "ObjBeachParasol_01", "h": 100769687, "c": "Ocher" },
+      { "n": "ObjBeachParasol_02", "h": 2654985329, "c": "Colorful" },
+      { "n": "ObjBeachParasol_03", "h": 2821162009, "c": "Green" },
+      { "n": "ObjBeachParasol_04", "h": 3270707229, "c": "Yellow" },
+      { "n": "ObjBeachParasol_05", "h": 3303494031, "c": "Red" },
+      { "n": "ObjBeachParasol_06", "h": 2866294480, "c": "LimeGreen" },
+      { "n": "ObjBeachParasol_07", "h": 1038622197, "c": "Blue" }
+    ],
+    "p": 3000,
+    "t": "m"
+  },
+  {
+    "n": "ObjBell",
+    "l": {
+      "CNzh": "钟",
+      "EUde": "Glocke",
+      "EUen": "hanging bell",
+      "EUes": "Campana",
+      "EUfr": "cloche",
+      "EUit": "campana",
+      "EUnl": "hangende bel",
+      "JPja": "鐘",
+      "KRko": "종",
+      "TWzh": "鐘",
+      "USen": "bell",
+      "USes": "campana",
+      "USfr": "cloche"
+    },
+    "v": [
+      { "n": "ObjBell", "h": 1947306552, "c": "White" },
+      { "n": "ObjBell_01", "h": 771948183, "c": "Brown" },
+      { "n": "ObjBell_02", "h": 3169888299, "c": "Gray" },
+      { "n": "ObjBell_03", "h": 2039268894, "c": "Pink" },
+      { "n": "ObjBell_04", "h": 1048430329, "c": "Yellow" },
+      { "n": "ObjBell_05", "h": 53850279, "c": "Red" },
+      { "n": "ObjBell_06", "h": 3950725454, "c": "Green" },
+      { "n": "ObjBell_07", "h": 1234817615, "c": "Blue" }
+    ],
+    "p": 2200,
+    "t": "m"
+  },
+  {
+    "n": "ObjBenchPark",
+    "l": {
+      "CNzh": "长椅",
+      "EUde": "Parkbank",
+      "EUen": "park bench",
+      "EUes": "Banco",
+      "EUfr": "banc public",
+      "EUit": "panchina da parco",
+      "EUnl": "parkbank",
+      "JPja": "ベンチ",
+      "KRko": "벤치",
+      "TWzh": "長椅",
+      "USen": "bench",
+      "USes": "banca",
+      "USfr": "banc public"
+    },
+    "v": [
+      { "n": "ObjBenchPark", "h": 976720944, "c": "Ocher" },
+      { "n": "ObjBenchPark_01", "h": 1939585028, "c": "White" },
+      { "n": "ObjBenchPark_02", "h": 3792846558, "c": "Brown" },
+      { "n": "ObjBenchPark_03", "h": 1620528925, "c": "Green" },
+      { "n": "ObjBenchPark_04", "h": 4172080327, "c": "Yellow" },
+      { "n": "ObjBenchPark_05", "h": 3033682560, "c": "Red" },
+      { "n": "ObjBenchPark_06", "h": 3895877689, "c": "LimeGreen" },
+      { "n": "ObjBenchPark_07", "h": 1845122854, "c": "Blue" }
+    ],
+    "p": 2500,
+    "t": "m"
+  },
+  {
+    "n": "ObjBonfire",
+    "l": {
+      "CNzh": "焚火台",
+      "EUde": "Feuerschale",
+      "EUen": "campfire",
+      "EUes": "Fogata",
+      "EUfr": "braséro",
+      "EUit": "falò",
+      "EUnl": "vuurschaal",
+      "JPja": "たき火台",
+      "KRko": "모닥불 화로",
+      "TWzh": "篝火台",
+      "USen": "bonfire",
+      "USes": "fogata",
+      "USfr": "braséro"
+    },
+    "v": [
+      { "n": "ObjBonfire", "h": 3374398909, "c": "Gray" },
+      { "n": "ObjBonfire_01", "h": 160654307, "c": "Black" },
+      { "n": "ObjBonfire_02", "h": 1321098751, "c": "White" },
+      { "n": "ObjBonfire_03", "h": 901528172, "c": "Yellow" },
+      { "n": "ObjBonfire_04", "h": 3286831482, "c": "Red" },
+      { "n": "ObjBonfire_05", "h": 430149718, "c": "Green" },
+      { "n": "ObjBonfire_06", "h": 55922480, "c": "Blue" }
+    ],
+    "p": 1200,
+    "t": "m"
+  },
+  {
+    "n": "ObjSwingRider",
+    "l": {
+      "CNzh": "摇晃玩具",
+      "EUde": "Wackeltier",
+      "EUen": "animal spring rider",
+      "EUes": "Balancín animal",
+      "EUfr": "animal à ressort",
+      "EUit": "dondolo con animale",
+      "EUnl": "veerdier",
+      "JPja": "揺れる遊具",
+      "KRko": "흔들리는 놀이기구",
+      "TWzh": "搖晃遊具",
+      "USen": "bouncy playground ride",
+      "USes": "montable mecánico",
+      "USfr": "animal à ressort"
+    },
+    "v": [
+      { "n": "ObjSwingRider", "h": 2182895204, "c": "White" },
+      { "n": "ObjSwingRider_01", "h": 2093101411, "c": "Ocher" },
+      { "n": "ObjSwingRider_02", "h": 2302321853, "c": "Orange" },
+      { "n": "ObjSwingRider_03", "h": 2066282692, "c": "Gray" },
+      { "n": "ObjSwingRider_04", "h": 1913636927, "c": "Yellow" },
+      { "n": "ObjSwingRider_05", "h": 1016579481, "c": "Pink" },
+      { "n": "ObjSwingRider_06", "h": 2842617929, "c": "Green" },
+      { "n": "ObjSwingRider_07", "h": 1021290374, "c": "Cyan" }
+    ],
+    "p": 7800,
+    "t": "m"
+  },
+  {
+    "n": "ObjTreeCactus",
+    "l": {
+      "CNzh": "仙人掌",
+      "EUde": "Kaktus",
+      "EUen": "cactus",
+      "EUes": "Cactus",
+      "EUfr": "cactus",
+      "EUit": "cactus",
+      "EUnl": "cactus",
+      "JPja": "サボテン",
+      "KRko": "선인장",
+      "TWzh": "仙人掌",
+      "USen": "cactus",
+      "USes": "cáctus",
+      "USfr": "cactus"
+    },
+    "v": [{ "n": "ObjTreeCactus", "h": 1289688035, "c": "LimeGreen" }],
+    "p": 800,
+    "t": "m"
+  },
+  {
+    "n": "ObjFenceChain",
+    "l": {
+      "CNzh": "锁链栅栏",
+      "EUde": "Absperrkette",
+      "EUen": "post and chain fencing",
+      "EUes": "Pilonas con cadena",
+      "EUfr": "barrière à chaîne",
+      "EUit": "recinzione con catena",
+      "EUnl": "afzetpalen met ketting",
+      "JPja": "チェーンの柵",
+      "KRko": "체인 울타리",
+      "TWzh": "鎖鏈柵欄",
+      "USen": "chain stanchion",
+      "USes": "cerca de cadena",
+      "USfr": "barrière à chaîne"
+    },
+    "v": [
+      { "n": "ObjFenceChain", "h": 3823445259, "c": "Black" },
+      { "n": "ObjFenceChain_01", "h": 4142699085, "c": "Gray" },
+      { "n": "ObjFenceChain_02", "h": 2079525591, "c": "White" },
+      { "n": "ObjFenceChain_03", "h": 1727314661, "c": "Brown" },
+      { "n": "ObjFenceChain_04", "h": 1925992232, "c": "Yellow" },
+      { "n": "ObjFenceChain_05", "h": 1327582325, "c": "Red" },
+      { "n": "ObjFenceChain_06", "h": 1810082716, "c": "Green" },
+      { "n": "ObjFenceChain_07", "h": 278941830, "c": "Blue" }
+    ],
+    "p": 350,
+    "t": "m"
+  },
+  {
+    "n": "ObjTreeCherry",
+    "l": {
+      "CNzh": "樱花",
+      "EUde": "Kirschbaum",
+      "EUen": "cherry tree",
+      "EUes": "Cerezo",
+      "EUfr": "cerisier en fleur",
+      "EUit": "ciliegio",
+      "EUnl": "kersenboom",
+      "JPja": "さくら",
+      "KRko": "벚나무",
+      "TWzh": "櫻花樹",
+      "USen": "cherry-blossom tree",
+      "USes": "cerezo",
+      "USfr": "cerisier en fleur"
+    },
+    "v": [{ "n": "ObjTreeCherry", "h": 1892479307, "c": "Pink" }],
+    "p": 1000,
+    "t": "m"
+  },
+  {
+    "n": "ObjClockTower",
+    "l": {
+      "CNzh": "时钟",
+      "EUde": "Uhr",
+      "EUen": "street clock",
+      "EUes": "Reloj de exterior",
+      "EUfr": "horloge",
+      "EUit": "orologio da esterno",
+      "EUnl": "staande stationsklok",
+      "JPja": "時計",
+      "KRko": "시계",
+      "TWzh": "時鐘",
+      "USen": "clock",
+      "USes": "reloj de exterior",
+      "USfr": "horloge"
+    },
+    "v": [
+      { "n": "ObjClockTower", "h": 4105215049, "c": "Black" },
+      { "n": "ObjClockTower_01", "h": 3763313522, "c": "Gray" },
+      { "n": "ObjClockTower_02", "h": 4212321839, "c": "White" },
+      { "n": "ObjClockTower_03", "h": 2516209457, "c": "Brown" },
+      { "n": "ObjClockTower_04", "h": 4118782885, "c": "Yellow" },
+      { "n": "ObjClockTower_05", "h": 3863714471, "c": "Red" },
+      { "n": "ObjClockTower_06", "h": 1926105237, "c": "Green" },
+      { "n": "ObjClockTower_07", "h": 1009151870, "c": "Blue" }
+    ],
+    "p": 3000,
+    "t": "m"
+  },
+  {
+    "n": "ObjTreeConiferous",
+    "l": {
+      "CNzh": "针叶树",
+      "EUde": "Nadelbaum",
+      "EUen": "pine tree",
+      "EUes": "Pino",
+      "EUfr": "pin",
+      "EUit": "pino",
+      "EUnl": "naaldboom",
+      "JPja": "針葉樹",
+      "KRko": "침엽수",
+      "TWzh": "針葉樹",
+      "USen": "conifer tree",
+      "USes": "pino",
+      "USfr": "conifère"
+    },
+    "v": [{ "n": "ObjTreeConiferous", "h": 2551713932, "c": "Green" }],
+    "p": 700,
+    "t": "m"
+  },
+  {
+    "n": "ObjFlowerCosmos",
+    "l": {
+      "CNzh": "波斯菊",
+      "EUde": "Cosmeen",
+      "EUen": "cosmos flowers",
+      "EUes": "Parterre de cosmos",
+      "EUfr": "cosmos",
+      "EUit": "cosmee",
+      "EUnl": "cosmea",
+      "JPja": "コスモス",
+      "KRko": "코스모스",
+      "TWzh": "大波斯菊",
+      "USen": "cosmos flowers",
+      "USes": "cosmos",
+      "USfr": "fleurs cosmiques"
+    },
+    "v": [
+      { "n": "ObjFlowerCosmos", "h": 4020465897, "c": "Pink" },
+      { "n": "ObjFlowerCosmos_01", "h": 2629432155, "c": "White" }
+    ],
+    "p": 220,
+    "t": "m"
+  },
+  {
+    "n": "ObjDrinkingFountain",
+    "l": {
+      "CNzh": "饮水台",
+      "EUde": "Trinkbrunnen",
+      "EUen": "drinking fountain",
+      "EUes": "Fuente de agua potable",
+      "EUfr": "fontaine d'eau potable",
+      "EUit": "fontana",
+      "EUnl": "drinkwaterfontein",
+      "JPja": "水飲み場",
+      "KRko": "음수대",
+      "TWzh": "飲水台",
+      "USen": "drinking fountain",
+      "USes": "bebedero",
+      "USfr": "fontaine à boire"
+    },
+    "v": [
+      { "n": "ObjDrinkingFountain", "h": 2367499398, "c": "White" },
+      { "n": "ObjDrinkingFountain_01", "h": 2536519975, "c": "Gray" },
+      { "n": "ObjDrinkingFountain_02", "h": 510667490, "c": "Black" },
+      { "n": "ObjDrinkingFountain_03", "h": 4266011679, "c": "Brown" },
+      { "n": "ObjDrinkingFountain_04", "h": 1857308459, "c": "Yellow" },
+      { "n": "ObjDrinkingFountain_05", "h": 123298002, "c": "Red" },
+      { "n": "ObjDrinkingFountain_06", "h": 3073446218, "c": "Green" },
+      { "n": "ObjDrinkingFountain_07", "h": 2844178450, "c": "Blue" }
+    ],
+    "p": 1200,
+    "t": "m"
+  },
+  {
+    "n": "FacilityFerrisWheel",
+    "l": {
+      "CNzh": "摩天轮",
+      "EUde": "Riesenrad",
+      "EUen": "Ferris Wheel",
+      "EUes": "Noria",
+      "EUfr": "grande roue",
+      "EUit": "Ruota panoramica",
+      "EUnl": "Reuzenrad",
+      "JPja": "観覧車",
+      "KRko": "관람차",
+      "TWzh": "摩天輪",
+      "USen": "Ferris wheel",
+      "USes": "rueda de la fortuna",
+      "USfr": "Grande roue"
+    },
+    "v": [{ "n": "FacilityFerrisWheel", "h": 1938544546, "c": "Default" }],
+    "p": 800000,
+    "t": "f"
+  },
+  {
+    "n": "ObjTreeChristmas",
+    "l": {
+      "CNzh": "圣诞树",
+      "EUde": "Weihnachtsbaum",
+      "EUen": "Christmas tree",
+      "EUes": "Árbol de Navidad",
+      "EUfr": "sapin de Noël",
+      "EUit": "albero di Natale",
+      "EUnl": "kerstboom",
+      "JPja": "クリスマスツリー",
+      "KRko": "크리스마스트리",
+      "TWzh": "聖誕樹",
+      "USen": "festive tree",
+      "USes": "árbol festivo",
+      "USfr": "sapin de Noël"
+    },
+    "v": [{ "n": "ObjTreeChristmas", "h": 889464981, "c": "Green" }],
+    "p": 2300,
+    "t": "m"
+  },
+  {
+    "n": "ObjFlowerpot",
+    "l": {
+      "CNzh": "组合种植",
+      "EUde": "Blumenkübel",
+      "EUen": "raised brick flower bed",
+      "EUes": "Maceta exterior",
+      "EUfr": "bac à fleurs",
+      "EUit": "fioriera di mattoni",
+      "EUnl": "bakstenen bloembak",
+      "JPja": "寄せ植え",
+      "KRko": "화단",
+      "TWzh": "混植花壇",
+      "USen": "flower planter",
+      "USes": "macetero",
+      "USfr": "bac à fleurs"
+    },
+    "v": [
+      { "n": "ObjFlowerpot", "h": 3159909495, "c": "Colorful" },
+      { "n": "ObjFlowerpot_01", "h": 966987892, "c": "White" },
+      { "n": "ObjFlowerpot_02", "h": 3624301968, "c": "Ocher" },
+      { "n": "ObjFlowerpot_03", "h": 1017915319, "c": "Yellow" },
+      { "n": "ObjFlowerpot_04", "h": 1851671116, "c": "Pink" },
+      { "n": "ObjFlowerpot_05", "h": 1255473305, "c": "LimeGreen" },
+      { "n": "ObjFlowerpot_06", "h": 3458061592, "c": "Indigo" }
+    ],
+    "p": 1000,
+    "t": "m"
+  },
+  {
+    "n": "FacilityPhotoStudio",
+    "l": {
+      "CNzh": "照相馆",
+      "EUde": "Fotostudio",
+      "EUen": "Photo Studio",
+      "EUes": "Estudio fotográfico",
+      "EUfr": "studio photo",
+      "EUit": "Studio fotografico",
+      "EUnl": "Fotostudio",
+      "JPja": "写真館",
+      "KRko": "사진관",
+      "TWzh": "照相館",
+      "USen": "Foto-Tomo photography",
+      "USes": "estudio fotográfico",
+      "USfr": "Studio de photo"
+    },
+    "v": [{ "n": "FacilityPhotoStudio", "h": 1150930060, "c": "Default" }],
+    "p": 100000,
+    "t": "f"
+  },
+  {
+    "n": "ObjFireworksErupting",
+    "l": {
+      "CNzh": "地面烟花",
+      "EUde": "Bodenfeuerwerk",
+      "EUen": "fountain firework",
+      "EUes": "Surtidor de fuegos artificiales",
+      "EUfr": "feu d'artifice au sol",
+      "EUit": "fontana pirotecnica",
+      "EUnl": "vuurwerkfontein",
+      "JPja": "吹き出し花火",
+      "KRko": "분수 폭죽",
+      "TWzh": "地面煙火",
+      "USen": "fountain firework",
+      "USes": "bengala de tubo",
+      "USfr": "feu d'artifice fontaine"
+    },
+    "v": [{ "n": "ObjFireworksErupting", "h": 1094937786, "c": "Default" }],
+    "p": 1000,
+    "t": "m"
+  },
+  {
+    "n": "FacilitySupermarket",
+    "l": {
+      "CNzh": "食品商店",
+      "EUde": "Supermarkt",
+      "EUen": "Supermarket",
+      "EUes": "Supermercado",
+      "EUfr": "supérette",
+      "EUit": "Supermercato",
+      "EUnl": "Supermarkt",
+      "JPja": "食べ物屋さん",
+      "KRko": "식품점",
+      "TWzh": "食物商店",
+      "USen": "Fresh Kingdom food mart",
+      "USes": "supermercado",
+      "USfr": "Épicerie"
+    },
+    "v": [{ "n": "FacilitySupermarket", "h": 1670855140, "c": "Default" }],
+    "p": 100000,
+    "t": "f"
+  },
+  {
+    "n": "ObjTreeGinkgo",
+    "l": {
+      "CNzh": "银杏",
+      "EUde": "Gingkobaum",
+      "EUen": "ginkgo tree",
+      "EUes": "Ginkgo",
+      "EUfr": "ginkgo",
+      "EUit": "ginkgo biloba",
+      "EUnl": "Japanse notenboom",
+      "JPja": "イチョウ",
+      "KRko": "은행나무",
+      "TWzh": "銀杏",
+      "USen": "ginkgo tree",
+      "USes": "ginkgo biloba",
+      "USfr": "ginkgo"
+    },
+    "v": [{ "n": "ObjTreeGinkgo", "h": 229241548, "c": "Yellow" }],
+    "p": 500,
+    "t": "m"
+  },
+  {
+    "n": "ObjGrandlight",
+    "l": {
+      "CNzh": "地灯",
+      "EUde": "Bodenlicht",
+      "EUen": "ground light",
+      "EUes": "Foco de suelo",
+      "EUfr": "éclairage au sol",
+      "EUit": "faretto da incasso",
+      "EUnl": "grondlamp",
+      "JPja": "グランドライト",
+      "KRko": "그라운드 라이트",
+      "TWzh": "地燈",
+      "USen": "ground light",
+      "USes": "luz de piso",
+      "USfr": "éclairage au sol"
+    },
+    "v": [
+      { "n": "ObjGrandlight", "h": 3854794544, "c": "White" },
+      { "n": "ObjGrandlight_01", "h": 2305845941, "c": "Yellow" },
+      { "n": "ObjGrandlight_02", "h": 909440081, "c": "Turquoise" },
+      { "n": "ObjGrandlight_03", "h": 2529223002, "c": "Pink" },
+      { "n": "ObjGrandlight_04", "h": 181305434, "c": "Orange" },
+      { "n": "ObjGrandlight_05", "h": 2593732756, "c": "Red" },
+      { "n": "ObjGrandlight_06", "h": 3323976992, "c": "LimeGreen" },
+      { "n": "ObjGrandlight_07", "h": 3210000261, "c": "Blue" }
+    ],
+    "p": 1000,
+    "t": "m"
+  },
+  {
+    "n": "ObjGuardrail",
+    "l": {
+      "CNzh": "防护栏",
+      "EUde": "Leitplanke",
+      "EUen": "guard rail",
+      "EUes": "Quitamiedos",
+      "EUfr": "glissière de sécurité",
+      "EUit": "guardrail",
+      "EUnl": "vangrail",
+      "JPja": "ガードレール",
+      "KRko": "가드레일",
+      "TWzh": "防護欄",
+      "USen": "guardrail",
+      "USes": "valla de contención",
+      "USfr": "rambarde"
+    },
+    "v": [
+      { "n": "ObjGuardrail", "h": 4272962507, "c": "White" },
+      { "n": "ObjGuardrail_01", "h": 185679838, "c": "Gray" },
+      { "n": "ObjGuardrail_02", "h": 387136534, "c": "Black" },
+      { "n": "ObjGuardrail_03", "h": 891795289, "c": "Yellow" },
+      { "n": "ObjGuardrail_04", "h": 34467777, "c": "Red" },
+      { "n": "ObjGuardrail_05", "h": 1060507024, "c": "LimeGreen" },
+      { "n": "ObjGuardrail_06", "h": 1297681167, "c": "Cyan" }
+    ],
+    "p": 600,
+    "t": "m"
+  },
+  {
+    "n": "ObjTreeBroadleaf",
+    "l": {
+      "CNzh": "阔叶树",
+      "EUde": "Laubbaum",
+      "EUen": "broad-leaved tree",
+      "EUes": "Árbol de hoja caduca",
+      "EUfr": "arbre feuillu",
+      "EUit": "latifoglia",
+      "EUnl": "loofboom",
+      "JPja": "広葉樹",
+      "KRko": "활엽수",
+      "TWzh": "闊葉樹",
+      "USen": "hardwood tree",
+      "USes": "árbol de hoja caduca",
+      "USfr": "arbre feuillu"
+    },
+    "v": [{ "n": "ObjTreeBroadleaf", "h": 16225827, "c": "Green" }],
+    "p": 700,
+    "t": "m"
+  },
+  {
+    "n": "ObjHedge",
+    "l": {
+      "CNzh": "树篱",
+      "EUde": "Hecke",
+      "EUen": "hedge",
+      "EUes": "Seto",
+      "EUfr": "haie",
+      "EUit": "siepe",
+      "EUnl": "heg",
+      "JPja": "生垣",
+      "KRko": "생울타리",
+      "TWzh": "樹籬",
+      "USen": "hedge",
+      "USes": "seto",
+      "USfr": "haie"
+    },
+    "v": [{ "n": "ObjHedge", "h": 1222763025, "c": "Green" }],
+    "p": 550,
+    "t": "m"
+  },
+  {
+    "n": "ObjTreeElectric",
+    "l": {
+      "CNzh": "灯饰树",
+      "EUde": "Leuchtbaum",
+      "EUen": "illuminated tree",
+      "EUes": "Árbol iluminado",
+      "EUfr": "arbre illuminé",
+      "EUit": "albero illuminato",
+      "EUnl": "boom met lichtjes",
+      "JPja": "イルミネーションツリー",
+      "KRko": "일루미네이션 트리",
+      "TWzh": "燈飾樹",
+      "USen": "illuminated tree",
+      "USes": "árbol con luces",
+      "USfr": "arbre illuminé"
+    },
+    "v": [
+      { "n": "ObjTreeElectric", "h": 2150055370, "c": "Yellow" },
+      { "n": "ObjTreeElectric_01", "h": 3100096344, "c": "White" },
+      { "n": "ObjTreeElectric_02", "h": 2388354172, "c": "Purple" },
+      { "n": "ObjTreeElectric_03", "h": 3396441638, "c": "Pink" },
+      { "n": "ObjTreeElectric_04", "h": 2364250209, "c": "Orange" },
+      { "n": "ObjTreeElectric_05", "h": 904861538, "c": "Red" },
+      { "n": "ObjTreeElectric_06", "h": 837342868, "c": "Green" },
+      { "n": "ObjTreeElectric_07", "h": 3648818393, "c": "Blue" }
+    ],
+    "p": 800,
+    "t": "m"
+  },
+  {
+    "n": "ObjArchAir",
+    "l": {
+      "CNzh": "充气拱门",
+      "EUde": "Aufpumpbogen",
+      "EUen": "inflatable arch",
+      "EUes": "Arco hinchable",
+      "EUfr": "arche gonflable",
+      "EUit": "arco gonfiabile",
+      "EUnl": "opblaasbare boog",
+      "JPja": "エアーアーチ",
+      "KRko": "에어 아치",
+      "TWzh": "充氣拱門",
+      "USen": "inflatable arch",
+      "USes": "arco inflable",
+      "USfr": "arche gonflable"
+    },
+    "v": [
+      { "n": "ObjArchAir_01", "h": 44347220, "c": "Black" },
+      { "n": "ObjArchAir_02", "h": 2706119446, "c": "Pink" },
+      { "n": "ObjArchAir", "h": 2782947808, "c": "Colorful" },
+      { "n": "ObjArchAir_03", "h": 1233730683, "c": "Cyan" },
+      { "n": "ObjArchAir_04", "h": 684222180, "c": "Yellow" },
+      { "n": "ObjArchAir_05", "h": 2477574256, "c": "Red" },
+      { "n": "ObjArchAir_06", "h": 3324124643, "c": "LimeGreen" },
+      { "n": "ObjArchAir_07", "h": 1063333188, "c": "Blue" }
+    ],
+    "p": 5000,
+    "t": "m"
+  },
+  {
+    "n": "ObjFenceIron",
+    "l": {
+      "CNzh": "欧式风格栅栏",
+      "EUde": "Eisenzaun",
+      "EUen": "iron fencing",
+      "EUes": "Valla de forja",
+      "EUfr": "clôture à pointes",
+      "EUit": "recinzione di ferro",
+      "EUnl": "metalen hek met punten",
+      "JPja": "洋風の柵",
+      "KRko": "서양식 울타리",
+      "TWzh": "歐式風格柵欄",
+      "USen": "iron fence",
+      "USes": "verja de hierro",
+      "USfr": "clôture à pointes"
+    },
+    "v": [
+      { "n": "ObjFenceIron", "h": 4121477381, "c": "Black" },
+      { "n": "ObjFenceIron_01", "h": 4150774062, "c": "White" },
+      { "n": "ObjFenceIron_02", "h": 3173699010, "c": "Gray" },
+      { "n": "ObjFenceIron_03", "h": 1972450863, "c": "Brown" },
+      { "n": "ObjFenceIron_04", "h": 1930604427, "c": "Yellow" },
+      { "n": "ObjFenceIron_05", "h": 241365748, "c": "Red" },
+      { "n": "ObjFenceIron_06", "h": 3848255868, "c": "Green" },
+      { "n": "ObjFenceIron_07", "h": 7879774, "c": "Blue" }
+    ],
+    "p": 370,
+    "t": "m"
+  },
+  {
+    "n": "ObjJackOLantern",
+    "l": {
+      "CNzh": "杰克南瓜灯",
+      "EUde": "Kürbisse",
+      "EUen": "pumpkin patch",
+      "EUes": "Set de calabazas",
+      "EUfr": "citrouilles",
+      "EUit": "set di zucche",
+      "EUnl": "pompoenen",
+      "JPja": "ジャック・オー・ランタン",
+      "KRko": "잭 오 랜턴",
+      "TWzh": "傑克南瓜燈",
+      "USen": "jack-o'-lanterns",
+      "USes": "set de calabazas",
+      "USfr": "citrouilles"
+    },
+    "v": [
+      { "n": "ObjJackOLantern", "h": 514916188, "c": "Orange" },
+      { "n": "ObjJackOLantern_01", "h": 3073932996, "c": "White" },
+      { "n": "ObjJackOLantern_02", "h": 339686105, "c": "Black" },
+      { "n": "ObjJackOLantern_03", "h": 456129007, "c": "Purple" },
+      { "n": "ObjJackOLantern_04", "h": 1551948025, "c": "Yellow" },
+      { "n": "ObjJackOLantern_05", "h": 668446714, "c": "Red" },
+      { "n": "ObjJackOLantern_06", "h": 3698309902, "c": "Green" },
+      { "n": "ObjJackOLantern_07", "h": 4031093034, "c": "Blue" }
+    ],
+    "p": 1500,
+    "t": "m"
+  },
+  {
+    "n": "ObjFenceLattice",
+    "l": {
+      "CNzh": "交叉格栅栏",
+      "EUde": "Spalierzaun",
+      "EUen": "lattice fence",
+      "EUes": "Valla de celosía",
+      "EUfr": "clôture en treillis",
+      "EUit": "recinzione a graticcio",
+      "EUnl": "houten hekwerk",
+      "JPja": "ラティスの柵",
+      "KRko": "격자 모양 울타리",
+      "TWzh": "交叉格柵欄",
+      "USen": "lattice fence",
+      "USes": "valla celosía",
+      "USfr": "clôture en treillis"
+    },
+    "v": [
+      { "n": "ObjFenceLattice", "h": 4019854785, "c": "Ocher" },
+      { "n": "ObjFenceLattice_01", "h": 122682849, "c": "White" },
+      { "n": "ObjFenceLattice_02", "h": 3983048478, "c": "Brown" },
+      { "n": "ObjFenceLattice_03", "h": 3884459661, "c": "Orange" },
+      { "n": "ObjFenceLattice_04", "h": 276354488, "c": "Yellow" },
+      { "n": "ObjFenceLattice_05", "h": 2033971343, "c": "Pink" },
+      { "n": "ObjFenceLattice_06", "h": 3597730914, "c": "LimeGreen" },
+      { "n": "ObjFenceLattice_07", "h": 3835742909, "c": "Cyan" }
+    ],
+    "p": 350,
+    "t": "m"
+  },
+  {
+    "n": "ObjFlowerLavender",
+    "l": {
+      "CNzh": "薰衣草",
+      "EUde": "Lavendel",
+      "EUen": "lavender",
+      "EUes": "Parterre de lavanda",
+      "EUfr": "lavande",
+      "EUit": "lavanda",
+      "EUnl": "lavendel",
+      "JPja": "ラベンダー",
+      "KRko": "라벤더",
+      "TWzh": "薰衣草",
+      "USen": "lavender flowers",
+      "USes": "lavandas",
+      "USfr": "lavande"
+    },
+    "v": [{ "n": "ObjFlowerLavender", "h": 2058577339, "c": "Purple" }],
+    "p": 300,
+    "t": "m"
+  },
+  {
+    "n": "ObjLighthouse",
+    "l": {
+      "CNzh": "灯塔",
+      "EUde": "Leuchtturm",
+      "EUen": "lighthouse",
+      "EUes": "Faro",
+      "EUfr": "phare",
+      "EUit": "faro",
+      "EUnl": "vuurtoren",
+      "JPja": "灯台",
+      "KRko": "등대",
+      "TWzh": "燈塔",
+      "USen": "lighthouse",
+      "USes": "faro",
+      "USfr": "phare"
+    },
+    "v": [
+      { "n": "ObjLighthouse", "h": 2878165968, "c": "White" },
+      { "n": "ObjLighthouse_01", "h": 2774027879, "c": "Brown" },
+      { "n": "ObjLighthouse_02", "h": 500778681, "c": "Red" },
+      { "n": "ObjLighthouse_03", "h": 4245474169, "c": "Black" },
+      { "n": "ObjLighthouse_04", "h": 2050167741, "c": "Yellow" },
+      { "n": "ObjLighthouse_05", "h": 686891433, "c": "Red" },
+      { "n": "ObjLighthouse_06", "h": 1582587206, "c": "Green" },
+      { "n": "ObjLighthouse_07", "h": 1872115102, "c": "Blue" }
+    ],
+    "p": 10000,
+    "t": "m"
+  },
+  {
+    "n": "ObjFenceStake",
+    "l": {
+      "CNzh": "木桩",
+      "EUde": "Holzpfosten",
+      "EUen": "wooden stake fence",
+      "EUes": "Valla de estacas",
+      "EUfr": "piquets de bois",
+      "EUit": "recinzione a paletti di legno",
+      "EUnl": "houten palen",
+      "JPja": "木の杭",
+      "KRko": "나무 말뚝",
+      "TWzh": "木樁",
+      "USen": "log fence",
+      "USes": "valla de estacas",
+      "USfr": "piquets de bois"
+    },
+    "v": [
+      { "n": "ObjFenceStake", "h": 3667717458, "c": "Brown" },
+      { "n": "ObjFenceStake_02", "h": 1920454976, "c": "Black" },
+      { "n": "ObjFenceStake_01", "h": 1165101820, "c": "Ocher" },
+      { "n": "ObjFenceStake_03", "h": 2428306673, "c": "White" },
+      { "n": "ObjFenceStake_04", "h": 3378305717, "c": "Yellow" },
+      { "n": "ObjFenceStake_05", "h": 1894886590, "c": "Pink" },
+      { "n": "ObjFenceStake_06", "h": 3940415376, "c": "LimeGreen" },
+      { "n": "ObjFenceStake_07", "h": 295060085, "c": "Blue" }
+    ],
+    "p": 250,
+    "t": "m"
+  },
+  {
+    "n": "FacilityMarket",
+    "l": {
+      "CNzh": "市场",
+      "EUde": "Marktstand",
+      "EUen": "Market Stall",
+      "EUes": "Mercado",
+      "EUfr": "marché",
+      "EUit": "Bancarella",
+      "EUnl": "Marktkraam",
+      "JPja": "市場",
+      "KRko": "시장",
+      "TWzh": "市場",
+      "USen": "marketplace",
+      "USes": "mercado",
+      "USfr": "Marché"
+    },
+    "v": [{ "n": "FacilityMarket", "h": 1328171564, "c": "Default" }],
+    "p": 500000,
+    "t": "f"
+  },
+  {
+    "n": "FacilityTower",
+    "l": {
+      "CNzh": "新闻播放台",
+      "EUde": "Nachrichtensender",
+      "EUen": "News Station",
+      "EUes": "Centralita de noticias",
+      "EUfr": "station télé",
+      "EUit": "Emittente televisiva",
+      "EUnl": "Nieuwsstudio",
+      "JPja": "ニュース放送局",
+      "KRko": "뉴스 방송국",
+      "TWzh": "新聞放送台",
+      "USen": "MNN news station",
+      "USes": "estación de noticias",
+      "USfr": "Station de télé"
+    },
+    "v": [{ "n": "FacilityTower", "h": 1318660451, "c": "Default" }],
+    "p": 100000,
+    "t": "f"
+  },
+  {
+    "n": "ObjFlowerNarcissus",
+    "l": {
+      "CNzh": "水仙",
+      "EUde": "Narzissen",
+      "EUen": "daffodils",
+      "EUes": "Parterre de narcisos",
+      "EUfr": "narcisses",
+      "EUit": "narcisi",
+      "EUnl": "narcissen",
+      "JPja": "スイセン",
+      "KRko": "수선화",
+      "TWzh": "水仙",
+      "USen": "narcissus flowers",
+      "USes": "narcisos",
+      "USfr": "narcisses"
+    },
+    "v": [{ "n": "ObjFlowerNarcissus", "h": 3264012957, "c": "Default" }],
+    "p": 180,
+    "t": "m"
+  },
+  {
+    "n": "ObjBenchTerrace",
+    "l": {
+      "CNzh": "户外桌椅",
+      "EUde": "Terrassen-Sitzgruppe",
+      "EUen": "outdoor dining set",
+      "EUes": "Set de mesa y sillas",
+      "EUfr": "salon de jardin",
+      "EUit": "set da giardino",
+      "EUnl": "tuintafel met twee stoelen",
+      "JPja": "テラスベンチ",
+      "KRko": "테라스 벤치",
+      "TWzh": "戶外桌椅",
+      "USen": "outdoor dining set",
+      "USes": "Set de mesa y sillas",
+      "USfr": "salon de jardin"
+    },
+    "v": [
+      { "n": "ObjBenchTerrace", "h": 1416161857, "c": "Ocher" },
+      { "n": "ObjBenchTerrace_01", "h": 752236994, "c": "Orange" },
+      { "n": "ObjBenchTerrace_02", "h": 1363505095, "c": "White" },
+      { "n": "ObjBenchTerrace_03", "h": 3211945535, "c": "Black" },
+      { "n": "ObjBenchTerrace_04", "h": 3905073081, "c": "Yellow" },
+      { "n": "ObjBenchTerrace_05", "h": 449950845, "c": "Pink" },
+      { "n": "ObjBenchTerrace_06", "h": 3370951053, "c": "LimeGreen" },
+      { "n": "ObjBenchTerrace_07", "h": 992076942, "c": "Blue" }
+    ],
+    "p": 4300,
+    "t": "m"
+  },
+  {
+    "n": "ObjShowerOutdoor",
+    "l": {
+      "CNzh": "花洒",
+      "EUde": "Außendusche",
+      "EUen": "open-air shower",
+      "EUes": "Ducha de exterior",
+      "EUfr": "douche d'extérieur",
+      "EUit": "doccia esterna",
+      "EUnl": "buitendouche",
+      "JPja": "シャワー",
+      "KRko": "샤워기",
+      "TWzh": "蓮蓬頭",
+      "USen": "outdoor shower",
+      "USes": "regadera al aire libre",
+      "USfr": "douche"
+    },
+    "v": [
+      { "n": "ObjShowerOutdoor", "h": 2369969929, "c": "Gray" },
+      { "n": "ObjShowerOutdoor_01", "h": 2975531685, "c": "White" },
+      { "n": "ObjShowerOutdoor_02", "h": 3924672246, "c": "Black" },
+      { "n": "ObjShowerOutdoor_03", "h": 3290173571, "c": "Brown" },
+      { "n": "ObjShowerOutdoor_04", "h": 3152964083, "c": "Yellow" },
+      { "n": "ObjShowerOutdoor_05", "h": 2041237609, "c": "Red" },
+      { "n": "ObjShowerOutdoor_06", "h": 472829619, "c": "Green" },
+      { "n": "ObjShowerOutdoor_07", "h": 3510406896, "c": "Blue" }
+    ],
+    "p": 4000,
+    "t": "m"
+  },
+  {
+    "n": "FacilityAtelier",
+    "l": {
+      "CNzh": "物品工坊",
+      "EUde": "Werkstatt",
+      "EUen": "Studio Workshop",
+      "EUes": "Taller de diseño",
+      "EUfr": "atelier de création",
+      "EUit": "Studio di design",
+      "EUnl": "Ontwerpatelier",
+      "JPja": "アイテム工房",
+      "KRko": "아이템 공방",
+      "TWzh": "物品工坊",
+      "USen": "Palette House workshop",
+      "USes": "taller de diseño",
+      "USfr": "Atelier de création"
+    },
+    "v": [{ "n": "FacilityAtelier", "h": 3018886823, "c": "Default" }],
+    "p": 100000,
+    "t": "f"
+  },
+  {
+    "n": "ObjTreePalm",
+    "l": {
+      "CNzh": "椰子树",
+      "EUde": "Palme",
+      "EUen": "palm tree",
+      "EUes": "Palmera",
+      "EUfr": "palmier",
+      "EUit": "palma",
+      "EUnl": "palmboom",
+      "JPja": "ヤシの木",
+      "KRko": "야자나무",
+      "TWzh": "椰子樹",
+      "USen": "palm tree",
+      "USes": "palmera",
+      "USfr": "palmier"
+    },
+    "v": [{ "n": "ObjTreePalm", "h": 644151249, "c": "LimeGreen" }],
+    "p": 800,
+    "t": "m"
+  },
+  {
+    "n": "ObjTableBench",
+    "l": {
+      "CNzh": "连体桌椅",
+      "EUde": "Picknick-Sitzgruppe",
+      "EUen": "picnic table",
+      "EUes": "Mesa de pícnic",
+      "EUfr": "table de pique-nique",
+      "EUit": "tavolo da picnic",
+      "EUnl": "picknicktafel",
+      "JPja": "テーブルベンチ",
+      "KRko": "테이블 벤치",
+      "TWzh": "長桌椅",
+      "USen": "picnic table",
+      "USes": "mesa de pícnic",
+      "USfr": "table de pique-nique"
+    },
+    "v": [
+      { "n": "ObjTableBench", "h": 2483318495, "c": "Brown" },
+      { "n": "ObjTableBench_01", "h": 2478810755, "c": "Ocher" },
+      { "n": "ObjTableBench_02", "h": 2537026222, "c": "Black" },
+      { "n": "ObjTableBench_03", "h": 498578156, "c": "Green" },
+      { "n": "ObjTableBench_04", "h": 1042998232, "c": "Yellow" },
+      { "n": "ObjTableBench_05", "h": 406191531, "c": "Red" },
+      { "n": "ObjTableBench_06", "h": 2939536350, "c": "Turquoise" },
+      { "n": "ObjTableBench_07", "h": 1405994296, "c": "Blue" }
+    ],
+    "p": 6200,
+    "t": "m"
+  },
+  {
+    "n": "ObjPinwheel",
+    "l": {
+      "CNzh": "纸风车",
+      "EUde": "Vogel-Windspiel",
+      "EUen": "bird whirligig",
+      "EUes": "Veleta",
+      "EUfr": "moulin à vent",
+      "EUit": "girandola",
+      "EUnl": "vogelwindmolen",
+      "JPja": "かざぐるま",
+      "KRko": "풍차",
+      "TWzh": "風車",
+      "USen": "pinwheel",
+      "USes": "molinito",
+      "USfr": "moulin à vent"
+    },
+    "v": [
+      { "n": "ObjPinwheel", "h": 3937845268, "c": "White" },
+      { "n": "ObjPinwheel_01", "h": 2825860999, "c": "Brown" },
+      { "n": "ObjPinwheel_02", "h": 3409750561, "c": "Black" },
+      { "n": "ObjPinwheel_03", "h": 3829411274, "c": "Pink" },
+      { "n": "ObjPinwheel_04", "h": 3184946612, "c": "Yellow" },
+      { "n": "ObjPinwheel_05", "h": 1756385290, "c": "Red" },
+      { "n": "ObjPinwheel_06", "h": 3966423151, "c": "LimeGreen" },
+      { "n": "ObjPinwheel_07", "h": 1039946859, "c": "Blue" }
+    ],
+    "p": 1800,
+    "t": "m"
+  },
+  {
+    "n": "ObjFenceGuardpipe",
+    "l": {
+      "CNzh": "铁管防护栏",
+      "EUde": "Stahlrohr-Absperrung",
+      "EUen": "pipe guard rail",
+      "EUes": "Guardarraíl tubular",
+      "EUfr": "barrière de sécurité tubulaire",
+      "EUit": "guardrail tubolare",
+      "EUnl": "laag stalen beschermhek",
+      "JPja": "ガードパイプ",
+      "KRko": "가드 파이프",
+      "TWzh": "鐵管防護欄",
+      "USen": "pipe guardrail",
+      "USes": "valla de contención tubular",
+      "USfr": "barrière de sécurité tubulaire"
+    },
+    "v": [
+      { "n": "ObjFenceGuardpipe", "h": 968588598, "c": "White" },
+      { "n": "ObjFenceGuardpipe_01", "h": 4241043812, "c": "Green" },
+      { "n": "ObjFenceGuardpipe_02", "h": 1846500828, "c": "Gray" },
+      { "n": "ObjFenceGuardpipe_03", "h": 1140287104, "c": "Black" },
+      { "n": "ObjFenceGuardpipe_04", "h": 482603957, "c": "Yellow" },
+      { "n": "ObjFenceGuardpipe_05", "h": 2359413290, "c": "Pink" },
+      { "n": "ObjFenceGuardpipe_06", "h": 952397824, "c": "LimeGreen" },
+      { "n": "ObjFenceGuardpipe_07", "h": 414976136, "c": "Cyan" }
+    ],
+    "p": 400,
+    "t": "m"
+  },
+  {
+    "n": "ObjBenchHome",
+    "l": {
+      "CNzh": "多人长椅",
+      "EUde": "Gartenbank",
+      "EUen": "garden bench",
+      "EUes": "Banco de jardín",
+      "EUfr": "banc de jardin",
+      "EUit": "panchina da giardino",
+      "EUnl": "tuinbank",
+      "JPja": "ホームベンチ",
+      "KRko": "플랫폼 벤치",
+      "TWzh": "多人長椅",
+      "USen": "public bench",
+      "USes": "banca de estación",
+      "USfr": "banc de jardin"
+    },
+    "v": [
+      { "n": "ObjBenchHome", "h": 762352794, "c": "White" },
+      { "n": "ObjBenchHome_01", "h": 2959627971, "c": "Black" },
+      { "n": "ObjBenchHome_02", "h": 2187373677, "c": "Brown" },
+      { "n": "ObjBenchHome_03", "h": 3304823802, "c": "Gray" },
+      { "n": "ObjBenchHome_04", "h": 1421117121, "c": "Yellow" },
+      { "n": "ObjBenchHome_05", "h": 3831990017, "c": "Red" },
+      { "n": "ObjBenchHome_06", "h": 3457538448, "c": "Green" },
+      { "n": "ObjBenchHome_07", "h": 3677459484, "c": "Blue" }
+    ],
+    "p": 2100,
+    "t": "m"
+  },
+  {
+    "n": "FacilityBuildingShop",
+    "l": {
+      "CNzh": "岛屿建设商店",
+      "EUde": "Inseldesignzentrum",
+      "EUen": "Island Design Centre",
+      "EUes": "Centro de urbanismo",
+      "EUfr": "centre d'urbanisme",
+      "EUit": "Centro urbanistico",
+      "EUnl": "Eilandontwerpbureau",
+      "JPja": "島作り屋さん",
+      "KRko": "섬 꾸미기 센터",
+      "TWzh": "造島商店",
+      "USen": "Quik Build amenities",
+      "USes": "centro de urbanismo",
+      "USfr": "Centre d'urbanisme"
+    },
+    "v": [{ "n": "FacilityBuildingShop", "h": 3414451855, "c": "Default" }],
+    "p": 100000,
+    "t": "f"
+  },
+  {
+    "n": "ObjStreetLampRetro",
+    "l": {
+      "CNzh": "复古路灯",
+      "EUde": "Retro-Straßenlaterne",
+      "EUen": "Victorian streetlight",
+      "EUes": "Farola antigua",
+      "EUfr": "lampadaire rétro",
+      "EUit": "lampione vittoriano",
+      "EUnl": "victoriaanse lantaarnpaal",
+      "JPja": "レトロな街灯",
+      "KRko": "레트로 가로등",
+      "TWzh": "復古街燈",
+      "USen": "retro streetlamp",
+      "USes": "farola retro",
+      "USfr": "lampadaire rétro"
+    },
+    "v": [
+      { "n": "ObjStreetLampRetro", "h": 4117785034, "c": "Black" },
+      { "n": "ObjStreetLampRetro_01", "h": 1399623403, "c": "White" },
+      { "n": "ObjStreetLampRetro_02", "h": 1006749559, "c": "Gray" },
+      { "n": "ObjStreetLampRetro_03", "h": 4015424557, "c": "Brown" },
+      { "n": "ObjStreetLampRetro_04", "h": 1739933801, "c": "Yellow" },
+      { "n": "ObjStreetLampRetro_05", "h": 2263174899, "c": "Red" },
+      { "n": "ObjStreetLampRetro_06", "h": 3747080599, "c": "Green" },
+      { "n": "ObjStreetLampRetro_07", "h": 1899470972, "c": "Blue" }
+    ],
+    "p": 1500,
+    "t": "m"
+  },
+  {
+    "n": "FacilityPawnShop",
+    "l": {
+      "CNzh": "当铺",
+      "EUde": "Pfandhaus",
+      "EUen": "Pawn Shop",
+      "EUes": "Casa de empeños",
+      "EUfr": "boutique de rachat",
+      "EUit": "Banco dei pegni",
+      "EUnl": "Wisselwinkel",
+      "JPja": "質屋さん",
+      "KRko": "전당포",
+      "TWzh": "當鋪",
+      "USen": "Rite Price pawn shop",
+      "USes": "casa de empeño",
+      "USfr": "Boutique de rachat"
+    },
+    "v": [{ "n": "FacilityPawnShop", "h": 4026788288, "c": "Default" }],
+    "p": 300000,
+    "t": "f"
+  },
+  {
+    "n": "ObjRoadSign",
+    "l": {
+      "CNzh": "交通标志",
+      "EUde": "Warnschild",
+      "EUen": "warning sign",
+      "EUes": "Señal de peligro",
+      "EUfr": "panneau d'avertissement",
+      "EUit": "segnale di pericolo",
+      "EUnl": "waarschuwingsbord",
+      "JPja": "道路標識",
+      "KRko": "도로 표지판",
+      "TWzh": "交通標誌",
+      "USen": "road sign",
+      "USes": "señal de tránsito",
+      "USfr": "panneau de signalisation"
+    },
+    "v": [
+      { "n": "ObjRoadSign", "h": 490944555, "c": "Yellow" },
+      { "n": "ObjRoadSign_01", "h": 3545428145, "c": "White" }
+    ],
+    "p": 2000,
+    "t": "m"
+  },
+  {
+    "n": "ObjRock",
+    "l": {
+      "CNzh": "岩石",
+      "EUde": "Felsen",
+      "EUen": "boulder",
+      "EUes": "Roca",
+      "EUfr": "rocher",
+      "EUit": "roccia",
+      "EUnl": "kei",
+      "JPja": "岩",
+      "KRko": "바위",
+      "TWzh": "岩石",
+      "USen": "rock",
+      "USes": "piedra",
+      "USfr": "roche"
+    },
+    "v": [
+      { "n": "ObjRock", "h": 1777368773, "c": "Gray" },
+      { "n": "ObjRock_01", "h": 3856305431, "c": "Brown" },
+      { "n": "ObjRock_02", "h": 1888153579, "c": "White" }
+    ],
+    "p": 300,
+    "t": "m"
+  },
+  {
+    "n": "ObjStreetLamp",
+    "l": {
+      "CNzh": "圆形路灯",
+      "EUde": "Kugellaterne",
+      "EUen": "globe streetlight",
+      "EUes": "Farola redondeada",
+      "EUfr": "lampadaire sphérique",
+      "EUit": "lampione a globo",
+      "EUnl": "lantaarnpaal met bollamp",
+      "JPja": "丸い街灯",
+      "KRko": "둥근 가로등",
+      "TWzh": "圓形街燈",
+      "USen": "round streetlamp",
+      "USes": "farola redonda",
+      "USfr": "lampadaire sphérique"
+    },
+    "v": [
+      { "n": "ObjStreetLamp", "h": 462879809, "c": "Black" },
+      { "n": "ObjStreetLamp_01", "h": 3316023673, "c": "Gray" },
+      { "n": "ObjStreetLamp_02", "h": 3007108676, "c": "Brown" },
+      { "n": "ObjStreetLamp_03", "h": 1700605168, "c": "White" },
+      { "n": "ObjStreetLamp_04", "h": 415504094, "c": "Yellow" },
+      { "n": "ObjStreetLamp_05", "h": 45456377, "c": "Pink" },
+      { "n": "ObjStreetLamp_06", "h": 1683006902, "c": "LimeGreen" },
+      { "n": "ObjStreetLamp_07", "h": 1432242545, "c": "Blue" }
+    ],
+    "p": 1000,
+    "t": "m"
+  },
+  {
+    "n": "ObjSeesaw",
+    "l": {
+      "CNzh": "跷跷板",
+      "EUde": "Wippe",
+      "EUen": "seesaw",
+      "EUes": "Balancín",
+      "EUfr": "balançoire à bascule",
+      "EUit": "altalena",
+      "EUnl": "wipwap",
+      "JPja": "シーソー",
+      "KRko": "시소",
+      "TWzh": "蹺蹺板",
+      "USen": "seesaw",
+      "USes": "subibaja",
+      "USfr": "bascule"
+    },
+    "v": [
+      { "n": "ObjSeesaw", "h": 3386909679, "c": "Ocher" },
+      { "n": "ObjSeesaw_01", "h": 4290699592, "c": "White" },
+      { "n": "ObjSeesaw_02", "h": 1216809586, "c": "Brown" },
+      { "n": "ObjSeesaw_03", "h": 3654500377, "c": "Yellow" },
+      { "n": "ObjSeesaw_04", "h": 1083098476, "c": "Red" },
+      { "n": "ObjSeesaw_05", "h": 2077682878, "c": "Green" },
+      { "n": "ObjSeesaw_06", "h": 2178450445, "c": "Blue" }
+    ],
+    "p": 7000,
+    "t": "m"
+  },
+  {
+    "n": "ObjFlowerPampasGrass",
+    "l": {
+      "CNzh": "芒草",
+      "EUde": "Chinaschilf",
+      "EUen": "silvergrass",
+      "EUes": "Parterre de miscanthus",
+      "EUfr": "herbe à éléphant",
+      "EUit": "miscanto",
+      "EUnl": "prachtriet",
+      "JPja": "ススキ",
+      "KRko": "억새",
+      "TWzh": "芒草",
+      "USen": "silver grass",
+      "USes": "miscanthus",
+      "USfr": "herbe à éléphant"
+    },
+    "v": [{ "n": "ObjFlowerPampasGrass", "h": 680090977, "c": "Ocher" }],
+    "p": 180,
+    "t": "m"
+  },
+  {
+    "n": "ObjSnowman",
+    "l": {
+      "CNzh": "雪人",
+      "EUde": "Schneemann",
+      "EUen": "snowman",
+      "EUes": "Muñeco de nieve",
+      "EUfr": "bonhomme de neige",
+      "EUit": "pupazzo di neve",
+      "EUnl": "sneeuwpop",
+      "JPja": "雪だるま",
+      "KRko": "눈사람",
+      "TWzh": "雪人",
+      "USen": "snowfriend",
+      "USes": "muñeco de nieve",
+      "USfr": "bonhomme de neige"
+    },
+    "v": [
+      { "n": "ObjSnowman", "h": 438254638, "c": "Cyan" },
+      { "n": "ObjSnowman_01", "h": 927299126, "c": "Red" },
+      { "n": "ObjSnowman_02", "h": 3393226563, "c": "Indigo" },
+      { "n": "ObjSnowman_03", "h": 3583871116, "c": "Yellow" }
+    ],
+    "p": 500,
+    "t": "m"
+  },
+  {
+    "n": "ObjLanternSakura",
+    "l": {
+      "CNzh": "赏花灯笼",
+      "EUde": "Kirschblütenlaterne",
+      "EUen": "cherry blossom picnic lantern",
+      "EUes": "Farol japonés",
+      "EUfr": "lanterne fleurs de cerisier",
+      "EUit": "lanterna con petali di ciliegio",
+      "EUnl": "Japanse lantaarn",
+      "JPja": "お花見灯篭",
+      "KRko": "꽃놀이 등롱",
+      "TWzh": "賞花燈籠",
+      "USen": "spring-picnic lantern",
+      "USes": "farola de pícnic primaveral",
+      "USfr": "lanterne fleurs de cerisier"
+    },
+    "v": [
+      { "n": "ObjLanternSakura", "h": 2493690188, "c": "Black" },
+      { "n": "ObjLanternSakura_01", "h": 1128608712, "c": "Pink" },
+      { "n": "ObjLanternSakura_02", "h": 327473227, "c": "Yellow" },
+      { "n": "ObjLanternSakura_03", "h": 374356638, "c": "Red" },
+      { "n": "ObjLanternSakura_04", "h": 3504031921, "c": "Green" },
+      { "n": "ObjLanternSakura_05", "h": 3953975819, "c": "Blue" }
+    ],
+    "p": 700,
+    "t": "m"
+  },
+  {
+    "n": "ObjSprinkler",
+    "l": {
+      "CNzh": "洒水器",
+      "EUde": "Rasensprenger",
+      "EUen": "sprinkler",
+      "EUes": "Aspersor",
+      "EUfr": "arroseur automatique",
+      "EUit": "irrigatore",
+      "EUnl": "sproeier",
+      "JPja": "スプリンクラー",
+      "KRko": "스프링클러",
+      "TWzh": "灑水器",
+      "USen": "sprinkler",
+      "USes": "rociador",
+      "USfr": "arroseur automatique"
+    },
+    "v": [
+      { "n": "ObjSprinkler", "h": 3544460531, "c": "Black" },
+      { "n": "ObjSprinkler_01", "h": 2871387871, "c": "White" },
+      { "n": "ObjSprinkler_02", "h": 1774808710, "c": "Yellow" },
+      { "n": "ObjSprinkler_03", "h": 197373334, "c": "Red" },
+      { "n": "ObjSprinkler_04", "h": 1378130989, "c": "Green" },
+      { "n": "ObjSprinkler_05", "h": 1876987313, "c": "Blue" }
+    ],
+    "p": 3500,
+    "t": "m"
+  },
+  {
+    "n": "ObjFencePipe",
+    "l": {
+      "CNzh": "铁栅栏",
+      "EUde": "Absperrbügel",
+      "EUen": "hoop barrier",
+      "EUes": "Barandilla",
+      "EUfr": "arceau de protection renforcé",
+      "EUit": "barriera di sicurezza",
+      "EUnl": "sluishek",
+      "JPja": "鉄の柵",
+      "KRko": "철제 울타리",
+      "TWzh": "鐵柵欄",
+      "USen": "steel-pipe fence",
+      "USes": "valla de tubería de metal",
+      "USfr": "clôture renforcée"
+    },
+    "v": [
+      { "n": "ObjFencePipe", "h": 3335501077, "c": "Black" },
+      { "n": "ObjFencePipe_01", "h": 1100296708, "c": "Gray" },
+      { "n": "ObjFencePipe_02", "h": 2963661317, "c": "White" },
+      { "n": "ObjFencePipe_03", "h": 1375333350, "c": "Ocher" },
+      { "n": "ObjFencePipe_04", "h": 2089002300, "c": "Yellow" },
+      { "n": "ObjFencePipe_05", "h": 2355590688, "c": "Red" },
+      { "n": "ObjFencePipe_06", "h": 379655676, "c": "LimeGreen" },
+      { "n": "ObjFencePipe_07", "h": 3373915832, "c": "Blue" }
+    ],
+    "p": 500,
+    "t": "m"
+  },
+  {
+    "n": "ObjFlowerSunflowers",
+    "l": {
+      "CNzh": "向日葵",
+      "EUde": "Sonnenblumen",
+      "EUen": "sunflowers",
+      "EUes": "Parterre de girasoles",
+      "EUfr": "tournesols",
+      "EUit": "girasoli",
+      "EUnl": "zonnebloemen",
+      "JPja": "ひまわり",
+      "KRko": "해바라기",
+      "TWzh": "向日葵",
+      "USen": "sunflowers",
+      "USes": "girasoles",
+      "USfr": "tournesols"
+    },
+    "v": [{ "n": "ObjFlowerSunflowers", "h": 3894961180, "c": "Yellow" }],
+    "p": 250,
+    "t": "m"
+  },
+  {
+    "n": "FacilityInteriorShop",
+    "l": {
+      "CNzh": "装修商店",
+      "EUde": "Renovierungszentrum",
+      "EUen": "Renovation Centre",
+      "EUes": "Centro de reformas",
+      "EUfr": "boutique de déco",
+      "EUit": "Centro ristrutturazioni",
+      "EUnl": "Woonwinkel",
+      "JPja": "リフォーム屋さん",
+      "KRko": "리폼 센터",
+      "TWzh": "裝修商店",
+      "USen": "T&C Reno home supply",
+      "USes": "centro de reformas",
+      "USfr": "Boutique de déco"
+    },
+    "v": [{ "n": "FacilityInteriorShop", "h": 1677782931, "c": "Default" }],
+    "p": 300000,
+    "t": "f"
+  },
+  {
+    "n": "ObjThrone",
+    "l": {
+      "CNzh": "王座",
+      "EUde": "Thron",
+      "EUen": "throne",
+      "EUes": "Trono",
+      "EUfr": "trône",
+      "EUit": "trono",
+      "EUnl": "troon",
+      "JPja": "玉座",
+      "KRko": "옥좌",
+      "TWzh": "王座",
+      "USen": "throne",
+      "USes": "trono",
+      "USfr": "trône"
+    },
+    "v": [
+      { "n": "ObjThrone", "h": 3708486923, "c": "Red" },
+      { "n": "ObjThrone_06", "h": 4192853248, "c": "Gray" },
+      { "n": "ObjThrone_04", "h": 2234192954, "c": "Yellow" },
+      { "n": "ObjThrone_02", "h": 2465216612, "c": "Blue" },
+      { "n": "ObjThrone_01", "h": 294478364, "c": "Pink" },
+      { "n": "ObjThrone_03", "h": 495452163, "c": "Green" },
+      { "n": "ObjThrone_05", "h": 80304629, "c": "Purple" }
+    ],
+    "p": 100000,
+    "t": "m"
+  },
+  {
+    "n": "FacilityFamilyRestaurant",
+    "l": {
+      "CNzh": "餐厅",
+      "EUde": "Restaurant",
+      "EUen": "Restaurant",
+      "EUes": "Restaurante",
+      "EUfr": "restaurant",
+      "EUit": "Ristorante",
+      "EUnl": "Restaurant",
+      "JPja": "レストラン",
+      "KRko": "레스토랑",
+      "TWzh": "餐廳",
+      "USen": "Tomoria restaurant",
+      "USes": "restaurante",
+      "USfr": "Restaurant"
+    },
+    "v": [{ "n": "FacilityFamilyRestaurant", "h": 522105645, "c": "Default" }],
+    "p": 30000,
+    "t": "f"
+  },
+  {
+    "n": "ObjSafetyCone",
+    "l": {
+      "CNzh": "交通锥",
+      "EUde": "Pylon",
+      "EUen": "traffic cone",
+      "EUes": "Cono de seguridad",
+      "EUfr": "cône de signalisation",
+      "EUit": "cono stradale",
+      "EUnl": "verkeerspion",
+      "JPja": "三角コーン",
+      "KRko": "삼각 콘",
+      "TWzh": "交通錐",
+      "USen": "traffic cone",
+      "USes": "cono de tráfico",
+      "USfr": "cône de signalisation"
+    },
+    "v": [
+      { "n": "ObjSafetyCone", "h": 820771897, "c": "Red" },
+      { "n": "ObjSafetyCone_01", "h": 2687315758, "c": "Yellow" },
+      { "n": "ObjSafetyCone_02", "h": 3756768570, "c": "Green" },
+      { "n": "ObjSafetyCone_03", "h": 3702358591, "c": "Blue" },
+      { "n": "ObjSafetyCone_04", "h": 3514859617, "c": "White" },
+      { "n": "ObjSafetyCone_05", "h": 2222532493, "c": "Black" },
+      { "n": "ObjSafetyCone_06", "h": 4251387480, "c": "LimeGreen" }
+    ],
+    "p": 1000,
+    "t": "m"
+  },
+  {
+    "n": "ObjTrafficLight",
+    "l": {
+      "CNzh": "红绿灯",
+      "EUde": "Ampel",
+      "EUen": "traffic light",
+      "EUes": "Semáforo",
+      "EUfr": "feu de signalisation",
+      "EUit": "semaforo",
+      "EUnl": "verkeerslicht",
+      "JPja": "信号機",
+      "KRko": "신호등",
+      "TWzh": "紅綠燈",
+      "USen": "traffic light",
+      "USes": "semáforo",
+      "USfr": "feu de circulation"
+    },
+    "v": [
+      { "n": "ObjTrafficLight", "h": 1682855988, "c": "White" },
+      { "n": "ObjTrafficLight_01", "h": 3345491137, "c": "Black" },
+      { "n": "ObjTrafficLight_02", "h": 3018711323, "c": "Gray" },
+      { "n": "ObjTrafficLight_03", "h": 3537877371, "c": "Brown" },
+      { "n": "ObjTrafficLight_04", "h": 395379949, "c": "Yellow" },
+      { "n": "ObjTrafficLight_05", "h": 2860575475, "c": "Red" },
+      { "n": "ObjTrafficLight_06", "h": 3005639485, "c": "Green" },
+      { "n": "ObjTrafficLight_07", "h": 1828723383, "c": "Blue" }
+    ],
+    "p": 4500,
+    "t": "m"
+  },
+  {
+    "n": "ObjTrashCan",
+    "l": {
+      "CNzh": "垃圾桶",
+      "EUde": "Mülleimer",
+      "EUen": "litter bin",
+      "EUes": "Papelera",
+      "EUfr": "poubelle",
+      "EUit": "cestino dell'immondizia",
+      "EUnl": "prullenbak",
+      "JPja": "ゴミ箱",
+      "KRko": "쓰레기통",
+      "TWzh": "垃圾桶",
+      "USen": "trash can",
+      "USes": "bote de basura",
+      "USfr": "poubelle"
+    },
+    "v": [
+      { "n": "ObjTrashCan", "h": 1586479199, "c": "Gray" },
+      { "n": "ObjTrashCan_01", "h": 2373634532, "c": "White" },
+      { "n": "ObjTrashCan_02", "h": 178207199, "c": "Black" },
+      { "n": "ObjTrashCan_03", "h": 2374677234, "c": "Yellow" },
+      { "n": "ObjTrashCan_04", "h": 3310782891, "c": "Red" },
+      { "n": "ObjTrashCan_05", "h": 1548008212, "c": "Green" },
+      { "n": "ObjTrashCan_06", "h": 4127405198, "c": "Blue" }
+    ],
+    "p": 4000,
+    "t": "m"
+  },
+  {
+    "n": "ObjFlowerTulip",
+    "l": {
+      "CNzh": "郁金香",
+      "EUde": "Tulpen",
+      "EUen": "tulips",
+      "EUes": "Parterre de tulipanes",
+      "EUfr": "tulipes",
+      "EUit": "tulipani",
+      "EUnl": "tulpen",
+      "JPja": "チューリップ",
+      "KRko": "튤립",
+      "TWzh": "鬱金香",
+      "USen": "tulips",
+      "USes": "tulipanes",
+      "USfr": "tulipes"
+    },
+    "v": [
+      { "n": "ObjFlowerTulip", "h": 2160386419, "c": "Red" },
+      { "n": "ObjFlowerTulip_01", "h": 1631459144, "c": "White" },
+      { "n": "ObjFlowerTulip_02", "h": 656463959, "c": "Yellow" }
+    ],
+    "p": 200,
+    "t": "m"
+  },
+  {
+    "n": "ObjVendingMachine",
+    "l": {
+      "CNzh": "自动贩卖机",
+      "EUde": "Verkaufsautomat",
+      "EUen": "vending machine",
+      "EUes": "Máquina expendedora",
+      "EUfr": "distributeur automatique",
+      "EUit": "distributore automatico",
+      "EUnl": "verkoopautomaat",
+      "JPja": "自動販売機",
+      "KRko": "자판기",
+      "TWzh": "自動販賣機",
+      "USen": "vending machine",
+      "USes": "máquina expendedora",
+      "USfr": "distributeur automatique"
+    },
+    "v": [
+      { "n": "ObjVendingMachine", "h": 41435088, "c": "White" },
+      { "n": "ObjVendingMachine_01", "h": 1415767053, "c": "Black" },
+      { "n": "ObjVendingMachine_02", "h": 1669175133, "c": "Yellow" },
+      { "n": "ObjVendingMachine_03", "h": 3470474515, "c": "Red" },
+      { "n": "ObjVendingMachine_04", "h": 649114904, "c": "LimeGreen" },
+      { "n": "ObjVendingMachine_05", "h": 3927195293, "c": "Blue" }
+    ],
+    "p": 12000,
+    "t": "m"
+  },
+  {
+    "n": "ObjWeed",
+    "l": {
+      "CNzh": "草丛",
+      "EUde": "Grasbüschel",
+      "EUen": "patch of grass",
+      "EUes": "Mata de hierbajos",
+      "EUfr": "herbe",
+      "EUit": "zolla d'erba",
+      "EUnl": "plukken gras",
+      "JPja": "草むら",
+      "KRko": "풀숲",
+      "TWzh": "草叢",
+      "USen": "weeds",
+      "USes": "maleza",
+      "USfr": "mauvaises herbes"
+    },
+    "v": [{ "n": "ObjWeed", "h": 2008429533, "c": "Green" }],
+    "p": 100,
+    "t": "m"
+  },
+  {
+    "n": "FacilityClothShop",
+    "l": {
+      "CNzh": "服装商店",
+      "EUde": "Boutique",
+      "EUen": "Clothes Shop",
+      "EUes": "Tienda de ropa",
+      "EUfr": "boutique de vêtements",
+      "EUit": "Boutique",
+      "EUnl": "Kledingboetiek",
+      "JPja": "服屋さん",
+      "KRko": "옷 가게",
+      "TWzh": "服裝商店",
+      "USen": "Where & Wear clothing",
+      "USes": "boutique",
+      "USfr": "Boutique de vêtements"
+    },
+    "v": [{ "n": "FacilityClothShop", "h": 2146655109, "c": "Default" }],
+    "p": 100000,
+    "t": "f"
+  },
+  {
+    "n": "ObjAerogenerator",
+    "l": {
+      "CNzh": "风力发电机",
+      "EUde": "Windkraftanlage",
+      "EUen": "wind turbine",
+      "EUes": "Aerogenerador",
+      "EUfr": "éolienne",
+      "EUit": "turbina eolica",
+      "EUnl": "windmolen",
+      "JPja": "風力発電",
+      "KRko": "풍력 발전기",
+      "TWzh": "風力發電機",
+      "USen": "wind turbine",
+      "USes": "turbina de viento",
+      "USfr": "éolienne"
+    },
+    "v": [
+      { "n": "ObjAerogenerator", "h": 3373056939, "c": "White" },
+      { "n": "ObjAerogenerator_01", "h": 3345628502, "c": "Yellow" },
+      { "n": "ObjAerogenerator_02", "h": 3826007578, "c": "Red" },
+      { "n": "ObjAerogenerator_03", "h": 2259534973, "c": "Green" },
+      { "n": "ObjAerogenerator_04", "h": 2579553957, "c": "Blue" },
+      { "n": "ObjAerogenerator_05", "h": 1107929879, "c": "Black" }
+    ],
+    "p": 30000,
+    "t": "m"
+  },
+  {
+    "n": "ObjFenceWood",
+    "l": {
+      "CNzh": "木栅栏",
+      "EUde": "Holzzaun",
+      "EUen": "picket fence",
+      "EUes": "Valla de madera",
+      "EUfr": "clôture en bois",
+      "EUit": "recinzione a picchetti",
+      "EUnl": "houten tuinhek",
+      "JPja": "木の柵",
+      "KRko": "나무 울타리",
+      "TWzh": "木柵欄",
+      "USen": "wooden fence",
+      "USes": "valla de madera",
+      "USfr": "clôture de bois"
+    },
+    "v": [
+      { "n": "ObjFenceWood", "h": 4068399679, "c": "White" },
+      { "n": "ObjFenceWood_01", "h": 2304373025, "c": "Ocher" },
+      { "n": "ObjFenceWood_02", "h": 2528596183, "c": "Brown" },
+      { "n": "ObjFenceWood_03", "h": 1183955423, "c": "Cyan" },
+      { "n": "ObjFenceWood_04", "h": 4252123315, "c": "Yellow" },
+      { "n": "ObjFenceWood_05", "h": 3040259869, "c": "Red" },
+      { "n": "ObjFenceWood_06", "h": 3762194734, "c": "Green" },
+      { "n": "ObjFenceWood_07", "h": 3414254725, "c": "Blue" }
+    ],
+    "p": 300,
+    "t": "m"
+  }
+]

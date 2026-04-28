@@ -2,6 +2,7 @@
   import { _ } from 'svelte-i18n';
   import AdvancedPanel from '../lib/advanced/AdvancedPanel.svelte';
   import AppLayout from '../lib/AppLayout.svelte';
+  import BuildingsPanel from '../lib/player/BuildingsPanel.svelte';
   import ClothesPanel from '../lib/player/ClothesPanel.svelte';
   import FoodsPanel from '../lib/player/FoodsPanel.svelte';
   import InteriorsPanel from '../lib/player/InteriorsPanel.svelte';
@@ -24,7 +25,14 @@
     syncFromSave();
   });
 
-  type SubTab = 'profile' | 'foods' | 'clothes' | 'treasures' | 'interiors' | 'advanced';
+  type SubTab =
+    | 'profile'
+    | 'foods'
+    | 'clothes'
+    | 'treasures'
+    | 'interiors'
+    | 'buildings'
+    | 'advanced';
   let subTab = $state<SubTab>('profile');
 
   const SUB_TABS: { value: SubTab; label: string }[] = $derived([
@@ -33,6 +41,7 @@
     { value: 'clothes', label: $_('player.subtab_clothes') },
     { value: 'treasures', label: $_('player.subtab_treasures') },
     { value: 'interiors', label: $_('player.subtab_interiors') },
+    { value: 'buildings', label: $_('player.subtab_buildings') },
     { value: 'advanced', label: $_('tab.advanced') },
   ]);
 
@@ -74,6 +83,8 @@
         <TreasuresPanel entries={parsed.entries} />
       {:else if subTab === 'interiors'}
         <InteriorsPanel entries={parsed.entries} />
+      {:else if subTab === 'buildings'}
+        <BuildingsPanel entries={parsed.entries} />
       {:else}
         <AdvancedPanel entries={parsed.entries} {markDirty} parseSignal={playerState.parsed} />
       {/if}

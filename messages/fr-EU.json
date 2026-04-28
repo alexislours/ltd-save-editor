@@ -112,6 +112,7 @@
     "subtab_clothes": "Vêtements",
     "subtab_treasures": "Trésors",
     "subtab_interiors": "Intérieurs",
+    "subtab_buildings": "Bâtiments",
     "inventory": {
       "search": "Recherche",
       "search_placeholder": "Filtrer par nom…",
@@ -162,6 +163,16 @@
       "variant_note": "Les contrôles globaux s'appliquent à chaque variante du groupe. Déplie une ligne pour modifier une variante précise.",
       "variant_count": "{count, plural, one {# variante} other {# variantes}}",
       "variant_label": "Variante {index}"
+    },
+    "buildings": {
+      "heading": "Bâtiments",
+      "caption": "{count, plural, one {# bâtiment} other {# bâtiments}} affichés. Passe à Obtenu pour le débloquer en boutique ; OwnNum est le nombre placé.",
+      "missing": "Cette sauvegarde n'expose pas Player.BuildingInfo2 : les bâtiments ne peuvent pas être modifiés ici.",
+      "variant_note": "Les contrôles globaux s'appliquent à chaque variante de couleur. Déplie une ligne pour modifier une couleur précise.",
+      "variant_count": "{count, plural, one {# couleur} other {# couleurs}}",
+      "variant_label": "{color} (#{index})",
+      "category_facility": "Bâtiment public",
+      "category_object": "Objet de carte"
     }
   },
   "mii": {

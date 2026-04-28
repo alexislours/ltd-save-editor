@@ -112,6 +112,7 @@
     "subtab_clothes": "Clothes",
     "subtab_treasures": "Treasures",
     "subtab_interiors": "Interiors",
+    "subtab_buildings": "Buildings",
     "inventory": {
       "search": "Search",
       "search_placeholder": "Filter by name…",
@@ -162,6 +163,16 @@
       "variant_note": "Group-level controls apply to every variant in the set. Expand a row to edit a single variant.",
       "variant_count": "{count, plural, one {# variant} other {# variants}}",
       "variant_label": "Variant {index}"
+    },
+    "buildings": {
+      "heading": "Buildings",
+      "caption": "{count, plural, one {# building} other {# buildings}} shown. Mark as Obtained to unlock in your shop; OwnNum is how many you have placed.",
+      "missing": "This save does not expose Player.BuildingInfo2 entries, so buildings can't be edited here.",
+      "variant_note": "Item-level controls apply to every color variant. Expand a row to edit a single color.",
+      "variant_count": "{count, plural, one {# color} other {# colors}}",
+      "variant_label": "{color} (#{index})",
+      "category_facility": "Facility",
+      "category_object": "Map object"
     }
   },
   "mii": {
