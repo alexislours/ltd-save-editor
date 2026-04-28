@@ -9,10 +9,10 @@
     baseRelationTypeLabel,
     findRelationEntries,
     listRelationships,
-    populatedMiiIndices,
     readMiiName,
     subRelationKey,
   } from './relations';
+  import { populatedMiiIndices } from './populated';
   import { computeForceLayout } from './forceLayout';
 
   type Props = {
@@ -115,7 +115,10 @@
     return out;
   });
 
-  const populated = $derived(re ? populatedMiiIndices(re.name) : []);
+  const populated = $derived.by(() => {
+    void tick;
+    return re ? populatedMiiIndices(byHash) : [];
+  });
 
   type ViewMode = 'all' | 'ego';
 

@@ -36,7 +36,7 @@
 </script>
 
 <div
-  class="flex flex-wrap items-center justify-between gap-4 rounded-full bg-header/90 px-5 py-2.5 shadow-sm ring-1 ring-edge/60"
+  class="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 rounded-2xl bg-header/90 px-4 py-2.5 shadow-sm ring-1 ring-edge/60 sm:rounded-full sm:px-5"
 >
   <div class="flex items-center gap-2.5">
     <span

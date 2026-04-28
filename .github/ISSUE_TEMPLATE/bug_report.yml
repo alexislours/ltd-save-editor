@@ -1,0 +1,97 @@
+name: Bug report
+description: A tab fails to open, an edit corrupts a save, the patched file crashes the game, etc.
+labels: ['bug']
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: One or two sentences. What did you do, what did you expect, what did you get instead?
+      placeholder: Editing a Mii's name in the Mii tab and re-downloading produces a Mii.sav that the game refuses to load.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where in the editor?
+      multiple: true
+      options:
+        - Player tab
+        - Mii tab
+        - Map tab
+        - Advanced (raw entry browser)
+        - File loading / drag-and-drop
+        - Patched file download
+        - Localization / language switcher
+        - Other / not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: save-files
+    attributes:
+      label: Which save file(s) are involved?
+      multiple: true
+      options:
+        - Mii.sav
+        - Player.sav
+        - Map.sav
+        - None / not file-specific
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps. Include the field/hash you edited and the value you set, if relevant.
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: game-impact
+    attributes:
+      label: In-game result (if you tested the patched save)
+      description: Crash on load, missing Mii, scrambled map, soft-lock, etc. Skip if you only saw the issue in the editor.
+      placeholder: Game shows the loading island animation, then returns to the title screen.
+
+  - type: input
+    id: version
+    attributes:
+      label: Editor version
+      description: At the top right of the editor, e.g. "1.4.0".
+      placeholder: 1.4.0
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and OS
+      placeholder: Firefox 142 on macOS 15.2
+    validations:
+      required: true
+
+  - type: input
+    id: locale
+    attributes:
+      label: Editor language
+      placeholder: English (US)
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Browser console errors
+      description: Open DevTools → Console, reproduce the bug, paste any red errors. Will be rendered as a code block.
+      render: shell
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Screenshots, related issues, hash IDs from the Advanced tab, etc.

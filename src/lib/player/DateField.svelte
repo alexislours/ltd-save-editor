@@ -53,7 +53,7 @@
 <div class="flex flex-col gap-1">
   <input
     type="date"
-    class="w-44 {INPUT_CLASS}"
+    class="w-full max-w-44 {INPUT_CLASS}"
     value={isoValue}
     onchange={(e) => onChange(e.currentTarget.value)}
   />

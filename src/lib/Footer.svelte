@@ -10,9 +10,11 @@
     'inline-flex items-center gap-1.5 font-medium leading-none text-content hover:text-content-strong underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/40 rounded';
 </script>
 
-<footer class="mt-auto border-t border-edge/40 bg-surface/40 px-6 py-6 text-xs text-content-muted">
+<footer
+  class="mt-auto border-t border-edge/40 bg-surface/40 px-4 py-5 text-xs text-content-muted sm:px-6 sm:py-6"
+>
   <div
-    class="mx-auto flex w-full max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+    class="mx-auto flex w-full max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
   >
     <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
       <a

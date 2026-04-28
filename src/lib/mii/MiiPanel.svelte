@@ -1,8 +1,6 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
   import { SvelteMap } from 'svelte/reactivity';
-  import { binaryArrayElements } from '../sav/codec';
-  import { DataType } from '../sav/dataType';
   import { murmur3_x86_32 } from '../sav/hash';
   import type { Entry } from '../sav/types';
   import { CARD_CLASS } from '../styles';
@@ -17,7 +15,8 @@
   import MiiVoiceEditor from './MiiVoiceEditor.svelte';
   import MiiWordsEditor from './MiiWordsEditor.svelte';
   import { miiState } from './miiEditor.svelte';
-  import { MII_SECTIONS, NAME_FIELD_HASH, type MiiField } from './miiFields';
+  import { MII_SECTIONS, type MiiField } from './miiFields';
+  import { populatedMiiIndices } from './populated';
 
   const VOICE_FIELD_NAMES = [
     'Mii.Voice.PresetType',
@@ -43,20 +42,9 @@
   const LOVE_GENDER_HASH = murmur3_x86_32('Mii.MiiMisc.FaceInfo.IsLoveGender') >>> 0;
   const loveGenderEntry = $derived(byHash.get(LOVE_GENDER_HASH) ?? null);
 
-  const CHAR_INFO_EX_HASH = murmur3_x86_32('Mii.CharInfoEx') >>> 0;
-  const charInfoEntry = $derived.by(() => {
-    const e = byHash.get(CHAR_INFO_EX_HASH);
-    return e && e.type === DataType.BinaryArray ? e : null;
-  });
   const hasPopulatedSlot = $derived.by(() => {
     void miiState.tick;
-    if (!charInfoEntry) return byHash.has(NAME_FIELD_HASH);
-    for (const { bytes } of binaryArrayElements(charInfoEntry)) {
-      for (let b = 0; b < bytes.length; b++) {
-        if (bytes[b] !== 0) return true;
-      }
-    }
-    return false;
+    return populatedMiiIndices(byHash).length > 0;
   });
 
   const voiceEntriesByName = $derived.by(() => {
@@ -96,7 +84,7 @@
   });
 </script>
 
-<div class="grid gap-4">
+<div class="grid grid-cols-1 gap-4">
   <MiiSlotSelector {entries} bind:selectedIndex />
 
   {#if hasPopulatedSlot && selectedIndex != null}

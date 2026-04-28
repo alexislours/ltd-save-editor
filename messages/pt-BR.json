@@ -112,6 +112,7 @@
     "subtab_clothes": "Roupas",
     "subtab_treasures": "Tesouros",
     "subtab_interiors": "Interiores",
+    "subtab_buildings": "Edifícios",
     "inventory": {
       "search": "Pesquisar",
       "search_placeholder": "Filtrar por nome…",
@@ -162,6 +163,16 @@
       "variant_note": "Os controles do grupo aplicam-se a todas as variantes. Expanda uma linha para editar uma única variante.",
       "variant_count": "{count, plural, one {# variante} other {# variantes}}",
       "variant_label": "Variante {index}"
+    },
+    "buildings": {
+      "heading": "Edifícios",
+      "caption": "{count, plural, one {# edifício} other {# edifícios}} exibido(s). Marque como Obtido para desbloquear na loja; OwnNum é a quantidade colocada.",
+      "missing": "Este save não expõe Player.BuildingInfo2, então os edifícios não podem ser editados aqui.",
+      "variant_note": "Os controles do item aplicam-se a todas as variantes de cor. Expanda uma linha para editar uma única cor.",
+      "variant_count": "{count, plural, one {# cor} other {# cores}}",
+      "variant_label": "{color} (#{index})",
+      "category_facility": "Estabelecimento",
+      "category_object": "Objeto do mapa"
     }
   },
   "mii": {
@@ -663,6 +674,8 @@
       "tool_brush_title": "Pincel (clique + arraste para pintar)",
       "tool_fill": "Preencher",
       "tool_fill_title": "Balde (clique para preencher área)",
+      "tool_rectangle": "Retângulo",
+      "tool_rectangle_title": "Retângulo (clique + arraste para preencher uma área retangular)",
       "tool_picker": "Conta-gotas",
       "tool_picker_title": "Conta-gotas (clique para copiar um piso do mapa)",
       "undo": "Desfazer",

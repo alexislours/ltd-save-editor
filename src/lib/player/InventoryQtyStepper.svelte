@@ -21,7 +21,7 @@
   <button
     type="button"
     aria-label={$_('player.inventory.decrement')}
-    class="qty-btn {btnClass} rounded-full border border-edge/60 bg-surface text-content hover:bg-surface-muted disabled:opacity-40"
+    class="qty-btn {btnClass} rounded-full border border-edge/60 bg-surface text-content transition-all duration-150 hover:scale-110 hover:border-orange-400 hover:bg-surface-muted active:scale-90 disabled:opacity-40 disabled:hover:scale-100 disabled:hover:border-edge/60"
     disabled={value <= 0}
     onclick={() => onChange(value - 1)}
   >
@@ -51,7 +51,7 @@
   <button
     type="button"
     aria-label={$_('player.inventory.increment')}
-    class="qty-btn {btnClass} rounded-full border border-edge/60 bg-surface text-content hover:bg-surface-muted"
+    class="qty-btn {btnClass} rounded-full border border-edge/60 bg-surface text-content transition-all duration-150 hover:scale-110 hover:border-orange-400 hover:bg-surface-muted active:scale-90"
     onclick={() => onChange(value + 1)}
   >
     <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" class={iconClass}>

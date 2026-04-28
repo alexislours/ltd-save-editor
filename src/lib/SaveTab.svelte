@@ -21,7 +21,7 @@
   const fileName = $derived(expectedFileName[kind]);
 </script>
 
-<div class="grid gap-6">
+<div class="grid grid-cols-1 gap-6">
   <header>
     <h2 class="text-2xl font-bold tracking-tight text-content-strong">
       {title}
@@ -31,13 +31,13 @@
 
   {#if save}
     <div
-      class="flex items-center justify-between gap-4 rounded-full bg-header/90 px-5 py-2.5 shadow-sm ring-1 ring-edge/60"
+      class="flex items-center justify-between gap-3 rounded-2xl bg-header/90 px-4 py-2.5 shadow-sm ring-1 ring-edge/60 sm:gap-4 sm:rounded-full sm:px-5"
     >
-      <div class="min-w-0">
+      <div class="min-w-0 flex-1">
         <p class="truncate font-mono text-sm font-bold text-content-strong">
           {save.name}
         </p>
-        <p class="mt-0.5 text-xs text-content">
+        <p class="mt-0.5 truncate text-xs text-content">
           {save.size.toLocaleString()}
           {$_('save.bytes_unit')} · {new Date(save.lastModified).toLocaleString()}
         </p>

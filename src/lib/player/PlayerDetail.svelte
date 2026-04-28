@@ -98,8 +98,8 @@
     }
   }
 
-  const bulkInputClass = `w-48 ${MONO_INPUT_CLASS}`;
-  const bulkSelectClass = `w-64 ${INPUT_CLASS}`;
+  const bulkInputClass = `w-full max-w-48 ${MONO_INPUT_CLASS}`;
+  const bulkSelectClass = `w-full max-w-64 ${INPUT_CLASS}`;
 </script>
 
 <div>
@@ -183,7 +183,7 @@
     {/key}
 
     {#if pageCount > 1}
-      <div class="mt-3 flex items-center justify-between text-sm">
+      <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm">
         <button
           type="button"
           class="{PILL_BUTTON_CLASS} disabled:opacity-50"
@@ -192,7 +192,9 @@
         >
           {$_('advanced.page_previous')}
         </button>
-        <span class="text-xs text-content-muted">
+        <span
+          class="order-last w-full text-center text-xs text-content-muted sm:order-none sm:w-auto"
+        >
           {$_('advanced.page_elements_status', {
             values: { start, end: end - 1, count, page: page + 1, total: pageCount },
           })}

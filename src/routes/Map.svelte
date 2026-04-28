@@ -184,7 +184,7 @@
       {#if subTab === 'floor'}
         <div class={TOOLBAR_CLASS}>
           <div class="inline-flex overflow-hidden rounded-full ring-1 ring-edge/60">
-            {#each [{ id: 'brush', label: $_('map.floor.tool_brush'), title: $_('map.floor.tool_brush_title') }, { id: 'fill', label: $_('map.floor.tool_fill'), title: $_('map.floor.tool_fill_title') }, { id: 'picker', label: $_('map.floor.tool_picker'), title: $_('map.floor.tool_picker_title') }] as t, i (t.id)}
+            {#each [{ id: 'brush', label: $_('map.floor.tool_brush'), title: $_('map.floor.tool_brush_title') }, { id: 'fill', label: $_('map.floor.tool_fill'), title: $_('map.floor.tool_fill_title') }, { id: 'rectangle', label: $_('map.floor.tool_rectangle'), title: $_('map.floor.tool_rectangle_title') }, { id: 'picker', label: $_('map.floor.tool_picker'), title: $_('map.floor.tool_picker_title') }] as t, i (t.id)}
               <button
                 type="button"
                 class={[

@@ -20,14 +20,14 @@
     type="button"
     onclick={() => openLightbox(imageUrl, label)}
     aria-label={$_('lightbox.open', { values: { label } })}
-    class="{boxClass} flex shrink-0 cursor-zoom-in items-center justify-center overflow-hidden rounded-md border border-edge/40 bg-surface transition-colors hover:border-orange-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+    class="group {boxClass} flex shrink-0 cursor-zoom-in items-center justify-center overflow-hidden rounded-md border border-edge/40 bg-surface transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-orange-400 hover:shadow-lg hover:shadow-orange-500/20 active:translate-y-0 active:scale-95 active:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
   >
     <img
       src={imageUrl}
       alt={label}
       loading="lazy"
       decoding="async"
-      class="h-full w-full object-contain p-1"
+      class="h-full w-full object-contain p-1 transition-transform duration-300 ease-out group-hover:scale-110 group-active:scale-100"
     />
   </button>
 {:else}

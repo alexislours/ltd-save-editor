@@ -1,0 +1,77 @@
+name: Feature request
+description: A new field to expose, a new save area to support, or a UX improvement
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening, please check the **Advanced** tab, many fields are already editable there by raw hash key, just not yet surfaced in a structured tab. A good feature request often boils down to "promote hash `0x…` from Advanced into a proper UI."
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the editing goal, not the proposed UI. "I want to swap two Miis' apartments" is more useful than "add a swap button."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - New field in an existing tab (Player / Mii / Map)
+        - New tab or major editor section
+        - Map / placement / WalkingGrid handling
+        - Bulk load / export workflow
+        - Localization (new locale or i18n improvement)
+        - UX / accessibility / quality-of-life
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: save-files
+    attributes:
+      label: Which save file(s) does this touch?
+      multiple: true
+      options:
+        - Mii.sav
+        - Player.sav
+        - Map.sav
+        - None / editor-only
+    validations:
+      required: true
+
+  - type: textarea
+    id: field-info
+    attributes:
+      label: Field / hash details
+      description: |
+        If you've already located the data in the Advanced tab, paste the hash key(s), the type, and example values from a known-good save. This is the single biggest thing that turns "nice idea" into "shippable PR."
+      placeholder: |
+        Hash: 0x1A2B3C4D
+        Type: u32
+        Observed values: 0 = closed, 1 = open
+      render: text
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed UI / behavior
+      description: Optional. A rough sketch of how this would appear in the editor — control type, where it lives, validation rules.
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Links to related work in tlmodding/living-the-dream-save-editor, tlmodding/ltd-gamedata, prior issues, forum threads, etc.
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I'd be willing to open a PR for this
+        - label: I can provide sanitized sample saves demonstrating the field
+        - label: I have no coding or save-editing experience but want to share this idea anyway

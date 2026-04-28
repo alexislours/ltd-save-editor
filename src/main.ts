@@ -5,6 +5,7 @@ import App from './App.svelte';
 import { loadClothList } from './lib/sav/clothList.svelte';
 import { loadFoodList } from './lib/sav/foodList.svelte';
 import { loadHashList } from './lib/sav/hashList.svelte';
+import { loadItemList } from './lib/sav/itemList.svelte';
 import { loadRoomStyleList } from './lib/sav/roomStyleList.svelte';
 import { loadTreasureList } from './lib/sav/treasureList.svelte';
 import { loadTroubleList } from './lib/sav/troubleList.svelte';
@@ -15,6 +16,7 @@ loadFoodList();
 loadClothList();
 loadTreasureList();
 loadRoomStyleList();
+loadItemList();
 loadTroubleList();
 loadWordKindLabels();
 

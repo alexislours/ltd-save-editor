@@ -194,20 +194,20 @@ export type ScalarSizing = {
 
 export const SCALAR_SIZING_PRESETS: { array: ScalarSizing; entry: ScalarSizing } = {
   array: {
-    numClass: `w-32 ${MONO_INPUT_CLASS}`,
-    longNumClass: `w-48 ${MONO_INPUT_CLASS}`,
-    vecClass: `w-20 ${MONO_INPUT_CLASS}`,
-    enumHexClass: `w-40 ${MONO_INPUT_CLASS}`,
-    enumSelectClass: `w-56 ${INPUT_CLASS}`,
-    stringClass: `w-64 ${INPUT_CLASS}`,
+    numClass: `w-full max-w-32 ${MONO_INPUT_CLASS}`,
+    longNumClass: `w-full max-w-48 ${MONO_INPUT_CLASS}`,
+    vecClass: `min-w-0 flex-1 ${MONO_INPUT_CLASS}`,
+    enumHexClass: `w-full max-w-40 ${MONO_INPUT_CLASS}`,
+    enumSelectClass: `w-full max-w-56 ${INPUT_CLASS}`,
+    stringClass: `w-full max-w-64 ${INPUT_CLASS}`,
   },
   entry: {
-    numClass: `w-40 ${MONO_INPUT_CLASS}`,
-    longNumClass: `w-56 ${MONO_INPUT_CLASS}`,
-    vecClass: `w-24 ${MONO_INPUT_CLASS}`,
-    enumHexClass: `w-44 ${MONO_INPUT_CLASS}`,
-    enumSelectClass: `w-56 ${INPUT_CLASS}`,
-    stringClass: `w-72 ${INPUT_CLASS}`,
+    numClass: `w-full max-w-40 ${MONO_INPUT_CLASS}`,
+    longNumClass: `w-full max-w-56 ${MONO_INPUT_CLASS}`,
+    vecClass: `min-w-0 flex-1 ${MONO_INPUT_CLASS}`,
+    enumHexClass: `w-full max-w-44 ${MONO_INPUT_CLASS}`,
+    enumSelectClass: `w-full max-w-56 ${INPUT_CLASS}`,
+    stringClass: `w-full max-w-72 ${INPUT_CLASS}`,
   },
 };
 

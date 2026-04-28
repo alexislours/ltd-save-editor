@@ -6,6 +6,16 @@ export type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.5.0',
+    date: '2026-04-28',
+    changes: [
+      'Added a buildings unlocker in the Player tab.',
+      'Added a rectangle drawing tool to the Map tab alongside the existing pencil tool.',
+      'Improved mobile design.',
+      'Added fr-US and en-EU locale support.',
+    ],
+  },
+  {
     version: '1.4.0',
     date: '2026-04-27',
     changes: [

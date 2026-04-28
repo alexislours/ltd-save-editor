@@ -102,17 +102,17 @@
       {@const minWord = $_(`mii.personality.axis_min.${axis.axisKey}`)}
       {@const maxWord = $_(`mii.personality.axis_max.${axis.axisKey}`)}
       <div
-        class="grid grid-cols-[7rem_4rem_1fr_4rem] items-center gap-3 rounded-full bg-surface-muted px-4 py-2"
+        class="flex flex-col gap-1.5 rounded-2xl bg-surface-muted px-4 py-2.5 sm:grid sm:grid-cols-[7rem_4rem_1fr_4rem] sm:items-center sm:gap-3 sm:rounded-full sm:py-2"
       >
         <span class="text-sm font-bold text-content-strong">{axisLabel}</span>
-        <span class="text-right text-xs text-content">{minWord}</span>
-        <div class="flex justify-between gap-1">
+        <span class="hidden text-xs text-content sm:inline sm:text-right">{minWord}</span>
+        <div class="flex min-w-0 justify-between gap-1">
           {#each Array.from({ length: STEPS }, (_, i) => i) as i (i)}
             {@const selected = axis.value === i + 1}
             <button
               type="button"
               class={[
-                'relative h-7 w-7 rounded-md transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95 sm:h-8 sm:w-8',
+                'relative aspect-square min-w-0 flex-1 rounded-md transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95 sm:h-8 sm:w-8 sm:max-w-8 sm:flex-none',
                 selected ? 'bg-orange-500 shadow-md ring-2 ring-orange-600' : BOX_TINTS[i],
               ]}
               aria-label={$_('mii.personality.step_aria', {
@@ -128,7 +128,7 @@
             >
               {#if selected}
                 <svg
-                  class="absolute inset-0 m-auto h-4 w-4 text-white"
+                  class="absolute inset-0 m-auto h-3.5 w-3.5 text-white sm:h-4 sm:w-4"
                   viewBox="0 0 16 16"
                   fill="none"
                   stroke="currentColor"
@@ -143,7 +143,11 @@
             </button>
           {/each}
         </div>
-        <span class="text-xs text-content">{maxWord}</span>
+        <span class="hidden text-xs text-content sm:inline">{maxWord}</span>
+        <div class="flex justify-between gap-3 text-xs text-content sm:hidden">
+          <span>{minWord}</span>
+          <span>{maxWord}</span>
+        </div>
       </div>
     {/each}
   </div>
