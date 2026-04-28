@@ -82,7 +82,7 @@
     <div
       class="{note
         ? 'mt-2'
-        : 'mt-4'} max-h-160 overflow-y-auto rounded-xl border border-edge/40 bg-surface-muted/40"
+        : 'mt-4'} @container max-h-160 overflow-y-auto rounded-xl border border-edge/40 bg-surface-muted/40"
     >
       {#if visibleCount === 0}
         <p class="p-6 text-sm text-content-muted">{emptyMessage}</p>

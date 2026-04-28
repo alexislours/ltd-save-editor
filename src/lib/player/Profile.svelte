@@ -355,11 +355,11 @@
               error={errors.money}
               bodyClass="mt-1.5"
             >
-              <div class="flex items-stretch gap-2">
+              <div class="flex flex-wrap items-stretch gap-2">
                 <input
                   type="text"
                   inputmode="numeric"
-                  class="{numberInputClass} w-40"
+                  class="{numberInputClass} w-40 max-w-full"
                   value={formatMoney(moneyValue)}
                   onchange={(e) => (errors.money = writeMoney(money!, e.currentTarget.value))}
                 />
@@ -387,7 +387,7 @@
 
           {#if playTime}
             <FormFieldWrapper label={$_('player.play_time_label')} error={errors.playTime}>
-              <div class="flex items-center gap-2">
+              <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
                 <input
                   type="text"
                   inputmode="numeric"

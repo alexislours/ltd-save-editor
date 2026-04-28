@@ -31,21 +31,43 @@
   }: Props = $props();
 </script>
 
-<div class="flex items-center gap-3 px-3 py-2">
-  {#if leading}{@render leading()}{/if}
+<div class="row-grid items-center gap-x-3 gap-y-2 px-3 py-2">
+  <div class="flex min-w-0 items-center gap-3">
+    {#if leading}{@render leading()}{/if}
 
-  <InventoryImageButton {imageUrl} {label} size="md" />
+    <InventoryImageButton {imageUrl} {label} size="md" />
 
-  <div class="min-w-0 flex-1">
-    <div class="truncate text-sm font-bold text-content-strong">{label}</div>
-    <div class="truncate font-mono text-[11px] text-content-faint">{caption}</div>
+    <div class="min-w-0 flex-1">
+      <div class="truncate text-sm font-bold text-content-strong">{label}</div>
+      <div class="truncate font-mono text-[11px] text-content-faint">{caption}</div>
+    </div>
   </div>
 
-  {#if hasState}
-    <InventoryStateSelect value={state} onChange={onStateChange} />
-  {/if}
+  <div class="row-controls flex items-center justify-end gap-2">
+    {#if hasState}
+      <InventoryStateSelect value={state} onChange={onStateChange} />
+    {/if}
 
-  {#if hasQty}
-    <InventoryQtyStepper value={qty} onChange={onQtyChange} />
-  {/if}
+    {#if hasQty}
+      <InventoryQtyStepper value={qty} onChange={onQtyChange} />
+    {/if}
+  </div>
 </div>
+
+<style>
+  .row-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .row-controls {
+    grid-column: 1;
+  }
+  @container (min-width: 30rem) {
+    .row-grid {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+    .row-controls {
+      grid-column: 2;
+    }
+  }
+</style>

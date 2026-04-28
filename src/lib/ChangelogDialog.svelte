@@ -26,7 +26,7 @@
   bind:this={dialog}
   onclose={handleClose}
   onclick={handleBackdropClick}
-  class="m-auto w-full max-w-lg rounded-2xl bg-surface p-0 text-content-strong shadow-xl ring-1 ring-edge/60 backdrop:bg-slate-900/40 backdrop:backdrop-blur-sm"
+  class="m-auto w-[min(32rem,calc(100vw_-_2rem))] rounded-2xl bg-surface p-0 text-content-strong shadow-xl ring-1 ring-edge/60 backdrop:bg-slate-900/40 backdrop:backdrop-blur-sm"
 >
   <div
     class="flex items-center justify-between gap-4 border-b border-edge/40 bg-surface-muted/80 px-6 py-4"

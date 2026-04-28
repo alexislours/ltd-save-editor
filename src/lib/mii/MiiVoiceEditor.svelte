@@ -333,41 +333,43 @@
           {@const p = pct(s.value, s.min, s.max)}
           {@const sliderLabel = $_(`mii.voice.${s.labelKey}`)}
           <div
-            class="grid grid-cols-[7rem_1fr_3rem] items-center gap-3 rounded-full bg-surface-muted px-4 py-2"
+            class="flex flex-col gap-1.5 rounded-2xl bg-surface-muted px-4 py-2.5 sm:grid sm:grid-cols-[7rem_1fr_3rem] sm:items-center sm:gap-3 sm:rounded-full sm:py-2"
           >
             <span class="text-sm font-bold text-content-strong">{sliderLabel}</span>
-            <input
-              type="range"
-              min={s.min}
-              max={s.max}
-              step="1"
-              value={s.value}
-              oninput={(e) => onSliderInput(s.name, e.currentTarget.value)}
-              aria-label={sliderLabel}
-              class="block h-2 w-full cursor-pointer appearance-none rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600
-                     [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-edge [&::-webkit-slider-thumb]:bg-surface [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:active:scale-110
-                     [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-edge [&::-moz-range-thumb]:bg-surface [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:transition-transform [&::-moz-range-thumb]:active:scale-110"
-              style="background: linear-gradient(to right, rgb(120 113 108) 0%, rgb(120 113 108) {p}%, rgb(168 162 158) {p}%, rgb(168 162 158) 100%);"
-            />
-            <span class="text-right font-mono text-xs tabular-nums text-content">
-              {s.value}
-            </span>
+            <div class="flex items-center gap-3 sm:contents">
+              <input
+                type="range"
+                min={s.min}
+                max={s.max}
+                step="1"
+                value={s.value}
+                oninput={(e) => onSliderInput(s.name, e.currentTarget.value)}
+                aria-label={sliderLabel}
+                class="block h-2 w-full min-w-0 flex-1 cursor-pointer appearance-none rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600
+                       [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-edge [&::-webkit-slider-thumb]:bg-surface [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:active:scale-110
+                       [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-edge [&::-moz-range-thumb]:bg-surface [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:transition-transform [&::-moz-range-thumb]:active:scale-110"
+                style="background: linear-gradient(to right, rgb(120 113 108) 0%, rgb(120 113 108) {p}%, rgb(168 162 158) {p}%, rgb(168 162 158) 100%);"
+              />
+              <span class="w-10 shrink-0 text-right font-mono text-xs tabular-nums text-content">
+                {s.value}
+              </span>
+            </div>
           </div>
         {/if}
       {/each}
 
       {#if intonationState.entry}
         <div
-          class="grid grid-cols-[7rem_1fr] items-center gap-3 rounded-full bg-surface-muted px-4 py-2"
+          class="flex flex-col gap-1.5 rounded-2xl bg-surface-muted px-4 py-2.5 sm:grid sm:grid-cols-[7rem_1fr] sm:items-center sm:gap-3 sm:rounded-full sm:py-2"
         >
           <span class="text-sm font-bold text-content-strong">{$_('mii.voice.tone')}</span>
-          <div class="flex justify-between gap-2">
+          <div class="flex min-w-0 flex-1 justify-between gap-1.5 sm:gap-2">
             {#each Array.from({ length: INTONATION_STEPS }, (_, i) => i) as i (i)}
               {@const selected = intonationState.value === i}
               <button
                 type="button"
                 class={[
-                  'h-9 w-9 rounded-lg text-sm font-bold transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95 sm:h-10 sm:w-10',
+                  'aspect-square min-w-0 flex-1 rounded-lg text-sm font-bold transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95 sm:h-10 sm:w-10 sm:max-w-10 sm:flex-none',
                   selected
                     ? 'bg-orange-500 text-white shadow-md ring-2 ring-orange-600'
                     : 'bg-surface text-content-strong shadow',

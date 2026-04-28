@@ -58,7 +58,7 @@
   bind:this={dialog}
   onclose={cancel}
   onclick={onBackdrop}
-  class="m-auto w-full max-w-md rounded-2xl bg-surface p-0 text-content-strong shadow-xl ring-1 ring-edge/60 backdrop:bg-slate-900/40 backdrop:backdrop-blur-sm"
+  class="m-auto w-[min(28rem,calc(100vw_-_2rem))] rounded-2xl bg-surface p-0 text-content-strong shadow-xl ring-1 ring-edge/60 backdrop:bg-slate-900/40 backdrop:backdrop-blur-sm"
 >
   <div class="border-b border-edge/40 bg-surface-muted/80 px-6 py-4">
     <h2 class="text-lg font-bold text-content-strong">{title}</h2>

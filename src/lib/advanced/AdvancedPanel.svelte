@@ -158,10 +158,10 @@
 </script>
 
 <details class={CARD_BASE_CLASS}>
-  <summary class="cursor-pointer px-6 py-4 text-base font-bold text-content-strong">
+  <summary class="cursor-pointer px-4 py-4 text-base font-bold text-content-strong sm:px-6">
     {$_('advanced.header')}
   </summary>
-  <div class="border-t border-edge/30 px-6 py-4">
+  <div class="border-t border-edge/30 px-4 py-4 sm:px-6">
     {#if !advWarningAcked}
       <div
         role="alert"
@@ -194,7 +194,7 @@
         </div>
       </div>
     {:else}
-      <div class="mb-5 flex items-center gap-3 text-sm">
+      <div class="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
         <span class="font-bold text-content-strong">{$_('advanced.view_label')}</span>
         <div class="inline-flex overflow-hidden rounded-full ring-1 ring-edge/60">
           <button
@@ -220,7 +220,7 @@
             {$_('advanced.view_table')}
           </button>
         </div>
-        <span class="ml-auto text-xs text-content-muted">
+        <span class="min-w-0 basis-full text-xs text-content-muted sm:ml-auto sm:basis-auto">
           {$_('advanced.sections_label')}
           {countsByType
             .map((c, t) => (c > 0 ? `${DataTypeName[t as DataType]} (${c})` : null))
@@ -232,15 +232,15 @@
       </div>
 
       {#if advView === 'tree'}
-        <div class="grid gap-0 md:grid-cols-[320px_1px_1fr]">
-          <div class="flex min-h-120 flex-col">
+        <div class="grid gap-4 md:grid-cols-[320px_1px_1fr] md:gap-0">
+          <div class="flex flex-col md:min-h-120">
             <input
               type="search"
               class="mb-2 {INPUT_CLASS}"
               placeholder={$_('advanced.tree_filter_placeholder')}
               bind:value={treeSearch}
             />
-            <div class="max-h-160 overflow-auto pr-2">
+            <div class="max-h-80 overflow-auto pr-2 sm:max-h-160">
               {#if visibleTree.length === 0}
                 <p class="text-sm text-content-muted">{$_('advanced.tree_no_match')}</p>
               {:else}
@@ -257,7 +257,7 @@
 
           <div class="hidden bg-edge/40 md:block"></div>
 
-          <div class="min-h-120 md:pl-6">
+          <div class="md:min-h-120 md:pl-6">
             {#if selectedEntry}
               <PlayerDetail entry={selectedEntry} path={selectedPath} {markDirty} />
             {:else}
@@ -343,51 +343,47 @@
           </span>
         </div>
 
-        <div class="overflow-x-auto rounded-xl ring-1 ring-edge/40">
-          <table class="w-full text-sm">
-            <thead class="bg-surface-sunken/70 text-left text-xs font-bold text-content-strong">
-              <tr>
-                <th class="px-3 py-2 font-bold">{$_('advanced.table_header_hash')}</th>
-                <th class="px-3 py-2 font-bold">{$_('advanced.table_header_type')}</th>
-                <th class="px-3 py-2 font-bold">{$_('advanced.table_header_name')}</th>
-                <th class="px-3 py-2 font-bold">{$_('advanced.table_header_value')}</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-edge/40">
-              {#each advPageEntries as entry (entry)}
-                <tr class="align-top">
-                  <td class="px-3 py-2">
-                    <button
-                      type="button"
-                      class="font-mono text-xs text-content hover:text-brand-soft"
-                      title={$_('advanced.copy_hash_title')}
-                      onclick={() => copyHash(entry.hash)}
-                    >
-                      {hexU32(entry.hash)}
-                    </button>
-                  </td>
-                  <td class="px-3 py-2 text-xs text-content-muted">
-                    {DataTypeName[entry.type]}
-                  </td>
-                  <td class="px-3 py-2 text-xs text-content">
-                    {nameForHash(entry.hash) ?? ''}
-                  </td>
-                  <td class="px-3 py-2">
-                    <EntryEditor {entry} {markDirty} />
-                  </td>
-                </tr>
-              {:else}
-                <tr>
-                  <td colspan="4" class="px-3 py-6 text-center text-content-muted"
-                    >{$_('advanced.table_no_match')}</td
-                  >
-                </tr>
-              {/each}
-            </tbody>
-          </table>
+        <div class="@container overflow-hidden rounded-xl ring-1 ring-edge/40">
+          <div
+            class="adv-grid-header bg-surface-sunken/70 px-3 py-2 text-left text-xs font-bold text-content-strong"
+            role="row"
+          >
+            <span role="columnheader">{$_('advanced.table_header_hash')}</span>
+            <span role="columnheader">{$_('advanced.table_header_type')}</span>
+            <span role="columnheader">{$_('advanced.table_header_name')}</span>
+            <span role="columnheader">{$_('advanced.table_header_value')}</span>
+          </div>
+          <ul class="divide-y divide-edge/40" role="rowgroup">
+            {#each advPageEntries as entry (entry)}
+              <li class="adv-grid-row gap-x-3 gap-y-1 px-3 py-2" role="row">
+                <button
+                  type="button"
+                  class="adv-cell-hash justify-self-start font-mono text-xs text-content hover:text-brand-soft"
+                  title={$_('advanced.copy_hash_title')}
+                  onclick={() => copyHash(entry.hash)}
+                  role="cell"
+                >
+                  {hexU32(entry.hash)}
+                </button>
+                <span class="adv-cell-type text-xs text-content-muted" role="cell">
+                  {DataTypeName[entry.type]}
+                </span>
+                <span class="adv-cell-name min-w-0 truncate text-xs text-content" role="cell">
+                  {nameForHash(entry.hash) ?? ''}
+                </span>
+                <div class="adv-cell-value min-w-0" role="cell">
+                  <EntryEditor {entry} {markDirty} />
+                </div>
+              </li>
+            {:else}
+              <li class="px-3 py-6 text-center text-sm text-content-muted">
+                {$_('advanced.table_no_match')}
+              </li>
+            {/each}
+          </ul>
         </div>
 
-        <div class="mt-3 flex items-center justify-between text-sm">
+        <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm">
           <button
             type="button"
             class="{PILL_BUTTON_CLASS} disabled:opacity-50"
@@ -396,7 +392,9 @@
           >
             {$_('advanced.page_previous')}
           </button>
-          <span class="text-xs text-content-muted">
+          <span
+            class="order-last w-full text-center text-xs text-content-muted sm:order-none sm:w-auto"
+          >
             {$_('advanced.page_status', { values: { page: advPage + 1, total: advPageCount } })}
           </span>
           <button
@@ -412,3 +410,66 @@
     {/if}
   </div>
 </details>
+
+<style>
+  .adv-grid-header {
+    display: none;
+  }
+  .adv-grid-row {
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    align-items: baseline;
+  }
+  .adv-cell-hash {
+    grid-column: 1;
+  }
+  .adv-cell-type {
+    grid-column: 2;
+    justify-self: end;
+  }
+  .adv-cell-name {
+    grid-column: 1 / -1;
+  }
+  .adv-cell-name:empty {
+    display: none;
+  }
+  .adv-cell-value {
+    grid-column: 1 / -1;
+  }
+  @container (min-width: 36rem) {
+    .adv-grid-header,
+    .adv-grid-row {
+      display: grid;
+      grid-template-columns: 9rem 7rem minmax(8rem, 1fr) minmax(0, 2fr);
+      align-items: baseline;
+    }
+    .adv-grid-header > :nth-child(1) {
+      grid-column: 1;
+    }
+    .adv-grid-header > :nth-child(2) {
+      grid-column: 2;
+    }
+    .adv-grid-header > :nth-child(3) {
+      grid-column: 3;
+    }
+    .adv-grid-header > :nth-child(4) {
+      grid-column: 4;
+    }
+    .adv-cell-hash {
+      grid-column: 1;
+    }
+    .adv-cell-type {
+      grid-column: 2;
+      justify-self: start;
+    }
+    .adv-cell-name {
+      grid-column: 3;
+    }
+    .adv-cell-name:empty {
+      display: block;
+    }
+    .adv-cell-value {
+      grid-column: 4;
+    }
+  }
+</style>

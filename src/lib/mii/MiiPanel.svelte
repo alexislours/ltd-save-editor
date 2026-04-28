@@ -84,7 +84,7 @@
   });
 </script>
 
-<div class="grid gap-4">
+<div class="grid grid-cols-1 gap-4">
   <MiiSlotSelector {entries} bind:selectedIndex />
 
   {#if hasPopulatedSlot && selectedIndex != null}

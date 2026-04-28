@@ -1105,9 +1105,9 @@
                       {@const yV = getInt('mapObjY', slot, 0)}
                       {@const display = idV === 0 ? null : actorDisplay(idV)}
                       <div
-                        class="{CARD_BASE_CLASS} grid grid-cols-[2fr_1fr_1fr] items-end gap-2 px-3 py-2"
+                        class="{CARD_BASE_CLASS} grid grid-cols-2 items-end gap-2 px-3 py-2 sm:grid-cols-[2fr_1fr_1fr]"
                       >
-                        <label class="block min-w-0">
+                        <label class="col-span-2 block min-w-0 sm:col-span-1">
                           <span class="text-[11px] font-bold text-content-faint">
                             {$_('mii.troubles.map_object_label', { values: { n: slot + 1 } })}
                           </span>

@@ -64,7 +64,7 @@
   {#if isBeta}
     <div
       role="alert"
-      class="bg-rose-600 px-6 py-2 text-center text-sm font-semibold text-white shadow-md"
+      class="bg-rose-600 px-4 py-1.5 text-center text-xs font-semibold text-white shadow-md sm:px-6 sm:py-2 sm:text-sm"
     >
       {$_('beta.warning')}
     </div>
@@ -75,11 +75,13 @@
       isBeta ? 'bg-beta/90 ring-1 ring-beta-edge/70' : 'bg-header/90 ring-1 ring-edge/60',
     ]}
   >
-    <div class="mx-auto flex w-full max-w-6xl items-start justify-between gap-4 px-6 pt-6">
-      <div>
+    <div
+      class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 pt-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4 sm:px-6 sm:pt-6"
+    >
+      <div class="min-w-0">
         <p
           class={[
-            'text-xs font-bold uppercase tracking-[0.18em]',
+            'text-[11px] font-bold uppercase tracking-[0.18em] sm:text-xs',
             isBeta ? 'text-beta-content' : 'text-brand/90',
           ]}
         >
@@ -88,9 +90,11 @@
               >{$_('beta.badge')}</span
             >{/if}
         </p>
-        <h1 class="mt-0.5 text-xl font-bold text-content-strong">{$_('app.game_title')}</h1>
+        <h1 class="mt-0.5 text-lg font-bold text-content-strong sm:text-xl">
+          {$_('app.game_title')}
+        </h1>
       </div>
-      <div class="flex items-center gap-2">
+      <div class="flex flex-wrap items-center gap-x-2 gap-y-2">
         {#if isBeta}
           <a
             href={STABLE_URL}
@@ -128,7 +132,10 @@
       </div>
     </div>
 
-    <nav class="mx-auto mt-4 flex w-full max-w-6xl flex-wrap gap-2 px-6 pb-4" aria-label="Sections">
+    <nav
+      class="mx-auto mt-3 flex w-full max-w-6xl flex-wrap gap-1.5 px-4 pb-3 sm:mt-4 sm:gap-2 sm:px-6 sm:pb-4"
+      aria-label="Sections"
+    >
       {#each tabs as tab (tab.href)}
         {@const active = path === tab.href}
         <a
@@ -158,7 +165,7 @@
     </nav>
   </header>
 
-  <div class="mx-auto w-full max-w-6xl flex-1 px-6 py-10">
+  <div class="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-10">
     {@render children()}
   </div>
 
