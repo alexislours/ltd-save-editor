@@ -12,7 +12,7 @@
   let { value, onChange }: Props = $props();
 
   let pulseToken = $state(0);
-  let prev = value >>> 0;
+  let prev = untrack(() => value >>> 0);
 
   $effect(() => {
     const next = value >>> 0;
