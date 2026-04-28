@@ -12,7 +12,7 @@
 
 <footer class="mt-auto border-t border-edge/40 bg-surface/40 px-6 py-6 text-xs text-content-muted">
   <div
-    class="mx-auto flex w-full max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+    class="mx-auto flex w-full max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
   >
     <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
       <a
