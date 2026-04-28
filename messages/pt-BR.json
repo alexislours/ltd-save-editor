@@ -614,6 +614,10 @@
     },
     "subtab_troubles": "Problemas",
     "troubles": {
+      "complexity_warning_title": "Experimental: editor de problemas",
+      "complexity_warning_body": "Existem 115 tipos de problemas, cada um com até 27 parâmetros e várias condições verificadas pelo próprio jogo (progresso da história, relações entre Miis, itens disponíveis, horário do dia, entre outros). O editor permite qualquer combinação, mas é o jogo que decide se o problema realmente acontece. Algumas combinações podem simplesmente não fazer nada ou se comportar de forma inesperada.",
+      "complexity_warning_no_support": "Esta aba não conta com suporte. Se você encontrar uma combinação claramente quebrada (dados inválidos, travamento do jogo, save corrompido), por favor",
+      "complexity_warning_report_link": "abra uma issue no GitHub",
       "missing": "Este save não expõe os campos Mii.Trouble.*, então os problemas não podem ser editados aqui.",
       "section_active": "Problema ativo",
       "section_active_caption": "Cada Mii pode ter no máximo um problema ativo. Escolher \"Sem problema\" limpa todos os alvos e temporizadores associados.",

@@ -487,10 +487,48 @@
   const sortedActors = $derived(allActors());
 
   const ready = $derived(idEntry != null);
+
+  const issuesUrl =
+    'https://github.com/alexislours/ltd-save-editor/issues/new?template=bug_report.yml';
 </script>
+
+{#snippet complexityWarning()}
+  <aside
+    role="note"
+    class="rounded-xl border-2 border-amber-500/60 bg-amber-500/10 p-4 dark:bg-amber-500/15"
+  >
+    <div class="flex items-start gap-3">
+      <span
+        aria-hidden="true"
+        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-500 text-base font-bold text-white"
+        >!</span
+      >
+      <div class="flex-1">
+        <h3 class="text-sm font-bold uppercase tracking-wide text-amber-800 dark:text-amber-300">
+          {$_('mii.troubles.complexity_warning_title')}
+        </h3>
+        <p class="mt-2 text-sm text-amber-900 dark:text-amber-200">
+          {$_('mii.troubles.complexity_warning_body')}
+        </p>
+        <p class="mt-2 text-sm text-amber-900 dark:text-amber-200">
+          {$_('mii.troubles.complexity_warning_no_support')}
+          <a
+            href={issuesUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-semibold underline underline-offset-2 hover:text-amber-700 dark:hover:text-amber-100"
+          >
+            {$_('mii.troubles.complexity_warning_report_link')}
+          </a>.
+        </p>
+      </div>
+    </div>
+  </aside>
+{/snippet}
 
 {#if !ready}
   <div class="grid gap-4">
+    {@render complexityWarning()}
     <MiiSlotSelector {entries} bind:selectedIndex />
     <section class={CARD_CLASS}>
       <p class="text-sm text-content-muted">{$_('mii.troubles.missing')}</p>
@@ -498,6 +536,7 @@
   </div>
 {:else}
   <div class="grid gap-4">
+    {@render complexityWarning()}
     <MiiSlotSelector {entries} bind:selectedIndex />
 
     {#if selectedIndex != null}

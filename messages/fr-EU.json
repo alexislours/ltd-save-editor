@@ -614,6 +614,10 @@
     },
     "subtab_troubles": "Soucis",
     "troubles": {
+      "complexity_warning_title": "Expérimental : éditeur de soucis",
+      "complexity_warning_body": "Il existe 115 types de soucis, chacun avec jusqu'à 27 paramètres et de nombreuses conditions vérifiées par le jeu lui-même (progression de l'histoire, relations entre Miis, objets disponibles, moment de la journée, etc.). L'éditeur autorise n'importe quelle combinaison, mais c'est le jeu qui décide si le souci se déclenche réellement. Certaines combinaisons peuvent ne rien produire ou se comporter de façon imprévue.",
+      "complexity_warning_no_support": "Aucun support n'est assuré pour cet onglet. Si vous trouvez une combinaison clairement cassée (données invalides, plantage du jeu, sauvegarde corrompue), n'hésitez pas à",
+      "complexity_warning_report_link": "ouvrir un ticket sur GitHub",
       "missing": "Cette sauvegarde n'expose pas les champs Mii.Trouble.*, les soucis ne peuvent donc pas être édités ici.",
       "section_active": "Souci en cours",
       "section_active_caption": "Chaque Mii ne peut avoir qu'un seul souci en cours. Choisir « Aucun souci » efface les cibles et les minuteurs associés.",
