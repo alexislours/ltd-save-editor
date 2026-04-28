@@ -261,15 +261,6 @@ function readBoolSafe(e: Entry, i: number): boolean {
   }
 }
 
-export function populatedMiiIndices(nameEntry: Entry): number[] {
-  const count = arrayCount(nameEntry);
-  const out: number[] = [];
-  for (let i = 0; i < count; i++) {
-    if (readMiiName(nameEntry, i).length > 0) out.push(i);
-  }
-  return out;
-}
-
 export function setFight(re: RelationEntries, slot: number, value: boolean): boolean {
   if (!re.isFight) return false;
   try {

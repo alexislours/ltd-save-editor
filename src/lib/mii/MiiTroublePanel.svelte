@@ -2,7 +2,6 @@
   import { _, locale } from 'svelte-i18n';
   import { SvelteMap, SvelteSet } from 'svelte/reactivity';
   import {
-    arrayCount,
     arrGetBool,
     arrGetInt,
     arrGetString,
@@ -12,7 +11,6 @@
     arrSetInt,
     arrSetUInt,
     arrSetUInt64,
-    binaryArrayElements,
   } from '../sav/codec';
   import { allActors, actorDisplay } from '../mapObjects/actors';
   import { allCloths, clothLabel } from '../sav/clothList.svelte';
@@ -36,10 +34,9 @@
     PILL_BUTTON_CLASS,
   } from '../styles';
   import { markDirty, miiState } from './miiEditor.svelte';
-  import MiiSlotSelector from './MiiSlotSelector.svelte';
   import { NAME_FIELD_HASH } from './miiFields';
-
-  const CHAR_INFO_EX_HASH = murmur3_x86_32('Mii.CharInfoEx') >>> 0;
+  import MiiSlotSelector from './MiiSlotSelector.svelte';
+  import { populatedMiiIndices } from './populated';
   import {
     ITEM_TYPE_LABEL_KEY,
     ITEM_TYPE_VALUES,
@@ -397,44 +394,18 @@
   });
 
   const nameEntry = $derived(byHash.get(NAME_FIELD_HASH) ?? null);
-  const charInfoEntry = $derived.by(() => {
-    const e = byHash.get(CHAR_INFO_EX_HASH);
-    return e && e.type === 19 ? e : null;
-  });
-  const aliveSet = $derived.by<SvelteSet<number> | null>(() => {
-    void tick;
-    if (!charInfoEntry) return null;
-    const out = new SvelteSet<number>();
-    const elements = binaryArrayElements(charInfoEntry);
-    for (let i = 0; i < elements.length; i++) {
-      const bytes = elements[i].bytes;
-      for (let b = 0; b < bytes.length; b++) {
-        if (bytes[b] !== 0) {
-          out.add(i);
-          break;
-        }
-      }
-    }
-    return out;
-  });
   const miiOptions = $derived.by(() => {
     void tick;
     if (!nameEntry) return [] as { index: number; name: string }[];
-    const count = arrayCount(nameEntry);
-    const out: { index: number; name: string }[] = [];
-    const alive = aliveSet;
-    for (let i = 0; i < count; i++) {
-      if (alive && !alive.has(i)) continue;
+    return populatedMiiIndices(byHash).map((i) => {
       let n = '';
       try {
         n = arrGetString(nameEntry, i);
       } catch {
         /* empty */
       }
-      if (alive == null && n.length === 0) continue;
-      out.push({ index: i, name: n });
-    }
-    return out;
+      return { index: i, name: n };
+    });
   });
 
   function arrIndex(key: TroubleFieldKey, slot: number): number {

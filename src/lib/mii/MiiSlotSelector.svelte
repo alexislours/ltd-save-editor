@@ -1,15 +1,13 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { SvelteMap, SvelteSet } from 'svelte/reactivity';
-  import { arrayCount, arrGetInt, arrGetString, binaryArrayElements } from '../sav/codec';
-  import { DataType } from '../sav/dataType';
+  import { SvelteMap } from 'svelte/reactivity';
+  import { arrGetInt, arrGetString } from '../sav/codec';
   import { murmur3_x86_32 } from '../sav/hash';
   import type { Entry } from '../sav/types';
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
   import { miiState } from './miiEditor.svelte';
   import { NAME_FIELD_HASH } from './miiFields';
-
-  const CHAR_INFO_EX_HASH = murmur3_x86_32('Mii.CharInfoEx') >>> 0;
+  import { populatedMiiIndices } from './populated';
 
   type Props = {
     entries: Entry[];
@@ -28,27 +26,6 @@
   const SATISFY_METER_HASH = murmur3_x86_32('Mii.MiiMisc.SatisfyInfo.Meter') >>> 0;
   const levelEntry = $derived(byHash.get(SATISFY_LEVEL_HASH) ?? null);
   const meterEntry = $derived(byHash.get(SATISFY_METER_HASH) ?? null);
-  const charInfoEntry = $derived.by(() => {
-    const e = byHash.get(CHAR_INFO_EX_HASH);
-    return e && e.type === DataType.BinaryArray ? e : null;
-  });
-
-  const aliveSet = $derived.by<SvelteSet<number> | null>(() => {
-    void miiState.tick;
-    if (!charInfoEntry) return null;
-    const out = new SvelteSet<number>();
-    const elements = binaryArrayElements(charInfoEntry);
-    for (let i = 0; i < elements.length; i++) {
-      const bytes = elements[i].bytes;
-      for (let b = 0; b < bytes.length; b++) {
-        if (bytes[b] !== 0) {
-          out.add(i);
-          break;
-        }
-      }
-    }
-    return out;
-  });
 
   type Slot = {
     index: number;
@@ -59,19 +36,14 @@
   const slots = $derived.by<Slot[]>(() => {
     void miiState.tick;
     if (!nameEntry) return [];
-    const count = arrayCount(nameEntry);
     const out: Slot[] = [];
-    const alive = aliveSet;
-    for (let i = 0; i < count; i++) {
-      if (alive ? !alive.has(i) : false) continue;
+    for (const i of populatedMiiIndices(byHash)) {
       let n: string;
       try {
         n = arrGetString(nameEntry, i);
       } catch {
         n = '';
       }
-      if (alive == null && n.length === 0) continue;
-      if (alive != null && n.length === 0) n = '';
       let level: number | null = null;
       if (levelEntry) {
         try {
