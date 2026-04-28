@@ -113,6 +113,54 @@
     "subtab_treasures": "Treasures",
     "subtab_interiors": "Interiors",
     "subtab_buildings": "Buildings",
+    "subtab_ugc": "UGC",
+    "ugc_text": {
+      "heading": "UGC text",
+      "description": "Words and phrases stored in UGC.Text.TextData.*. Used by Mii dialogue, news, and other content that references custom text.",
+      "missing": "This save doesn't expose the UGC.Text.TextData.* arrays.",
+      "summary": "{filled} of {total} slots filled",
+      "show_empty": "Show empty slots",
+      "add_slot": "Add slot",
+      "empty_hint": "No UGC text yet. Use \"Add slot\" to create one.",
+      "entry_index": "#{index}",
+      "text_placeholder": "Custom text…",
+      "how_placeholder": "Same as text",
+      "how_hint": "Phonetic spelling used by voice playback. Leave blank to mirror the text.",
+      "clear_action": "Clear",
+      "clear_tip": "Empty this slot",
+      "clear_confirm": "Clear this UGC text slot? Genre, language, text and pronunciation will be reset.",
+      "error_too_long": "Max {max} characters",
+      "error_split_surrogate": "Last character splits an emoji. Drop one.",
+      "field": {
+        "text": "Text",
+        "howToCallText": "Pronunciation",
+        "genre": "Genre",
+        "regionLanguageId": "Language",
+        "attribute": "Sentiment",
+        "wordAttrGrammaticality": "Grammaticality",
+        "addTime": "Added (epoch)"
+      },
+      "genre": {
+        "Invalid": "(empty slot)",
+        "Person": "Person",
+        "Object": "Object",
+        "Action": "Action",
+        "Image": "Image",
+        "Topic": "Topic",
+        "Phrase": "Phrase"
+      },
+      "attribute": {
+        "Neutral": "Neutral",
+        "Positive": "Positive",
+        "Negative": "Negative"
+      },
+      "grammaticality": {
+        "cNone": "None",
+        "cMasculine": "Masculine",
+        "cFeminine": "Feminine",
+        "cNeuter": "Neuter"
+      }
+    },
     "inventory": {
       "search": "Search",
       "search_placeholder": "Filter by name…",
@@ -184,6 +232,10 @@
     "subtab_relationships": "Relationships graph",
     "subtab_troubles": "Troubles",
     "troubles": {
+      "complexity_warning_title": "Experimental: troubles editor",
+      "complexity_warning_body": "There are 115 trouble types, each with up to 27 parameters and many runtime conditions checked by the game itself (story progress, relationships, items in stock, time of day, and more). The editor lets you set any combination, but the game still decides whether the trouble actually fires. Some combinations may silently do nothing or behave unexpectedly.",
+      "complexity_warning_no_support": "No support is provided for this tab. If you find a combination that is clearly broken (writes invalid data, crashes the game, corrupts the save), please",
+      "complexity_warning_report_link": "open an issue on GitHub",
       "missing": "This save does not expose Mii.Trouble.* fields, so troubles can't be edited here.",
       "section_active": "Active trouble",
       "section_active_caption": "Each Mii can have at most one active trouble. Picking \"No trouble\" clears any associated targets and timers.",

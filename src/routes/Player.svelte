@@ -8,6 +8,7 @@
   import InteriorsPanel from '../lib/player/InteriorsPanel.svelte';
   import Profile from '../lib/player/Profile.svelte';
   import TreasuresPanel from '../lib/player/TreasuresPanel.svelte';
+  import UgcTextPanel from '../lib/player/UgcTextPanel.svelte';
   import {
     downloadModified,
     markDirty,
@@ -32,6 +33,7 @@
     | 'treasures'
     | 'interiors'
     | 'buildings'
+    | 'ugc'
     | 'advanced';
   let subTab = $state<SubTab>('profile');
 
@@ -42,6 +44,7 @@
     { value: 'treasures', label: $_('player.subtab_treasures') },
     { value: 'interiors', label: $_('player.subtab_interiors') },
     { value: 'buildings', label: $_('player.subtab_buildings') },
+    { value: 'ugc', label: $_('player.subtab_ugc') },
     { value: 'advanced', label: $_('tab.advanced') },
   ]);
 
@@ -85,6 +88,8 @@
         <InteriorsPanel entries={parsed.entries} />
       {:else if subTab === 'buildings'}
         <BuildingsPanel entries={parsed.entries} />
+      {:else if subTab === 'ugc'}
+        <UgcTextPanel entries={parsed.entries} />
       {:else}
         <AdvancedPanel entries={parsed.entries} {markDirty} parseSignal={playerState.parsed} />
       {/if}

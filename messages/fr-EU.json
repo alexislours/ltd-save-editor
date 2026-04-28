@@ -113,6 +113,54 @@
     "subtab_treasures": "Trésors",
     "subtab_interiors": "Intérieurs",
     "subtab_buildings": "Bâtiments",
+    "subtab_ugc": "UGC",
+    "ugc_text": {
+      "heading": "Texte UGC",
+      "description": "Mots et expressions stockés dans UGC.Text.TextData.*. Utilisés par les dialogues des Miis, les actualités et tout autre contenu référençant du texte personnalisé.",
+      "missing": "Cette sauvegarde n'expose pas les tableaux UGC.Text.TextData.*.",
+      "summary": "{filled} emplacement(s) sur {total} occupé(s)",
+      "show_empty": "Afficher les emplacements vides",
+      "add_slot": "Ajouter un emplacement",
+      "empty_hint": "Aucun texte UGC pour l'instant. Utilise « Ajouter un emplacement » pour en créer un.",
+      "entry_index": "n°{index}",
+      "text_placeholder": "Texte personnalisé…",
+      "how_placeholder": "Identique au texte",
+      "how_hint": "Orthographe phonétique utilisée par la synthèse vocale. Laisse vide pour reprendre le texte.",
+      "clear_action": "Effacer",
+      "clear_tip": "Vider cet emplacement",
+      "clear_confirm": "Effacer cet emplacement UGC ? Genre, langue, texte et prononciation seront réinitialisés.",
+      "error_too_long": "Maximum {max} caractères",
+      "error_split_surrogate": "Le dernier caractère coupe un emoji. Supprime-en un.",
+      "field": {
+        "text": "Texte",
+        "howToCallText": "Prononciation",
+        "genre": "Genre",
+        "regionLanguageId": "Langue",
+        "attribute": "Sentiment",
+        "wordAttrGrammaticality": "Grammaticalité",
+        "addTime": "Ajouté (epoch)"
+      },
+      "genre": {
+        "Invalid": "(emplacement vide)",
+        "Person": "Personne",
+        "Object": "Objet",
+        "Action": "Action",
+        "Image": "Image",
+        "Topic": "Sujet",
+        "Phrase": "Phrase"
+      },
+      "attribute": {
+        "Neutral": "Neutre",
+        "Positive": "Positif",
+        "Negative": "Négatif"
+      },
+      "grammaticality": {
+        "cNone": "Aucun",
+        "cMasculine": "Masculin",
+        "cFeminine": "Féminin",
+        "cNeuter": "Neutre"
+      }
+    },
     "inventory": {
       "search": "Recherche",
       "search_placeholder": "Filtrer par nom…",
@@ -566,6 +614,10 @@
     },
     "subtab_troubles": "Soucis",
     "troubles": {
+      "complexity_warning_title": "Expérimental : éditeur de soucis",
+      "complexity_warning_body": "Il existe 115 types de soucis, chacun avec jusqu'à 27 paramètres et de nombreuses conditions vérifiées par le jeu lui-même (progression de l'histoire, relations entre Miis, objets disponibles, moment de la journée, etc.). L'éditeur autorise n'importe quelle combinaison, mais c'est le jeu qui décide si le souci se déclenche réellement. Certaines combinaisons peuvent ne rien produire ou se comporter de façon imprévue.",
+      "complexity_warning_no_support": "Aucun support n'est assuré pour cet onglet. Si vous trouvez une combinaison clairement cassée (données invalides, plantage du jeu, sauvegarde corrompue), n'hésitez pas à",
+      "complexity_warning_report_link": "ouvrir un ticket sur GitHub",
       "missing": "Cette sauvegarde n'expose pas les champs Mii.Trouble.*, les soucis ne peuvent donc pas être édités ici.",
       "section_active": "Souci en cours",
       "section_active_caption": "Chaque Mii ne peut avoir qu'un seul souci en cours. Choisir « Aucun souci » efface les cibles et les minuteurs associés.",

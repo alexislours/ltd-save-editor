@@ -6,6 +6,14 @@ export type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.6.0',
+    date: '2026-04-29',
+    changes: [
+      'Added a UGC text editor in the Player tab.',
+      'Added a complexity warning on the Mii troubles tab.',
+    ],
+  },
+  {
     version: '1.5.0',
     date: '2026-04-28',
     changes: [
