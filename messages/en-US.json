@@ -113,6 +113,54 @@
     "subtab_treasures": "Treasures",
     "subtab_interiors": "Interiors",
     "subtab_buildings": "Buildings",
+    "subtab_ugc": "UGC",
+    "ugc_text": {
+      "heading": "UGC text",
+      "description": "Words and phrases stored in UGC.Text.TextData.*. Used by Mii dialogue, news, and other content that references custom text.",
+      "missing": "This save doesn't expose the UGC.Text.TextData.* arrays.",
+      "summary": "{filled} of {total} slots filled",
+      "show_empty": "Show empty slots",
+      "add_slot": "Add slot",
+      "empty_hint": "No UGC text yet. Use \"Add slot\" to create one.",
+      "entry_index": "#{index}",
+      "text_placeholder": "Custom text…",
+      "how_placeholder": "Same as text",
+      "how_hint": "Phonetic spelling used by voice playback. Leave blank to mirror the text.",
+      "clear_action": "Clear",
+      "clear_tip": "Empty this slot",
+      "clear_confirm": "Clear this UGC text slot? Genre, language, text and pronunciation will be reset.",
+      "error_too_long": "Max {max} characters",
+      "error_split_surrogate": "Last character splits an emoji. Drop one.",
+      "field": {
+        "text": "Text",
+        "howToCallText": "Pronunciation",
+        "genre": "Genre",
+        "regionLanguageId": "Language",
+        "attribute": "Sentiment",
+        "wordAttrGrammaticality": "Grammaticality",
+        "addTime": "Added (epoch)"
+      },
+      "genre": {
+        "Invalid": "(empty slot)",
+        "Person": "Person",
+        "Object": "Object",
+        "Action": "Action",
+        "Image": "Image",
+        "Topic": "Topic",
+        "Phrase": "Phrase"
+      },
+      "attribute": {
+        "Neutral": "Neutral",
+        "Positive": "Positive",
+        "Negative": "Negative"
+      },
+      "grammaticality": {
+        "cNone": "None",
+        "cMasculine": "Masculine",
+        "cFeminine": "Feminine",
+        "cNeuter": "Neuter"
+      }
+    },
     "inventory": {
       "search": "Search",
       "search_placeholder": "Filter by name…",

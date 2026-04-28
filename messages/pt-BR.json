@@ -113,6 +113,54 @@
     "subtab_treasures": "Tesouros",
     "subtab_interiors": "Interiores",
     "subtab_buildings": "Edifícios",
+    "subtab_ugc": "UGC",
+    "ugc_text": {
+      "heading": "Texto UGC",
+      "description": "Palavras e frases armazenadas em UGC.Text.TextData.*. Usadas pelos diálogos dos Miis, notícias e qualquer outro conteúdo que faça referência a texto personalizado.",
+      "missing": "Este save não expõe os arrays UGC.Text.TextData.*.",
+      "summary": "{filled} de {total} slots preenchidos",
+      "show_empty": "Mostrar slots vazios",
+      "add_slot": "Adicionar slot",
+      "empty_hint": "Nenhum texto UGC ainda. Use \"Adicionar slot\" para criar um.",
+      "entry_index": "#{index}",
+      "text_placeholder": "Texto personalizado…",
+      "how_placeholder": "Igual ao texto",
+      "how_hint": "Grafia fonética usada pela reprodução de voz. Deixe em branco para espelhar o texto.",
+      "clear_action": "Limpar",
+      "clear_tip": "Esvaziar este slot",
+      "clear_confirm": "Limpar este slot UGC? Gênero, idioma, texto e pronúncia serão redefinidos.",
+      "error_too_long": "Máximo {max} caracteres",
+      "error_split_surrogate": "O último caractere divide um emoji. Remova um.",
+      "field": {
+        "text": "Texto",
+        "howToCallText": "Pronúncia",
+        "genre": "Gênero",
+        "regionLanguageId": "Idioma",
+        "attribute": "Sentimento",
+        "wordAttrGrammaticality": "Gramaticalidade",
+        "addTime": "Adicionado (epoch)"
+      },
+      "genre": {
+        "Invalid": "(slot vazio)",
+        "Person": "Pessoa",
+        "Object": "Objeto",
+        "Action": "Ação",
+        "Image": "Imagem",
+        "Topic": "Tópico",
+        "Phrase": "Frase"
+      },
+      "attribute": {
+        "Neutral": "Neutro",
+        "Positive": "Positivo",
+        "Negative": "Negativo"
+      },
+      "grammaticality": {
+        "cNone": "Nenhum",
+        "cMasculine": "Masculino",
+        "cFeminine": "Feminino",
+        "cNeuter": "Neutro"
+      }
+    },
     "inventory": {
       "search": "Pesquisar",
       "search_placeholder": "Filtrar por nome…",
