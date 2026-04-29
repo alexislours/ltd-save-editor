@@ -1,6 +1,7 @@
 <script lang="ts">
   import { SvelteSet } from 'svelte/reactivity';
   import AdvancedPanel from '../lib/advanced/AdvancedPanel.svelte';
+  import { track } from '../lib/analytics';
   import AppLayout from '../lib/AppLayout.svelte';
   import Card from '../lib/Card.svelte';
   import SaveBar from '../lib/SaveBar.svelte';
@@ -139,16 +140,34 @@
     }
   }
 
+  function selectTool(t: ToolKind): void {
+    if (tool === t) return;
+    tool = t;
+    track('map_tool_selected', { tool: t });
+  }
+
+  function doUndo(source: 'keyboard' | 'button'): void {
+    if (!canUndo()) return;
+    undo();
+    track('map_history', { direction: 'undo', source });
+  }
+
+  function doRedo(source: 'keyboard' | 'button'): void {
+    if (!canRedo()) return;
+    redo();
+    track('map_history', { direction: 'redo', source });
+  }
+
   function onKey(e: KeyboardEvent): void {
     if (subTab !== 'floor') return;
     const meta = e.metaKey || e.ctrlKey;
     if (!meta) return;
     if (e.key === 'z' && !e.shiftKey) {
       e.preventDefault();
-      undo();
+      doUndo('keyboard');
     } else if ((e.key === 'z' && e.shiftKey) || e.key === 'y') {
       e.preventDefault();
-      redo();
+      doRedo('keyboard');
     }
   }
 </script>
@@ -192,7 +211,7 @@
                   i > 0 && 'border-l border-edge/60',
                   tool === t.id ? 'bg-orange-500 text-white' : 'bg-surface text-content',
                 ]}
-                onclick={() => (tool = t.id as ToolKind)}
+                onclick={() => selectTool(t.id as ToolKind)}
                 title={t.title}
               >
                 {t.label}
@@ -205,7 +224,7 @@
               type="button"
               class="bg-surface px-3 py-1.5 text-sm font-bold text-content hover:bg-surface-muted disabled:opacity-40"
               disabled={!canUndo()}
-              onclick={undo}
+              onclick={() => doUndo('button')}
               title={$_('map.floor.undo_title')}
             >
               {$_('map.floor.undo')}
@@ -214,7 +233,7 @@
               type="button"
               class="border-l border-edge/60 bg-surface px-3 py-1.5 text-sm font-bold text-content hover:bg-surface-muted disabled:opacity-40"
               disabled={!canRedo()}
-              onclick={redo}
+              onclick={() => doRedo('button')}
               title={$_('map.floor.redo_title')}
             >
               {$_('map.floor.redo')}

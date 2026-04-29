@@ -1,11 +1,14 @@
 import { zipSync } from 'fflate';
 import { track } from './analytics';
-import { mapSave } from './map/mapSave.svelte';
-import { miiState } from './mii/miiEditor.svelte';
-import { playerState } from './playerEditor.svelte';
 import { downloadBytes } from './sav/download';
-import { writeSav } from './sav/write';
-import { expectedFileName, getSave, SAVE_KINDS, type SaveKind } from './saveFile.svelte';
+import {
+  expectedFileName,
+  getSave,
+  getSaveBytes,
+  SAVE_KINDS,
+  type SaveKind,
+} from './saveFile.svelte';
+import { getSidecarStore } from './shareMii/sidecarStore.svelte';
 
 function pad(n: number): string {
   return String(n).padStart(2, '0');
@@ -18,30 +21,26 @@ function timestamp(): string {
   return `${date}_${time}`;
 }
 
-function bytesForKind(kind: SaveKind): Uint8Array | null {
-  const save = getSave(kind);
-  if (!save) return null;
-  const parsed =
-    kind === 'player' ? playerState.parsed : kind === 'mii' ? miiState.parsed : mapSave.parsed;
-  return parsed ? writeSav(parsed) : save.bytes;
-}
-
 export function loadedKinds(): SaveKind[] {
   return SAVE_KINDS.filter((k) => getSave(k) != null);
 }
 
 export function exportAllSaves(): number {
   const kinds = loadedKinds();
-  if (kinds.length === 0) return 0;
+  const sidecar = getSidecarStore();
+  if (kinds.length === 0 && sidecar.files.size === 0) return 0;
 
   const entries: Record<string, Uint8Array> = {};
   for (const kind of kinds) {
-    const bytes = bytesForKind(kind);
+    const bytes = getSaveBytes(kind);
     if (bytes) entries[expectedFileName[kind]] = bytes;
+  }
+  for (const [name, bytes] of sidecar.files) {
+    entries[`Ugc/${name}`] = bytes;
   }
 
   const zipped = zipSync(entries, { level: 6 });
   downloadBytes(zipped, `LTD-save-${timestamp()}.zip`);
-  track('bulk_export', { count: kinds.length });
+  track('export', { mode: 'bulk', kinds: kinds.join(','), kind_count: kinds.length });
   return kinds.length;
 }

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { SvelteSet } from 'svelte/reactivity';
   import { _ } from 'svelte-i18n';
+  import { track } from '../analytics';
   import EntryEditor from '../player/EntryEditor.svelte';
   import PlayerDetail from '../player/PlayerDetail.svelte';
   import PlayerTree from '../player/PlayerTree.svelte';
@@ -32,6 +33,13 @@
     } catch {
       // ignore storage failures
     }
+    track('advanced_warning_acknowledged', {});
+  }
+
+  function setAdvView(to: 'tree' | 'table'): void {
+    if (advView === to) return;
+    advView = to;
+    track('advanced_view_changed', { to });
   }
 
   const tree = $derived(buildTree(entries));
@@ -100,6 +108,8 @@
     if (advNameHash == null) return;
     advHashFilter = hexU32(advNameHash);
     advPage = 0;
+    const matched = entries.some((e) => e.hash === advNameHash);
+    track('advanced_name_searched', { matched });
   }
 
   const EDITABLE_TYPES = new Set<DataType>([
@@ -154,6 +164,7 @@
 
   function copyHash(h: number): void {
     void navigator.clipboard?.writeText(hexU32(h));
+    track('advanced_hash_copied', {});
   }
 </script>
 
@@ -204,7 +215,7 @@
             class:text-white={advView === 'tree'}
             class:bg-surface={advView !== 'tree'}
             class:text-content={advView !== 'tree'}
-            onclick={() => (advView = 'tree')}
+            onclick={() => setAdvView('tree')}
           >
             {$_('advanced.view_tree')}
           </button>
@@ -215,7 +226,7 @@
             class:text-white={advView === 'table'}
             class:bg-surface={advView !== 'table'}
             class:text-content={advView !== 'table'}
-            onclick={() => (advView = 'table')}
+            onclick={() => setAdvView('table')}
           >
             {$_('advanced.view_table')}
           </button>

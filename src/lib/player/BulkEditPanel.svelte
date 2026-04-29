@@ -23,7 +23,7 @@
     );
     if (!ok) return;
     onApplyState(bulkState >>> 0);
-    track('bulk_edit_used', { field: 'state', count: visibleCount });
+    track('bulk_edit', { field: 'state', count: visibleCount });
   }
 
   function clickQty(): void {
@@ -33,7 +33,7 @@
     );
     if (!ok) return;
     onApplyQty(Math.max(0, Math.trunc(Number(bulkQty))));
-    track('bulk_edit_used', { field: 'qty', count: visibleCount });
+    track('bulk_edit', { field: 'qty', count: visibleCount });
   }
 </script>
 

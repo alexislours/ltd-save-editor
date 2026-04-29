@@ -13,6 +13,7 @@
     "player": "Player",
     "mii": "Mii",
     "map": "Map",
+    "sharemii": "ShareMii",
     "advanced": "Advanced",
     "faq": "FAQ",
     "about": "About"
@@ -54,6 +55,13 @@
     "clear_warning": "any unsaved edits will be lost. Make sure you've downloaded any changes first.",
     "clear_confirm": "Clear",
     "cancel": "Cancel"
+  },
+  "session": {
+    "restore_title": "Restore previous session?",
+    "restore_intro": "Previous session. Restore your last edits, or dismiss to start fresh.",
+    "restore_note": "Saves stay in this browser and are never uploaded. Dismissing here, or using \"Clear all\", removes them.",
+    "restore_confirm": "Restore",
+    "restore_dismiss": "Dismiss"
   },
   "player": {
     "title": "Player",
@@ -794,6 +802,96 @@
       "Seaside": "Seaside",
       "RoomInvalid": "Room (invalid)",
       "UGC": "UGC floor"
+    }
+  },
+  "sharemii": {
+    "title": "ShareMii",
+    "description_prefix": "Import and export Miis and UGC items between save files. Based on the ",
+    "description_link": "ShareMii",
+    "description_suffix": " Python tool by Star-F0rce.",
+    "needs_player": "Load {playerSav} from the Player tab to begin. Drop your whole save folder or zip there and ShareMii will pick up {miiSav} and the {ugcFolder} folder automatically.",
+    "needs_mii": "Load {miiSav} from the Mii tab to manage Miis.",
+    "kind_tabs_label": "Item kind",
+    "kind": {
+      "Mii": "Miis",
+      "Food": "Food",
+      "Cloth": "Clothing",
+      "Goods": "Treasure",
+      "Interior": "Interior",
+      "Exterior": "Exterior",
+      "MapObject": "Objects",
+      "MapFloor": "Landscaping"
+    },
+    "sidecar": {
+      "none_loaded": "No Ugc/ files loaded",
+      "loaded_summary": "{count, plural, one {# Ugc/ file loaded} other {# Ugc/ files loaded}} ({source, select, folder {folder} zip {zip} other {auto}})",
+      "hint": "UGC export and facepaint need these. Auto-loaded when you drop a folder/zip on the Player tab.",
+      "pick_folder": "Pick Ugc folder",
+      "pick_zip": "Pick zip",
+      "clear": "Clear",
+      "loaded_from_folder": "Loaded {count, plural, one {# sidecar file} other {# sidecar files}} from folder.",
+      "loaded_from_zip": "Loaded {count, plural, one {# sidecar file} other {# sidecar files}} from zip."
+    },
+    "save_bar": {
+      "download_pending": "Download {count, plural, one {# new Ugc file} other {# new Ugc files}}"
+    },
+    "list": {
+      "section_miis": "Miis",
+      "header_count": "{count, plural, one {# populated slot} other {# populated slots}}",
+      "header_add_new": "slot {slot} available for new items",
+      "export_all": "Export all",
+      "import": "Import…",
+      "no_slots": "No slots to show.",
+      "in_progress_mii": "In-Progress Mii",
+      "mii_default_name": "Mii {slot}",
+      "slot_default_name": "Slot {slot}",
+      "add_new_slot": "Add new slot",
+      "row_temp_marker": "TEMP",
+      "row_slot_marker": "#{slot}",
+      "add_here": "Add here",
+      "export": "Export",
+      "replace": "Replace…",
+      "read_failed": "Could not read this section: {error}"
+    },
+    "import": {
+      "file_label": ".ltd file (or zip of .ltd files)",
+      "target_label": "Target slot",
+      "option_add_new": "Slot {slot} — Add new",
+      "option_in_progress": "In-Progress Mii",
+      "option_slot": "Slot {slot} — {name}",
+      "cancel": "Cancel",
+      "applying": "Applying…",
+      "apply": "Apply"
+    },
+    "toast": {
+      "exported_mii_with_facepaint": "Exported \"{name}\" (with facepaint) → {fileName}",
+      "exported_mii": "Exported \"{name}\" → {fileName}",
+      "exported_ugc": "Exported \"{name}\" → {fileName}",
+      "ugc_needs_folder": "UGC export needs the Ugc/ folder. Drop your save folder/zip on the Player tab, or pick the folder above.",
+      "ugc_needs_folder_short": "UGC export-all needs the Ugc/ folder.",
+      "nothing_to_export": "Nothing to export.",
+      "exported_count": "Exported {count, plural, one {# item} other {# items}} → {fileName}",
+      "mii_sav_required": "Mii.sav required",
+      "no_ltd_found": "No .ltd files found.",
+      "imported_count_with_writes": "Imported {count, plural, one {# item} other {# items}}. {writes, plural, one {# new Ugc file} other {# new Ugc files}} ready to download.",
+      "imported_count": "Imported {count, plural, one {# item} other {# items}}.",
+      "downloaded_pending": "Downloaded {count, plural, one {# Ugc file} other {# Ugc files}} — drop them in your save's Ugc/ folder.",
+      "imported_partial": "Imported {count, plural, one {# item} other {# items}}. {failed, plural, one {# file failed} other {# files failed}}: {list}",
+      "import_all_failed": "{failed, plural, one {# file failed to import} other {# files failed to import}}: {list}"
+    },
+    "error": {
+      "mii_not_initialized": "Mii not initialized. Please create a Mii in this slot first.",
+      "no_free_facepaint_slot": "No free facepaint slot available.",
+      "ugc_missing_textures": "Export needs the matching Ugc/ texture files. Provide the Ugc folder or a zip containing them.",
+      "wrong_ugc_kind": "This file is the wrong UGC kind (got {got}, expected {expected}).",
+      "subtype_mismatch": "Subtype mismatch: this slot can't be replaced with the chosen file. Pick a slot with the same subtype, or add as new.",
+      "cannot_replace_kind": "{kind} items can only be added in a new slot to avoid data corruption.",
+      "invalid_ltd_file": "Not a valid .ltd file.",
+      "unsupported_ltd_version": "Unsupported .ltd version: {version}.",
+      "ltd_missing_marker": "The .ltd file is malformed (missing {marker} marker).",
+      "invalid_ugc_kind_index": "Invalid UGC kind index: {index}.",
+      "invalid_zip": "The zip file is invalid or corrupted.",
+      "save_format_error": "Save file is missing expected data ({label}). The save may be corrupted or from an unsupported game version."
     }
   },
   "advanced": {

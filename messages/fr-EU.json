@@ -13,6 +13,7 @@
     "player": "Joueur",
     "mii": "Mii",
     "map": "Carte",
+    "sharemii": "ShareMii",
     "advanced": "Avancé",
     "about": "À propos",
     "faq": "FAQ"
@@ -796,6 +797,96 @@
       "UGC": "Sol UGC"
     }
   },
+  "sharemii": {
+    "title": "ShareMii",
+    "description_prefix": "Importe et exporte des Miis et des éléments UGC entre fichiers de sauvegarde. Basé sur l'outil Python ",
+    "description_link": "ShareMii",
+    "description_suffix": " de Star-F0rce.",
+    "needs_player": "Charge {playerSav} depuis l'onglet Joueur pour commencer. Dépose-y ton dossier de sauvegarde complet ou un .zip et ShareMii récupérera automatiquement {miiSav} et le dossier {ugcFolder}.",
+    "needs_mii": "Charge {miiSav} depuis l'onglet Mii pour gérer les Miis.",
+    "kind_tabs_label": "Type d'élément",
+    "kind": {
+      "Mii": "Miis",
+      "Food": "Aliments",
+      "Cloth": "Vêtements",
+      "Goods": "Trésors",
+      "Interior": "Intérieurs",
+      "Exterior": "Extérieurs",
+      "MapObject": "Objets",
+      "MapFloor": "Aménagements"
+    },
+    "sidecar": {
+      "none_loaded": "Aucun fichier Ugc/ chargé",
+      "loaded_summary": "{count, plural, one {# fichier Ugc/ chargé} other {# fichiers Ugc/ chargés}} ({source, select, folder {dossier} zip {zip} other {auto}})",
+      "hint": "L'export UGC et les peintures faciales en ont besoin. Chargés automatiquement lorsqu'un dossier ou un zip est déposé dans l'onglet Joueur.",
+      "pick_folder": "Choisir le dossier Ugc",
+      "pick_zip": "Choisir un zip",
+      "clear": "Effacer",
+      "loaded_from_folder": "{count, plural, one {# fichier complémentaire chargé} other {# fichiers complémentaires chargés}} depuis le dossier.",
+      "loaded_from_zip": "{count, plural, one {# fichier complémentaire chargé} other {# fichiers complémentaires chargés}} depuis le zip."
+    },
+    "save_bar": {
+      "download_pending": "Télécharger {count, plural, one {# nouveau fichier Ugc} other {# nouveaux fichiers Ugc}}"
+    },
+    "list": {
+      "section_miis": "Miis",
+      "header_count": "{count, plural, one {# emplacement utilisé} other {# emplacements utilisés}}",
+      "header_add_new": "emplacement {slot} disponible pour de nouveaux éléments",
+      "export_all": "Tout exporter",
+      "import": "Importer…",
+      "no_slots": "Aucun emplacement à afficher.",
+      "in_progress_mii": "Mii en cours",
+      "mii_default_name": "Mii {slot}",
+      "slot_default_name": "Emplacement {slot}",
+      "add_new_slot": "Ajouter un emplacement",
+      "row_temp_marker": "TEMP",
+      "row_slot_marker": "#{slot}",
+      "add_here": "Ajouter ici",
+      "export": "Exporter",
+      "replace": "Remplacer…",
+      "read_failed": "Impossible de lire cette section : {error}"
+    },
+    "import": {
+      "file_label": "Fichier .ltd (ou zip de fichiers .ltd)",
+      "target_label": "Emplacement cible",
+      "option_add_new": "Emplacement {slot} — Ajouter",
+      "option_in_progress": "Mii en cours",
+      "option_slot": "Emplacement {slot} — {name}",
+      "cancel": "Annuler",
+      "applying": "Application…",
+      "apply": "Appliquer"
+    },
+    "toast": {
+      "exported_mii_with_facepaint": "« {name} » exporté (avec peinture faciale) → {fileName}",
+      "exported_mii": "« {name} » exporté → {fileName}",
+      "exported_ugc": "« {name} » exporté → {fileName}",
+      "ugc_needs_folder": "L'export UGC nécessite le dossier Ugc/. Dépose ton dossier ou zip de sauvegarde dans l'onglet Joueur, ou choisis le dossier ci-dessus.",
+      "ugc_needs_folder_short": "L'export complet UGC nécessite le dossier Ugc/.",
+      "nothing_to_export": "Rien à exporter.",
+      "exported_count": "{count, plural, one {# élément exporté} other {# éléments exportés}} → {fileName}",
+      "mii_sav_required": "Mii.sav requis",
+      "no_ltd_found": "Aucun fichier .ltd trouvé.",
+      "imported_count_with_writes": "{count, plural, one {# élément importé} other {# éléments importés}}. {writes, plural, one {# nouveau fichier Ugc prêt} other {# nouveaux fichiers Ugc prêts}} à télécharger.",
+      "imported_count": "{count, plural, one {# élément importé} other {# éléments importés}}.",
+      "downloaded_pending": "{count, plural, one {# fichier Ugc téléchargé} other {# fichiers Ugc téléchargés}} - dépose-les dans le dossier Ugc/ de ta sauvegarde.",
+      "imported_partial": "Importé {count, plural, one {# élément} other {# éléments}}. {failed, plural, one {# échec} other {# échecs}} : {list}",
+      "import_all_failed": "{failed, plural, one {# fichier a échoué} other {# fichiers ont échoué}} à l'import : {list}"
+    },
+    "error": {
+      "mii_not_initialized": "Mii non initialisé. Crée d'abord un Mii dans cet emplacement.",
+      "no_free_facepaint_slot": "Aucun emplacement de maquillage libre.",
+      "ugc_missing_textures": "L'export a besoin des fichiers de texture Ugc/ correspondants. Fournis le dossier Ugc ou un zip qui les contient.",
+      "wrong_ugc_kind": "Ce fichier n'est pas du bon type UGC (reçu {got}, attendu {expected}).",
+      "subtype_mismatch": "Sous-type incompatible : cet emplacement ne peut pas être remplacé par le fichier choisi. Choisis un emplacement du même sous-type, ou ajoute en nouveau.",
+      "cannot_replace_kind": "Les objets {kind} ne peuvent qu'être ajoutés dans un nouvel emplacement, pour éviter la corruption de données.",
+      "invalid_ltd_file": "Fichier .ltd invalide.",
+      "unsupported_ltd_version": "Version .ltd non prise en charge : {version}.",
+      "ltd_missing_marker": "Le fichier .ltd est malformé (marqueur {marker} manquant).",
+      "invalid_ugc_kind_index": "Index de type UGC invalide : {index}.",
+      "invalid_zip": "Le fichier zip est invalide ou corrompu.",
+      "save_format_error": "Le fichier de sauvegarde n'a pas les données attendues ({label}). La sauvegarde est peut-être corrompue ou issue d'une version non prise en charge."
+    }
+  },
   "advanced": {
     "header": "Avancé : parcourir toutes les entrées",
     "warning_title": "Ici se cachent des dragons",
@@ -941,5 +1032,12 @@
         "outro": "Dans les deux cas, la bonne démarche est d'ouvrir une issue ou de demander sur Discord en décrivant ce que tu veux changer. Les nouvelles fonctionnalités sont priorisées en fonction de ce que les gens demandent vraiment."
       }
     }
+  },
+  "session": {
+    "restore_title": "Restaurer la session précédente ?",
+    "restore_intro": "Session précédente. Restaure tes dernières modifications, ou ignore pour repartir à zéro.",
+    "restore_note": "Les sauvegardes restent dans ce navigateur et ne sont jamais envoyées. Pour les retirer, clique sur « Ignorer » ou sur « Tout effacer ».",
+    "restore_confirm": "Restaurer",
+    "restore_dismiss": "Ignorer"
   }
 }

@@ -1,6 +1,6 @@
 import { DataType } from '../sav/dataType';
 import type { Entry } from '../sav/types';
-import { ensureParsed, mapSave } from '../map/mapSave.svelte';
+import { ensureParsed, mapSave, scheduleMapPersist } from '../map/mapSave.svelte';
 
 export const HASH_ACTOR_KEY = 0x724d5b50;
 export const HASH_GRID_POS_X = 0xb3ab615b;
@@ -258,6 +258,7 @@ export function setActor(index: number, hash: number): boolean {
   a[index] = next;
   bumpRev();
   recomputeDirty();
+  scheduleMapPersist();
   return true;
 }
 
@@ -272,6 +273,7 @@ export function setPosition(index: number, x: number, y: number): boolean {
   ys[index] = ny;
   bumpRev();
   recomputeDirty();
+  scheduleMapPersist();
   return true;
 }
 
@@ -283,6 +285,7 @@ export function setRotation(index: number, degrees: number): boolean {
   r[index] = next;
   bumpRev();
   recomputeDirty();
+  scheduleMapPersist();
   return true;
 }
 
@@ -294,6 +297,7 @@ export function setLinkedMapId(index: number, id: number): boolean {
   l[index] = next;
   bumpRev();
   recomputeDirty();
+  scheduleMapPersist();
   return true;
 }
 

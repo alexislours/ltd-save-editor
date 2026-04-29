@@ -80,7 +80,7 @@
   let originalPayloads = $state<Partial<Record<TroubleFieldKey, Uint8Array>>>({});
 
   $effect(() => {
-    void miiState.parsedFrom;
+    void miiState.loadId;
     const snap: Partial<Record<TroubleFieldKey, Uint8Array>> = {};
     for (const k of Object.keys(TROUBLE_FIELDS) as TroubleFieldKey[]) {
       const e = fieldEntries[k];
