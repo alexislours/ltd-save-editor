@@ -67,7 +67,7 @@
     { href: '/player', label: $_('tab.player'), wip: false },
     { href: '/mii', label: $_('tab.mii'), wip: false },
     { href: '/map', label: $_('tab.map'), wip: false },
-    { href: '/sharemii', label: $_('tab.sharemii'), wip: true },
+    { href: '/sharemii', label: $_('tab.sharemii'), wip: false },
     { href: '/faq', label: $_('tab.faq'), wip: false },
     { href: '/about', label: $_('tab.about'), wip: false },
   ]);
