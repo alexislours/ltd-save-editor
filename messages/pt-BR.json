@@ -13,6 +13,7 @@
     "player": "Jogador",
     "mii": "Mii",
     "map": "Mapa",
+    "sharemii": "ShareMii",
     "advanced": "Avançado",
     "about": "Sobre",
     "faq": "FAQ"
@@ -65,6 +66,13 @@
     "island_label": "Ilha",
     "island_pronounced_label": "Pronúncia",
     "skin_tone_label": "Tom de pele",
+    "island_size_label": "Tamanho da ilha",
+    "island_size_options": {
+      "1": "1 - 50 × 36",
+      "2": "2 - 70 × 50",
+      "3": "3 - 90 × 64",
+      "4": "4 - 120 × 80"
+    },
     "money_label": "Dinheiro",
     "birthday_label": "Aniversário",
     "play_time_label": "Tempo de jogo",
@@ -796,6 +804,96 @@
       "UGC": "Piso UGC"
     }
   },
+  "sharemii": {
+    "title": "ShareMii",
+    "description_prefix": "Importe e exporte Miis e itens UGC entre arquivos de save. Baseado na ferramenta Python ",
+    "description_link": "ShareMii",
+    "description_suffix": " do Star-F0rce.",
+    "needs_player": "Carregue {playerSav} pela aba Jogador para começar. Solte sua pasta de save inteira ou um .zip lá e o ShareMii pegará automaticamente o {miiSav} e a pasta {ugcFolder}.",
+    "needs_mii": "Carregue {miiSav} pela aba Mii para gerenciar os Miis.",
+    "kind_tabs_label": "Tipo de item",
+    "kind": {
+      "Mii": "Miis",
+      "Food": "Comidas",
+      "Cloth": "Roupas",
+      "Goods": "Tesouros",
+      "Interior": "Interiores",
+      "Exterior": "Exteriores",
+      "MapObject": "Objetos",
+      "MapFloor": "Paisagismo"
+    },
+    "sidecar": {
+      "none_loaded": "Nenhum arquivo Ugc/ carregado",
+      "loaded_summary": "{count, plural, one {# arquivo Ugc/ carregado} other {# arquivos Ugc/ carregados}} ({source, select, folder {pasta} zip {zip} other {auto}})",
+      "hint": "A exportação UGC e as pinturas faciais precisam destes. Carregados automaticamente quando você solta uma pasta ou zip na aba Jogador.",
+      "pick_folder": "Escolher pasta Ugc",
+      "pick_zip": "Escolher zip",
+      "clear": "Limpar",
+      "loaded_from_folder": "{count, plural, one {# arquivo complementar carregado} other {# arquivos complementares carregados}} a partir da pasta.",
+      "loaded_from_zip": "{count, plural, one {# arquivo complementar carregado} other {# arquivos complementares carregados}} a partir do zip."
+    },
+    "save_bar": {
+      "download_pending": "Baixar {count, plural, one {# novo arquivo Ugc} other {# novos arquivos Ugc}}"
+    },
+    "list": {
+      "section_miis": "Miis",
+      "header_count": "{count, plural, one {# slot preenchido} other {# slots preenchidos}}",
+      "header_add_new": "slot {slot} disponível para novos itens",
+      "export_all": "Exportar tudo",
+      "import": "Importar…",
+      "no_slots": "Nenhum slot a exibir.",
+      "in_progress_mii": "Mii em progresso",
+      "mii_default_name": "Mii {slot}",
+      "slot_default_name": "Slot {slot}",
+      "add_new_slot": "Adicionar novo slot",
+      "row_temp_marker": "TEMP",
+      "row_slot_marker": "#{slot}",
+      "add_here": "Adicionar aqui",
+      "export": "Exportar",
+      "replace": "Substituir…",
+      "read_failed": "Não foi possível ler esta seção: {error}"
+    },
+    "import": {
+      "file_label": "Arquivo .ltd (ou zip de arquivos .ltd)",
+      "target_label": "Slot de destino",
+      "option_add_new": "Slot {slot} — Adicionar",
+      "option_in_progress": "Mii em progresso",
+      "option_slot": "Slot {slot} — {name}",
+      "cancel": "Cancelar",
+      "applying": "Aplicando…",
+      "apply": "Aplicar"
+    },
+    "toast": {
+      "exported_mii_with_facepaint": "\"{name}\" exportado (com pintura facial) → {fileName}",
+      "exported_mii": "\"{name}\" exportado → {fileName}",
+      "exported_ugc": "\"{name}\" exportado → {fileName}",
+      "ugc_needs_folder": "A exportação UGC precisa da pasta Ugc/. Solte sua pasta ou zip de save na aba Jogador, ou escolha a pasta acima.",
+      "ugc_needs_folder_short": "A exportação total UGC precisa da pasta Ugc/.",
+      "nothing_to_export": "Nada a exportar.",
+      "exported_count": "{count, plural, one {# item exportado} other {# itens exportados}} → {fileName}",
+      "mii_sav_required": "Mii.sav obrigatório",
+      "no_ltd_found": "Nenhum arquivo .ltd encontrado.",
+      "imported_count_with_writes": "{count, plural, one {# item importado} other {# itens importados}}. {writes, plural, one {# novo arquivo Ugc pronto} other {# novos arquivos Ugc prontos}} para baixar.",
+      "imported_count": "{count, plural, one {# item importado} other {# itens importados}}.",
+      "downloaded_pending": "{count, plural, one {# arquivo Ugc baixado} other {# arquivos Ugc baixados}} - solte-os na pasta Ugc/ do seu save.",
+      "imported_partial": "Importado {count, plural, one {# item} other {# itens}}. {failed, plural, one {# falha} other {# falhas}}: {list}",
+      "import_all_failed": "{failed, plural, one {# arquivo falhou} other {# arquivos falharam}} ao importar: {list}"
+    },
+    "error": {
+      "mii_not_initialized": "Mii não inicializado. Crie um Mii nesse slot primeiro.",
+      "no_free_facepaint_slot": "Nenhum slot de pintura facial disponível.",
+      "ugc_missing_textures": "A exportação precisa dos arquivos de textura Ugc/ correspondentes. Forneça a pasta Ugc ou um zip com eles.",
+      "wrong_ugc_kind": "Este arquivo é do tipo UGC errado (recebido {got}, esperado {expected}).",
+      "subtype_mismatch": "Subtipo incompatível: este slot não pode ser substituído pelo arquivo escolhido. Escolha um slot do mesmo subtipo ou adicione como novo.",
+      "cannot_replace_kind": "Itens {kind} só podem ser adicionados em um novo slot, para evitar corrupção de dados.",
+      "invalid_ltd_file": "Arquivo .ltd inválido.",
+      "unsupported_ltd_version": "Versão .ltd não suportada: {version}.",
+      "ltd_missing_marker": "O arquivo .ltd está malformado (marcador {marker} ausente).",
+      "invalid_ugc_kind_index": "Índice de tipo UGC inválido: {index}.",
+      "invalid_zip": "O arquivo zip é inválido ou está corrompido.",
+      "save_format_error": "O arquivo de save não tem os dados esperados ({label}). O save pode estar corrompido ou de uma versão não suportada."
+    }
+  },
   "advanced": {
     "header": "Avançado: navegar por todas as entradas",
     "warning_title": "Perigo à frente!",
@@ -854,7 +952,9 @@
       "hash_list_note": "Pela lista de hashes enviada ao cliente.",
       "test_saves_note": "Por fornecer arquivos de save de teste.",
       "hash_work_note": "Pelo trabalho na lista de hashes.",
-      "wish_offset_note": "Por encontrar o offset do contador de desejos."
+      "wish_offset_note": "Por encontrar o offset do contador de desejos.",
+      "island_size_note": "Por encontrar o hash do tamanho da ilha.",
+      "sharemii_note": "Por criar a ferramenta ShareMii."
     },
     "translations_title": "Traduções",
     "disclaimer": "Esta é uma ferramenta não oficial, feita por fãs. Tomodachi Life: Living the Dream é © Nintendo."
@@ -941,5 +1041,12 @@
         "outro": "Em qualquer caso, o caminho certo é abrir uma issue ou perguntar no Discord descrevendo o que você quer mudar. Funcionalidades novas são priorizadas com base no que as pessoas realmente pedem."
       }
     }
+  },
+  "session": {
+    "restore_title": "Restaurar sessão anterior?",
+    "restore_intro": "Sessão anterior. Restaure suas últimas edições ou dispense para começar do zero.",
+    "restore_note": "Os saves ficam apenas neste navegador e nunca são enviados. Para removê-los, clique em \"Dispensar\" ou em \"Limpar tudo\".",
+    "restore_confirm": "Restaurar",
+    "restore_dismiss": "Dispensar"
   }
 }

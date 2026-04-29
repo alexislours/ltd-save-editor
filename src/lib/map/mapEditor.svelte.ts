@@ -1,6 +1,6 @@
 import { DataType } from '../sav/dataType';
 import type { Entry } from '../sav/types';
-import { downloadMapSav, ensureParsed, mapSave } from './mapSave.svelte';
+import { downloadMapSav, ensureParsed, mapSave, scheduleMapPersist } from './mapSave.svelte';
 
 export const MAP_WIDTH = 120;
 export const MAP_HEIGHT = 80;
@@ -145,6 +145,7 @@ export function commitTileChanges(changedCount: number): void {
   if (changedCount <= 0) return;
   bumpRev();
   recomputeDirty();
+  scheduleMapPersist();
 }
 
 export function replaceTilesFromSnapshot(snapshot: Uint32Array): void {
@@ -153,6 +154,7 @@ export function replaceTilesFromSnapshot(snapshot: Uint32Array): void {
   tiles.set(snapshot);
   bumpRev();
   recomputeDirty();
+  scheduleMapPersist();
 }
 
 export function snapshotTiles(): Uint32Array {

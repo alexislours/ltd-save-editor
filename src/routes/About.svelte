@@ -18,6 +18,10 @@
       noteKey: 'about.credits.hash_list_note',
     },
     {
+      label: 'Star-F0rce',
+      noteKey: 'about.credits.sharemii_note',
+    },
+    {
       label: 'Rafa',
       noteKey: 'about.credits.test_saves_note',
     },
@@ -28,6 +32,10 @@
     {
       label: 'Camille',
       noteKey: 'about.credits.wish_offset_note',
+    },
+    {
+      label: 'Morgan',
+      noteKey: 'about.credits.island_size_note',
     },
   ];
 

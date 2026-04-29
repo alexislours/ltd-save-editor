@@ -1,6 +1,10 @@
 import { SvelteSet } from 'svelte/reactivity';
 import { parseSav } from './sav/parse';
+import { writeSav } from './sav/write';
+import type { SavFile } from './sav/types';
 import { murmur3_x86_32 } from './sav/hash';
+import { clearAllSessions, deleteSession, putSession } from './sessionStore';
+import { clearSidecar } from './shareMii/sidecarStore.svelte';
 
 export type SaveKind = 'player' | 'mii' | 'map';
 
@@ -8,7 +12,10 @@ export type LoadedSave = {
   name: string;
   size: number;
   lastModified: number;
-  bytes: Uint8Array;
+  parsed: SavFile | null;
+  parseError: string | null;
+  /** Bumped on each successful parse */
+  loadId: number;
 };
 
 export const expectedFileName: Record<SaveKind, string> = {
@@ -51,8 +58,16 @@ const saves = $state<Record<SaveKind, LoadedSave | null>>({
   map: null,
 });
 
+let nextLoadId = 1;
+
 export function getSave(kind: SaveKind): LoadedSave | null {
   return saves[kind];
+}
+
+export function getSaveBytes(kind: SaveKind): Uint8Array | null {
+  const save = saves[kind];
+  if (!save || !save.parsed) return null;
+  return writeSav(save.parsed);
 }
 
 export async function setSaveFromFile(kind: SaveKind, file: File): Promise<void> {
@@ -64,25 +79,62 @@ export async function setSaveFromFile(kind: SaveKind, file: File): Promise<void>
   });
 }
 
+type SetSaveOptions = { persist?: boolean };
+
 export function setSaveFromBytes(
   kind: SaveKind,
   input: { name: string; bytes: Uint8Array; lastModified?: number },
+  options: SetSaveOptions = {},
 ): void {
+  const lastModified = input.lastModified ?? Date.now();
+  let parsed: SavFile | null = null;
+  let parseError: string | null = null;
+  try {
+    parsed = parseSav(input.bytes);
+  } catch (e) {
+    parseError = e instanceof Error ? e.message : String(e);
+  }
   saves[kind] = {
     name: input.name,
     size: input.bytes.byteLength,
-    lastModified: input.lastModified ?? Date.now(),
-    bytes: input.bytes,
+    lastModified,
+    parsed,
+    parseError,
+    loadId: nextLoadId++,
   };
+  if (options.persist !== false) {
+    void putSession({
+      kind,
+      name: input.name,
+      bytes: input.bytes,
+      lastModified,
+      savedAt: Date.now(),
+    });
+  }
+}
+
+/** Persist the current in-memory state for crash recovery. */
+export function persistCurrent(kind: SaveKind): void {
+  const save = saves[kind];
+  if (!save || !save.parsed) return;
+  const bytes = writeSav(save.parsed);
+  void putSession({
+    kind,
+    name: save.name,
+    bytes,
+    lastModified: save.lastModified,
+    savedAt: Date.now(),
+  });
 }
 
 export const SAVE_KINDS: readonly SaveKind[] = ['player', 'mii', 'map'];
 
-export function clearSave(kind: SaveKind): void {
+export function clearSave(kind: SaveKind, options: SetSaveOptions = {}): void {
   saves[kind] = null;
+  if (options.persist !== false) void deleteSession(kind);
 }
 
-export function clearAllSaves(): SaveKind[] {
+export function clearAllSaves(options: SetSaveOptions = {}): SaveKind[] {
   const cleared: SaveKind[] = [];
   for (const kind of SAVE_KINDS) {
     if (saves[kind]) {
@@ -90,5 +142,7 @@ export function clearAllSaves(): SaveKind[] {
       cleared.push(kind);
     }
   }
+  clearSidecar();
+  if (options.persist !== false) void clearAllSessions();
   return cleared;
 }

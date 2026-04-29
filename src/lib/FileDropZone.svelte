@@ -1,6 +1,5 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { track } from './analytics';
   import { bulkLoadFiles, bulkLoadFromDataTransfer } from './bulkLoader.svelte';
   import { expectedFileName, type SaveKind } from './saveFile.svelte';
 
@@ -26,7 +25,6 @@
     if (loaded.length === 0) {
       if (totalSeen === 0) error = $_('save.read_failed');
       else error = $_('bulk.none_recognized');
-      track('save_load_failed', { kind, reason: 'unrecognized' });
       return;
     }
     summary = { loaded, skipped };

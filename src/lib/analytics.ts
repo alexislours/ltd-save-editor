@@ -1,18 +1,49 @@
 import type { SaveKind } from './saveFile.svelte';
+import type { UgcKind } from './shareMii/ugcKinds';
 
-type LoadFailReason = 'read_failed' | 'unrecognized' | 'wrong_tab' | 'set_failed';
+type ShareMiiKind = 'Mii' | UgcKind;
 
 type Events = {
-  save_loaded: { kind: SaveKind; size: number };
-  save_load_failed: { kind: SaveKind; reason: LoadFailReason };
-  save_parse_failed: { kind: SaveKind };
-  save_exported: { kind: SaveKind };
-  bulk_load: { loaded: number; skipped: number; conflicts: number };
-  bulk_load_cancelled: { conflicts: number };
-  bulk_export: { count: number };
-  bulk_edit_used: { field: 'state' | 'qty'; count: number };
+  load_attempted: { file_count: number; has_zip: boolean };
+  load_completed: {
+    kinds: string;
+    kind_count: number;
+    skipped: number;
+    conflicts: number;
+    from_zip: boolean;
+  };
+  load_cancelled: { conflicts: number };
+  parse_failed: { kind: SaveKind };
+  export: { mode: 'single' | 'bulk'; kinds: string; kind_count: number };
+  bulk_edit: { field: 'state' | 'qty'; count: number };
+  restore_prompted: { count: number; sidecar_count: number };
+  restore_accepted: { count: number; sidecar_count: number };
+  restore_dismissed: { count: number; sidecar_count: number };
+  sharemii_inbound: { source: 'folder' | 'zip'; count: number };
+  sharemii_import: {
+    kind: ShareMiiKind;
+    mode: 'replace' | 'add';
+    from_zip: boolean;
+    count: number;
+    failed: number;
+  };
+  sharemii_export: { kind: ShareMiiKind; mode: 'single' | 'all'; count: number };
+  sharemii_pending_downloaded: { count: number };
+  sharemii_sidecar_cleared: Record<string, never>;
   locale_changed: { from: string; to: string };
   theme_changed: { from: 'light' | 'dark'; to: 'light' | 'dark' };
+  clear_all_requested: { count: number };
+  clear_all_confirmed: { count: number };
+  clear_all_cancelled: { count: number };
+  advanced_warning_acknowledged: Record<string, never>;
+  advanced_view_changed: { to: 'tree' | 'table' };
+  advanced_name_searched: { matched: boolean };
+  advanced_hash_copied: Record<string, never>;
+  changelog_opened: { had_new: boolean; version: string };
+  channel_switch_clicked: { from: 'beta' | 'stable'; to: 'beta' | 'stable' };
+  external_link: { target: string };
+  map_tool_selected: { tool: 'brush' | 'fill' | 'rectangle' | 'picker' };
+  map_history: { direction: 'undo' | 'redo'; source: 'keyboard' | 'button' };
 };
 
 type Umami = {

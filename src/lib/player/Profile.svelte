@@ -1,11 +1,13 @@
 <script lang="ts">
   import {
     getEnum,
+    getInt,
     getInt64,
     getString,
     getUInt,
     getUInt64,
     setEnum,
+    setInt,
     setInt64,
     setString,
     setUInt,
@@ -59,6 +61,37 @@
   const fountainLevel = $derived(find('Liberation.FountainLevel'));
   const wishes = $derived(findHash(0xa32f7e47));
 
+  const islandSize = $derived(findHash(0x870a807c));
+  const ISLAND_SIZE_VALUES = [1, 2, 3, 4] as const;
+
+  function readIslandSize(entry: Entry): number {
+    switch (entry.type) {
+      case DataType.Enum:
+        return getEnum(entry);
+      case DataType.Int:
+        return getInt(entry);
+      default:
+        return getUInt(entry);
+    }
+  }
+  function writeIslandSize(entry: Entry, n: number): void {
+    switch (entry.type) {
+      case DataType.Enum:
+        setEnum(entry, n);
+        break;
+      case DataType.Int:
+        setInt(entry, n);
+        break;
+      default:
+        setUInt(entry, n);
+    }
+    markDirty(entry);
+  }
+
+  const islandSizeValue = $derived.by(
+    () => (void playerState.tick, islandSize ? readIslandSize(islandSize) : 0),
+  );
+
   const anyFound = $derived(
     name != null ||
       islandName != null ||
@@ -67,6 +100,7 @@
       skin != null ||
       fountainLevel != null ||
       wishes != null ||
+      islandSize != null ||
       (bdayDay != null && bdayMonth != null && bdayYear != null),
   );
 
@@ -342,6 +376,28 @@
           <div class="mt-2">
             <SwatchPicker swatches={handSwatches} value={getUInt(skin)} onChange={setSkin} />
           </div>
+        </div>
+      {/if}
+
+      {#if islandSize}
+        <div class="mt-6 border-t border-edge/40 pt-5">
+          <FormFieldWrapper label={$_('player.island_size_label')}>
+            <select
+              class={COMPACT_SELECT_CLASS}
+              value={islandSizeValue}
+              onchange={(e) => {
+                const n = Number.parseInt(e.currentTarget.value, 10);
+                if (Number.isFinite(n)) writeIslandSize(islandSize!, n);
+              }}
+            >
+              {#each ISLAND_SIZE_VALUES as v (v)}
+                <option value={v}>{$_(`player.island_size_options.${v}`)}</option>
+              {/each}
+              {#if !ISLAND_SIZE_VALUES.includes(islandSizeValue as 1 | 2 | 3 | 4)}
+                <option value={islandSizeValue}>{islandSizeValue}</option>
+              {/if}
+            </select>
+          </FormFieldWrapper>
         </div>
       {/if}
     </section>

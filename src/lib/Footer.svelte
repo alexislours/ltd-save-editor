@@ -1,5 +1,6 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
+  import { track } from './analytics';
 
   const repoUrl = 'https://github.com/alexislours/ltd-save-editor';
   const issuesUrl = 'https://github.com/alexislours/ltd-save-editor/issues/new';
@@ -21,6 +22,7 @@
         href={repoUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onclick={() => track('external_link', { target: 'github' })}
         class={linkClass}
         aria-label={$_('footer.github_aria')}
       >
@@ -31,13 +33,31 @@
         </svg>
         {$_('footer.github')}
       </a>
-      <a href={issuesUrl} target="_blank" rel="noopener noreferrer" class={linkClass}>
+      <a
+        href={issuesUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        onclick={() => track('external_link', { target: 'issues' })}
+        class={linkClass}
+      >
         {$_('footer.report_issue')}
       </a>
-      <a href={discordUrl} target="_blank" rel="noopener noreferrer" class={linkClass}>
+      <a
+        href={discordUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        onclick={() => track('external_link', { target: 'discord' })}
+        class={linkClass}
+      >
         {$_('footer.discord')}
       </a>
-      <a href={licenseUrl} target="_blank" rel="noopener noreferrer" class={linkClass}>
+      <a
+        href={licenseUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        onclick={() => track('external_link', { target: 'license' })}
+        class={linkClass}
+      >
         {$_('footer.license')}
       </a>
     </div>
