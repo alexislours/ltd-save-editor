@@ -1,17 +1,23 @@
 import { track } from './analytics';
-import { getPath, navigate } from './navigation.svelte';
 import { SAVE_KINDS, setSaveFromBytes, type SaveKind } from './saveFile.svelte';
 import { clearAllSessions, getAllSessions, type StoredSession } from './sessionStore';
+import {
+  clearSidecar,
+  restorePersistedSidecars,
+  type SidecarRestoreSummary,
+} from './shareMii/sidecarStore.svelte';
 
 type ModalState = {
   open: boolean;
   sessions: StoredSession[];
+  sidecar: SidecarRestoreSummary | null;
   loaded: boolean;
 };
 
 const state = $state<ModalState>({
   open: false,
   sessions: [],
+  sidecar: null,
   loaded: false,
 });
 
@@ -22,24 +28,19 @@ let bootScanStarted = false;
 export async function bootRestoreScan(): Promise<void> {
   if (bootScanStarted) return;
   bootScanStarted = true;
-  const sessions = await getAllSessions();
-  if (sessions.length === 0) {
+  const [sidecar, sessions] = await Promise.all([restorePersistedSidecars(), getAllSessions()]);
+  state.sidecar = sidecar;
+  if (sessions.length === 0 && !sidecar) {
     state.loaded = true;
     return;
   }
   state.sessions = sessions.sort((a, b) => SAVE_KINDS.indexOf(a.kind) - SAVE_KINDS.indexOf(b.kind));
   state.open = true;
   state.loaded = true;
-  track('session_restore_prompted', { count: sessions.length });
-}
-
-function redirectIfNeeded(loaded: SaveKind[]): void {
-  if (loaded.length === 0) return;
-  const path = getPath();
-  const currentKind = SAVE_KINDS.find((k) => path === `/${k}`);
-  if (currentKind && loaded.includes(currentKind)) return;
-  const target = SAVE_KINDS.find((k) => loaded.includes(k));
-  if (target) navigate(`/${target}`);
+  track('restore_prompted', {
+    count: sessions.length,
+    sidecar_count: sidecar?.count ?? 0,
+  });
 }
 
 export function confirmRestore(): void {
@@ -52,16 +53,22 @@ export function confirmRestore(): void {
     );
     loaded.push(session.kind);
   }
-  track('session_restored', { count: loaded.length });
+  track('restore_accepted', {
+    count: loaded.length,
+    sidecar_count: state.sidecar?.count ?? 0,
+  });
   state.open = false;
   state.sessions = [];
-  redirectIfNeeded(loaded);
+  state.sidecar = null;
 }
 
 export function dismissRestore(): void {
   const count = state.sessions.length;
+  const sidecarCount = state.sidecar?.count ?? 0;
   state.open = false;
   state.sessions = [];
+  state.sidecar = null;
+  clearSidecar();
   void clearAllSessions();
-  track('session_restore_dismissed', { count });
+  track('restore_dismissed', { count, sidecar_count: sidecarCount });
 }

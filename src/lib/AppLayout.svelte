@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { _ } from 'svelte-i18n';
+  import { track } from './analytics';
   import { cancelOverwrite, confirmOverwrite, overwriteModal } from './bulkLoader.svelte';
   import { CHANGELOG } from './changelog';
   import ChangelogDialog from './ChangelogDialog.svelte';
@@ -54,6 +55,7 @@
   });
 
   function openChangelog(): void {
+    track('changelog_opened', { had_new: hasNewChangelog, version: latestVersion });
     changelogOpen = true;
     hasNewChangelog = false;
     if (typeof localStorage !== 'undefined') {
@@ -65,6 +67,7 @@
     { href: '/player', label: $_('tab.player'), wip: false },
     { href: '/mii', label: $_('tab.mii'), wip: false },
     { href: '/map', label: $_('tab.map'), wip: false },
+    { href: '/sharemii', label: $_('tab.sharemii'), wip: true },
     { href: '/faq', label: $_('tab.faq'), wip: false },
     { href: '/about', label: $_('tab.about'), wip: false },
   ]);
@@ -113,6 +116,7 @@
         {#if isBeta}
           <a
             href={STABLE_URL}
+            onclick={() => track('channel_switch_clicked', { from: 'beta', to: 'stable' })}
             class="rounded-full bg-surface/80 px-2 py-0.5 font-mono text-xs text-beta-content ring-1 ring-beta-edge/60 transition-colors hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-beta-edge"
           >
             {$_('beta.stable_link')}
@@ -120,6 +124,7 @@
         {:else}
           <a
             href={BETA_URL}
+            onclick={() => track('channel_switch_clicked', { from: 'stable', to: 'beta' })}
             class="rounded-full bg-rose-600 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm ring-1 ring-rose-700 transition-colors hover:bg-rose-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-800"
           >
             {$_('beta.try_link')}

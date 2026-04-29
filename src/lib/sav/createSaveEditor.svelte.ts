@@ -1,19 +1,17 @@
 import { track } from '../analytics';
-import { getSave, type SaveKind, expectedFileName } from '../saveFile.svelte';
-import { schedulePersist, setBytesComputer } from '../sessionPersist';
+import { getSave, getSaveBytes, type SaveKind, expectedFileName } from '../saveFile.svelte';
+import { schedulePersist } from '../sessionPersist';
 import { createDirtyTracker } from './dirty';
 import { downloadBytes } from './download';
-import { parseSav } from './parse';
 import type { Entry, SavFile } from './types';
-import { writeSav } from './write';
 
 export type SaveEditorState = {
   parsed: SavFile | null;
   error: string | null;
-  parsedFrom: Uint8Array | null;
   dirty: boolean;
   /** Bumped on every parse and every markDirty - read in `$derived` to react to edits. */
   tick: number;
+  loadId: number;
 };
 
 export type SaveEditor = {
@@ -24,30 +22,32 @@ export type SaveEditor = {
 };
 
 /**
- * Backing logic for a per-{@link SaveKind} editor: parses the underlying bytes,
- * tracks per-entry dirtiness via {@link createDirtyTracker}, and exposes a
- * single download path. The returned `state` is reactive ($state), so callers
- * can read fields like `state.parsed` directly.
+ * Backing logic for a per-{@link SaveKind} editor. The parsed `SavFile` lives in
+ * `saveFile.svelte.ts` (single source of truth). The editor mirrors the loaded
+ * save's parsed/error fields and tracks per-entry dirtiness via
+ * {@link createDirtyTracker}. Mutations to entry payloads are reflected
+ * immediately in `getSave(kind).parsed.entries` since the editor and any other
+ * caller (e.g. ShareMii) share the same SavFile reference.
  */
 export function createSaveEditor(kind: SaveKind): SaveEditor {
   const state = $state<SaveEditorState>({
     parsed: null,
     error: null,
-    parsedFrom: null,
     dirty: false,
     tick: 0,
+    loadId: 0,
   });
   const tracker = createDirtyTracker();
-
-  setBytesComputer(kind, () => (state.parsed ? writeSav(state.parsed) : null));
+  let seenLoadId = -1;
 
   function clear(): void {
     state.parsed = null;
     state.error = null;
-    state.parsedFrom = null;
     state.dirty = false;
     state.tick++;
+    state.loadId = 0;
     tracker.reset();
+    seenLoadId = -1;
   }
 
   function syncFromSave(): void {
@@ -56,25 +56,18 @@ export function createSaveEditor(kind: SaveKind): SaveEditor {
       if (state.parsed || state.error) clear();
       return;
     }
-    if (state.parsedFrom === save.bytes) return;
-    try {
-      const parsed = parseSav(save.bytes);
-      state.parsed = parsed;
-      state.error = null;
-      state.parsedFrom = save.bytes;
-      state.dirty = false;
-      state.tick++;
-      tracker.reset();
-      tracker.registerAll(parsed.entries);
-    } catch (e) {
-      state.parsed = null;
-      state.error = e instanceof Error ? e.message : String(e);
-      state.parsedFrom = save.bytes;
-      state.dirty = false;
-      state.tick++;
-      tracker.reset();
-      track('save_parse_failed', { kind });
+    if (save.loadId === seenLoadId && state.parsed === save.parsed && state.error === save.parseError) {
+      return;
     }
+    state.parsed = save.parsed;
+    state.error = save.parseError;
+    state.dirty = false;
+    state.tick++;
+    state.loadId = save.loadId;
+    tracker.reset();
+    if (save.parsed) tracker.registerAll(save.parsed.entries);
+    if (save.parseError) track('parse_failed', { kind });
+    seenLoadId = save.loadId;
   }
 
   function markDirty(entry: Entry): void {
@@ -84,11 +77,11 @@ export function createSaveEditor(kind: SaveKind): SaveEditor {
   }
 
   function downloadModified(): void {
-    if (!state.parsed) return;
-    const bytes = writeSav(state.parsed);
+    const bytes = getSaveBytes(kind);
+    if (!bytes) return;
     const save = getSave(kind);
     downloadBytes(bytes, save?.name ?? expectedFileName[kind]);
-    track('save_exported', { kind });
+    track('export', { mode: 'single', kinds: kind, kind_count: 1 });
   }
 
   return { state, syncFromSave, markDirty, downloadModified };

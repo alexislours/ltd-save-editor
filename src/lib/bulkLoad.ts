@@ -7,6 +7,8 @@ import {
   setSaveFromBytes,
   type SaveKind,
 } from './saveFile.svelte';
+import { isSidecarFileName } from './shareMii/sidecar';
+import { collectSidecarFromNamedBytes } from './shareMii/sidecarStore.svelte';
 
 export type Candidate = {
   name: string;
@@ -25,28 +27,30 @@ export type BulkPlan = {
 const ZIP_EXT = /\.zip$/i;
 const SAV_EXT = /\.sav$/i;
 
-async function expandZip(file: File): Promise<Candidate[]> {
+type ZipExpansion = { savs: Candidate[]; sidecars: { name: string; bytes: Uint8Array }[] };
+
+async function expandZip(file: File): Promise<ZipExpansion> {
   const buf = new Uint8Array(await file.arrayBuffer());
   let entries: Unzipped;
   try {
     entries = unzipSync(buf, {
-      filter: (e) => SAV_EXT.test(e.name) && !e.name.endsWith('/'),
+      filter: (e) => !e.name.endsWith('/') && (SAV_EXT.test(e.name) || isSidecarFileName(e.name)),
     });
   } catch {
-    return [];
+    return { savs: [], sidecars: [] };
   }
-  const out: Candidate[] = [];
+  const savs: Candidate[] = [];
+  const sidecars: { name: string; bytes: Uint8Array }[] = [];
   for (const [path, bytes] of Object.entries(entries)) {
     const name = path.split('/').pop() ?? path;
     if (!name) continue;
-    out.push({
-      name,
-      bytes,
-      lastModified: file.lastModified,
-      fromZip: true,
-    });
+    if (SAV_EXT.test(name)) {
+      savs.push({ name, bytes, lastModified: file.lastModified, fromZip: true });
+    } else if (isSidecarFileName(name)) {
+      sidecars.push({ name, bytes });
+    }
   }
-  return out;
+  return { savs, sidecars };
 }
 
 async function fileToCandidate(file: File): Promise<Candidate> {
@@ -62,15 +66,27 @@ function detectKind(c: Candidate): SaveKind | null {
 export async function planBulkLoad(files: File[]): Promise<BulkPlan> {
   const skipped: BulkPlan['skipped'] = [];
   const candidates: Candidate[] = [];
+  const sidecarBatches: { name: string; bytes: Uint8Array }[][] = [];
+  const folderSidecars: { name: string; bytes: Uint8Array }[] = [];
 
   for (const file of files) {
     if (ZIP_EXT.test(file.name)) {
       const expanded = await expandZip(file);
-      if (expanded.length === 0) {
+      if (expanded.savs.length === 0 && expanded.sidecars.length === 0) {
         skipped.push({ name: file.name, reason: 'read_failed' });
         continue;
       }
-      candidates.push(...expanded);
+      candidates.push(...expanded.savs);
+      if (expanded.sidecars.length > 0) sidecarBatches.push(expanded.sidecars);
+      continue;
+    }
+    if (isSidecarFileName(file.name)) {
+      try {
+        const bytes = new Uint8Array(await file.arrayBuffer());
+        folderSidecars.push({ name: file.name, bytes });
+      } catch {
+        skipped.push({ name: file.name, reason: 'read_failed' });
+      }
       continue;
     }
     try {
@@ -79,6 +95,9 @@ export async function planBulkLoad(files: File[]): Promise<BulkPlan> {
       skipped.push({ name: file.name, reason: 'read_failed' });
     }
   }
+
+  if (folderSidecars.length > 0) sidecarBatches.push(folderSidecars);
+  for (const batch of sidecarBatches) collectSidecarFromNamedBytes('bulk', batch);
 
   const matches = new Map<SaveKind, Candidate>();
   for (const c of candidates) {
@@ -102,6 +121,11 @@ export function applyBulkPlan(plan: BulkPlan): SaveKind[] {
     loaded.push(kind);
   }
   return loaded;
+}
+
+export function planFromZip(plan: BulkPlan): boolean {
+  for (const c of plan.matches.values()) if (c.fromZip) return true;
+  return false;
 }
 
 export async function filesFromDataTransfer(dt: DataTransfer): Promise<File[]> {

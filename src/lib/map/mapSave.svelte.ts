@@ -1,15 +1,12 @@
 import { track } from '../analytics';
 import { createDirtyTracker } from '../sav/dirty';
 import { downloadBytes } from '../sav/download';
-import { parseSav } from '../sav/parse';
 import type { Entry, SavFile } from '../sav/types';
-import { writeSav } from '../sav/write';
-import { getSave } from '../saveFile.svelte';
-import { schedulePersist, setBytesComputer } from '../sessionPersist';
+import { getSave, getSaveBytes } from '../saveFile.svelte';
+import { schedulePersist } from '../sessionPersist';
 
 type State = {
   parsed: SavFile | null;
-  parsedFrom: Uint8Array | null;
   error: string | null;
   parseRev: number;
   genericDirty: boolean;
@@ -18,7 +15,6 @@ type State = {
 
 const state = $state<State>({
   parsed: null,
-  parsedFrom: null,
   error: null,
   parseRev: 0,
   genericDirty: false,
@@ -28,8 +24,7 @@ const state = $state<State>({
 export const mapSave = state;
 
 const tracker = createDirtyTracker({ lazy: true });
-
-setBytesComputer('map', () => (state.parsed ? writeSav(state.parsed) : null));
+let seenLoadId = -1;
 
 export function scheduleMapPersist(): void {
   schedulePersist('map');
@@ -46,40 +41,31 @@ export function ensureParsed(): SavFile | null {
   if (!save) {
     if (state.parsed || state.error) {
       state.parsed = null;
-      state.parsedFrom = null;
       state.error = null;
       state.parseRev = (state.parseRev + 1) | 0;
       tracker.reset();
       state.genericDirty = false;
+      seenLoadId = -1;
     }
     return null;
   }
-  if (state.parsedFrom === save.bytes && state.parsed) return state.parsed;
-
-  try {
-    state.parsed = parseSav(save.bytes);
-    state.parsedFrom = save.bytes;
-    state.error = null;
-    state.parseRev = (state.parseRev + 1) | 0;
-    tracker.reset();
-    state.genericDirty = false;
+  if (save.loadId === seenLoadId && state.parsed === save.parsed && state.error === save.parseError) {
     return state.parsed;
-  } catch (e) {
-    state.parsed = null;
-    state.parsedFrom = save.bytes;
-    state.error = e instanceof Error ? e.message : String(e);
-    state.parseRev = (state.parseRev + 1) | 0;
-    tracker.reset();
-    state.genericDirty = false;
-    track('save_parse_failed', { kind: 'map' });
-    return null;
   }
+  state.parsed = save.parsed;
+  state.error = save.parseError;
+  state.parseRev = (state.parseRev + 1) | 0;
+  tracker.reset();
+  state.genericDirty = false;
+  seenLoadId = save.loadId;
+  if (save.parseError) track('parse_failed', { kind: 'map' });
+  return state.parsed;
 }
 
 export function downloadMapSav(defaultName = 'Map.sav'): void {
-  if (!state.parsed) return;
-  const bytes = writeSav(state.parsed);
+  const bytes = getSaveBytes('map');
+  if (!bytes) return;
   const save = getSave('map');
   downloadBytes(bytes, save?.name ?? defaultName);
-  track('save_exported', { kind: 'map' });
+  track('export', { mode: 'single', kinds: 'map', kind_count: 1 });
 }

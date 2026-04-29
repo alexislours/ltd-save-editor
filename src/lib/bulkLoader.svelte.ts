@@ -1,5 +1,11 @@
 import { track } from './analytics';
-import { applyBulkPlan, filesFromDataTransfer, planBulkLoad, type BulkPlan } from './bulkLoad';
+import {
+  applyBulkPlan,
+  filesFromDataTransfer,
+  planBulkLoad,
+  planFromZip,
+  type BulkPlan,
+} from './bulkLoad';
 import { getPath, navigate } from './navigation.svelte';
 import { SAVE_KINDS, type SaveKind } from './saveFile.svelte';
 
@@ -33,10 +39,12 @@ function redirectIfNeeded(loaded: SaveKind[]): void {
 
 function commit(plan: BulkPlan, resolve: (o: BulkOutcome) => void): void {
   const loaded = applyBulkPlan(plan);
-  track('bulk_load', {
-    loaded: loaded.length,
+  track('load_completed', {
+    kinds: loaded.join(','),
+    kind_count: loaded.length,
     skipped: plan.skipped.length,
     conflicts: plan.conflicts.length,
+    from_zip: planFromZip(plan),
   });
   redirectIfNeeded(loaded);
   resolve({ loaded, skipped: plan.skipped, cancelled: false });
@@ -57,6 +65,10 @@ async function runPlan(plan: BulkPlan): Promise<BulkOutcome> {
 }
 
 export async function bulkLoadFiles(files: File[]): Promise<BulkOutcome> {
+  track('load_attempted', {
+    file_count: files.length,
+    has_zip: files.some((f) => /\.zip$/i.test(f.name)),
+  });
   const plan = await planBulkLoad(files);
   return await runPlan(plan);
 }
@@ -85,6 +97,6 @@ export function cancelOverwrite(): void {
   const { plan, resolve } = pending;
   pending = null;
   modal.open = false;
-  track('bulk_load_cancelled', { conflicts: plan.conflicts.length });
+  track('load_cancelled', { conflicts: plan.conflicts.length });
   resolve({ loaded: [], skipped: plan.skipped, cancelled: true });
 }

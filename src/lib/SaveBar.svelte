@@ -8,8 +8,8 @@
 
   type Props = {
     dirty: boolean;
-    actionLabel: string;
-    onAction: () => void;
+    actionLabel?: string;
+    onAction?: () => void;
     extra?: Snippet;
   };
   let { dirty, actionLabel, onAction, extra }: Props = $props();
@@ -70,9 +70,11 @@
     >
       {$_('bulk.clear_all')}
     </button>
-    <button type="button" class={PRIMARY_BUTTON_CLASS} onclick={onAction}>
-      {actionLabel}
-    </button>
+    {#if onAction && actionLabel}
+      <button type="button" class={PRIMARY_BUTTON_CLASS} onclick={onAction}>
+        {actionLabel}
+      </button>
+    {/if}
   </div>
 
   <input
