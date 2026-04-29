@@ -1,6 +1,7 @@
 import { SvelteSet } from 'svelte/reactivity';
 import { parseSav } from './sav/parse';
 import { murmur3_x86_32 } from './sav/hash';
+import { clearAllSessions, deleteSession, putSession } from './sessionStore';
 
 export type SaveKind = 'player' | 'mii' | 'map';
 
@@ -64,25 +65,51 @@ export async function setSaveFromFile(kind: SaveKind, file: File): Promise<void>
   });
 }
 
+type SetSaveOptions = { persist?: boolean };
+
 export function setSaveFromBytes(
   kind: SaveKind,
   input: { name: string; bytes: Uint8Array; lastModified?: number },
+  options: SetSaveOptions = {},
 ): void {
+  const lastModified = input.lastModified ?? Date.now();
   saves[kind] = {
     name: input.name,
     size: input.bytes.byteLength,
-    lastModified: input.lastModified ?? Date.now(),
+    lastModified,
     bytes: input.bytes,
   };
+  if (options.persist !== false) {
+    void putSession({
+      kind,
+      name: input.name,
+      bytes: input.bytes,
+      lastModified,
+      savedAt: Date.now(),
+    });
+  }
+}
+
+export function persistEditedBytes(kind: SaveKind, bytes: Uint8Array): void {
+  const save = saves[kind];
+  if (!save) return;
+  void putSession({
+    kind,
+    name: save.name,
+    bytes,
+    lastModified: save.lastModified,
+    savedAt: Date.now(),
+  });
 }
 
 export const SAVE_KINDS: readonly SaveKind[] = ['player', 'mii', 'map'];
 
-export function clearSave(kind: SaveKind): void {
+export function clearSave(kind: SaveKind, options: SetSaveOptions = {}): void {
   saves[kind] = null;
+  if (options.persist !== false) void deleteSession(kind);
 }
 
-export function clearAllSaves(): SaveKind[] {
+export function clearAllSaves(options: SetSaveOptions = {}): SaveKind[] {
   const cleared: SaveKind[] = [];
   for (const kind of SAVE_KINDS) {
     if (saves[kind]) {
@@ -90,5 +117,6 @@ export function clearAllSaves(): SaveKind[] {
       cleared.push(kind);
     }
   }
+  if (options.persist !== false) void clearAllSessions();
   return cleared;
 }

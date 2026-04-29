@@ -941,5 +941,12 @@
         "outro": "Em qualquer caso, o caminho certo é abrir uma issue ou perguntar no Discord descrevendo o que você quer mudar. Funcionalidades novas são priorizadas com base no que as pessoas realmente pedem."
       }
     }
+  },
+  "session": {
+    "restore_title": "Restaurar sessão anterior?",
+    "restore_intro": "Sessão anterior. Restaure suas últimas edições ou dispense para começar do zero.",
+    "restore_note": "Os saves ficam apenas neste navegador e nunca são enviados. Para removê-los, clique em \"Dispensar\" ou em \"Limpar tudo\".",
+    "restore_confirm": "Restaurar",
+    "restore_dismiss": "Dispensar"
   }
 }

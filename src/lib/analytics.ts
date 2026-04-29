@@ -13,6 +13,9 @@ type Events = {
   bulk_edit_used: { field: 'state' | 'qty'; count: number };
   locale_changed: { from: string; to: string };
   theme_changed: { from: 'light' | 'dark'; to: 'light' | 'dark' };
+  session_restore_prompted: { count: number };
+  session_restored: { count: number };
+  session_restore_dismissed: { count: number };
 };
 
 type Umami = {

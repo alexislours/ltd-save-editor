@@ -941,5 +941,12 @@
         "outro": "Dans les deux cas, la bonne démarche est d'ouvrir une issue ou de demander sur Discord en décrivant ce que tu veux changer. Les nouvelles fonctionnalités sont priorisées en fonction de ce que les gens demandent vraiment."
       }
     }
+  },
+  "session": {
+    "restore_title": "Restaurer la session précédente ?",
+    "restore_intro": "Session précédente. Restaure tes dernières modifications, ou ignore pour repartir à zéro.",
+    "restore_note": "Les sauvegardes restent dans ce navigateur et ne sont jamais envoyées. Pour les retirer, clique sur « Ignorer » ou sur « Tout effacer ».",
+    "restore_confirm": "Restaurer",
+    "restore_dismiss": "Ignorer"
   }
 }

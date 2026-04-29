@@ -5,6 +5,7 @@ import { parseSav } from '../sav/parse';
 import type { Entry, SavFile } from '../sav/types';
 import { writeSav } from '../sav/write';
 import { getSave } from '../saveFile.svelte';
+import { schedulePersist, setBytesComputer } from '../sessionPersist';
 
 type State = {
   parsed: SavFile | null;
@@ -28,9 +29,16 @@ export const mapSave = state;
 
 const tracker = createDirtyTracker({ lazy: true });
 
+setBytesComputer('map', () => (state.parsed ? writeSav(state.parsed) : null));
+
+export function scheduleMapPersist(): void {
+  schedulePersist('map');
+}
+
 export function markDirty(entry: Entry): void {
   state.genericDirty = tracker.markDirty(entry);
   state.genericTick = (state.genericTick + 1) | 0;
+  scheduleMapPersist();
 }
 
 export function ensureParsed(): SavFile | null {

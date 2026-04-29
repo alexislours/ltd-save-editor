@@ -55,6 +55,13 @@
     "clear_confirm": "Clear",
     "cancel": "Cancel"
   },
+  "session": {
+    "restore_title": "Restore previous session?",
+    "restore_intro": "Previous session. Restore your last edits, or dismiss to start fresh.",
+    "restore_note": "Saves stay in this browser and are never uploaded. Dismissing here, or using \"Clear all\", removes them.",
+    "restore_confirm": "Restore",
+    "restore_dismiss": "Dismiss"
+  },
   "player": {
     "title": "Player",
     "description": "Core player stats and game progress.",

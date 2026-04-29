@@ -10,6 +10,9 @@
   import Lightbox from './Lightbox.svelte';
   import LocaleSwitcher from './LocaleSwitcher.svelte';
   import { getPath, navigate } from './navigation.svelte';
+  import RestoreSessionModal from './RestoreSessionModal.svelte';
+  import { bootRestoreScan } from './sessionRestore.svelte';
+  import { flushAllPending } from './sessionPersist';
   import ThemeSwitcher from './ThemeSwitcher.svelte';
   import { TAB_PILL_CLASS } from './styles';
 
@@ -36,6 +39,18 @@
       return;
     }
     if (lastSeen !== latestVersion) hasNewChangelog = true;
+  });
+
+  $effect(() => {
+    void bootRestoreScan();
+    if (typeof window === 'undefined') return;
+    const flush = (): void => flushAllPending();
+    window.addEventListener('pagehide', flush);
+    window.addEventListener('beforeunload', flush);
+    return () => {
+      window.removeEventListener('pagehide', flush);
+      window.removeEventListener('beforeunload', flush);
+    };
   });
 
   function openChangelog(): void {
@@ -193,4 +208,5 @@
   onConfirm={confirmClearAll}
   onCancel={cancelClearAll}
 />
+<RestoreSessionModal />
 <Lightbox />

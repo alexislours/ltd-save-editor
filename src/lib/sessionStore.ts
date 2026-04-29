@@ -1,0 +1,91 @@
+import type { SaveKind } from './saveFile.svelte';
+
+const DB_NAME = 'ltd-save-editor';
+const STORE = 'sessions';
+const VERSION = 1;
+
+export type StoredSession = {
+  kind: SaveKind;
+  name: string;
+  bytes: Uint8Array;
+  lastModified: number;
+  savedAt: number;
+};
+
+let dbPromise: Promise<IDBDatabase | null> | null = null;
+
+function openDb(): Promise<IDBDatabase | null> {
+  if (typeof indexedDB === 'undefined') return Promise.resolve(null);
+  if (dbPromise) return dbPromise;
+  dbPromise = new Promise<IDBDatabase | null>((resolve) => {
+    let req: IDBOpenDBRequest;
+    try {
+      req = indexedDB.open(DB_NAME, VERSION);
+    } catch {
+      resolve(null);
+      return;
+    }
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(STORE)) {
+        db.createObjectStore(STORE, { keyPath: 'kind' });
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => resolve(null);
+    req.onblocked = () => resolve(null);
+  });
+  return dbPromise;
+}
+
+function withStore<T>(
+  mode: IDBTransactionMode,
+  run: (store: IDBObjectStore) => IDBRequest<T> | T,
+): Promise<T | null> {
+  return openDb().then((db) => {
+    if (!db) return null;
+    return new Promise<T | null>((resolve) => {
+      let tx: IDBTransaction;
+      try {
+        tx = db.transaction(STORE, mode);
+      } catch {
+        resolve(null);
+        return;
+      }
+      const store = tx.objectStore(STORE);
+      let result: T | null = null;
+      const out = run(store);
+      if (out && typeof out === 'object' && 'onsuccess' in out) {
+        const req = out as IDBRequest<T>;
+        req.onsuccess = () => {
+          result = req.result;
+        };
+        req.onerror = () => {
+          result = null;
+        };
+      } else {
+        result = (out as T) ?? null;
+      }
+      tx.oncomplete = () => resolve(result);
+      tx.onerror = () => resolve(null);
+      tx.onabort = () => resolve(null);
+    });
+  });
+}
+
+export async function putSession(record: StoredSession): Promise<void> {
+  await withStore('readwrite', (s) => s.put(record));
+}
+
+export async function deleteSession(kind: SaveKind): Promise<void> {
+  await withStore('readwrite', (s) => s.delete(kind));
+}
+
+export async function clearAllSessions(): Promise<void> {
+  await withStore('readwrite', (s) => s.clear());
+}
+
+export async function getAllSessions(): Promise<StoredSession[]> {
+  const out = await withStore<StoredSession[]>('readonly', (s) => s.getAll());
+  return out ?? [];
+}

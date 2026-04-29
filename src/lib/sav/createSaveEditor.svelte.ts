@@ -1,5 +1,6 @@
 import { track } from '../analytics';
 import { getSave, type SaveKind, expectedFileName } from '../saveFile.svelte';
+import { schedulePersist, setBytesComputer } from '../sessionPersist';
 import { createDirtyTracker } from './dirty';
 import { downloadBytes } from './download';
 import { parseSav } from './parse';
@@ -37,6 +38,8 @@ export function createSaveEditor(kind: SaveKind): SaveEditor {
     tick: 0,
   });
   const tracker = createDirtyTracker();
+
+  setBytesComputer(kind, () => (state.parsed ? writeSav(state.parsed) : null));
 
   function clear(): void {
     state.parsed = null;
@@ -77,6 +80,7 @@ export function createSaveEditor(kind: SaveKind): SaveEditor {
   function markDirty(entry: Entry): void {
     state.dirty = tracker.markDirty(entry);
     state.tick++;
+    schedulePersist(kind);
   }
 
   function downloadModified(): void {
