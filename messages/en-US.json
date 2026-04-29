@@ -73,6 +73,13 @@
     "island_label": "Island",
     "island_pronounced_label": "Pronounced",
     "skin_tone_label": "Skin tone",
+    "island_size_label": "Island size",
+    "island_size_options": {
+      "1": "1 - 50 × 36",
+      "2": "2 - 70 × 50",
+      "3": "3 - 90 × 64",
+      "4": "4 - 120 × 80"
+    },
     "money_label": "Money",
     "birthday_label": "Birthday",
     "play_time_label": "Play time",
@@ -1028,7 +1035,8 @@
       "hash_list_note": "The hash list shipped to the client.",
       "test_saves_note": "For providing test save files.",
       "hash_work_note": "For the work on the hash list.",
-      "wish_offset_note": "For finding the wish counter offset."
+      "wish_offset_note": "For finding the wish counter offset.",
+      "island_size_note": "For finding the island size hash."
     },
     "translations_title": "Translations",
     "disclaimer": "This is an unofficial, fan-made tool. Tomodachi Life: Living the Dream is © Nintendo."

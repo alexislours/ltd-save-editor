@@ -29,6 +29,10 @@
       label: 'Camille',
       noteKey: 'about.credits.wish_offset_note',
     },
+    {
+      label: 'Morgan',
+      noteKey: 'about.credits.island_size_note',
+    },
   ];
 
   const TRANSLATORS: Record<string, string[]> = {

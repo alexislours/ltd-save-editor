@@ -66,6 +66,13 @@
     "island_label": "Ilha",
     "island_pronounced_label": "Pronúncia",
     "skin_tone_label": "Tom de pele",
+    "island_size_label": "Tamanho da ilha",
+    "island_size_options": {
+      "1": "1 - 50 × 36",
+      "2": "2 - 70 × 50",
+      "3": "3 - 90 × 64",
+      "4": "4 - 120 × 80"
+    },
     "money_label": "Dinheiro",
     "birthday_label": "Aniversário",
     "play_time_label": "Tempo de jogo",
@@ -945,7 +952,8 @@
       "hash_list_note": "Pela lista de hashes enviada ao cliente.",
       "test_saves_note": "Por fornecer arquivos de save de teste.",
       "hash_work_note": "Pelo trabalho na lista de hashes.",
-      "wish_offset_note": "Por encontrar o offset do contador de desejos."
+      "wish_offset_note": "Por encontrar o offset do contador de desejos.",
+      "island_size_note": "Por encontrar o hash do tamanho da ilha."
     },
     "translations_title": "Traduções",
     "disclaimer": "Esta é uma ferramenta não oficial, feita por fãs. Tomodachi Life: Living the Dream é © Nintendo."
