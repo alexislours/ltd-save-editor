@@ -49,7 +49,11 @@ export function ensureParsed(): SavFile | null {
     }
     return null;
   }
-  if (save.loadId === seenLoadId && state.parsed === save.parsed && state.error === save.parseError) {
+  if (
+    save.loadId === seenLoadId &&
+    state.parsed === save.parsed &&
+    state.error === save.parseError
+  ) {
     return state.parsed;
   }
   state.parsed = save.parsed;

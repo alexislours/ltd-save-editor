@@ -953,7 +953,8 @@
       "test_saves_note": "Por fornecer arquivos de save de teste.",
       "hash_work_note": "Pelo trabalho na lista de hashes.",
       "wish_offset_note": "Por encontrar o offset do contador de desejos.",
-      "island_size_note": "Por encontrar o hash do tamanho da ilha."
+      "island_size_note": "Por encontrar o hash do tamanho da ilha.",
+      "sharemii_note": "Por criar a ferramenta ShareMii."
     },
     "translations_title": "Traduções",
     "disclaimer": "Esta é uma ferramenta não oficial, feita por fãs. Tomodachi Life: Living the Dream é © Nintendo."

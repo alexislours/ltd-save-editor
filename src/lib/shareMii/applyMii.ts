@@ -40,7 +40,11 @@ type MiiEntries = {
 function readEntries(player: SavFile, mii: SavFile): MiiEntries {
   return {
     fpPrice: entryPayload(player, FACEPAINT_HASHES.price, 'Facepaint.Price'),
-    fpTexSrc: entryPayload(player, FACEPAINT_HASHES.textureSourceType, 'Facepaint.TextureSourceType'),
+    fpTexSrc: entryPayload(
+      player,
+      FACEPAINT_HASHES.textureSourceType,
+      'Facepaint.TextureSourceType',
+    ),
     fpState: entryPayload(player, FACEPAINT_HASHES.state, 'Facepaint.State'),
     fpUnknown: entryPayload(player, FACEPAINT_HASHES.unknown, 'Facepaint.Unknown'),
     fpHash: entryPayload(player, FACEPAINT_HASHES.hash, 'Facepaint.Hash'),
@@ -50,9 +54,7 @@ function readEntries(player: SavFile, mii: SavFile): MiiEntries {
     miiPronunciation: entryPayload(mii, MII_HASHES.pronunciation, 'Mii.Pronunciation'),
     miiRaw: entryPayload(mii, MII_HASHES.rawMii, 'Mii.Raw'),
     isLoveGender: entryPayload(mii, MII_HASHES.isLoveGender, 'Mii.IsLoveGender'),
-    personality: MII_HASHES.personality.map((h, i) =>
-      entryPayload(mii, h, `Personality[${i}]`),
-    ),
+    personality: MII_HASHES.personality.map((h, i) => entryPayload(mii, h, `Personality[${i}]`)),
   };
 }
 
@@ -131,10 +133,7 @@ export function extractMii(
   for (let i = 0; i < 18; i++) {
     const src = isTemp
       ? new Uint8Array(4)
-      : e.personality[i].subarray(
-          ARRAY_HEADER + slotIdx * 4,
-          ARRAY_HEADER + slotIdx * 4 + 4,
-        );
+      : e.personality[i].subarray(ARRAY_HEADER + slotIdx * 4, ARRAY_HEADER + slotIdx * 4 + 4);
     personality.set(src, i * 4);
   }
 
@@ -143,17 +142,12 @@ export function extractMii(
     const tempName = new TextEncoder().encode('Temp');
     for (let i = 0; i < tempName.length; i++) name[i * 2] = tempName[i];
   } else {
-    name.set(
-      e.miiNames.subarray(ARRAY_HEADER + slotIdx * 64, ARRAY_HEADER + slotIdx * 64 + 64),
-    );
+    name.set(e.miiNames.subarray(ARRAY_HEADER + slotIdx * 64, ARRAY_HEADER + slotIdx * 64 + 64));
   }
   const pronounce = new Uint8Array(128);
   if (!isTemp) {
     pronounce.set(
-      e.miiPronunciation.subarray(
-        ARRAY_HEADER + slotIdx * 128,
-        ARRAY_HEADER + slotIdx * 128 + 128,
-      ),
+      e.miiPronunciation.subarray(ARRAY_HEADER + slotIdx * 128, ARRAY_HEADER + slotIdx * 128 + 128),
     );
   }
 
@@ -229,8 +223,7 @@ export function applyMii(
 
   writeBlock(e, isTemp, slotIdx, ltd.miiBlock);
 
-  const facepaintAvailable: 'inline' | null =
-    ltd.hasCanvas && ltd.hasUgcTex ? 'inline' : null;
+  const facepaintAvailable: 'inline' | null = ltd.hasCanvas && ltd.hasUgcTex ? 'inline' : null;
 
   let prevFacepaintId = 0xff;
   if (!isTemp) prevFacepaintId = e.facePaintIndex[ARRAY_HEADER + 4 * slotIdx];

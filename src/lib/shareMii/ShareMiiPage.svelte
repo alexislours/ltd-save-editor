@@ -95,14 +95,16 @@
       }
     }
     try {
-      const rows = listUgcSlots(playerSave.parsed, activeKind as UgcKind, sidecar).map<Row>((s) => ({
-        slot: s.slot,
-        name: s.isAddNew
-          ? $_('sharemii.list.add_new_slot')
-          : s.name || $_('sharemii.list.slot_default_name', { values: { slot: s.slot } }),
-        isAddNew: s.isAddNew,
-        empty: s.empty,
-      }));
+      const rows = listUgcSlots(playerSave.parsed, activeKind as UgcKind, sidecar).map<Row>(
+        (s) => ({
+          slot: s.slot,
+          name: s.isAddNew
+            ? $_('sharemii.list.add_new_slot')
+            : s.name || $_('sharemii.list.slot_default_name', { values: { slot: s.slot } }),
+          isAddNew: s.isAddNew,
+          empty: s.empty,
+        }),
+      );
       return { rows, error: null };
     } catch (e) {
       return { rows: [], error: e };
@@ -650,7 +652,7 @@
                 </span>
                 <span
                   class={[
-                    'min-w-0 flex-1 basis-[10rem] truncate text-sm',
+                    'min-w-0 flex-1 basis-40 truncate text-sm',
                     r.isAddNew ? 'italic text-content-muted' : 'text-content-strong',
                   ]}
                 >

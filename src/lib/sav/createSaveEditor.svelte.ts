@@ -56,7 +56,11 @@ export function createSaveEditor(kind: SaveKind): SaveEditor {
       if (state.parsed || state.error) clear();
       return;
     }
-    if (save.loadId === seenLoadId && state.parsed === save.parsed && state.error === save.parseError) {
+    if (
+      save.loadId === seenLoadId &&
+      state.parsed === save.parsed &&
+      state.error === save.parseError
+    ) {
       return;
     }
     state.parsed = save.parsed;

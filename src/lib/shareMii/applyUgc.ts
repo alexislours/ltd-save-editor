@@ -99,10 +99,7 @@ export function extractUgc(
 
   const fields = new Uint8Array(e.fields.length * 4);
   for (let i = 0; i < e.fields.length; i++) {
-    const src = e.fields[i].subarray(
-      ARRAY_HEADER + slotIdx * 4,
-      ARRAY_HEADER + slotIdx * 4 + 4,
-    );
+    const src = e.fields[i].subarray(ARRAY_HEADER + slotIdx * 4, ARRAY_HEADER + slotIdx * 4 + 4);
     fields.set(src, i * 4);
   }
   const vector = e.vector
@@ -111,10 +108,7 @@ export function extractUgc(
   const vector2 = e.vector2
     ? e.vector2.slice(ARRAY_HEADER + slotIdx * 8, ARRAY_HEADER + slotIdx * 8 + 8)
     : new Uint8Array(8);
-  const name = e.names[0].slice(
-    ARRAY_HEADER + slotIdx * 128,
-    ARRAY_HEADER + slotIdx * 128 + 128,
-  );
+  const name = e.names[0].slice(ARRAY_HEADER + slotIdx * 128, ARRAY_HEADER + slotIdx * 128 + 128);
   const pronounce = e.names[1].slice(
     ARRAY_HEADER + slotIdx * 128,
     ARRAY_HEADER + slotIdx * 128 + 128,
@@ -123,10 +117,7 @@ export function extractUgc(
   let goodsText: Uint8Array | undefined;
   let goodsPronounce: Uint8Array | undefined;
   if (kind === 'Goods' && e.names[2] !== undefined && e.names[3] !== undefined) {
-    goodsText = e.names[2].slice(
-      ARRAY_HEADER + slotIdx * 64,
-      ARRAY_HEADER + slotIdx * 64 + 64,
-    );
+    goodsText = e.names[2].slice(ARRAY_HEADER + slotIdx * 64, ARRAY_HEADER + slotIdx * 64 + 64);
     goodsPronounce = e.names[3].slice(
       ARRAY_HEADER + slotIdx * 128,
       ARRAY_HEADER + slotIdx * 128 + 128,
@@ -216,10 +207,7 @@ export function applyUgc(
     e.enable.set([0xf4, 0xad, 0x7f, 0x1d], ARRAY_HEADER + slotIdx * 4);
     const kindOff = expected * 4;
     e.texture.set(UGC_TEX_DATA.subarray(kindOff, kindOff + 4), ARRAY_HEADER + slotIdx * 4);
-    e.hashId.set(
-      [slotIdx, 0, UGC_HASH_INDICES[kind], 0],
-      ARRAY_HEADER + slotIdx * 4,
-    );
+    e.hashId.set([slotIdx, 0, UGC_HASH_INDICES[kind], 0], ARRAY_HEADER + slotIdx * 4);
   }
 
   const namesBlock = decoded.namesBlock;

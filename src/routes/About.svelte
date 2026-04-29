@@ -18,6 +18,10 @@
       noteKey: 'about.credits.hash_list_note',
     },
     {
+      label: 'Star-F0rce',
+      noteKey: 'about.credits.sharemii_note',
+    },
+    {
       label: 'Rafa',
       noteKey: 'about.credits.test_saves_note',
     },
