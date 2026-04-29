@@ -6,6 +6,15 @@ export type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.7.0',
+    date: '2026-04-29',
+    changes: [
+      'Added the new ShareMii tab that allows exporting and importing Miis and UGC files.',
+      'Added an unlocker for the Island size in the Player tab.',
+      'Added a way to restore the previously loaded save on page reload.',
+    ],
+  },
+  {
     version: '1.6.0',
     date: '2026-04-29',
     changes: [
