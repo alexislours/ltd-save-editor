@@ -58,8 +58,7 @@ export const UGC_MAX_SLOTS: Record<UgcKind, number> = {
 };
 
 export function ugcFileBase(kind: UgcKind, slot: number): string {
-  const padded = slot < 10 ? `00${slot}` : `0${slot}`;
-  return `Ugc${kind}${padded}`;
+  return `Ugc${kind}${String(slot).padStart(3, '0')}`;
 }
 
 export function ugcCanvasFileName(kind: UgcKind, slot: number): string {
@@ -75,8 +74,7 @@ export function ugcThumbFileName(kind: UgcKind, slot: number): string {
 }
 
 export function facepaintFileBase(id: number): string {
-  const padded = id < 10 ? `00${id}` : `0${id}`;
-  return `UgcFacePaint${padded}`;
+  return `UgcFacePaint${String(id).padStart(3, '0')}`;
 }
 
 export function facepaintCanvasFileName(id: number): string {

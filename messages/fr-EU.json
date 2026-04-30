@@ -9,6 +9,11 @@
     "try_link": "Essayer la bêta →",
     "stable_link": "← Version stable"
   },
+  "header": {
+    "changelog_sr": ", afficher les notes de version",
+    "changelog_sr_new": ", afficher les notes de version (nouvelles mises à jour)",
+    "language_sr": "Changer de langue, actuelle :"
+  },
   "tab": {
     "player": "Joueur",
     "mii": "Mii",
@@ -16,7 +21,8 @@
     "sharemii": "ShareMii",
     "advanced": "Avancé",
     "about": "À propos",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "ugc_editor": "Éditeur UGC"
   },
   "lightbox": {
     "open": "Agrandir l'image de {label}",
@@ -621,6 +627,28 @@
       }
     },
     "subtab_troubles": "Soucis",
+    "subtab_habits": "Manies",
+    "habits": {
+      "missing": "Cette sauvegarde n'expose pas les champs Mii.Belongings.HabitOwnInfo.*, les manies ne peuvent donc pas être éditées ici.",
+      "heading": "Manies",
+      "caption": "Petites manies que ce Mii a acquises. Le bouton radio sélectionne la manie active (visible en jeu) pour la catégorie. La case à cocher marque les manies que le Mii possède mais n'utilise pas actuellement.",
+      "category_tabs_label": "Catégories de manies",
+      "none_in_category": "Aucune manie",
+      "clear_category": "Effacer la catégorie",
+      "is_own_label": "Acquise",
+      "is_own_tip": "Le Mii a acquis cette manie, même si ce n'est pas celle actuellement active. La manie active est automatiquement acquise.",
+      "category": {
+        "EatType": "Repas",
+        "ExpressionType": "Expression",
+        "GetAngryType": "Colère",
+        "GreetingType": "Salutation",
+        "OtherType": "Divers",
+        "StandType": "Posture",
+        "StomachType": "Ventre",
+        "VoiceType": "Voix",
+        "WalkType": "Démarche"
+      }
+    },
     "troubles": {
       "complexity_warning_title": "Expérimental : éditeur de soucis",
       "complexity_warning_body": "Il existe 115 types de soucis, chacun avec jusqu'à 27 paramètres et de nombreuses conditions vérifiées par le jeu lui-même (progression de l'histoire, relations entre Miis, objets disponibles, moment de la journée, etc.). L'éditeur autorise n'importe quelle combinaison, mais c'est le jeu qui décide si le souci se déclenche réellement. Certaines combinaisons peuvent ne rien produire ou se comporter de façon imprévue.",
@@ -1048,5 +1076,90 @@
     "restore_note": "Les sauvegardes restent dans ce navigateur et ne sont jamais envoyées. Pour les retirer, clique sur « Ignorer » ou sur « Tout effacer ».",
     "restore_confirm": "Restaurer",
     "restore_dismiss": "Ignorer"
+  },
+  "ugc_editor": {
+    "title": "Éditeur UGC",
+    "description": "Remplace les textures UGC (vêtements, aliments, trésors, extérieurs, intérieurs, objets et aménagements de carte) par tes propres images PNG. Charge les fichiers .canvas.zs et .ugctex.zs depuis ton dossier de sauvegarde.",
+    "needs_player": "Charge {playerSav} depuis l'onglet Joueur pour commencer.",
+    "kind_tabs_label": "Type d'élément UGC",
+    "save_bar": {
+      "download_pending": "Télécharger {count, plural, one {# fichier modifié} other {# fichiers modifiés}}"
+    },
+    "sidecar": {
+      "none": "Aucun dossier Ugc/ chargé",
+      "loaded": "{count, plural, one {# fichier chargé} other {# fichiers chargés}}",
+      "hint": "Dépose ton dossier de sauvegarde ou un zip du dossier Ugc/. Partagé avec l'onglet ShareMii.",
+      "pick_folder": "Choisir le dossier Ugc",
+      "pick_zip": "Choisir un zip",
+      "clear": "Effacer"
+    },
+    "list": {
+      "title": "Éléments ({count})",
+      "empty": "Aucun élément dans cette catégorie.",
+      "add_new": "+ Ajouter (emplacement {slot})",
+      "unnamed": "Élément {slot}"
+    },
+    "editor": {
+      "pick_item": "Sélectionne un élément dans la liste pour le modifier.",
+      "current": "Actuel",
+      "new": "Nouveau",
+      "no_current": "Absent du dossier Ugc/.",
+      "needs_sidecar": "Charge le dossier Ugc/.",
+      "drop_png": "Clique ou dépose un PNG, JPG ou WEBP ici",
+      "export_png": "Exporter en PNG",
+      "replace": "Remplacer la texture",
+      "revert": "Annuler",
+      "applying": "Encodage…",
+      "regenerate_thumb": "Régénérer la miniature",
+      "regenerate_thumb_hint": "Remplace la miniature existante par une miniature générée à partir de ton PNG. Décoche pour conserver la miniature actuelle.",
+      "fit_mode": {
+        "label": "Cadrage",
+        "cover": "Couvrir",
+        "contain": "Contenir",
+        "fill": "Étirer",
+        "cover_hint": "Recadre pour remplir la texture en conservant les proportions.",
+        "contain_hint": "Affiche l'image entière, en laissant des bords transparents.",
+        "fill_hint": "Étire l'image pour remplir la texture, sans conserver les proportions."
+      },
+      "transform": {
+        "label": "Transformer",
+        "rotate_ccw": "Rotation à gauche",
+        "rotate_cw": "Rotation à droite",
+        "flip_h": "Retourner horizontalement",
+        "flip_v": "Retourner verticalement"
+      },
+      "matte": {
+        "label": "Fond",
+        "transparent": "Transparent",
+        "white": "Blanc",
+        "black": "Noir",
+        "custom": "Couleur personnalisée"
+      },
+      "rename": {
+        "label": "Nom",
+        "placeholder": "Nom de l'élément",
+        "save": "Renommer",
+        "saved": "Emplacement {slot} renommé.",
+        "empty": "Le nom ne peut pas être vide."
+      },
+      "texture": {
+        "canvas": "Canvas",
+        "ugctex": "UgcTex",
+        "thumb": "Miniature"
+      }
+    },
+    "toast": {
+      "loaded_folder": "{count, plural, one {# fichier .zs chargé} other {# fichiers .zs chargés}} depuis le dossier.",
+      "loaded_zip": "{count, plural, one {# fichier .zs chargé} other {# fichiers .zs chargés}} depuis le zip.",
+      "no_zs_in_folder": "Aucun fichier .canvas.zs / .ugctex.zs dans ce dossier.",
+      "no_zs_in_zip": "Aucun fichier .canvas.zs / .ugctex.zs dans ce zip.",
+      "only_png": "Dépose un fichier PNG.",
+      "unsupported_image": "Dépose un fichier PNG, JPG ou WEBP.",
+      "no_texture": "Pas encore de fichier de texture pour cet élément.",
+      "replaced": "Emplacement {slot} remplacé. Fichiers prêts à être téléchargés.",
+      "reverted": "Emplacement {slot} restauré à son état chargé.",
+      "exported": "{fileName} exporté",
+      "downloaded_pending": "{count, plural, one {# fichier modifié téléchargé} other {# fichiers modifiés téléchargés}} en zip."
+    }
   }
 }

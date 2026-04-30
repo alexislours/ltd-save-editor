@@ -32,6 +32,8 @@
       state: byHash.get(v.stateHash) ?? null,
       qty: byHash.get(v.ownNumHash) ?? null,
       index: null,
+      newlyOwned: byHash.get(v.newlyOwnedHash) ?? null,
+      mystery: v.mysteryHash != null ? (byHash.get(v.mysteryHash) ?? null) : null,
     };
   }
 

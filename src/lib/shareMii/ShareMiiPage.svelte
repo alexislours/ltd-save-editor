@@ -7,6 +7,7 @@
   import SaveBar from '../SaveBar.svelte';
   import SubTabs from '../SubTabs.svelte';
   import { downloadBytes } from '../sav/download';
+  import { errorMessage } from '../errorMessage';
   import { getSave } from '../saveFile.svelte';
   import { schedulePersist } from '../sessionPersist';
   import {
@@ -40,7 +41,6 @@
     sidecarFileCount,
     sidecarOrigin,
   } from './sidecarStore.svelte';
-  import { ShareMiiError } from './errors';
 
   type Kind = 'Mii' | UgcKind;
 
@@ -136,13 +136,6 @@
     }
     importSlot = rows[0]?.slot ?? null;
   });
-
-  function errorMessage(e: unknown): string {
-    if (e instanceof ShareMiiError) {
-      return $_(`sharemii.error.${e.code}`, { values: e.params });
-    }
-    return e instanceof Error ? e.message : String(e);
-  }
 
   let toastTimer: ReturnType<typeof setTimeout> | null = null;
   function setToast(kind: 'info' | 'warn' | 'error', text: string): void {

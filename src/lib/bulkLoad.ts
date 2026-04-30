@@ -7,7 +7,7 @@ import {
   setSaveFromBytes,
   type SaveKind,
 } from './saveFile.svelte';
-import { isSidecarFileName } from './shareMii/sidecar';
+import { isJunkArchiveEntry, isSidecarFileName } from './shareMii/sidecar';
 import { collectSidecarFromNamedBytes } from './shareMii/sidecarStore.svelte';
 
 export type Candidate = {
@@ -34,7 +34,8 @@ async function expandZip(file: File): Promise<ZipExpansion> {
   let entries: Unzipped;
   try {
     entries = unzipSync(buf, {
-      filter: (e) => !e.name.endsWith('/') && (SAV_EXT.test(e.name) || isSidecarFileName(e.name)),
+      filter: (e) =>
+        !isJunkArchiveEntry(e.name) && (SAV_EXT.test(e.name) || isSidecarFileName(e.name)),
     });
   } catch {
     return { savs: [], sidecars: [] };
@@ -42,6 +43,7 @@ async function expandZip(file: File): Promise<ZipExpansion> {
   const savs: Candidate[] = [];
   const sidecars: { name: string; bytes: Uint8Array }[] = [];
   for (const [path, bytes] of Object.entries(entries)) {
+    if (isJunkArchiveEntry(path)) continue;
     const name = path.split('/').pop() ?? path;
     if (!name) continue;
     if (SAV_EXT.test(name)) {
@@ -81,6 +83,9 @@ export async function planBulkLoad(files: File[]): Promise<BulkPlan> {
       continue;
     }
     if (isSidecarFileName(file.name)) {
+      const fullPath =
+        (file as File & { webkitRelativePath?: string }).webkitRelativePath || file.name;
+      if (isJunkArchiveEntry(fullPath)) continue;
       try {
         const bytes = new Uint8Array(await file.arrayBuffer());
         folderSidecars.push({ name: file.name, bytes });

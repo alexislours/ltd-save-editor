@@ -1,7 +1,7 @@
 {
   "name": "ltd-save-editor",
   "private": true,
-  "version": "1.7.0",
+  "version": "1.8.0",
   "type": "module",
   "license": "AGPL-3.0-or-later",
   "scripts": {
@@ -42,6 +42,7 @@
     "wrangler": "^4.85.0"
   },
   "dependencies": {
+    "@bokuweb/zstd-wasm": "^0.0.27",
     "fflate": "^0.8.2",
     "svelte-i18n": "^4.0.1"
   }

@@ -7,6 +7,8 @@ export type RoomStyleVariant = {
   variantIndex: number;
   stateHash: number;
   ownNumHash: number;
+  newlyOwnedHash: number;
+  mysteryHash: number | null;
 };
 
 export type RoomStyleGroup = {
@@ -19,7 +21,7 @@ const BY_GROUP = new SvelteMap<string, RoomStyleGroup>();
 const ALL = $state<{ list: RoomStyleGroup[] }>({ list: [] });
 let started = false;
 
-type RawVariant = { n: string; i: number };
+type RawVariant = { n: string; i: number; m?: number };
 type RawGroup = {
   g: string;
   l: Partial<Record<GameLocale, string>>;
@@ -41,6 +43,8 @@ export function loadRoomStyleList(): void {
           variantIndex: v.i,
           stateHash: murmur3_x86_32(`Player.InteriorRoomStyleInfo.${v.n}.State`) >>> 0,
           ownNumHash: murmur3_x86_32(`Player.InteriorRoomStyleInfo.${v.n}.OwnNum`) >>> 0,
+          newlyOwnedHash: murmur3_x86_32(`Player.InteriorRoomStyleInfo.${v.n}.IsNewlyOwned`) >>> 0,
+          mysteryHash: typeof v.m === 'number' ? v.m >>> 0 : null,
         }));
         const group: RoomStyleGroup = {
           groupKey: r.g,

@@ -5,9 +5,11 @@ import {
   arrGetInt,
   arrSetEnum,
   arrSetInt,
+  getBool,
   getEnum,
   getInt,
   getUInt,
+  setBool,
   setEnum,
   setInt,
   setUInt,
@@ -50,7 +52,28 @@ export type Slot = {
   state: Entry | null;
   qty: Entry | null;
   index: number | null;
+  newlyOwned?: Entry | null;
+  mystery?: Entry | null;
 };
+
+function setBoolEntryTo(e: Entry | null | undefined, value: boolean): boolean {
+  if (!e) return false;
+  try {
+    if (getBool(e) === value) return false;
+    setBool(e, value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function clearNewlyOwned(slot: Slot): boolean {
+  return setBoolEntryTo(slot.newlyOwned, false);
+}
+
+function applyMystery(slot: Slot): boolean {
+  return setBoolEntryTo(slot.mystery, true);
+}
 
 export function readSlotState(slot: Slot): number {
   if (!slot.state) return 0;
@@ -117,6 +140,8 @@ function bumpStateOnFirstAcquire(slot: Slot, prevQty: number, newQty: number): b
 
 export function writeSlotState(slot: Slot, value: number): void {
   if (setStateRaw(slot, value) && slot.state) markDirty(slot.state);
+  if (clearNewlyOwned(slot) && slot.newlyOwned) markDirty(slot.newlyOwned);
+  if (applyMystery(slot) && slot.mystery) markDirty(slot.mystery);
 }
 
 export function writeSlotQty(slot: Slot, value: number): void {
@@ -125,27 +150,41 @@ export function writeSlotQty(slot: Slot, value: number): void {
   if (!setQtyRaw(slot, newQty)) return;
   if (slot.qty) markDirty(slot.qty);
   if (bumpStateOnFirstAcquire(slot, prev, newQty) && slot.state) markDirty(slot.state);
+  if (clearNewlyOwned(slot) && slot.newlyOwned) markDirty(slot.newlyOwned);
+  if (applyMystery(slot) && slot.mystery) markDirty(slot.mystery);
 }
 
 export function applyStateToSlots(slots: Iterable<Slot>, value: number): void {
   const dirtied = new Set<Entry>();
+  const newlyDirty = new Set<Entry>();
+  const mysteryDirty = new Set<Entry>();
   for (const slot of slots) {
     if (setStateRaw(slot, value) && slot.state) dirtied.add(slot.state);
+    if (clearNewlyOwned(slot) && slot.newlyOwned) newlyDirty.add(slot.newlyOwned);
+    if (applyMystery(slot) && slot.mystery) mysteryDirty.add(slot.mystery);
   }
   for (const e of dirtied) markDirty(e);
+  for (const e of newlyDirty) markDirty(e);
+  for (const e of mysteryDirty) markDirty(e);
 }
 
 export function applyQtyToSlots(slots: Iterable<Slot>, value: number): void {
   const v = Math.max(0, Math.trunc(value));
   const qtyDirty = new Set<Entry>();
   const stateDirty = new Set<Entry>();
+  const newlyDirty = new Set<Entry>();
+  const mysteryDirty = new Set<Entry>();
   for (const slot of slots) {
     if (!setQtyRaw(slot, v)) continue;
     if (slot.qty) qtyDirty.add(slot.qty);
     if (v > 0 && setStateIfNotObtained(slot) && slot.state) stateDirty.add(slot.state);
+    if (clearNewlyOwned(slot) && slot.newlyOwned) newlyDirty.add(slot.newlyOwned);
+    if (applyMystery(slot) && slot.mystery) mysteryDirty.add(slot.mystery);
   }
   for (const e of qtyDirty) markDirty(e);
   for (const e of stateDirty) markDirty(e);
+  for (const e of newlyDirty) markDirty(e);
+  for (const e of mysteryDirty) markDirty(e);
 }
 
 function setStateIfNotObtained(slot: Slot): boolean {

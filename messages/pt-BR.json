@@ -9,6 +9,11 @@
     "try_link": "Experimentar a beta →",
     "stable_link": "← Versão estável"
   },
+  "header": {
+    "changelog_sr": ", mostrar registro de alterações",
+    "changelog_sr_new": ", mostrar registro de alterações (novas atualizações)",
+    "language_sr": "Alterar idioma, atual:"
+  },
   "tab": {
     "player": "Jogador",
     "mii": "Mii",
@@ -16,7 +21,8 @@
     "sharemii": "ShareMii",
     "advanced": "Avançado",
     "about": "Sobre",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "ugc_editor": "Editor UGC"
   },
   "lightbox": {
     "open": "Ampliar imagem de {label}",
@@ -621,6 +627,28 @@
       }
     },
     "subtab_troubles": "Problemas",
+    "subtab_habits": "Manias",
+    "habits": {
+      "missing": "Este save não expõe os campos Mii.Belongings.HabitOwnInfo.*, então as manias não podem ser editadas aqui.",
+      "heading": "Manias",
+      "caption": "Manias pessoais que este Mii adquiriu. O botão de rádio seleciona a mania ativa (visível no jogo) por categoria. A caixa marca manias que o Mii possui mas não está exibindo no momento.",
+      "category_tabs_label": "Categorias de manias",
+      "none_in_category": "Sem mania",
+      "clear_category": "Limpar categoria",
+      "is_own_label": "Adquirida",
+      "is_own_tip": "O Mii adquiriu esta mania, mesmo que não seja a ativa no momento. A mania ativa é automaticamente adquirida.",
+      "category": {
+        "EatType": "Comer",
+        "ExpressionType": "Expressão",
+        "GetAngryType": "Raiva",
+        "GreetingType": "Saudação",
+        "OtherType": "Outras",
+        "StandType": "Postura",
+        "StomachType": "Estômago",
+        "VoiceType": "Voz",
+        "WalkType": "Caminhada"
+      }
+    },
     "troubles": {
       "complexity_warning_title": "Experimental: editor de problemas",
       "complexity_warning_body": "Existem 115 tipos de problemas, cada um com até 27 parâmetros e várias condições verificadas pelo próprio jogo (progresso da história, relações entre Miis, itens disponíveis, horário do dia, entre outros). O editor permite qualquer combinação, mas é o jogo que decide se o problema realmente acontece. Algumas combinações podem simplesmente não fazer nada ou se comportar de forma inesperada.",
@@ -1048,5 +1076,90 @@
     "restore_note": "Os saves ficam apenas neste navegador e nunca são enviados. Para removê-los, clique em \"Dispensar\" ou em \"Limpar tudo\".",
     "restore_confirm": "Restaurar",
     "restore_dismiss": "Dispensar"
+  },
+  "ugc_editor": {
+    "title": "Editor UGC",
+    "description": "Substitua as texturas UGC (roupas, comidas, tesouros, exteriores, interiores, objetos e paisagismo do mapa) por suas próprias imagens PNG. Carrega arquivos .canvas.zs e .ugctex.zs da sua pasta de save.",
+    "needs_player": "Carregue {playerSav} pela aba Jogador para começar.",
+    "kind_tabs_label": "Tipo de item UGC",
+    "save_bar": {
+      "download_pending": "Baixar {count, plural, one {# arquivo editado} other {# arquivos editados}}"
+    },
+    "sidecar": {
+      "none": "Nenhuma pasta Ugc/ carregada",
+      "loaded": "{count, plural, one {# arquivo carregado} other {# arquivos carregados}}",
+      "hint": "Solte sua pasta de save ou um zip da pasta Ugc/. Compartilhada com a aba ShareMii.",
+      "pick_folder": "Escolher pasta Ugc",
+      "pick_zip": "Escolher zip",
+      "clear": "Limpar"
+    },
+    "list": {
+      "title": "Itens ({count})",
+      "empty": "Nenhum item nesta categoria.",
+      "add_new": "+ Adicionar (slot {slot})",
+      "unnamed": "Item {slot}"
+    },
+    "editor": {
+      "pick_item": "Selecione um item na lista para editar.",
+      "current": "Atual",
+      "new": "Novo",
+      "no_current": "Não está na pasta Ugc/.",
+      "needs_sidecar": "Carregue a pasta Ugc/.",
+      "drop_png": "Clique ou solte um PNG, JPG ou WEBP aqui",
+      "export_png": "Exportar como PNG",
+      "replace": "Substituir textura",
+      "revert": "Reverter",
+      "applying": "Codificando…",
+      "regenerate_thumb": "Regerar miniatura",
+      "regenerate_thumb_hint": "Substitui a miniatura existente por uma gerada a partir do seu PNG. Deixe desmarcado para manter a miniatura atual.",
+      "fit_mode": {
+        "label": "Ajuste",
+        "cover": "Cobrir",
+        "contain": "Conter",
+        "fill": "Esticar",
+        "cover_hint": "Corta para preencher a textura, preservando a proporção.",
+        "contain_hint": "Encaixa a imagem inteira, deixando bordas transparentes.",
+        "fill_hint": "Estica para preencher a textura, ignorando a proporção."
+      },
+      "transform": {
+        "label": "Transformar",
+        "rotate_ccw": "Girar à esquerda",
+        "rotate_cw": "Girar à direita",
+        "flip_h": "Inverter horizontalmente",
+        "flip_v": "Inverter verticalmente"
+      },
+      "matte": {
+        "label": "Fundo",
+        "transparent": "Transparente",
+        "white": "Branco",
+        "black": "Preto",
+        "custom": "Cor personalizada"
+      },
+      "rename": {
+        "label": "Nome",
+        "placeholder": "Nome do item",
+        "save": "Renomear",
+        "saved": "Slot {slot} renomeado.",
+        "empty": "O nome não pode ficar vazio."
+      },
+      "texture": {
+        "canvas": "Canvas",
+        "ugctex": "UgcTex",
+        "thumb": "Miniatura"
+      }
+    },
+    "toast": {
+      "loaded_folder": "{count, plural, one {# arquivo .zs carregado} other {# arquivos .zs carregados}} da pasta.",
+      "loaded_zip": "{count, plural, one {# arquivo .zs carregado} other {# arquivos .zs carregados}} do zip.",
+      "no_zs_in_folder": "Nenhum arquivo .canvas.zs / .ugctex.zs nessa pasta.",
+      "no_zs_in_zip": "Nenhum arquivo .canvas.zs / .ugctex.zs nesse zip.",
+      "only_png": "Solte um arquivo PNG.",
+      "unsupported_image": "Solte um arquivo PNG, JPG ou WEBP.",
+      "no_texture": "Ainda não há arquivo de textura para este item.",
+      "replaced": "Slot {slot} substituído. Arquivos prontos para baixar.",
+      "reverted": "Slot {slot} revertido ao estado carregado.",
+      "exported": "{fileName} exportado",
+      "downloaded_pending": "{count, plural, one {# arquivo editado baixado} other {# arquivos editados baixados}} como zip."
+    }
   }
 }
