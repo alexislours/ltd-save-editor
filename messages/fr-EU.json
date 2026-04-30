@@ -17,7 +17,7 @@
     "advanced": "Avancé",
     "about": "À propos",
     "faq": "FAQ",
-    "ugc_editor": "UGC editor"
+    "ugc_editor": "Éditeur UGC"
   },
   "lightbox": {
     "open": "Agrandir l'image de {label}",
@@ -1073,88 +1073,88 @@
     "restore_dismiss": "Ignorer"
   },
   "ugc_editor": {
-    "title": "UGC editor",
-    "description": "Replace UGC textures (clothes, food, goods, exteriors, interiors, map objects, map floors) with your own PNG images. Loads .canvas.zs and .ugctex.zs files from your save folder.",
-    "needs_player": "Load {playerSav} from the Player tab to begin.",
-    "kind_tabs_label": "UGC kind",
+    "title": "Éditeur UGC",
+    "description": "Remplace les textures UGC (vêtements, aliments, trésors, extérieurs, intérieurs, objets et aménagements de carte) par tes propres images PNG. Charge les fichiers .canvas.zs et .ugctex.zs depuis ton dossier de sauvegarde.",
+    "needs_player": "Charge {playerSav} depuis l'onglet Joueur pour commencer.",
+    "kind_tabs_label": "Type d'élément UGC",
     "save_bar": {
-      "download_pending": "Download {count} edited file(s)"
+      "download_pending": "Télécharger {count, plural, one {# fichier modifié} other {# fichiers modifiés}}"
     },
     "sidecar": {
-      "none": "No Ugc/ folder loaded",
-      "loaded": "{count} file(s) loaded",
-      "hint": "Drop your save folder or a zip of the Ugc/ directory. Shared with the ShareMii tab.",
-      "pick_folder": "Pick Ugc folder",
-      "pick_zip": "Pick zip",
-      "clear": "Clear"
+      "none": "Aucun dossier Ugc/ chargé",
+      "loaded": "{count, plural, one {# fichier chargé} other {# fichiers chargés}}",
+      "hint": "Dépose ton dossier de sauvegarde ou un zip du dossier Ugc/. Partagé avec l'onglet ShareMii.",
+      "pick_folder": "Choisir le dossier Ugc",
+      "pick_zip": "Choisir un zip",
+      "clear": "Effacer"
     },
     "list": {
-      "title": "Items ({count})",
-      "empty": "No items found in this category.",
-      "add_new": "+ Add new (slot {slot})",
-      "unnamed": "Item {slot}"
+      "title": "Éléments ({count})",
+      "empty": "Aucun élément dans cette catégorie.",
+      "add_new": "+ Ajouter (emplacement {slot})",
+      "unnamed": "Élément {slot}"
     },
     "editor": {
-      "pick_item": "Select an item from the list to edit.",
-      "current": "Current",
-      "new": "New",
-      "no_current": "Not in sidecar.",
-      "needs_sidecar": "Load Ugc/ folder.",
-      "drop_png": "Click or drop a PNG, JPG or WEBP here",
-      "export_png": "Export as PNG",
-      "replace": "Replace texture",
-      "revert": "Revert",
-      "applying": "Encoding…",
-      "regenerate_thumb": "Regenerate thumbnail",
-      "regenerate_thumb_hint": "Overwrite the existing thumbnail with one generated from your PNG. Leave unchecked to keep the current thumbnail.",
+      "pick_item": "Sélectionne un élément dans la liste pour le modifier.",
+      "current": "Actuel",
+      "new": "Nouveau",
+      "no_current": "Absent du dossier Ugc/.",
+      "needs_sidecar": "Charge le dossier Ugc/.",
+      "drop_png": "Clique ou dépose un PNG, JPG ou WEBP ici",
+      "export_png": "Exporter en PNG",
+      "replace": "Remplacer la texture",
+      "revert": "Annuler",
+      "applying": "Encodage…",
+      "regenerate_thumb": "Régénérer la miniature",
+      "regenerate_thumb_hint": "Remplace la miniature existante par une miniature générée à partir de ton PNG. Décoche pour conserver la miniature actuelle.",
       "fit_mode": {
-        "label": "Fit",
-        "cover": "Cover",
-        "contain": "Contain",
-        "fill": "Fill",
-        "cover_hint": "Crop to fill the texture, preserving aspect ratio.",
-        "contain_hint": "Fit the whole image inside, leaving transparent edges.",
-        "fill_hint": "Stretch to fill the texture, ignoring aspect ratio."
+        "label": "Cadrage",
+        "cover": "Couvrir",
+        "contain": "Contenir",
+        "fill": "Étirer",
+        "cover_hint": "Recadre pour remplir la texture en conservant les proportions.",
+        "contain_hint": "Affiche l'image entière, en laissant des bords transparents.",
+        "fill_hint": "Étire l'image pour remplir la texture, sans conserver les proportions."
       },
       "transform": {
-        "label": "Transform",
-        "rotate_ccw": "Rotate left",
-        "rotate_cw": "Rotate right",
-        "flip_h": "Flip horizontally",
-        "flip_v": "Flip vertically"
+        "label": "Transformer",
+        "rotate_ccw": "Rotation à gauche",
+        "rotate_cw": "Rotation à droite",
+        "flip_h": "Retourner horizontalement",
+        "flip_v": "Retourner verticalement"
       },
       "matte": {
-        "label": "Background",
+        "label": "Fond",
         "transparent": "Transparent",
-        "white": "White",
-        "black": "Black",
-        "custom": "Custom color"
+        "white": "Blanc",
+        "black": "Noir",
+        "custom": "Couleur personnalisée"
       },
       "rename": {
-        "label": "Name",
-        "placeholder": "Item name",
-        "save": "Rename",
-        "saved": "Renamed slot {slot}.",
-        "empty": "Name cannot be empty."
+        "label": "Nom",
+        "placeholder": "Nom de l'élément",
+        "save": "Renommer",
+        "saved": "Emplacement {slot} renommé.",
+        "empty": "Le nom ne peut pas être vide."
       },
       "texture": {
         "canvas": "Canvas",
         "ugctex": "UgcTex",
-        "thumb": "Thumb"
+        "thumb": "Miniature"
       }
     },
     "toast": {
-      "loaded_folder": "Loaded {count} .zs file(s) from folder.",
-      "loaded_zip": "Loaded {count} .zs file(s) from zip.",
-      "no_zs_in_folder": "No .canvas.zs / .ugctex.zs files in that folder.",
-      "no_zs_in_zip": "No .canvas.zs / .ugctex.zs files in that zip.",
-      "only_png": "Drop a PNG file.",
-      "unsupported_image": "Drop a PNG, JPG or WEBP file.",
-      "no_texture": "No texture file for this item yet.",
-      "replaced": "Replaced slot {slot}. Files staged for download.",
-      "reverted": "Reverted slot {slot} to its loaded state.",
-      "exported": "Exported {fileName}",
-      "downloaded_pending": "Downloaded {count} edited file(s) as zip."
+      "loaded_folder": "{count, plural, one {# fichier .zs chargé} other {# fichiers .zs chargés}} depuis le dossier.",
+      "loaded_zip": "{count, plural, one {# fichier .zs chargé} other {# fichiers .zs chargés}} depuis le zip.",
+      "no_zs_in_folder": "Aucun fichier .canvas.zs / .ugctex.zs dans ce dossier.",
+      "no_zs_in_zip": "Aucun fichier .canvas.zs / .ugctex.zs dans ce zip.",
+      "only_png": "Dépose un fichier PNG.",
+      "unsupported_image": "Dépose un fichier PNG, JPG ou WEBP.",
+      "no_texture": "Pas encore de fichier de texture pour cet élément.",
+      "replaced": "Emplacement {slot} remplacé. Fichiers prêts à être téléchargés.",
+      "reverted": "Emplacement {slot} restauré à son état chargé.",
+      "exported": "{fileName} exporté",
+      "downloaded_pending": "{count, plural, one {# fichier modifié téléchargé} other {# fichiers modifiés téléchargés}} en zip."
     }
   }
 }
