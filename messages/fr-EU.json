@@ -622,6 +622,28 @@
       }
     },
     "subtab_troubles": "Soucis",
+    "subtab_habits": "Manies",
+    "habits": {
+      "missing": "Cette sauvegarde n'expose pas les champs Mii.Belongings.HabitOwnInfo.*, les manies ne peuvent donc pas être éditées ici.",
+      "heading": "Manies",
+      "caption": "Petites manies que ce Mii a acquises. Le bouton radio sélectionne la manie active (visible en jeu) pour la catégorie. La case à cocher marque les manies que le Mii possède mais n'utilise pas actuellement.",
+      "category_tabs_label": "Catégories de manies",
+      "none_in_category": "Aucune manie",
+      "clear_category": "Effacer la catégorie",
+      "is_own_label": "Acquise",
+      "is_own_tip": "Le Mii a acquis cette manie, même si ce n'est pas celle actuellement active. La manie active est automatiquement acquise.",
+      "category": {
+        "EatType": "Repas",
+        "ExpressionType": "Expression",
+        "GetAngryType": "Colère",
+        "GreetingType": "Salutation",
+        "OtherType": "Divers",
+        "StandType": "Posture",
+        "StomachType": "Ventre",
+        "VoiceType": "Voix",
+        "WalkType": "Démarche"
+      }
+    },
     "troubles": {
       "complexity_warning_title": "Expérimental : éditeur de soucis",
       "complexity_warning_body": "Il existe 115 types de soucis, chacun avec jusqu'à 27 paramètres et de nombreuses conditions vérifiées par le jeu lui-même (progression de l'histoire, relations entre Miis, objets disponibles, moment de la journée, etc.). L'éditeur autorise n'importe quelle combinaison, mais c'est le jeu qui décide si le souci se déclenche réellement. Certaines combinaisons peuvent ne rien produire ou se comporter de façon imprévue.",

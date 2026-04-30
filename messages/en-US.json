@@ -332,6 +332,28 @@
     "subtab_profile": "Profile",
     "subtab_relationships": "Relationships graph",
     "subtab_troubles": "Troubles",
+    "subtab_habits": "Habits",
+    "habits": {
+      "missing": "This save does not expose Mii.Belongings.HabitOwnInfo.* fields, so habits can't be edited here.",
+      "heading": "Habits",
+      "caption": "Personal quirks this Mii has picked up. The radio selects the active (visible in-game) habit per category. The checkbox marks habits the Mii owns but isn't currently displaying.",
+      "category_tabs_label": "Habit categories",
+      "none_in_category": "No habit",
+      "clear_category": "Clear category",
+      "is_own_label": "Owned",
+      "is_own_tip": "Mii has acquired this habit, even if it isn't the one currently active. The active habit is automatically owned.",
+      "category": {
+        "EatType": "Eating",
+        "ExpressionType": "Expression",
+        "GetAngryType": "Anger",
+        "GreetingType": "Greeting",
+        "OtherType": "Other",
+        "StandType": "Standing",
+        "StomachType": "Stomach",
+        "VoiceType": "Voice",
+        "WalkType": "Walking"
+      }
+    },
     "troubles": {
       "complexity_warning_title": "Experimental: troubles editor",
       "complexity_warning_body": "There are 115 trouble types, each with up to 27 parameters and many runtime conditions checked by the game itself (story progress, relationships, items in stock, time of day, and more). The editor lets you set any combination, but the game still decides whether the trouble actually fires. Some combinations may silently do nothing or behave unexpectedly.",

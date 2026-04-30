@@ -622,6 +622,28 @@
       }
     },
     "subtab_troubles": "Problemas",
+    "subtab_habits": "Manias",
+    "habits": {
+      "missing": "Este save não expõe os campos Mii.Belongings.HabitOwnInfo.*, então as manias não podem ser editadas aqui.",
+      "heading": "Manias",
+      "caption": "Manias pessoais que este Mii adquiriu. O botão de rádio seleciona a mania ativa (visível no jogo) por categoria. A caixa marca manias que o Mii possui mas não está exibindo no momento.",
+      "category_tabs_label": "Categorias de manias",
+      "none_in_category": "Sem mania",
+      "clear_category": "Limpar categoria",
+      "is_own_label": "Adquirida",
+      "is_own_tip": "O Mii adquiriu esta mania, mesmo que não seja a ativa no momento. A mania ativa é automaticamente adquirida.",
+      "category": {
+        "EatType": "Comer",
+        "ExpressionType": "Expressão",
+        "GetAngryType": "Raiva",
+        "GreetingType": "Saudação",
+        "OtherType": "Outras",
+        "StandType": "Postura",
+        "StomachType": "Estômago",
+        "VoiceType": "Voz",
+        "WalkType": "Caminhada"
+      }
+    },
     "troubles": {
       "complexity_warning_title": "Experimental: editor de problemas",
       "complexity_warning_body": "Existem 115 tipos de problemas, cada um com até 27 parâmetros e várias condições verificadas pelo próprio jogo (progresso da história, relações entre Miis, itens disponíveis, horário do dia, entre outros). O editor permite qualquer combinação, mas é o jogo que decide se o problema realmente acontece. Algumas combinações podem simplesmente não fazer nada ou se comportar de forma inesperada.",

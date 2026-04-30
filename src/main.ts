@@ -4,6 +4,7 @@ import './lib/i18n';
 import App from './App.svelte';
 import { loadClothList } from './lib/sav/clothList.svelte';
 import { loadFoodList } from './lib/sav/foodList.svelte';
+import { loadHabitList } from './lib/sav/habitList.svelte';
 import { loadHashList } from './lib/sav/hashList.svelte';
 import { loadItemList } from './lib/sav/itemList.svelte';
 import { loadRoomStyleList } from './lib/sav/roomStyleList.svelte';
@@ -18,6 +19,7 @@ loadTreasureList();
 loadRoomStyleList();
 loadItemList();
 loadTroubleList();
+loadHabitList();
 loadWordKindLabels();
 
 const app = mount(App, {
