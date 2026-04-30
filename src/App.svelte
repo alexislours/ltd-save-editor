@@ -7,6 +7,7 @@
     '/mii': () => import('./routes/Mii.svelte'),
     '/map': () => import('./routes/Map.svelte'),
     '/sharemii': () => import('./routes/ShareMii.svelte'),
+    '/ugc': () => import('./routes/Ugc.svelte'),
     '/faq': () => import('./routes/Faq.svelte'),
     '/about': () => import('./routes/About.svelte'),
   };

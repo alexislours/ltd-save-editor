@@ -15,6 +15,7 @@
   import { bootRestoreScan } from './sessionRestore.svelte';
   import { flushAllPending } from './sessionPersist';
   import ThemeSwitcher from './ThemeSwitcher.svelte';
+  import Toaster from './Toaster.svelte';
   import { TAB_PILL_CLASS } from './styles';
 
   type Props = { children: Snippet };
@@ -68,6 +69,7 @@
     { href: '/mii', label: $_('tab.mii'), wip: false },
     { href: '/map', label: $_('tab.map'), wip: false },
     { href: '/sharemii', label: $_('tab.sharemii'), wip: false },
+    { href: '/ugc', label: $_('tab.ugc_editor'), wip: false },
     { href: '/faq', label: $_('tab.faq'), wip: false },
     { href: '/about', label: $_('tab.about'), wip: false },
   ]);
@@ -215,3 +217,4 @@
 />
 <RestoreSessionModal />
 <Lightbox />
+<Toaster />
