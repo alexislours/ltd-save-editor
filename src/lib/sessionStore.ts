@@ -19,6 +19,7 @@ export type StoredSidecar = {
   origin: 'folder' | 'zip' | 'bulk';
   savedAt: number;
   pending?: boolean;
+  originalBytes?: Uint8Array;
 };
 
 let dbPromise: Promise<IDBDatabase | null> | null = null;

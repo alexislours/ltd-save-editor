@@ -15,3 +15,15 @@ export function sanitizeFileName(name: string): string {
   const cleaned = name.replace(/[^\w.-]/g, '_');
   return cleaned.length > 0 ? cleaned : 'mii';
 }
+
+export function encodeUtf16Name(text: string, byteLen: number): Uint8Array {
+  const out = new Uint8Array(byteLen);
+  const maxChars = Math.floor((byteLen - 2) / 2);
+  const truncated = text.length > maxChars ? text.slice(0, maxChars) : text;
+  for (let i = 0; i < truncated.length; i++) {
+    const code = truncated.charCodeAt(i);
+    out[i * 2] = code & 0xff;
+    out[i * 2 + 1] = (code >> 8) & 0xff;
+  }
+  return out;
+}

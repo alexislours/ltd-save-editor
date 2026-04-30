@@ -1,7 +1,7 @@
-import type { SavFile } from '../sav/types';
+import type { Entry, SavFile } from '../sav/types';
 import { decodeLtdUgc, encodeLtdUgc, type LtdUgc } from './codec';
 import { ShareMiiError } from './errors';
-import { entryPayload } from './savAccess';
+import { entryPayload, findEntry } from './savAccess';
 import {
   UGC_ENABLE_HASHES,
   UGC_FILE_EXTENSIONS,
@@ -18,7 +18,7 @@ import {
   ugcTexFileName,
   ugcThumbFileName,
 } from './ugcKinds';
-import { decodeUtf16Name, sanitizeFileName } from './utf16';
+import { decodeUtf16Name, encodeUtf16Name, sanitizeFileName } from './utf16';
 import { EMPTY_SIDECAR, type SidecarFile, type SidecarSource } from './sidecar';
 
 const ARRAY_HEADER = 4;
@@ -238,6 +238,34 @@ export function applyUgc(
   }
 
   return { textureWrites: writes };
+}
+
+export function getUgcSlotName(player: SavFile, kind: UgcKind, slot: number): string {
+  try {
+    const namesP = entryPayload(player, UGC_NAME_HASHES[kind], `${kind}.names`);
+    const slotIdx = slot - 1;
+    const buf = namesP.subarray(ARRAY_HEADER + slotIdx * 128, ARRAY_HEADER + slotIdx * 128 + 128);
+    return decodeUtf16Name(buf);
+  } catch {
+    return '';
+  }
+}
+
+export function renameUgcSlot(
+  player: SavFile,
+  kind: UgcKind,
+  slot: number,
+  newName: string,
+): Entry {
+  const entry = findEntry(player, UGC_NAME_HASHES[kind], `${kind}.names`);
+  if (!entry.payload) {
+    throw new ShareMiiError('save_format_error', { label: `${kind}.names` });
+  }
+  const slotIdx = slot - 1;
+  const offset = ARRAY_HEADER + slotIdx * 128;
+  const encoded = encodeUtf16Name(newName, 128);
+  entry.payload.set(encoded, offset);
+  return entry;
 }
 
 function buffersEqual(a: Uint8Array, b: Uint8Array): boolean {
