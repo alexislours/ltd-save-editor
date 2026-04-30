@@ -6,6 +6,15 @@ export type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.8.0',
+    date: '2026-04-30',
+    changes: [
+      'Added a full UGC editor (export and replace textures).',
+      'Added a habit editor sub-tab in the Mii tab.',
+      'Fixed the weekly shop banner persisting after using the bulk interior unlocker.',
+    ],
+  },
+  {
     version: '1.7.0',
     date: '2026-04-29',
     changes: [
