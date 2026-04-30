@@ -9,6 +9,11 @@
     "try_link": "Experimentar a beta →",
     "stable_link": "← Versão estável"
   },
+  "header": {
+    "changelog_sr": ", mostrar registro de alterações",
+    "changelog_sr_new": ", mostrar registro de alterações (novas atualizações)",
+    "language_sr": "Alterar idioma, atual:"
+  },
   "tab": {
     "player": "Jogador",
     "mii": "Mii",

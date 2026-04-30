@@ -135,12 +135,11 @@
         <button
           type="button"
           onclick={openChangelog}
-          aria-label={hasNewChangelog ? 'Show changelog (new updates)' : 'Show changelog'}
           class="relative rounded-full bg-surface-muted/80 px-2 py-0.5 font-mono text-xs text-brand/90 ring-1 ring-edge/60 transition-colors hover:bg-surface hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
         >
           v{__APP_VERSION__}
+          <span class="sr-only">{hasNewChangelog ? $_('header.changelog_sr_new') : $_('header.changelog_sr')}</span>
           {#if hasNewChangelog}
-            <span class="sr-only">— new updates available</span>
             <span
               aria-hidden="true"
               class="absolute -top-2.5 -left-3 -rotate-12 rounded-full bg-orange-600 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white shadow-sm ring-1 ring-white"

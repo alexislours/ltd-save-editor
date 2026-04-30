@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { locale } from 'svelte-i18n';
+  import { _, locale } from 'svelte-i18n';
   import { track } from './analytics';
   import { LOCALES, setAppLocale, type AppLocale } from './i18n';
 
@@ -65,10 +65,10 @@
     type="button"
     aria-haspopup="listbox"
     aria-expanded={open}
-    aria-label="Change language"
     onclick={() => (open = !open)}
     class="flex items-center gap-1.5 rounded-full bg-surface-muted/80 px-3 py-1 text-xs font-semibold leading-none text-brand/90 ring-1 ring-edge/60 transition-colors hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
   >
+    <span class="sr-only">{$_('header.language_sr')}</span>
     <span>{META[currentValue].name}</span>
     {#if META[currentValue].region}
       <span class="text-[10px] font-bold uppercase tracking-wider text-brand/70">

@@ -9,6 +9,11 @@
     "try_link": "Try the beta →",
     "stable_link": "← Stable version"
   },
+  "header": {
+    "changelog_sr": ", show changelog",
+    "changelog_sr_new": ", show changelog (new updates)",
+    "language_sr": "Change language, current:"
+  },
   "tab": {
     "player": "Player",
     "mii": "Mii",
