@@ -1,5 +1,7 @@
 # Tomodachi Life: Living the Dream - Save Editor
 
+![Tomodachi Life: Living the Dream - Save Editor](./public/og.png)
+
 A browser-based save editor for _Tomodachi Life: Living the Dream_ (Nintendo Switch). Drop your `Mii.sav`, `Player.sav`, and `Map.sav` files in, edit, and download a patched copy. Everything runs locally - files never leave your machine.
 
 ## Features
@@ -7,6 +9,8 @@ A browser-based save editor for _Tomodachi Life: Living the Dream_ (Nintendo Swi
 - **Player tab** - global/player state from `Player.sav`.
 - **Mii tab** - per-Mii editing from `Mii.sav`.
 - **Map tab** - island layout from `Map.sav`, with placement-aware footprints sourced from the game's `WalkingGrid` data.
+- **UGC editor** - replace UGC textures (clothes, food, goods, exteriors, interiors, map objects, map floors) with your own images.
+- **ShareMii** - import and export Miis and UGC items between save files, compatible with the [ShareMii](https://github.com/Star-F0rce/ShareMii) file format created by Star-F0rce.
 - **Advanced** - raw hash-keyed entry browser for fields the structured tabs don't cover yet.
 
 ## Adding a Localization
