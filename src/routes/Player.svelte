@@ -4,6 +4,7 @@
   import AppLayout from '../lib/AppLayout.svelte';
   import BuildingsPanel from '../lib/player/BuildingsPanel.svelte';
   import ClothesPanel from '../lib/player/ClothesPanel.svelte';
+  import ClothingSetsPanel from '../lib/player/ClothingSetsPanel.svelte';
   import FoodsPanel from '../lib/player/FoodsPanel.svelte';
   import InteriorsPanel from '../lib/player/InteriorsPanel.svelte';
   import Profile from '../lib/player/Profile.svelte';
@@ -30,6 +31,7 @@
     | 'profile'
     | 'foods'
     | 'clothes'
+    | 'clothing_sets'
     | 'treasures'
     | 'interiors'
     | 'buildings'
@@ -41,6 +43,7 @@
     { value: 'profile', label: $_('player.subtab_profile') },
     { value: 'foods', label: $_('player.subtab_foods') },
     { value: 'clothes', label: $_('player.subtab_clothes') },
+    { value: 'clothing_sets', label: $_('player.subtab_clothing_sets') },
     { value: 'treasures', label: $_('player.subtab_treasures') },
     { value: 'interiors', label: $_('player.subtab_interiors') },
     { value: 'buildings', label: $_('player.subtab_buildings') },
@@ -82,6 +85,8 @@
         <FoodsPanel entries={parsed.entries} />
       {:else if subTab === 'clothes'}
         <ClothesPanel entries={parsed.entries} />
+      {:else if subTab === 'clothing_sets'}
+        <ClothingSetsPanel entries={parsed.entries} />
       {:else if subTab === 'treasures'}
         <TreasuresPanel entries={parsed.entries} />
       {:else if subTab === 'interiors'}
