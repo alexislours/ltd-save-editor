@@ -138,7 +138,9 @@
           class="relative rounded-full bg-surface-muted/80 px-2 py-0.5 font-mono text-xs text-brand/90 ring-1 ring-edge/60 transition-colors hover:bg-surface hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
         >
           v{__APP_VERSION__}
-          <span class="sr-only">{hasNewChangelog ? $_('header.changelog_sr_new') : $_('header.changelog_sr')}</span>
+          <span class="sr-only"
+            >{hasNewChangelog ? $_('header.changelog_sr_new') : $_('header.changelog_sr')}</span
+          >
           {#if hasNewChangelog}
             <span
               aria-hidden="true"

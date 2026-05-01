@@ -2,6 +2,7 @@
   {
     "n": "9VDryBattery",
     "icon": "Treasure_9VDryBattery",
+    "t": "Treasure",
     "l": {
       "CNzh": "9V干电池",
       "EUde": "Blockbatterie",
@@ -21,6 +22,7 @@
   {
     "n": "DVDAction",
     "icon": "Treasure_DVDAction",
+    "t": "Treasure",
     "l": {
       "CNzh": "动作电影",
       "EUde": "Actionfilm",
@@ -40,6 +42,7 @@
   {
     "n": "GameAdventure",
     "icon": "Treasure_GameAdventure",
+    "t": "Treasure",
     "l": {
       "CNzh": "冒险游戏",
       "EUde": "Adventure-Spiel",
@@ -59,6 +62,7 @@
   {
     "n": "Alebrijes",
     "icon": "Treasure_Alebrijes",
+    "t": "Treasure",
     "l": {
       "CNzh": "墨西哥手工艺品",
       "EUde": "Alebrije",
@@ -78,6 +82,7 @@
   {
     "n": "Alpaca",
     "icon": "Treasure_Alpaca",
+    "t": "Treasure",
     "l": {
       "CNzh": "羊驼",
       "EUde": "Alpaka",
@@ -97,6 +102,7 @@
   {
     "n": "Alien",
     "icon": "Treasure_Alien_00",
+    "t": "Treasure",
     "l": {
       "CNzh": "外星人α",
       "EUde": "Alpha-Alien",
@@ -116,6 +122,7 @@
   {
     "n": "DuraluminCase",
     "icon": "Treasure_DuraluminCase",
+    "t": "Treasure",
     "l": {
       "CNzh": "铝合金手提箱",
       "EUde": "Alukoffer",
@@ -135,6 +142,7 @@
   {
     "n": "Amber",
     "icon": "Treasure_Amber",
+    "t": "Treasure",
     "l": {
       "CNzh": "琥珀",
       "EUde": "Bernsteinstück",
@@ -154,6 +162,7 @@
   {
     "n": "AmethystDome",
     "icon": "Treasure_AmethystDome",
+    "t": "Treasure",
     "l": {
       "CNzh": "紫水晶",
       "EUde": "Amethyst",
@@ -173,6 +182,7 @@
   {
     "n": "Ammonite",
     "icon": "Treasure018",
+    "t": "Treasure",
     "l": {
       "CNzh": "菊石的化石",
       "EUde": "Ammonit-Fossil",
@@ -192,6 +202,7 @@
   {
     "n": "AnimalFlowerpot",
     "icon": "Treasure_AnimalFlowerpot",
+    "t": "Treasure",
     "l": {
       "CNzh": "动物造型盆栽",
       "EUde": "Schildkrötenblumentopf",
@@ -211,6 +222,7 @@
   {
     "n": "CDAnimeSong",
     "icon": "Treasure_CDAnimeSong",
+    "t": "Treasure",
     "l": {
       "CNzh": "动漫歌曲唱片",
       "EUde": "Anime-Soundtrack-Album",
@@ -230,6 +242,7 @@
   {
     "n": "BookSomeonesNote",
     "icon": "Treasure_BookSomeonesNote",
+    "t": "Treasure",
     "l": {
       "CNzh": "某人的笔记本",
       "EUde": "Notizbuch von irgendwem",
@@ -249,6 +262,7 @@
   {
     "n": "FallenLeaves",
     "icon": "Treasure_FallenLeaves",
+    "t": "Treasure",
     "l": {
       "CNzh": "红叶",
       "EUde": "Herbstblatt",
@@ -268,6 +282,7 @@
   {
     "n": "Axolotl",
     "icon": "Treasure_Axolotl",
+    "t": "Treasure",
     "l": {
       "CNzh": "美西螈",
       "EUde": "Axolotl",
@@ -287,6 +302,7 @@
   {
     "n": "GrandsonsHand",
     "icon": "Treasure_GrandsonsHand",
+    "t": "Treasure",
     "l": {
       "CNzh": "不求人",
       "EUde": "Rückenkratzer",
@@ -304,8 +320,29 @@
     }
   },
   {
+    "n": "BalletSet",
+    "icon": "ItemDVD",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "芭蕾舞入门DVD",
+      "EUde": "DVD mit Ballettkurs",
+      "EUen": "\"Ballet for the Bumbling\" DVD",
+      "EUes": "DVD de ballet",
+      "EUfr": "DVD de danse classique",
+      "EUit": "DVD sulla danza classica",
+      "EUnl": "dvd met balletlessen",
+      "JPja": "バレエ入門DVD",
+      "KRko": "발레 입문 DVD",
+      "TWzh": "芭蕾舞入門DVD",
+      "USen": "Ballet 101 DVD",
+      "USes": "DVD de ballet",
+      "USfr": "DVD de danse classique"
+    }
+  },
+  {
     "n": "BalloonArt",
     "icon": "Treasure_BalloonArt",
+    "t": "Treasure",
     "l": {
       "CNzh": "气球艺术品",
       "EUde": "Ballon-Pudel",
@@ -325,6 +362,7 @@
   {
     "n": "WickerBasket",
     "icon": "Treasure109",
+    "t": "Treasure",
     "l": {
       "CNzh": "竹编箱子",
       "EUde": "Flechtkiste",
@@ -342,8 +380,29 @@
     }
   },
   {
+    "n": "BaseBall",
+    "icon": "ItemBaseballBall",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "棒球",
+      "EUde": "Baseball",
+      "EUen": "baseball",
+      "EUes": "pelota de béisbol",
+      "EUfr": "balle de baseball",
+      "EUit": "palla da baseball",
+      "EUnl": "honkbal",
+      "JPja": "野球ボール",
+      "KRko": "야구공",
+      "TWzh": "棒球",
+      "USen": "baseball",
+      "USes": "pelota de béisbol",
+      "USfr": "balle de baseball"
+    }
+  },
+  {
     "n": "BeardedDragon",
     "icon": "Treasure_BeardedDragon",
+    "t": "Treasure",
     "l": {
       "CNzh": "鬃狮蜥",
       "EUde": "Bartagame",
@@ -363,6 +422,7 @@
   {
     "n": "BentSpoon",
     "icon": "Treasure_BentSpoon",
+    "t": "Treasure",
     "l": {
       "CNzh": "弯折的勺子",
       "EUde": "Krummlöffel",
@@ -382,6 +442,7 @@
   {
     "n": "Alien1",
     "icon": "Treasure_Alien_01",
+    "t": "Treasure",
     "l": {
       "CNzh": "外星人β",
       "EUde": "Beta-Alien",
@@ -401,6 +462,7 @@
   {
     "n": "BigPot",
     "icon": "Treasure_BigPot",
+    "t": "Treasure",
     "l": {
       "CNzh": "大花瓶",
       "EUde": "Riesenvase",
@@ -420,6 +482,7 @@
   {
     "n": "Binoculars",
     "icon": "Treasure024",
+    "t": "Treasure",
     "l": {
       "CNzh": "望远镜",
       "EUde": "Fernglas",
@@ -439,6 +502,7 @@
   {
     "n": "BirdFeathers",
     "icon": "Treasure_BirdFeathers",
+    "t": "Treasure",
     "l": {
       "CNzh": "鸟的羽毛",
       "EUde": "Vogelfeder",
@@ -458,6 +522,7 @@
   {
     "n": "SwallowsNest",
     "icon": "Treasure_SwallowsNest",
+    "t": "Treasure",
     "l": {
       "CNzh": "鸟巢",
       "EUde": "Vogelnest",
@@ -477,6 +542,7 @@
   {
     "n": "Bonsai",
     "icon": "Treasure046",
+    "t": "Treasure",
     "l": {
       "CNzh": "盆景",
       "EUde": "Bonsaibaum",
@@ -496,6 +562,7 @@
   {
     "n": "BookRiddle",
     "icon": "Treasure_BookRiddle",
+    "t": "Treasure",
     "l": {
       "CNzh": "猜谜书",
       "EUde": "Quizband",
@@ -515,6 +582,7 @@
   {
     "n": "BookPlant",
     "icon": "Treasure_BookPlant",
+    "t": "Treasure",
     "l": {
       "CNzh": "植物图鉴",
       "EUde": "Gartenfibel",
@@ -534,6 +602,7 @@
   {
     "n": "TraditionalSpanishWaterBottle",
     "icon": "Treasure_TraditionalSpanishWaterBottle",
+    "t": "Treasure",
     "l": {
       "CNzh": "西班牙传统水壶",
       "EUde": "Wasserkrug",
@@ -553,6 +622,7 @@
   {
     "n": "CrownCap",
     "icon": "Treasure_CrownCap",
+    "t": "Treasure",
     "l": {
       "CNzh": "皇冠盖",
       "EUde": "Kronkorken",
@@ -572,6 +642,7 @@
   {
     "n": "Bouquet",
     "icon": "Treasure047",
+    "t": "Treasure",
     "l": {
       "CNzh": "花束",
       "EUde": "Blumenstrauß",
@@ -591,6 +662,7 @@
   {
     "n": "Tissue",
     "icon": "Treasure_Tissue",
+    "t": "Treasure",
     "l": {
       "CNzh": "纸巾",
       "EUde": "Taschentuch-Box",
@@ -610,6 +682,7 @@
   {
     "n": "RandomKey",
     "icon": "Treasure012",
+    "t": "Treasure",
     "l": {
       "CNzh": "某种钥匙",
       "EUde": "Schlüssel für irgendwas",
@@ -629,6 +702,7 @@
   {
     "n": "BrushBronze",
     "icon": "Treasure_BrushBronze",
+    "t": "Treasure",
     "l": {
       "CNzh": "铜笔",
       "EUde": "Bronzepalette",
@@ -648,6 +722,7 @@
   {
     "n": "SpeechBubbleBronze",
     "icon": "Treasure_SpeechBubbleBronze",
+    "t": "Treasure",
     "l": {
       "CNzh": "铜对话框",
       "EUde": "Bronze-Sprechblase",
@@ -667,6 +742,7 @@
   {
     "n": "TrophyBronze",
     "icon": "Treasure032",
+    "t": "Treasure",
     "l": {
       "CNzh": "铜奖杯",
       "EUde": "Bronzetrophäe",
@@ -684,8 +760,29 @@
     }
   },
   {
+    "n": "BubblesSet",
+    "icon": "ItemSetBubble",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "吹泡泡组合",
+      "EUde": "Seifenblasendose",
+      "EUen": "bubble blower",
+      "EUes": "pompero",
+      "EUfr": "tube à bulles",
+      "EUit": "bolle di sapone",
+      "EUnl": "bellenblaas",
+      "JPja": "シャボン玉セット",
+      "KRko": "비눗방울 세트",
+      "TWzh": "吹泡泡組合",
+      "USen": "bubble blower",
+      "USes": "lanzaburbujas",
+      "USfr": "savon à bulles"
+    }
+  },
+  {
     "n": "BaoshanDecoration",
     "icon": "Treasure_BaoshanDecoration",
+    "t": "Treasure",
     "l": {
       "CNzh": "包山摆件",
       "EUde": "Deko-Knödelturm",
@@ -705,6 +802,7 @@
   {
     "n": "Butterfly",
     "icon": "Treasure_Butterfly",
+    "t": "Treasure",
     "l": {
       "CNzh": "大紫蛱蝶",
       "EUde": "Schmetterling",
@@ -724,6 +822,7 @@
   {
     "n": "CallBell",
     "icon": "Treasure_CallBell",
+    "t": "Treasure",
     "l": {
       "CNzh": "呼叫铃",
       "EUde": "Empfangsglöckchen",
@@ -741,8 +840,29 @@
     }
   },
   {
+    "n": "Camera",
+    "icon": "ItemDSLRCamera",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "照相机",
+      "EUde": "Spiegelreflexkamera",
+      "EUen": "camera",
+      "EUes": "cámara de fotos",
+      "EUfr": "appareil photo",
+      "EUit": "fotocamera",
+      "EUnl": "camera",
+      "JPja": "カメラ",
+      "KRko": "카메라",
+      "TWzh": "相機",
+      "USen": "camera",
+      "USes": "cámara fotográfica",
+      "USfr": "appareil photo"
+    }
+  },
+  {
     "n": "Capybara",
     "icon": "Treasure_Capybara",
+    "t": "Treasure",
     "l": {
       "CNzh": "水豚",
       "EUde": "Capybara",
@@ -762,6 +882,7 @@
   {
     "n": "Carnation",
     "icon": "Treasure_Carnation",
+    "t": "Treasure",
     "l": {
       "CNzh": "康乃馨",
       "EUde": "Nelkenstrauß",
@@ -781,6 +902,7 @@
   {
     "n": "DVDAnimation",
     "icon": "Treasure_DVDAnimation",
+    "t": "Treasure",
     "l": {
       "CNzh": "动漫节目",
       "EUde": "Zeichentrickfilm",
@@ -800,6 +922,7 @@
   {
     "n": "Cat",
     "icon": "Treasure_Cat",
+    "t": "Treasure",
     "l": {
       "CNzh": "猫",
       "EUde": "Katze",
@@ -819,6 +942,7 @@
   {
     "n": "CeladonTeapot",
     "icon": "Treasure_CeladonTeapot",
+    "t": "Treasure",
     "l": {
       "CNzh": "青瓷茶壶",
       "EUde": "Seladon-Teegedeck",
@@ -838,6 +962,7 @@
   {
     "n": "Autograph",
     "icon": "Treasure_Autograph",
+    "t": "Treasure",
     "l": {
       "CNzh": "名人的签名",
       "EUde": "Promi-Autogramm",
@@ -857,6 +982,7 @@
   {
     "n": "ChessPieces",
     "icon": "Treasure_ChessPieces",
+    "t": "Treasure",
     "l": {
       "CNzh": "国际象棋的棋子",
       "EUde": "Schachfigur",
@@ -876,6 +1002,7 @@
   {
     "n": "Chick",
     "icon": "Treasure_Chick",
+    "t": "Treasure",
     "l": {
       "CNzh": "小鸡",
       "EUde": "Küken",
@@ -895,6 +1022,7 @@
   {
     "n": "CDNurseryRhyme",
     "icon": "Treasure_CDNurseryRhyme",
+    "t": "Treasure",
     "l": {
       "CNzh": "儿童唱片",
       "EUde": "Kinderlieder-Album",
@@ -914,6 +1042,7 @@
   {
     "n": "Chipmunk",
     "icon": "Treasure_Chipmunk",
+    "t": "Treasure",
     "l": {
       "CNzh": "松鼠",
       "EUde": "Streifenhörnchen",
@@ -933,6 +1062,7 @@
   {
     "n": "CicadaShell",
     "icon": "Treasure_CicadaShell",
+    "t": "Treasure",
     "l": {
       "CNzh": "蝉蜕",
       "EUde": "Zikadenhülle",
@@ -952,6 +1082,7 @@
   {
     "n": "ElectronicSubstrate",
     "icon": "Treasure_ElectronicSubstrate",
+    "t": "Treasure",
     "l": {
       "CNzh": "电路板",
       "EUde": "Platine",
@@ -971,6 +1102,7 @@
   {
     "n": "CDClassic",
     "icon": "Treasure_CDClassic",
+    "t": "Treasure",
     "l": {
       "CNzh": "古典乐唱片",
       "EUde": "Klassik-Album",
@@ -990,6 +1122,7 @@
   {
     "n": "Haniwa",
     "icon": "Treasure052",
+    "t": "Treasure",
     "l": {
       "CNzh": "陶俑",
       "EUde": "Tonfigur",
@@ -1009,6 +1142,7 @@
   {
     "n": "Clione",
     "icon": "Treasure_Clione",
+    "t": "Treasure",
     "l": {
       "CNzh": "裸海蝶",
       "EUde": "Ruderschnecke",
@@ -1028,6 +1162,7 @@
   {
     "n": "Clownfish",
     "icon": "Treasure_Clownfish",
+    "t": "Treasure",
     "l": {
       "CNzh": "小丑鱼",
       "EUde": "Clownfisch",
@@ -1047,6 +1182,7 @@
   {
     "n": "Parrot",
     "icon": "Treasure_Parrot",
+    "t": "Treasure",
     "l": {
       "CNzh": "凤头鹦鹉",
       "EUde": "Kakadu",
@@ -1066,6 +1202,7 @@
   {
     "n": "CoconutBowl",
     "icon": "Treasure_CoconutBowl",
+    "t": "Treasure",
     "l": {
       "CNzh": "椰子碗",
       "EUde": "Kokosnussschale",
@@ -1085,6 +1222,7 @@
   {
     "n": "ColorfulBasket",
     "icon": "Treasure_ColorfulBasket",
+    "t": "Treasure",
     "l": {
       "CNzh": "彩色竹篓",
       "EUde": "Mehrfarb-Bastkorb",
@@ -1104,6 +1242,7 @@
   {
     "n": "Compass",
     "icon": "Treasure043",
+    "t": "Treasure",
     "l": {
       "CNzh": "指南针",
       "EUde": "Kompass",
@@ -1123,6 +1262,7 @@
   {
     "n": "DVDCooking",
     "icon": "Treasure_DVDCooking",
+    "t": "Treasure",
     "l": {
       "CNzh": "烹饪节目",
       "EUde": "Kochratgeber",
@@ -1142,6 +1282,7 @@
   {
     "n": "Coral",
     "icon": "Treasure064",
+    "t": "Treasure",
     "l": {
       "CNzh": "珊瑚",
       "EUde": "Koralle",
@@ -1161,6 +1302,7 @@
   {
     "n": "BookCover",
     "icon": "Treasure_BookCover",
+    "t": "Treasure",
     "l": {
       "CNzh": "包着书皮的书",
       "EUde": "Buch der 1000 Geheimnisse",
@@ -1180,6 +1322,7 @@
   {
     "n": "Egg",
     "icon": "Treasure_Egg",
+    "t": "Treasure",
     "l": {
       "CNzh": "生物的蛋",
       "EUde": "Ei irgendeiner Kreatur",
@@ -1199,6 +1342,7 @@
   {
     "n": "Crystal",
     "icon": "Treasure030",
+    "t": "Treasure",
     "l": {
       "CNzh": "水晶",
       "EUde": "Kristall",
@@ -1218,6 +1362,7 @@
   {
     "n": "CrystalBall",
     "icon": "Treasure_CrystalBall",
+    "t": "Treasure",
     "l": {
       "CNzh": "水晶球",
       "EUde": "Kristallkugel",
@@ -1237,6 +1382,7 @@
   {
     "n": "GameDance",
     "icon": "Treasure_GameDance",
+    "t": "Treasure",
     "l": {
       "CNzh": "跳舞游戏",
       "EUde": "Dancing-Spiel",
@@ -1256,6 +1402,7 @@
   {
     "n": "Daruma",
     "icon": "Treasure092",
+    "t": "Treasure",
     "l": {
       "CNzh": "不倒翁",
       "EUde": "Daruma-Figur",
@@ -1275,6 +1422,7 @@
   {
     "n": "DarumaDrop",
     "icon": "Treasure069",
+    "t": "Treasure",
     "l": {
       "CNzh": "敲不倒翁",
       "EUde": "Daruma-Otoshi-Spiel",
@@ -1294,6 +1442,7 @@
   {
     "n": "GameLoveSimulation",
     "icon": "Treasure_GameLoveSimulation",
+    "t": "Treasure",
     "l": {
       "CNzh": "恋爱模拟游戏",
       "EUde": "Dating-Spiel",
@@ -1313,6 +1462,7 @@
   {
     "n": "Diamond",
     "icon": "Treasure_Diamond",
+    "t": "Treasure",
     "l": {
       "CNzh": "钻石",
       "EUde": "Diamant",
@@ -1332,6 +1482,7 @@
   {
     "n": "Dice",
     "icon": "Treasure059",
+    "t": "Treasure",
     "l": {
       "CNzh": "骰子",
       "EUde": "Würfel",
@@ -1351,6 +1502,7 @@
   {
     "n": "DirtySocks",
     "icon": "Treasure000",
+    "t": "Treasure",
     "l": {
       "CNzh": "脏袜子",
       "EUde": "Stinkesocke",
@@ -1370,6 +1522,7 @@
   {
     "n": "MirrorBall",
     "icon": "Treasure102",
+    "t": "Treasure",
     "l": {
       "CNzh": "镜球",
       "EUde": "Discokugel",
@@ -1389,6 +1542,7 @@
   {
     "n": "Dog",
     "icon": "Treasure_Dog",
+    "t": "Treasure",
     "l": {
       "CNzh": "狗",
       "EUde": "Hund",
@@ -1408,6 +1562,7 @@
   {
     "n": "ClayFigure",
     "icon": "Treasure_ClayFigure",
+    "t": "Treasure",
     "l": {
       "CNzh": "土偶",
       "EUde": "Dogū-Figur",
@@ -1427,6 +1582,7 @@
   {
     "n": "Knob",
     "icon": "Treasure135",
+    "t": "Treasure",
     "l": {
       "CNzh": "门把",
       "EUde": "Türklinke",
@@ -1446,6 +1602,7 @@
   {
     "n": "Quoll",
     "icon": "Treasure_Quoll",
+    "t": "Treasure",
     "l": {
       "CNzh": "东袋鼬",
       "EUde": "Tüpfelbeutelmarder",
@@ -1465,6 +1622,7 @@
   {
     "n": "GameEducation",
     "icon": "Treasure_GameEducation",
+    "t": "Treasure",
     "l": {
       "CNzh": "教育游戏",
       "EUde": "Edutainment-Spiel",
@@ -1484,6 +1642,7 @@
   {
     "n": "EmbroideryWallHanging",
     "icon": "Treasure_EmbroideryWallHanging",
+    "t": "Treasure",
     "l": {
       "CNzh": "刺绣壁挂",
       "EUde": "Kunststickerei",
@@ -1503,6 +1662,7 @@
   {
     "n": "EmbroideredHandkerchief",
     "icon": "Treasure_EmbroideredHandkerchief",
+    "t": "Treasure",
     "l": {
       "CNzh": "刺绣手帕",
       "EUde": "Sticktaschentuch",
@@ -1522,6 +1682,7 @@
   {
     "n": "EngagementRing",
     "icon": "Treasure_EngagementRing",
+    "t": "Treasure",
     "l": {
       "CNzh": "订婚戒指",
       "EUde": "Trauring",
@@ -1541,6 +1702,7 @@
   {
     "n": "ExpensivePot",
     "icon": "Treasure_ExpensivePot",
+    "t": "Treasure",
     "l": {
       "CNzh": "看似昂贵的壶",
       "EUde": "Edelvase",
@@ -1560,6 +1722,7 @@
   {
     "n": "FamousMountainCalendar",
     "icon": "Treasure_FamousMountainCalendar",
+    "t": "Treasure",
     "l": {
       "CNzh": "名山日历",
       "EUde": "Bergkalender",
@@ -1579,6 +1742,7 @@
   {
     "n": "Faucet",
     "icon": "Treasure010",
+    "t": "Treasure",
     "l": {
       "CNzh": "水龙头",
       "EUde": "Wasserhahn",
@@ -1598,6 +1762,7 @@
   {
     "n": "GameAction",
     "icon": "Treasure_GameAction",
+    "t": "Treasure",
     "l": {
       "CNzh": "格斗游戏",
       "EUde": "Kampfspiel",
@@ -1617,6 +1782,7 @@
   {
     "n": "Lure",
     "icon": "Treasure_Lure",
+    "t": "Treasure",
     "l": {
       "CNzh": "假饵",
       "EUde": "Fischköder",
@@ -1636,6 +1802,7 @@
   {
     "n": "Flamingo",
     "icon": "Treasure_Flamingo",
+    "t": "Treasure",
     "l": {
       "CNzh": "火烈鸟",
       "EUde": "Flamingo",
@@ -1655,6 +1822,7 @@
   {
     "n": "Floppy",
     "icon": "Treasure_Floppy",
+    "t": "Treasure",
     "l": {
       "CNzh": "软盘",
       "EUde": "Diskette",
@@ -1674,6 +1842,7 @@
   {
     "n": "FlySwatter",
     "icon": "Treasure_FlySwatter",
+    "t": "Treasure",
     "l": {
       "CNzh": "苍蝇拍",
       "EUde": "Fliegenklatsche",
@@ -1693,6 +1862,7 @@
   {
     "n": "Crover",
     "icon": "Treasure016",
+    "t": "Treasure",
     "l": {
       "CNzh": "四叶草",
       "EUde": "Glücksklee",
@@ -1712,6 +1882,7 @@
   {
     "n": "Nekojarashi",
     "icon": "Treasure_Nekojarashi",
+    "t": "Treasure",
     "l": {
       "CNzh": "狗尾草",
       "EUde": "Grün-Borstenhirse",
@@ -1731,6 +1902,7 @@
   {
     "n": "Frog",
     "icon": "Treasure_Frog",
+    "t": "Treasure",
     "l": {
       "CNzh": "青蛙",
       "EUde": "Frosch",
@@ -1750,6 +1922,7 @@
   {
     "n": "BookManga",
     "icon": "Treasure_BookManga",
+    "t": "Treasure",
     "l": {
       "CNzh": "搞笑漫画",
       "EUde": "Lach-Comic",
@@ -1769,6 +1942,7 @@
   {
     "n": "Alien2",
     "icon": "Treasure_Alien_02",
+    "t": "Treasure",
     "l": {
       "CNzh": "外星人γ",
       "EUde": "Gamma-Alien",
@@ -1788,6 +1962,7 @@
   {
     "n": "GearParts",
     "icon": "Treasure_GearParts",
+    "t": "Treasure",
     "l": {
       "CNzh": "齿轮",
       "EUde": "Zahnräder",
@@ -1807,6 +1982,7 @@
   {
     "n": "Ghost",
     "icon": "Treasure_Ghost",
+    "t": "Treasure",
     "l": {
       "CNzh": "幽灵",
       "EUde": "Gespenst",
@@ -1826,6 +2002,7 @@
   {
     "n": "GlassZaiku",
     "icon": "Treasure_GlassZaiku",
+    "t": "Treasure",
     "l": {
       "CNzh": "玻璃艺术品",
       "EUde": "Glasornament",
@@ -1845,6 +2022,7 @@
   {
     "n": "TerrestrialGlobe",
     "icon": "Treasure180",
+    "t": "Treasure",
     "l": {
       "CNzh": "地球仪",
       "EUde": "Globus",
@@ -1864,6 +2042,7 @@
   {
     "n": "GoldBar",
     "icon": "Treasure_GoldBar",
+    "t": "Treasure",
     "l": {
       "CNzh": "金条",
       "EUde": "Goldbarren",
@@ -1883,6 +2062,7 @@
   {
     "n": "CoinGold",
     "icon": "Treasure_CoinGold",
+    "t": "Treasure",
     "l": {
       "CNzh": "金币",
       "EUde": "Goldmünze",
@@ -1902,6 +2082,7 @@
   {
     "n": "BrushGold",
     "icon": "Treasure_BrushGold",
+    "t": "Treasure",
     "l": {
       "CNzh": "金笔",
       "EUde": "Goldpalette",
@@ -1921,6 +2102,7 @@
   {
     "n": "SpeechBubbleGold",
     "icon": "Treasure_SpeechBubbleGold",
+    "t": "Treasure",
     "l": {
       "CNzh": "金对话框",
       "EUde": "Gold-Sprechblase",
@@ -1940,6 +2122,7 @@
   {
     "n": "TrophyGold",
     "icon": "Treasure034",
+    "t": "Treasure",
     "l": {
       "CNzh": "金奖杯",
       "EUde": "Goldtrophäe",
@@ -1959,6 +2142,7 @@
   {
     "n": "Goldfish",
     "icon": "Treasure_Goldfish",
+    "t": "Treasure",
     "l": {
       "CNzh": "金鱼",
       "EUde": "Goldfisch",
@@ -1976,8 +2160,29 @@
     }
   },
   {
+    "n": "Guitar",
+    "icon": "ItemGuitar",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "吉他",
+      "EUde": "Gitarre",
+      "EUen": "guitar",
+      "EUes": "guitarra",
+      "EUfr": "guitare",
+      "EUit": "chitarra",
+      "EUnl": "gitaar",
+      "JPja": "ギター",
+      "KRko": "기타",
+      "TWzh": "吉他",
+      "USen": "guitar",
+      "USes": "guitarra",
+      "USfr": "guitare"
+    }
+  },
+  {
     "n": "Hamster",
     "icon": "Treasure_Hamster",
+    "t": "Treasure",
     "l": {
       "CNzh": "仓鼠",
       "EUde": "Hamster",
@@ -1997,6 +2202,7 @@
   {
     "n": "HandMirror",
     "icon": "Treasure_HandMirror",
+    "t": "Treasure",
     "l": {
       "CNzh": "手持镜",
       "EUde": "Taschenspiegel",
@@ -2016,6 +2222,7 @@
   {
     "n": "HawaiiKeyChain",
     "icon": "Treasure124",
+    "t": "Treasure",
     "l": {
       "CNzh": "夏威夷钥匙圈",
       "EUde": "Hawaii-Schlüsselanhänger",
@@ -2035,6 +2242,7 @@
   {
     "n": "Hedgehog",
     "icon": "Treasure_Hedgehog",
+    "t": "Treasure",
     "l": {
       "CNzh": "刺猬",
       "EUde": "Igel",
@@ -2054,6 +2262,7 @@
   {
     "n": "Beetle",
     "icon": "Treasure_Beetle",
+    "t": "Treasure",
     "l": {
       "CNzh": "长戟大兜虫",
       "EUde": "Herkuleskäfer",
@@ -2073,6 +2282,7 @@
   {
     "n": "PlasterFigure",
     "icon": "Treasure162",
+    "t": "Treasure",
     "l": {
       "CNzh": "胸像",
       "EUde": "Antik-Büste",
@@ -2092,6 +2302,7 @@
   {
     "n": "BookhHistorical",
     "icon": "Treasure_BookHistorical",
+    "t": "Treasure",
     "l": {
       "CNzh": "古文书",
       "EUde": "Buch aus dem Antiquariat",
@@ -2111,6 +2322,7 @@
   {
     "n": "GameHorror",
     "icon": "Treasure_GameHorror",
+    "t": "Treasure",
     "l": {
       "CNzh": "恐怖游戏",
       "EUde": "Gruselspiel",
@@ -2130,6 +2342,7 @@
   {
     "n": "DVDHorror",
     "icon": "Treasure_DVDHorror",
+    "t": "Treasure",
     "l": {
       "CNzh": "恐怖电影",
       "EUde": "Horrorfilm",
@@ -2149,6 +2362,7 @@
   {
     "n": "BookHorror",
     "icon": "Treasure_BookHorror",
+    "t": "Treasure",
     "l": {
       "CNzh": "恐怖小说",
       "EUde": "Gruselroman",
@@ -2168,6 +2382,7 @@
   {
     "n": "Horse",
     "icon": "Treasure_Horse",
+    "t": "Treasure",
     "l": {
       "CNzh": "马",
       "EUde": "Pferd",
@@ -2187,6 +2402,7 @@
   {
     "n": "Sandglass",
     "icon": "Treasure027",
+    "t": "Treasure",
     "l": {
       "CNzh": "沙漏",
       "EUde": "Sanduhr",
@@ -2206,6 +2422,7 @@
   {
     "n": "IncenseBurner",
     "icon": "Treasure_IncenseBurner",
+    "t": "Treasure",
     "l": {
       "CNzh": "香炉",
       "EUde": "Räuchergefäß",
@@ -2225,6 +2442,7 @@
   {
     "n": "InsectSpecimen",
     "icon": "Treasure_InsectSpecimen",
+    "t": "Treasure",
     "l": {
       "CNzh": "昆虫标本",
       "EUde": "Insektensammlung",
@@ -2244,6 +2462,7 @@
   {
     "n": "CDIdol",
     "icon": "Treasure_CDIdol",
+    "t": "Treasure",
     "l": {
       "CNzh": "偶像唱片",
       "EUde": "Pop-Idol-Album",
@@ -2263,6 +2482,7 @@
   {
     "n": "CDJazz",
     "icon": "Treasure_CDJazz",
+    "t": "Treasure",
     "l": {
       "CNzh": "爵士乐唱片",
       "EUde": "Jazz-Album",
@@ -2282,6 +2502,7 @@
   {
     "n": "Jellyfish",
     "icon": "Treasure_Jellyfish",
+    "t": "Treasure",
     "l": {
       "CNzh": "水母",
       "EUde": "Qualle",
@@ -2301,6 +2522,7 @@
   {
     "n": "JewelleryBox",
     "icon": "Treasure166",
+    "t": "Treasure",
     "l": {
       "CNzh": "珠宝盒",
       "EUde": "Schmuckkästchen",
@@ -2318,8 +2540,29 @@
     }
   },
   {
+    "n": "JoggingSet",
+    "icon": "ItemDVD_01",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "慢跑入门DVD",
+      "EUde": "DVD mit Jogging-Kurs",
+      "EUen": "\"Jogging: A Rundown\" DVD",
+      "EUes": "DVD de entrenamiento",
+      "EUfr": "DVD de jogging",
+      "EUit": "DVD sul jogging",
+      "EUnl": "dvd met hardlooplessen",
+      "JPja": "ジョギング入門DVD",
+      "KRko": "조깅 입문 DVD",
+      "TWzh": "慢跑入門DVD",
+      "USen": "Jogging 101 DVD",
+      "USes": "DVD de correr",
+      "USfr": "DVD de jogging"
+    }
+  },
+  {
     "n": "JomonPottery",
     "icon": "Treasure_JomonPottery",
+    "t": "Treasure",
     "l": {
       "CNzh": "绳文陶器",
       "EUde": "Jōmon-Tongefäß",
@@ -2339,6 +2582,7 @@
   {
     "n": "Kangaroo",
     "icon": "Treasure_Kangaroo",
+    "t": "Treasure",
     "l": {
       "CNzh": "袋鼠",
       "EUde": "Känguru",
@@ -2356,8 +2600,29 @@
     }
   },
   {
+    "n": "KarateSet",
+    "icon": "ItemDVD_04",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "空手道入门DVD",
+      "EUde": "DVD mit Karate-Kurs",
+      "EUen": "\"Sensei-tional Karate\" DVD",
+      "EUes": "DVD de kárate",
+      "EUfr": "DVD de karaté",
+      "EUit": "DVD sul karate",
+      "EUnl": "dvd met karatelessen",
+      "JPja": "空手入門DVD",
+      "KRko": "무술 입문 DVD",
+      "TWzh": "空手道入門DVD",
+      "USen": "Karate 101 DVD",
+      "USes": "DVD de karate",
+      "USfr": "DVD de karaté"
+    }
+  },
+  {
     "n": "KeseranPasaran",
     "icon": "Treasure_KeseranPasaran",
+    "t": "Treasure",
     "l": {
       "CNzh": "凯瑟朗帕瑟朗",
       "EUde": "Keseran-Pasaran",
@@ -2377,6 +2642,7 @@
   {
     "n": "Kettle",
     "icon": "Treasure071",
+    "t": "Treasure",
     "l": {
       "CNzh": "烧水壶",
       "EUde": "Teekanne",
@@ -2394,8 +2660,29 @@
     }
   },
   {
+    "n": "KnittingSet",
+    "icon": "ItemSetKnitting",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "编织组合",
+      "EUde": "Strickzeug-Set",
+      "EUen": "knitting kit",
+      "EUes": "kit de calceta",
+      "EUfr": "set de tricot",
+      "EUit": "kit da lavoro a maglia",
+      "EUnl": "breispullen",
+      "JPja": "編み物セット",
+      "KRko": "뜨개질 세트",
+      "TWzh": "編織組合",
+      "USen": "knitting set",
+      "USes": "juego de tejer",
+      "USfr": "ensemble de tricot"
+    }
+  },
+  {
     "n": "KoalaStuffedToy",
     "icon": "Treasure_KoalaStuffedToy",
+    "t": "Treasure",
     "l": {
       "CNzh": "树袋熊布偶",
       "EUde": "Kuschel-Koala",
@@ -2415,6 +2702,7 @@
   {
     "n": "KokeshiDoll",
     "icon": "Treasure_KokeshiDoll",
+    "t": "Treasure",
     "l": {
       "CNzh": "木芥子",
       "EUde": "Kokeshi-Püppchen",
@@ -2432,8 +2720,29 @@
     }
   },
   {
+    "n": "NotePc",
+    "icon": "ItemLaptop",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "笔记本电脑",
+      "EUde": "Laptop",
+      "EUen": "laptop",
+      "EUes": "ordenador portátil",
+      "EUfr": "ordinateur portable",
+      "EUit": "computer portatile",
+      "EUnl": "laptop",
+      "JPja": "ノートパソコン",
+      "KRko": "노트북",
+      "TWzh": "筆記型電腦",
+      "USen": "laptop",
+      "USes": "computadora portátil",
+      "USfr": "ordinateur portable"
+    }
+  },
+  {
     "n": "LightBulb",
     "icon": "Treasure_LightBulb",
+    "t": "Treasure",
     "l": {
       "CNzh": "灯泡",
       "EUde": "Glühbirne",
@@ -2453,6 +2762,7 @@
   {
     "n": "Lion",
     "icon": "Treasure_Lion",
+    "t": "Treasure",
     "l": {
       "CNzh": "狮子",
       "EUde": "Löwe",
@@ -2472,6 +2782,7 @@
   {
     "n": "DVDLive",
     "icon": "Treasure_DVDLive",
+    "t": "Treasure",
     "l": {
       "CNzh": "演唱会影片",
       "EUde": "Konzertvideo",
@@ -2491,6 +2802,7 @@
   {
     "n": "OneEarphoneIsMisissing",
     "icon": "Treasure_OneEarphoneIsMisissing",
+    "t": "Treasure",
     "l": {
       "CNzh": "剩余单边耳机",
       "EUde": "Einzelkopfhörer",
@@ -2510,6 +2822,7 @@
   {
     "n": "Loofah",
     "icon": "Treasure028",
+    "t": "Treasure",
     "l": {
       "CNzh": "丝瓜布",
       "EUde": "Luffa",
@@ -2529,6 +2842,7 @@
   {
     "n": "BookLove",
     "icon": "Treasure_BookLove",
+    "t": "Treasure",
     "l": {
       "CNzh": "言情小说",
       "EUde": "Liebesroman",
@@ -2548,6 +2862,7 @@
   {
     "n": "LuckyCat",
     "icon": "Treasure053",
+    "t": "Treasure",
     "l": {
       "CNzh": "招财猫",
       "EUde": "Winkekatze",
@@ -2567,6 +2882,7 @@
   {
     "n": "MagnifyingGlass",
     "icon": "Treasure107",
+    "t": "Treasure",
     "l": {
       "CNzh": "放大镜",
       "EUde": "Lupe",
@@ -2586,6 +2902,7 @@
   {
     "n": "MahjongTile",
     "icon": "Treasure011",
+    "t": "Treasure",
     "l": {
       "CNzh": "麻将牌",
       "EUde": "Mahjongg-Spielstein",
@@ -2605,6 +2922,7 @@
   {
     "n": "MakeupBox",
     "icon": "Treasure_MakeupBox",
+    "t": "Treasure",
     "l": {
       "CNzh": "化妆盒",
       "EUde": "Kosmetikkoffer",
@@ -2624,6 +2942,7 @@
   {
     "n": "MapleSyrupSamplingPort",
     "icon": "Treasure_MapleSyrupSamplingPort",
+    "t": "Treasure",
     "l": {
       "CNzh": "枫糖浆采收口",
       "EUde": "Ahornsaftzapfen",
@@ -2641,8 +2960,29 @@
     }
   },
   {
+    "n": "Maracas",
+    "icon": "ItemSetMaracas",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "沙锤",
+      "EUde": "Maraca-Paar",
+      "EUen": "maracas",
+      "EUes": "maracas",
+      "EUfr": "maracas",
+      "EUit": "maracas",
+      "EUnl": "sambaballen",
+      "JPja": "マラカス",
+      "KRko": "마라카스",
+      "TWzh": "沙錘",
+      "USen": "maracas",
+      "USes": "maracas",
+      "USfr": "maracas"
+    }
+  },
+  {
     "n": "Marble",
     "icon": "Treasure021",
+    "t": "Treasure",
     "l": {
       "CNzh": "弹珠",
       "EUde": "Murmel",
@@ -2662,6 +3002,7 @@
   {
     "n": "Marionette",
     "icon": "Treasure113",
+    "t": "Treasure",
     "l": {
       "CNzh": "提线木偶",
       "EUde": "Marionette",
@@ -2681,6 +3022,7 @@
   {
     "n": "MartianStone",
     "icon": "Treasure122",
+    "t": "Treasure",
     "l": {
       "CNzh": "火星岩石",
       "EUde": "Marsgesteinsbrocken",
@@ -2700,6 +3042,7 @@
   {
     "n": "MessageBottle",
     "icon": "Treasure_MessageBottle",
+    "t": "Treasure",
     "l": {
       "CNzh": "漂流瓶",
       "EUde": "Flaschenpost",
@@ -2719,6 +3062,7 @@
   {
     "n": "MiniCar",
     "icon": "Treasure_MiniCar",
+    "t": "Treasure",
     "l": {
       "CNzh": "迷你车",
       "EUde": "Modellauto",
@@ -2738,6 +3082,7 @@
   {
     "n": "TrainModel",
     "icon": "Treasure_TrainModel",
+    "t": "Treasure",
     "l": {
       "CNzh": "火车模型",
       "EUde": "Modelldampflok",
@@ -2757,6 +3102,7 @@
   {
     "n": "MosquitoCoil",
     "icon": "Treasure087",
+    "t": "Treasure",
     "l": {
       "CNzh": "蚊香",
       "EUde": "Mückenspirale",
@@ -2774,8 +3120,29 @@
     }
   },
   {
+    "n": "WorkoutSet",
+    "icon": "ItemDVD_02",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "肌肉训练入门DVD",
+      "EUde": "DVD mit Krafttrainingkurs",
+      "EUen": "\"Bulk Your Bod\" DVD",
+      "EUes": "DVD de musculación",
+      "EUfr": "DVD de musculation",
+      "EUit": "DVD sul culturismo",
+      "EUnl": "dvd met krachtoefeningen",
+      "JPja": "筋トレ入門DVD",
+      "KRko": "웨이트 트레이닝 입문 DVD",
+      "TWzh": "肌肉訓練入門DVD",
+      "USen": "Muscle Building 101 DVD",
+      "USes": "DVD de musculación",
+      "USfr": "DVD de musculation"
+    }
+  },
+  {
     "n": "MysteriousLiquid",
     "icon": "Treasure_MysteriousLiquid",
+    "t": "Treasure",
     "l": {
       "CNzh": "神秘液体",
       "EUde": "Wunderflüssigkeit",
@@ -2795,6 +3162,7 @@
   {
     "n": "NailPolish",
     "icon": "Treasure_NailPolish",
+    "t": "Treasure",
     "l": {
       "CNzh": "指甲油",
       "EUde": "Nagellack",
@@ -2814,6 +3182,7 @@
   {
     "n": "NatureDVD",
     "icon": "Treasure_DVDNature",
+    "t": "Treasure",
     "l": {
       "CNzh": "大自然的影片",
       "EUde": "Naturvideo",
@@ -2833,6 +3202,7 @@
   {
     "n": "Octahydrone",
     "icon": "Treasure_Octahydrone",
+    "t": "Treasure",
     "l": {
       "CNzh": "正八面体石",
       "EUde": "Doppelpyramidenstein",
@@ -2852,6 +3222,7 @@
   {
     "n": "Octopus",
     "icon": "Treasure_Octopus",
+    "t": "Treasure",
     "l": {
       "CNzh": "章鱼",
       "EUde": "Tintenfisch",
@@ -2871,6 +3242,7 @@
   {
     "n": "OliveSoap",
     "icon": "Treasure_OliveSoap",
+    "t": "Treasure",
     "l": {
       "CNzh": "橄榄油皂",
       "EUde": "Olivenöl-Seife",
@@ -2890,6 +3262,7 @@
   {
     "n": "Amulet",
     "icon": "Treasure067",
+    "t": "Treasure",
     "l": {
       "CNzh": "护身符",
       "EUde": "Talisman",
@@ -2909,6 +3282,7 @@
   {
     "n": "Ticket",
     "icon": "Treasure_Ticket",
+    "t": "Treasure",
     "l": {
       "CNzh": "单程票",
       "EUde": "Einzelfahrschein",
@@ -2928,6 +3302,7 @@
   {
     "n": "PaperCrane",
     "icon": "Treasure054",
+    "t": "Treasure",
     "l": {
       "CNzh": "纸鹤",
       "EUde": "Origami-Kranich",
@@ -2945,8 +3320,29 @@
     }
   },
   {
+    "n": "Easel",
+    "icon": "ItemSetPainting",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "绘画组合",
+      "EUde": "Mal-Set",
+      "EUen": "set of paints",
+      "EUes": "kit de pintura",
+      "EUfr": "set de peinture",
+      "EUit": "set da pittura",
+      "EUnl": "verfspullen",
+      "JPja": "お絵描きセット",
+      "KRko": "그림 도구 세트",
+      "TWzh": "繪畫組合",
+      "USen": "painting set",
+      "USes": "juego de pintar",
+      "USfr": "kit de peinture"
+    }
+  },
+  {
     "n": "Bill",
     "icon": "Treasure_Bill",
+    "t": "Treasure",
     "l": {
       "CNzh": "符纸",
       "EUde": "Papiertalisman",
@@ -2966,6 +3362,7 @@
   {
     "n": "Parakeet",
     "icon": "Treasure_Parakeet",
+    "t": "Treasure",
     "l": {
       "CNzh": "鹦鹉",
       "EUde": "Wellensittich",
@@ -2985,6 +3382,7 @@
   {
     "n": "Pearl",
     "icon": "Treasure_Pearl",
+    "t": "Treasure",
     "l": {
       "CNzh": "珍珠",
       "EUde": "Muschel mit Perle",
@@ -3004,6 +3402,7 @@
   {
     "n": "RadenAccessoryCase",
     "icon": "Treasure_RadenAccessoryCase",
+    "t": "Treasure",
     "l": {
       "CNzh": "贝雕收纳盒",
       "EUde": "Lackschatulle",
@@ -3023,6 +3422,7 @@
   {
     "n": "SonohenNoIshikoro",
     "icon": "Treasure080",
+    "t": "Treasure",
     "l": {
       "CNzh": "路边的石头",
       "EUde": "Stein",
@@ -3042,6 +3442,7 @@
   {
     "n": "Penguin",
     "icon": "Treasure_Penguin",
+    "t": "Treasure",
     "l": {
       "CNzh": "企鹅",
       "EUde": "Pinguin",
@@ -3061,6 +3462,7 @@
   {
     "n": "Perfume",
     "icon": "Treasure_Perfume",
+    "t": "Treasure",
     "l": {
       "CNzh": "香水",
       "EUde": "Parfümfläschchen",
@@ -3080,6 +3482,7 @@
   {
     "n": "BookPicture",
     "icon": "Treasure_BookPicture",
+    "t": "Treasure",
     "l": {
       "CNzh": "图画书",
       "EUde": "Bilderbuch",
@@ -3099,6 +3502,7 @@
   {
     "n": "PostcardSet",
     "icon": "Treasure_PostcardSet",
+    "t": "Treasure",
     "l": {
       "CNzh": "风景明信片组",
       "EUde": "Postkartenset",
@@ -3118,6 +3522,7 @@
   {
     "n": "Pig",
     "icon": "Treasure_Pig",
+    "t": "Treasure",
     "l": {
       "CNzh": "猪",
       "EUde": "Schwein",
@@ -3137,6 +3542,7 @@
   {
     "n": "PigPiggyBank",
     "icon": "Treasure_PigPiggyBank",
+    "t": "Treasure",
     "l": {
       "CNzh": "小猪储蓄罐",
       "EUde": "Sparschwein",
@@ -3156,6 +3562,7 @@
   {
     "n": "Document",
     "icon": "Treasure_Document",
+    "t": "Treasure",
     "l": {
       "CNzh": "成堆的文件",
       "EUde": "Aktenstapel",
@@ -3175,6 +3582,7 @@
   {
     "n": "Pinecone",
     "icon": "Treasure094",
+    "t": "Treasure",
     "l": {
       "CNzh": "松果",
       "EUde": "Tannenzapfen",
@@ -3194,6 +3602,7 @@
   {
     "n": "Pinata",
     "icon": "Treasure_Pinata",
+    "t": "Treasure",
     "l": {
       "CNzh": "皮纳塔",
       "EUde": "Piñata",
@@ -3213,6 +3622,7 @@
   {
     "n": "PlasticModelParts",
     "icon": "Treasure_PlasticModelParts",
+    "t": "Treasure",
     "l": {
       "CNzh": "模型零件剩余框架",
       "EUde": "Modellbau-Plastikreste",
@@ -3232,6 +3642,7 @@
   {
     "n": "BrushPlatinum",
     "icon": "Treasure_BrushPlatinum",
+    "t": "Treasure",
     "l": {
       "CNzh": "铂金笔",
       "EUde": "Platinpalette",
@@ -3251,6 +3662,7 @@
   {
     "n": "SpeechBubblePlatinum",
     "icon": "Treasure_SpeechBubblePlatinum",
+    "t": "Treasure",
     "l": {
       "CNzh": "铂金对话框",
       "EUde": "Platin-Sprechblase",
@@ -3270,6 +3682,7 @@
   {
     "n": "TrophyPlatinum",
     "icon": "Treasure035",
+    "t": "Treasure",
     "l": {
       "CNzh": "铂金奖杯",
       "EUde": "Platintrophäe",
@@ -3289,6 +3702,7 @@
   {
     "n": "StuffedToyBear",
     "icon": "Treasure_StuffedToyBear",
+    "t": "Treasure",
     "l": {
       "CNzh": "熊猫布偶",
       "EUde": "Kuschel-Panda",
@@ -3308,6 +3722,7 @@
   {
     "n": "PocketWatch",
     "icon": "Treasure045",
+    "t": "Treasure",
     "l": {
       "CNzh": "怀表",
       "EUde": "Taschenuhr",
@@ -3327,6 +3742,7 @@
   {
     "n": "CDPopMusic",
     "icon": "Treasure_CDPopMusic",
+    "t": "Treasure",
     "l": {
       "CNzh": "流行音乐唱片",
       "EUde": "Pop-Album",
@@ -3346,6 +3762,7 @@
   {
     "n": "GamePuzzle",
     "icon": "Treasure_GamePuzzle",
+    "t": "Treasure",
     "l": {
       "CNzh": "益智游戏",
       "EUde": "Knobelspiel",
@@ -3365,6 +3782,7 @@
   {
     "n": "Rabbit",
     "icon": "Treasure_Rabbit",
+    "t": "Treasure",
     "l": {
       "CNzh": "兔子",
       "EUde": "Kaninchen",
@@ -3384,6 +3802,7 @@
   {
     "n": "GameRacing",
     "icon": "Treasure_GameRacing",
+    "t": "Treasure",
     "l": {
       "CNzh": "竞速游戏",
       "EUde": "Rennspiel",
@@ -3403,6 +3822,7 @@
   {
     "n": "Receipt",
     "icon": "Treasure_Receipt",
+    "t": "Treasure",
     "l": {
       "CNzh": "收据",
       "EUde": "Kassenbon",
@@ -3422,6 +3842,7 @@
   {
     "n": "CDReggae",
     "icon": "Treasure_CDReggae",
+    "t": "Treasure",
     "l": {
       "CNzh": "雷鬼乐唱片",
       "EUde": "Reggae-Album",
@@ -3441,6 +3862,7 @@
   {
     "n": "RestaurantMenu",
     "icon": "Treasure_RestaurantMenu",
+    "t": "Treasure",
     "l": {
       "CNzh": "餐厅的菜单",
       "EUde": "Speisekarte",
@@ -3460,6 +3882,7 @@
   {
     "n": "Robot",
     "icon": "Treasure_Robot",
+    "t": "Treasure",
     "l": {
       "CNzh": "机器人",
       "EUde": "Roboter",
@@ -3479,6 +3902,7 @@
   {
     "n": "CDRock",
     "icon": "Treasure_CDRock",
+    "t": "Treasure",
     "l": {
       "CNzh": "摇滚乐唱片",
       "EUde": "Rock-and-Roll-Album",
@@ -3498,6 +3922,7 @@
   {
     "n": "StoneSpecimen",
     "icon": "Treasure_StoneSpecimen",
+    "t": "Treasure",
     "l": {
       "CNzh": "石头标本",
       "EUde": "Steinesammlung",
@@ -3517,6 +3942,7 @@
   {
     "n": "GameRoleplaying",
     "icon": "Treasure_GameRoleplaying",
+    "t": "Treasure",
     "l": {
       "CNzh": "角色扮演游戏",
       "EUde": "Rollenspiel",
@@ -3536,6 +3962,7 @@
   {
     "n": "DVDLove",
     "icon": "Treasure_DVDLove",
+    "t": "Treasure",
     "l": {
       "CNzh": "言情连续剧",
       "EUde": "Herzschmerz-Drama",
@@ -3555,6 +3982,7 @@
   {
     "n": "Tile",
     "icon": "Treasure_Tile",
+    "t": "Treasure",
     "l": {
       "CNzh": "瓦片",
       "EUde": "Dachziegel",
@@ -3574,6 +4002,7 @@
   {
     "n": "Rose",
     "icon": "Treasure061",
+    "t": "Treasure",
     "l": {
       "CNzh": "玫瑰",
       "EUde": "Rose",
@@ -3593,6 +4022,7 @@
   {
     "n": "DucksToy",
     "icon": "Treasure040",
+    "t": "Treasure",
     "l": {
       "CNzh": "鸭子玩具",
       "EUde": "Gummientchen",
@@ -3612,6 +4042,7 @@
   {
     "n": "Ruby",
     "icon": "Treasure_Ruby",
+    "t": "Treasure",
     "l": {
       "CNzh": "红宝石",
       "EUde": "Rubin",
@@ -3631,6 +4062,7 @@
   {
     "n": "Cashbox",
     "icon": "Treasure_Cashbox",
+    "t": "Treasure",
     "l": {
       "CNzh": "保险箱",
       "EUde": "Tresor",
@@ -3650,6 +4082,7 @@
   {
     "n": "Antenna",
     "icon": "Treasure_Antenna",
+    "t": "Treasure",
     "l": {
       "CNzh": "卫星天线",
       "EUde": "Satellitenschüssel",
@@ -3669,6 +4102,7 @@
   {
     "n": "Vihta",
     "icon": "Treasure_Vihta",
+    "t": "Treasure",
     "l": {
       "CNzh": "白桦枝叶",
       "EUde": "Sauna-Birkenbüschel",
@@ -3688,6 +4122,7 @@
   {
     "n": "AromaCandle",
     "icon": "Treasure085",
+    "t": "Treasure",
     "l": {
       "CNzh": "香氛蜡烛",
       "EUde": "Duftkerze",
@@ -3707,6 +4142,7 @@
   {
     "n": "DVDSF",
     "icon": "Treasure_DVDSF",
+    "t": "Treasure",
     "l": {
       "CNzh": "科幻电影",
       "EUde": "Sci‑Fi-Film",
@@ -3726,6 +4162,7 @@
   {
     "n": "Screw",
     "icon": "Treasure015",
+    "t": "Treasure",
     "l": {
       "CNzh": "螺丝",
       "EUde": "Schraube",
@@ -3745,6 +4182,7 @@
   {
     "n": "SeaUrchinBone",
     "icon": "Treasure_SeaUrchinBone",
+    "t": "Treasure",
     "l": {
       "CNzh": "海胆骨骼",
       "EUde": "Seeigelskelett",
@@ -3764,6 +4202,7 @@
   {
     "n": "Shell",
     "icon": "Treasure013",
+    "t": "Treasure",
     "l": {
       "CNzh": "贝壳",
       "EUde": "Muschelschale",
@@ -3783,6 +4222,7 @@
   {
     "n": "SecurityCamera",
     "icon": "Treasure118",
+    "t": "Treasure",
     "l": {
       "CNzh": "监控摄像头",
       "EUde": "Überwachungskamera",
@@ -3802,6 +4242,7 @@
   {
     "n": "BookSelfDevelopment",
     "icon": "Treasure_BookDevelopment",
+    "t": "Treasure",
     "l": {
       "CNzh": "自我启蒙书",
       "EUde": "Ratgeber",
@@ -3821,6 +4262,7 @@
   {
     "n": "BlackTipReefShark",
     "icon": "Treasure_BlackTipReefShark",
+    "t": "Treasure",
     "l": {
       "CNzh": "鲨鱼",
       "EUde": "Hai",
@@ -3840,6 +4282,7 @@
   {
     "n": "GlitterBeads",
     "icon": "Treasure_GlitterBeads",
+    "t": "Treasure",
     "l": {
       "CNzh": "闪亮串珠",
       "EUde": "Glasperlen",
@@ -3859,6 +4302,7 @@
   {
     "n": "BottleShip",
     "icon": "Treasure_BottleShip",
+    "t": "Treasure",
     "l": {
       "CNzh": "瓶中船",
       "EUde": "Flaschenschiff",
@@ -3878,6 +4322,7 @@
   {
     "n": "Ohsho",
     "icon": "Treasure055",
+    "t": "Treasure",
     "l": {
       "CNzh": "将棋摆件",
       "EUde": "Shogi-König",
@@ -3897,6 +4342,7 @@
   {
     "n": "DVDShopping",
     "icon": "Treasure_DVDShopping",
+    "t": "Treasure",
     "l": {
       "CNzh": "购物节目",
       "EUde": "Teleshopping-Video",
@@ -3916,6 +4362,7 @@
   {
     "n": "CoinSilver",
     "icon": "Treasure_CoinSilver",
+    "t": "Treasure",
     "l": {
       "CNzh": "银币",
       "EUde": "Silbermünze",
@@ -3935,6 +4382,7 @@
   {
     "n": "BrushSilver",
     "icon": "Treasure_BrushSilver",
+    "t": "Treasure",
     "l": {
       "CNzh": "银笔",
       "EUde": "Silberpalette",
@@ -3954,6 +4402,7 @@
   {
     "n": "SpeechBubbleSilver",
     "icon": "Treasure_SpeechBubbleSilver",
+    "t": "Treasure",
     "l": {
       "CNzh": "银对话框",
       "EUde": "Silber-Sprechblase",
@@ -3973,6 +4422,7 @@
   {
     "n": "TrophySilver",
     "icon": "Treasure033",
+    "t": "Treasure",
     "l": {
       "CNzh": "银奖杯",
       "EUde": "Silbertrophäe",
@@ -3992,6 +4442,7 @@
   {
     "n": "Slime",
     "icon": "Treasure_Slime",
+    "t": "Treasure",
     "l": {
       "CNzh": "史莱姆",
       "EUde": "Schleim",
@@ -4009,8 +4460,29 @@
     }
   },
   {
+    "n": "SoccerBall",
+    "icon": "ItemSoccerBall",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "足球",
+      "EUde": "Fußball",
+      "EUen": "football",
+      "EUes": "balón de fútbol",
+      "EUfr": "ballon de football",
+      "EUit": "pallone da calcio",
+      "EUnl": "voetbal",
+      "JPja": "サッカーボール",
+      "KRko": "축구공",
+      "TWzh": "足球",
+      "USen": "soccer ball",
+      "USes": "pelota de fútbol",
+      "USfr": "ballon de soccer"
+    }
+  },
+  {
     "n": "SolarPanel",
     "icon": "Treasure138",
+    "t": "Treasure",
     "l": {
       "CNzh": "太阳能板",
       "EUde": "Solarmodul",
@@ -4030,6 +4502,7 @@
   {
     "n": "GoldCup",
     "icon": "Treasure_GoldCup",
+    "t": "Treasure",
     "l": {
       "CNzh": "纯金羽觞",
       "EUde": "Massivgold-Tasse",
@@ -4049,6 +4522,7 @@
   {
     "n": "Top",
     "icon": "Treasure031",
+    "t": "Treasure",
     "l": {
       "CNzh": "陀螺",
       "EUde": "Kreisel",
@@ -4068,6 +4542,7 @@
   {
     "n": "Spirit",
     "icon": "Treasure_Spirit",
+    "t": "Treasure",
     "l": {
       "CNzh": "精灵",
       "EUde": "Irrgeist",
@@ -4087,6 +4562,7 @@
   {
     "n": "DVDSports",
     "icon": "Treasure_DVDSports",
+    "t": "Treasure",
     "l": {
       "CNzh": "体育节目",
       "EUde": "Sportvideo",
@@ -4106,6 +4582,7 @@
   {
     "n": "SatueOfLiberty",
     "icon": "Treasure_SatueOfLiberty",
+    "t": "Treasure",
     "l": {
       "CNzh": "自由女神摆件",
       "EUde": "Freiheitsstatuette",
@@ -4125,6 +4602,7 @@
   {
     "n": "Stopwatch",
     "icon": "Treasure_Stopwatch",
+    "t": "Treasure",
     "l": {
       "CNzh": "计时器",
       "EUde": "Stoppuhr",
@@ -4142,8 +4620,29 @@
     }
   },
   {
+    "n": "StreetDanceSet",
+    "icon": "ItemDVD_03",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "街舞入门DVD",
+      "EUde": "DVD mit Streetdance-Kurs",
+      "EUen": "\"Breaking into Breaking\" DVD",
+      "EUes": "DVD de baile urbano",
+      "EUfr": "DVD de danse de rue",
+      "EUit": "DVD sulla danza urbana",
+      "EUnl": "dvd met streetdance-lessen",
+      "JPja": "ストリートダンス入門DVD",
+      "KRko": "스트리트 댄스 입문 DVD",
+      "TWzh": "街舞入門DVD",
+      "USen": "Street Dancing 101 DVD",
+      "USes": "DVD de baile urbano",
+      "USfr": "DVD de danse de rue"
+    }
+  },
+  {
     "n": "SugarGlider",
     "icon": "Treasure_SugarGlider",
+    "t": "Treasure",
     "l": {
       "CNzh": "蜜袋鼯",
       "EUde": "Kurzkopfgleitbeutler",
@@ -4163,6 +4662,7 @@
   {
     "n": "Superscope",
     "icon": "Treasure_Superscope",
+    "t": "Treasure",
     "l": {
       "CNzh": "Super Scope",
       "EUde": "Nintendo Scope",
@@ -4182,6 +4682,7 @@
   {
     "n": "SuspiciousSwitch",
     "icon": "Treasure_SuspiciousSwitch",
+    "t": "Treasure",
     "l": {
       "CNzh": "怪异按钮",
       "EUde": "Schalter für Risikofreudige",
@@ -4201,6 +4702,7 @@
   {
     "n": "MoodLight",
     "icon": "Treasure_MoodLight",
+    "t": "Treasure",
     "l": {
       "CNzh": "台灯",
       "EUde": "Stimmungslampe",
@@ -4220,6 +4722,7 @@
   {
     "n": "ShigarakiWare",
     "icon": "Treasure091",
+    "t": "Treasure",
     "l": {
       "CNzh": "狸猫摆件",
       "EUde": "Tanuki-Statue",
@@ -4239,6 +4742,7 @@
   {
     "n": "ScrubbingBrush",
     "icon": "Treasure096",
+    "t": "Treasure",
     "l": {
       "CNzh": "棕刷",
       "EUde": "Gemüsebürste",
@@ -4258,6 +4762,7 @@
   {
     "n": "CDDance",
     "icon": "Treasure_CDDance",
+    "t": "Treasure",
     "l": {
       "CNzh": "舞蹈音乐唱片",
       "EUde": "Dance-Album",
@@ -4277,6 +4782,7 @@
   {
     "n": "MiniTerrarium",
     "icon": "Treasure_MiniTerrarium",
+    "t": "Treasure",
     "l": {
       "CNzh": "苔藓生态瓶",
       "EUde": "Miniterrarium",
@@ -4296,6 +4802,7 @@
   {
     "n": "ToiletPaper",
     "icon": "Treasure003",
+    "t": "Treasure",
     "l": {
       "CNzh": "卫生纸",
       "EUde": "Klopapierrolle",
@@ -4315,6 +4822,7 @@
   {
     "n": "TomodachiCollection",
     "icon": "Treasure_TomodachiCollection",
+    "t": "Treasure",
     "l": {
       "CNzh": "Tomodachi Life",
       "EUde": "Tomodachi Life-Spiel",
@@ -4334,6 +4842,7 @@
   {
     "n": "TinToy",
     "icon": "Treasure022",
+    "t": "Treasure",
     "l": {
       "CNzh": "锡玩具",
       "EUde": "Blechroboter",
@@ -4351,8 +4860,29 @@
     }
   },
   {
+    "n": "ReplicaSword",
+    "icon": "ItemToySword",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "玩具剑",
+      "EUde": "Spielzeugschwert",
+      "EUen": "toy sword",
+      "EUes": "espada de juguete",
+      "EUfr": "épée en jouet",
+      "EUit": "spada giocattolo",
+      "EUnl": "speelgoedzwaard",
+      "JPja": "おもちゃの剣",
+      "KRko": "장난감 칼",
+      "TWzh": "玩具劍",
+      "USen": "toy sword",
+      "USes": "espada de juguete",
+      "USfr": "épée en jouet"
+    }
+  },
+  {
     "n": "TreasureMap",
     "icon": "Treasure_TreasureMap",
+    "t": "Treasure",
     "l": {
       "CNzh": "藏宝图",
       "EUde": "Schatzkarte",
@@ -4372,6 +4902,7 @@
   {
     "n": "TreeBranch",
     "icon": "Treasure_TreeBranch",
+    "t": "Treasure",
     "l": {
       "CNzh": "树枝",
       "EUde": "Zweig",
@@ -4391,6 +4922,7 @@
   {
     "n": "Tuna",
     "icon": "Treasure_Tuna",
+    "t": "Treasure",
     "l": {
       "CNzh": "金枪鱼",
       "EUde": "Thunfisch",
@@ -4410,6 +4942,7 @@
   {
     "n": "Turtle",
     "icon": "Treasure_Turtle",
+    "t": "Treasure",
     "l": {
       "CNzh": "乌龟",
       "EUde": "Schildkröte",
@@ -4429,6 +4962,7 @@
   {
     "n": "Tyrannosaurus",
     "icon": "Treasure_Tyrannosaurus",
+    "t": "Treasure",
     "l": {
       "CNzh": "暴龙",
       "EUde": "Tyrannosaurier",
@@ -4448,6 +4982,7 @@
   {
     "n": "Ufo",
     "icon": "Treasure_Ufo",
+    "t": "Treasure",
     "l": {
       "CNzh": "UFO",
       "EUde": "Ufo",
@@ -4467,6 +5002,7 @@
   {
     "n": "Unicorn",
     "icon": "Treasure_Unicorn",
+    "t": "Treasure",
     "l": {
       "CNzh": "独角兽",
       "EUde": "Einhorn",
@@ -4486,6 +5022,7 @@
   {
     "n": "VacuumTube",
     "icon": "Treasure_VacuumTube",
+    "t": "Treasure",
     "l": {
       "CNzh": "真空管",
       "EUde": "Vakuumröhre",
@@ -4505,6 +5042,7 @@
   {
     "n": "DVDWideShow",
     "icon": "Treasure_DVDWideShow",
+    "t": "Treasure",
     "l": {
       "CNzh": "杂闻秀",
       "EUde": "Fernsehshow-Sammlung",
@@ -4524,6 +5062,7 @@
   {
     "n": "VenetianGlass",
     "icon": "Treasure_VenetianGlass",
+    "t": "Treasure",
     "l": {
       "CNzh": "威尼斯玻璃杯",
       "EUde": "Muranoglas",
@@ -4543,6 +5082,7 @@
   {
     "n": "CDGameMusic",
     "icon": "Treasure_CDGameMusic",
+    "t": "Treasure",
     "l": {
       "CNzh": "游戏音乐唱片",
       "EUde": "Spiele-Soundtrack-Album",
@@ -4562,6 +5102,7 @@
   {
     "n": "VirtualBoy",
     "icon": "Treasure_VirtualBoy",
+    "t": "Treasure",
     "l": {
       "CNzh": "Virtual Boy",
       "EUde": "Virtual Boy",
@@ -4581,6 +5122,7 @@
   {
     "n": "Daphnia",
     "icon": "Treasure_Daphnia",
+    "t": "Treasure",
     "l": {
       "CNzh": "水虱",
       "EUde": "Wasserfloh",
@@ -4600,6 +5142,7 @@
   {
     "n": "RubberString",
     "icon": "Treasure_RubberString",
+    "t": "Treasure",
     "l": {
       "CNzh": "不牢靠的弹跳绳",
       "EUde": "Gummiband mit Schwächen",
@@ -4619,6 +5162,7 @@
   {
     "n": "WindUpTeeth",
     "icon": "Treasure175",
+    "t": "Treasure",
     "l": {
       "CNzh": "发条式假牙玩具",
       "EUde": "Klappergebiss",
@@ -4638,6 +5182,7 @@
   {
     "n": "CircleOfWisdom",
     "icon": "Treasure_CircleOfWisdom",
+    "t": "Treasure",
     "l": {
       "CNzh": "九连环",
       "EUde": "Entwirrspiel",
@@ -4657,6 +5202,7 @@
   {
     "n": "WoodenCarvingBear",
     "icon": "Treasure_WoodenCarvingBear",
+    "t": "Treasure",
     "l": {
       "CNzh": "木雕熊",
       "EUde": "Holzbärenstatue",
@@ -4676,6 +5222,7 @@
   {
     "n": "WoolFelt",
     "icon": "Treasure_WoolFelt",
+    "t": "Treasure",
     "l": {
       "CNzh": "羊毛毡手工艺品",
       "EUde": "Plüschschaf",
@@ -4690,6 +5237,26 @@
       "USen": "wool-felt sheep",
       "USes": "peluche de fieltro",
       "USfr": "feutre de laine de mouton"
+    }
+  },
+  {
+    "n": "YogaSet",
+    "icon": "ItemDVD_05",
+    "t": "Levelup",
+    "l": {
+      "CNzh": "瑜伽入门DVD",
+      "EUde": "DVD mit Yoga-Kurs",
+      "EUen": "\"Yoga: A Balanced View\" DVD",
+      "EUes": "DVD de yoga",
+      "EUfr": "DVD de yoga",
+      "EUit": "DVD sullo yoga",
+      "EUnl": "dvd met yogalessen",
+      "JPja": "ヨガ入門DVD",
+      "KRko": "요가 입문 DVD",
+      "TWzh": "瑜伽入門DVD",
+      "USen": "Yoga 101 DVD",
+      "USes": "DVD de yoga",
+      "USfr": "DVD de yoga"
     }
   }
 ]

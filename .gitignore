@@ -38,6 +38,8 @@ public/treasure-icons
 public/roomstyle-icons
 # Generated from romfs/Icon by scripts/generate-item-data.mjs (WebP)
 public/item-icons
+# Generated from romfs/Icon by scripts/generate-coordinate-data.mjs (WebP)
+public/coordinate-icons
 
 # Local-only generation/inspection scripts (require romfs paths on disk)
 scripts

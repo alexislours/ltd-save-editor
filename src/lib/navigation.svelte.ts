@@ -1,7 +1,17 @@
 let currentPath = $state(window.location.pathname);
 
+function updateCanonical(path: string): void {
+  const link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (!link) return;
+  link.href = `${window.location.origin}${path}`;
+}
+
+updateCanonical(window.location.pathname);
+
 window.addEventListener('popstate', () => {
-  currentPath = window.location.pathname;
+  const path = window.location.pathname;
+  currentPath = path;
+  updateCanonical(path);
 });
 
 export function navigate(path: string, options: { replace?: boolean } = {}): void {
@@ -12,6 +22,7 @@ export function navigate(path: string, options: { replace?: boolean } = {}): voi
     window.history.pushState({}, '', path);
   }
   currentPath = path;
+  updateCanonical(path);
 }
 
 export function getPath(): string {

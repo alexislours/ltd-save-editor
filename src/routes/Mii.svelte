@@ -4,6 +4,7 @@
   import SaveBar from '../lib/SaveBar.svelte';
   import SaveTab from '../lib/SaveTab.svelte';
   import SubTabs from '../lib/SubTabs.svelte';
+  import MiiBelongingsPanel from '../lib/mii/MiiBelongingsPanel.svelte';
   import MiiHabitPanel from '../lib/mii/MiiHabitPanel.svelte';
   import MiiPanel from '../lib/mii/MiiPanel.svelte';
   import MiiRelationsGraph from '../lib/mii/MiiRelationsGraph.svelte';
@@ -18,7 +19,7 @@
     syncFromSave();
   });
 
-  type SubTab = 'profile' | 'relationships' | 'troubles' | 'habits' | 'advanced';
+  type SubTab = 'profile' | 'relationships' | 'belongings' | 'troubles' | 'habits' | 'advanced';
   let subTab = $state<SubTab>('profile');
 
   let selectedIndex = $state<number | null>(null);
@@ -26,6 +27,7 @@
   const SUB_TABS: { value: SubTab; label: string }[] = $derived([
     { value: 'profile', label: $_('mii.subtab_profile') },
     { value: 'relationships', label: $_('mii.subtab_relationships') },
+    { value: 'belongings', label: $_('mii.subtab_belongings') },
     { value: 'troubles', label: $_('mii.subtab_troubles') },
     { value: 'habits', label: $_('mii.subtab_habits') },
     { value: 'advanced', label: $_('tab.advanced') },
@@ -63,6 +65,8 @@
           {selectedIndex}
           onSelect={(i) => (selectedIndex = i)}
         />
+      {:else if subTab === 'belongings'}
+        <MiiBelongingsPanel entries={parsed.entries} bind:selectedIndex />
       {:else if subTab === 'troubles'}
         <MiiTroublePanel entries={parsed.entries} bind:selectedIndex />
       {:else if subTab === 'habits'}
