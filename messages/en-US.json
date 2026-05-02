@@ -616,6 +616,15 @@
     "subtab_belongings": "Belongings",
     "subtab_troubles": "Troubles",
     "subtab_habits": "Habits",
+    "export": {
+      "summary": "Export island data",
+      "show": "Show",
+      "hide": "Hide",
+      "description": "Export every Mii and their relationships as a file you can open elsewhere. Your save isn't modified.",
+      "json": "Full snapshot (JSON)",
+      "miis_csv": "Miis (CSV)",
+      "relationships_csv": "Relationships (CSV)"
+    },
     "belongings": {
       "missing": "This save does not expose Mii.Belongings.ClothOwnInfo, so belongings can't be edited here.",
       "worn_heading": "Currently worn",

@@ -638,6 +638,15 @@
     "subtab_belongings": "Affaires",
     "subtab_troubles": "Soucis",
     "subtab_habits": "Manies",
+    "export": {
+      "summary": "Exporter les données de l'île",
+      "show": "Afficher",
+      "hide": "Masquer",
+      "description": "Exporte tous les Miis et leurs relations dans un fichier ouvrable ailleurs. Ta sauvegarde n'est pas modifiée.",
+      "json": "Instantané complet (JSON)",
+      "miis_csv": "Miis (CSV)",
+      "relationships_csv": "Relations (CSV)"
+    },
     "belongings": {
       "missing": "Cette sauvegarde n'expose pas Mii.Belongings.ClothOwnInfo, les affaires ne peuvent donc pas être éditées ici.",
       "worn_heading": "Tenue actuelle",

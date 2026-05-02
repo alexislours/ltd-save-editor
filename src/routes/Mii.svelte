@@ -9,9 +9,18 @@
   import MiiPanel from '../lib/mii/MiiPanel.svelte';
   import MiiRelationsGraph from '../lib/mii/MiiRelationsGraph.svelte';
   import MiiTroublePanel from '../lib/mii/MiiTroublePanel.svelte';
+  import {
+    buildMiiExport,
+    buildMiiExportFile,
+    exportTimestamp,
+    type MiiExportFormat,
+  } from '../lib/mii/export';
   import { downloadModified, markDirty, miiState, syncFromSave } from '../lib/mii/miiEditor.svelte';
   import { _ } from 'svelte-i18n';
-  import { getSave } from '../lib/saveFile.svelte';
+  import { track } from '../lib/analytics';
+  import { downloadText } from '../lib/sav/download';
+  import { expectedFileName, getSave } from '../lib/saveFile.svelte';
+  import { PILL_BUTTON_CLASS } from '../lib/styles';
 
   const save = $derived(getSave('mii'));
   $effect(() => {
@@ -36,6 +45,21 @@
   function download(): void {
     try {
       downloadModified();
+    } catch (e) {
+      alert(e instanceof Error ? e.message : String(e));
+    }
+  }
+
+  function exportData(format: MiiExportFormat): void {
+    if (!miiState.parsed) return;
+    try {
+      const data = buildMiiExport(miiState.parsed.entries, {
+        appVersion: __APP_VERSION__,
+        saveFile: expectedFileName.mii,
+      });
+      const file = buildMiiExportFile(data, format, exportTimestamp());
+      downloadText(file.content, file.filename, file.mime);
+      track('export_mii_data', { format, mii_count: data.miis.length });
     } catch (e) {
       alert(e instanceof Error ? e.message : String(e));
     }
@@ -74,6 +98,34 @@
       {:else}
         <AdvancedPanel entries={parsed.entries} {markDirty} parseSignal={miiState.parsed} />
       {/if}
+
+      <details class="group rounded-md border border-edge/60 bg-surface-muted px-3 py-2.5">
+        <summary
+          class="flex cursor-pointer list-none items-center justify-between gap-3 select-none"
+        >
+          <span class="text-sm font-bold text-content">{$_('mii.export.summary')}</span>
+          <span class="shrink-0 text-xs font-normal text-content-muted">
+            <span class="group-open:hidden">{$_('mii.export.show')}</span>
+            <span class="hidden group-open:inline">{$_('mii.export.hide')}</span>
+          </span>
+        </summary>
+        <p class="mt-2 text-xs text-content-muted">{$_('mii.export.description')}</p>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button type="button" class={PILL_BUTTON_CLASS} onclick={() => exportData('json')}>
+            {$_('mii.export.json')}
+          </button>
+          <button type="button" class={PILL_BUTTON_CLASS} onclick={() => exportData('miis-csv')}>
+            {$_('mii.export.miis_csv')}
+          </button>
+          <button
+            type="button"
+            class={PILL_BUTTON_CLASS}
+            onclick={() => exportData('relationships-csv')}
+          >
+            {$_('mii.export.relationships_csv')}
+          </button>
+        </div>
+      </details>
     {/if}
   </SaveTab>
 </AppLayout>
