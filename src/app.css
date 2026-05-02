@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'driver.js/dist/driver.css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -112,16 +113,12 @@ html.dark ::selection {
 }
 
 .driver-popover {
-  background: var(--color-surface);
+  background-color: var(--color-surface);
   color: var(--color-content);
-  border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-  border: 1px solid var(--color-edge);
 }
 
 .driver-popover-title {
   color: var(--color-content-strong);
-  font-weight: 700;
 }
 
 .driver-popover-description {
@@ -130,29 +127,38 @@ html.dark ::selection {
 
 .driver-popover-progress-text {
   color: var(--color-content-muted);
-  font-weight: 600;
 }
 
-.driver-popover-prev-btn,
-.driver-popover-next-btn,
-.driver-popover-close-btn {
-  background: var(--color-surface-muted);
+.driver-popover-footer button {
+  background-color: var(--color-surface-muted);
   color: var(--color-content-strong);
+  border-color: var(--color-edge);
   text-shadow: none;
-  border: 1px solid var(--color-edge);
-  border-radius: 9999px;
-  padding: 0.35rem 0.9rem;
-  font-weight: 700;
+}
+
+.driver-popover-footer button:hover,
+.driver-popover-footer button:focus {
+  background-color: var(--color-surface-sunken);
 }
 
 .driver-popover-next-btn {
-  background: var(--color-brand-soft);
-  color: #fff;
-  border-color: var(--color-brand);
+  background-color: var(--color-brand-soft) !important;
+  color: #fff !important;
+  border-color: var(--color-brand) !important;
 }
 
-.driver-popover-next-btn:hover {
-  background: var(--color-brand);
+.driver-popover-next-btn:hover,
+.driver-popover-next-btn:focus {
+  background-color: var(--color-brand) !important;
+}
+
+.driver-popover-close-btn {
+  color: var(--color-content-faint);
+}
+
+.driver-popover-close-btn:hover,
+.driver-popover-close-btn:focus {
+  color: var(--color-content-strong);
 }
 
 .driver-popover-arrow-side-top.driver-popover-arrow {

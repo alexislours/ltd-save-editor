@@ -2,7 +2,6 @@
   import { tick } from 'svelte';
   import { _ } from 'svelte-i18n';
   import { driver, type Driver } from 'driver.js';
-  import 'driver.js/dist/driver.css';
   import { track } from './analytics';
   import { getPath, navigate } from './navigation.svelte';
   import { getSave } from './saveFile.svelte';
