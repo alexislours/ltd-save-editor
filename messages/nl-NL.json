@@ -1,0 +1,1508 @@
+{
+  "app": {
+    "title": "SAVE EDITOR",
+    "game_title": "Tomodachi Life: Living the Dream"
+  },
+  "beta": {
+    "badge": "BETA",
+    "warning": "Je gebruikt de bètaversie. Functies kunnen instabiel zijn - bewaar een back-up van je savebestanden.",
+    "try_link": "Probeer de beta →",
+    "stable_link": "← Stabiele versie"
+  },
+  "header": {
+    "changelog_sr": ", changelog tonen",
+    "changelog_sr_new": ", changelog tonen (nieuwe updates)",
+    "language_sr": "Taal wijzigen, huidig:"
+  },
+  "tutorial": {
+    "button": "Tutorials",
+    "dialog_eyebrow": "Rondleidingen",
+    "dialog_title": "Kies een tutorial",
+    "dialog_intro": "Er verschijnen meer tutorials zodra je meer saves laadt.",
+    "dialog_close": "Tutorials sluiten",
+    "next": "Volgende",
+    "prev": "Terug",
+    "done": "Begrepen",
+    "gs": {
+      "name": "Aan de slag",
+      "description": "Hoe je je savebestanden voor het eerst laadt.",
+      "welcome": {
+        "title": "Welkom",
+        "description": "Een korte rondleiding om je op weg te helpen met het bewerken van je Tomodachi Life-savebestanden. Je kunt op elk moment stoppen."
+      },
+      "nav": {
+        "title": "Kies een type savebestand",
+        "description": "Elk tabblad bewerkt een deel van je save: Player voor stats en ontgrendelingen, Mii voor je bewoners, Map voor de indeling van het eiland. De ShareMii- en UGC-editorfuncties gebruiken de Player-save opnieuw."
+      },
+      "drop": {
+        "title": "Sleep je save hierheen",
+        "description": "Sleep je savemap, een zip of het losse .sav-bestand hierheen."
+      },
+      "backup": {
+        "title": "Bewaar altijd een back-up",
+        "description": "Bewerkingen kunnen je game beschadigen. Kopieer je originele savebestand naar een veilige plek voordat je het probeert aan te passen."
+      },
+      "done": {
+        "title": "Je bent klaar",
+        "description": "Zodra een save is geladen, wordt de editor ontgrendeld. Je kunt dit Tutorials-menu altijd opnieuw openen, en er verschijnen meer rondleidingen zodra je meer saves laadt."
+      }
+    },
+    "save_bar": {
+      "name": "Rondleiding door de savebalk",
+      "description": "Hoe je saves laadt, exporteert, wist en downloadt.",
+      "intro": {
+        "title": "De savebalk",
+        "description": "De savebalk bovenaan elk geladen tabblad is je bedieningspaneel voor alles wat in de editor staat."
+      },
+      "bar": {
+        "title": "Overzicht",
+        "description": "Je ziet er altijd of de huidige save niet-opgeslagen bewerkingen heeft, en hij bundelt acties die alle geladen saves tegelijk beïnvloeden."
+      },
+      "status": {
+        "title": "Indicator voor niet-opgeslagen wijzigingen",
+        "description": "Er verschijnt een oranje punt met het label \"Niet-opgeslagen wijzigingen\" zodra je iets bewerkt."
+      },
+      "open": {
+        "title": "Alles openen",
+        "description": "Blader en kies een of meerdere .sav-bestanden (of een zip / savemap)."
+      },
+      "export": {
+        "title": "Alles exporteren",
+        "description": "Download elke geladen save in één zip. Handig als je al je bewerkingen wilt exporteren."
+      },
+      "clear": {
+        "title": "Alles wissen",
+        "description": "Verwijdert elke geladen save uit de editor. Als je opnieuw wilt beginnen, is dit de juiste knop."
+      },
+      "download": {
+        "title": "Deze save downloaden",
+        "description": "Download alleen de save van het huidige tabblad."
+      }
+    },
+    "player": {
+      "name": "Rondleiding door Player-editor",
+      "description": "Loop door elke Player-sectie.",
+      "intro": {
+        "title": "Player-editor",
+        "description": "Bewerk de naam van je personage, geld, speeltijd, ontgrendelde items, kleding, eten, schatten en gebouwen. Deze rondleiding laat je elke sectie zien."
+      },
+      "subtabs": {
+        "title": "Player-secties",
+        "description": "Met deze knoppen wissel je tussen de samengestelde panelen. Klik op elk paneel om te zien hoe de inhoud verandert, of laat deze rondleiding sturen."
+      },
+      "outro": {
+        "title": "Dat was het Player-tabblad",
+        "description": "Maak de bewerkingen die je wilt en download daarna Player.sav via de savebalk."
+      },
+      "tabs": {
+        "profile": {
+          "title": "Profiel",
+          "description": "Stelt de naam van je personage in (met optionele uitspraak), eilandnaam, geld op zak en totale speeltijd."
+        },
+        "foods": {
+          "title": "Eten",
+          "description": "Elk etensitem dat de game kent. Zet aan welke items ontgrendeld zijn, of wijzig hoeveel je ervan hebt."
+        },
+        "clothes": {
+          "title": "Kleding",
+          "description": "Hetzelfde idee, maar dan voor kledingitems. Elk item kan worden ontgrendeld, vergrendeld of in aantal aangepast."
+        },
+        "clothing_sets": {
+          "title": "Kledingsets",
+          "description": "Samengestelde outfits die de game aanbiedt. Handig om met één klik een volledige look te ontgrendelen zonder losse kledingstukken om te zetten."
+        },
+        "treasures": {
+          "title": "Schatten",
+          "description": "Ontgrendel de verschillende schatten die je in de game kunt krijgen."
+        },
+        "interiors": {
+          "title": "Interieurs",
+          "description": "Ontgrendelingen voor kamerstijlen. Hetzelfde aan/uit- en aantallenpatroon als de andere verzamelingen."
+        },
+        "buildings": {
+          "title": "Gebouwen",
+          "description": "De gebouwen en objecten die je op de kaart kunt plaatsen (winkel, lantaarnpaal, bankjes, enz.)."
+        },
+        "ugc": {
+          "title": "UGC-tekst",
+          "description": "Alle woorden van het eiland."
+        },
+        "advanced": {
+          "title": "Geavanceerd",
+          "description": "De ruwe entryweergave. Zoek op hash of naam, bekijk elk veld en bewerk alles wat de samengestelde panelen niet tonen. Wees voorzichtig."
+        }
+      }
+    },
+    "mii": {
+      "name": "Rondleiding door Mii-editor",
+      "description": "Loop door elke Mii-sectie.",
+      "intro": {
+        "title": "Mii-editor",
+        "description": "Bewerk elke Mii op je eiland: wie ze zijn, hoe ze over elkaar denken en wat ze bezitten. Deze rondleiding laat je elke sectie zien."
+      },
+      "subtabs": {
+        "title": "Mii-secties",
+        "description": "Met deze knoppen wissel je tussen de samengestelde panelen. Klik op elk paneel om te zien hoe de inhoud verandert, of laat deze rondleiding sturen."
+      },
+      "outro": {
+        "title": "Dat was het Mii-tabblad",
+        "description": "Maak de bewerkingen die je wilt en download daarna Mii.sav via de savebalk."
+      },
+      "tabs": {
+        "profile": {
+          "title": "Profiel",
+          "description": "De identiteit van elke Mii: naam en uitspraak, stem, gender, verjaardag, lichaamsvorm, persoonlijkheidstrekken en de catchphrases die ze in-game zeggen."
+        },
+        "relationships": {
+          "title": "Relatiegrafiek",
+          "description": "De sociale grafiek tussen bewoners. Zie hoe elke Mii over de anderen denkt."
+        },
+        "belongings": {
+          "title": "Bezittingen",
+          "description": "Wat elke Mii draagt en bij zich heeft: hun outfit, eten en schatten. Deel items uit of neem ze terug."
+        },
+        "troubles": {
+          "title": "Problemen",
+          "description": "Elke klacht die een Mii momenteel heeft. Los ze op, negeer ze of trigger nieuwe."
+        },
+        "habits": {
+          "title": "Gewoontes",
+          "description": "Bewerk hun eigenaardigheden."
+        },
+        "advanced": {
+          "title": "Geavanceerd",
+          "description": "De ruwe entryweergave. Zoek op hash of naam, bekijk elk veld en bewerk alles wat de samengestelde panelen niet tonen. Wees voorzichtig."
+        }
+      }
+    },
+    "map": {
+      "name": "Rondleiding door Map-editor",
+      "description": "Loop door elke Map-sectie.",
+      "intro": {
+        "title": "Map-editor",
+        "description": "Herontwerp de indeling van je eiland, de vloertegels waar je op loopt en waar elk gebouw staat. Deze rondleiding laat je elke sectie zien."
+      },
+      "subtabs": {
+        "title": "Map-secties",
+        "description": "Met deze knoppen wissel je tussen de samengestelde panelen. Klik op elk paneel om te zien hoe de inhoud verandert, of laat deze rondleiding sturen."
+      },
+      "outro": {
+        "title": "Dat was het Map-tabblad",
+        "description": "Maak de bewerkingen die je wilt en download daarna Map.sav via de savebalk."
+      },
+      "tabs": {
+        "floor": {
+          "title": "Vloer",
+          "description": "Schilder de grondtegels van je eiland. Kies een tegel uit het palet en gebruik daarna Penseel, Vullen of Rechthoek. Rechtsklik kiest de tegel onder de cursor. Cmd/Ctrl+Z en Cmd/Ctrl+Shift+Z maken ongedaan en opnieuw."
+        },
+        "objects": {
+          "title": "Objecten",
+          "description": "Elk gebouw en decorstuk op de kaart. Verplaats ze en draai ze."
+        },
+        "advanced": {
+          "title": "Geavanceerd",
+          "description": "De ruwe entryweergave. Zoek op hash of naam, bekijk elk veld en bewerk alles wat de samengestelde panelen niet tonen. Wees voorzichtig."
+        }
+      }
+    },
+    "sharemii": {
+      "name": "ShareMii-rondleiding",
+      "description": "Leer hoe je ShareMii-bestanden importeert en exporteert.",
+      "intro": {
+        "title": "ShareMii",
+        "description": "Ruil Miis en UGC-items met andere spelers via het ShareMii-formaat. Vereist een geladen Player-save."
+      },
+      "kinds": {
+        "title": "ShareMii-soorten",
+        "description": "Wissel tussen Miis en de UGC-soorten. De lijst hieronder past zich daarop aan."
+      },
+      "replace": {
+        "title": "Een slot vervangen",
+        "description": "Klik op Vervangen in een rij om dat slot te wisselen. Het importpaneel opent eronder zodat je het bestand kunt kiezen en het doel kunt bevestigen."
+      },
+      "import_file": {
+        "title": "Kies een ShareMii-bestand",
+        "description": "Kies hier het .ltd ShareMii-bestand dat je wilt importeren (of een .zip-bundel). Dit is het bestand dat je van een andere speler kreeg of eerder hebt geëxporteerd."
+      },
+      "import_target": {
+        "title": "Doelslot",
+        "description": "Kies het slot waarin de geïmporteerde Mii of het item terecht moet komen. Vervangen selecteert alvast de rij waarop je klikte."
+      },
+      "import_apply": {
+        "title": "Import toepassen",
+        "description": "Toepassen schrijft de wijzigingen naar je geladen saves. Voor Miis past dit Mii.sav en Player.sav aan (relaties, eigendom, enz.)."
+      },
+      "save_bar_export": {
+        "title": "Alles exporteren via de savebalk",
+        "description": "Omdat het importeren van een ShareMii-Mii zowel Mii.sav als Player.sav aanpast, gebruik je Alles exporteren in de savebalk om elke gewijzigde save in één keer te downloaden. Dat is in de meeste gevallen de juiste keuze."
+      },
+      "export_row": {
+        "title": "Export per rij",
+        "description": "Je kunt ook een Mii of UGC-item afzonderlijk exporteren in ShareMii-formaat."
+      },
+      "outro": {
+        "title": "Dat was ShareMii",
+        "description": "Laad een pakket, kies een soort, vervang naar een slot en download daarna beide gewijzigde saves met Alles exporteren via de savebalk. Maak altijd een back-up voordat je importeert."
+      }
+    },
+    "ugc": {
+      "name": "Rondleiding door UGC-editor",
+      "description": "Loop door elke UGC-soort.",
+      "intro": {
+        "title": "UGC-editor",
+        "description": "Vervang de texturen van UGC-items (kleding, eten, goederen, exterieurs, interieurs, kaartobjecten, kaartvloeren) door je eigen afbeeldingen."
+      },
+      "kinds": {
+        "title": "UGC-soorten",
+        "description": "Wissel tussen de soorten die je kunt bewerken. De lijst hieronder toont de slots in die categorie."
+      },
+      "pick_slot": {
+        "title": "Kies een slot",
+        "description": "Klik op een slot om het te selecteren. De huidige textuur wordt rechts geladen en er verschijnt een editor."
+      },
+      "editor": {
+        "title": "De editor",
+        "description": "Hier pas je het geselecteerde slot aan. Hernoem het bovenaan, bekijk de huidige textuur naast de nieuwe en pas passend maken/achtergrond aan zodra je een afbeelding laadt. Met de knoppen onderaan kun je terugzetten, de huidige textuur exporteren als PNG of vervangen."
+      },
+      "drop": {
+        "title": "Sleep een PNG hierheen",
+        "description": "Sleep een .png, .jpg of .webp hierheen (of klik om er een te kiezen). Zodra die is geladen, krijg je hieronder opties voor passend maken en achtergrond."
+      },
+      "replace": {
+        "title": "Textuur vervangen",
+        "description": "Vervangen bakt de nieuwe afbeelding in de UGC-bestanden voor dit slot. Gebruik Terugzetten ernaast om ongedaan te maken. Vervangen wijzigt alleen UGC-bestanden, niet Mii.sav of Player.sav."
+      },
+      "download_pending": {
+        "title": "Download je bewerkingen",
+        "description": "Bewerkte UGC-bestanden komen hier in de wachtrij. Klik om een .zip met de aangepaste .canvas.zs- en .ugctex.zs-bestanden te pakken en zet ze daarna terug in je Ugc/-map op de console."
+      },
+      "outro": {
+        "title": "Dat was de UGC-editor",
+        "description": "Kies een slot, sleep een afbeelding erin, pas de fit aan, vervang en download daarna de bewerkte bestanden via de savebalk."
+      }
+    }
+  },
+  "tab": {
+    "player": "Player",
+    "mii": "Mii",
+    "map": "Map",
+    "sharemii": "ShareMii",
+    "ugc_editor": "UGC-editor",
+    "advanced": "Geavanceerd",
+    "faq": "FAQ",
+    "about": "Over"
+  },
+  "ugc_editor": {
+    "title": "UGC-editor",
+    "description": "Vervang UGC-texturen (kleding, eten, goederen, exterieurs, interieurs, kaartobjecten, kaartvloeren) door je eigen PNG-afbeeldingen. Laadt .canvas.zs- en .ugctex.zs-bestanden uit je savemap.",
+    "needs_player": "Laad {playerSav} via het Player-tabblad om te beginnen.",
+    "kind_tabs_label": "UGC-soort",
+    "save_bar": {
+      "download_pending": "{count} bewerkt(e) bestand(en) downloaden"
+    },
+    "sidecar": {
+      "none": "Geen Ugc/-map geladen",
+      "loaded": "{count} bestand(en) geladen",
+      "hint": "Sleep je savemap of een zip van de Ugc/-map hierheen. Gedeeld met het ShareMii-tabblad.",
+      "pick_folder": "Ugc-map kiezen",
+      "pick_zip": "Zip kiezen",
+      "clear": "Wissen"
+    },
+    "list": {
+      "title": "Items ({count})",
+      "empty": "Geen items gevonden in deze categorie.",
+      "add_new": "+ Nieuwe toevoegen (slot {slot})",
+      "unnamed": "Item {slot}"
+    },
+    "editor": {
+      "pick_item": "Selecteer een item uit de lijst om te bewerken.",
+      "current": "Huidig",
+      "new": "Nieuw",
+      "no_current": "Niet in sidecar.",
+      "needs_sidecar": "Laad Ugc/-map.",
+      "drop_png": "Klik of sleep hier een PNG, JPG of WEBP",
+      "export_png": "Exporteren als PNG",
+      "replace": "Textuur vervangen",
+      "revert": "Terugzetten",
+      "applying": "Coderen…",
+      "regenerate_thumb": "Thumbnail opnieuw genereren",
+      "regenerate_thumb_hint": "Overschrijf de bestaande thumbnail met één die uit je PNG is gegenereerd. Laat uitgevinkt om de huidige thumbnail te behouden.",
+      "fit_mode": {
+        "label": "Passend maken",
+        "cover": "Bedekken",
+        "contain": "Bevatten",
+        "fill": "Vullen",
+        "cover_hint": "Bijsnijden zodat de textuur gevuld wordt, met behoud van beeldverhouding.",
+        "contain_hint": "De hele afbeelding erin passen, met transparante randen.",
+        "fill_hint": "Uitrekken om de textuur te vullen, zonder beeldverhouding te behouden."
+      },
+      "transform": {
+        "label": "Transformeren",
+        "rotate_ccw": "Linksom draaien",
+        "rotate_cw": "Rechtsom draaien",
+        "flip_h": "Horizontaal spiegelen",
+        "flip_v": "Verticaal spiegelen"
+      },
+      "matte": {
+        "label": "Achtergrond",
+        "transparent": "Transparant",
+        "white": "Wit",
+        "black": "Zwart",
+        "custom": "Aangepaste kleur"
+      },
+      "rename": {
+        "label": "Naam",
+        "placeholder": "Itemnaam",
+        "save": "Hernoemen",
+        "saved": "Slot {slot} hernoemd.",
+        "empty": "Naam mag niet leeg zijn."
+      },
+      "texture": {
+        "canvas": "Canvas",
+        "ugctex": "UgcTex",
+        "thumb": "Thumb"
+      }
+    },
+    "toast": {
+      "loaded_folder": "{count} .zs-bestand(en) uit map geladen.",
+      "loaded_zip": "{count} .zs-bestand(en) uit zip geladen.",
+      "no_zs_in_folder": "Geen .canvas.zs- / .ugctex.zs-bestanden in die map.",
+      "no_zs_in_zip": "Geen .canvas.zs- / .ugctex.zs-bestanden in die zip.",
+      "only_png": "Sleep een PNG-bestand.",
+      "unsupported_image": "Sleep een PNG-, JPG- of WEBP-bestand.",
+      "no_texture": "Nog geen textuurbestand voor dit item.",
+      "replaced": "Slot {slot} vervangen. Bestanden klaargezet om te downloaden.",
+      "reverted": "Slot {slot} teruggezet naar de geladen staat.",
+      "exported": "{fileName} geëxporteerd",
+      "downloaded_pending": "{count} bewerkt(e) bestand(en) als zip gedownload."
+    }
+  },
+  "lightbox": {
+    "open": "Afbeelding van {label} vergroten",
+    "close": "Vergrote afbeelding sluiten"
+  },
+  "save": {
+    "no_changes": "Geen wijzigingen",
+    "unsaved_changes": "Niet-opgeslagen wijzigingen",
+    "replace_action": "Vervangen",
+    "bytes_unit": "bytes",
+    "parse_failed": "Kon {fileName} niet parsen: {error}",
+    "waiting": "Wachten op {fileName}…",
+    "upload_prompt": "Upload je {fileName} om te beginnen.",
+    "drop_here": "Sleep {fileName} hierheen",
+    "drop_browse": "of klik om te bladeren",
+    "drop_warning_label": "Waarschuwing:",
+    "drop_warning_text": "het bewerken van savebestanden kan je game beschadigen. Bewaar altijd een back-up van het originele bestand voordat je uploadt.",
+    "read_failed": "Kon bestand niet lezen",
+    "wrong_tab": "{actual} hoort in het tabblad {correctTab}, niet in het tabblad {expectedTab}.",
+    "unrecognized_file": "{actual} is geen herkend savebestand. Verwacht Player.sav, Mii.sav of Map.sav."
+  },
+  "bulk": {
+    "drop_hint": "Sleep een of meer .sav-bestanden, een map of een .zip hierheen. Elk bestand wordt naar het juiste tabblad gestuurd.",
+    "open_all": "Bestanden openen…",
+    "export_all": "Alles exporteren ({count})",
+    "loaded_count": "{count, plural, one {# save} other {# saves}} geladen",
+    "skipped_count": "{count, plural, one {# bestand overgeslagen} other {# bestanden overgeslagen}} (niet herkend).",
+    "none_recognized": "Geen herkende savebestanden gevonden. Verwacht Player.sav, Mii.sav of Map.sav.",
+    "overwrite_title": "Al geladen saves vervangen?",
+    "overwrite_intro": "De volgende tabbladen hebben al een save geladen. Als je doorgaat, worden ze vervangen door de nieuwe bestanden:",
+    "overwrite_warning": "alle niet-opgeslagen bewerkingen in die tabbladen gaan verloren. Zorg dat je wijzigingen eerst hebt gedownload.",
+    "overwrite_confirm": "Vervangen",
+    "clear_all": "Alles wissen",
+    "clear_title": "Geladen saves wissen?",
+    "clear_intro": "Dit verwijdert de volgende saves uit de editor:",
+    "clear_warning": "alle niet-opgeslagen bewerkingen gaan verloren. Zorg dat je wijzigingen eerst hebt gedownload.",
+    "clear_confirm": "Wissen",
+    "cancel": "Annuleren"
+  },
+  "session": {
+    "restore_title": "Vorige sessie herstellen?",
+    "restore_intro": "Vorige sessie. Herstel je laatste bewerkingen of sluit dit om opnieuw te beginnen.",
+    "restore_note": "Saves blijven in deze browser en worden nooit geüpload. Dit sluiten, of \"Alles wissen\" gebruiken, verwijdert ze.",
+    "restore_confirm": "Herstellen",
+    "restore_dismiss": "Sluiten"
+  },
+  "player": {
+    "title": "Player",
+    "description": "Belangrijkste spelerstats en gamevoortgang.",
+    "download_action": "Player.sav downloaden",
+    "empty_state": "Geen van de samengestelde Player-velden is in deze save gevonden. Gebruik de sectie Geavanceerd hieronder om alles te bekijken.",
+    "name_label": "Spelernaam",
+    "name_pronounced_label": "Uitspraak",
+    "island_label": "Eiland",
+    "island_pronounced_label": "Uitspraak",
+    "skin_tone_label": "Huidskleur",
+    "island_size_label": "Eilandgrootte",
+    "island_size_options": {
+      "1": "1 - 50 × 36",
+      "2": "2 - 70 × 50",
+      "3": "3 - 90 × 64",
+      "4": "4 - 120 × 80"
+    },
+    "money_label": "Geld",
+    "birthday_label": "Verjaardag",
+    "play_time_label": "Speeltijd",
+    "play_time_unit": "seconden",
+    "boots_label": "Opstarts",
+    "fountain_section": "Fontein",
+    "fountain_level_label": "Fonteinniveau",
+    "wishes_label": "Wensen",
+    "region_section": "Regio en taal",
+    "region_label": "Regio",
+    "region_code_label": "Regiocode",
+    "name_language_label": "Taal van naam",
+    "island_language_label": "Taal van eilandnaam",
+    "hand_tones": {
+      "0": "Handkleur 1",
+      "1": "Handkleur 2",
+      "2": "Handkleur 3",
+      "3": "Handkleur 4",
+      "4": "Handkleur 5",
+      "5": "Handkleur 6"
+    },
+    "regions": {
+      "Japan": "Japan",
+      "Europe": "Europa",
+      "NorthAmerica": "Noord-Amerika",
+      "SouthAmericaN": "Zuid-Amerika - noordelijk halfrond",
+      "SouthAmericaS": "Zuid-Amerika - zuidelijk halfrond",
+      "Australia": "Australië / Nieuw-Zeeland",
+      "Asia": "Hongkong / Taiwan / Zuid-Korea",
+      "OthersN": "Overig - noordelijk halfrond",
+      "OthersS": "Overig - zuidelijk halfrond"
+    },
+    "errors": {
+      "non_negative_integer": "Moet een niet-negatief geheel getal zijn",
+      "integer": "Moet een geheel getal zijn",
+      "number": "Moet een getal zijn",
+      "non_negative_number": "Moet een niet-negatief getal zijn",
+      "money_max": "Max is 999.999,99",
+      "invalid_number": "Ongeldig getal",
+      "unsupported_type": "Niet-ondersteund veldtype"
+    },
+    "sections_label": "Player-secties",
+    "subtab_profile": "Profiel",
+    "subtab_foods": "Eten",
+    "subtab_clothes": "Kleding",
+    "subtab_clothing_sets": "Kledingsets",
+    "subtab_treasures": "Schatten",
+    "subtab_interiors": "Interieurs",
+    "subtab_buildings": "Gebouwen",
+    "subtab_ugc": "UGC",
+    "ugc_text": {
+      "heading": "UGC-tekst",
+      "description": "Woorden en zinnen opgeslagen in UGC.Text.TextData.*. Gebruikt door Mii-dialogen, nieuws en andere content die naar aangepaste tekst verwijst.",
+      "missing": "Deze save toont de UGC.Text.TextData.*-arrays niet.",
+      "summary": "{filled} van {total} slots gevuld",
+      "show_empty": "Lege slots tonen",
+      "add_slot": "Slot toevoegen",
+      "empty_hint": "Nog geen UGC-tekst. Gebruik \"Slot toevoegen\" om er een te maken.",
+      "entry_index": "#{index}",
+      "text_placeholder": "Aangepaste tekst…",
+      "how_placeholder": "Hetzelfde als tekst",
+      "how_hint": "Fonetische spelling die door stemafspelen wordt gebruikt. Laat leeg om de tekst te spiegelen.",
+      "clear_action": "Wissen",
+      "clear_tip": "Dit slot leegmaken",
+      "clear_confirm": "Deze UGC-tekstslot wissen? Genre, taal, tekst en uitspraak worden gereset.",
+      "error_too_long": "Max {max} tekens",
+      "error_split_surrogate": "Laatste teken splitst een emoji. Haal er één weg.",
+      "field": {
+        "text": "Tekst",
+        "howToCallText": "Uitspraak",
+        "genre": "Genre",
+        "regionLanguageId": "Taal",
+        "attribute": "Gevoelswaarde",
+        "wordAttrGrammaticality": "Grammaticaliteit",
+        "addTime": "Toegevoegd (epoch)"
+      },
+      "genre": {
+        "Invalid": "(leeg slot)",
+        "Person": "Persoon",
+        "Object": "Object",
+        "Action": "Actie",
+        "Image": "Afbeelding",
+        "Topic": "Onderwerp",
+        "Phrase": "Zin"
+      },
+      "attribute": {
+        "Neutral": "Neutraal",
+        "Positive": "Positief",
+        "Negative": "Negatief"
+      },
+      "grammaticality": {
+        "cNone": "Geen",
+        "cMasculine": "Mannelijk",
+        "cFeminine": "Vrouwelijk",
+        "cNeuter": "Onzijdig"
+      }
+    },
+    "inventory": {
+      "search": "Zoeken",
+      "search_placeholder": "Filteren op naam…",
+      "bulk_summary": "Bulkbewerking (geavanceerd)",
+      "bulk_warning": "Dit overschrijft de staat en/of hoeveelheid van elke momenteel zichtbare entry ({count}). Bewerkingen kunnen niet ongedaan worden gemaakt, behalve door je save opnieuw te openen. Zorg dat je een back-up hebt.",
+      "bulk_confirm": "Deze bulkbewerking toepassen op {count} entries? Dit kan niet ongedaan worden gemaakt.",
+      "bulk_state": "Bulkstatus",
+      "bulk_state_pick": "Kies een status…",
+      "bulk_qty": "Bulkhoeveelheid",
+      "apply": "Toepassen",
+      "empty": "Niets komt overeen met het huidige filter.",
+      "increment": "Eén toevoegen",
+      "decrement": "Eén verwijderen",
+      "expand_colors": "Kleurvarianten tonen",
+      "collapse_colors": "Kleurvarianten verbergen",
+      "expand_variants": "Varianten tonen",
+      "collapse_variants": "Varianten verbergen",
+      "state": {
+        "Lock": "Vergrendeld",
+        "New": "Nieuw",
+        "Arrived": "Aangekomen",
+        "Opened": "Geopend",
+        "Obtained": "Verkregen"
+      }
+    },
+    "foods": {
+      "heading": "Eten",
+      "caption": "{count, plural, one {# etensitem} other {# etensitems}} getoond. Markeer als Verkregen om te ontgrendelen in je winkel; OwnNum is het aantal in je inventaris.",
+      "missing": "Deze save toont Player.FoodInfo.State of OwnNum niet, dus eten kan hier niet worden bewerkt."
+    },
+    "clothes": {
+      "heading": "Kleding",
+      "caption": "{count, plural, one {# kledingstuk} other {# kledingstukken}} getoond. Markeer als Verkregen om te ontgrendelen in je winkel; OwnNum is het aantal in je inventaris.",
+      "color_note": "Bediening op kledingstukniveau geldt voor elke kleurvariant. Klap een rij uit om één kleur te bewerken.",
+      "color_count": "{count, plural, one {# kleur} other {# kleuren}}",
+      "color_label": "Kleur {index}",
+      "missing": "Deze save toont Player.ClothInfo.OwnInfoArray.State of OwnNum niet, dus kleding kan hier niet worden bewerkt."
+    },
+    "clothing_sets": {
+      "heading": "Kledingsets",
+      "caption": "{count, plural, one {# kledingset} other {# kledingsets}} getoond. Markeer als Verkregen om de set in je winkel te ontgrendelen; OwnNum is het aantal in je inventaris. Een kledingset is een volledige outfit die een Mii in één slot kan dragen.",
+      "color_note": "Bediening op setniveau geldt voor elke kleurvariant. Klap een rij uit om één kleur te bewerken.",
+      "color_count": "{count, plural, one {# kleur} other {# kleuren}}",
+      "color_label": "Kleur {index}",
+      "missing": "Deze save toont Player.CoordinateInfo.OwnInfoArray.State of OwnNum niet, dus kledingsets kunnen hier niet worden bewerkt."
+    },
+    "treasures": {
+      "heading": "Schatten",
+      "caption": "{count, plural, one {# schat} other {# schatten}} getoond. Markeer als Verkregen om toe te voegen aan je verzameling; OwnNum is het aantal in je inventaris.",
+      "missing": "Deze save toont geen Player.GoodsInfo2-entries, dus schatten kunnen hier niet worden bewerkt."
+    },
+    "interiors": {
+      "heading": "Interieurs",
+      "caption": "{count, plural, one {# stijlgroep} other {# stijlgroepen}} getoond. Markeer als Verkregen om de interieurset te ontgrendelen; OwnNum is het aantal in je inventaris.",
+      "missing": "Deze save toont geen Player.InteriorRoomStyleInfo-entries, dus interieurs kunnen hier niet worden bewerkt.",
+      "variant_note": "Bediening op groepsniveau geldt voor elke variant in de set. Klap een rij uit om één variant te bewerken.",
+      "variant_count": "{count, plural, one {# variant} other {# varianten}}",
+      "variant_label": "Variant {index}"
+    },
+    "buildings": {
+      "heading": "Gebouwen",
+      "caption": "{count, plural, one {# gebouw} other {# gebouwen}} getoond. Markeer als Verkregen om te ontgrendelen in je winkel; OwnNum is hoeveel je er hebt geplaatst.",
+      "missing": "Deze save toont geen Player.BuildingInfo2-entries, dus gebouwen kunnen hier niet worden bewerkt.",
+      "variant_note": "Bediening op itemniveau geldt voor elke kleurvariant. Klap een rij uit om één kleur te bewerken.",
+      "variant_count": "{count, plural, one {# kleur} other {# kleuren}}",
+      "variant_label": "{color} (#{index})",
+      "category_facility": "Voorziening",
+      "category_object": "Kaartobject"
+    }
+  },
+  "mii": {
+    "title": "Mii",
+    "description": "Bewerk individuele Miis op je eiland.",
+    "download_action": "Mii.sav downloaden",
+    "sections_label": "Mii-secties",
+    "subtab_profile": "Profiel",
+    "subtab_relationships": "Relatiegrafiek",
+    "subtab_belongings": "Bezittingen",
+    "subtab_troubles": "Problemen",
+    "subtab_habits": "Gewoontes",
+    "belongings": {
+      "missing": "Deze save toont Mii.Belongings.ClothOwnInfo niet, dus bezittingen kunnen hier niet worden bewerkt.",
+      "worn_heading": "Momenteel gedragen",
+      "worn_caption": "Wat deze Mii nu echt draagt. De game geeft de voorkeur aan een kledingset wanneer er één is geselecteerd; de losse slots hieronder worden alleen gebruikt wanneer de kledingset (geen) is. Als je een slot op (geen) zet, laat je de game een standaard kiezen.",
+      "worn_coordinate": "Kledingset",
+      "worn_coordinate_caption": "Een kledingset is een volledige outfit. Wanneer die is ingesteld, overschrijft hij de losse kleding-slots.",
+      "worn_coordinate_pieces": "Onderdelen in deze kledingset",
+      "worn_switch_individual": "Stuk voor stuk aankleden →",
+      "worn_switch_individual_tip": "Wis de kledingset en kleed deze Mii aan met losse kleding-slots",
+      "worn_switch_coordinate": "Gebruik in plaats daarvan een kledingset →",
+      "worn_switch_coordinate_tip": "Wis de losse slots en kies in plaats daarvan een kledingset",
+      "worn_individual_blocked_warning": "Er is momenteel een kledingset actief die deze slots overschrijft. Wis die zodat losse onderdelen effect hebben.",
+      "worn_individual_clear_coord_action": "Kledingset wissen",
+      "coords_heading": "Eigen kledingsets",
+      "coords_caption": "Kledingsets die deze Mii persoonlijk bezit. Schakel losse kleuren om een set te geven of af te nemen.",
+      "coords_summary": "{items} sets · {total} kleuren in bezit",
+      "worn_none": "(geen)",
+      "worn_unknown": "Onbekende kleding ({hash})",
+      "worn_color": "Kleur",
+      "worn_color_option": "Kleur #{index}",
+      "worn_color_invalid": "Ongeldige kleur #{index}",
+      "worn_clear_action": "Wissen",
+      "worn_clear_tip": "Zet dit slot op (geen) en reset de kleur naar 0",
+      "worn_slot": {
+        "All": "Volledig lichaam",
+        "Topslong": "Lange top / jurk",
+        "Tops": "Top",
+        "BottomsA": "Onderkleding (A)",
+        "BottomsB": "Onderkleding (B)",
+        "Headwear": "Hoofddeksel",
+        "Shoes": "Schoenen",
+        "Accessory": "Accessoire"
+      },
+      "heading": "Kledingkast",
+      "caption": "Kleding die deze Mii persoonlijk bezit. Schakel losse kleuren om items te geven of af te nemen. Als je elke kleur verwijdert van een item dat de Mii momenteel draagt, kan de game ze bij de volgende laadbeurt in een standaardoutfit zetten.",
+      "summary": "{items} items · {total} kleuren in bezit",
+      "search_label": "Zoeken",
+      "search_placeholder": "Filteren op naam…",
+      "filter_label": "Tonen",
+      "filter_all": "Alles",
+      "filter_owned": "Alleen in bezit",
+      "filter_unowned": "Alleen niet in bezit",
+      "category_label": "Categorie",
+      "category_all": "Alle categorieën",
+      "clear_visible_action": "Zichtbare wissen",
+      "clear_all_action": "Alles wissen",
+      "give_all_colors_action": "Alles",
+      "give_all_colors_tip": "Geef elke kleur van dit item",
+      "clear_all_colors_action": "Geen",
+      "clear_all_colors_tip": "Verwijder elke kleur van dit item",
+      "colors_owned": "{owned}/{total} kleuren",
+      "no_results": "Geen kleding komt overeen met deze filters.",
+      "goods_heading": "Zakitems",
+      "goods_caption": "Goederen die deze Mii momenteel bij zich draagt. Elke Mii heeft een vaste set zakslots; kies een schat of uitrusting uit de catalogus om er één te vullen, of wis hem om het slot leeg te maken.",
+      "goods_summary": "{used}/{total} slots gebruikt",
+      "goods_slot_label": "Slot {index}",
+      "goods_clear_slot_tip": "Dit zakslot leegmaken",
+      "goods_clear_all_action": "Alle slots leegmaken",
+      "goods_received_label": "Ontvangen: {time}",
+      "goods_ugc_label": "UGC-goed #{index}",
+      "goods_ugc_caption": "Aangepast door een Mii gemaakt goed. Bewerk het via het UGC-tabblad; wis dit slot om het te verwijderen.",
+      "goods_group_levelup": "Level-upbeloningen",
+      "goods_group_treasure": "Schatten",
+      "goods_group_other": "Overig"
+    },
+    "habits": {
+      "missing": "Deze save toont Mii.Belongings.HabitOwnInfo.*-velden niet, dus gewoontes kunnen hier niet worden bewerkt.",
+      "heading": "Gewoontes",
+      "caption": "Persoonlijke eigenaardigheden die deze Mii heeft opgepikt. De radioknop kiest de actieve (zichtbare in-game) gewoonte per categorie. Het selectievakje markeert gewoontes die de Mii bezit maar momenteel niet toont.",
+      "category_tabs_label": "Gewoontecategorieën",
+      "none_in_category": "Geen gewoonte",
+      "clear_category": "Categorie wissen",
+      "is_own_label": "In bezit",
+      "is_own_tip": "Mii heeft deze gewoonte verkregen, ook als het niet de momenteel actieve is. De actieve gewoonte is automatisch in bezit.",
+      "category": {
+        "EatType": "Eten",
+        "ExpressionType": "Uitdrukking",
+        "GetAngryType": "Boosheid",
+        "GreetingType": "Begroeting",
+        "OtherType": "Overig",
+        "StandType": "Staan",
+        "StomachType": "Maag",
+        "VoiceType": "Stem",
+        "WalkType": "Lopen"
+      }
+    },
+    "troubles": {
+      "complexity_warning_title": "Experimenteel: problemen-editor",
+      "complexity_warning_body": "Er zijn 115 probleemtypen, elk met maximaal 27 parameters en veel runtimevoorwaarden die de game zelf controleert (verhaalvoortgang, relaties, items op voorraad, tijd van de dag en meer). De editor laat je elke combinatie instellen, maar de game beslist nog steeds of het probleem echt start. Sommige combinaties doen mogelijk stilletjes niets of gedragen zich onverwacht.",
+      "complexity_warning_no_support": "Er wordt geen ondersteuning geboden voor dit tabblad. Als je een combinatie vindt die duidelijk kapot is (schrijft ongeldige data, crasht de game, beschadigt de save),",
+      "complexity_warning_report_link": "open dan een issue op GitHub",
+      "missing": "Deze save toont Mii.Trouble.*-velden niet, dus problemen kunnen hier niet worden bewerkt.",
+      "section_active": "Actief probleem",
+      "section_active_caption": "Elke Mii kan maximaal één actief probleem hebben. Door \"Geen probleem\" te kiezen, wis je alle gekoppelde doelen en timers.",
+      "active_label": "Probleem",
+      "active_none": "Geen probleem",
+      "preview_label": "Voorbeeld",
+      "unknown": "Onbekend probleem ({hash})",
+      "schedule_heading": "Planning",
+      "schedule_caption": "Tijden gebruiken je lokale klok (de game slaat ze op als Unix epoch-seconden). Leeg betekent uitgeschakeld.",
+      "epoch_label": "epoch {seconds}",
+      "reset_schedule_action": "Planning resetten",
+      "reset_schedule_tip": "Stel Volgende controle = nu, Automatisch mislukken = nu + {minutes} min (de standaardduur van het probleem).",
+      "reset_trouble_action": "Probleem wissen",
+      "reset_trouble_tip": "Wis het actieve probleem voor deze Mii: zet de probleem-Id, alle doelen en de planning op nul.",
+      "revert_action": "Wijzigingen terugzetten",
+      "revert_tip": "Herstel elk probleemveld voor deze Mii naar de waarden uit de oorspronkelijk geladen save.",
+      "next_label": "Volgende controle",
+      "next_hint": "Wanneer de engine de probleemlogica van deze Mii opnieuw evalueert. Zolang het slot geen actief probleem heeft, werkt dit als cooldown: de volgende poging om een nieuw probleem te rollen kan niet vóór dit tijdstip starten.",
+      "end_label": "Automatisch mislukken om",
+      "end_hint": "Wanneer het actieve probleem verloopt. Als dit in het verleden ligt, lost de engine het probleem bij de volgende tick op als mislukt.",
+      "duration_minutes": "{n}m",
+      "duration_hours": "{n}u",
+      "duration_days": "{n}d",
+      "meta": {
+        "category_tip": "Probleemcategorie",
+        "method_tip": "MethodKey: interne handler die door de engine wordt gebruikt",
+        "target_mii_num": "{n, plural, one {# doel-Mii} other {# doel-Miis}}",
+        "target_mii_num_tip": "Hoeveel Mii-indexen de engine uit de save leest",
+        "duration_tip": "Standaardtimer voor automatisch mislukken (EndMinute)",
+        "cooldown_tip": "Cooldown na oplossing (NextTimeMinute) voordat dit probleem opnieuw kan triggeren",
+        "rescue_day": "redding na {n}d",
+        "rescue_day_tip": "Dagen waarna de engine het probleem geforceerd in jouw voordeel oplost",
+        "gated_tip": "Dit probleem is geblokkeerd door een introductie-/tutorialmijlpaal",
+        "prices_tip": "Mogelijke kostenniveaus voor eilandbewerking",
+        "scripted": "Alleen scripted",
+        "scripted_tip": "GenerateRate = 0: de engine rolt dit probleem nooit willekeurig; het verschijnt alleen via specifieke scripted events"
+      },
+      "flag": {
+        "isLove": "Liefde",
+        "isConfession": "Bekentenis",
+        "isFightReconcile": "Ruzie (goed te maken)",
+        "isTargetMiiSetLater": "Doel later ingesteld"
+      },
+      "first_demo_label": "Eerste-demo cutscene getoond",
+      "end_before_next_warning": "De tijd voor automatisch mislukken ligt vóór de volgende controle, dus het probleem wordt bij de volgende tick als mislukt opgelost.",
+      "disabled": "uitgeschakeld",
+      "now_action": "Nu",
+      "plus_hour_action": "+1 uur",
+      "plus_day_action": "+1 dag",
+      "disable_action": "Uitschakelen",
+      "targets_heading": "Doelen",
+      "target_none": "(geen)",
+      "target_food": "Gevraagd eten",
+      "target_cloth": "Gevraagde kleding",
+      "target_goods": "Gevraagde schat",
+      "target_coordinate": "Gevraagde kledingset (hash)",
+      "target_coordinate_hint": "Numerieke hash uit RSDB/Coordinate; laat 0 voor geen.",
+      "target_mii": "Doel-Mii {n}",
+      "target_mii_unknown": "(onbekend slot)",
+      "target_ugc_food": "UGC-etenindex",
+      "target_ugc_goods": "UGC-goederenindex",
+      "target_ugc_text": "UGC-tekstindex",
+      "target_item_type": "Itemtype",
+      "target_preset_index": "Preset-index",
+      "map_objects_heading": "Kaartobjecten",
+      "map_object_label": "Slot {n}",
+      "cooldowns_heading": "Cooldowns",
+      "child_birth_block_label": "Geboorte kind geblokkeerd tot",
+      "item_type": {
+        "invalid": "Ongeldig",
+        "food": "Eten",
+        "goods": "Goederen",
+        "cloth": "Kleding",
+        "coordinate": "Kledingset",
+        "mapObject": "Kaartobject",
+        "mapFloor": "Kaartvloer",
+        "ugcFood": "UGC-eten",
+        "ugcGoods": "UGC-goederen"
+      },
+      "category": {
+        "Cloth": "Kleding",
+        "Depress": "Depressie",
+        "Fight": "Ruzie",
+        "Food": "Eten",
+        "Goods": "Goederen",
+        "Introduction": "Tutorial",
+        "IslandEdit": "Eilandbewerking",
+        "Other": "Overig",
+        "Question": "Vraag",
+        "Relation": "Relaties",
+        "RoomStyle": "Kamerstijl"
+      }
+    },
+    "panel": {
+      "no_name_spine": "Deze save toont de Mii.Name.Name-spine niet - er is niets om op te sommen. Gebruik het geavanceerde paneel van het Player-tabblad om ruwe entries te bekijken.",
+      "no_slots": "Geen gevulde Mii-slots gevonden. Slots worden gedetecteerd door Mii.Name.Name te controleren op een niet-lege string.",
+      "selector_label": "Mii",
+      "slot_count": "{count, plural, one {# gevuld slot} other {# gevulde slots}}",
+      "slot_label": "#{index} · {name}",
+      "slot_label_with_level": "#{index} · {name} · Lv {level}",
+      "level_pill": "Level {level}",
+      "level_meter_label": "Level %",
+      "slot_short": "slot #{index}"
+    },
+    "sections": {
+      "level": "Level",
+      "identity": "Identiteit",
+      "wallet": "Portemonnee",
+      "birthday": "Verjaardag",
+      "personality": "Persoonlijkheid",
+      "mood": "Stemming",
+      "voice": "Stem",
+      "voice_caption": "Schuifregelaars lopen van 0-50 (51 stappen). Een eenvoudige preset overschrijft elke schuifregelaar.",
+      "food": "Eten",
+      "words": "Woorden",
+      "words_caption": "Aangepaste zinnen die deze Mii tijdens dialogen zegt."
+    },
+    "spoiler": {
+      "warning": "Spoilerwaarschuwing",
+      "show": "Tonen",
+      "hide": "Verbergen",
+      "captions": {
+        "food": "Onthult het favoriete en minst favoriete eten van deze Mii."
+      }
+    },
+    "food": {
+      "no_image": "Geen afbeelding",
+      "unknown": "Onbekend eten (hash {hash})",
+      "empty_rank": "—",
+      "rank_marker": "#{rank}",
+      "given_count": "{tried} / {total} geproefd",
+      "search_placeholder": "Eten zoeken…",
+      "filter_all": "Alles",
+      "filter_tried": "Geproefd",
+      "filter_untried": "Niet geproefd",
+      "no_results": "Geen overeenkomend eten."
+    },
+    "fields": {
+      "level": "Mii-level",
+      "level_meter": "Level %",
+      "level_meter_hint": "Voortgang binnen het huidige level (0–100).",
+      "name": "Naam",
+      "first_person": "Ik-woord",
+      "first_person_hint": "Hoe deze Mii naar zichzelf verwijst (bijv. \"ik\", \"mij\", of in het Japans 私/僕/俺).",
+      "name_pronunciation": "Uitspraak van naam",
+      "name_pronunciation_hint": "Fonetische spelling die door stemafspelen wordt gebruikt.",
+      "first_person_pronunciation": "Uitspraak van ik-woord",
+      "first_person_pronunciation_hint": "Fonetische spelling van het ik-woord hierboven.",
+      "pronoun_type": "Voornaamwoord in derde persoon",
+      "pronoun_type_hint": "Hoe anderen naar deze Mii verwijzen (hij / zij / die).",
+      "gender": "Gender",
+      "gender_hint": "Gebruikt door de game voor samenwonen, relaties en kledinglogica.",
+      "love_gender": "Valt op",
+      "love_gender_hint": "Genders waarop deze Mii verliefd kan worden. Vereist voor Sweetheart- / Spouse-koppels.",
+      "name_language": "Taal van naam",
+      "first_person_language": "Taal van ik-woord",
+      "money": "Geld",
+      "money_hint": "De portemonnee van deze Mii, los van het geld van de speler op het Player-tabblad. Vaak 0 in saves aan het begin van de game.",
+      "birthday_day": "Dag",
+      "birthday_month": "Maand",
+      "birthday_year": "Jaar",
+      "direct_age": "Directe leeftijd",
+      "direct_age_hint": "-1 betekent \"gebruik Jaar\"; een positieve waarde overschrijft de berekende leeftijd.",
+      "age_type": "Leeftijdstype",
+      "activeness": "Actiefheid",
+      "audaciousness": "Brutaliteit",
+      "common_sense": "Gezond verstand",
+      "gaiety": "Vrolijkheid",
+      "sociability": "Sociaalheid",
+      "feeling": "Gevoel",
+      "bond_meter": "Bandmeter",
+      "eat_fullness": "Maagvulling",
+      "ultra_best_id": "Allerfavorietste eten",
+      "best_id": "2e favoriete eten",
+      "ultra_worst_id": "Meest gehate eten",
+      "worst_id": "2e meest gehate eten",
+      "ranked_food_id": "Hoogst gerangschikt eten",
+      "ranked_food_id_hint": "De drie etensitems die deze Mii momenteel het hoogst waardeert, op volgorde. Wordt bijgewerkt als ze nieuw eten proberen.",
+      "given_flag": "Eten geproefd"
+    },
+    "errors": {
+      "required": "Verplicht",
+      "must_be_number": "Moet een getal zijn",
+      "must_be_min": "Moet ≥ {min} zijn",
+      "must_be_max": "Moet ≤ {max} zijn",
+      "must_be_non_negative": "Moet ≥ 0 zijn"
+    },
+    "personality": {
+      "label": "Persoonlijkheid",
+      "summary": "{parent} · {child}",
+      "parent": {
+        "Reserved": "Gereserveerd",
+        "Ambitious": "Ambitieus",
+        "Considerate": "Attent",
+        "Outgoing": "Spontaan"
+      },
+      "child": {
+        "Observer": "Waarnemer",
+        "Thinker": "Denker",
+        "Rogue": "Vrijbuiter",
+        "Maverick": "Dwarsligger",
+        "Strategist": "Strateeg",
+        "Perfectionist": "Perfectionist",
+        "Achiever": "Presteerder",
+        "Visionary": "Visionair",
+        "Buddy": "Maatje",
+        "Daydreamer": "Dagdromer",
+        "Merrymaker": "Sfeermaker",
+        "Dynamo": "Dynamo",
+        "Sweetie": "Lieverd",
+        "Cheerleader": "Aanmoediger",
+        "Charmer": "Charmeur",
+        "Go-Getter": "Doorpakker"
+      },
+      "axis": {
+        "movement": "Beweging",
+        "speech": "Spraak",
+        "energy": "Energie",
+        "thinking": "Denken",
+        "overall": "Algemeen"
+      },
+      "axis_min": {
+        "movement": "Langzaam",
+        "speech": "Beleefd",
+        "energy": "Vlak",
+        "thinking": "Serieus",
+        "overall": "Normaal"
+      },
+      "axis_max": {
+        "movement": "Snel",
+        "speech": "Eerlijk",
+        "energy": "Afwisselend",
+        "thinking": "Chill",
+        "overall": "Eigenzinnig"
+      },
+      "step_aria": "{label}: {step} van {total} ({side}-kant)"
+    },
+    "voice": {
+      "mode_simple": "Eenvoudig",
+      "mode_custom": "Aangepast",
+      "random": "Willekeurig",
+      "random_title": "Maak elke stemschuifregelaar en intonatiestap willekeurig",
+      "slider_speed": "Snelheid",
+      "slider_pitch": "Toonhoogte",
+      "slider_depth": "Diepte",
+      "slider_delivery": "Voordracht",
+      "tone": "Toon",
+      "tone_step_aria": "Toon {step} van {total}",
+      "preset": {
+        "Boy": "Jongen",
+        "Girl": "Meisje",
+        "Male": "Man",
+        "Female": "Vrouw",
+        "Old man": "Oude man",
+        "Old woman": "Oude vrouw",
+        "Big": "Groot",
+        "Small": "Klein",
+        "Robot L": "Robot L",
+        "Robot S": "Robot S"
+      }
+    },
+    "words": {
+      "missing": "Deze save toont de Mii Words-arrays niet.",
+      "summary": "{filled} van {total} slots gevuld",
+      "show_empty": "Lege slots tonen",
+      "add_slot": "Slot toevoegen",
+      "empty_hint": "Nog geen woorden. Gebruik \"Slot toevoegen\" om er een te maken.",
+      "kind_label": "Stemming",
+      "kind_invalid": "(leeg slot)",
+      "region_label": "Woordregio",
+      "text_label": "Woordtekst",
+      "text_placeholder": "Wat deze Mii zegt…",
+      "how_label": "Uitspraak",
+      "how_placeholder": "Hetzelfde als woordtekst",
+      "how_hint": "Fonetische spelling die door stemafspelen wordt gebruikt. Laat leeg om woordtekst te spiegelen.",
+      "clear_action": "Wissen",
+      "clear_tip": "Dit slot leegmaken",
+      "clear_confirm": "Dit woordslot wissen? Stemming, tekst en uitspraak worden gereset.",
+      "error_too_long": "Max {max} tekens",
+      "error_split_surrogate": "Laatste teken splitst een emoji — haal er één weg"
+    },
+    "pronoun": {
+      "He": "Hij/Hem",
+      "She": "Zij/Haar",
+      "They": "Die/Hen"
+    },
+    "gender": {
+      "Invalid": "Niet opgegeven",
+      "Male": "Man",
+      "Female": "Vrouw",
+      "Third": "Non-binair"
+    },
+    "relations": {
+      "graph_title": "Relatiegrafiek",
+      "graph_intro_all": "Force-directed weergave van elke relatie tussen {count} gevulde Miis. Klik op een knoop om te focussen op de verbindingen van die Mii.",
+      "graph_intro_pick": "Kies hieronder een Mii om de grafiek daarop te centreren.",
+      "graph_intro_focus": "Gecentreerd op {name}. Klik op een perifere Mii om de grafiek opnieuw daarop te centreren.",
+      "mii_selector": "Mii",
+      "select_placeholder": "(selecteer een Mii)",
+      "view_relationships": "Relaties bekijken",
+      "view_all": "Alle relaties bekijken",
+      "filter_type_label": "Type filteren",
+      "filter_all": "Alle typen",
+      "no_table": "Relatietabellen zijn niet aanwezig in deze save.",
+      "no_populated": "Geen gevulde Miis om te tekenen.",
+      "no_pairs_visible": "Geen relaties om te tekenen (elk paar is verborgen door het onbekend/Ongeldig-filter).",
+      "no_relations_for": "{name} heeft geen opgeslagen relaties.",
+      "pair_count": "{count, plural, one {# paar} other {# paren}}",
+      "relation_count": "{count, plural, one {# relatie} other {# relaties}}",
+      "filtered_to": "gefilterd op {filter}",
+      "graph_footnote": "Overig (standaard \"niet ontmoet\"), Ongeldig en onbekende typen zijn verborgen.",
+      "graph_aria_all": "Alle Mii-relaties",
+      "graph_aria_focus": "Relaties voor {name}",
+      "focus_on": "Focussen op {name}",
+      "table_title": "Relaties",
+      "warning_label": "Waarschuwing:",
+      "warning_text": "sommige relatiecombinaties kunnen de save beschadigen. Bewerk voorzichtig en maak een back-up voordat je relatietypen wijzigt.",
+      "no_table_short": "Relatietabellen zijn niet aanwezig in deze save.",
+      "no_relations_for_self": "Er zijn geen relaties met deze Mii. De savestatus is mogelijk nog niet ver genoeg in de game.",
+      "table_intro": "{count, plural, one {# relatie} other {# relaties}}. Uitgaand = hoe deze Mii over de ander denkt; inkomend = hoe de ander over deze Mii denkt.",
+      "header_other": "Andere Mii",
+      "header_out_type": "Uitgaand type",
+      "header_out_level": "Uitgaand niveau",
+      "header_in_type": "Inkomend type",
+      "header_in_level": "Inkomend niveau",
+      "header_fight": "Ruzie?",
+      "header_fight_label": "Ruzie",
+      "header_crush": "Crush",
+      "slot_placeholder": "(slot #{index})",
+      "fight_marker_aria": "Momenteel ruzie",
+      "crush_label_aria": "Deze Mii heeft een crush op de andere Mii",
+      "crush_incoming_aria": "De andere Mii heeft een crush op deze Mii",
+      "crush_requires_friend_know": "Crush geldt alleen wanneer de uitgaande relatie Vriend of Kennis is",
+      "crush_locked_existing": "Deze Mii heeft al een crush op iemand anders; hier schakelen verplaatst de crush naar deze Mii",
+      "crush_blocked_by_fight": "Crush kan niet samengaan met ruzie. Beëindig eerst de ruzie",
+      "crush_blocked_gender": "Deze Mii valt niet op het gender van de andere Mii. Pas eerst \"Valt op\" aan.",
+      "crush_blocked_blood": "Crushes kunnen niet op bloedverwanten worden ingesteld.",
+      "fight_unavailable": "Ruzie geldt alleen voor Vriend-, Echtgenoot- of Sweetheart-relaties",
+      "couple_blocked_gender": "Sweetheart / Spouse vereist dat beide Miis op elkaars gender vallen. Pas eerst \"Valt op\" of Gender aan.",
+      "couple_blocked_blood": "Sweetheart / Spouse kan niet op bloedverwanten worden ingesteld.",
+      "couple_blocked_self_paired": "Deze Mii heeft al een Sweetheart- / Spouse-relatie. Verbreek eerst de bestaande.",
+      "couple_blocked_other_paired": "De andere Mii heeft al een Sweetheart- / Spouse-relatie. Verbreek eerst de bestaande.",
+      "option_blocked_suffix": "(niet beschikbaar)",
+      "change_blocked_title": "Wijziging geblokkeerd",
+      "change_blocked_dismiss": "Sluiten",
+      "popup_ok": "Begrepen",
+      "popup_note_crush_too": "Dit blokkeert ook het instellen van een Crush tussen deze twee Miis.",
+      "chip": {
+        "gender": "Valt er niet op",
+        "blood": "Bloedverwanten",
+        "self_paired": "Al gekoppeld",
+        "other_paired": "Ander gekoppeld",
+        "crush_type": "Vriend / Kennis nodig",
+        "crush_fight": "Ruzie",
+        "crush_gender": "Valt er niet op",
+        "crush_blood": "Bloedverwanten",
+        "crush_other": "Crush bezet"
+      },
+      "header_type_set_time": "Ingesteld op",
+      "type_set_time_aria": "Wanneer het huidige relatietype is ingesteld; bepaalt in-game dagtellers",
+      "type": {
+        "Couple": "Echtgenoot",
+        "Lover": "Geliefde",
+        "ExLover": "Ex-geliefde",
+        "Divorce": "Ex-echtgenoot",
+        "Friend": "Vriend",
+        "ExFriend": "Ex-vriend",
+        "Know": "Kennis",
+        "Other": "Vreemde",
+        "Parent": "Ouder",
+        "Child": "Kind",
+        "BrotherSisterOlder": "Oudere broer/zus",
+        "BrotherSisterYounger": "Jongere broer/zus",
+        "GrandParent": "Grootouder",
+        "GrandChild": "Kleinkind",
+        "Relative": "Familielid",
+        "Family": "Familie",
+        "Invalid": "Ongeldig",
+        "FriendOneSideLove": "Vriend (crush)",
+        "KnowOneSideLove": "Kennis (crush)"
+      },
+      "sub": {
+        "Couple_0": "Kan niet goed opschieten",
+        "Couple_1": "Doet moeite",
+        "Couple_2": "Gelukkig",
+        "Couple_3": "Verliefd",
+        "Couple_4": "Erg verliefd",
+        "Couple_5": "Superverliefd",
+        "Couple_6": "Soulmates",
+        "Couple_Fight_0": "Nog proberen?",
+        "Couple_Fight_1": "Doet nog moeite?",
+        "Couple_Fight_2": "Nog gelukkig?",
+        "Couple_Fight_3": "Nog verliefd?",
+        "Couple_Fight_4": "Nog erg verliefd?",
+        "Couple_Fight_5": "Nog superverliefd?",
+        "Couple_Fight_6": "Nog soulmates?",
+        "Divorce_0": "Vijanden",
+        "Divorce_1": "Probeert te vermijden",
+        "Divorce_2": "Praat niet",
+        "Divorce_3": "Geen wrok",
+        "Divorce_4": "Op goede voet",
+        "Divorce_5": "Nog goede vrienden",
+        "Divorce_6": "Zou het opnieuw proberen",
+        "ExFriend_0": "Vijanden",
+        "ExFriend_1": "Probeert te vermijden",
+        "ExFriend_2": "Praat niet",
+        "ExFriend_3": "Gespannen",
+        "ExFriend_4": "Het is ingewikkeld",
+        "ExFriend_5": "Denkt er vaak aan",
+        "ExFriend_6": "Hoopt het goed te maken",
+        "ExLover_0": "Vijanden",
+        "ExLover_1": "Probeert te vermijden",
+        "ExLover_2": "Praat niet",
+        "ExLover_3": "Geen wrok",
+        "ExLover_4": "Op goede voet",
+        "ExLover_5": "Nog goede vrienden",
+        "ExLover_6": "Zou het opnieuw proberen",
+        "Family_0": "Kan niet goed opschieten",
+        "Family_1": "Kan een beetje opschieten",
+        "Family_2": "Kan goed opschieten",
+        "Family_3": "Geeft om",
+        "Family_4": "Geeft veel om",
+        "Family_5": "Geeft enorm om",
+        "Family_6": "Koestert",
+        "Friend_0": "Kan niet goed opschieten",
+        "Friend_1": "Kan een beetje opschieten",
+        "Friend_2": "Vrienden",
+        "Friend_3": "Goede vrienden",
+        "Friend_4": "Geweldige vrienden",
+        "Friend_5": "Beste vrienden",
+        "Friend_6": "Ultravrienden",
+        "Friend_Fight_0": "Kan niet goed opschieten?",
+        "Friend_Fight_1": "Kan een beetje opschieten?",
+        "Friend_Fight_2": "Nog vrienden?",
+        "Friend_Fight_3": "Nog goede vrienden?",
+        "Friend_Fight_4": "Nog geweldige vrienden?",
+        "Friend_Fight_5": "Nog beste vrienden?",
+        "Friend_Fight_6": "Nog ultravrienden?",
+        "Know_0": "Niet geïnteresseerd",
+        "Know_1": "Onverschillig",
+        "Know_2": "Wat interesse",
+        "Know_3": "Wordt vertrouwd",
+        "Know_4": "Lijkt gelijkgestemd",
+        "Know_5": "Heeft een klik met",
+        "Know_6": "Wil vrienden zijn",
+        "Lover_0": "Kan niet goed opschieten",
+        "Lover_1": "Kan een beetje opschieten",
+        "Lover_2": "Vindt echt leuk",
+        "Lover_3": "Wordt verliefd",
+        "Lover_4": "Verliefd",
+        "Lover_5": "Superverliefd",
+        "Lover_6": "Wil trouwen!",
+        "Lover_Fight_0": "Kan niet goed opschieten?",
+        "Lover_Fight_1": "Kan een beetje opschieten?",
+        "Lover_Fight_2": "Vindt nog echt leuk?",
+        "Lover_Fight_3": "Wordt nog verliefd?",
+        "Lover_Fight_4": "Nog verliefd?",
+        "Lover_Fight_5": "Nog superverliefd?",
+        "Lover_Fight_6": "Wil nog trouwen?",
+        "OnesideLove_0": "Geeft op",
+        "OnesideLove_1": "Bijna aan het opgeven",
+        "OnesideLove_2": "Heeft wat hoop",
+        "OnesideLove_3": "Vindt erg leuk",
+        "OnesideLove_4": "Heeft een crush",
+        "OnesideLove_5": "Tot over de oren",
+        "OnesideLove_6": "Klaar om alles te riskeren",
+        "OnesideLove_Fight_0": "Geeft op?",
+        "OnesideLove_Fight_1": "Bijna aan het opgeven?",
+        "OnesideLove_Fight_2": "Nog geïnteresseerd?",
+        "OnesideLove_Fight_3": "Vindt nog leuk?",
+        "OnesideLove_Fight_4": "Nog een crush?",
+        "OnesideLove_Fight_5": "Nog tot over de oren?",
+        "OnesideLove_Fight_6": "Nog klaar om alles te riskeren?"
+      }
+    }
+  },
+  "map": {
+    "title": "Map",
+    "description": "Eilandindeling, tegelraster en geplaatste objecten.",
+    "download_action": "Map.sav downloaden",
+    "sections_label": "Map-secties",
+    "subtab_floor": "Vloer",
+    "subtab_objects": "Objecten",
+    "object_slots_status": "· {placed} geplaatst / {total} slots",
+    "no_object_slots": "Geen objectslots gevonden in deze Map.sav.",
+    "floor": {
+      "tool_brush": "Penseel",
+      "tool_brush_title": "Penseel (klik + sleep om te schilderen)",
+      "tool_fill": "Vullen",
+      "tool_fill_title": "Emmer (klik om te vullen)",
+      "tool_rectangle": "Rechthoek",
+      "tool_rectangle_title": "Rechthoek (klik + sleep om een rechthoekig gebied te vullen)",
+      "tool_picker": "Pipet",
+      "tool_picker_title": "Pipet (klik om een tegel uit de kaart te nemen)",
+      "undo": "Ongedaan maken",
+      "undo_title": "Ongedaan maken (⌘Z)",
+      "redo": "Opnieuw",
+      "redo_title": "Opnieuw (⇧⌘Z)",
+      "right_click_hint": "Rechtsklik ergens om een tegel te nemen.",
+      "hover_position": "X {x}, Y {y} · {label}",
+      "size_hint": "{width} × {height} tegels - hover voor coördinaten"
+    },
+    "objects": {
+      "click_hint": "Klik op een voetafdruk om te selecteren · sleep om te verplaatsen · vloer gedimd getoond.",
+      "hover_with_object": "X {x}, Y {y} · {label} ({size})",
+      "hover_empty": "X {x}, Y {y} - leeg",
+      "slots_hint": "{count} slots - hover voor coördinaten",
+      "select_prompt": "Selecteer een object op de kaart om te bewerken.",
+      "group": {
+        "all": "Alles",
+        "house": "Huis",
+        "facility": "Voorziening",
+        "deco": "Object",
+        "step": "Stap",
+        "room": "Kamer",
+        "unknown": "Onbekend"
+      }
+    },
+    "tile": {
+      "Archstone": "Gewelfde kasseien",
+      "Archstone_Road": "Pad van gewelfde kasseien",
+      "Asphalt": "Asfalt",
+      "Asphalt_Road": "Asfaltpad",
+      "Beach": "Zandstrand",
+      "CherryBlossom": "Kersenbloesem",
+      "CherryBlossom_Road": "Kersenbloesempad",
+      "Clover": "Klaver",
+      "Clover_Road": "Klaverpad",
+      "Cobblestone": "Kasseien",
+      "Cobblestone_Road": "Kasseienpad",
+      "Concrete": "Beton",
+      "Concrete_Road": "Betonpad",
+      "FallenLeaves": "Gevallen bladeren",
+      "FallenLeaves_Road": "Pad met gevallen bladeren",
+      "Gold": "Gouden tegels",
+      "Gold_Road": "Goudtegelpad",
+      "Grass": "Gras",
+      "Grass_Road": "Graspad",
+      "Iron": "Staalplaat",
+      "Iron_Road": "Staalplaatpad",
+      "Pebble": "Grind",
+      "Pebble_Road": "Grindpad",
+      "Sand": "Zand",
+      "Sand_Road": "Zandpad",
+      "Snow": "Sneeuw",
+      "Snow_Road": "Sneeuwpad",
+      "Soil": "Aarde",
+      "Soil_Road": "Aardepad",
+      "Stone": "Bakstenen",
+      "Stone_Road": "Baksteenpad",
+      "Tile": "Tegels",
+      "Tile_Road": "Tegelpad",
+      "Water": "Zee",
+      "Wood": "Houten planken",
+      "Wood_Road": "Houtenplankenpad",
+      "Seaside": "Kust",
+      "RoomInvalid": "Kamer (ongeldig)",
+      "UGC": "UGC-vloer"
+    }
+  },
+  "sharemii": {
+    "title": "ShareMii",
+    "description_prefix": "Importeer en exporteer Miis en UGC-items tussen savebestanden. Gebaseerd op de ",
+    "description_link": "ShareMii",
+    "description_suffix": " Python-tool van Star-F0rce.",
+    "needs_player": "Laad {playerSav} via het Player-tabblad om te beginnen. Sleep daar je volledige savemap of zip heen en ShareMii pikt {miiSav} en de map {ugcFolder} automatisch op.",
+    "needs_mii": "Laad {miiSav} via het Mii-tabblad om Miis te beheren.",
+    "kind_tabs_label": "Itemsoort",
+    "kind": {
+      "Mii": "Miis",
+      "Food": "Eten",
+      "Cloth": "Kleding",
+      "Goods": "Schat",
+      "Interior": "Interieur",
+      "Exterior": "Exterieur",
+      "MapObject": "Objecten",
+      "MapFloor": "Landschap"
+    },
+    "sidecar": {
+      "none_loaded": "Geen Ugc/-bestanden geladen",
+      "loaded_summary": "{count, plural, one {# Ugc/-bestand geladen} other {# Ugc/-bestanden geladen}} ({source, select, folder {folder} zip {zip} other {auto}})",
+      "hint": "UGC-export en facepaint hebben deze nodig. Automatisch geladen wanneer je een map/zip op het Player-tabblad sleept.",
+      "pick_folder": "Ugc-map kiezen",
+      "pick_zip": "Zip kiezen",
+      "clear": "Wissen",
+      "loaded_from_folder": "{count, plural, one {# sidecarbestand} other {# sidecarbestanden}} uit map geladen.",
+      "loaded_from_zip": "{count, plural, one {# sidecarbestand} other {# sidecarbestanden}} uit zip geladen."
+    },
+    "save_bar": {
+      "download_pending": "{count, plural, one {# nieuw Ugc-bestand} other {# nieuwe Ugc-bestanden}} downloaden"
+    },
+    "list": {
+      "section_miis": "Miis",
+      "header_count": "{count, plural, one {# gevuld slot} other {# gevulde slots}}",
+      "header_add_new": "slot {slot} beschikbaar voor nieuwe items",
+      "export_all": "Alles exporteren",
+      "import": "Importeren…",
+      "no_slots": "Geen slots om te tonen.",
+      "in_progress_mii": "Mii in uitvoering",
+      "mii_default_name": "Mii {slot}",
+      "slot_default_name": "Slot {slot}",
+      "add_new_slot": "Nieuw slot toevoegen",
+      "row_temp_marker": "TIJDELIJK",
+      "row_slot_marker": "#{slot}",
+      "add_here": "Hier toevoegen",
+      "export": "Exporteren",
+      "replace": "Vervangen…",
+      "read_failed": "Kon deze sectie niet lezen: {error}"
+    },
+    "import": {
+      "file_label": ".ltd-bestand (of zip met .ltd-bestanden)",
+      "target_label": "Doelslot",
+      "option_add_new": "Slot {slot} — Nieuw toevoegen",
+      "option_in_progress": "Mii in uitvoering",
+      "option_slot": "Slot {slot} — {name}",
+      "cancel": "Annuleren",
+      "applying": "Toepassen…",
+      "apply": "Toepassen"
+    },
+    "toast": {
+      "exported_mii_with_facepaint": "\"{name}\" geëxporteerd (met facepaint) → {fileName}",
+      "exported_mii": "\"{name}\" geëxporteerd → {fileName}",
+      "exported_ugc": "\"{name}\" geëxporteerd → {fileName}",
+      "ugc_needs_folder": "UGC-export heeft de Ugc/-map nodig. Sleep je savemap/zip op het Player-tabblad, of kies de map hierboven.",
+      "ugc_needs_folder_short": "UGC alles-exporteren heeft de Ugc/-map nodig.",
+      "nothing_to_export": "Niets om te exporteren.",
+      "exported_count": "{count, plural, one {# item} other {# items}} geëxporteerd → {fileName}",
+      "mii_sav_required": "Mii.sav vereist",
+      "no_ltd_found": "Geen .ltd-bestanden gevonden.",
+      "imported_count_with_writes": "{count, plural, one {# item} other {# items}} geïmporteerd. {writes, plural, one {# nieuw Ugc-bestand} other {# nieuwe Ugc-bestanden}} klaar om te downloaden.",
+      "imported_count": "{count, plural, one {# item} other {# items}} geïmporteerd.",
+      "downloaded_pending": "{count, plural, one {# Ugc-bestand} other {# Ugc-bestanden}} gedownload — zet ze in de Ugc/-map van je save.",
+      "imported_partial": "{count, plural, one {# item} other {# items}} geïmporteerd. {failed, plural, one {# bestand mislukt} other {# bestanden mislukt}}: {list}",
+      "import_all_failed": "{failed, plural, one {# bestand kon niet worden geïmporteerd} other {# bestanden konden niet worden geïmporteerd}}: {list}"
+    },
+    "error": {
+      "mii_not_initialized": "Mii niet geïnitialiseerd. Maak eerst een Mii in dit slot.",
+      "no_free_facepaint_slot": "Geen vrij facepaint-slot beschikbaar.",
+      "ugc_missing_textures": "Export heeft de bijpassende Ugc/-textuurbestanden nodig. Geef de Ugc-map of een zip die ze bevat.",
+      "wrong_ugc_kind": "Dit bestand is de verkeerde UGC-soort (gekregen {got}, verwacht {expected}).",
+      "subtype_mismatch": "Subtype komt niet overeen: dit slot kan niet worden vervangen door het gekozen bestand. Kies een slot met hetzelfde subtype, of voeg toe als nieuw.",
+      "cannot_replace_kind": "{kind}-items kunnen alleen in een nieuw slot worden toegevoegd om datacorruptie te voorkomen.",
+      "invalid_ltd_file": "Geen geldig .ltd-bestand.",
+      "unsupported_ltd_version": "Niet-ondersteunde .ltd-versie: {version}.",
+      "ltd_missing_marker": "Het .ltd-bestand is misvormd (marker {marker} ontbreekt).",
+      "invalid_ugc_kind_index": "Ongeldige UGC-soortindex: {index}.",
+      "invalid_zip": "Het zipbestand is ongeldig of beschadigd.",
+      "save_format_error": "Savebestand mist verwachte data ({label}). De save is mogelijk beschadigd of komt uit een niet-ondersteunde gameversie."
+    }
+  },
+  "advanced": {
+    "header": "Geavanceerd: elke entry bekijken",
+    "warning_title": "Hier huizen draken",
+    "warning_intro": "Het geavanceerde paneel toont elke ruwe entry in je savebestand. Waarden hier bewerken kan je save permanent beschadigen, je voortgang slopen of ervoor zorgen dat de game crasht of niet meer laadt. Er is geen ongedaan maken.",
+    "warning_backup": "Maak eerst een back-up van je savebestand. Kopieer het naar een veilige plek voordat je iets wijzigt.",
+    "warning_understand": "Bewerk entries alleen als je begrijpt wat ze betekenen.",
+    "warning_disclaimer": "Je staat er zelf voor. De makers van deze tool nemen geen verantwoordelijkheid voor verloren saves.",
+    "warning_acknowledge": "Ik begrijp het, toon het geavanceerde paneel",
+    "view_label": "Weergave:",
+    "view_tree": "Boom",
+    "view_table": "Platte tabel",
+    "sections_label": "Secties:",
+    "tree_filter_placeholder": "Filteren op pad…",
+    "tree_no_match": "Geen entries komen overeen met dit filter.",
+    "tree_select_prompt": "Selecteer een entry uit de boom om te bewerken.",
+    "table_intro": "Volledige, doorzoekbare lijst van elke entry in de save.",
+    "filter_type_label": "Type",
+    "filter_type_all": "Alles",
+    "filter_hash_label": "Hashfilter (bijv. {example})",
+    "filter_name_label": "Zoeken op naam (MurmurHash3)",
+    "filter_name_placeholder": "Player.GoodsInfo2.TreasureMap.State",
+    "filter_find_action": "Zoeken",
+    "filter_known_only": "Alleen bekende keys",
+    "filter_editable_only": "Alleen bewerkbare typen",
+    "match_count": "{count, plural, one {# match} other {# matches}}",
+    "table_header_hash": "Hash",
+    "table_header_type": "Type",
+    "table_header_name": "Naam",
+    "table_header_value": "Waarde",
+    "table_header_index": "Index",
+    "table_no_match": "Geen entries komen overeen met de huidige filters.",
+    "page_previous": "Vorige",
+    "page_next": "Volgende",
+    "page_status": "Pagina {page} van {total}",
+    "copy_hash_title": "Hash kopiëren",
+    "detail_unknown_path": "< Onbekend >",
+    "detail_readonly_browsing": "{type} bekijken is alleen-lezen in deze editor.",
+    "detail_empty_array": "Lege array.",
+    "bulk_label": "Bulkbewerking:",
+    "bulk_apply_action": "Toepassen op alle {count}",
+    "bulk_enum_pick": "Kies een waarde…",
+    "page_elements_status": "Elementen {start}-{end} van {count} · Pagina {page}/{total}"
+  },
+  "faq": {
+    "title": "Veelgestelde vragen",
+    "subtitle": "Veelvoorkomende vragen over de editor. Klik op een vraag om die uit te klappen.",
+    "items": {
+      "brick": {
+        "q": "Kan dit mijn save beschadigen?",
+        "intro": "Ja, een slechte bewerking kan je save beschadigen en er is geen hersteloptie in de game, dus de enige weg terug is de back-up die je vóór het bewerken hebt gemaakt.",
+        "a1": "De editor doet een paar dingen om te voorkomen dat je save beschadigd raakt:",
+        "a2": "Hij overschrijft je originele bestand nooit, maar maakt een nieuw bestand dat je kunt downloaden, dus als er iets misgaat is het origineel nog veilig.",
+        "a3": "De editor blokkeert sommige bewerkingen waarvan bekend is dat ze corruptie veroorzaken, en waarschuwt je voor riskante bewerkingen."
+      },
+      "backup": {
+        "q": "Moet ik eerst een back-up maken van mijn save?",
+        "a": "Ja, altijd. Kopieer je Mii.sav-, Player.sav- en Map.sav-bestanden naar een veilige plek voordat je ze hier laadt. Een slechte bewerking kan je save beschadigen zonder hersteloptie in de game, en de enige weg terug is de back-up die je hebt gemaakt."
+      },
+      "upload": {
+        "q": "Wordt mijn save ergens geüpload?",
+        "a1": "Nee. De editor draait volledig in je browser, bestanden worden lokaal geparsed en herschreven, en je savedata wordt niet naar een server gestuurd.",
+        "a2_prefix": "De site is ook open source, dus je kunt de code zelf lezen op ",
+        "a2_link": "GitHub",
+        "a2_suffix": "."
+      },
+      "sav_files": {
+        "q": "Wat is het verschil tussen Player.sav, Mii.sav en Map.sav?",
+        "intro": "De game verdeelt data over drie bestanden, en de editor heeft voor elk daarvan een tabblad:",
+        "player": "- je spelerdata: je naam, eilandnaam, geld, speeltijd, alles wat je hebt ontgrendeld...",
+        "mii": "- per-Mii-data voor iedereen die op je eiland woont: persoonlijkheden, stemmen, relaties...",
+        "map": "- de indeling van je eiland: waar elk gebouw staat, wat elke tegel op de grond is...",
+        "outro": "De drie bestanden zijn onafhankelijk; je kunt er één bewerken zonder de andere aan te raken, en je hoeft alleen de bestanden te uploaden die je echt wilt wijzigen."
+      },
+      "advanced": {
+        "q": "Waar is het tabblad Geavanceerd voor?",
+        "a1": "De gestructureerde tabbladen (Player, Mii, Map) dekken de velden die de editor met nette labels en keuzelijsten kan tonen. De sectie Geavanceerd, onderaan elk tabblad, is een ruwe entrybrowser die elke key in de save toont, inclusief keys die nog niet aan een vriendelijke UI zijn gekoppeld. Gebruik dit als je iets moet bekijken of bewerken dat de gestructureerde tabbladen niet tonen.",
+        "a2": "Behandel dit als terrein voor power-users. Sommige velden zijn cryptisch, en ze blind bewerken is een goede manier om een save te beschadigen. Maak eerst een back-up. Alles wat je hier doet is op eigen risico."
+      },
+      "hashes": {
+        "q": "Waarom worden sommige entries als nummers of onbekende namen getoond?",
+        "a": "Savebestanden verwijzen naar content (kleding, eten, schatten, kamerstijlen, enzovoort) met hashes, niet met leesbare namen. De editor bevat een hashlijst die zoveel mogelijk van die hashes terugvertaalt naar namen. Wanneer een entry als hexgetal of als \"Onbekend\" verschijnt, staat die hash nog niet in de lijst. Als je er een identificeert, open dan een issue of deel hem op Discord zodat hij voor iedereen kan worden toegevoegd."
+      },
+      "stable_beta": {
+        "q": "Stable of Beta, welke moet ik gebruiken?",
+        "stable_label": "Stabiel",
+        "stable_body": "de versie die je waarschijnlijk wilt gebruiken. Dit is de geteste, opgepoetste versie van de editor, waar functies minder snel kapot zijn en bugs minder snel corruptie veroorzaken. Handig voor de meeste mensen, vooral als save-editing nieuw voor je is.",
+        "beta_label": "Beta",
+        "beta_body": "de experimentele build, waar nieuwe functies als eerste landen. Verwacht meer bugs en af en toe kapot gedrag. Handig als je iets wilt proberen dat nog niet in Stable zit, of als een door jou gemelde fix net is gemerged.",
+        "switch_hint": "Je kunt tussen de twee wisselen met de link naast de versiebadge in de header. Wat je ook kiest: maak altijd eerst een back-up van je saves."
+      },
+      "translation": {
+        "q": "Hoe voeg ik een vertaling toe?",
+        "a_prefix": "Zie de ",
+        "a_link": "sectie Adding a Localization in de README van de repo",
+        "a_suffix": ", daar staan alle stappen."
+      },
+      "bug": {
+        "q": "Ik heb een bug gevonden",
+        "intro_prefix": "Open alsjeblieft een issue op GitHub; de link \"Report an issue\" in de footer brengt je direct naar het formulier voor een nieuw issue, of je kunt ",
+        "intro_link": "deze link",
+        "intro_suffix": " gebruiken. Handig om erbij te zetten:",
+        "item_what": "Wat je probeerde te doen.",
+        "item_actual": "Wat er in plaats daarvan gebeurde.",
+        "item_version": "Of je Stable of Beta gebruikte, en het versienummer uit de header.",
+        "item_screenshot": "Een screenshot als het een UI-probleem is.",
+        "item_save": "Het savebestand zelf als je het wilt delen. Saves helpen veel sneller om een bug te reproduceren dan alleen beschrijvingen.",
+        "discord_prefix": "Als je liever geen issue indient, werkt de ",
+        "discord_link": "Discord",
+        "discord_suffix": " ook."
+      },
+      "cant_do_x": {
+        "q": "Ik kan X niet doen",
+        "intro": "Als iets dat je wilt bewerken niet in de gestructureerde tabbladen staat, is het bijna altijd een van twee dingen:",
+        "item_unmapped": "Niemand heeft dat veld nog aan de editor gekoppeld; de data zit in de save, maar er is nog geen UI voor gebouwd.",
+        "item_unsafe": "Het veld kan niet veilig op zichzelf worden bewerkt; het kan afgeleid zijn van andere waarden, of onderdeel zijn van een structuur waarin één onderdeel wijzigen zonder de rest de save zou beschadigen.",
+        "outro": "Hoe dan ook is het het beste om een issue te openen of op Discord te vragen en te beschrijven wat je probeert te wijzigen. Nieuwe functies worden geprioriteerd op basis van wat mensen echt willen."
+      }
+    }
+  },
+  "about": {
+    "title": "Over",
+    "credits_title": "Credits",
+    "disclaimer_title": "Disclaimer",
+    "backup_warning_title": "Maak altijd een back-up van je savebestanden voordat je ze bewerkt.",
+    "backup_warning_body": "Maak een kopie van je Mii.sav-, Player.sav- en Map.sav-bestanden op een veilige plek voordat je ze hier laadt. Een slechte bewerking kan je save beschadigen en er is geen hersteloptie in de game.",
+    "intro": "Een browsergebaseerde save editor voor Tomodachi Life: Living the Dream (Nintendo Switch). Sleep je Mii.sav-, Player.sav- en Map.sav-bestanden erin, bewerk ze en download een gepatchte kopie. Alles draait lokaal - bestanden verlaten je apparaat nooit.",
+    "community_label": "Community:",
+    "community_link": "Tomodachi Life Modding Hub (Discord)",
+    "source_label": "Broncode:",
+    "credits": {
+      "save_structure_note": "Voor de basisstructuur van het savebestand.",
+      "hash_list_note": "De hashlijst die naar de client wordt meegeleverd.",
+      "test_saves_note": "Voor het leveren van testsavebestanden.",
+      "hash_work_note": "Voor het werk aan de hashlijst.",
+      "wish_offset_note": "Voor het vinden van de offset van de wensenteller.",
+      "island_size_note": "Voor het vinden van de hash voor eilandgrootte.",
+      "sharemii_note": "Voor het maken van de ShareMii-tool."
+    },
+    "translations_title": "Vertalingen",
+    "disclaimer": "Dit is een onofficiële, door fans gemaakte tool. Tomodachi Life: Living the Dream is © Nintendo."
+  },
+  "footer": {
+    "github": "GitHub",
+    "github_aria": "Bron bekijken op GitHub",
+    "report_issue": "Een issue melden",
+    "discord": "Discord",
+    "license": "AGPL-3.0"
+  }
+}
