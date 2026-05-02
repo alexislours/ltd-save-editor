@@ -26,6 +26,7 @@ Translations live in `messages/<locale>.json`. `en-US` is the source of truth; l
 
 - [tlmodding/living-the-dream-save-editor](https://github.com/tlmodding/living-the-dream-save-editor) - For the base structure of the save file
 - [tlmodding/ltd-gamedata](https://github.com/tlmodding/ltd-gamedata) - the hash list shipped to the client.
+- [Star-F0rce](https://github.com/Star-F0rce/ShareMii) - For creating the ShareMii tool.
 
 ## Disclaimer
 
