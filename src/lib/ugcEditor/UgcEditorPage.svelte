@@ -5,6 +5,7 @@
   import Card from '../Card.svelte';
   import SaveBar from '../SaveBar.svelte';
   import SubTabs from '../SubTabs.svelte';
+  import Tutorial from '../Tutorial.svelte';
   import { downloadBytes } from '../sav/download';
   import { errorMessage } from '../errorMessage';
   import { getSave } from '../saveFile.svelte';
@@ -517,11 +518,14 @@
 </script>
 
 <div class="grid grid-cols-1 gap-6">
-  <header>
-    <h2 class="text-2xl font-bold tracking-tight text-content-strong">
-      {$_('ugc_editor.title')}
-    </h2>
-    <p class="mt-1 text-sm text-content">{$_('ugc_editor.description')}</p>
+  <header class="flex items-start justify-between gap-3">
+    <div class="min-w-0">
+      <h2 class="text-2xl font-bold tracking-tight text-content-strong">
+        {$_('ugc_editor.title')}
+      </h2>
+      <p class="mt-1 text-sm text-content">{$_('ugc_editor.description')}</p>
+    </div>
+    <Tutorial />
   </header>
 
   {#if !playerSave}
@@ -600,6 +604,7 @@
             <p class="text-sm text-content-muted">{$_('ugc_editor.list.empty')}</p>
           {:else}
             <ul
+              data-tutorial="ugc-rows"
               class="max-h-[480px] divide-y divide-edge/40 overflow-y-auto rounded-lg bg-surface-sunken ring-1 ring-edge/40"
             >
               {#each rows as r (r.slot)}
@@ -617,7 +622,7 @@
           {/if}
         </div>
 
-        <div>
+        <div data-tutorial="ugc-editor">
           {#if selectedSlot === null}
             <p class="text-sm text-content-muted">{$_('ugc_editor.editor.pick_item')}</p>
           {:else}
@@ -684,6 +689,7 @@
                 </figcaption>
                 <button
                   type="button"
+                  data-tutorial="ugc-drop"
                   ondrop={onDrop}
                   ondragover={onDragOver}
                   onclick={() => pngInput?.click()}
@@ -920,6 +926,7 @@
               </button>
               <button
                 type="button"
+                data-tutorial="ugc-replace"
                 class={PRIMARY_BUTTON_CLASS}
                 onclick={applyReplace}
                 disabled={busy || !pendingDecoded}

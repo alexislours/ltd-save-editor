@@ -156,35 +156,37 @@
     </div>
 
     <nav
-      class="mx-auto mt-3 flex w-full max-w-6xl flex-wrap gap-1.5 px-4 pb-3 sm:mt-4 sm:gap-2 sm:px-6 sm:pb-4"
+      class="mx-auto mt-3 flex w-full max-w-6xl px-4 pb-3 sm:mt-4 sm:px-6 sm:pb-4"
       aria-label="Sections"
     >
-      {#each tabs as tab (tab.href)}
-        {@const active = path === tab.href}
-        <a
-          href={tab.href}
-          onclick={(e) => go(tab.href, e)}
-          class={[
-            TAB_PILL_CLASS,
-            active
-              ? 'bg-orange-500 text-white shadow'
-              : 'bg-surface-muted text-content hover:text-content-strong',
-          ]}
-          aria-current={active ? 'page' : undefined}
-        >
-          {tab.label}
-          {#if tab.wip}
-            <span
-              class={[
-                'rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider',
-                active ? 'bg-white/25 text-white' : 'bg-surface-sunken text-warn',
-              ]}
-            >
-              WIP
-            </span>
-          {/if}
-        </a>
-      {/each}
+      <div class="flex flex-wrap gap-1.5 sm:gap-2" data-tutorial="nav">
+        {#each tabs as tab (tab.href)}
+          {@const active = path === tab.href}
+          <a
+            href={tab.href}
+            onclick={(e) => go(tab.href, e)}
+            class={[
+              TAB_PILL_CLASS,
+              active
+                ? 'bg-orange-500 text-white shadow'
+                : 'bg-surface-muted text-content hover:text-content-strong',
+            ]}
+            aria-current={active ? 'page' : undefined}
+          >
+            {tab.label}
+            {#if tab.wip}
+              <span
+                class={[
+                  'rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider',
+                  active ? 'bg-white/25 text-white' : 'bg-surface-sunken text-warn',
+                ]}
+              >
+                WIP
+              </span>
+            {/if}
+          </a>
+        {/each}
+      </div>
     </nav>
   </header>
 

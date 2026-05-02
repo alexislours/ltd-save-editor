@@ -3,6 +3,7 @@
   import { _ } from 'svelte-i18n';
   import Card from './Card.svelte';
   import FileDropZone from './FileDropZone.svelte';
+  import Tutorial from './Tutorial.svelte';
   import { clearSave, expectedFileName, getSave, type SaveKind } from './saveFile.svelte';
 
   type Props = {
@@ -22,15 +23,19 @@
 </script>
 
 <div class="grid grid-cols-1 gap-6">
-  <header>
-    <h2 class="text-2xl font-bold tracking-tight text-content-strong">
-      {title}
-    </h2>
-    <p class="mt-1 text-sm text-content">{description}</p>
+  <header class="flex items-start justify-between gap-3">
+    <div class="min-w-0">
+      <h2 class="text-2xl font-bold tracking-tight text-content-strong">
+        {title}
+      </h2>
+      <p class="mt-1 text-sm text-content">{description}</p>
+    </div>
+    <Tutorial />
   </header>
 
   {#if save}
     <div
+      data-tutorial="save-info"
       class="flex items-center justify-between gap-3 rounded-2xl bg-header/90 px-4 py-2.5 shadow-sm ring-1 ring-edge/60 sm:gap-4 sm:rounded-full sm:px-5"
     >
       <div class="min-w-0 flex-1">
