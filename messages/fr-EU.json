@@ -507,6 +507,11 @@
       "change_blocked_dismiss": "Fermer",
       "popup_ok": "Compris",
       "popup_note_crush_too": "Cela empêche aussi de cocher Béguin entre ces deux Miis.",
+      "acquaint_button": "Convertir les Inconnu en Connaissance",
+      "acquaint_confirm_title": "Convertir tous les Inconnu en Connaissance ?",
+      "acquaint_confirm_body": "{count, plural, one {# relation Inconnu de ce Mii sera convertie} other {# relations Inconnu de ce Mii seront converties}} en Connaissance · Léger intérêt dans les deux sens. Les autres types de relations ne sont pas modifiés.",
+      "acquaint_cancel": "Annuler",
+      "acquaint_apply": "Convertir",
       "chip": {
         "gender": "Pas attirés",
         "blood": "Famille",

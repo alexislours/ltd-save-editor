@@ -1063,6 +1063,11 @@
       "change_blocked_dismiss": "Dismiss",
       "popup_ok": "Got it",
       "popup_note_crush_too": "This also blocks setting a Crush between these two Miis.",
+      "acquaint_button": "Acquaint with strangers",
+      "acquaint_confirm_title": "Acquaint all strangers?",
+      "acquaint_confirm_body": "{count, plural, one {# Stranger relationship} other {# Stranger relationships}} for this Mii will be set to Acquaintance · Getting familiar in both directions. Other relationship types are not affected.",
+      "acquaint_cancel": "Cancel",
+      "acquaint_apply": "Acquaint",
       "chip": {
         "gender": "Not attracted",
         "blood": "Blood relatives",

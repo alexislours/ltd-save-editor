@@ -507,6 +507,11 @@
       "change_blocked_dismiss": "Fechar",
       "popup_ok": "Entendi",
       "popup_note_crush_too": "Isso também impede marcar Paixão entre esses dois Miis.",
+      "acquaint_button": "Converter Estranho em Conhecido",
+      "acquaint_confirm_title": "Converter todos os Estranho em Conhecido?",
+      "acquaint_confirm_body": "{count, plural, one {# relação Estranho deste Mii será convertida} other {# relações Estranho deste Mii serão convertidas}} em Conhecido · Se familiarizando em ambos os sentidos. Outros tipos de relacionamento não são afetados.",
+      "acquaint_cancel": "Cancelar",
+      "acquaint_apply": "Converter",
       "chip": {
         "gender": "Não atraídos",
         "blood": "Parentes",
