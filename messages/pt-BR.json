@@ -994,7 +994,8 @@
       "ltd_missing_marker": "O arquivo .ltd está malformado (marcador {marker} ausente).",
       "invalid_ugc_kind_index": "Índice de tipo UGC inválido: {index}.",
       "invalid_zip": "O arquivo zip é inválido ou está corrompido.",
-      "save_format_error": "O arquivo de save não tem os dados esperados ({label}). O save pode estar corrompido ou de uma versão não suportada."
+      "save_format_error": "O arquivo de save não tem os dados esperados ({label}). O save pode estar corrompido ou de uma versão não suportada.",
+      "slot_out_of_range": "O slot {slot} está além da capacidade {kind} deste save ({capacity} slots). Escolha um slot menor."
     }
   },
   "advanced": {

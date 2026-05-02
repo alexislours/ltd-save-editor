@@ -994,7 +994,8 @@
       "ltd_missing_marker": "Le fichier .ltd est malformé (marqueur {marker} manquant).",
       "invalid_ugc_kind_index": "Index de type UGC invalide : {index}.",
       "invalid_zip": "Le fichier zip est invalide ou corrompu.",
-      "save_format_error": "Le fichier de sauvegarde n'a pas les données attendues ({label}). La sauvegarde est peut-être corrompue ou issue d'une version non prise en charge."
+      "save_format_error": "Le fichier de sauvegarde n'a pas les données attendues ({label}). La sauvegarde est peut-être corrompue ou issue d'une version non prise en charge.",
+      "slot_out_of_range": "L'emplacement {slot} dépasse la capacité {kind} de cette sauvegarde ({capacity} emplacements). Choisis un emplacement plus bas."
     }
   },
   "advanced": {

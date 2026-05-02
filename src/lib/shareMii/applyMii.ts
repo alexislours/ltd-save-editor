@@ -8,7 +8,6 @@ import {
   facepaintCanvasFileName,
   facepaintTexFileName,
 } from './ugcKinds';
-import { decodeSexuality, encodeSexuality } from './sexuality';
 import { decodeUtf16Name, sanitizeFileName } from './utf16';
 import { EMPTY_SIDECAR, type SidecarFile, type SidecarSource } from './sidecar';
 
@@ -86,6 +85,20 @@ function isEmptyMiiBlock(block: Uint8Array): boolean {
   return sum === 152;
 }
 
+function getPackedBit(payload: Uint8Array, bitIdx: number): number {
+  const byteIdx = ARRAY_HEADER + (bitIdx >>> 3);
+  if (byteIdx >= payload.byteLength) return 0;
+  return (payload[byteIdx] >>> (bitIdx & 7)) & 1;
+}
+
+function setPackedBit(payload: Uint8Array, bitIdx: number, value: number): void {
+  const byteIdx = ARRAY_HEADER + (bitIdx >>> 3);
+  if (byteIdx >= payload.byteLength) return;
+  const mask = 1 << (bitIdx & 7);
+  if (value) payload[byteIdx] |= mask;
+  else payload[byteIdx] &= ~mask;
+}
+
 function readBlock(e: MiiEntries, isTemp: boolean, slotIdx: number): Uint8Array {
   if (isTemp) return e.tempSlot.subarray(0, MII_BLOCK_LEN);
   const start = ARRAY_HEADER + MII_BLOCK_LEN * slotIdx;
@@ -153,11 +166,10 @@ export function extractMii(
 
   const sexuality = new Uint8Array(4);
   if (!isTemp) {
-    const bits = decodeSexuality(e.isLoveGender.subarray(ARRAY_HEADER, ARRAY_HEADER + 27));
-    const slotBits = bits.slice(slotIdx * 3, slotIdx * 3 + 3);
-    sexuality[0] = slotBits[0];
-    sexuality[1] = slotBits[1];
-    sexuality[2] = slotBits[2];
+    const base = slotIdx * 3;
+    sexuality[0] = getPackedBit(e.isLoveGender, base);
+    sexuality[1] = getPackedBit(e.isLoveGender, base + 1);
+    sexuality[2] = getPackedBit(e.isLoveGender, base + 2);
   }
 
   let canvasTex = new Uint8Array(0);
@@ -271,11 +283,10 @@ export function applyMii(
     e.miiNames.set(ltd.name, ARRAY_HEADER + slotIdx * 64);
     e.miiPronunciation.set(ltd.pronounce, ARRAY_HEADER + slotIdx * 128);
 
-    const bits = decodeSexuality(e.isLoveGender.subarray(ARRAY_HEADER, ARRAY_HEADER + 27));
-    bits[slotIdx * 3] = ltd.sexuality[0] & 1;
-    bits[slotIdx * 3 + 1] = ltd.sexuality[1] & 1;
-    bits[slotIdx * 3 + 2] = ltd.sexuality[2] & 1;
-    e.isLoveGender.set(encodeSexuality(bits), ARRAY_HEADER);
+    const base = slotIdx * 3;
+    setPackedBit(e.isLoveGender, base, ltd.sexuality[0] & 1);
+    setPackedBit(e.isLoveGender, base + 1, ltd.sexuality[1] & 1);
+    setPackedBit(e.isLoveGender, base + 2, ltd.sexuality[2] & 1);
   }
 
   if (sidecar.origin !== 'none' && facepaintWrites.length > 0) {

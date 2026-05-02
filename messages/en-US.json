@@ -1354,7 +1354,8 @@
       "ltd_missing_marker": "The .ltd file is malformed (missing {marker} marker).",
       "invalid_ugc_kind_index": "Invalid UGC kind index: {index}.",
       "invalid_zip": "The zip file is invalid or corrupted.",
-      "save_format_error": "Save file is missing expected data ({label}). The save may be corrupted or from an unsupported game version."
+      "save_format_error": "Save file is missing expected data ({label}). The save may be corrupted or from an unsupported game version.",
+      "slot_out_of_range": "Slot {slot} is past this save's {kind} capacity ({capacity} slots). Pick a lower slot."
     }
   },
   "advanced": {
