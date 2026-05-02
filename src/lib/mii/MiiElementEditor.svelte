@@ -170,20 +170,24 @@
       />
     {/if}
   {:else if field.kind === 'enum'}
-    <select class={FORM_INPUT_CLASS} onchange={(e) => commitEnum(e.currentTarget.value)}>
+    <select
+      class={FORM_INPUT_CLASS}
+      value={enumValue}
+      onchange={(e) => commitEnum(e.currentTarget.value)}
+    >
       {#if enumOptions}
         {#each enumOptions as opt (opt.hash)}
-          <option value={opt.hash} selected={opt.hash === enumValue}>
+          <option value={opt.hash}>
             {localizeEnumOption(opt.name, opt.label)}
           </option>
         {/each}
         {#if !enumOptions.some((o) => o.hash === enumValue)}
-          <option value={enumValue} selected>
+          <option value={enumValue}>
             {enumOptionName(enumValue) ?? '0x' + enumValue.toString(16).padStart(8, '0')}
           </option>
         {/if}
       {:else}
-        <option value={enumValue} selected>
+        <option value={enumValue}>
           {enumOptionName(enumValue) ?? '0x' + enumValue.toString(16).padStart(8, '0')}
         </option>
       {/if}
