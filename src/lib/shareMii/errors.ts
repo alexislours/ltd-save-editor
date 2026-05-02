@@ -10,7 +10,8 @@ export type ShareMiiErrorCode =
   | 'ltd_missing_marker'
   | 'invalid_ugc_kind_index'
   | 'invalid_zip'
-  | 'save_format_error';
+  | 'save_format_error'
+  | 'slot_out_of_range';
 
 export class ShareMiiError extends Error {
   readonly code: ShareMiiErrorCode;

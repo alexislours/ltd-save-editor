@@ -1,4 +1,6 @@
 import type { Entry, SavFile } from '../sav/types';
+import { DataType } from '../sav/dataType';
+import { arrayCount, arrayElementSize } from '../sav/codec';
 import { decodeLtdUgc, encodeLtdUgc, type LtdUgc } from './codec';
 import { ShareMiiError } from './errors';
 import { entryPayload, findEntry } from './savAccess';
@@ -24,8 +26,8 @@ import { EMPTY_SIDECAR, type SidecarFile, type SidecarSource } from './sidecar';
 const ARRAY_HEADER = 4;
 
 type UgcEntries = {
-  fields: Uint8Array[];
-  names: Uint8Array[];
+  fields: Entry[];
+  names: Entry[];
   vector: Uint8Array | null;
   vector2: Uint8Array | null;
   enable: Uint8Array;
@@ -33,17 +35,72 @@ type UgcEntries = {
   hashId: Uint8Array;
 };
 
+function loadEntry(player: SavFile, hash: number, label: string): Entry {
+  const e = findEntry(player, hash, label);
+  if (!e.payload) {
+    throw new ShareMiiError('save_format_error', { label });
+  }
+  return e;
+}
+
 function readUgcEntries(player: SavFile, kind: UgcKind): UgcEntries {
   const hashes = UGC_HASHES[kind];
   return {
-    fields: hashes.fields.map((h, i) => entryPayload(player, h, `${kind}.field[${i}]`)),
-    names: hashes.names.map((h, i) => entryPayload(player, h, `${kind}.name[${i}]`)),
+    fields: hashes.fields.map((h, i) => loadEntry(player, h, `${kind}.field[${i}]`)),
+    names: hashes.names.map((h, i) => loadEntry(player, h, `${kind}.name[${i}]`)),
     vector: hashes.vector ? entryPayload(player, hashes.vector, `${kind}.vector`) : null,
     vector2: hashes.vector2 ? entryPayload(player, hashes.vector2, `${kind}.vector2`) : null,
     enable: entryPayload(player, UGC_ENABLE_HASHES[kind], `${kind}.enable`),
     texture: entryPayload(player, UGC_TEXTURE_HASHES[kind], `${kind}.texture`),
     hashId: entryPayload(player, UGC_HASH_ID_HASHES[kind], `${kind}.hashId`),
   };
+}
+
+function entrySlotCapacity(entry: Entry): number {
+  if (entry.type === DataType.BoolArray) return arrayCount(entry);
+  const stride = arrayElementSize(entry.type);
+  if (!stride) return 0;
+  const bytes = entry.payload?.byteLength ?? 0;
+  return Math.max(0, Math.floor((bytes - ARRAY_HEADER) / stride));
+}
+
+function arraySlotCapacity(payload: Uint8Array, stride: number): number {
+  return Math.max(0, Math.floor((payload.byteLength - ARRAY_HEADER) / stride));
+}
+
+function ugcSlotCapacity(e: UgcEntries, kind: UgcKind): number {
+  let cap = UGC_MAX_SLOTS[kind];
+  for (const f of e.fields) cap = Math.min(cap, entrySlotCapacity(f));
+  for (const n of e.names) cap = Math.min(cap, entrySlotCapacity(n));
+  if (e.vector) cap = Math.min(cap, arraySlotCapacity(e.vector, 12));
+  if (e.vector2) cap = Math.min(cap, arraySlotCapacity(e.vector2, 8));
+  cap = Math.min(cap, arraySlotCapacity(e.enable, 4));
+  cap = Math.min(cap, arraySlotCapacity(e.texture, 4));
+  cap = Math.min(cap, arraySlotCapacity(e.hashId, 4));
+  return cap;
+}
+
+function readFieldSlot4(field: Entry, slotIdx: number): Uint8Array {
+  if (field.type === DataType.BoolArray) {
+    const payload = field.payload!;
+    const byteIdx = ARRAY_HEADER + (slotIdx >>> 3);
+    const bit = byteIdx < payload.byteLength ? (payload[byteIdx] >>> (slotIdx & 7)) & 1 : 0;
+    return new Uint8Array([bit, 0, 0, 0]);
+  }
+  return field.payload!.slice(ARRAY_HEADER + slotIdx * 4, ARRAY_HEADER + slotIdx * 4 + 4);
+}
+
+function writeFieldSlot4(field: Entry, slotIdx: number, src: Uint8Array): void {
+  if (field.type === DataType.BoolArray) {
+    const payload = field.payload!;
+    const byteIdx = ARRAY_HEADER + (slotIdx >>> 3);
+    const mask = 1 << (slotIdx & 7);
+    const v = (src[0] | src[1] | src[2] | src[3]) !== 0 ? 1 : 0;
+    if (v) payload[byteIdx] |= mask;
+    else payload[byteIdx] &= ~mask;
+    return;
+  }
+  field.payload!.set(src, ARRAY_HEADER + slotIdx * 4);
 }
 
 export type UgcSlotInfo = {
@@ -60,7 +117,12 @@ export function listUgcSlots(
 ): UgcSlotInfo[] {
   const namesP = entryPayload(player, UGC_NAME_HASHES[kind], `${kind}.names`);
   const out: UgcSlotInfo[] = [];
-  const max = UGC_MAX_SLOTS[kind];
+  let max = UGC_MAX_SLOTS[kind];
+  try {
+    max = ugcSlotCapacity(readUgcEntries(player, kind), kind);
+  } catch {
+    // fall back to UGC_MAX_SLOTS if any auxiliary entry is missing
+  }
   let foundAddSlot = false;
 
   for (let i = 0; i < max; i++) {
@@ -99,8 +161,7 @@ export function extractUgc(
 
   const fields = new Uint8Array(e.fields.length * 4);
   for (let i = 0; i < e.fields.length; i++) {
-    const src = e.fields[i].subarray(ARRAY_HEADER + slotIdx * 4, ARRAY_HEADER + slotIdx * 4 + 4);
-    fields.set(src, i * 4);
+    fields.set(readFieldSlot4(e.fields[i], slotIdx), i * 4);
   }
   const vector = e.vector
     ? e.vector.slice(ARRAY_HEADER + slotIdx * 12, ARRAY_HEADER + slotIdx * 12 + 12)
@@ -108,8 +169,11 @@ export function extractUgc(
   const vector2 = e.vector2
     ? e.vector2.slice(ARRAY_HEADER + slotIdx * 8, ARRAY_HEADER + slotIdx * 8 + 8)
     : new Uint8Array(8);
-  const name = e.names[0].slice(ARRAY_HEADER + slotIdx * 128, ARRAY_HEADER + slotIdx * 128 + 128);
-  const pronounce = e.names[1].slice(
+  const name = e.names[0].payload!.slice(
+    ARRAY_HEADER + slotIdx * 128,
+    ARRAY_HEADER + slotIdx * 128 + 128,
+  );
+  const pronounce = e.names[1].payload!.slice(
     ARRAY_HEADER + slotIdx * 128,
     ARRAY_HEADER + slotIdx * 128 + 128,
   );
@@ -117,8 +181,11 @@ export function extractUgc(
   let goodsText: Uint8Array | undefined;
   let goodsPronounce: Uint8Array | undefined;
   if (kind === 'Goods' && e.names[2] !== undefined && e.names[3] !== undefined) {
-    goodsText = e.names[2].slice(ARRAY_HEADER + slotIdx * 64, ARRAY_HEADER + slotIdx * 64 + 64);
-    goodsPronounce = e.names[3].slice(
+    goodsText = e.names[2].payload!.slice(
+      ARRAY_HEADER + slotIdx * 64,
+      ARRAY_HEADER + slotIdx * 64 + 64,
+    );
+    goodsPronounce = e.names[3].payload!.slice(
       ARRAY_HEADER + slotIdx * 128,
       ARRAY_HEADER + slotIdx * 128 + 128,
     );
@@ -183,12 +250,13 @@ export function applyUgc(
 
   const e = readUgcEntries(player, kind);
   const slotIdx = slot - 1;
+  const capacity = ugcSlotCapacity(e, kind);
+  if (slotIdx < 0 || slotIdx >= capacity) {
+    throw new ShareMiiError('slot_out_of_range', { slot, kind, capacity });
+  }
 
   if ((kind === 'Cloth' || kind === 'Goods') && !isAdding) {
-    const existing = e.fields[0].subarray(
-      ARRAY_HEADER + slotIdx * 4,
-      ARRAY_HEADER + slotIdx * 4 + 4,
-    );
+    const existing = readFieldSlot4(e.fields[0], slotIdx);
     const incoming = decoded.fieldsAndVectors.subarray(0, 4);
     if (!buffersEqual(existing, incoming)) {
       throw new ShareMiiError('subtype_mismatch');
@@ -200,7 +268,7 @@ export function applyUgc(
 
   for (let i = 0; i < e.fields.length; i++) {
     const src = decoded.fieldsAndVectors.subarray(i * 4, i * 4 + 4);
-    e.fields[i].set(src, ARRAY_HEADER + slotIdx * 4);
+    writeFieldSlot4(e.fields[i], slotIdx, src);
   }
 
   if (isAdding) {
@@ -211,11 +279,11 @@ export function applyUgc(
   }
 
   const namesBlock = decoded.namesBlock;
-  e.names[0].set(namesBlock.subarray(0, 128), ARRAY_HEADER + slotIdx * 128);
-  e.names[1].set(namesBlock.subarray(128, 256), ARRAY_HEADER + slotIdx * 128);
+  e.names[0].payload!.set(namesBlock.subarray(0, 128), ARRAY_HEADER + slotIdx * 128);
+  e.names[1].payload!.set(namesBlock.subarray(128, 256), ARRAY_HEADER + slotIdx * 128);
   if (kind === 'Goods' && e.names[2] !== undefined && e.names[3] !== undefined) {
-    e.names[2].set(namesBlock.subarray(256, 320), ARRAY_HEADER + slotIdx * 64);
-    e.names[3].set(namesBlock.subarray(320, 448), ARRAY_HEADER + slotIdx * 128);
+    e.names[2].payload!.set(namesBlock.subarray(256, 320), ARRAY_HEADER + slotIdx * 64);
+    e.names[3].payload!.set(namesBlock.subarray(320, 448), ARRAY_HEADER + slotIdx * 128);
   }
 
   const fav = decoded.fieldsAndVectors;
