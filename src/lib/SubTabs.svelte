@@ -10,7 +10,7 @@
   let { tabs, value = $bindable(), label }: Props = $props();
 </script>
 
-<nav class="flex flex-wrap gap-2" aria-label={label}>
+<nav class="flex flex-wrap gap-2" aria-label={label} data-tutorial="subtabs">
   {#each tabs as tab (tab.value)}
     {@const active = tab.value === value}
     <button
@@ -23,6 +23,7 @@
       ]}
       onclick={() => (value = tab.value)}
       aria-current={active ? 'page' : undefined}
+      data-subtab={tab.value}
     >
       {tab.label}
     </button>

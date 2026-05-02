@@ -1,7 +1,7 @@
 {
   "name": "ltd-save-editor",
   "private": true,
-  "version": "1.9.0",
+  "version": "1.10.0",
   "type": "module",
   "license": "AGPL-3.0-or-later",
   "scripts": {
@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@bokuweb/zstd-wasm": "^0.0.27",
+    "driver.js": "^1.4.0",
     "fflate": "^0.8.2",
     "svelte-i18n": "^4.0.1"
   }

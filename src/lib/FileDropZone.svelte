@@ -62,7 +62,7 @@
   }
 </script>
 
-<div class="w-full">
+<div class="w-full" data-tutorial="drop-zone">
   <div
     role="button"
     tabindex="0"
@@ -113,10 +113,12 @@
     />
   </div>
 
-  <p class="mt-3 text-center text-xs text-warn">
-    <span class="font-semibold">{$_('save.drop_warning_label')}</span>
-    {$_('save.drop_warning_text')}
-  </p>
+  <div class="mt-3 text-center">
+    <p class="inline-block text-xs text-warn" data-tutorial="warning">
+      <span class="font-semibold">{$_('save.drop_warning_label')}</span>
+      {$_('save.drop_warning_text')}
+    </p>
+  </div>
 
   {#if summary}
     <div

@@ -6,6 +6,7 @@
   import Card from '../Card.svelte';
   import SaveBar from '../SaveBar.svelte';
   import SubTabs from '../SubTabs.svelte';
+  import Tutorial from '../Tutorial.svelte';
   import { downloadBytes } from '../sav/download';
   import { errorMessage } from '../errorMessage';
   import { getSave } from '../saveFile.svelte';
@@ -437,18 +438,21 @@
 </script>
 
 <div class="grid grid-cols-1 gap-6">
-  <header>
-    <h2 class="text-2xl font-bold tracking-tight text-content-strong">
-      {$_('sharemii.title')}
-    </h2>
-    <p class="mt-1 text-sm text-content">
-      {$_('sharemii.description_prefix')}<a
-        class="underline"
-        href="https://github.com/Star-F0rce/ShareMii"
-        target="_blank"
-        rel="noreferrer noopener">{$_('sharemii.description_link')}</a
-      >{$_('sharemii.description_suffix')}
-    </p>
+  <header class="flex items-start justify-between gap-3">
+    <div class="min-w-0">
+      <h2 class="text-2xl font-bold tracking-tight text-content-strong">
+        {$_('sharemii.title')}
+      </h2>
+      <p class="mt-1 text-sm text-content">
+        {$_('sharemii.description_prefix')}<a
+          class="underline"
+          href="https://github.com/Star-F0rce/ShareMii"
+          target="_blank"
+          rel="noreferrer noopener">{$_('sharemii.description_link')}</a
+        >{$_('sharemii.description_suffix')}
+      </p>
+    </div>
+    <Tutorial />
   </header>
 
   {#if !playerSave}
@@ -568,11 +572,15 @@
         </header>
 
         {#if importOpen}
-          <div class="mb-4 rounded-xl bg-surface-sunken p-3 sm:p-4 ring-1 ring-edge/40">
+          <div
+            data-tutorial="sharemii-import-panel"
+            class="mb-4 rounded-xl bg-surface-sunken p-3 sm:p-4 ring-1 ring-edge/40"
+          >
             <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <label class="block">
                 <span class={LABEL_CLASS}>{$_('sharemii.import.file_label')}</span>
                 <input
+                  data-tutorial="sharemii-import-file"
                   type="file"
                   accept=".ltd,.ltdf,.ltdc,.ltdg,.ltdi,.ltde,.ltdo,.ltdl,.zip"
                   class={COMPACT_SELECT_CLASS + ' w-full'}
@@ -586,7 +594,11 @@
               </label>
               <label class="block">
                 <span class={LABEL_CLASS}>{$_('sharemii.import.target_label')}</span>
-                <select class={COMPACT_SELECT_CLASS + ' w-full'} bind:value={importSlot}>
+                <select
+                  data-tutorial="sharemii-import-target"
+                  class={COMPACT_SELECT_CLASS + ' w-full'}
+                  bind:value={importSlot}
+                >
                   {#each rows as r (r.slot)}
                     <option value={r.slot}>
                       {#if r.isAddNew}
@@ -612,6 +624,7 @@
               >
               <button
                 type="button"
+                data-tutorial="sharemii-import-apply"
                 class={PRIMARY_BUTTON_CLASS}
                 onclick={applyImport}
                 disabled={working || !importFile || importSlot === null}
@@ -632,7 +645,7 @@
         {:else if rows.length === 0}
           <p class="text-sm text-content-muted">{$_('sharemii.list.no_slots')}</p>
         {:else}
-          <ul class="divide-y divide-edge/40">
+          <ul data-tutorial="sharemii-rows" class="divide-y divide-edge/40">
             {#each rows as r (r.slot)}
               <li class="flex flex-wrap items-center gap-x-3 gap-y-2 py-2">
                 <span
@@ -664,6 +677,7 @@
                   {:else}
                     <button
                       type="button"
+                      data-tutorial-row-export
                       class={PILL_BUTTON_CLASS}
                       onclick={() => exportRow(r)}
                       disabled={working || (!isMii && sidecar.origin === 'none')}
@@ -672,6 +686,7 @@
                     </button>
                     <button
                       type="button"
+                      data-tutorial-row-replace
                       class={PILL_BUTTON_CLASS}
                       onclick={() => openImportFor(r.slot)}
                       disabled={working}
