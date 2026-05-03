@@ -68,13 +68,6 @@ function openDb(): Promise<IDBDatabase | null> {
   return dbPromise;
 }
 
-function reqAsPromise<T>(req: IDBRequest<T>): Promise<T> {
-  return new Promise((resolve, reject) => {
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
-  });
-}
-
 export async function listSnapshotMeta(): Promise<HistorySnapshotMeta[]> {
   const db = await openDb();
   if (!db) return [];
