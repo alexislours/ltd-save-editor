@@ -6,6 +6,17 @@ export type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.11.0',
+    date: '2026-05-03',
+    changes: [
+      'Added a Face Paint editor.',
+      'Added Mii data and relationships export as JSON or CSV.',
+      'Added a bulk action to convert a Mii’s Stranger relationships to Acquaintance.',
+      'Added a local history of dropped saves for last-chance recovery.',
+      'Fixed select inputs not reflecting the saved value for some Mii enum fields.',
+    ],
+  },
+  {
     version: '1.10.2',
     date: '2026-05-02',
     changes: ['Fixed ShareMii imports failing on some saves.'],
