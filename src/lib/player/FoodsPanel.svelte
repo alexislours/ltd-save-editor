@@ -1,10 +1,9 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
   import { allFoods, type Food, foodImageUrl, foodLabel } from '../sav/foodList.svelte';
-  import { murmur3_x86_32 } from '../sav/hash';
-  import type { Entry } from '../sav/types';
+  import { PLAYER_SCHEMA } from '../sav/schema';
+  import { playerAccessor } from '../playerEditor.svelte';
   import {
-    buildEntryMap,
     readSlotQty,
     readSlotState,
     type Slot,
@@ -14,32 +13,32 @@
   import InventoryListPanel from './InventoryListPanel.svelte';
   import InventoryRow from './InventoryRow.svelte';
 
-  type Props = { entries: Entry[] };
-  let { entries }: Props = $props();
+  const STATE_LEAF = PLAYER_SCHEMA.Player.FoodInfo.State;
+  const QTY_LEAF = PLAYER_SCHEMA.Player.FoodInfo.OwnNum;
 
-  const byHash = $derived(buildEntryMap(entries));
-
-  const STATE_HASH = murmur3_x86_32('Player.FoodInfo.State') >>> 0;
-  const OWN_NUM_HASH = murmur3_x86_32('Player.FoodInfo.OwnNum') >>> 0;
-
-  const stateEntry = $derived(byHash.get(STATE_HASH) ?? null);
-  const ownNumEntry = $derived(byHash.get(OWN_NUM_HASH) ?? null);
+  const acc = $derived(playerAccessor());
+  const hasState = $derived(acc != null && acc.has(STATE_LEAF));
+  const hasQty = $derived(acc != null && acc.has(QTY_LEAF));
 
   const items = $derived(allFoods().filter((f) => f.id >= 0));
 
   function slotFor(food: Food): Slot {
-    return { state: stateEntry, qty: ownNumEntry, index: food.id };
+    return {
+      state: hasState ? STATE_LEAF : null,
+      qty: hasQty ? QTY_LEAF : null,
+      index: food.id,
+    };
   }
 </script>
 
 <InventoryListPanel
-  available={!!stateEntry || !!ownNumEntry}
+  available={hasState || hasQty}
   missingMessage={$_('player.foods.missing')}
   heading={$_('player.foods.heading')}
   captionFor={(count) => $_('player.foods.caption', { values: { count } })}
   emptyMessage={$_('player.inventory.empty')}
-  bulkHasState={!!stateEntry}
-  bulkHasQty={!!ownNumEntry}
+  bulkHasState={hasState}
+  bulkHasQty={hasQty}
   {items}
   label={(f, ui) => foodLabel(f, ui)}
   searchKeys={(f, ui) => [foodLabel(f, ui), f.name]}
@@ -52,12 +51,12 @@
       imageUrl={foodImageUrl(food.textureId)}
       label={foodLabel(food, ui)}
       internalName={food.name}
-      hasState={!!stateEntry}
-      hasQty={!!ownNumEntry}
-      state={readSlotState(slot)}
-      qty={readSlotQty(slot)}
-      onStateChange={(v) => writeSlotState(slot, v)}
-      onQtyChange={(v) => writeSlotQty(slot, v)}
+      {hasState}
+      {hasQty}
+      state={readSlotState(acc, slot)}
+      qty={readSlotQty(acc, slot)}
+      onStateChange={(v) => writeSlotState(acc, slot, v)}
+      onQtyChange={(v) => writeSlotQty(acc, slot, v)}
     />
   {/snippet}
 </InventoryListPanel>

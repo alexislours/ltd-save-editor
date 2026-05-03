@@ -1,22 +1,12 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
   import { SvelteMap, SvelteSet } from 'svelte/reactivity';
-  import {
-    arrGetBool,
-    arrGetInt,
-    arrGetString,
-    arrGetUInt,
-    arrGetUInt64,
-    arrSetBool,
-    arrSetInt,
-    arrSetUInt,
-    arrSetUInt64,
-  } from '../sav/codec';
   import { allActors, actorDisplay } from '../mapObjects/actors';
   import { allCloths, clothLabel } from '../sav/clothList.svelte';
   import { allFoods, foodByHash, foodImageUrl, foodLabel } from '../sav/foodList.svelte';
   import { safe } from '../sav/format';
   import { murmur3_x86_32 } from '../sav/hash';
+  import { MII_SCHEMA } from '../sav/schema';
   import { allTreasures, treasureLabel } from '../sav/treasureList.svelte';
   import {
     allTroubles,
@@ -25,7 +15,6 @@
     type Trouble,
     type TroubleTargetKey,
   } from '../sav/troubleList.svelte';
-  import type { Entry } from '../sav/types';
   import {
     CARD_BASE_CLASS,
     CARD_CLASS,
@@ -33,8 +22,7 @@
     LABEL_CLASS,
     PILL_BUTTON_CLASS,
   } from '../styles';
-  import { markDirty, miiState } from './miiEditor.svelte';
-  import { NAME_FIELD_HASH } from './miiFields';
+  import { miiAccessor, miiState } from './miiEditor.svelte';
   import MiiSlotSelector from './MiiSlotSelector.svelte';
   import { populatedMiiIndices } from './populated';
   import {
@@ -49,26 +37,17 @@
   } from './troubleFields';
 
   type Props = {
-    entries: Entry[];
     selectedIndex: number | null;
   };
-  let { entries, selectedIndex = $bindable(null) }: Props = $props();
+  let { selectedIndex = $bindable(null) }: Props = $props();
 
-  const tick = $derived(miiState.tick);
   const ui = $derived($locale);
+  const mii = $derived(miiAccessor());
 
-  const byHash = $derived.by(() => {
-    const m = new SvelteMap<number, Entry>();
-    for (const e of entries) m.set(e.hash, e);
-    return m;
-  });
-
-  const fieldEntries = $derived.by(() => {
-    const out = {} as Record<TroubleFieldKey, Entry | null>;
+  const fieldHas = $derived.by(() => {
+    const out = {} as Record<TroubleFieldKey, boolean>;
     for (const k of Object.keys(TROUBLE_FIELDS) as TroubleFieldKey[]) {
-      const f = TROUBLE_FIELDS[k];
-      const e = byHash.get(f.hash) ?? null;
-      out[k] = e && e.type === f.type ? e : null;
+      out[k] = mii != null && mii.has(TROUBLE_FIELDS[k].leaf);
     }
     return out;
   });
@@ -77,54 +56,68 @@
     return TROUBLE_FIELDS[key];
   }
 
-  let originalPayloads = $state<Partial<Record<TroubleFieldKey, Uint8Array>>>({});
+  type SnapshotMap = Partial<Record<TroubleFieldKey, unknown[]>>;
+  let originalSlices = $state<SnapshotMap>({});
 
   $effect(() => {
     void miiState.loadId;
-    const snap: Partial<Record<TroubleFieldKey, Uint8Array>> = {};
-    for (const k of Object.keys(TROUBLE_FIELDS) as TroubleFieldKey[]) {
-      const e = fieldEntries[k];
-      if (e?.payload) snap[k] = new Uint8Array(e.payload);
+    const snap: SnapshotMap = {};
+    if (!mii || selectedIndex == null) {
+      originalSlices = snap;
+      return;
     }
-    originalPayloads = snap;
+    const idx = selectedIndex;
+    for (const k of Object.keys(TROUBLE_FIELDS) as TroubleFieldKey[]) {
+      const f = TROUBLE_FIELDS[k];
+      if (!mii.has(f.leaf)) continue;
+      try {
+        const arr = mii.get(f.leaf) as unknown[];
+        if (k === 'isFirstDemoDone') {
+          snap[k] = [arr[idx]];
+          continue;
+        }
+        const start = idx * f.perMii;
+        const end = start + f.perMii;
+        snap[k] = arr.slice(start, end);
+      } catch {
+        /* skip */
+      }
+    }
+    originalSlices = snap;
   });
 
   function revertTrouble(): void {
     const idx = selectedIndex;
-    if (idx == null) return;
+    if (idx == null || !mii) return;
     for (const k of Object.keys(TROUBLE_FIELDS) as TroubleFieldKey[]) {
-      const e = fieldEntries[k];
-      const orig = originalPayloads[k];
-      if (!e?.payload || !orig || e.payload.byteLength !== orig.byteLength) continue;
+      if (k === 'isFirstDemoDone') continue;
+      const orig = originalSlices[k];
+      if (!orig) continue;
       const f = TROUBLE_FIELDS[k];
-      const elemSize = bytesPerElement(f.type);
-      if (!elemSize) continue;
-      const start = 4 + idx * f.perMii * elemSize;
-      const end = start + f.perMii * elemSize;
-      if (end > orig.byteLength) continue;
-      e.payload.set(orig.subarray(start, end), start);
-      markDirty(e);
+      if (!mii.has(f.leaf)) continue;
+      const start = idx * f.perMii;
+      for (let s = 0; s < f.perMii; s++) {
+        try {
+          mii.setElement(f.leaf, start + s, orig[s] as never);
+        } catch {
+          /* skip */
+        }
+      }
     }
-  }
-
-  function bytesPerElement(t: number): number | null {
-    if (t === 3 /* IntArray */ || t === 21 /* UIntArray */) return 4;
-    if (t === 23 /* Int64Array */ || t === 25 /* UInt64Array */) return 8;
-    return null;
   }
 
   function revertBoolField(key: TroubleFieldKey): void {
     const idx = selectedIndex;
-    if (idx == null) return;
-    const e = fieldEntries[key];
-    const orig = originalPayloads[key];
-    if (!e?.payload || !orig) return;
-    const byteIdx = 4 + (idx >>> 3);
-    if (byteIdx >= orig.byteLength || byteIdx >= e.payload.byteLength) return;
-    const bit = idx & 7;
-    const mask = 1 << bit;
-    e.payload[byteIdx] = (e.payload[byteIdx] & ~mask) | (orig[byteIdx] & mask);
-    markDirty(e);
+    if (idx == null || !mii) return;
+    const orig = originalSlices[key];
+    if (!orig) return;
+    const f = TROUBLE_FIELDS[key];
+    if (!mii.has(f.leaf)) return;
+    try {
+      mii.setElement(f.leaf, idx, orig[0] as never);
+    } catch {
+      /* skip */
+    }
   }
 
   function revertAll(): void {
@@ -132,12 +125,9 @@
     revertBoolField('isFirstDemoDone');
   }
 
-  const idEntry = $derived(fieldEntries.id);
   const currentTroubleHash = $derived.by(() => {
-    void tick;
-    const idx = selectedIndex;
-    if (!idEntry || idx == null) return 0;
-    return safe(() => arrGetUInt(idEntry, idx), 0) >>> 0;
+    if (!mii || selectedIndex == null || !fieldHas.id) return 0;
+    return safe(() => mii.getElement(TROUBLE_FIELDS.id.leaf, selectedIndex!) as number, 0) >>> 0;
   });
   const currentTrouble = $derived(troubleByHash(currentTroubleHash));
 
@@ -182,7 +172,7 @@
   }
 
   function commitTroubleId(rawHash: string): void {
-    if (!idEntry || selectedIndex == null) return;
+    if (!mii || selectedIndex == null || !fieldHas.id) return;
     const newHash = (Number.parseInt(rawHash, 10) || 0) >>> 0;
     if (newHash === currentTroubleHash) return;
 
@@ -196,8 +186,7 @@
       for (const k of TARGET_FIELD_KEYS) keepKeys.add(k);
     }
 
-    arrSetUInt(idEntry, selectedIndex, newHash);
-    markDirty(idEntry);
+    mii.setElement(TROUBLE_FIELDS.id.leaf, selectedIndex, newHash);
 
     for (const fk of TARGET_FIELD_KEYS) {
       if (keepKeys.has(fk)) continue;
@@ -206,98 +195,70 @@
 
     if (next) {
       const implied = impliedItemType(next);
-      const itEntry = fieldEntries.targetItemType;
-      if (itEntry && implied !== -1) {
-        arrSetInt(itEntry, selectedIndex, implied);
-        markDirty(itEntry);
+      if (fieldHas.targetItemType && implied !== -1) {
+        mii.setElement(TROUBLE_FIELDS.targetItemType.leaf, selectedIndex, implied);
       }
-
       applyDefaultSchedule(next);
     }
 
     if (newHash === 0) {
-      const next64 = fieldEntries.nextGameTime;
-      const end64 = fieldEntries.endGameTime;
-      if (next64) {
-        arrSetUInt64(next64, selectedIndex, 0n);
-        markDirty(next64);
+      if (fieldHas.nextGameTime) {
+        mii.setElement(TROUBLE_FIELDS.nextGameTime.leaf, selectedIndex, 0n);
       }
-      if (end64) {
-        arrSetUInt64(end64, selectedIndex, 0n);
-        markDirty(end64);
+      if (fieldHas.endGameTime) {
+        mii.setElement(TROUBLE_FIELDS.endGameTime.leaf, selectedIndex, 0n);
       }
-      const demo = fieldEntries.isFirstDemoDone;
-      if (demo) {
-        arrSetBool(demo, selectedIndex, false);
-        markDirty(demo);
+      if (fieldHas.isFirstDemoDone) {
+        mii.setElement(TROUBLE_FIELDS.isFirstDemoDone.leaf, selectedIndex, false);
       }
     }
   }
 
   function clearField(key: TroubleFieldKey): void {
-    if (selectedIndex == null) return;
-    const e = fieldEntries[key];
-    if (!e) return;
+    if (!mii || selectedIndex == null) return;
     const f = getF(key);
+    if (!mii.has(f.leaf)) return;
+    const isNegOne =
+      key === 'targetMii' ||
+      key === 'targetItemType' ||
+      key === 'targetUgcFood' ||
+      key === 'targetUgcGoods' ||
+      key === 'targetUgcText' ||
+      key === 'targetPreset';
     for (let s = 0; s < f.perMii; s++) {
       const i = selectedIndex * f.perMii + s;
-      switch (f.type) {
-        case 3:
-          arrSetInt(
-            e,
-            i,
-            key === 'targetMii' ||
-              key === 'targetItemType' ||
-              key === 'targetUgcFood' ||
-              key === 'targetUgcGoods' ||
-              key === 'targetUgcText' ||
-              key === 'targetPreset'
-              ? -1
-              : 0,
-          );
-          break;
-        case 21:
-          arrSetUInt(e, i, 0);
-          break;
-        default:
-          break;
+      try {
+        mii.setElement(f.leaf, i, isNegOne ? -1 : (0 as never));
+      } catch {
+        /* skip */
       }
     }
-    markDirty(e);
   }
 
   function readU64(key: TroubleFieldKey): bigint {
-    void tick;
-    const idx = selectedIndex;
-    if (idx == null) return 0n;
-    const e = fieldEntries[key];
-    if (!e) return 0n;
-    return safe(() => arrGetUInt64(e, idx), 0n);
+    if (!mii || selectedIndex == null || !fieldHas[key]) return 0n;
+    return safe(() => mii.getElement(TROUBLE_FIELDS[key].leaf, selectedIndex!) as bigint, 0n);
   }
   function writeU64(key: TroubleFieldKey, v: bigint): void {
-    const idx = selectedIndex;
-    if (idx == null) return;
-    const e = fieldEntries[key];
-    if (!e) return;
-    arrSetUInt64(e, idx, v < 0n ? 0n : v);
-    markDirty(e);
+    if (!mii || selectedIndex == null || !fieldHas[key]) return;
+    try {
+      mii.setElement(TROUBLE_FIELDS[key].leaf, selectedIndex, v < 0n ? 0n : v);
+    } catch {
+      /* skip */
+    }
   }
 
   function readBool(key: TroubleFieldKey): boolean {
-    void tick;
-    const idx = selectedIndex;
-    if (idx == null) return false;
-    const e = fieldEntries[key];
-    if (!e) return false;
-    return safe(() => arrGetBool(e, idx), false);
+    if (!mii || selectedIndex == null || !fieldHas[key]) return false;
+    return safe(() => mii.getElement(TROUBLE_FIELDS[key].leaf, selectedIndex!) as boolean, false);
   }
   function writeBool(key: TroubleFieldKey, v: boolean): void {
-    const idx = selectedIndex;
-    if (idx == null) return;
-    const e = fieldEntries[key];
-    if (!e) return;
-    arrSetBool(e, idx, v);
-    markDirty(e);
+    if (!mii || selectedIndex == null || !fieldHas[key]) return;
+    try {
+      mii.setElement(TROUBLE_FIELDS[key].leaf, selectedIndex, v);
+    } catch {
+      /* skip */
+    }
   }
 
   const nextV = $derived(readU64('nextGameTime'));
@@ -365,20 +326,18 @@
   }
 
   const activeTargetKeys = $derived.by<TroubleTargetKey[]>(() => {
-    if (selectedIndex == null || currentTroubleHash === 0) return [];
+    if (!mii || selectedIndex == null || currentTroubleHash === 0) return [];
     if (currentTrouble?.relevantTargets) return currentTrouble.relevantTargets;
     const keys: TroubleTargetKey[] = [];
     const isPopulated = (fk: TroubleFieldKey): boolean => {
-      const e = fieldEntries[fk];
-      if (!e || selectedIndex == null) return false;
       const f = getF(fk);
+      if (!fieldHas[fk] || selectedIndex == null) return false;
       for (let s = 0; s < f.perMii; s++) {
         const i = selectedIndex * f.perMii + s;
         try {
-          if (f.type === 21) {
-            if (arrGetUInt(e, i) !== 0) return true;
-          } else if (f.type === 3) {
-            if (arrGetInt(e, i) !== -1 && arrGetInt(e, i) !== 0) return true;
+          const v = mii.getElement(f.leaf, i) as unknown;
+          if (typeof v === 'number') {
+            if (v !== 0 && v !== -1) return true;
           }
         } catch {
           /* empty */
@@ -393,17 +352,10 @@
     return keys;
   });
 
-  const nameEntry = $derived(byHash.get(NAME_FIELD_HASH) ?? null);
   const miiOptions = $derived.by(() => {
-    void tick;
-    if (!nameEntry) return [] as { index: number; name: string }[];
-    return populatedMiiIndices(byHash).map((i) => {
-      let n = '';
-      try {
-        n = arrGetString(nameEntry, i);
-      } catch {
-        /* empty */
-      }
+    if (!mii || !mii.has(MII_SCHEMA.Mii.Name.Name)) return [] as { index: number; name: string }[];
+    return populatedMiiIndices(mii).map((i) => {
+      const n = safe(() => mii.getElement(MII_SCHEMA.Mii.Name.Name, i) as string, '');
       return { index: i, name: n };
     });
   });
@@ -413,28 +365,36 @@
     return selectedIndex * getF(key).perMii + slot;
   }
   function getInt(key: TroubleFieldKey, slot: number, fallback: number): number {
-    void tick;
-    const e = fieldEntries[key];
-    if (!e) return fallback;
-    return safe(() => arrGetInt(e, arrIndex(key, slot)), fallback);
+    if (!mii || !fieldHas[key]) return fallback;
+    return safe(
+      () => mii.getElement(TROUBLE_FIELDS[key].leaf, arrIndex(key, slot)) as number,
+      fallback,
+    );
   }
   function setInt(key: TroubleFieldKey, slot: number, v: number): void {
-    const e = fieldEntries[key];
-    if (!e) return;
-    arrSetInt(e, arrIndex(key, slot), v | 0);
-    markDirty(e);
+    if (!mii || !fieldHas[key]) return;
+    try {
+      mii.setElement(TROUBLE_FIELDS[key].leaf, arrIndex(key, slot), v | 0);
+    } catch {
+      /* skip */
+    }
   }
   function getUInt(key: TroubleFieldKey, slot: number, fallback = 0): number {
-    void tick;
-    const e = fieldEntries[key];
-    if (!e) return fallback;
-    return safe(() => arrGetUInt(e, arrIndex(key, slot)), fallback) >>> 0;
+    if (!mii || !fieldHas[key]) return fallback;
+    return (
+      safe(
+        () => mii.getElement(TROUBLE_FIELDS[key].leaf, arrIndex(key, slot)) as number,
+        fallback,
+      ) >>> 0
+    );
   }
   function setUInt(key: TroubleFieldKey, slot: number, v: number): void {
-    const e = fieldEntries[key];
-    if (!e) return;
-    arrSetUInt(e, arrIndex(key, slot), v >>> 0);
-    markDirty(e);
+    if (!mii || !fieldHas[key]) return;
+    try {
+      mii.setElement(TROUBLE_FIELDS[key].leaf, arrIndex(key, slot), v >>> 0);
+    } catch {
+      /* skip */
+    }
   }
 
   const sortedFoods = $derived.by(() => {
@@ -486,7 +446,7 @@
 
   const sortedActors = $derived(allActors());
 
-  const ready = $derived(idEntry != null);
+  const ready = $derived(fieldHas.id);
 
   const issuesUrl =
     'https://github.com/alexislours/ltd-save-editor/issues/new?template=bug_report.yml';
@@ -529,7 +489,7 @@
 {#if !ready}
   <div class="grid gap-4">
     {@render complexityWarning()}
-    <MiiSlotSelector {entries} bind:selectedIndex />
+    <MiiSlotSelector bind:selectedIndex />
     <section class={CARD_CLASS}>
       <p class="text-sm text-content-muted">{$_('mii.troubles.missing')}</p>
     </section>
@@ -537,7 +497,7 @@
 {:else}
   <div class="grid gap-4">
     {@render complexityWarning()}
-    <MiiSlotSelector {entries} bind:selectedIndex />
+    <MiiSlotSelector bind:selectedIndex />
 
     {#if selectedIndex != null}
       <section class={CARD_CLASS}>
@@ -890,7 +850,7 @@
             {/if}
           </div>
 
-          {#if fieldEntries.isFirstDemoDone}
+          {#if fieldHas.isFirstDemoDone}
             <label class="flex items-center gap-2 text-sm text-content">
               <input
                 type="checkbox"
@@ -1205,7 +1165,7 @@
         </section>
       {/if}
 
-      {#if fieldEntries.childBirthBlockTime}
+      {#if fieldHas.childBirthBlockTime}
         <section class={CARD_CLASS}>
           <h3 class="text-base font-bold text-content-strong">
             {$_('mii.troubles.cooldowns_heading')}

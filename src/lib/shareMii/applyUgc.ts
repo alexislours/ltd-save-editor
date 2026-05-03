@@ -1,9 +1,11 @@
-import type { Entry, SavFile } from '../sav/types';
+import { arrayElementSize } from '../sav/codec';
 import { DataType } from '../sav/dataType';
-import { arrayCount, arrayElementSize } from '../sav/codec';
+import type { Accessor } from '../sav/materialized/accessor';
+import { buildHashMap } from '../sav/materialized/schemaIndex';
+import { PLAYER_SCHEMA, type SchemaLeaf } from '../sav/schema';
 import { decodeLtdUgc, encodeLtdUgc, type LtdUgc } from './codec';
 import { ShareMiiError } from './errors';
-import { entryPayload, findEntry } from './savAccess';
+import { leafByHashOrThrow, type PlayerOnlySaves } from './savAccess';
 import {
   UGC_ENABLE_HASHES,
   UGC_FILE_EXTENSIONS,
@@ -23,98 +25,248 @@ import {
 import { decodeUtf16Name, encodeUtf16Name, sanitizeFileName } from './utf16';
 import { EMPTY_SIDECAR, type SidecarFile, type SidecarSource } from './sidecar';
 
-const ARRAY_HEADER = 4;
+const ENABLE_USED = 0x1d7fadf4 >>> 0;
 
-type UgcEntries = {
-  fields: Entry[];
-  names: Entry[];
-  vector: Uint8Array | null;
-  vector2: Uint8Array | null;
-  enable: Uint8Array;
-  texture: Uint8Array;
-  hashId: Uint8Array;
-  playerEntries: Entry[];
+type ScalarFieldType =
+  | DataType.IntArray
+  | DataType.UIntArray
+  | DataType.EnumArray
+  | DataType.FloatArray
+  | DataType.BoolArray;
+
+type NameType = DataType.WString32Array | DataType.WString64Array;
+
+type UgcLeaves = {
+  fields: SchemaLeaf<ScalarFieldType>[];
+  names: SchemaLeaf<NameType>[];
+  vector: SchemaLeaf<DataType.Vector3Array> | null;
+  vector2: SchemaLeaf<DataType.Vector2Array> | null;
+  enable: SchemaLeaf<DataType.EnumArray>;
+  texture: SchemaLeaf<DataType.EnumArray>;
+  hashId: SchemaLeaf<DataType.UIntArray>;
 };
 
-function loadEntry(player: SavFile, hash: number, label: string, sink: Entry[]): Entry {
-  const e = findEntry(player, hash, label);
-  if (!e.payload) {
+function resolveScalarFieldLeaf(hash: number, label: string): SchemaLeaf<ScalarFieldType> {
+  const info = buildHashMap(PLAYER_SCHEMA as object).get(hash >>> 0);
+  if (!info) throw new ShareMiiError('save_format_error', { label });
+  const t = info.leaf.type;
+  if (
+    t !== DataType.IntArray &&
+    t !== DataType.UIntArray &&
+    t !== DataType.EnumArray &&
+    t !== DataType.FloatArray &&
+    t !== DataType.BoolArray
+  ) {
     throw new ShareMiiError('save_format_error', { label });
   }
-  sink.push(e);
-  return e;
+  return info.leaf as SchemaLeaf<ScalarFieldType>;
 }
 
-function loadPayload(player: SavFile, hash: number, label: string, sink: Entry[]): Uint8Array {
-  return loadEntry(player, hash, label, sink).payload!;
+function resolveNameLeaf(hash: number, label: string): SchemaLeaf<NameType> {
+  const info = buildHashMap(PLAYER_SCHEMA as object).get(hash >>> 0);
+  if (!info) throw new ShareMiiError('save_format_error', { label });
+  const t = info.leaf.type;
+  if (t !== DataType.WString32Array && t !== DataType.WString64Array) {
+    throw new ShareMiiError('save_format_error', { label });
+  }
+  return info.leaf as SchemaLeaf<NameType>;
 }
 
-function readUgcEntries(player: SavFile, kind: UgcKind): UgcEntries {
-  const hashes = UGC_HASHES[kind];
-  const playerEntries: Entry[] = [];
-  const fields = hashes.fields.map((h, i) =>
-    loadEntry(player, h, `${kind}.field[${i}]`, playerEntries),
-  );
-  const names = hashes.names.map((h, i) =>
-    loadEntry(player, h, `${kind}.name[${i}]`, playerEntries),
-  );
-  const vector = hashes.vector
-    ? loadPayload(player, hashes.vector, `${kind}.vector`, playerEntries)
-    : null;
-  const vector2 = hashes.vector2
-    ? loadPayload(player, hashes.vector2, `${kind}.vector2`, playerEntries)
-    : null;
-  const enable = loadPayload(player, UGC_ENABLE_HASHES[kind], `${kind}.enable`, playerEntries);
-  const texture = loadPayload(player, UGC_TEXTURE_HASHES[kind], `${kind}.texture`, playerEntries);
-  const hashId = loadPayload(player, UGC_HASH_ID_HASHES[kind], `${kind}.hashId`, playerEntries);
-  return { fields, names, vector, vector2, enable, texture, hashId, playerEntries };
+function resolveUgcLeaves(kind: UgcKind): UgcLeaves {
+  const h = UGC_HASHES[kind];
+  return {
+    fields: h.fields.map((hash, i) => resolveScalarFieldLeaf(hash, `${kind}.field[${i}]`)),
+    names: h.names.map((hash, i) => resolveNameLeaf(hash, `${kind}.name[${i}]`)),
+    vector: h.vector
+      ? leafByHashOrThrow(PLAYER_SCHEMA, h.vector, `${kind}.vector`, DataType.Vector3Array)
+      : null,
+    vector2: h.vector2
+      ? leafByHashOrThrow(PLAYER_SCHEMA, h.vector2, `${kind}.vector2`, DataType.Vector2Array)
+      : null,
+    enable: leafByHashOrThrow(
+      PLAYER_SCHEMA,
+      UGC_ENABLE_HASHES[kind],
+      `${kind}.enable`,
+      DataType.EnumArray,
+    ),
+    texture: leafByHashOrThrow(
+      PLAYER_SCHEMA,
+      UGC_TEXTURE_HASHES[kind],
+      `${kind}.texture`,
+      DataType.EnumArray,
+    ),
+    hashId: leafByHashOrThrow(
+      PLAYER_SCHEMA,
+      UGC_HASH_ID_HASHES[kind],
+      `${kind}.hashId`,
+      DataType.UIntArray,
+    ),
+  };
 }
 
-function entrySlotCapacity(entry: Entry): number {
-  if (entry.type === DataType.BoolArray) return arrayCount(entry);
-  const stride = arrayElementSize(entry.type);
-  if (!stride) return 0;
-  const bytes = entry.payload?.byteLength ?? 0;
-  return Math.max(0, Math.floor((bytes - ARRAY_HEADER) / stride));
-}
-
-function arraySlotCapacity(payload: Uint8Array, stride: number): number {
-  return Math.max(0, Math.floor((payload.byteLength - ARRAY_HEADER) / stride));
-}
-
-function ugcSlotCapacity(e: UgcEntries, kind: UgcKind): number {
+function ugcSlotCapacity(saves: PlayerOnlySaves, leaves: UgcLeaves, kind: UgcKind): number {
+  const player = saves.player;
   let cap = UGC_MAX_SLOTS[kind];
-  for (const f of e.fields) cap = Math.min(cap, entrySlotCapacity(f));
-  for (const n of e.names) cap = Math.min(cap, entrySlotCapacity(n));
-  if (e.vector) cap = Math.min(cap, arraySlotCapacity(e.vector, 12));
-  if (e.vector2) cap = Math.min(cap, arraySlotCapacity(e.vector2, 8));
-  cap = Math.min(cap, arraySlotCapacity(e.enable, 4));
-  cap = Math.min(cap, arraySlotCapacity(e.texture, 4));
-  cap = Math.min(cap, arraySlotCapacity(e.hashId, 4));
+  for (const leaf of leaves.fields) cap = Math.min(cap, (player.get(leaf) as unknown[]).length);
+  for (const leaf of leaves.names) cap = Math.min(cap, (player.get(leaf) as unknown[]).length);
+  if (leaves.vector) cap = Math.min(cap, (player.get(leaves.vector) as unknown[]).length);
+  if (leaves.vector2) cap = Math.min(cap, (player.get(leaves.vector2) as unknown[]).length);
+  cap = Math.min(cap, (player.get(leaves.enable) as unknown[]).length);
+  cap = Math.min(cap, (player.get(leaves.texture) as unknown[]).length);
+  cap = Math.min(cap, (player.get(leaves.hashId) as unknown[]).length);
   return cap;
 }
 
-function readFieldSlot4(field: Entry, slotIdx: number): Uint8Array {
-  if (field.type === DataType.BoolArray) {
-    const payload = field.payload!;
-    const byteIdx = ARRAY_HEADER + (slotIdx >>> 3);
-    const bit = byteIdx < payload.byteLength ? (payload[byteIdx] >>> (slotIdx & 7)) & 1 : 0;
-    return new Uint8Array([bit, 0, 0, 0]);
+function readField4(
+  player: Accessor<'player'>,
+  leaf: SchemaLeaf<ScalarFieldType>,
+  slotIdx: number,
+): Uint8Array {
+  const out = new Uint8Array(4);
+  const dv = new DataView(out.buffer);
+  switch (leaf.type) {
+    case DataType.IntArray:
+      dv.setInt32(0, player.getElement(leaf as SchemaLeaf<DataType.IntArray>, slotIdx) | 0, true);
+      return out;
+    case DataType.UIntArray:
+      dv.setUint32(
+        0,
+        player.getElement(leaf as SchemaLeaf<DataType.UIntArray>, slotIdx) >>> 0,
+        true,
+      );
+      return out;
+    case DataType.EnumArray:
+      dv.setUint32(
+        0,
+        player.getElement(leaf as SchemaLeaf<DataType.EnumArray>, slotIdx) >>> 0,
+        true,
+      );
+      return out;
+    case DataType.FloatArray:
+      dv.setFloat32(0, player.getElement(leaf as SchemaLeaf<DataType.FloatArray>, slotIdx), true);
+      return out;
+    case DataType.BoolArray:
+      out[0] = player.getElement(leaf as SchemaLeaf<DataType.BoolArray>, slotIdx) ? 1 : 0;
+      return out;
   }
-  return field.payload!.slice(ARRAY_HEADER + slotIdx * 4, ARRAY_HEADER + slotIdx * 4 + 4);
 }
 
-function writeFieldSlot4(field: Entry, slotIdx: number, src: Uint8Array): void {
-  if (field.type === DataType.BoolArray) {
-    const payload = field.payload!;
-    const byteIdx = ARRAY_HEADER + (slotIdx >>> 3);
-    const mask = 1 << (slotIdx & 7);
-    const v = (src[0] | src[1] | src[2] | src[3]) !== 0 ? 1 : 0;
-    if (v) payload[byteIdx] |= mask;
-    else payload[byteIdx] &= ~mask;
-    return;
+function writeField4(
+  player: Accessor<'player'>,
+  leaf: SchemaLeaf<ScalarFieldType>,
+  slotIdx: number,
+  src: Uint8Array,
+): void {
+  const dv = new DataView(src.buffer, src.byteOffset, 4);
+  switch (leaf.type) {
+    case DataType.IntArray:
+      player.setElement(leaf as SchemaLeaf<DataType.IntArray>, slotIdx, dv.getInt32(0, true) | 0);
+      return;
+    case DataType.UIntArray:
+      player.setElement(
+        leaf as SchemaLeaf<DataType.UIntArray>,
+        slotIdx,
+        dv.getUint32(0, true) >>> 0,
+      );
+      return;
+    case DataType.EnumArray:
+      player.setElement(
+        leaf as SchemaLeaf<DataType.EnumArray>,
+        slotIdx,
+        dv.getUint32(0, true) >>> 0,
+      );
+      return;
+    case DataType.FloatArray:
+      player.setElement(leaf as SchemaLeaf<DataType.FloatArray>, slotIdx, dv.getFloat32(0, true));
+      return;
+    case DataType.BoolArray:
+      player.setElement(
+        leaf as SchemaLeaf<DataType.BoolArray>,
+        slotIdx,
+        (src[0] | src[1] | src[2] | src[3]) !== 0,
+      );
+      return;
   }
-  field.payload!.set(src, ARRAY_HEADER + slotIdx * 4);
+}
+
+function nameByteLen(leaf: SchemaLeaf<NameType>): 64 | 128 {
+  const sz = arrayElementSize(leaf.type);
+  if (sz !== 64 && sz !== 128) {
+    throw new ShareMiiError('save_format_error', { label: 'name' });
+  }
+  return sz as 64 | 128;
+}
+
+function readNameBlock(
+  player: Accessor<'player'>,
+  leaf: SchemaLeaf<NameType>,
+  slotIdx: number,
+): Uint8Array {
+  const str = player.getElement(leaf, slotIdx);
+  return encodeUtf16Name(str, nameByteLen(leaf));
+}
+
+function writeNameBlock(
+  player: Accessor<'player'>,
+  leaf: SchemaLeaf<NameType>,
+  slotIdx: number,
+  src: Uint8Array,
+): void {
+  player.setElement(leaf, slotIdx, decodeUtf16Name(src));
+}
+
+function readVector3(
+  player: Accessor<'player'>,
+  leaf: SchemaLeaf<DataType.Vector3Array>,
+  slotIdx: number,
+): Uint8Array {
+  const v = player.getElement(leaf, slotIdx);
+  const out = new Uint8Array(12);
+  const dv = new DataView(out.buffer);
+  dv.setFloat32(0, v.x, true);
+  dv.setFloat32(4, v.y, true);
+  dv.setFloat32(8, v.z, true);
+  return out;
+}
+
+function writeVector3(
+  player: Accessor<'player'>,
+  leaf: SchemaLeaf<DataType.Vector3Array>,
+  slotIdx: number,
+  src: Uint8Array,
+): void {
+  const dv = new DataView(src.buffer, src.byteOffset, 12);
+  player.setElement(leaf, slotIdx, {
+    x: dv.getFloat32(0, true),
+    y: dv.getFloat32(4, true),
+    z: dv.getFloat32(8, true),
+  });
+}
+
+function readVector2(
+  player: Accessor<'player'>,
+  leaf: SchemaLeaf<DataType.Vector2Array>,
+  slotIdx: number,
+): Uint8Array {
+  const v = player.getElement(leaf, slotIdx);
+  const out = new Uint8Array(8);
+  const dv = new DataView(out.buffer);
+  dv.setFloat32(0, v.x, true);
+  dv.setFloat32(4, v.y, true);
+  return out;
+}
+
+function writeVector2(
+  player: Accessor<'player'>,
+  leaf: SchemaLeaf<DataType.Vector2Array>,
+  slotIdx: number,
+  src: Uint8Array,
+): void {
+  const dv = new DataView(src.buffer, src.byteOffset, 8);
+  player.setElement(leaf, slotIdx, {
+    x: dv.getFloat32(0, true),
+    y: dv.getFloat32(4, true),
+  });
 }
 
 export type UgcSlotInfo = {
@@ -125,25 +277,26 @@ export type UgcSlotInfo = {
 };
 
 export function listUgcSlots(
-  player: SavFile,
+  saves: PlayerOnlySaves,
   kind: UgcKind,
   sidecar: SidecarSource = EMPTY_SIDECAR,
 ): UgcSlotInfo[] {
-  const namesP = entryPayload(player, UGC_NAME_HASHES[kind], `${kind}.names`);
   const out: UgcSlotInfo[] = [];
   let max = UGC_MAX_SLOTS[kind];
+  let nameLeaf: SchemaLeaf<NameType> | null;
   try {
-    max = ugcSlotCapacity(readUgcEntries(player, kind), kind);
+    const leaves = resolveUgcLeaves(kind);
+    nameLeaf = resolveNameLeaf(UGC_NAME_HASHES[kind], `${kind}.names`);
+    max = ugcSlotCapacity(saves, leaves, kind);
   } catch {
-    // fall back to UGC_MAX_SLOTS if any auxiliary entry is missing
+    nameLeaf = null;
   }
-  let foundAddSlot = false;
 
+  let foundAddSlot = false;
   for (let i = 0; i < max; i++) {
     const fileName = ugcCanvasFileName(kind, i);
     const exists = sidecar.files.has(fileName);
-    const nameBuf = namesP.subarray(ARRAY_HEADER + i * 128, ARRAY_HEADER + i * 128 + 128);
-    const decoded = decodeUtf16Name(nameBuf);
+    const decoded = nameLeaf ? saves.player.getElement(nameLeaf, i) : '';
     const looksFilled = decoded.length > 0;
 
     if (exists || (sidecar.origin === 'none' && looksFilled)) {
@@ -164,45 +317,30 @@ export type ExtractUgcResult = {
 };
 
 export function extractUgc(
-  player: SavFile,
+  saves: PlayerOnlySaves,
   slot: number,
   kind: UgcKind,
   sidecar: SidecarSource = EMPTY_SIDECAR,
 ): ExtractUgcResult {
-  const e = readUgcEntries(player, kind);
+  const leaves = resolveUgcLeaves(kind);
+  const player = saves.player;
   const slotIdx = slot - 1;
   const kindIndex = ugcKindIndex(kind);
 
-  const fields = new Uint8Array(e.fields.length * 4);
-  for (let i = 0; i < e.fields.length; i++) {
-    fields.set(readFieldSlot4(e.fields[i], slotIdx), i * 4);
+  const fields = new Uint8Array(leaves.fields.length * 4);
+  for (let i = 0; i < leaves.fields.length; i++) {
+    fields.set(readField4(player, leaves.fields[i], slotIdx), i * 4);
   }
-  const vector = e.vector
-    ? e.vector.slice(ARRAY_HEADER + slotIdx * 12, ARRAY_HEADER + slotIdx * 12 + 12)
-    : new Uint8Array(12);
-  const vector2 = e.vector2
-    ? e.vector2.slice(ARRAY_HEADER + slotIdx * 8, ARRAY_HEADER + slotIdx * 8 + 8)
-    : new Uint8Array(8);
-  const name = e.names[0].payload!.slice(
-    ARRAY_HEADER + slotIdx * 128,
-    ARRAY_HEADER + slotIdx * 128 + 128,
-  );
-  const pronounce = e.names[1].payload!.slice(
-    ARRAY_HEADER + slotIdx * 128,
-    ARRAY_HEADER + slotIdx * 128 + 128,
-  );
+  const vector = leaves.vector ? readVector3(player, leaves.vector, slotIdx) : new Uint8Array(12);
+  const vector2 = leaves.vector2 ? readVector2(player, leaves.vector2, slotIdx) : new Uint8Array(8);
+  const name = readNameBlock(player, leaves.names[0], slotIdx);
+  const pronounce = readNameBlock(player, leaves.names[1], slotIdx);
 
   let goodsText: Uint8Array | undefined;
   let goodsPronounce: Uint8Array | undefined;
-  if (kind === 'Goods' && e.names[2] !== undefined && e.names[3] !== undefined) {
-    goodsText = e.names[2].payload!.slice(
-      ARRAY_HEADER + slotIdx * 64,
-      ARRAY_HEADER + slotIdx * 64 + 64,
-    );
-    goodsPronounce = e.names[3].payload!.slice(
-      ARRAY_HEADER + slotIdx * 128,
-      ARRAY_HEADER + slotIdx * 128 + 128,
-    );
+  if (kind === 'Goods' && leaves.names[2] !== undefined && leaves.names[3] !== undefined) {
+    goodsText = readNameBlock(player, leaves.names[2], slotIdx);
+    goodsPronounce = readNameBlock(player, leaves.names[3], slotIdx);
   }
 
   const canvasName = ugcCanvasFileName(kind, slotIdx);
@@ -246,11 +384,10 @@ export function extractUgc(
 
 export type ApplyUgcResult = {
   textureWrites: SidecarFile[];
-  touchedPlayerEntries: Entry[];
 };
 
 export function applyUgc(
-  player: SavFile,
+  saves: PlayerOnlySaves,
   slot: number,
   kind: UgcKind,
   ltdBytes: Uint8Array,
@@ -263,15 +400,16 @@ export function applyUgc(
     throw new ShareMiiError('wrong_ugc_kind', { got: decoded.kindIndex, expected });
   }
 
-  const e = readUgcEntries(player, kind);
+  const leaves = resolveUgcLeaves(kind);
+  const player = saves.player;
   const slotIdx = slot - 1;
-  const capacity = ugcSlotCapacity(e, kind);
+  const capacity = ugcSlotCapacity(saves, leaves, kind);
   if (slotIdx < 0 || slotIdx >= capacity) {
     throw new ShareMiiError('slot_out_of_range', { slot, kind, capacity });
   }
 
   if ((kind === 'Cloth' || kind === 'Goods') && !isAdding) {
-    const existing = readFieldSlot4(e.fields[0], slotIdx);
+    const existing = readField4(player, leaves.fields[0], slotIdx);
     const incoming = decoded.fieldsAndVectors.subarray(0, 4);
     if (!buffersEqual(existing, incoming)) {
       throw new ShareMiiError('subtype_mismatch');
@@ -281,34 +419,40 @@ export function applyUgc(
     throw new ShareMiiError('cannot_replace_kind', { kind });
   }
 
-  for (let i = 0; i < e.fields.length; i++) {
+  for (let i = 0; i < leaves.fields.length; i++) {
     const src = decoded.fieldsAndVectors.subarray(i * 4, i * 4 + 4);
-    writeFieldSlot4(e.fields[i], slotIdx, src);
+    writeField4(player, leaves.fields[i], slotIdx, src);
   }
 
   if (isAdding) {
-    e.enable.set([0xf4, 0xad, 0x7f, 0x1d], ARRAY_HEADER + slotIdx * 4);
-    const kindOff = expected * 4;
-    e.texture.set(UGC_TEX_DATA.subarray(kindOff, kindOff + 4), ARRAY_HEADER + slotIdx * 4);
-    e.hashId.set([slotIdx, 0, UGC_HASH_INDICES[kind], 0], ARRAY_HEADER + slotIdx * 4);
+    player.setElement(leaves.enable, slotIdx, ENABLE_USED);
+    const texDv = new DataView(
+      UGC_TEX_DATA.buffer,
+      UGC_TEX_DATA.byteOffset,
+      UGC_TEX_DATA.byteLength,
+    );
+    const texVal = texDv.getUint32(expected * 4, true) >>> 0;
+    player.setElement(leaves.texture, slotIdx, texVal);
+    const hashIdVal = ((slotIdx & 0xff) | ((UGC_HASH_INDICES[kind] & 0xff) << 16)) >>> 0;
+    player.setElement(leaves.hashId, slotIdx, hashIdVal);
   }
 
   const namesBlock = decoded.namesBlock;
-  e.names[0].payload!.set(namesBlock.subarray(0, 128), ARRAY_HEADER + slotIdx * 128);
-  e.names[1].payload!.set(namesBlock.subarray(128, 256), ARRAY_HEADER + slotIdx * 128);
-  if (kind === 'Goods' && e.names[2] !== undefined && e.names[3] !== undefined) {
-    e.names[2].payload!.set(namesBlock.subarray(256, 320), ARRAY_HEADER + slotIdx * 64);
-    e.names[3].payload!.set(namesBlock.subarray(320, 448), ARRAY_HEADER + slotIdx * 128);
+  writeNameBlock(player, leaves.names[0], slotIdx, namesBlock.subarray(0, 128));
+  writeNameBlock(player, leaves.names[1], slotIdx, namesBlock.subarray(128, 256));
+  if (kind === 'Goods' && leaves.names[2] !== undefined && leaves.names[3] !== undefined) {
+    writeNameBlock(player, leaves.names[2], slotIdx, namesBlock.subarray(256, 320));
+    writeNameBlock(player, leaves.names[3], slotIdx, namesBlock.subarray(320, 448));
   }
 
   const fav = decoded.fieldsAndVectors;
-  if (e.vector) {
+  if (leaves.vector) {
     const vStart = fav.byteLength - 20;
-    e.vector.set(fav.subarray(vStart, vStart + 12), ARRAY_HEADER + slotIdx * 12);
+    writeVector3(player, leaves.vector, slotIdx, fav.subarray(vStart, vStart + 12));
   }
-  if (e.vector2) {
+  if (leaves.vector2) {
     const v2Start = fav.byteLength - 8;
-    e.vector2.set(fav.subarray(v2Start, v2Start + 8), ARRAY_HEADER + slotIdx * 8);
+    writeVector2(player, leaves.vector2, slotIdx, fav.subarray(v2Start, v2Start + 8));
   }
 
   const writes: SidecarFile[] = [
@@ -320,35 +464,36 @@ export function applyUgc(
     for (const f of writes) sidecar.files.set(f.name, f.bytes);
   }
 
-  return { textureWrites: writes, touchedPlayerEntries: e.playerEntries };
+  return { textureWrites: writes };
 }
 
-export function getUgcSlotName(player: SavFile, kind: UgcKind, slot: number): string {
+export function getUgcSlotName(saves: PlayerOnlySaves, kind: UgcKind, slot: number): string {
   try {
-    const namesP = entryPayload(player, UGC_NAME_HASHES[kind], `${kind}.names`);
-    const slotIdx = slot - 1;
-    const buf = namesP.subarray(ARRAY_HEADER + slotIdx * 128, ARRAY_HEADER + slotIdx * 128 + 128);
-    return decodeUtf16Name(buf);
+    const leaf = leafByHashOrThrow(
+      PLAYER_SCHEMA,
+      UGC_NAME_HASHES[kind],
+      `${kind}.names`,
+      DataType.WString64Array,
+    );
+    return saves.player.getElement(leaf, slot - 1) ?? '';
   } catch {
     return '';
   }
 }
 
 export function renameUgcSlot(
-  player: SavFile,
+  saves: PlayerOnlySaves,
   kind: UgcKind,
   slot: number,
   newName: string,
-): Entry {
-  const entry = findEntry(player, UGC_NAME_HASHES[kind], `${kind}.names`);
-  if (!entry.payload) {
-    throw new ShareMiiError('save_format_error', { label: `${kind}.names` });
-  }
-  const slotIdx = slot - 1;
-  const offset = ARRAY_HEADER + slotIdx * 128;
-  const encoded = encodeUtf16Name(newName, 128);
-  entry.payload.set(encoded, offset);
-  return entry;
+): void {
+  const leaf = leafByHashOrThrow(
+    PLAYER_SCHEMA,
+    UGC_NAME_HASHES[kind],
+    `${kind}.names`,
+    DataType.WString64Array,
+  );
+  saves.player.setElement(leaf, slot - 1, newName);
 }
 
 function buffersEqual(a: Uint8Array, b: Uint8Array): boolean {

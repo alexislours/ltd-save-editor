@@ -1,7 +1,6 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
   import { SvelteMap } from 'svelte/reactivity';
-  import { arrGetInt, arrGetUInt, arrSetInt, arrSetUInt } from '../sav/codec';
   import { allCloths, type Cloth, clothImageUrl, clothLabel } from '../sav/clothList.svelte';
   import {
     allCoordinates,
@@ -12,22 +11,22 @@
   } from '../sav/coordinateList.svelte';
   import { safe } from '../sav/format';
   import { murmur3_x86_32 } from '../sav/hash';
-  import type { Entry } from '../sav/types';
+  import { MII_SCHEMA } from '../sav/schema';
+  import type { SchemaLeaf } from '../sav/schema/paths';
   import { CARD_CLASS, PILL_BUTTON_CLASS } from '../styles';
-  import { markDirty, miiState } from './miiEditor.svelte';
+  import { miiAccessor } from './miiEditor.svelte';
   import type { BitmaskAccess } from './ownershipBitmask';
   import WornSlotEditor, { type ColorPicker, type WornOption } from './WornSlotEditor.svelte';
 
   type Props = {
-    byHash: SvelteMap<number, Entry>;
     selectedIndex: number | null;
     clothBitmask: BitmaskAccess;
     coordBitmask: BitmaskAccess;
   };
 
-  let { byHash, selectedIndex, clothBitmask, coordBitmask }: Props = $props();
+  let { selectedIndex, clothBitmask, coordBitmask }: Props = $props();
 
-  const tick = $derived(miiState.tick);
+  const mii = $derived(miiAccessor());
   const ui = $derived($locale);
 
   type WornSlotKey =
@@ -42,64 +41,64 @@
 
   type WornSlotConfig = {
     key: WornSlotKey;
-    keyHash: number;
-    colorHash: number;
+    keyLeaf: SchemaLeaf;
+    colorLeaf: SchemaLeaf;
     prefixes: string[];
   };
 
   const WORN_SLOTS: WornSlotConfig[] = [
     {
       key: 'All',
-      keyHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.All.KeyHash') >>> 0,
-      colorHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.All.ColorIndex') >>> 0,
+      keyLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.All.KeyHash,
+      colorLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.All.ColorIndex,
       prefixes: ['ClothAll'],
     },
     {
       key: 'Topslong',
-      keyHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.Topslong.KeyHash') >>> 0,
-      colorHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.Topslong.ColorIndex') >>> 0,
+      keyLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.Topslong.KeyHash,
+      colorLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.Topslong.ColorIndex,
       prefixes: ['ClothTopslong'],
     },
     {
       key: 'Tops',
-      keyHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.Tops.KeyHash') >>> 0,
-      colorHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.Tops.ColorIndex') >>> 0,
+      keyLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.Tops.KeyHash,
+      colorLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.Tops.ColorIndex,
       prefixes: ['ClothTops'],
     },
     {
       key: 'BottomsA',
-      keyHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.BottomsA.KeyHash') >>> 0,
-      colorHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.BottomsA.ColorIndex') >>> 0,
+      keyLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.BottomsA.KeyHash,
+      colorLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.BottomsA.ColorIndex,
       prefixes: ['ClothBottoms'],
     },
     {
       key: 'BottomsB',
-      keyHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.BottomsB.KeyHash') >>> 0,
-      colorHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.BottomsB.ColorIndex') >>> 0,
+      keyLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.BottomsB.KeyHash,
+      colorLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.BottomsB.ColorIndex,
       prefixes: ['ClothBottoms', 'ClothSocks'],
     },
     {
       key: 'Headwear',
-      keyHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.Headwear.KeyHash') >>> 0,
-      colorHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.Headwear.ColorIndex') >>> 0,
+      keyLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.Headwear.KeyHash,
+      colorLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.Headwear.ColorIndex,
       prefixes: ['ClothHeadwear'],
     },
     {
       key: 'Shoes',
-      keyHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.Shoes.KeyHash') >>> 0,
-      colorHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.Shoes.ColorIndex') >>> 0,
+      keyLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.Shoes.KeyHash,
+      colorLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.Shoes.ColorIndex,
       prefixes: ['ClothShoes'],
     },
     {
       key: 'Accessory',
-      keyHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.Accessory.KeyHash') >>> 0,
-      colorHash: murmur3_x86_32('Mii.MiiMisc.ClothInfo.Accessory.ColorIndex') >>> 0,
+      keyLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.Accessory.KeyHash,
+      colorLeaf: MII_SCHEMA.Mii.MiiMisc.ClothInfo.Accessory.ColorIndex,
       prefixes: ['ClothAccessory'],
     },
   ];
 
-  const COORDINATE_KEY_HASH = murmur3_x86_32('Mii.MiiMisc.ClothInfo.Coordinate.KeyHash') >>> 0;
-  const COORDINATE_COLOR_HASH = murmur3_x86_32('Mii.MiiMisc.ClothInfo.Coordinate.ColorIndex') >>> 0;
+  const COORDINATE_KEY_LEAF = MII_SCHEMA.Mii.MiiMisc.ClothInfo.Coordinate.KeyHash;
+  const COORDINATE_COLOR_LEAF = MII_SCHEMA.Mii.MiiMisc.ClothInfo.Coordinate.ColorIndex;
 
   const sortedCloths = $derived.by(() => {
     return [...allCloths()].sort((a, b) => {
@@ -117,42 +116,43 @@
 
   type WornSlotState = {
     config: WornSlotConfig;
-    keyEntry: Entry | null;
-    colorEntry: Entry | null;
+    hasKey: boolean;
+    hasColor: boolean;
     keyHash: number;
     cloth: Cloth | null;
     colorIndex: number;
   };
 
   const wornSlots = $derived.by<WornSlotState[]>(() => {
-    void tick;
     return WORN_SLOTS.map((cfg) => {
-      const keyEntry = byHash.get(cfg.keyHash) ?? null;
-      const colorEntry = byHash.get(cfg.colorHash) ?? null;
+      const hasKey = mii != null && mii.has(cfg.keyLeaf);
+      const hasColor = mii != null && mii.has(cfg.colorLeaf);
       let keyHash = 0;
       let colorIndex = 0;
-      if (selectedIndex != null) {
-        if (keyEntry) keyHash = safe(() => arrGetUInt(keyEntry, selectedIndex!), 0) >>> 0;
-        if (colorEntry) colorIndex = safe(() => arrGetInt(colorEntry, selectedIndex!), 0);
+      if (mii && selectedIndex != null) {
+        if (hasKey) {
+          keyHash = safe(() => mii.getElement(cfg.keyLeaf, selectedIndex!) as number, 0) >>> 0;
+        }
+        if (hasColor) {
+          colorIndex = safe(() => mii.getElement(cfg.colorLeaf, selectedIndex!) as number, 0);
+        }
       }
       const cloth = keyHash === 0 ? null : (clothByNameHash.get(keyHash) ?? null);
-      return { config: cfg, keyEntry, colorEntry, keyHash, cloth, colorIndex };
+      return { config: cfg, hasKey, hasColor, keyHash, cloth, colorIndex };
     });
   });
 
-  const coordKeyEntry = $derived(byHash.get(COORDINATE_KEY_HASH) ?? null);
-  const coordColorEntry = $derived(byHash.get(COORDINATE_COLOR_HASH) ?? null);
+  const hasCoordKey = $derived(mii != null && mii.has(COORDINATE_KEY_LEAF));
+  const hasCoordColor = $derived(mii != null && mii.has(COORDINATE_COLOR_LEAF));
 
   const coordKeyHash = $derived.by(() => {
-    void tick;
-    if (!coordKeyEntry || selectedIndex == null) return 0;
-    return safe(() => arrGetUInt(coordKeyEntry, selectedIndex!), 0) >>> 0;
+    if (!mii || !hasCoordKey || selectedIndex == null) return 0;
+    return safe(() => mii.getElement(COORDINATE_KEY_LEAF, selectedIndex!) as number, 0) >>> 0;
   });
 
   const coordColorIndex = $derived.by(() => {
-    void tick;
-    if (!coordColorEntry || selectedIndex == null) return 0;
-    return safe(() => arrGetInt(coordColorEntry, selectedIndex!), 0);
+    if (!mii || !hasCoordColor || selectedIndex == null) return 0;
+    return safe(() => mii.getElement(COORDINATE_COLOR_LEAF, selectedIndex!) as number, 0);
   });
 
   const currentCoordinate = $derived<Coordinate | null>(
@@ -160,7 +160,6 @@
   );
 
   const ownedCoordinateOptions = $derived.by<WornOption[]>(() => {
-    void tick;
     if (selectedIndex == null) return [];
     return allCoordinates()
       .filter((c) => coordBitmask.ownedColors(c.saveIndex, c.colorCount).length > 0)
@@ -184,81 +183,71 @@
   }
 
   function commitCoordKey(rawHash: string): void {
-    if (!coordKeyEntry || selectedIndex == null) return;
+    if (!mii || !hasCoordKey || selectedIndex == null) return;
     const next = (Number.parseInt(rawHash, 10) || 0) >>> 0;
-    arrSetUInt(coordKeyEntry, selectedIndex, next);
-    markDirty(coordKeyEntry);
-    if (coordColorEntry) {
+    mii.setElement(COORDINATE_KEY_LEAF, selectedIndex, next);
+    if (hasCoordColor) {
       const c = next === 0 ? null : coordinateByKey(next);
       const owned = c ? coordBitmask.ownedColors(c.saveIndex, c.colorCount) : [];
-      const cur = safe(() => arrGetInt(coordColorEntry, selectedIndex!), 0);
+      const cur = safe(() => mii.getElement(COORDINATE_COLOR_LEAF, selectedIndex!) as number, 0);
       const fallback = owned.length > 0 ? owned[0] : 0;
       if (next === 0 || !owned.includes(cur)) {
-        arrSetInt(coordColorEntry, selectedIndex, fallback);
-        markDirty(coordColorEntry);
+        mii.setElement(COORDINATE_COLOR_LEAF, selectedIndex, fallback);
       }
     }
   }
 
   function commitCoordColor(raw: string): void {
-    if (!coordColorEntry || selectedIndex == null) return;
+    if (!mii || !hasCoordColor || selectedIndex == null) return;
     const n = Number.parseInt(raw, 10);
     if (!Number.isFinite(n)) return;
-    arrSetInt(coordColorEntry, selectedIndex, n | 0);
-    markDirty(coordColorEntry);
+    mii.setElement(COORDINATE_COLOR_LEAF, selectedIndex, n | 0);
   }
 
   function clearCoordinate(): void {
-    if (selectedIndex == null) return;
-    if (coordKeyEntry) {
-      arrSetUInt(coordKeyEntry, selectedIndex, 0);
-      markDirty(coordKeyEntry);
+    if (!mii || selectedIndex == null) return;
+    if (hasCoordKey) {
+      mii.setElement(COORDINATE_KEY_LEAF, selectedIndex, 0);
     }
-    if (coordColorEntry) {
-      arrSetInt(coordColorEntry, selectedIndex, 0);
-      markDirty(coordColorEntry);
+    if (hasCoordColor) {
+      mii.setElement(COORDINATE_COLOR_LEAF, selectedIndex, 0);
     }
   }
 
   function commitKeyHash(slot: WornSlotState, rawHash: string): void {
-    if (selectedIndex == null || !slot.keyEntry) return;
+    if (!mii || selectedIndex == null || !slot.hasKey) return;
     const next = (Number.parseInt(rawHash, 10) || 0) >>> 0;
-    arrSetUInt(slot.keyEntry, selectedIndex, next);
-    markDirty(slot.keyEntry);
-    if (slot.colorEntry) {
+    mii.setElement(slot.config.keyLeaf, selectedIndex, next);
+    if (slot.hasColor) {
       const c = next === 0 ? null : (clothByNameHash.get(next) ?? null);
       const owned = c ? clothBitmask.ownedColors(c.index, c.colorCount) : [];
       const fallback = owned.length > 0 ? owned[0] : 0;
-      const cur = safe(() => arrGetInt(slot.colorEntry!, selectedIndex!), 0);
+      const cur = safe(() => mii.getElement(slot.config.colorLeaf, selectedIndex!) as number, 0);
       if (next === 0 || !owned.includes(cur)) {
-        arrSetInt(slot.colorEntry, selectedIndex, fallback);
-        markDirty(slot.colorEntry);
+        mii.setElement(slot.config.colorLeaf, selectedIndex, fallback);
       }
     }
   }
 
   function commitColorIndex(slot: WornSlotState, raw: string): void {
-    if (selectedIndex == null || !slot.colorEntry) return;
+    if (!mii || selectedIndex == null || !slot.hasColor) return;
     const n = Number.parseInt(raw, 10);
     if (!Number.isFinite(n)) return;
-    arrSetInt(slot.colorEntry, selectedIndex, n | 0);
-    markDirty(slot.colorEntry);
+    mii.setElement(slot.config.colorLeaf, selectedIndex, n | 0);
   }
 
   function clearWornSlot(slot: WornSlotState): void {
-    if (selectedIndex == null) return;
-    if (slot.keyEntry) {
-      arrSetUInt(slot.keyEntry, selectedIndex, 0);
-      markDirty(slot.keyEntry);
+    if (!mii || selectedIndex == null) return;
+    if (slot.hasKey) {
+      mii.setElement(slot.config.keyLeaf, selectedIndex, 0);
     }
-    if (slot.colorEntry) {
-      arrSetInt(slot.colorEntry, selectedIndex, 0);
-      markDirty(slot.colorEntry);
+    if (slot.hasColor) {
+      mii.setElement(slot.config.colorLeaf, selectedIndex, 0);
     }
   }
 
   function slotColorPicker(slot: WornSlotState): ColorPicker {
-    if (!slot.colorEntry) return { mode: 'hidden' };
+    if (!slot.hasColor) return { mode: 'hidden' };
     if (!slot.cloth) return { mode: 'numeric' };
     return {
       mode: 'select',
@@ -267,7 +256,7 @@
   }
 
   function coordColorPicker(): ColorPicker {
-    if (!coordColorEntry) return { mode: 'hidden' };
+    if (!hasCoordColor) return { mode: 'hidden' };
     if (!currentCoordinate) return { mode: 'numeric' };
     return {
       mode: 'select',
@@ -295,9 +284,7 @@
     return out;
   });
 
-  const hasWornFields = $derived(
-    wornSlots.some((s) => s.keyEntry || s.colorEntry) || coordKeyEntry != null,
-  );
+  const hasWornFields = $derived(wornSlots.some((s) => s.hasKey || s.hasColor) || hasCoordKey);
 
   let manualMode = $state<'coordinate' | 'individual' | null>(null);
   const wornMode = $derived<'coordinate' | 'individual'>(
@@ -347,7 +334,7 @@
           {$_('mii.belongings.worn_caption')}
         </p>
       </div>
-      {#if wornMode === 'coordinate' && wornSlots.some((s) => s.keyEntry)}
+      {#if wornMode === 'coordinate' && wornSlots.some((s) => s.hasKey)}
         <button
           type="button"
           class={PILL_BUTTON_CLASS}
@@ -356,7 +343,7 @@
         >
           {$_('mii.belongings.worn_switch_individual')}
         </button>
-      {:else if wornMode === 'individual' && coordKeyEntry}
+      {:else if wornMode === 'individual' && hasCoordKey}
         <button
           type="button"
           class={PILL_BUTTON_CLASS}
@@ -368,7 +355,7 @@
       {/if}
     </div>
 
-    {#if wornMode === 'coordinate' && coordKeyEntry}
+    {#if wornMode === 'coordinate' && hasCoordKey}
       <div class="mt-4">
         <WornSlotEditor
           slotLabel={$_('mii.belongings.worn_coordinate')}
@@ -437,7 +424,7 @@
       {/if}
       <div class="mt-4 grid gap-3 sm:grid-cols-2">
         {#each wornSlots as slot (slot.config.key)}
-          {#if slot.keyEntry}
+          {#if slot.hasKey}
             <WornSlotEditor
               slotLabel={$_(`mii.belongings.worn_slot.${slot.config.key}`)}
               keyHash={slot.keyHash}

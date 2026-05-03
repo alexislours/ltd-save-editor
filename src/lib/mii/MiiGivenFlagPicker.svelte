@@ -1,43 +1,32 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { binaryArrayElements } from '../sav/codec';
   import { allFoods, foodImageUrl, foodLabel, type Food } from '../sav/foodList.svelte';
-  import type { Entry } from '../sav/types';
   import { FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
-  import { markDirty, miiState } from './miiEditor.svelte';
+  import { miiAccessor } from './miiEditor.svelte';
   import type { MiiField } from './miiFields';
 
   type Props = {
-    entry: Entry;
     index: number;
     field: MiiField;
   };
-  let { entry, index, field }: Props = $props();
+  let { index, field }: Props = $props();
 
-  const tick = $derived(miiState.tick);
   const ui = $derived($locale);
 
   let search = $state('');
   let filter = $state<'all' | 'tried' | 'untried'>('all');
 
   const slotBytes = $derived.by<Uint8Array | null>(() => {
-    void tick;
-    const els = binaryArrayElements(entry);
-    return els[index]?.bytes ?? null;
+    const mii = miiAccessor();
+    if (!mii) return null;
+    const arr = mii.get(field.leaf) as Uint8Array[] | undefined;
+    return arr?.[index] ?? null;
   });
 
   function readBit(bytes: Uint8Array, id: number): boolean {
     const byteIdx = id >>> 3;
     if (byteIdx >= bytes.byteLength) return false;
     return ((bytes[byteIdx] >>> (id & 7)) & 1) === 1;
-  }
-
-  function toggleBit(bytes: Uint8Array, id: number, value: boolean): void {
-    const byteIdx = id >>> 3;
-    if (byteIdx >= bytes.byteLength) return;
-    const mask = 1 << (id & 7);
-    if (value) bytes[byteIdx] |= mask;
-    else bytes[byteIdx] &= ~mask;
   }
 
   type Row = { food: Food; tried: boolean };
@@ -54,7 +43,6 @@
   });
 
   const rows = $derived.by<Row[]>(() => {
-    void tick;
     const bytes = slotBytes;
     if (!bytes) return [];
     return sortedFoods.map((food) => ({ food, tried: readBit(bytes, food.id) }));
@@ -73,10 +61,18 @@
   });
 
   function commitToggle(id: number, value: boolean): void {
-    const bytes = slotBytes;
+    const mii = miiAccessor();
+    if (!mii) return;
+    const arr = mii.get(field.leaf) as Uint8Array[] | undefined;
+    const bytes = arr?.[index];
     if (!bytes) return;
-    toggleBit(bytes, id, value);
-    markDirty(entry);
+    const byteIdx = id >>> 3;
+    if (byteIdx >= bytes.byteLength) return;
+    const next = new Uint8Array(bytes);
+    const mask = 1 << (id & 7);
+    if (value) next[byteIdx] |= mask;
+    else next[byteIdx] &= ~mask;
+    arr[index] = next;
   }
 </script>
 

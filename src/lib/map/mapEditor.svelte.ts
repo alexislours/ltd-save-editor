@@ -1,112 +1,84 @@
-import { DataType } from '../sav/dataType';
-import type { Entry } from '../sav/types';
-import { downloadMapSav, ensureParsed, mapSave, scheduleMapPersist } from './mapSave.svelte';
+import { MAP_SCHEMA } from '../sav/schema';
+import {
+  downloadMapSav,
+  mapAccessor,
+  mapSave,
+  syncFromSave as syncMapSave,
+} from './mapSave.svelte';
 
 export const MAP_WIDTH = 120;
 export const MAP_HEIGHT = 80;
 export const MAP_TILE_COUNT = MAP_WIDTH * MAP_HEIGHT;
 
-export const FLOOR_KEY_HASH = 0x78e32e1c;
+const FLOOR_LEAF = MAP_SCHEMA.MapGrid.GridX.GridZ.FloorKeyHash;
+const FLOOR_PATH = 'MapGrid.GridX.GridZ.FloorKeyHash';
 
 type EditorState = {
-  entry: Entry | null;
+  ready: boolean;
   error: string | null;
-  parseRev: number;
-  dirty: boolean;
+  loadId: number;
   tileRev: number;
 };
 
 const state = $state<EditorState>({
-  entry: null,
+  ready: false,
   error: null,
-  parseRev: -1,
-  dirty: false,
+  loadId: -1,
   tileRev: 0,
 });
 
 export const mapState = state;
 
-let originalTiles: Uint32Array | null = null;
-
 function bumpRev(): void {
   state.tileRev = (state.tileRev + 1) | 0;
 }
 
-function tileBufferView(): Uint32Array {
-  if (!state.entry?.payload) {
-    throw new Error('Map is not loaded');
-  }
-
-  return new Uint32Array(
-    state.entry.payload.buffer,
-    state.entry.payload.byteOffset + 4,
-    MAP_TILE_COUNT,
-  );
+function tilesArray(): number[] | null {
+  const decoded = mapSave.decoded;
+  if (!decoded) return null;
+  const arr = (decoded.values as unknown as Record<string, unknown>)[FLOOR_PATH] as
+    | number[]
+    | undefined;
+  return arr ?? null;
 }
 
-function recomputeDirty(): void {
-  if (!state.entry || !originalTiles) {
-    state.dirty = false;
-    return;
-  }
-  const current = tileBufferView();
-  for (let i = 0; i < MAP_TILE_COUNT; i++) {
-    if (current[i] !== originalTiles[i]) {
-      state.dirty = true;
-      return;
-    }
-  }
-  state.dirty = false;
+export function floorTiles(): readonly number[] | null {
+  void state.tileRev;
+  return tilesArray();
 }
 
 export function syncFromSave(): void {
-  const parsed = ensureParsed();
-  if (!parsed) {
-    if (state.entry || state.error) {
-      state.entry = null;
+  syncMapSave();
+  const decoded = mapSave.decoded;
+  if (!decoded) {
+    if (state.ready || state.error) {
+      state.ready = false;
       state.error = mapSave.error;
-      state.dirty = false;
-      originalTiles = null;
-      state.parseRev = mapSave.parseRev;
+      state.loadId = mapSave.loadId;
       bumpRev();
     }
     return;
   }
-  if (state.parseRev === mapSave.parseRev && state.entry) return;
+  if (state.loadId === mapSave.loadId && (state.ready || state.error)) return;
 
   try {
-    const entry = parsed.entries.find(
-      (e) => e.hash === FLOOR_KEY_HASH && e.type === DataType.UIntArray,
-    );
-    if (!entry || !entry.payload) {
+    const tiles = tilesArray();
+    if (!tiles) {
       throw new Error('Map save has no MapGrid.GridX.GridZ.FloorKeyHash (expected UIntArray)');
     }
-
-    const view = new DataView(
-      entry.payload.buffer,
-      entry.payload.byteOffset,
-      entry.payload.byteLength,
-    );
-    const count = view.getUint32(0, true);
-    if (count !== MAP_TILE_COUNT) {
-      throw new Error(`Unexpected tile count ${count} (expected ${MAP_TILE_COUNT})`);
+    if (tiles.length !== MAP_TILE_COUNT) {
+      throw new Error(`Unexpected tile count ${tiles.length} (expected ${MAP_TILE_COUNT})`);
     }
 
-    state.entry = entry;
+    state.ready = true;
     state.error = null;
-    state.parseRev = mapSave.parseRev;
-    state.dirty = false;
+    state.loadId = mapSave.loadId;
 
-    // Snapshot tiles so reverts clear the dirty flag.
-    const tiles = tileBufferView();
-    originalTiles = new Uint32Array(tiles);
     bumpRev();
   } catch (e) {
-    state.entry = null;
+    state.ready = false;
     state.error = e instanceof Error ? e.message : String(e);
-    state.parseRev = mapSave.parseRev;
-    state.dirty = false;
-    originalTiles = null;
+    state.loadId = mapSave.loadId;
     bumpRev();
   }
 }
@@ -124,43 +96,54 @@ export function inBounds(x: number, y: number): boolean {
 }
 
 export function getTile(x: number, y: number): number {
-  if (!state.entry) return 0;
-  return tileBufferView()[indexFromXY(x, y)];
+  const tiles = tilesArray();
+  if (!tiles) return 0;
+  return tiles[indexFromXY(x, y)] >>> 0;
 }
 
 export function getTileByIndex(index: number): number {
-  if (!state.entry) return 0;
-  return tileBufferView()[index];
+  const tiles = tilesArray();
+  if (!tiles) return 0;
+  return tiles[index] >>> 0;
 }
 
 export function setTileIndex(index: number, value: number): boolean {
-  if (!state.entry) return false;
-  const tiles = tileBufferView();
-  if (tiles[index] === value >>> 0) return false;
-  tiles[index] = value >>> 0;
+  const tiles = tilesArray();
+  if (!tiles) return false;
+  const v = value >>> 0;
+  if (tiles[index] >>> 0 === v) return false;
+  const acc = mapAccessor();
+  if (!acc) return false;
+  acc.setElement(FLOOR_LEAF, index, v);
   return true;
 }
 
 export function commitTileChanges(changedCount: number): void {
   if (changedCount <= 0) return;
   bumpRev();
-  recomputeDirty();
-  scheduleMapPersist();
 }
 
 export function replaceTilesFromSnapshot(snapshot: Uint32Array): void {
-  if (!state.entry) return;
-  const tiles = tileBufferView();
-  tiles.set(snapshot);
+  const tiles = tilesArray();
+  if (!tiles) return;
+  const acc = mapAccessor();
+  if (!acc) return;
+  for (let i = 0; i < snapshot.length; i++) {
+    if (tiles[i] >>> 0 !== snapshot[i] >>> 0) {
+      acc.setElement(FLOOR_LEAF, i, snapshot[i] >>> 0);
+    }
+  }
   bumpRev();
-  recomputeDirty();
-  scheduleMapPersist();
 }
 
 export function snapshotTiles(): Uint32Array {
-  return new Uint32Array(tileBufferView());
+  const tiles = tilesArray();
+  if (!tiles) return new Uint32Array(0);
+  const out = new Uint32Array(tiles.length);
+  for (let i = 0; i < tiles.length; i++) out[i] = tiles[i] >>> 0;
+  return out;
 }
 
 export function downloadModified(): void {
-  downloadMapSav('Map.sav');
+  downloadMapSav();
 }

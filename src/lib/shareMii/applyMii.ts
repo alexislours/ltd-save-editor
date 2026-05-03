@@ -1,131 +1,190 @@
-import type { Entry, SavFile } from '../sav/types';
+import { DataType } from '../sav/dataType';
+import type { Accessor } from '../sav/materialized/accessor';
+import { buildHashMap } from '../sav/materialized/schemaIndex';
+import { MII_SCHEMA, PLAYER_SCHEMA, type SchemaLeaf } from '../sav/schema';
 import { decodeLtdMii, encodeLtdMii, type LtdMii } from './codec';
 import { ShareMiiError } from './errors';
-import { findEntry } from './savAccess';
+import { leafByHashOrThrow, type MiiSaves } from './savAccess';
 import {
   FACEPAINT_HASHES,
   MII_HASHES,
   facepaintCanvasFileName,
   facepaintTexFileName,
 } from './ugcKinds';
-import { decodeUtf16Name, sanitizeFileName } from './utf16';
+import { decodeUtf16Name, encodeUtf16Name, sanitizeFileName } from './utf16';
 import { EMPTY_SIDECAR, type SidecarFile, type SidecarSource } from './sidecar';
 
 export const MII_SLOTS = 70;
 const MII_BLOCK_LEN = 156;
-/** Size of the count prefix inside any *Array heap payload. */
-const ARRAY_HEADER = 4;
+const MII_DATA_LEN = 152;
 
-/**
- * Resolved entry payloads for the player and mii saves. Each is a live
- * reference into the parsed SavFile - mutations propagate to other consumers
- * sharing the same parsed state.
- */
-type MiiEntries = {
-  fpPrice: Uint8Array;
-  fpTexSrc: Uint8Array;
-  fpState: Uint8Array;
-  fpUnknown: Uint8Array;
-  fpHash: Uint8Array;
-  facePaintIndex: Uint8Array;
-  tempSlot: Uint8Array;
-  miiNames: Uint8Array;
-  miiPronunciation: Uint8Array;
-  miiRaw: Uint8Array;
-  isLoveGender: Uint8Array;
-  personality: Uint8Array[];
-  playerEntries: Entry[];
-  miiEntries: Entry[];
-};
-
-function loadPayload(savFile: SavFile, hash: number, label: string, sink: Entry[]): Uint8Array {
-  const e = findEntry(savFile, hash, label);
-  if (!e.payload) {
-    throw new ShareMiiError('save_format_error', { label });
-  }
-  sink.push(e);
-  return e.payload;
+function wrapMiiBlock(data: Uint8Array): Uint8Array {
+  const out = new Uint8Array(MII_BLOCK_LEN);
+  new DataView(out.buffer).setUint32(0, MII_DATA_LEN, true);
+  out.set(data, 4);
+  return out;
 }
 
-function readEntries(player: SavFile, mii: SavFile): MiiEntries {
-  const playerEntries: Entry[] = [];
-  const miiEntries: Entry[] = [];
-  return {
-    fpPrice: loadPayload(player, FACEPAINT_HASHES.price, 'Facepaint.Price', playerEntries),
-    fpTexSrc: loadPayload(
-      player,
-      FACEPAINT_HASHES.textureSourceType,
-      'Facepaint.TextureSourceType',
-      playerEntries,
-    ),
-    fpState: loadPayload(player, FACEPAINT_HASHES.state, 'Facepaint.State', playerEntries),
-    fpUnknown: loadPayload(player, FACEPAINT_HASHES.unknown, 'Facepaint.Unknown', playerEntries),
-    fpHash: loadPayload(player, FACEPAINT_HASHES.hash, 'Facepaint.Hash', playerEntries),
-    facePaintIndex: loadPayload(mii, MII_HASHES.facePaintIndex, 'Mii.FacePaintIndex', miiEntries),
-    tempSlot: loadPayload(player, MII_HASHES.tempSlotMii, 'Player.TempSlotMii', playerEntries),
-    miiNames: loadPayload(mii, MII_HASHES.names, 'Mii.Names', miiEntries),
-    miiPronunciation: loadPayload(mii, MII_HASHES.pronunciation, 'Mii.Pronunciation', miiEntries),
-    miiRaw: loadPayload(mii, MII_HASHES.rawMii, 'Mii.Raw', miiEntries),
-    isLoveGender: loadPayload(mii, MII_HASHES.isLoveGender, 'Mii.IsLoveGender', miiEntries),
-    personality: MII_HASHES.personality.map((h, i) =>
-      loadPayload(mii, h, `Personality[${i}]`, miiEntries),
-    ),
-    playerEntries,
-    miiEntries,
-  };
+function unwrapMiiBlock(block: Uint8Array): Uint8Array {
+  return block.slice(4, MII_BLOCK_LEN);
+}
+
+const FP_TEX_SRC_USED = 0x56934941 | 0;
+const FP_TEX_SRC_UNUSED = 0xb6eede09 | 0;
+const FP_STATE_USED = 0x1d7fadf4 | 0;
+export const FP_STATE_UNUSED = 0xafff8aa5 | 0;
+const FP_UNKNOWN_USED = 0x00008000 | 0;
+const FP_UNKNOWN_UNUSED = 0x00000000 | 0;
+const FP_PRICE = 0x000001f4;
+const FP_HASH_UNUSED = 0x00000000 | 0;
+const FP_INDEX_UNUSED = -1;
+
+function fpHashValue(facepaintId: number): number {
+  return (8 << 16) | facepaintId | 0;
+}
+
+const PLAYER_LEAVES = {
+  fpPrice: leafByHashOrThrow(
+    PLAYER_SCHEMA,
+    FACEPAINT_HASHES.price,
+    'Facepaint.Price',
+    DataType.IntArray,
+  ),
+  fpTexSrc: leafByHashOrThrow(
+    PLAYER_SCHEMA,
+    FACEPAINT_HASHES.textureSourceType,
+    'Facepaint.TextureSourceType',
+    DataType.EnumArray,
+  ),
+  fpState: leafByHashOrThrow(
+    PLAYER_SCHEMA,
+    FACEPAINT_HASHES.state,
+    'Facepaint.State',
+    DataType.EnumArray,
+  ),
+  fpUnknown: leafByHashOrThrow(
+    PLAYER_SCHEMA,
+    FACEPAINT_HASHES.unknown,
+    'Facepaint.Unknown',
+    DataType.UIntArray,
+  ),
+  fpHash: leafByHashOrThrow(
+    PLAYER_SCHEMA,
+    FACEPAINT_HASHES.hash,
+    'Facepaint.Hash',
+    DataType.UIntArray,
+  ),
+  tempSlot: leafByHashOrThrow(
+    PLAYER_SCHEMA,
+    MII_HASHES.tempSlotMii,
+    'Player.TempSlotMii',
+    DataType.Binary,
+  ),
+} as const;
+
+const MII_LEAVES = {
+  facePaintIndex: leafByHashOrThrow(
+    MII_SCHEMA,
+    MII_HASHES.facePaintIndex,
+    'Mii.FacePaintIndex',
+    DataType.IntArray,
+  ),
+  names: leafByHashOrThrow(MII_SCHEMA, MII_HASHES.names, 'Mii.Names', DataType.WString32Array),
+  pronunciation: leafByHashOrThrow(
+    MII_SCHEMA,
+    MII_HASHES.pronunciation,
+    'Mii.Pronunciation',
+    DataType.WString64Array,
+  ),
+  rawMii: leafByHashOrThrow(MII_SCHEMA, MII_HASHES.rawMii, 'Mii.Raw', DataType.BinaryArray),
+  isLoveGender: leafByHashOrThrow(
+    MII_SCHEMA,
+    MII_HASHES.isLoveGender,
+    'Mii.IsLoveGender',
+    DataType.BoolArray,
+  ),
+  personality: MII_HASHES.personality.map((h, i) => {
+    const info = buildHashMap(MII_SCHEMA as object).get(h >>> 0);
+    if (!info) throw new ShareMiiError('save_format_error', { label: `Personality[${i}]` });
+    if (info.leaf.type !== DataType.IntArray && info.leaf.type !== DataType.EnumArray) {
+      throw new ShareMiiError('save_format_error', { label: `Personality[${i}]` });
+    }
+    return info.leaf as SchemaLeaf<DataType.IntArray> | SchemaLeaf<DataType.EnumArray>;
+  }) as readonly (SchemaLeaf<DataType.IntArray> | SchemaLeaf<DataType.EnumArray>)[],
+} as const;
+
+function getPersonalityElement(
+  mii: Accessor<'mii'>,
+  leaf: SchemaLeaf<DataType.IntArray> | SchemaLeaf<DataType.EnumArray>,
+  i: number,
+): number {
+  if (leaf.type === DataType.IntArray) return mii.getElement(leaf, i);
+  return mii.getElement(leaf, i);
+}
+
+function setPersonalityElement(
+  mii: Accessor<'mii'>,
+  leaf: SchemaLeaf<DataType.IntArray> | SchemaLeaf<DataType.EnumArray>,
+  i: number,
+  v: number,
+): void {
+  if (leaf.type === DataType.IntArray) mii.setElement(leaf, i, v);
+  else mii.setElement(leaf, i, v >>> 0);
 }
 
 export type MiiSlotInfo = {
-  /** 0 = temp slot ("In-Progress Mii"), 1..70 = real slots */
   slot: number;
   empty: boolean;
   name: string;
 };
 
-export function listMiiSlots(player: SavFile, mii: SavFile): MiiSlotInfo[] {
-  const e = readEntries(player, mii);
+export function listMiiSlots(saves: MiiSaves): MiiSlotInfo[] {
   const out: MiiSlotInfo[] = [];
   out.push({ slot: 0, empty: false, name: 'In-Progress Mii' });
   for (let s = 0; s < MII_SLOTS; s++) {
-    const start = ARRAY_HEADER + MII_BLOCK_LEN * s;
-    const block = e.miiRaw.subarray(start, start + MII_BLOCK_LEN);
-    const empty = isEmptyMiiBlock(block);
-    const nameBuf = e.miiNames.subarray(ARRAY_HEADER + s * 64, ARRAY_HEADER + s * 64 + 64);
-    const name = decodeUtf16Name(nameBuf);
+    const data = saves.mii.getElement(MII_LEAVES.rawMii, s);
+    const empty = isEmptyDataBlock(data);
+    const name = saves.mii.getElement(MII_LEAVES.names, s);
     out.push({ slot: s + 1, empty, name: empty ? '' : name });
   }
   return out;
 }
 
+function isEmptyDataBlock(data: Uint8Array): boolean {
+  if (data.byteLength !== MII_DATA_LEN) return false;
+  for (const b of data) if (b !== 0) return false;
+  return true;
+}
+
 function isEmptyMiiBlock(block: Uint8Array): boolean {
+  if (block.byteLength !== MII_BLOCK_LEN) return false;
   let sum = 0;
   for (const b of block) sum += b;
   return sum === 152;
 }
 
-function getPackedBit(payload: Uint8Array, bitIdx: number): number {
-  const byteIdx = ARRAY_HEADER + (bitIdx >>> 3);
-  if (byteIdx >= payload.byteLength) return 0;
-  return (payload[byteIdx] >>> (bitIdx & 7)) & 1;
+function readMiiBlock(saves: MiiSaves, isTemp: boolean, slotIdx: number): Uint8Array {
+  if (isTemp) {
+    const data = saves.player.get(PLAYER_LEAVES.tempSlot);
+    if (data.byteLength < MII_DATA_LEN) throw new ShareMiiError('mii_not_initialized');
+    return wrapMiiBlock(data.subarray(0, MII_DATA_LEN));
+  }
+  const data = saves.mii.getElement(MII_LEAVES.rawMii, slotIdx);
+  if (data.byteLength !== MII_DATA_LEN) {
+    throw new ShareMiiError('save_format_error', { label: 'Mii.Raw' });
+  }
+  return wrapMiiBlock(data);
 }
 
-function setPackedBit(payload: Uint8Array, bitIdx: number, value: number): void {
-  const byteIdx = ARRAY_HEADER + (bitIdx >>> 3);
-  if (byteIdx >= payload.byteLength) return;
-  const mask = 1 << (bitIdx & 7);
-  if (value) payload[byteIdx] |= mask;
-  else payload[byteIdx] &= ~mask;
-}
-
-function readBlock(e: MiiEntries, isTemp: boolean, slotIdx: number): Uint8Array {
-  if (isTemp) return e.tempSlot.subarray(0, MII_BLOCK_LEN);
-  const start = ARRAY_HEADER + MII_BLOCK_LEN * slotIdx;
-  return e.miiRaw.subarray(start, start + MII_BLOCK_LEN);
-}
-
-function writeBlock(e: MiiEntries, isTemp: boolean, slotIdx: number, block: Uint8Array): void {
-  if (isTemp) e.tempSlot.set(block, 0);
-  else e.miiRaw.set(block, ARRAY_HEADER + MII_BLOCK_LEN * slotIdx);
+function writeMiiBlock(saves: MiiSaves, isTemp: boolean, slotIdx: number, block: Uint8Array): void {
+  const data = unwrapMiiBlock(block);
+  if (isTemp) {
+    const buf = saves.player.get(PLAYER_LEAVES.tempSlot);
+    buf.set(data, 0);
+    saves.player.set(PLAYER_LEAVES.tempSlot, buf);
+  } else {
+    saves.mii.setElement(MII_LEAVES.rawMii, slotIdx, data);
+  }
 }
 
 export type ExtractMiiResult = {
@@ -136,58 +195,57 @@ export type ExtractMiiResult = {
 };
 
 export function extractMii(
-  player: SavFile,
-  mii: SavFile,
+  saves: MiiSaves,
   slot: number,
   sidecar: SidecarSource = EMPTY_SIDECAR,
 ): ExtractMiiResult {
-  const e = readEntries(player, mii);
   const isTemp = slot === 0;
   const slotIdx = slot - 1;
 
-  const block = readBlock(e, isTemp, slotIdx);
+  const block = readMiiBlock(saves, isTemp, slotIdx);
   if (isEmptyMiiBlock(block)) {
     throw new ShareMiiError('mii_not_initialized');
   }
 
   let facepaintId: number | null = null;
   if (isTemp) {
-    const off = ARRAY_HEADER + 4 * 70;
-    const marker = e.fpState.subarray(off, off + 4);
-    if (!equalsHex(marker, [0xa5, 0x8a, 0xff, 0xaf])) facepaintId = 70;
+    if (saves.player.getElement(PLAYER_LEAVES.fpState, 70) !== FP_STATE_UNUSED) facepaintId = 70;
   } else {
-    const id = e.facePaintIndex[ARRAY_HEADER + 4 * slotIdx];
-    if (id !== 0xff) facepaintId = id;
+    const id = saves.mii.getElement(MII_LEAVES.facePaintIndex, slotIdx);
+    if (id !== FP_INDEX_UNUSED) facepaintId = id;
   }
 
   const personality = new Uint8Array(72);
+  const dv = new DataView(personality.buffer);
   for (let i = 0; i < 18; i++) {
-    const src = isTemp
-      ? new Uint8Array(4)
-      : e.personality[i].subarray(ARRAY_HEADER + slotIdx * 4, ARRAY_HEADER + slotIdx * 4 + 4);
-    personality.set(src, i * 4);
+    const v = isTemp ? 0 : getPersonalityElement(saves.mii, MII_LEAVES.personality[i], slotIdx);
+    dv.setInt32(i * 4, v | 0, true);
   }
 
   const name = new Uint8Array(64);
+  let decodedName: string;
   if (isTemp) {
     const tempName = new TextEncoder().encode('Temp');
     for (let i = 0; i < tempName.length; i++) name[i * 2] = tempName[i];
+    decodedName = 'Mii';
   } else {
-    name.set(e.miiNames.subarray(ARRAY_HEADER + slotIdx * 64, ARRAY_HEADER + slotIdx * 64 + 64));
+    const nameStr = saves.mii.getElement(MII_LEAVES.names, slotIdx);
+    name.set(encodeUtf16Name(nameStr, 64));
+    decodedName = decodeUtf16Name(name);
   }
+
   const pronounce = new Uint8Array(128);
   if (!isTemp) {
-    pronounce.set(
-      e.miiPronunciation.subarray(ARRAY_HEADER + slotIdx * 128, ARRAY_HEADER + slotIdx * 128 + 128),
-    );
+    const pStr = saves.mii.getElement(MII_LEAVES.pronunciation, slotIdx);
+    pronounce.set(encodeUtf16Name(pStr, 128));
   }
 
   const sexuality = new Uint8Array(4);
   if (!isTemp) {
     const base = slotIdx * 3;
-    sexuality[0] = getPackedBit(e.isLoveGender, base);
-    sexuality[1] = getPackedBit(e.isLoveGender, base + 1);
-    sexuality[2] = getPackedBit(e.isLoveGender, base + 2);
+    sexuality[0] = saves.mii.getElement(MII_LEAVES.isLoveGender, base) ? 1 : 0;
+    sexuality[1] = saves.mii.getElement(MII_LEAVES.isLoveGender, base + 1) ? 1 : 0;
+    sexuality[2] = saves.mii.getElement(MII_LEAVES.isLoveGender, base + 2) ? 1 : 0;
   }
 
   let canvasTex = new Uint8Array(0);
@@ -220,7 +278,6 @@ export function extractMii(
   };
   const bytes = encodeLtdMii(ltd);
 
-  const decodedName = isTemp ? 'Mii' : decodeUtf16Name(name);
   const baseName = isTemp ? 'Mii' : sanitizeFileName(decodedName);
   return {
     bytes,
@@ -232,33 +289,30 @@ export function extractMii(
 
 export type ApplyMiiResult = {
   facepaintWrites: SidecarFile[];
-  touchedPlayerEntries: Entry[];
-  touchedMiiEntries: Entry[];
 };
 
 export function applyMii(
-  player: SavFile,
-  mii: SavFile,
+  saves: MiiSaves,
   slot: number,
   ltdBytes: Uint8Array,
   sidecar: SidecarSource = EMPTY_SIDECAR,
 ): ApplyMiiResult {
   const ltd = decodeLtdMii(ltdBytes);
-  const e = readEntries(player, mii);
 
   const isTemp = slot === 0;
   const slotIdx = slot - 1;
 
-  if (!isTemp && isEmptyMiiBlock(readBlock(e, isTemp, slotIdx))) {
+  if (!isTemp && isEmptyMiiBlock(readMiiBlock(saves, isTemp, slotIdx))) {
     throw new ShareMiiError('mii_not_initialized');
   }
 
-  writeBlock(e, isTemp, slotIdx, ltd.miiBlock);
+  writeMiiBlock(saves, isTemp, slotIdx, ltd.miiBlock);
 
   const facepaintAvailable: 'inline' | null = ltd.hasCanvas && ltd.hasUgcTex ? 'inline' : null;
 
-  let prevFacepaintId = 0xff;
-  if (!isTemp) prevFacepaintId = e.facePaintIndex[ARRAY_HEADER + 4 * slotIdx];
+  const prevFacepaintId = isTemp
+    ? FP_INDEX_UNUSED
+    : saves.mii.getElement(MII_LEAVES.facePaintIndex, slotIdx);
 
   let facepaintId = prevFacepaintId;
   const facepaintWrites: SidecarFile[] = [];
@@ -266,15 +320,15 @@ export function applyMii(
   if (facepaintAvailable === 'inline') {
     if (isTemp) {
       facepaintId = 70;
-    } else if (facepaintId === 0xff) {
-      facepaintId = pickFacepaintId(e.facePaintIndex);
-      e.facePaintIndex.set([facepaintId, 0, 0, 0], ARRAY_HEADER + 4 * slotIdx);
+    } else if (facepaintId === FP_INDEX_UNUSED) {
+      facepaintId = pickFacepaintId(saves.mii);
+      saves.mii.setElement(MII_LEAVES.facePaintIndex, slotIdx, facepaintId);
     }
-    setU32LE(e.fpPrice, ARRAY_HEADER + 4 * facepaintId, 0x000001f4);
-    e.fpTexSrc.set([0x41, 0x49, 0x93, 0x56], ARRAY_HEADER + 4 * facepaintId);
-    e.fpState.set([0xf4, 0xad, 0x7f, 0x1d], ARRAY_HEADER + 4 * facepaintId);
-    e.fpUnknown.set([0x00, 0x80, 0x00, 0x00], ARRAY_HEADER + 4 * facepaintId);
-    e.fpHash.set([facepaintId, 0, 8, 0], ARRAY_HEADER + 4 * facepaintId);
+    saves.player.setElement(PLAYER_LEAVES.fpPrice, facepaintId, FP_PRICE);
+    saves.player.setElement(PLAYER_LEAVES.fpTexSrc, facepaintId, FP_TEX_SRC_USED);
+    saves.player.setElement(PLAYER_LEAVES.fpState, facepaintId, FP_STATE_USED);
+    saves.player.setElement(PLAYER_LEAVES.fpUnknown, facepaintId, FP_UNKNOWN_USED);
+    saves.player.setElement(PLAYER_LEAVES.fpHash, facepaintId, fpHashValue(facepaintId));
 
     facepaintWrites.push({
       name: facepaintCanvasFileName(facepaintId),
@@ -284,65 +338,55 @@ export function applyMii(
       name: facepaintTexFileName(facepaintId),
       bytes: ltd.ugcTex,
     });
-  } else if (prevFacepaintId !== 0xff) {
+  } else if (prevFacepaintId !== FP_INDEX_UNUSED) {
     if (!isTemp) {
-      e.facePaintIndex.set([0xff, 0xff, 0xff, 0xff], ARRAY_HEADER + 4 * slotIdx);
+      saves.mii.setElement(MII_LEAVES.facePaintIndex, slotIdx, FP_INDEX_UNUSED);
     }
-    setU32LE(e.fpPrice, ARRAY_HEADER + 4 * prevFacepaintId, 0);
-    e.fpTexSrc.set([0x09, 0xde, 0xee, 0xb6], ARRAY_HEADER + 4 * prevFacepaintId);
-    e.fpState.set([0xa5, 0x8a, 0xff, 0xaf], ARRAY_HEADER + 4 * prevFacepaintId);
-    e.fpUnknown.set([0, 0, 0, 0], ARRAY_HEADER + 4 * prevFacepaintId);
-    e.fpHash.set([0, 0, 0, 0], ARRAY_HEADER + 4 * prevFacepaintId);
+    saves.player.setElement(PLAYER_LEAVES.fpPrice, prevFacepaintId, 0);
+    saves.player.setElement(PLAYER_LEAVES.fpTexSrc, prevFacepaintId, FP_TEX_SRC_UNUSED);
+    saves.player.setElement(PLAYER_LEAVES.fpState, prevFacepaintId, FP_STATE_UNUSED);
+    saves.player.setElement(PLAYER_LEAVES.fpUnknown, prevFacepaintId, FP_UNKNOWN_UNUSED);
+    saves.player.setElement(PLAYER_LEAVES.fpHash, prevFacepaintId, FP_HASH_UNUSED);
   }
 
   if (ltd.originalVersion >= 2 && !isTemp) {
+    const sdv = new DataView(
+      ltd.personality.buffer,
+      ltd.personality.byteOffset,
+      ltd.personality.byteLength,
+    );
     for (let i = 0; i < 18; i++) {
-      const src = ltd.personality.subarray(i * 4, i * 4 + 4);
-      e.personality[i].set(src, ARRAY_HEADER + slotIdx * 4);
+      setPersonalityElement(
+        saves.mii,
+        MII_LEAVES.personality[i],
+        slotIdx,
+        sdv.getInt32(i * 4, true),
+      );
     }
-    e.miiNames.set(ltd.name, ARRAY_HEADER + slotIdx * 64);
-    e.miiPronunciation.set(ltd.pronounce, ARRAY_HEADER + slotIdx * 128);
+    saves.mii.setElement(MII_LEAVES.names, slotIdx, decodeUtf16Name(ltd.name));
+    saves.mii.setElement(MII_LEAVES.pronunciation, slotIdx, decodeUtf16Name(ltd.pronounce));
 
     const base = slotIdx * 3;
-    setPackedBit(e.isLoveGender, base, ltd.sexuality[0] & 1);
-    setPackedBit(e.isLoveGender, base + 1, ltd.sexuality[1] & 1);
-    setPackedBit(e.isLoveGender, base + 2, ltd.sexuality[2] & 1);
+    saves.mii.setElement(MII_LEAVES.isLoveGender, base, (ltd.sexuality[0] & 1) === 1);
+    saves.mii.setElement(MII_LEAVES.isLoveGender, base + 1, (ltd.sexuality[1] & 1) === 1);
+    saves.mii.setElement(MII_LEAVES.isLoveGender, base + 2, (ltd.sexuality[2] & 1) === 1);
   }
 
   if (sidecar.origin !== 'none' && facepaintWrites.length > 0) {
     for (const f of facepaintWrites) sidecar.files.set(f.name, f.bytes);
   }
 
-  return {
-    facepaintWrites,
-    touchedPlayerEntries: e.playerEntries,
-    touchedMiiEntries: e.miiEntries,
-  };
+  return { facepaintWrites };
 }
 
-function pickFacepaintId(facePaintIndex: Uint8Array): number {
+function pickFacepaintId(mii: Accessor<'mii'>): number {
   const used = new Set<number>();
   for (let s = 0; s < MII_SLOTS; s++) {
-    const id = facePaintIndex[ARRAY_HEADER + 4 * s];
-    if (id !== 0xff) used.add(id);
+    const id = mii.getElement(MII_LEAVES.facePaintIndex, s);
+    if (id !== FP_INDEX_UNUSED) used.add(id);
   }
   for (let i = 0; i < MII_SLOTS; i++) {
     if (!used.has(i)) return i;
   }
   throw new ShareMiiError('no_free_facepaint_slot');
-}
-
-function setU32LE(buf: Uint8Array, offset: number, value: number): void {
-  buf[offset] = value & 0xff;
-  buf[offset + 1] = (value >>> 8) & 0xff;
-  buf[offset + 2] = (value >>> 16) & 0xff;
-  buf[offset + 3] = (value >>> 24) & 0xff;
-}
-
-function equalsHex(buf: Uint8Array, hex: number[]): boolean {
-  if (buf.byteLength !== hex.length) return false;
-  for (let i = 0; i < hex.length; i++) {
-    if (buf[i] !== hex[i]) return false;
-  }
-  return true;
 }

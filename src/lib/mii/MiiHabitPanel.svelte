@@ -1,7 +1,6 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
   import { SvelteMap } from 'svelte/reactivity';
-  import { arrGetBool, arrGetEnum, arrSetBool, arrSetEnum } from '../sav/codec';
   import { safe } from '../sav/format';
   import {
     allHabits,
@@ -13,25 +12,25 @@
     type Habit,
     type HabitCategory,
   } from '../sav/habitList.svelte';
-  import type { Entry } from '../sav/types';
+  import { buildHashMap } from '../sav/materialized/schemaIndex';
+  import { MII_SCHEMA } from '../sav/schema';
+  import type { SchemaLeaf } from '../sav/schema/paths';
   import { CARD_CLASS, PILL_BUTTON_CLASS, TAB_PILL_CLASS } from '../styles';
-  import { markDirty, miiState } from './miiEditor.svelte';
+  import { miiAccessor } from './miiEditor.svelte';
   import MiiSlotSelector from './MiiSlotSelector.svelte';
 
   type Props = {
-    entries: Entry[];
     selectedIndex: number | null;
   };
-  let { entries, selectedIndex = $bindable(null) }: Props = $props();
+  let { selectedIndex = $bindable(null) }: Props = $props();
 
-  const tick = $derived(miiState.tick);
   const ui = $derived($locale);
 
-  const byHash = $derived.by(() => {
-    const m = new SvelteMap<number, Entry>();
-    for (const e of entries) m.set(e.hash, e);
-    return m;
-  });
+  const SCHEMA_BY_HASH = buildHashMap(MII_SCHEMA);
+
+  function leafForHash(hash: number): SchemaLeaf | null {
+    return SCHEMA_BY_HASH.get(hash >>> 0)?.leaf ?? null;
+  }
 
   const habits = $derived(allHabits());
 
@@ -87,35 +86,41 @@
   const currentGroup = $derived(grouped.find((g) => g.category === selectedCategory) ?? null);
 
   function getBool(hash: number): boolean {
-    void tick;
     if (selectedIndex == null) return false;
-    const e = byHash.get(hash);
-    if (!e) return false;
-    return safe(() => arrGetBool(e, selectedIndex!), false);
+    const mii = miiAccessor();
+    if (!mii) return false;
+    const leaf = leafForHash(hash);
+    if (!leaf || !mii.has(leaf)) return false;
+    return safe(() => mii.getElement(leaf, selectedIndex!) as boolean, false);
   }
 
   function setBool(hash: number, v: boolean): void {
     if (selectedIndex == null) return;
-    const e = byHash.get(hash);
-    if (!e) return;
-    arrSetBool(e, selectedIndex, v);
-    markDirty(e);
+    const mii = miiAccessor();
+    if (!mii) return;
+    const leaf = leafForHash(hash);
+    if (!leaf || !mii.has(leaf)) return;
+    mii.setElement(leaf, selectedIndex, v);
   }
 
   function setStateHash(habit: Habit, hash: number): void {
     if (selectedIndex == null) return;
-    const e = byHash.get(habit.stateHash);
-    if (!e) return;
-    arrSetEnum(e, selectedIndex, hash);
-    markDirty(e);
+    const mii = miiAccessor();
+    if (!mii) return;
+    const leaf = leafForHash(habit.stateHash);
+    if (!leaf || !mii.has(leaf)) return;
+    mii.setElement(leaf, selectedIndex, hash >>> 0);
   }
 
   function getStateHash(habit: Habit): number {
-    void tick;
     if (selectedIndex == null) return HABIT_STATE_NEVER_OWNED;
-    const e = byHash.get(habit.stateHash);
-    if (!e) return HABIT_STATE_NEVER_OWNED;
-    return safe(() => arrGetEnum(e, selectedIndex!), HABIT_STATE_NEVER_OWNED) >>> 0;
+    const mii = miiAccessor();
+    if (!mii) return HABIT_STATE_NEVER_OWNED;
+    const leaf = leafForHash(habit.stateHash);
+    if (!leaf || !mii.has(leaf)) return HABIT_STATE_NEVER_OWNED;
+    return (
+      safe(() => mii.getElement(leaf, selectedIndex!) as number, HABIT_STATE_NEVER_OWNED) >>> 0
+    );
   }
 
   function getIsOwn(habit: Habit): boolean {
@@ -168,27 +173,31 @@
   }
 
   const currentCheckedName = $derived.by<string | null>(() => {
-    void tick;
     if (!currentGroup) return null;
     return checkedHabit(currentGroup)?.name ?? null;
   });
 
   const ready = $derived.by(() => {
     if (habits.length === 0) return false;
-    return habits.some((h) => byHash.has(h.isCheckedHash));
+    const mii = miiAccessor();
+    if (!mii) return false;
+    return habits.some((h) => {
+      const leaf = leafForHash(h.isCheckedHash);
+      return leaf != null && mii.has(leaf);
+    });
   });
 </script>
 
 {#if !ready && habits.length > 0}
   <div class="grid gap-4">
-    <MiiSlotSelector {entries} bind:selectedIndex />
+    <MiiSlotSelector bind:selectedIndex />
     <section class={CARD_CLASS}>
       <p class="text-sm text-content-muted">{$_('mii.habits.missing')}</p>
     </section>
   </div>
 {:else}
   <div class="grid gap-4">
-    <MiiSlotSelector {entries} bind:selectedIndex />
+    <MiiSlotSelector bind:selectedIndex />
 
     {#if selectedIndex != null && currentGroup}
       <section class={CARD_CLASS}>
@@ -251,6 +260,8 @@
             {@const isChecked = currentCheckedName === habit.name}
             {@const isOwn = getIsOwn(habit)}
             {@const cap = habitCaption(habit, ui)}
+            {@const ownLeaf = leafForHash(habit.isOwnHash)}
+            {@const hasOwnLeaf = ownLeaf != null && (miiAccessor()?.has(ownLeaf) ?? false)}
             <div
               class={[
                 'rounded-xl px-3 py-2 ring-1 transition-colors',
@@ -284,7 +295,7 @@
                 </div>
               </label>
 
-              {#if byHash.has(habit.isOwnHash)}
+              {#if hasOwnLeaf}
                 <label
                   class="mt-2 ml-7 flex items-center gap-2 text-xs text-content"
                   title={$_('mii.habits.is_own_tip')}

@@ -1,6 +1,5 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { arrayCount } from '../sav/codec';
   import {
     allCloths,
     type Cloth,
@@ -8,13 +7,12 @@
     clothImageUrl,
     clothLabel,
   } from '../sav/clothList.svelte';
-  import { murmur3_x86_32 } from '../sav/hash';
-  import type { Entry } from '../sav/types';
+  import { PLAYER_SCHEMA } from '../sav/schema';
+  import { playerAccessor } from '../playerEditor.svelte';
   import InventoryExpandableRow, { type SubItem } from './InventoryExpandableRow.svelte';
   import {
     applyQtyToSlots,
     applyStateToSlots,
-    buildEntryMap,
     readSlotQty,
     readSlotState,
     type Slot,
@@ -23,19 +21,15 @@
   } from './inventoryHelpers';
   import InventoryListPanel from './InventoryListPanel.svelte';
 
-  type Props = { entries: Entry[] };
-  let { entries }: Props = $props();
+  const STATE_LEAF = PLAYER_SCHEMA.Player.ClothInfo.OwnInfoArray.State;
+  const QTY_LEAF = PLAYER_SCHEMA.Player.ClothInfo.OwnInfoArray.OwnNum;
 
-  const byHash = $derived(buildEntryMap(entries));
+  const acc = $derived(playerAccessor());
+  const hasState = $derived(acc != null && acc.has(STATE_LEAF));
+  const hasQty = $derived(acc != null && acc.has(QTY_LEAF));
 
-  const STATE_HASH = murmur3_x86_32('Player.ClothInfo.OwnInfoArray.State') >>> 0;
-  const OWN_NUM_HASH = murmur3_x86_32('Player.ClothInfo.OwnInfoArray.OwnNum') >>> 0;
-
-  const stateEntry = $derived(byHash.get(STATE_HASH) ?? null);
-  const ownNumEntry = $derived(byHash.get(OWN_NUM_HASH) ?? null);
-
-  const stateLen = $derived(stateEntry ? arrayCount(stateEntry) : 0);
-  const ownNumLen = $derived(ownNumEntry ? arrayCount(ownNumEntry) : 0);
+  const stateLen = $derived(acc && hasState ? (acc.get(STATE_LEAF) as number[]).length : 0);
+  const ownNumLen = $derived(acc && hasQty ? (acc.get(QTY_LEAF) as number[]).length : 0);
 
   function inRange(cloth: Cloth, len: number): boolean {
     return cloth.index >= 0 && cloth.index * CLOTH_COLOR_SLOTS < len;
@@ -48,8 +42,8 @@
 
   function colorSlot(cloth: Cloth, colorIndex: number): Slot {
     return {
-      state: stateEntry,
-      qty: ownNumEntry,
+      state: hasState ? STATE_LEAF : null,
+      qty: hasQty ? QTY_LEAF : null,
       index: cloth.index * CLOTH_COLOR_SLOTS + colorIndex,
     };
   }
@@ -69,13 +63,13 @@
 </script>
 
 <InventoryListPanel
-  available={!!stateEntry || !!ownNumEntry}
+  available={hasState || hasQty}
   missingMessage={$_('player.clothes.missing')}
   heading={$_('player.clothes.heading')}
   captionFor={(count) => $_('player.clothes.caption', { values: { count } })}
   emptyMessage={$_('player.inventory.empty')}
-  bulkHasState={!!stateEntry}
-  bulkHasQty={!!ownNumEntry}
+  bulkHasState={hasState}
+  bulkHasQty={hasQty}
   note={$_('player.clothes.color_note')}
   {items}
   label={(c, ui) => clothLabel(c, ui)}
@@ -89,15 +83,15 @@
       imageUrl={clothImageUrl(cloth, 0)}
       {label}
       caption={`${cloth.name} · ${$_('player.clothes.color_count', { values: { count: cloth.colorCount } })}`}
-      primaryState={readSlotState(slots[0])}
-      primaryQty={readSlotQty(slots[0])}
+      primaryState={readSlotState(acc, slots[0])}
+      primaryQty={readSlotQty(acc, slots[0])}
       subItems={colorSubItems(cloth, label)}
-      readSubState={(ci) => readSlotState(slots[ci])}
-      readSubQty={(ci) => readSlotQty(slots[ci])}
-      writeStateAll={(v) => applyStateToSlots(slots, v)}
-      writeQtyAll={(v) => applyQtyToSlots(slots, v)}
-      writeSubState={(ci, v) => writeSlotState(slots[ci], v)}
-      writeSubQty={(ci, v) => writeSlotQty(slots[ci], v)}
+      readSubState={(ci) => readSlotState(acc, slots[ci])}
+      readSubQty={(ci) => readSlotQty(acc, slots[ci])}
+      writeStateAll={(v) => applyStateToSlots(acc, slots, v)}
+      writeQtyAll={(v) => applyQtyToSlots(acc, slots, v)}
+      writeSubState={(ci, v) => writeSlotState(acc, slots[ci], v)}
+      writeSubQty={(ci, v) => writeSlotQty(acc, slots[ci], v)}
       expandLabel={$_('player.inventory.expand_colors')}
       collapseLabel={$_('player.inventory.collapse_colors')}
     />

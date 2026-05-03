@@ -1,7 +1,5 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { SvelteMap } from 'svelte/reactivity';
-  import { arrayCount } from '../sav/codec';
   import {
     allCloths,
     CLOTH_COLOR_SLOTS,
@@ -16,9 +14,10 @@
     coordinateImageUrl,
     coordinateLabel,
   } from '../sav/coordinateList.svelte';
-  import { murmur3_x86_32 } from '../sav/hash';
-  import type { Entry } from '../sav/types';
+  import { bindLeaf } from '../sav/bindLeaf.svelte';
+  import { MII_SCHEMA } from '../sav/schema';
   import { CARD_CLASS } from '../styles';
+  import { miiAccessor } from './miiEditor.svelte';
   import MiiGoodsPocketPanel from './MiiGoodsPocketPanel.svelte';
   import MiiOwnedBitmaskPanel from './MiiOwnedBitmaskPanel.svelte';
   import MiiSlotSelector from './MiiSlotSelector.svelte';
@@ -26,29 +25,22 @@
   import { createOwnershipBitmask } from './ownershipBitmask';
 
   type Props = {
-    entries: Entry[];
     selectedIndex: number | null;
   };
-  let { entries, selectedIndex = $bindable(null) }: Props = $props();
+  let { selectedIndex = $bindable(null) }: Props = $props();
 
-  const CLOTH_OWN_INFO_HASH = murmur3_x86_32('Mii.Belongings.ClothOwnInfo') >>> 0;
-  const COORD_OWN_INFO_HASH = murmur3_x86_32('Mii.Belongings.CoordinateOwnInfo') >>> 0;
   const SLOTS_PER_MII = 1200;
   const COORD_SLOTS_PER_MII = 400;
 
-  const byHash = $derived.by(() => {
-    const m = new SvelteMap<number, Entry>();
-    for (const e of entries) m.set(e.hash, e);
-    return m;
-  });
-
-  const clothEntry = $derived(byHash.get(CLOTH_OWN_INFO_HASH) ?? null);
-  const coordOwnEntry = $derived(byHash.get(COORD_OWN_INFO_HASH) ?? null);
+  const mii = $derived(miiAccessor());
+  const clothOwn = bindLeaf(miiAccessor, MII_SCHEMA.Mii.Belongings.ClothOwnInfo);
+  const coordOwn = bindLeaf(miiAccessor, MII_SCHEMA.Mii.Belongings.CoordinateOwnInfo);
 
   const clothBitmask = $derived(
     createOwnershipBitmask({
-      entry: clothEntry,
-      totalCount: clothEntry ? arrayCount(clothEntry) : 0,
+      mii,
+      leaf: clothOwn.present ? MII_SCHEMA.Mii.Belongings.ClothOwnInfo : null,
+      totalCount: clothOwn.value?.length ?? 0,
       miiIndex: selectedIndex,
       slotsPerMii: SLOTS_PER_MII,
       colorSlots: CLOTH_COLOR_SLOTS,
@@ -57,8 +49,9 @@
 
   const coordBitmask = $derived(
     createOwnershipBitmask({
-      entry: coordOwnEntry,
-      totalCount: coordOwnEntry ? arrayCount(coordOwnEntry) : 0,
+      mii,
+      leaf: coordOwn.present ? MII_SCHEMA.Mii.Belongings.CoordinateOwnInfo : null,
+      totalCount: coordOwn.value?.length ?? 0,
       miiIndex: selectedIndex,
       slotsPerMii: COORD_SLOTS_PER_MII,
       colorSlots: COORD_COLOR_SLOTS,
@@ -76,21 +69,21 @@
   }
 </script>
 
-{#if !clothEntry}
+{#if !mii || !clothOwn.present}
   <div class="grid gap-4">
-    <MiiSlotSelector {entries} bind:selectedIndex />
+    <MiiSlotSelector bind:selectedIndex />
     <section class={CARD_CLASS}>
       <p class="text-sm text-content-muted">{$_('mii.belongings.missing')}</p>
     </section>
   </div>
 {:else}
   <div class="grid gap-4">
-    <MiiSlotSelector {entries} bind:selectedIndex />
+    <MiiSlotSelector bind:selectedIndex />
 
-    <MiiWornOutfit {byHash} {selectedIndex} {clothBitmask} {coordBitmask} />
+    <MiiWornOutfit {selectedIndex} {clothBitmask} {coordBitmask} />
 
     {#if selectedIndex != null}
-      <MiiGoodsPocketPanel {byHash} {selectedIndex} />
+      <MiiGoodsPocketPanel {selectedIndex} />
 
       <MiiOwnedBitmaskPanel
         {selectedIndex}

@@ -15,7 +15,7 @@
   import { PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '../styles';
   import { track } from '../analytics';
   import { showToast } from '../toast.svelte';
-  import type { SavFile } from '../sav/types';
+  import type { Accessor } from '../sav/materialized/accessor';
   import { TextureReplaceState } from '../textureEditor/textureReplaceState.svelte';
   import PreviewPair from '../textureEditor/PreviewPair.svelte';
   import TextureControls from '../textureEditor/TextureControls.svelte';
@@ -23,10 +23,10 @@
   import FacepaintRow from './FacepaintRow.svelte';
 
   type Props = {
-    playerParsed: SavFile;
-    miiParsed: SavFile | null;
+    player: Accessor<'player'>;
+    mii: Accessor<'mii'> | null;
   };
-  let { playerParsed, miiParsed }: Props = $props();
+  let { player, mii }: Props = $props();
 
   let selectedId = $state<number | null>(null);
   let busy = $state(false);
@@ -53,7 +53,7 @@
 
   const rows = $derived.by<Row[]>(() => {
     try {
-      const list = listFacepaints(playerParsed, miiParsed);
+      const list = listFacepaints(player, mii);
       return list.map<Row>((f) => ({
         id: f.id,
         label: f.ownerName

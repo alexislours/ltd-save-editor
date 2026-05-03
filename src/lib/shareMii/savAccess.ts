@@ -1,22 +1,26 @@
-import type { Entry, SavFile } from '../sav/types';
+import { DataType } from '../sav/dataType';
+import type { Accessor } from '../sav/materialized/accessor';
+import { buildHashMap } from '../sav/materialized/schemaIndex';
+import { MII_SCHEMA, PLAYER_SCHEMA, type SchemaLeaf } from '../sav/schema';
 import { ShareMiiError } from './errors';
 
-export function findEntry(savFile: SavFile, hash: number, label?: string): Entry {
-  const e = savFile.entries.find((x) => x.hash === hash);
-  if (!e) {
-    throw new ShareMiiError('save_format_error', {
-      label: label ?? `0x${hash.toString(16)}`,
-    });
-  }
-  return e;
-}
+export type MiiSaves = {
+  player: Accessor<'player'>;
+  mii: Accessor<'mii'>;
+};
 
-export function entryPayload(savFile: SavFile, hash: number, label?: string): Uint8Array {
-  const e = findEntry(savFile, hash, label);
-  if (!e.payload) {
-    throw new ShareMiiError('save_format_error', {
-      label: label ?? `0x${hash.toString(16)}`,
-    });
+export type PlayerOnlySaves = { player: Accessor<'player'> };
+
+export function leafByHashOrThrow<T extends DataType>(
+  schema: typeof PLAYER_SCHEMA | typeof MII_SCHEMA,
+  hash: number,
+  label: string,
+  expected: T,
+): SchemaLeaf<T> {
+  const info = buildHashMap(schema as object).get(hash >>> 0);
+  if (!info) throw new ShareMiiError('save_format_error', { label });
+  if (info.leaf.type !== expected) {
+    throw new ShareMiiError('save_format_error', { label });
   }
-  return e.payload;
+  return info.leaf as SchemaLeaf<T>;
 }

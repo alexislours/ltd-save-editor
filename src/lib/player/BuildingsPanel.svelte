@@ -1,16 +1,7 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
   import { SvelteMap } from 'svelte/reactivity';
-  import { markDirty, playerState } from '../playerEditor.svelte';
-  import {
-    arrGetEnum,
-    arrGetInt,
-    arrGetUInt,
-    arrSetEnum,
-    arrSetInt,
-    arrSetUInt,
-    arrayCount,
-  } from '../sav/codec';
+  import { playerAccessor } from '../playerEditor.svelte';
   import { murmur3_x86_32 } from '../sav/hash';
   import {
     allItems,
@@ -19,46 +10,42 @@
     itemLabel,
     itemVariantImageUrl,
   } from '../sav/itemList.svelte';
-  import type { Entry } from '../sav/types';
+  import { PLAYER_SCHEMA } from '../sav/schema';
   import InventoryExpandableRow, { type SubItem } from './InventoryExpandableRow.svelte';
-  import { buildEntryMap, filterBySearch, sortByLabel } from './inventoryHelpers';
+  import { filterBySearch, sortByLabel } from './inventoryHelpers';
   import InventoryPanel from './InventoryPanel.svelte';
   import { OBTAINED_HASH } from './stateOptions';
 
-  type Props = { entries: Entry[] };
-  let { entries }: Props = $props();
+  const KEY_HASH = PLAYER_SCHEMA.Player.BuildingInfo2.KeyHash;
+  const OWN_NUM = PLAYER_SCHEMA.Player.BuildingInfo2.OwnNum;
+  const STATE = PLAYER_SCHEMA.Player.BuildingInfo2.State;
 
-  const KEYHASH_HASH = murmur3_x86_32('Player.BuildingInfo2.KeyHash') >>> 0;
-  const OWNNUM_HASH = murmur3_x86_32('Player.BuildingInfo2.OwnNum') >>> 0;
-  const STATE_HASH = murmur3_x86_32('Player.BuildingInfo2.State') >>> 0;
   const LOCK_HASH = murmur3_x86_32('Lock') >>> 0;
 
-  const byHash = $derived(buildEntryMap(entries));
-  const keyHashEntry = $derived(byHash.get(KEYHASH_HASH) ?? null);
-  const ownNumEntry = $derived(byHash.get(OWNNUM_HASH) ?? null);
-  const stateEntry = $derived(byHash.get(STATE_HASH) ?? null);
+  const acc = $derived(playerAccessor());
+  const hasKey = $derived(acc != null && acc.has(KEY_HASH));
+  const hasOwnNum = $derived(acc != null && acc.has(OWN_NUM));
+  const hasState = $derived(acc != null && acc.has(STATE));
 
   const slotByVariantHash = $derived.by(() => {
-    void playerState.tick;
     const map = new SvelteMap<number, number>();
-    if (!keyHashEntry) return map;
-    const n = arrayCount(keyHashEntry);
-    for (let i = 0; i < n; i++) {
-      const k = arrGetUInt(keyHashEntry, i);
+    if (!acc || !hasKey) return map;
+    const arr = acc.get(KEY_HASH) as number[];
+    for (let i = 0; i < arr.length; i++) {
+      const k = arr[i] >>> 0;
       if (k !== 0 && !map.has(k)) map.set(k, i);
     }
     return map;
   });
 
   function claimSlotFor(variantHash: number): number | null {
-    if (!keyHashEntry) return null;
+    if (!acc || !hasKey) return null;
     const existing = slotByVariantHash.get(variantHash);
     if (existing != null) return existing;
-    const n = arrayCount(keyHashEntry);
-    for (let i = 0; i < n; i++) {
-      if (arrGetUInt(keyHashEntry, i) === 0) {
-        arrSetUInt(keyHashEntry, i, variantHash);
-        markDirty(keyHashEntry);
+    const arr = acc.get(KEY_HASH) as number[];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] >>> 0 === 0) {
+        acc.setElement(KEY_HASH, i, variantHash >>> 0);
         return i;
       }
     }
@@ -66,104 +53,85 @@
   }
 
   function readState(variant: ItemVariant): number {
-    if (!stateEntry) return 0;
-    void playerState.tick;
+    if (!acc || !hasState) return 0;
     const idx = slotByVariantHash.get(variant.hash);
     if (idx == null) return LOCK_HASH;
     try {
-      return arrGetEnum(stateEntry, idx);
+      return (acc.getElement(STATE, idx) as number) >>> 0;
     } catch {
       return 0;
     }
   }
 
   function readQty(variant: ItemVariant): number {
-    if (!ownNumEntry) return 0;
-    void playerState.tick;
+    if (!acc || !hasOwnNum) return 0;
     const idx = slotByVariantHash.get(variant.hash);
     if (idx == null) return 0;
     try {
-      const v = arrGetInt(ownNumEntry, idx);
+      const v = acc.getElement(OWN_NUM, idx) as number;
       return v < 0 ? 0 : v;
     } catch {
       return 0;
     }
   }
 
-  function writeStateRaw(variant: ItemVariant, value: number): boolean {
-    if (!stateEntry) return false;
-    const idx = claimSlotFor(variant.hash);
-    if (idx == null) return false;
+  function writeStateAt(idx: number, value: number): void {
+    if (!acc || !hasState) return;
     try {
-      arrSetEnum(stateEntry, idx, value >>> 0);
-      return true;
+      acc.setElement(STATE, idx, value >>> 0);
     } catch {
-      return false;
+      /* swallow */
     }
   }
 
-  function writeQtyRaw(variant: ItemVariant, value: number): boolean {
-    if (!ownNumEntry) return false;
-    const idx = claimSlotFor(variant.hash);
-    if (idx == null) return false;
+  function writeQtyAt(idx: number, value: number): void {
+    if (!acc || !hasOwnNum) return;
     const v = Math.max(0, Math.trunc(value));
     try {
-      arrSetInt(ownNumEntry, idx, v);
-      return true;
+      acc.setElement(OWN_NUM, idx, v);
     } catch {
-      return false;
+      /* swallow */
     }
   }
 
-  function bumpStateOnFirstAcquire(variant: ItemVariant, prevQty: number, newQty: number): boolean {
-    if (!stateEntry) return false;
-    if (prevQty !== 0 || newQty <= 0) return false;
-    const idx = slotByVariantHash.get(variant.hash);
-    if (idx == null) return false;
+  function bumpStateOnFirstAcquire(idx: number, prevQty: number, newQty: number): void {
+    if (!acc || !hasState) return;
+    if (prevQty !== 0 || newQty <= 0) return;
     try {
-      if (arrGetEnum(stateEntry, idx) === OBTAINED_HASH) return false;
+      if ((acc.getElement(STATE, idx) as number) >>> 0 === OBTAINED_HASH) return;
     } catch {
-      return false;
+      return;
     }
-    arrSetEnum(stateEntry, idx, OBTAINED_HASH);
-    return true;
+    writeStateAt(idx, OBTAINED_HASH);
   }
 
   function writeVariantState(variant: ItemVariant, value: number): void {
-    if (writeStateRaw(variant, value) && stateEntry) markDirty(stateEntry);
+    const idx = claimSlotFor(variant.hash);
+    if (idx == null) return;
+    writeStateAt(idx, value);
   }
 
   function writeVariantQty(variant: ItemVariant, value: number): void {
-    const newQty = Math.max(0, Math.trunc(value));
+    const idx = claimSlotFor(variant.hash);
+    if (idx == null) return;
     const prev = readQty(variant);
-    if (!writeQtyRaw(variant, newQty)) return;
-    if (ownNumEntry) markDirty(ownNumEntry);
-    if (bumpStateOnFirstAcquire(variant, prev, newQty) && stateEntry) markDirty(stateEntry);
+    const newQty = Math.max(0, Math.trunc(value));
+    writeQtyAt(idx, newQty);
+    bumpStateOnFirstAcquire(idx, prev, newQty);
   }
 
   function applyStateToVariants(variants: Iterable<ItemVariant>, value: number): void {
-    let dirtyState = false;
-    for (const v of variants) if (writeStateRaw(v, value)) dirtyState = true;
-    if (dirtyState && stateEntry) markDirty(stateEntry);
+    for (const v of variants) writeVariantState(v, value);
   }
 
   function applyQtyToVariants(variants: Iterable<ItemVariant>, value: number): void {
     const v = Math.max(0, Math.trunc(value));
-    let dirtyQty = false;
-    let dirtyState = false;
-    for (const variant of variants) {
-      const prev = readQty(variant);
-      if (!writeQtyRaw(variant, v)) continue;
-      dirtyQty = true;
-      if (v > 0 && bumpStateOnFirstAcquire(variant, prev, v)) dirtyState = true;
-    }
-    if (dirtyQty && ownNumEntry) markDirty(ownNumEntry);
-    if (dirtyState && stateEntry) markDirty(stateEntry);
+    for (const variant of variants) writeVariantQty(variant, v);
   }
 
   let query = $state('');
   const ui = $derived($locale);
-  const available = $derived(!!keyHashEntry && (!!ownNumEntry || !!stateEntry));
+  const available = $derived(hasKey && (hasOwnNum || hasState));
 
   const sorted = $derived(sortByLabel(allItems(), (it) => itemLabel(it, ui), ui));
   const visible = $derived(
@@ -208,8 +176,8 @@
   setQuery={(v) => (query = v)}
   visibleCount={visible.length}
   emptyMessage={$_('player.inventory.empty')}
-  bulkHasState={!!stateEntry}
-  bulkHasQty={!!ownNumEntry}
+  bulkHasState={hasState}
+  bulkHasQty={hasOwnNum}
   onApplyState={(v) => applyStateToVariants(visibleVariants, v)}
   onApplyQty={(v) => applyQtyToVariants(visibleVariants, v)}
   note={$_('player.buildings.variant_note')}

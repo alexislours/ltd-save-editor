@@ -4,7 +4,7 @@
   import { driver, type Driver } from 'driver.js';
   import { track } from './analytics';
   import { getPath, navigate } from './navigation.svelte';
-  import { getSave } from './saveFile.svelte';
+  import { isSaveLoaded } from './saveFile.svelte';
 
   type DriverStep = Parameters<Driver['setSteps']>[0][number];
 
@@ -52,9 +52,9 @@
     else if (!open && dialog.open) dialog.close();
   });
 
-  const playerLoaded = $derived(getSave('player')?.parsed != null);
-  const miiLoaded = $derived(getSave('mii')?.parsed != null);
-  const mapLoaded = $derived(getSave('map')?.parsed != null);
+  const playerLoaded = $derived(isSaveLoaded('player'));
+  const miiLoaded = $derived(isSaveLoaded('mii'));
+  const mapLoaded = $derived(isSaveLoaded('map'));
 
   function exists(selector: string): boolean {
     return typeof document !== 'undefined' && document.querySelector(selector) !== null;

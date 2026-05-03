@@ -2,31 +2,27 @@ import { format } from 'svelte-i18n';
 import { get } from 'svelte/store';
 import { track } from './analytics';
 import { populatedMiiIndices } from './mii/populated';
-import { getString } from './sav/codec';
-import { murmur3_x86_32, murmur3_x86_32_bytes } from './sav/hash';
+import type { DataType } from './sav/dataType';
+import { murmur3_x86_32_bytes } from './sav/hash';
+import { type Accessor, createMaterializedAccessor } from './sav/materialized/accessor';
+import { decode } from './sav/materialized/decode';
 import { parseSav } from './sav/parse';
-import type { Entry } from './sav/types';
+import { MII_SCHEMA, PLAYER_SCHEMA } from './sav/schema';
+import type { SchemaLeaf } from './sav/schema/leaf';
 import { type HistorySaveFile, type HistoryUgcFile, saveSnapshot } from './historyStore';
 import type { SaveKind } from './saveFile.svelte';
 import { showToast } from './toast.svelte';
 
-const PLAYER_NAME_HASH = murmur3_x86_32('Player.Name') >>> 0;
-const ISLAND_NAME_HASH = murmur3_x86_32('Player.IslandName') >>> 0;
-
-function safeString(entry: Entry | undefined): string | null {
-  if (!entry) return null;
+function safeAccessorString<K extends string>(
+  accessor: Accessor<K>,
+  leaf: SchemaLeaf<DataType.WString32>,
+): string | null {
   try {
-    const value = getString(entry).trim();
+    const value = accessor.get(leaf).trim();
     return value.length > 0 ? value : null;
   } catch {
     return null;
   }
-}
-
-function indexEntries(entries: Entry[]): Map<number, Entry> {
-  const map = new Map<number, Entry>();
-  for (const e of entries) map.set(e.hash >>> 0, e);
-  return map;
 }
 
 type Capture = { kind: SaveKind; name: string; bytes: Uint8Array };
@@ -59,12 +55,15 @@ export async function recordSnapshot(
   for (const c of captures) {
     try {
       const parsed = parseSav(c.bytes);
-      const byHash = indexEntries(parsed.entries);
       if (c.kind === 'player') {
-        playerName = safeString(byHash.get(PLAYER_NAME_HASH));
-        islandName = safeString(byHash.get(ISLAND_NAME_HASH));
+        const decoded = decode(PLAYER_SCHEMA, parsed);
+        const player = createMaterializedAccessor<'player'>(PLAYER_SCHEMA, decoded);
+        playerName = safeAccessorString(player, PLAYER_SCHEMA.Player.Name);
+        islandName = safeAccessorString(player, PLAYER_SCHEMA.Player.IslandName);
       } else if (c.kind === 'mii') {
-        miiCount = populatedMiiIndices(byHash).length;
+        const decoded = decode(MII_SCHEMA, parsed);
+        const mii = createMaterializedAccessor<'mii'>(MII_SCHEMA, decoded);
+        miiCount = populatedMiiIndices(mii).length;
       }
     } catch {
       /* best effort capture */

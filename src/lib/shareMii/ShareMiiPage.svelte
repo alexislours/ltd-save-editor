@@ -11,15 +11,11 @@
   import { errorMessage } from '../errorMessage';
   import { getSave } from '../saveFile.svelte';
   import {
-    markDirty as markPlayerDirty,
+    playerAccessor,
     playerState,
     syncFromSave as syncPlayerFromSave,
   } from '../playerEditor.svelte';
-  import {
-    markDirty as markMiiDirty,
-    miiState,
-    syncFromSave as syncMiiFromSave,
-  } from '../mii/miiEditor.svelte';
+  import { miiAccessor, miiState, syncFromSave as syncMiiFromSave } from '../mii/miiEditor.svelte';
   import {
     CARD_BASE_CLASS,
     CARD_CLASS,
@@ -65,6 +61,10 @@
 
   const playerSave = $derived(getSave('player'));
   const miiSave = $derived(getSave('mii'));
+  const playerAcc = $derived(playerAccessor());
+  const miiAcc = $derived(miiAccessor());
+  const playerSaves = $derived(playerAcc ? { player: playerAcc } : null);
+  const miiSaves = $derived(playerAcc && miiAcc ? { player: playerAcc, mii: miiAcc } : null);
   const isMii = $derived(activeKind === 'Mii');
   const haveSaves = $derived(!!playerSave && (!isMii || !!miiSave));
 
@@ -93,13 +93,13 @@
   const sidecar = $derived(getSidecarStore());
 
   const rowsResult = $derived.by<{ rows: Row[]; error: unknown }>(() => {
-    void playerState.tick;
-    void miiState.tick;
-    if (!playerSave?.parsed) return { rows: [], error: null };
+    void playerState.dirty;
+    void miiState.dirty;
+    if (!playerSaves) return { rows: [], error: null };
     if (isMii) {
-      if (!miiSave?.parsed) return { rows: [], error: null };
+      if (!miiSaves) return { rows: [], error: null };
       try {
-        const list = listMiiSlots(playerSave.parsed, miiSave.parsed);
+        const list = listMiiSlots(miiSaves);
         const rows = list
           .filter((s) => s.slot === 0 || !s.empty)
           .map<Row>((s) => ({
@@ -116,16 +116,14 @@
       }
     }
     try {
-      const rows = listUgcSlots(playerSave.parsed, activeKind as UgcKind, sidecar).map<Row>(
-        (s) => ({
-          slot: s.slot,
-          name: s.isAddNew
-            ? $_('sharemii.list.add_new_slot')
-            : s.name || $_('sharemii.list.slot_default_name', { values: { slot: s.slot } }),
-          isAddNew: s.isAddNew,
-          empty: s.empty,
-        }),
-      );
+      const rows = listUgcSlots(playerSaves, activeKind as UgcKind, sidecar).map<Row>((s) => ({
+        slot: s.slot,
+        name: s.isAddNew
+          ? $_('sharemii.list.add_new_slot')
+          : s.name || $_('sharemii.list.slot_default_name', { values: { slot: s.slot } }),
+        isAddNew: s.isAddNew,
+        empty: s.empty,
+      }));
       return { rows, error: null };
     } catch (e) {
       return { rows: [], error: e };
@@ -207,7 +205,9 @@
     working = true;
     try {
       if (isMii) {
-        const r = extractMii(playerSave!.parsed!, miiSave!.parsed!, row.slot, sidecar);
+        const player = playerAccessor()!;
+        const mii = miiAccessor()!;
+        const r = extractMii({ player, mii }, row.slot, sidecar);
         downloadBytes(r.bytes, r.fileName);
         track('sharemii_export', { kind: 'Mii', mode: 'single', count: 1 });
         setToast(
@@ -225,7 +225,8 @@
           setToast('warn', $_('sharemii.toast.ugc_needs_folder'));
           return;
         }
-        const r = extractUgc(playerSave!.parsed!, row.slot, activeKind as UgcKind, sidecar);
+        const player = playerAccessor()!;
+        const r = extractUgc({ player }, row.slot, activeKind as UgcKind, sidecar);
         downloadBytes(r.bytes, r.fileName);
         track('sharemii_export', { kind: activeKind as UgcKind, mode: 'single', count: 1 });
         setToast(
@@ -248,10 +249,12 @@
     try {
       const dir: { name: string; bytes: Uint8Array }[] = [];
       if (isMii) {
+        const player = playerAccessor()!;
+        const mii = miiAccessor()!;
         for (const r of populatedRows) {
           if (r.isTemp) continue;
           try {
-            const out = extractMii(playerSave!.parsed!, miiSave!.parsed!, r.slot, sidecar);
+            const out = extractMii({ player, mii }, r.slot, sidecar);
             dir.push({ name: out.fileName, bytes: out.bytes });
           } catch (e) {
             console.warn('skip slot', r.slot, e);
@@ -262,9 +265,10 @@
           setToast('warn', $_('sharemii.toast.ugc_needs_folder_short'));
           return;
         }
+        const player = playerAccessor()!;
         for (const r of populatedRows) {
           try {
-            const out = extractUgc(playerSave!.parsed!, r.slot, activeKind as UgcKind, sidecar);
+            const out = extractUgc({ player }, r.slot, activeKind as UgcKind, sidecar);
             dir.push({ name: out.fileName, bytes: out.bytes });
           } catch (e) {
             console.warn('skip slot', r.slot, e);
@@ -344,8 +348,6 @@
         setToast('warn', $_('sharemii.toast.no_ltd_found'));
         return;
       }
-      const player = playerSave!.parsed!;
-      const mii = miiSave?.parsed ?? null;
       const writes: { name: string; bytes: Uint8Array }[] = [];
       const failures: { fileName: string; reason: string }[] = [];
       let count = 0;
@@ -353,14 +355,14 @@
       for (const f of files) {
         try {
           if (isMii) {
-            const r = applyMii(player, mii!, importSlot, f.bytes, sidecar);
+            if (!miiSaves) throw new Error('save_not_ready');
+            const r = applyMii(miiSaves, importSlot, f.bytes, sidecar);
             writes.push(...r.facepaintWrites);
-            for (const entry of r.touchedPlayerEntries) markPlayerDirty(entry);
-            for (const entry of r.touchedMiiEntries) markMiiDirty(entry);
           } else {
+            if (!playerSaves) throw new Error('save_not_ready');
             const isAdding = !!targetRow?.isAddNew;
             const r = applyUgc(
-              player,
+              playerSaves,
               importSlot,
               activeKind as UgcKind,
               f.bytes,
@@ -368,7 +370,6 @@
               sidecar,
             );
             writes.push(...r.textureWrites);
-            for (const entry of r.touchedPlayerEntries) markPlayerDirty(entry);
           }
           count++;
         } catch (e) {

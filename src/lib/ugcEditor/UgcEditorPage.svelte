@@ -12,15 +12,15 @@
   import {
     UGC_KINDS,
     buildSidecarZip,
-    getUgcSlotName,
     listUgcSlots,
-    renameUgcSlot,
     sidecarFromFolderFiles,
     sidecarFromZipFile,
     type UgcKind,
   } from '../shareMii';
   import { ugcCanvasFileName, ugcTexFileName, ugcThumbFileName } from '../shareMii/ugcKinds';
-  import { markDirty, playerState, syncFromSave } from '../playerEditor.svelte';
+  import { playerAccessor, playerState, syncFromSave } from '../playerEditor.svelte';
+  import { miiAccessor } from '../mii/miiEditor.svelte';
+  import { PLAYER_SCHEMA } from '../sav/schema';
   import { TextureReplaceState } from '../textureEditor/textureReplaceState.svelte';
   import PreviewPair from '../textureEditor/PreviewPair.svelte';
   import TextureControls from '../textureEditor/TextureControls.svelte';
@@ -41,6 +41,16 @@
   import { showToast } from '../toast.svelte';
   import UgcSlotRow from './UgcSlotRow.svelte';
   import FacepaintSection from '../facepaintEditor/FacepaintSection.svelte';
+
+  const UGC_NAME_LEAVES = {
+    Cloth: PLAYER_SCHEMA.UGC.Cloth.Name,
+    Food: PLAYER_SCHEMA.UGC.Food.Name,
+    Goods: PLAYER_SCHEMA.UGC.Goods.Name,
+    Interior: PLAYER_SCHEMA.UGC.Interior.Name,
+    Exterior: PLAYER_SCHEMA.UGC.Exterior.Name,
+    MapObject: PLAYER_SCHEMA.UGC.MapObject.Name,
+    MapFloor: PLAYER_SCHEMA.UGC.MapFloor.Name,
+  } as const;
 
   type TabKind = UgcKind | 'FacePaint';
   let activeKind = $state<TabKind>('Goods');
@@ -68,7 +78,6 @@
   }
 
   const playerSave = $derived(getSave('player'));
-  const miiSave = $derived(getSave('mii'));
   const sidecar = $derived(getSidecarStore());
 
   const ugcKind = $derived<UgcKind | null>(
@@ -81,12 +90,13 @@
   });
 
   const kindCounts = $derived.by<Record<UgcKind, number>>(() => {
-    void playerState.tick;
     const out = Object.fromEntries(UGC_KINDS.map((k) => [k, 0])) as Record<UgcKind, number>;
-    if (!playerSave?.parsed) return out;
+    void playerState.dirty;
+    const player = playerAccessor();
+    if (!player) return out;
     for (const k of UGC_KINDS) {
       try {
-        const list = listUgcSlots(playerSave.parsed, k, sidecar);
+        const list = listUgcSlots({ player }, k, sidecar);
         out[k] = list.filter((s) => !s.isAddNew).length;
       } catch {
         out[k] = 0;
@@ -107,10 +117,12 @@
   type Row = { slot: number; name: string };
 
   const rows = $derived.by<Row[]>(() => {
-    void playerState.tick;
-    if (!playerSave?.parsed || !ugcKind) return [];
+    void playerState.dirty;
+    if (!ugcKind) return [];
+    const player = playerAccessor();
+    if (!player) return [];
     try {
-      const list = listUgcSlots(playerSave.parsed, ugcKind, sidecar);
+      const list = listUgcSlots({ player }, ugcKind, sidecar);
       return list
         .filter((s) => !s.isAddNew)
         .map<Row>((s) => ({
@@ -123,9 +135,13 @@
   });
 
   const currentName = $derived.by<string>(() => {
-    void playerState.tick;
-    if (selectedSlot === null || !playerSave?.parsed || !ugcKind) return '';
-    return getUgcSlotName(playerSave.parsed, ugcKind, selectedSlot);
+    if (selectedSlot === null || !ugcKind) return '';
+    const acc = playerAccessor();
+    if (!acc) return '';
+    const leaf = UGC_NAME_LEAVES[ugcKind];
+    if (!acc.has(leaf)) return '';
+    const arr = acc.get(leaf) as string[];
+    return arr[selectedSlot - 1] ?? '';
   });
 
   function slotFileNames(kind: UgcKind, slot: number): string[] {
@@ -277,16 +293,19 @@
   }
 
   function applyRename(): void {
-    if (busy || selectedSlot === null || !playerSave?.parsed || !ugcKind) return;
+    if (busy || selectedSlot === null || !ugcKind) return;
     const trimmed = editedName.trim();
     if (trimmed.length === 0) {
       showToast('warn', $_('ugc_editor.editor.rename.empty'));
       return;
     }
     if (trimmed === currentName) return;
+    const acc = playerAccessor();
+    if (!acc) return;
+    const leaf = UGC_NAME_LEAVES[ugcKind];
     try {
-      const entry = renameUgcSlot(playerSave.parsed, ugcKind, selectedSlot, trimmed);
-      markDirty(entry);
+      if (!acc.has(leaf)) throw new Error('UGC name array not present in save');
+      acc.setElement(leaf, selectedSlot - 1, trimmed);
       track('ugc_editor_rename', { kind: ugcKind, slot: selectedSlot });
       showToast(
         'success',
@@ -492,8 +511,10 @@
 
     <section class={CARD_CLASS}>
       {#if !ugcKind}
-        {#if playerSave.parsed}
-          <FacepaintSection playerParsed={playerSave.parsed} miiParsed={miiSave?.parsed ?? null} />
+        {@const player = playerAccessor()}
+        {@const mii = miiAccessor()}
+        {#if player}
+          <FacepaintSection {player} {mii} />
         {:else}
           <p class="text-sm text-content-muted">{$_('ugc_editor.editor.pick_item')}</p>
         {/if}

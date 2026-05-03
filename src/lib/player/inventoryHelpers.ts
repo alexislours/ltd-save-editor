@@ -1,26 +1,23 @@
 import { SvelteMap } from 'svelte/reactivity';
-import { markDirty, playerState } from '../playerEditor.svelte';
-import {
-  arrGetEnum,
-  arrGetInt,
-  arrSetEnum,
-  arrSetInt,
-  getBool,
-  getEnum,
-  getInt,
-  getUInt,
-  setBool,
-  setEnum,
-  setInt,
-  setUInt,
-} from '../sav/codec';
 import { DataType } from '../sav/dataType';
-import type { Entry } from '../sav/types';
+import { buildHashMap } from '../sav/materialized/schemaIndex';
+import { PLAYER_SCHEMA } from '../sav/schema';
+import type { SchemaLeaf } from '../sav/schema/paths';
+import type { PlayerAccessor } from '../playerEditor.svelte';
 import { OBTAINED_HASH } from './stateOptions';
 
-export function buildEntryMap(entries: Entry[]): SvelteMap<number, Entry> {
-  const m = new SvelteMap<number, Entry>();
-  for (const e of entries) m.set(e.hash, e);
+const HASH_MAP = buildHashMap(PLAYER_SCHEMA as unknown as object);
+
+export function leafForHash(hash: number): SchemaLeaf | null {
+  return HASH_MAP.get(hash >>> 0)?.leaf ?? null;
+}
+
+export function buildLeafMap(hashes: Iterable<number>): SvelteMap<number, SchemaLeaf> {
+  const m = new SvelteMap<number, SchemaLeaf>();
+  for (const h of hashes) {
+    const leaf = leafForHash(h);
+    if (leaf) m.set(h >>> 0, leaf);
+  }
   return m;
 }
 
@@ -49,151 +46,191 @@ export function filterBySearch<T>(
 }
 
 export type Slot = {
-  state: Entry | null;
-  qty: Entry | null;
+  state: SchemaLeaf | null;
+  qty: SchemaLeaf | null;
   index: number | null;
-  newlyOwned?: Entry | null;
-  mystery?: Entry | null;
+  newlyOwned?: SchemaLeaf | null;
+  mystery?: SchemaLeaf | null;
 };
 
-function setBoolEntryTo(e: Entry | null | undefined, value: boolean): boolean {
-  if (!e) return false;
-  try {
-    if (getBool(e) === value) return false;
-    setBool(e, value);
-    return true;
-  } catch {
-    return false;
+const ARRAY_TYPES: ReadonlySet<DataType> = new Set([
+  DataType.BoolArray,
+  DataType.IntArray,
+  DataType.UIntArray,
+  DataType.FloatArray,
+  DataType.EnumArray,
+  DataType.Int64Array,
+  DataType.UInt64Array,
+  DataType.Vector2Array,
+  DataType.Vector3Array,
+  DataType.String16Array,
+  DataType.String32Array,
+  DataType.String64Array,
+  DataType.WString16Array,
+  DataType.WString32Array,
+  DataType.WString64Array,
+]);
+
+function isArrayLeaf(leaf: SchemaLeaf): boolean {
+  return ARRAY_TYPES.has(leaf.type);
+}
+
+function readNumber(acc: PlayerAccessor, leaf: SchemaLeaf, index: number | null): number {
+  if (isArrayLeaf(leaf) && index != null) {
+    return acc.getElement(leaf, index) as unknown as number;
   }
+  return acc.get(leaf) as unknown as number;
 }
 
-function clearNewlyOwned(slot: Slot): boolean {
-  return setBoolEntryTo(slot.newlyOwned, false);
+function writeNumber(
+  acc: PlayerAccessor,
+  leaf: SchemaLeaf,
+  index: number | null,
+  value: number,
+): void {
+  if (isArrayLeaf(leaf) && index != null) {
+    acc.setElement(leaf, index, value as never);
+    return;
+  }
+  acc.set(leaf, value as never);
 }
 
-function applyMystery(slot: Slot): boolean {
-  return setBoolEntryTo(slot.mystery, true);
+function readBool(acc: PlayerAccessor, leaf: SchemaLeaf, index: number | null): boolean {
+  if (isArrayLeaf(leaf) && index != null) {
+    return acc.getElement(leaf, index) as unknown as boolean;
+  }
+  return acc.get(leaf) as unknown as boolean;
 }
 
-export function readSlotState(slot: Slot): number {
-  if (!slot.state) return 0;
-  void playerState.tick;
+function writeBool(
+  acc: PlayerAccessor,
+  leaf: SchemaLeaf,
+  index: number | null,
+  value: boolean,
+): void {
+  if (isArrayLeaf(leaf) && index != null) {
+    acc.setElement(leaf, index, value as never);
+    return;
+  }
+  acc.set(leaf, value as never);
+}
+
+export function readSlotState(acc: PlayerAccessor | null, slot: Slot): number {
+  if (!acc || !slot.state) return 0;
   try {
-    return slot.index == null ? getEnum(slot.state) : arrGetEnum(slot.state, slot.index);
+    return readNumber(acc, slot.state, slot.index);
   } catch {
     return 0;
   }
 }
 
-export function readSlotQty(slot: Slot): number {
-  if (!slot.qty) return 0;
-  void playerState.tick;
+export function readSlotQty(acc: PlayerAccessor | null, slot: Slot): number {
+  if (!acc || !slot.qty) return 0;
   try {
-    if (slot.index == null) {
-      const raw = slot.qty.type === DataType.UInt ? getUInt(slot.qty) : getInt(slot.qty);
-      return raw < 0 ? 0 : raw;
-    }
-    return arrGetInt(slot.qty, slot.index);
+    const v = readNumber(acc, slot.qty, slot.index);
+    return v < 0 ? 0 : v;
   } catch {
     return 0;
   }
 }
 
-function setStateRaw(slot: Slot, value: number): boolean {
+function setStateRaw(acc: PlayerAccessor, slot: Slot, value: number): boolean {
   if (!slot.state) return false;
   try {
-    if (slot.index == null) setEnum(slot.state, value >>> 0);
-    else arrSetEnum(slot.state, slot.index, value >>> 0);
+    writeNumber(acc, slot.state, slot.index, value >>> 0);
     return true;
   } catch {
     return false;
   }
 }
 
-function setQtyRaw(slot: Slot, value: number): boolean {
+function setQtyRaw(acc: PlayerAccessor, slot: Slot, value: number): boolean {
   if (!slot.qty) return false;
   const v = Math.max(0, Math.trunc(value));
   try {
-    if (slot.index == null) {
-      if (slot.qty.type === DataType.UInt) setUInt(slot.qty, v >>> 0);
-      else setInt(slot.qty, v);
-    } else {
-      arrSetInt(slot.qty, slot.index, v);
-    }
+    writeNumber(acc, slot.qty, slot.index, v);
     return true;
   } catch {
     return false;
   }
 }
 
-function bumpStateOnFirstAcquire(slot: Slot, prevQty: number, newQty: number): boolean {
-  if (!slot.state) return false;
-  if (prevQty !== 0 || newQty <= 0) return false;
+function clearNewlyOwned(acc: PlayerAccessor, slot: Slot): void {
+  if (!slot.newlyOwned) return;
   try {
-    const cur = slot.index == null ? getEnum(slot.state) : arrGetEnum(slot.state, slot.index);
-    if (cur === OBTAINED_HASH) return false;
+    if (readBool(acc, slot.newlyOwned, slot.index) === false) return;
+    writeBool(acc, slot.newlyOwned, slot.index, false);
   } catch {
-    return false;
+    /* swallow */
   }
-  return setStateRaw(slot, OBTAINED_HASH);
 }
 
-export function writeSlotState(slot: Slot, value: number): void {
-  if (setStateRaw(slot, value) && slot.state) markDirty(slot.state);
-  if (clearNewlyOwned(slot) && slot.newlyOwned) markDirty(slot.newlyOwned);
-  if (applyMystery(slot) && slot.mystery) markDirty(slot.mystery);
+function applyMystery(acc: PlayerAccessor, slot: Slot): void {
+  if (!slot.mystery) return;
+  try {
+    if (readBool(acc, slot.mystery, slot.index) === true) return;
+    writeBool(acc, slot.mystery, slot.index, true);
+  } catch {
+    /* swallow */
+  }
 }
 
-export function writeSlotQty(slot: Slot, value: number): void {
+function bumpStateOnFirstAcquire(
+  acc: PlayerAccessor,
+  slot: Slot,
+  prevQty: number,
+  newQty: number,
+): void {
+  if (!slot.state || prevQty !== 0 || newQty <= 0) return;
+  try {
+    if (readNumber(acc, slot.state, slot.index) === OBTAINED_HASH) return;
+  } catch {
+    return;
+  }
+  setStateRaw(acc, slot, OBTAINED_HASH);
+}
+
+export function writeSlotState(acc: PlayerAccessor | null, slot: Slot, value: number): void {
+  if (!acc) return;
+  setStateRaw(acc, slot, value);
+  clearNewlyOwned(acc, slot);
+  applyMystery(acc, slot);
+}
+
+export function writeSlotQty(acc: PlayerAccessor | null, slot: Slot, value: number): void {
+  if (!acc) return;
   const newQty = Math.max(0, Math.trunc(value));
-  const prev = readSlotQty(slot);
-  if (!setQtyRaw(slot, newQty)) return;
-  if (slot.qty) markDirty(slot.qty);
-  if (bumpStateOnFirstAcquire(slot, prev, newQty) && slot.state) markDirty(slot.state);
-  if (clearNewlyOwned(slot) && slot.newlyOwned) markDirty(slot.newlyOwned);
-  if (applyMystery(slot) && slot.mystery) markDirty(slot.mystery);
+  const prev = readSlotQty(acc, slot);
+  if (!setQtyRaw(acc, slot, newQty)) return;
+  bumpStateOnFirstAcquire(acc, slot, prev, newQty);
+  clearNewlyOwned(acc, slot);
+  applyMystery(acc, slot);
 }
 
-export function applyStateToSlots(slots: Iterable<Slot>, value: number): void {
-  const dirtied = new Set<Entry>();
-  const newlyDirty = new Set<Entry>();
-  const mysteryDirty = new Set<Entry>();
+export function applyStateToSlots(
+  acc: PlayerAccessor | null,
+  slots: Iterable<Slot>,
+  value: number,
+): void {
+  if (!acc) return;
   for (const slot of slots) {
-    if (setStateRaw(slot, value) && slot.state) dirtied.add(slot.state);
-    if (clearNewlyOwned(slot) && slot.newlyOwned) newlyDirty.add(slot.newlyOwned);
-    if (applyMystery(slot) && slot.mystery) mysteryDirty.add(slot.mystery);
+    setStateRaw(acc, slot, value);
+    clearNewlyOwned(acc, slot);
+    applyMystery(acc, slot);
   }
-  for (const e of dirtied) markDirty(e);
-  for (const e of newlyDirty) markDirty(e);
-  for (const e of mysteryDirty) markDirty(e);
 }
 
-export function applyQtyToSlots(slots: Iterable<Slot>, value: number): void {
+export function applyQtyToSlots(
+  acc: PlayerAccessor | null,
+  slots: Iterable<Slot>,
+  value: number,
+): void {
+  if (!acc) return;
   const v = Math.max(0, Math.trunc(value));
-  const qtyDirty = new Set<Entry>();
-  const stateDirty = new Set<Entry>();
-  const newlyDirty = new Set<Entry>();
-  const mysteryDirty = new Set<Entry>();
   for (const slot of slots) {
-    if (!setQtyRaw(slot, v)) continue;
-    if (slot.qty) qtyDirty.add(slot.qty);
-    if (v > 0 && setStateIfNotObtained(slot) && slot.state) stateDirty.add(slot.state);
-    if (clearNewlyOwned(slot) && slot.newlyOwned) newlyDirty.add(slot.newlyOwned);
-    if (applyMystery(slot) && slot.mystery) mysteryDirty.add(slot.mystery);
+    if (!setQtyRaw(acc, slot, v)) continue;
+    if (v > 0) bumpStateOnFirstAcquire(acc, slot, 0, v);
+    clearNewlyOwned(acc, slot);
+    applyMystery(acc, slot);
   }
-  for (const e of qtyDirty) markDirty(e);
-  for (const e of stateDirty) markDirty(e);
-  for (const e of newlyDirty) markDirty(e);
-  for (const e of mysteryDirty) markDirty(e);
-}
-
-function setStateIfNotObtained(slot: Slot): boolean {
-  if (!slot.state) return false;
-  try {
-    const cur = slot.index == null ? getEnum(slot.state) : arrGetEnum(slot.state, slot.index);
-    if (cur === OBTAINED_HASH) return false;
-  } catch {
-    return false;
-  }
-  return setStateRaw(slot, OBTAINED_HASH);
 }

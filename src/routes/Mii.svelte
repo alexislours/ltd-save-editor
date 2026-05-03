@@ -15,17 +15,29 @@
     exportTimestamp,
     type MiiExportFormat,
   } from '../lib/mii/export';
-  import { downloadModified, markDirty, miiState, syncFromSave } from '../lib/mii/miiEditor.svelte';
+  import {
+    commitEntryEdit,
+    downloadModified,
+    miiAccessor,
+    miiState,
+    syncFromSave,
+  } from '../lib/mii/miiEditor.svelte';
   import { _, locale } from 'svelte-i18n';
+  import { untrack } from 'svelte';
   import { track } from '../lib/analytics';
   import { downloadText } from '../lib/sav/download';
-  import { expectedFileName, getSave } from '../lib/saveFile.svelte';
+  import { expectedFileName, getEntriesForAdvanced, getSave } from '../lib/saveFile.svelte';
   import { PILL_BUTTON_CLASS } from '../lib/styles';
 
   const save = $derived(getSave('mii'));
   $effect(() => {
     void save;
     syncFromSave();
+  });
+
+  const advancedEntries = $derived.by(() => {
+    void miiState.loadId;
+    return untrack(() => getEntriesForAdvanced('mii'));
   });
 
   type SubTab = 'profile' | 'relationships' | 'belongings' | 'troubles' | 'habits' | 'advanced';
@@ -51,9 +63,10 @@
   }
 
   function exportData(format: MiiExportFormat): void {
-    if (!miiState.parsed) return;
+    const mii = miiAccessor();
+    if (!mii) return;
     try {
-      const data = buildMiiExport(miiState.parsed.entries, {
+      const data = buildMiiExport(mii, {
         appVersion: __APP_VERSION__,
         saveFile: expectedFileName.mii,
         uiLocale: $locale,
@@ -73,31 +86,29 @@
     title={$_('mii.title')}
     description={$_('mii.description')}
     error={miiState.error}
-    ready={miiState.parsed != null}
+    ready={miiState.decoded != null}
   >
-    {#if miiState.parsed}
-      {@const parsed = miiState.parsed}
-
+    {#if miiState.decoded}
       <SaveBar dirty={miiState.dirty} actionLabel={$_('mii.download_action')} onAction={download} />
 
       <SubTabs tabs={SUB_TABS} bind:value={subTab} label={$_('mii.sections_label')} />
 
       {#if subTab === 'profile'}
-        <MiiPanel entries={parsed.entries} bind:selectedIndex />
+        <MiiPanel bind:selectedIndex />
       {:else if subTab === 'relationships'}
-        <MiiRelationsGraph
-          entries={parsed.entries}
-          {selectedIndex}
-          onSelect={(i) => (selectedIndex = i)}
-        />
+        <MiiRelationsGraph {selectedIndex} onSelect={(i) => (selectedIndex = i)} />
       {:else if subTab === 'belongings'}
-        <MiiBelongingsPanel entries={parsed.entries} bind:selectedIndex />
+        <MiiBelongingsPanel bind:selectedIndex />
       {:else if subTab === 'troubles'}
-        <MiiTroublePanel entries={parsed.entries} bind:selectedIndex />
+        <MiiTroublePanel bind:selectedIndex />
       {:else if subTab === 'habits'}
-        <MiiHabitPanel entries={parsed.entries} bind:selectedIndex />
+        <MiiHabitPanel bind:selectedIndex />
       {:else}
-        <AdvancedPanel entries={parsed.entries} {markDirty} parseSignal={miiState.parsed} />
+        <AdvancedPanel
+          entries={advancedEntries}
+          onCommit={commitEntryEdit}
+          parseSignal={miiState.loadId}
+        />
       {/if}
 
       <details class="group rounded-md border border-edge/60 bg-surface-muted px-3 py-2.5">

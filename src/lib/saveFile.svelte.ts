@@ -1,20 +1,30 @@
 import { SvelteSet } from 'svelte/reactivity';
+import { decode } from './sav/materialized/decode';
+import { encode } from './sav/materialized/encode';
+import type { DecodedSave } from './sav/materialized/types';
 import { parseSav } from './sav/parse';
+import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from './sav/schema';
 import { writeSav } from './sav/write';
-import type { SavFile } from './sav/types';
+import type { Entry } from './sav/types';
 import { murmur3_x86_32 } from './sav/hash';
 import { clearAllSessions, deleteSession, putSession } from './sessionStore';
 import { clearSidecar } from './shareMii/sidecarStore.svelte';
 
 export type SaveKind = 'player' | 'mii' | 'map';
 
+export type DecodedByKind = {
+  mii: DecodedSave | null;
+  player: DecodedSave | null;
+  map: DecodedSave | null;
+};
+
 export type LoadedSave = {
   name: string;
   size: number;
   lastModified: number;
-  parsed: SavFile | null;
+  decoded: DecodedByKind;
+  loadedBytes: Uint8Array;
   parseError: string | null;
-  /** Bumped on each successful parse */
   loadId: number;
 };
 
@@ -24,10 +34,16 @@ export const expectedFileName: Record<SaveKind, string> = {
   map: 'Map.sav',
 };
 
+const SCHEMAS = {
+  mii: MII_SCHEMA,
+  player: PLAYER_SCHEMA,
+  map: MAP_SCHEMA,
+} as const;
+
 const SIGNATURE_HASHES: Record<SaveKind, number> = {
   player: murmur3_x86_32('Player.Name'),
   mii: murmur3_x86_32('Mii.Name.Name'),
-  map: 0x78e32e1c,
+  map: MAP_SCHEMA.MapGrid.GridX.GridZ.FloorKeyHash.hash,
 };
 
 export function detectSaveKindFromBytes(bytes: Uint8Array): SaveKind | null {
@@ -64,10 +80,30 @@ export function getSave(kind: SaveKind): LoadedSave | null {
   return saves[kind];
 }
 
+export function isSaveLoaded(kind: SaveKind): boolean {
+  const save = saves[kind];
+  return save != null && save.parseError == null && save.decoded[kind] != null;
+}
+
 export function getSaveBytes(kind: SaveKind): Uint8Array | null {
   const save = saves[kind];
-  if (!save || !save.parsed) return null;
-  return writeSav(save.parsed);
+  if (!save) return null;
+  const decoded = save.decoded[kind];
+  if (decoded) {
+    const schema = SCHEMAS[kind] as unknown;
+    return writeSav(encode(schema as never, decoded as never));
+  }
+  return save.loadedBytes;
+}
+
+export function getEntriesForAdvanced(kind: SaveKind): Entry[] {
+  const bytes = getSaveBytes(kind);
+  if (!bytes) return [];
+  try {
+    return parseSav(bytes).entries;
+  } catch {
+    return [];
+  }
 }
 
 export async function setSaveFromFile(kind: SaveKind, file: File): Promise<void> {
@@ -81,16 +117,25 @@ export async function setSaveFromFile(kind: SaveKind, file: File): Promise<void>
 
 type SetSaveOptions = { persist?: boolean };
 
+function emptyDecoded(): DecodedByKind {
+  return { mii: null, player: null, map: null };
+}
+
 export function setSaveFromBytes(
   kind: SaveKind,
   input: { name: string; bytes: Uint8Array; lastModified?: number },
   options: SetSaveOptions = {},
 ): void {
   const lastModified = input.lastModified ?? Date.now();
-  let parsed: SavFile | null = null;
   let parseError: string | null = null;
+  const decoded: DecodedByKind = emptyDecoded();
   try {
-    parsed = parseSav(input.bytes);
+    const parsed = parseSav(input.bytes);
+    const schema = SCHEMAS[kind] as unknown;
+    const d = decode(schema, parsed);
+    if (kind === 'mii') decoded.mii = d;
+    else if (kind === 'player') decoded.player = d;
+    else decoded.map = d;
   } catch (e) {
     parseError = e instanceof Error ? e.message : String(e);
   }
@@ -98,7 +143,8 @@ export function setSaveFromBytes(
     name: input.name,
     size: input.bytes.byteLength,
     lastModified,
-    parsed,
+    decoded,
+    loadedBytes: input.bytes,
     parseError,
     loadId: nextLoadId++,
   };
@@ -113,11 +159,11 @@ export function setSaveFromBytes(
   }
 }
 
-/** Persist the current in-memory state for crash recovery. */
 export function persistCurrent(kind: SaveKind): void {
   const save = saves[kind];
-  if (!save || !save.parsed) return;
-  const bytes = writeSav(save.parsed);
+  if (!save) return;
+  const bytes = getSaveBytes(kind);
+  if (!bytes) return;
   void putSession({
     kind,
     name: save.name,

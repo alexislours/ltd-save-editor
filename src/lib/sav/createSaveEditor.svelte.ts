@@ -1,82 +1,152 @@
+import { SvelteMap } from 'svelte/reactivity';
 import { track } from '../analytics';
 import { getSave, getSaveBytes, type SaveKind, expectedFileName } from '../saveFile.svelte';
 import { schedulePersist } from '../sessionPersist';
-import { createDirtyTracker } from './dirty';
 import { downloadBytes } from './download';
-import type { Entry, SavFile } from './types';
+import { createMaterializedAccessor, type Accessor } from './materialized/accessor';
+import { decodeValue } from './materialized/decode';
+import { buildHashMap, pathToLeafMap } from './materialized/schemaIndex';
+import { PLAN, type DecodedSave, type PlanItem, type WithPlan } from './materialized/types';
+import type { Entry } from './types';
 
-export type SaveEditorState = {
-  parsed: SavFile | null;
-  error: string | null;
-  dirty: boolean;
-  /** Bumped on every parse and every markDirty - read in `$derived` to react to edits. */
-  tick: number;
-  loadId: number;
-};
+class EditorState {
+  decoded = $state<DecodedSave | null>(null);
+  error = $state<string | null>(null);
+  loadId = $state<number>(0);
+  loadedBytes = $state<Uint8Array | null>(null);
+  dirty = $state<boolean>(false);
+}
 
-export type SaveEditor = {
-  readonly state: SaveEditorState;
+export type SaveEditorState = EditorState;
+
+export type SaveEditor<K extends string> = {
+  readonly state: EditorState;
   syncFromSave: () => void;
-  markDirty: (entry: Entry) => void;
+  commitEntryEdit: (entry: Entry) => void;
   downloadModified: () => void;
+  accessor: () => Accessor<K> | null;
 };
 
-/**
- * Backing logic for a per-{@link SaveKind} editor. The parsed `SavFile` lives in
- * `saveFile.svelte.ts` (single source of truth). The editor mirrors the loaded
- * save's parsed/error fields and tracks per-entry dirtiness via
- * {@link createDirtyTracker}. Mutations to entry payloads are reflected
- * immediately in `getSave(kind).parsed.entries` since the editor and any other
- * caller (e.g. ShareMii) share the same SavFile reference.
- */
-export function createSaveEditor(kind: SaveKind): SaveEditor {
-  const state = $state<SaveEditorState>({
-    parsed: null,
-    error: null,
-    dirty: false,
-    tick: 0,
-    loadId: 0,
-  });
-  const tracker = createDirtyTracker();
+function cloneEntry(e: Entry): Entry {
+  if (e.payload == null)
+    return { hash: e.hash, type: e.type, inlineRaw: e.inlineRaw, payload: e.payload };
+  return { hash: e.hash, type: e.type, inlineRaw: e.inlineRaw, payload: e.payload.slice() };
+}
+
+export function createSaveEditor<K extends string>(kind: SaveKind, schema: unknown): SaveEditor<K> {
+  const state = new EditorState();
   let seenLoadId = -1;
+  let cachedAccessor: Accessor<K> | null = null;
+  let cachedDecoded: DecodedSave | null = null;
+  let cachedPlanIndex: SvelteMap<number, number> | null = null;
+
+  function resetCaches(): void {
+    cachedAccessor = null;
+    cachedDecoded = null;
+    cachedPlanIndex = null;
+  }
 
   function clear(): void {
-    state.parsed = null;
+    state.decoded = null;
     state.error = null;
-    state.dirty = false;
-    state.tick++;
     state.loadId = 0;
-    tracker.reset();
+    state.loadedBytes = null;
+    state.dirty = false;
     seenLoadId = -1;
+    resetCaches();
   }
 
   function syncFromSave(): void {
     const save = getSave(kind);
     if (!save) {
-      if (state.parsed || state.error) clear();
+      if (state.decoded || state.error || state.loadedBytes) clear();
       return;
     }
+    const decoded = (save.decoded as Record<SaveKind, DecodedSave | null>)[kind];
     if (
       save.loadId === seenLoadId &&
-      state.parsed === save.parsed &&
-      state.error === save.parseError
+      state.decoded === decoded &&
+      state.error === save.parseError &&
+      state.loadedBytes === save.loadedBytes
     ) {
       return;
     }
-    state.parsed = save.parsed;
+    state.decoded = decoded;
     state.error = save.parseError;
-    state.dirty = false;
-    state.tick++;
     state.loadId = save.loadId;
-    tracker.reset();
-    if (save.parsed) tracker.registerAll(save.parsed.entries);
-    if (save.parseError) track('parse_failed', { kind });
+    state.loadedBytes = save.loadedBytes;
+    state.dirty = false;
     seenLoadId = save.loadId;
+    resetCaches();
+    if (save.parseError) track('parse_failed', { kind });
   }
 
-  function markDirty(entry: Entry): void {
-    state.dirty = tracker.markDirty(entry);
-    state.tick++;
+  function planIndexFor(decoded: DecodedSave): Map<number, number> {
+    if (cachedPlanIndex && cachedDecoded === decoded) return cachedPlanIndex;
+    const plan = ((decoded as DecodedSave & WithPlan)[PLAN] as PlanItem[] | undefined) ?? [];
+    const map = new SvelteMap<number, number>();
+    const pathMap = pathToLeafMap(schema as object);
+    for (let i = 0; i < plan.length; i++) {
+      const item = plan[i];
+      if (item.kind === 'known') {
+        const leaf = pathMap.get(item.path);
+        if (leaf) map.set(leaf.hash >>> 0, i);
+      } else {
+        const u = decoded.unknowns[item.index];
+        if (u) map.set(u.hash >>> 0, i);
+      }
+    }
+    cachedDecoded = decoded;
+    cachedPlanIndex = map;
+    return map;
+  }
+
+  function commitEntryEdit(entry: Entry): void {
+    const decoded = state.decoded;
+    if (!decoded) return;
+    const hash = entry.hash >>> 0;
+    const info = buildHashMap(schema as object).get(hash);
+    const values = decoded.values;
+    const plan = (decoded as DecodedSave & WithPlan)[PLAN] as PlanItem[] | undefined;
+
+    const planIdx = plan ? (planIndexFor(decoded).get(hash) ?? -1) : -1;
+
+    if (planIdx === -1) {
+      if (info && info.leaf.type === entry.type) {
+        values[info.path] = decodeValue(entry);
+        if (plan) {
+          plan.push({ kind: 'known', path: info.path });
+          cachedPlanIndex?.set(hash, plan.length - 1);
+        }
+      } else {
+        const idx = decoded.unknowns.length;
+        decoded.unknowns.push(cloneEntry(entry));
+        if (plan) {
+          plan.push({ kind: 'unknown', index: idx });
+          cachedPlanIndex?.set(hash, plan.length - 1);
+        }
+      }
+      state.dirty = true;
+      schedulePersist(kind);
+      return;
+    }
+
+    const item = plan![planIdx];
+    if (item.kind === 'known') {
+      if (!info || info.leaf.type !== entry.type) {
+        throw new Error(
+          `commitEntryEdit: type mismatch for hash 0x${hash.toString(16)} (schema=${info?.leaf.type}, entry=${entry.type})`,
+        );
+      }
+      values[item.path] = decodeValue(entry);
+    } else {
+      decoded.unknowns[item.index] = cloneEntry(entry);
+      if (info && info.leaf.type === entry.type) {
+        values[info.path] = decodeValue(entry);
+        plan![planIdx] = { kind: 'known', path: info.path };
+      }
+    }
+    state.dirty = true;
     schedulePersist(kind);
   }
 
@@ -88,5 +158,36 @@ export function createSaveEditor(kind: SaveKind): SaveEditor {
     track('export', { mode: 'single', kinds: kind, kind_count: 1 });
   }
 
-  return { state, syncFromSave, markDirty, downloadModified };
+  function wrap(inner: Accessor<K>): Accessor<K> {
+    return {
+      has: (leaf) => inner.has(leaf),
+      get: (leaf) => inner.get(leaf),
+      getElement: (leaf, i) => inner.getElement(leaf, i),
+      set(leaf, v) {
+        inner.set(leaf, v);
+        state.dirty = true;
+        schedulePersist(kind);
+      },
+      setElement(leaf, i, v) {
+        inner.setElement(leaf, i, v);
+        state.dirty = true;
+        schedulePersist(kind);
+      },
+    };
+  }
+
+  function accessor(): Accessor<K> | null {
+    const decoded = state.decoded;
+    if (!decoded) {
+      cachedAccessor = null;
+      cachedDecoded = null;
+      return null;
+    }
+    if (cachedAccessor && cachedDecoded === decoded) return cachedAccessor;
+    cachedDecoded = decoded;
+    cachedAccessor = wrap(createMaterializedAccessor<K>(schema, decoded));
+    return cachedAccessor;
+  }
+
+  return { state, syncFromSave, commitEntryEdit, downloadModified, accessor };
 }

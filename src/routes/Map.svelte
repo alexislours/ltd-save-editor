@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   import { SvelteSet } from 'svelte/reactivity';
   import AdvancedPanel from '../lib/advanced/AdvancedPanel.svelte';
   import { track } from '../lib/analytics';
@@ -12,16 +13,13 @@
   import Palette from '../lib/map/Palette.svelte';
   import { canRedo, canUndo, clearHistory, redo, undo } from '../lib/map/history.svelte';
   import {
+    floorTiles,
     MAP_HEIGHT,
     MAP_WIDTH,
     mapState,
     syncFromSave as syncFloorFromSave,
   } from '../lib/map/mapEditor.svelte';
-  import {
-    downloadMapSav,
-    mapSave,
-    markDirty as markGenericDirty,
-  } from '../lib/map/mapSave.svelte';
+  import { commitEntryEdit, downloadMapSav, mapSave } from '../lib/map/mapSave.svelte';
   import {
     TILE_DEFS,
     tileColorForHash,
@@ -40,7 +38,7 @@
     syncFromSave as syncObjectsFromSave,
   } from '../lib/mapObjects/mapObjectsEditor.svelte';
   import { _ } from 'svelte-i18n';
-  import { getSave } from '../lib/saveFile.svelte';
+  import { getEntriesForAdvanced, getSave } from '../lib/saveFile.svelte';
   import { CARD_BASE_CLASS, TOOLBAR_CLASS } from '../lib/styles';
 
   const save = $derived(getSave('map'));
@@ -65,18 +63,8 @@
   let floorTileSize = $state(8);
   let floorHover = $state<{ x: number; y: number } | null>(null);
 
-  function tilesView(): Uint32Array | null {
-    void mapState.tileRev;
-    if (!mapState.entry?.payload) return null;
-    return new Uint32Array(
-      mapState.entry.payload.buffer,
-      mapState.entry.payload.byteOffset + 4,
-      MAP_WIDTH * MAP_HEIGHT,
-    );
-  }
-
   const extraTiles = $derived.by((): TileDef[] => {
-    const tiles = tilesView();
+    const tiles = floorTiles();
     if (!tiles) return [];
     const unknown = new SvelteSet<number>();
     for (let i = 0; i < tiles.length; i++) {
@@ -91,9 +79,9 @@
   });
 
   const hoveredHash = $derived.by(() => {
-    const tiles = tilesView();
+    const tiles = floorTiles();
     if (!floorHover || !tiles) return null;
-    return tiles[floorHover.x * MAP_HEIGHT + floorHover.y];
+    return tiles[floorHover.x * MAP_HEIGHT + floorHover.y] >>> 0;
   });
 
   let selectedObjectIndex = $state<number | null>(null);
@@ -130,11 +118,16 @@
     return { display: d, size: footprintSizeLabel(best.row.actor) };
   });
 
-  const dirty = $derived(mapState.dirty || objectsState.dirty || mapSave.genericDirty);
+  const dirty = $derived(mapSave.dirty);
+
+  const advancedEntries = $derived.by(() => {
+    void mapSave.loadId;
+    return untrack(() => getEntriesForAdvanced('map'));
+  });
 
   function download(): void {
     try {
-      downloadMapSav('Map.sav');
+      downloadMapSav();
     } catch (e) {
       alert(e instanceof Error ? e.message : String(e));
     }
@@ -180,9 +173,9 @@
     title={$_('map.title')}
     description={$_('map.description')}
     error={mapState.error || objectsState.error}
-    ready={mapState.entry != null}
+    ready={mapState.ready}
   >
-    {#if mapState.entry}
+    {#if mapState.ready}
       <SaveBar {dirty} actionLabel={$_('map.download_action')} onAction={download}>
         {#snippet extra()}
           {#if subTab === 'objects' && objectsState.count > 0}
@@ -361,9 +354,9 @@
         </Card>
       {:else}
         <AdvancedPanel
-          entries={mapSave.parsed?.entries ?? []}
-          markDirty={markGenericDirty}
-          parseSignal={mapSave.parseRev}
+          entries={advancedEntries}
+          onCommit={commitEntryEdit}
+          parseSignal={mapSave.loadId}
         />
       {/if}
     {/if}

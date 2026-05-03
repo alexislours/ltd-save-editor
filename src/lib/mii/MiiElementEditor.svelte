@@ -1,65 +1,54 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import {
-    arrGetEnum,
-    arrGetInt,
-    arrGetString,
-    arrGetUInt,
-    arrSetEnum,
-    arrSetInt,
-    arrSetString,
-    arrSetUInt,
-  } from '../sav/codec';
   import { safe } from '../sav/format';
   import { enumOptionName, enumOptionsFor } from '../sav/knownKeys';
-  import type { Entry } from '../sav/types';
+  import { MII_SCHEMA } from '../sav/schema';
   import { FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
-  import { markDirty, miiState } from './miiEditor.svelte';
+  import { miiAccessor } from './miiEditor.svelte';
   import { genderLabel, pronounLabel } from './miiLabelList.svelte';
   import type { MiiField } from './miiFields';
 
   type Props = {
-    entry: Entry;
     index: number;
     field: MiiField;
   };
-  let { entry, index, field }: Props = $props();
-
-  const tick = $derived(miiState.tick);
+  let { index, field }: Props = $props();
 
   let error = $state<string | null>(null);
 
   const stringValue = $derived.by(() => {
-    void tick;
     if (field.kind !== 'string') return '';
-    return safe(() => arrGetString(entry, index), '');
+    const mii = miiAccessor();
+    if (!mii) return '';
+    return safe(() => mii.getElement(field.leaf, index) as string, '');
   });
 
   const numberValue = $derived.by(() => {
-    void tick;
     const offset = field.displayOffset ?? 0;
-    if (field.kind === 'uint') return safe(() => arrGetUInt(entry, index), 0) + offset;
-    if (field.kind === 'int') return safe(() => arrGetInt(entry, index), 0) + offset;
-    return 0;
+    if (field.kind !== 'uint' && field.kind !== 'int') return 0;
+    const mii = miiAccessor();
+    if (!mii) return 0;
+    return safe(() => mii.getElement(field.leaf, index) as number, 0) + offset;
   });
 
   const enumValue = $derived.by(() => {
-    void tick;
     if (field.kind !== 'enum') return 0;
-    return safe(() => arrGetEnum(entry, index), 0);
+    const mii = miiAccessor();
+    if (!mii) return 0;
+    return safe(() => mii.getElement(field.leaf, index) as number, 0);
   });
 
   const enumOptions = $derived.by(() => {
     if (field.kind !== 'enum') return null;
-    return enumOptionsFor(field.hash);
+    return enumOptionsFor(field.leaf.hash);
   });
 
   function localizeEnumOption(name: string, fallbackLabel: string | undefined): string {
-    if (field.name === 'Mii.Name.PronounType') {
+    if (field.leaf === MII_SCHEMA.Mii.Name.PronounType) {
       const t = pronounLabel(name, $locale);
       if (t) return t;
     }
-    if (field.name === 'Mii.MiiMisc.FaceInfo.Gender') {
+    if (field.leaf === MII_SCHEMA.Mii.MiiMisc.FaceInfo.Gender) {
       const t = genderLabel(name, $locale);
       if (t) return t;
     }
@@ -67,9 +56,10 @@
   }
 
   function commitString(raw: string): void {
+    const mii = miiAccessor();
+    if (!mii) return;
     try {
-      arrSetString(entry, index, raw);
-      markDirty(entry);
+      mii.setElement(field.leaf, index, raw);
       error = null;
     } catch (e) {
       error = e instanceof Error ? e.message : String(e);
@@ -98,17 +88,18 @@
     }
 
     const stored = truncated - (field.displayOffset ?? 0);
+    const mii = miiAccessor();
+    if (!mii) return;
     try {
       if (field.kind === 'uint') {
         if (stored < 0) {
           error = $_('mii.errors.must_be_non_negative');
           return;
         }
-        arrSetUInt(entry, index, stored >>> 0);
+        mii.setElement(field.leaf, index, stored >>> 0);
       } else if (field.kind === 'int') {
-        arrSetInt(entry, index, stored | 0);
+        mii.setElement(field.leaf, index, stored | 0);
       }
-      markDirty(entry);
       error = null;
     } catch (e) {
       error = e instanceof Error ? e.message : String(e);
@@ -118,9 +109,10 @@
   function commitEnum(rawHash: string): void {
     const n = Number.parseInt(rawHash, 10);
     if (!Number.isFinite(n)) return;
+    const mii = miiAccessor();
+    if (!mii) return;
     try {
-      arrSetEnum(entry, index, n >>> 0);
-      markDirty(entry);
+      mii.setElement(field.leaf, index, n >>> 0);
       error = null;
     } catch (e) {
       error = e instanceof Error ? e.message : String(e);

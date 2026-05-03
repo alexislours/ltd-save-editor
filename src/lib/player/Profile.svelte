@@ -1,180 +1,128 @@
 <script lang="ts">
-  import {
-    getEnum,
-    getInt,
-    getInt64,
-    getString,
-    getUInt,
-    getUInt64,
-    setEnum,
-    setInt,
-    setInt64,
-    setString,
-    setUInt,
-    setUInt64,
-    stringEncodedSize,
-  } from '../sav/codec';
-  import { DataType } from '../sav/dataType';
-  import { murmur3_x86_32 } from '../sav/hash';
   import { _ } from 'svelte-i18n';
+  import { bindLeaf } from '../sav/bindLeaf.svelte';
   import { enumOptionsFor, type EnumOption } from '../sav/knownKeys';
-  import type { Entry } from '../sav/types';
-  import { markDirty, playerState } from '../playerEditor.svelte';
+  import { PLAYER_SCHEMA } from '../sav/schema';
+  import { playerAccessor } from '../playerEditor.svelte';
   import { CARD_CLASS, COMPACT_SELECT_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
   import DateField from './DateField.svelte';
   import EnumSelect from './EnumSelect.svelte';
-  import EntryEditor from './EntryEditor.svelte';
   import FormFieldWrapper from './FormFieldWrapper.svelte';
-  import { buildEntryMap } from './inventoryHelpers';
   import { HAND_COLORS } from './profileFields';
-  import { fieldWriteError } from './scalarFieldAccess';
   import SwatchPicker from './SwatchPicker.svelte';
 
-  type Props = { entries: Entry[] };
-  let { entries }: Props = $props();
+  const NAME = PLAYER_SCHEMA.Player.Name;
+  const ISLAND_NAME = PLAYER_SCHEMA.Player.IslandName;
+  const HOW_CALL_NAME = PLAYER_SCHEMA.Player.HowToCallName;
+  const HOW_CALL_ISLAND = PLAYER_SCHEMA.Player.HowToCallIslandName;
+  const NAME_LANG = PLAYER_SCHEMA.Player.NameRegionLanguageID;
+  const ISLAND_LANG = PLAYER_SCHEMA.Player.IslandNameRegionLanguageID;
+  const SKIN = PLAYER_SCHEMA.Player.SkinColorIndex;
+  const MONEY = PLAYER_SCHEMA.Player.Money;
+  const CURRENCY = PLAYER_SCHEMA.Player.Currency;
+  const REGION = PLAYER_SCHEMA.Player.Region;
+  const REGION_CODE = PLAYER_SCHEMA.Player.RegionCode;
+  const BOOT_NUM = PLAYER_SCHEMA.Player.BootNum;
+  const PLAY_TIME = PLAYER_SCHEMA.Player.PlayTime;
+  const BDAY_DAY = PLAYER_SCHEMA.Player.BirthDay.BirthDay_Day;
+  const BDAY_MONTH = PLAYER_SCHEMA.Player.BirthDay.BirthDay_Month;
+  const BDAY_YEAR = PLAYER_SCHEMA.Player.BirthDay.BirthDay_Year;
+  const FOUNTAIN_LEVEL = PLAYER_SCHEMA.Liberation.FountainLevel;
+  const WISHES = PLAYER_SCHEMA.Unknown['0xA32F7E47'];
+  const ISLAND_SIZE = PLAYER_SCHEMA.Player.UnlockMapLevel;
 
-  const byHash = $derived(buildEntryMap(entries));
-
-  const find = (n: string): Entry | null => byHash.get(murmur3_x86_32(n) >>> 0) ?? null;
-  const findHash = (h: number): Entry | null => byHash.get(h >>> 0) ?? null;
-
-  const name = $derived(find('Player.Name'));
-  const islandName = $derived(find('Player.IslandName'));
-  const howCallName = $derived(find('Player.HowToCallName'));
-  const howCallIsland = $derived(find('Player.HowToCallIslandName'));
-  const nameLang = $derived(find('Player.NameRegionLanguageID'));
-  const islandLang = $derived(find('Player.IslandNameRegionLanguageID'));
-  const skin = $derived(find('Player.SkinColorIndex'));
-
-  const money = $derived(find('Player.Money'));
-  const currency = $derived(find('Player.Currency'));
-
-  const region = $derived(find('Player.Region'));
-  const regionCode = $derived(find('Player.RegionCode'));
-  const bootNum = $derived(find('Player.BootNum'));
-  const playTime = $derived(find('Player.PlayTime'));
-
-  const bdayDay = $derived(findHash(0xdb7786bb));
-  const bdayMonth = $derived(findHash(0xc754bef3));
-  const bdayYear = $derived(findHash(0x11996629));
-
-  const fountainLevel = $derived(find('Liberation.FountainLevel'));
-  const wishes = $derived(findHash(0xa32f7e47));
-
-  const islandSize = $derived(findHash(0x870a807c));
   const ISLAND_SIZE_VALUES = [1, 2, 3, 4] as const;
 
-  function readIslandSize(entry: Entry): number {
-    switch (entry.type) {
-      case DataType.Enum:
-        return getEnum(entry);
-      case DataType.Int:
-        return getInt(entry);
-      default:
-        return getUInt(entry);
-    }
-  }
-  function writeIslandSize(entry: Entry, n: number): void {
-    switch (entry.type) {
-      case DataType.Enum:
-        setEnum(entry, n);
-        break;
-      case DataType.Int:
-        setInt(entry, n);
-        break;
-      default:
-        setUInt(entry, n);
-    }
-    markDirty(entry);
-  }
+  const name = bindLeaf(playerAccessor, NAME);
+  const island = bindLeaf(playerAccessor, ISLAND_NAME);
+  const phoneticName = bindLeaf(playerAccessor, HOW_CALL_NAME);
+  const phoneticIsland = bindLeaf(playerAccessor, HOW_CALL_ISLAND);
+  const nameLang = bindLeaf(playerAccessor, NAME_LANG);
+  const islandLang = bindLeaf(playerAccessor, ISLAND_LANG);
+  const skin = bindLeaf(playerAccessor, SKIN);
+  const money = bindLeaf(playerAccessor, MONEY);
+  const currency = bindLeaf(playerAccessor, CURRENCY);
+  const region = bindLeaf(playerAccessor, REGION);
+  const regionCode = bindLeaf(playerAccessor, REGION_CODE);
+  const bootNum = bindLeaf(playerAccessor, BOOT_NUM);
+  const playTime = bindLeaf(playerAccessor, PLAY_TIME);
+  const fountainLevel = bindLeaf(playerAccessor, FOUNTAIN_LEVEL);
+  const wishes = bindLeaf(playerAccessor, WISHES);
+  const islandSize = bindLeaf(playerAccessor, ISLAND_SIZE);
+  const bdayDay = bindLeaf(playerAccessor, BDAY_DAY);
+  const bdayMonth = bindLeaf(playerAccessor, BDAY_MONTH);
+  const bdayYear = bindLeaf(playerAccessor, BDAY_YEAR);
 
-  const islandSizeValue = $derived.by(
-    () => (void playerState.tick, islandSize ? readIslandSize(islandSize) : 0),
-  );
+  const hasBday = $derived(bdayDay.present && bdayMonth.present && bdayYear.present);
 
   const anyFound = $derived(
-    name != null ||
-      islandName != null ||
-      money != null ||
-      playTime != null ||
-      skin != null ||
-      fountainLevel != null ||
-      wishes != null ||
-      islandSize != null ||
-      (bdayDay != null && bdayMonth != null && bdayYear != null),
+    name.present ||
+      island.present ||
+      money.present ||
+      playTime.present ||
+      skin.present ||
+      fountainLevel.present ||
+      wishes.present ||
+      islandSize.present ||
+      hasBday,
   );
 
-  function setSkin(v: number): void {
-    if (!skin) return;
-    setUInt(skin, v);
-    markDirty(skin);
+  const currencyOptions = $derived(currency.present ? enumOptionsFor(CURRENCY.hash) : null);
+  const regionOptions = $derived(region.present ? enumOptionsFor(REGION.hash) : null);
+  const regionCodeOptions = $derived(regionCode.present ? enumOptionsFor(REGION_CODE.hash) : null);
+  const nameLangOptions = $derived(nameLang.present ? enumOptionsFor(NAME_LANG.hash) : null);
+  const islandLangOptions = $derived(islandLang.present ? enumOptionsFor(ISLAND_LANG.hash) : null);
+
+  const handSwatches = $derived(
+    HAND_COLORS.map((color, i) => ({
+      value: i,
+      color,
+      label: $_(`player.hand_tones.${i}`),
+    })),
+  );
+
+  function localizeRegion(opt: EnumOption): string {
+    const key = `player.regions.${opt.name}`;
+    const t = $_(key);
+    return t === key ? (opt.label ?? opt.name) : t;
   }
 
-  function commitString(entry: Entry, value: string): string | null {
-    return fieldWriteError(() => {
-      stringEncodedSize(entry.type, value);
-      setString(entry, value);
-      markDirty(entry);
-    });
+  function writeBoot(raw: string): string | null {
+    const trimmed = raw.replace(/[,\s]/g, '');
+    const n = Number(trimmed);
+    if (!Number.isFinite(n) || n < 0) return $_('player.errors.non_negative_integer');
+    return bootNum.commit(Math.trunc(n));
   }
 
-  function readNumber(entry: Entry): number | bigint | null {
-    switch (entry.type) {
-      case DataType.UInt:
-      case DataType.Int:
-      case DataType.Enum:
-        return getUInt(entry);
-      case DataType.Int64:
-        return getInt64(entry);
-      case DataType.UInt64:
-        return getUInt64(entry);
-      default:
-        return null;
-    }
-  }
-
-  function writeNumber(entry: Entry, raw: string): string | null {
+  function writePlayTime(raw: string): string | null {
     const trimmed = raw.replace(/[,\s]/g, '');
     try {
-      switch (entry.type) {
-        case DataType.UInt:
-        case DataType.Enum: {
-          const n = Number(trimmed);
-          if (!Number.isFinite(n) || n < 0) return $_('player.errors.non_negative_integer');
-          setUInt(entry, Math.trunc(n));
-          break;
-        }
-        case DataType.Int: {
-          const n = Number(trimmed);
-          if (!Number.isFinite(n)) return $_('player.errors.integer');
-          setUInt(entry, Math.trunc(n) >>> 0);
-          break;
-        }
-        case DataType.Int64: {
-          setInt64(entry, BigInt(trimmed));
-          break;
-        }
-        case DataType.UInt64: {
-          const n = BigInt(trimmed);
-          if (n < 0n) return $_('player.errors.non_negative_integer');
-          setUInt64(entry, n);
-          break;
-        }
-        default:
-          return $_('player.errors.unsupported_type');
-      }
-      markDirty(entry);
-      return null;
+      const n = BigInt(trimmed);
+      if (n < 0n) return $_('player.errors.non_negative_integer');
+      return playTime.commit(n);
     } catch {
       return $_('player.errors.invalid_number');
     }
   }
 
-  function formatMoney(v: number | bigint | null): string {
+  function writeFountainLevel(raw: string): string | null {
+    const trimmed = raw.replace(/[,\s]/g, '');
+    const n = Number(trimmed);
+    if (!Number.isFinite(n) || n < 0) return $_('player.errors.non_negative_integer');
+    return fountainLevel.commit(Math.trunc(n));
+  }
+
+  function writeWishes(raw: string): string | null {
+    const trimmed = raw.replace(/[,\s]/g, '');
+    const n = Number(trimmed);
+    if (!Number.isFinite(n) || n < 0) return $_('player.errors.non_negative_integer');
+    return wishes.commit(Math.trunc(n));
+  }
+
+  function formatMoney(v: number | null): string {
     if (v == null) return '';
-    const n = typeof v === 'bigint' ? Number(v) : v;
-    if (!Number.isFinite(n)) return '';
-    return (n / 100).toLocaleString('en-US', {
+    if (!Number.isFinite(v)) return '';
+    return (v / 100).toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
@@ -182,7 +130,7 @@
 
   const MAX_MONEY_CENTS = 99_999_999;
 
-  function writeMoney(entry: Entry, raw: string): string | null {
+  function writeMoney(raw: string): string | null {
     const cleaned = raw.replace(/\s/g, '').replace(/,/g, '.');
     const lastDot = cleaned.lastIndexOf('.');
     let intPart: string;
@@ -202,81 +150,17 @@
     const total = Number(totalStr);
     if (!Number.isFinite(total) || total < 0) return $_('player.errors.non_negative_number');
     if (total > MAX_MONEY_CENTS) return $_('player.errors.money_max');
-    try {
-      switch (entry.type) {
-        case DataType.UInt:
-        case DataType.Int:
-        case DataType.Enum:
-          setUInt(entry, Math.trunc(total) >>> 0);
-          break;
-        case DataType.Int64:
-          setInt64(entry, BigInt(totalStr));
-          break;
-        case DataType.UInt64:
-          setUInt64(entry, BigInt(totalStr));
-          break;
-        default:
-          return $_('player.errors.unsupported_type');
-      }
-      markDirty(entry);
-      return null;
-    } catch {
-      return $_('player.errors.invalid_number');
-    }
+    return money.commit(total >>> 0);
   }
 
-  function formatPlayTime(seconds: number | bigint | null): string {
+  function formatPlayTime(seconds: bigint | null): string {
     if (seconds == null) return '';
-    const s = typeof seconds === 'bigint' ? Number(seconds) : seconds;
+    const s = Number(seconds);
     if (!Number.isFinite(s) || s < 0) return '';
     const h = Math.floor(s / 3600);
     const m = Math.floor((s % 3600) / 60);
     if (h === 0) return `${m}m`;
     return `${h.toLocaleString('en-US')}h ${m}m`;
-  }
-
-  const moneyValue = $derived.by(() => (void playerState.tick, money ? readNumber(money) : null));
-  const playTimeValue = $derived.by(
-    () => (void playerState.tick, playTime ? readNumber(playTime) : null),
-  );
-  const bootValue = $derived.by(
-    () => (void playerState.tick, bootNum ? readNumber(bootNum) : null),
-  );
-  const fountainLevelValue = $derived.by(
-    () => (void playerState.tick, fountainLevel ? readNumber(fountainLevel) : null),
-  );
-  const wishesValue = $derived.by(
-    () => (void playerState.tick, wishes ? readNumber(wishes) : null),
-  );
-  const nameValue = $derived.by(() => (void playerState.tick, name ? getString(name) : ''));
-  const islandValue = $derived.by(
-    () => (void playerState.tick, islandName ? getString(islandName) : ''),
-  );
-  const phoneticNameValue = $derived.by(
-    () => (void playerState.tick, howCallName ? getString(howCallName) : ''),
-  );
-  const phoneticIslandValue = $derived.by(
-    () => (void playerState.tick, howCallIsland ? getString(howCallIsland) : ''),
-  );
-
-  const currencyOptions = $derived(currency ? enumOptionsFor(currency.hash) : null);
-  const currencyRaw = $derived.by(() => (void playerState.tick, currency ? getEnum(currency) : 0));
-
-  const regionOptions = $derived(region ? enumOptionsFor(region.hash) : null);
-  const regionRaw = $derived.by(() => (void playerState.tick, region ? getEnum(region) : 0));
-
-  const handSwatches = $derived(
-    HAND_COLORS.map((color, i) => ({
-      value: i,
-      color,
-      label: $_(`player.hand_tones.${i}`),
-    })),
-  );
-
-  function localizeRegion(opt: EnumOption): string {
-    const key = `player.regions.${opt.name}`;
-    const t = $_(key);
-    return t === key ? (opt.label ?? opt.name) : t;
   }
 
   type ErrKey =
@@ -304,35 +188,6 @@
   const numberInputClass = `${FORM_INPUT_CLASS} font-mono`;
 </script>
 
-{#snippet textField(entry: Entry, label: string, value: string, key: ErrKey)}
-  <FormFieldWrapper {label} error={errors[key]} bodyClass="">
-    <input
-      type="text"
-      class={FORM_INPUT_CLASS}
-      {value}
-      onchange={(e) => (errors[key] = commitString(entry, e.currentTarget.value))}
-    />
-  </FormFieldWrapper>
-{/snippet}
-
-{#snippet numberField(
-  entry: Entry,
-  label: string,
-  value: number | bigint | null,
-  widthClass: string,
-  key: ErrKey,
-)}
-  <FormFieldWrapper {label} error={errors[key]}>
-    <input
-      type="text"
-      inputmode="numeric"
-      class="{numberInputClass} {widthClass}"
-      value={value == null ? '' : value.toString()}
-      onchange={(e) => (errors[key] = writeNumber(entry, e.currentTarget.value))}
-    />
-  </FormFieldWrapper>
-{/snippet}
-
 {#if !anyFound}
   <section class={CARD_CLASS}>
     <p class="text-sm text-content-muted">{$_('player.empty_state')}</p>
@@ -342,44 +197,76 @@
     <section class={CARD_CLASS}>
       <div class="grid gap-5 sm:grid-cols-2">
         <div class="grid gap-3">
-          {#if name}
-            {@render textField(name, $_('player.name_label'), nameValue, 'name')}
+          {#if name.present}
+            <FormFieldWrapper label={$_('player.name_label')} error={errors.name} bodyClass="">
+              <input
+                type="text"
+                class={FORM_INPUT_CLASS}
+                value={name.value ?? ''}
+                onchange={(e) => (errors.name = name.commit(e.currentTarget.value))}
+              />
+            </FormFieldWrapper>
           {/if}
-          {#if howCallName}
-            {@render textField(
-              howCallName,
-              $_('player.name_pronounced_label'),
-              phoneticNameValue,
-              'phoneticName',
-            )}
+          {#if phoneticName.present}
+            <FormFieldWrapper
+              label={$_('player.name_pronounced_label')}
+              error={errors.phoneticName}
+              bodyClass=""
+            >
+              <input
+                type="text"
+                class={FORM_INPUT_CLASS}
+                value={phoneticName.value ?? ''}
+                onchange={(e) => (errors.phoneticName = phoneticName.commit(e.currentTarget.value))}
+              />
+            </FormFieldWrapper>
           {/if}
         </div>
 
         <div class="grid gap-3">
-          {#if islandName}
-            {@render textField(islandName, $_('player.island_label'), islandValue, 'island')}
+          {#if island.present}
+            <FormFieldWrapper label={$_('player.island_label')} error={errors.island} bodyClass="">
+              <input
+                type="text"
+                class={FORM_INPUT_CLASS}
+                value={island.value ?? ''}
+                onchange={(e) => (errors.island = island.commit(e.currentTarget.value))}
+              />
+            </FormFieldWrapper>
           {/if}
-          {#if howCallIsland}
-            {@render textField(
-              howCallIsland,
-              $_('player.island_pronounced_label'),
-              phoneticIslandValue,
-              'phoneticIsland',
-            )}
+          {#if phoneticIsland.present}
+            <FormFieldWrapper
+              label={$_('player.island_pronounced_label')}
+              error={errors.phoneticIsland}
+              bodyClass=""
+            >
+              <input
+                type="text"
+                class={FORM_INPUT_CLASS}
+                value={phoneticIsland.value ?? ''}
+                onchange={(e) =>
+                  (errors.phoneticIsland = phoneticIsland.commit(e.currentTarget.value))}
+              />
+            </FormFieldWrapper>
           {/if}
         </div>
       </div>
 
-      {#if skin}
+      {#if skin.present}
         <div class="mt-6 border-t border-edge/40 pt-5">
           <span class={LABEL_CLASS}>{$_('player.skin_tone_label')}</span>
           <div class="mt-2">
-            <SwatchPicker swatches={handSwatches} value={getUInt(skin)} onChange={setSkin} />
+            <SwatchPicker
+              swatches={handSwatches}
+              value={skin.value ?? 0}
+              onChange={(v) => skin.commit(v)}
+            />
           </div>
         </div>
       {/if}
 
-      {#if islandSize}
+      {#if islandSize.present}
+        {@const islandSizeValue = islandSize.value ?? 0}
         <div class="mt-6 border-t border-edge/40 pt-5">
           <FormFieldWrapper label={$_('player.island_size_label')}>
             <select
@@ -387,7 +274,7 @@
               value={islandSizeValue}
               onchange={(e) => {
                 const n = Number.parseInt(e.currentTarget.value, 10);
-                if (Number.isFinite(n)) writeIslandSize(islandSize!, n);
+                if (Number.isFinite(n)) islandSize.commit(n);
               }}
             >
               {#each ISLAND_SIZE_VALUES as v (v)}
@@ -402,10 +289,10 @@
       {/if}
     </section>
 
-    {#if money || playTime || bootNum || (bdayDay && bdayMonth && bdayYear)}
+    {#if money.present || playTime.present || bootNum.present || hasBday}
       <section class={CARD_CLASS}>
         <div class="flex flex-wrap gap-x-8 gap-y-5">
-          {#if money}
+          {#if money.present}
             <FormFieldWrapper
               label={$_('player.money_label')}
               error={errors.money}
@@ -416,17 +303,14 @@
                   type="text"
                   inputmode="numeric"
                   class="{numberInputClass} w-40 max-w-full"
-                  value={formatMoney(moneyValue)}
-                  onchange={(e) => (errors.money = writeMoney(money!, e.currentTarget.value))}
+                  value={formatMoney(money.value)}
+                  onchange={(e) => (errors.money = writeMoney(e.currentTarget.value))}
                 />
-                {#if currency && currencyOptions && currencyOptions.length > 0}
+                {#if currency.present && currencyOptions && currencyOptions.length > 0}
                   <EnumSelect
-                    value={currencyRaw}
+                    value={currency.value ?? 0}
                     options={currencyOptions}
-                    onChange={(n) => {
-                      setEnum(currency!, n);
-                      markDirty(currency!);
-                    }}
+                    onChange={(n) => currency.commit(n)}
                     selectClass={COMPACT_SELECT_CLASS}
                     labelFor={(opt) => opt.name}
                   />
@@ -435,22 +319,22 @@
             </FormFieldWrapper>
           {/if}
 
-          {#if bdayDay && bdayMonth && bdayYear}
+          {#if hasBday}
             <FormFieldWrapper label={$_('player.birthday_label')}>
-              <DateField day={bdayDay} month={bdayMonth} year={bdayYear} />
+              <DateField dayLeaf={BDAY_DAY} monthLeaf={BDAY_MONTH} yearLeaf={BDAY_YEAR} />
             </FormFieldWrapper>
           {/if}
 
-          {#if playTime}
+          {#if playTime.present}
+            {@const playTimeValue = playTime.value ?? 0n}
             <FormFieldWrapper label={$_('player.play_time_label')} error={errors.playTime}>
               <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
                 <input
                   type="text"
                   inputmode="numeric"
                   class="{numberInputClass} w-28"
-                  value={playTimeValue == null ? '' : playTimeValue.toString()}
-                  onchange={(e) =>
-                    (errors.playTime = writeNumber(playTime!, e.currentTarget.value))}
+                  value={playTimeValue.toString()}
+                  onchange={(e) => (errors.playTime = writePlayTime(e.currentTarget.value))}
                 />
                 <span class="text-xs text-content">
                   {$_('player.play_time_unit')} ·
@@ -462,80 +346,161 @@
             </FormFieldWrapper>
           {/if}
 
-          {#if bootNum}
-            {@render numberField(bootNum, $_('player.boots_label'), bootValue, 'w-20', 'boot')}
+          {#if bootNum.present}
+            <FormFieldWrapper label={$_('player.boots_label')} error={errors.boot}>
+              <input
+                type="text"
+                inputmode="numeric"
+                class="{numberInputClass} w-20"
+                value={(bootNum.value ?? 0).toString()}
+                onchange={(e) => (errors.boot = writeBoot(e.currentTarget.value))}
+              />
+            </FormFieldWrapper>
           {/if}
         </div>
       </section>
     {/if}
 
-    {#if fountainLevel || wishes}
+    {#if fountainLevel.present || wishes.present}
       <section class={CARD_CLASS}>
         <h3 class="mb-4 text-sm font-semibold text-content-strong">
           {$_('player.fountain_section')}
         </h3>
         <div class="flex flex-wrap gap-x-8 gap-y-5">
-          {#if fountainLevel}
-            {@render numberField(
-              fountainLevel,
-              $_('player.fountain_level_label'),
-              fountainLevelValue,
-              'w-28',
-              'fountainLevel',
-            )}
+          {#if fountainLevel.present}
+            <FormFieldWrapper
+              label={$_('player.fountain_level_label')}
+              error={errors.fountainLevel}
+            >
+              <input
+                type="text"
+                inputmode="numeric"
+                class="{numberInputClass} w-28"
+                value={(fountainLevel.value ?? 0).toString()}
+                onchange={(e) => (errors.fountainLevel = writeFountainLevel(e.currentTarget.value))}
+              />
+            </FormFieldWrapper>
           {/if}
 
-          {#if wishes}
-            {@render numberField(wishes, $_('player.wishes_label'), wishesValue, 'w-28', 'wishes')}
+          {#if wishes.present}
+            <FormFieldWrapper label={$_('player.wishes_label')} error={errors.wishes}>
+              <input
+                type="text"
+                inputmode="numeric"
+                class="{numberInputClass} w-28"
+                value={(wishes.value ?? 0).toString()}
+                onchange={(e) => (errors.wishes = writeWishes(e.currentTarget.value))}
+              />
+            </FormFieldWrapper>
           {/if}
         </div>
       </section>
     {/if}
 
-    {#if region || regionCode || nameLang || islandLang}
+    {#if region.present || regionCode.present || nameLang.present || islandLang.present}
       <section class={CARD_CLASS}>
         <h3 class="mb-4 text-sm font-semibold text-content-strong">
           {$_('player.region_section')}
         </h3>
         <div class="grid gap-4 sm:grid-cols-2">
-          {#if region}
+          {#if region.present}
+            {@const regionValue = region.value ?? 0}
             <FormFieldWrapper label={$_('player.region_label')}>
               <div class="max-w-xs">
                 {#if regionOptions && regionOptions.length > 0}
                   <EnumSelect
-                    value={regionRaw}
+                    value={regionValue}
                     options={regionOptions}
-                    onChange={(n) => {
-                      setEnum(region!, n);
-                      markDirty(region!);
-                    }}
+                    onChange={(n) => region.commit(n)}
                     selectClass={COMPACT_SELECT_CLASS}
                     labelFor={localizeRegion}
                   />
                 {:else}
-                  <EntryEditor entry={region} />
+                  <input
+                    type="text"
+                    class={`${FORM_INPUT_CLASS} font-mono`}
+                    value={`0x${(regionValue >>> 0).toString(16).padStart(8, '0')}`}
+                    onchange={(e) => {
+                      const n = Number.parseInt(e.currentTarget.value, 16);
+                      if (Number.isFinite(n)) region.commit(n >>> 0);
+                    }}
+                  />
                 {/if}
               </div>
             </FormFieldWrapper>
           {/if}
-          {#if regionCode}
+          {#if regionCode.present}
+            {@const regionCodeValue = regionCode.value ?? 0}
             <FormFieldWrapper label={$_('player.region_code_label')}>
               <div class="max-w-xs">
-                <EntryEditor entry={regionCode} />
+                {#if regionCodeOptions && regionCodeOptions.length > 0}
+                  <EnumSelect
+                    value={regionCodeValue}
+                    options={regionCodeOptions}
+                    onChange={(n) => regionCode.commit(n)}
+                    selectClass={COMPACT_SELECT_CLASS}
+                  />
+                {:else}
+                  <input
+                    type="text"
+                    class={`${FORM_INPUT_CLASS} font-mono`}
+                    value={`0x${(regionCodeValue >>> 0).toString(16).padStart(8, '0')}`}
+                    onchange={(e) => {
+                      const n = Number.parseInt(e.currentTarget.value, 16);
+                      if (Number.isFinite(n)) regionCode.commit(n >>> 0);
+                    }}
+                  />
+                {/if}
               </div>
             </FormFieldWrapper>
           {/if}
-          {#if nameLang}
+          {#if nameLang.present}
+            {@const nameLangValue = nameLang.value ?? 0}
             <FormFieldWrapper label={$_('player.name_language_label')}>
               <div class="max-w-xs">
-                <EntryEditor entry={nameLang} />
+                {#if nameLangOptions && nameLangOptions.length > 0}
+                  <EnumSelect
+                    value={nameLangValue}
+                    options={nameLangOptions}
+                    onChange={(n) => nameLang.commit(n)}
+                    selectClass={COMPACT_SELECT_CLASS}
+                  />
+                {:else}
+                  <input
+                    type="text"
+                    class={`${FORM_INPUT_CLASS} font-mono`}
+                    value={`0x${(nameLangValue >>> 0).toString(16).padStart(8, '0')}`}
+                    onchange={(e) => {
+                      const n = Number.parseInt(e.currentTarget.value, 16);
+                      if (Number.isFinite(n)) nameLang.commit(n >>> 0);
+                    }}
+                  />
+                {/if}
               </div>
             </FormFieldWrapper>
           {/if}
-          {#if islandLang}
+          {#if islandLang.present}
+            {@const islandLangValue = islandLang.value ?? 0}
             <FormFieldWrapper label={$_('player.island_language_label')}>
               <div class="max-w-xs">
-                <EntryEditor entry={islandLang} />
+                {#if islandLangOptions && islandLangOptions.length > 0}
+                  <EnumSelect
+                    value={islandLangValue}
+                    options={islandLangOptions}
+                    onChange={(n) => islandLang.commit(n)}
+                    selectClass={COMPACT_SELECT_CLASS}
+                  />
+                {:else}
+                  <input
+                    type="text"
+                    class={`${FORM_INPUT_CLASS} font-mono`}
+                    value={`0x${(islandLangValue >>> 0).toString(16).padStart(8, '0')}`}
+                    onchange={(e) => {
+                      const n = Number.parseInt(e.currentTarget.value, 16);
+                      if (Number.isFinite(n)) islandLang.commit(n >>> 0);
+                    }}
+                  />
+                {/if}
               </div>
             </FormFieldWrapper>
           {/if}

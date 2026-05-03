@@ -1,38 +1,36 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { arrGetEnum, arrGetInt, arrSetEnum, arrSetInt } from '../sav/codec';
-  import type { Entry } from '../sav/types';
-  import { markDirty, miiState } from './miiEditor.svelte';
+  import { MII_SCHEMA } from '../sav/schema';
+  import type { SchemaLeaf } from '../sav/schema/paths';
+  import { miiAccessor } from './miiEditor.svelte';
 
   type Props = {
     miiIndex: number;
-    entriesByName: Map<string, Entry>;
+    leaves: readonly SchemaLeaf[];
   };
-  let { miiIndex, entriesByName }: Props = $props();
+  let { miiIndex, leaves }: Props = $props();
 
   type SliderField = {
-    name: string;
-    /** Looked up via `mii.voice.<labelKey>`. */
+    leaf: SchemaLeaf;
     labelKey: 'slider_speed' | 'slider_pitch' | 'slider_depth' | 'slider_delivery';
     min: number;
     max: number;
   };
   const SLIDERS: SliderField[] = [
-    { name: 'Mii.Voice.Speed', labelKey: 'slider_speed', min: 0, max: 50 },
-    { name: 'Mii.Voice.Pitch', labelKey: 'slider_pitch', min: 0, max: 50 },
-    { name: 'Mii.Voice.Formant', labelKey: 'slider_depth', min: 0, max: 50 },
-    { name: 'Mii.Voice.Tension', labelKey: 'slider_delivery', min: -25, max: 25 },
+    { leaf: MII_SCHEMA.Mii.Voice.Speed, labelKey: 'slider_speed', min: 0, max: 50 },
+    { leaf: MII_SCHEMA.Mii.Voice.Pitch, labelKey: 'slider_pitch', min: 0, max: 50 },
+    { leaf: MII_SCHEMA.Mii.Voice.Formant, labelKey: 'slider_depth', min: 0, max: 50 },
+    { leaf: MII_SCHEMA.Mii.Voice.Tension, labelKey: 'slider_delivery', min: -25, max: 25 },
   ];
 
-  const INTONATION_NAME = 'Mii.Voice.Intonation';
-  const PRESET_NAME = 'Mii.Voice.PresetType';
+  const INTONATION_LEAF = MII_SCHEMA.Mii.Voice.Intonation;
+  const PRESET_LEAF = MII_SCHEMA.Mii.Voice.PresetType;
   const INTONATION_STEPS = 6;
 
-  const PRESET_CUSTOM = 1658541559; // 0x62db55f7
+  const PRESET_CUSTOM = 1658541559;
 
   type Preset = {
     type: number;
-    /** Identifier under `mii.voice.preset.<name>`. */
     name: string;
     icon: string;
     Speed: number;
@@ -146,106 +144,95 @@
   ];
   const RANDOM_ICON = '/voice-icons/voice_06.png';
 
-  function safeInt(entry: Entry | undefined, fallback = 0): number {
-    if (!entry) return fallback;
+  const present = $derived(new Set(leaves));
+
+  function safeInt(leaf: SchemaLeaf, fallback = 0): number {
+    if (!present.has(leaf)) return fallback;
+    const mii = miiAccessor();
+    if (!mii) return fallback;
     try {
-      return arrGetInt(entry, miiIndex);
-    } catch {
-      return fallback;
-    }
-  }
-  function safeEnum(entry: Entry | undefined, fallback = 0): number {
-    if (!entry) return fallback;
-    try {
-      return arrGetEnum(entry, miiIndex);
+      return mii.getElement(leaf, miiIndex) as number;
     } catch {
       return fallback;
     }
   }
 
   const sliderState = $derived.by(() => {
-    void miiState.tick;
     return SLIDERS.map((s) => {
-      const entry = entriesByName.get(s.name);
-      let value = safeInt(entry, s.min);
+      const has = present.has(s.leaf);
+      let value = safeInt(s.leaf, s.min);
       if (value < s.min) value = s.min;
       if (value > s.max) value = s.max;
-      return { ...s, entry, value };
+      return { ...s, has, value };
     });
   });
 
   const intonationState = $derived.by(() => {
-    void miiState.tick;
-    const entry = entriesByName.get(INTONATION_NAME);
-    let value = safeInt(entry, 0);
+    const has = present.has(INTONATION_LEAF);
+    let value = safeInt(INTONATION_LEAF, 0);
     if (value < 0) value = 0;
     if (value > INTONATION_STEPS - 1) value = INTONATION_STEPS - 1;
-    return { entry, value };
+    return { has, value };
   });
 
   const presetState = $derived.by(() => {
-    void miiState.tick;
-    const entry = entriesByName.get(PRESET_NAME);
-    return { entry, value: safeEnum(entry, PRESET_CUSTOM) };
+    const has = present.has(PRESET_LEAF);
+    return { has, value: safeInt(PRESET_LEAF, PRESET_CUSTOM) };
   });
 
   const matchedPresetIndex = $derived.by(() => {
     return PRESETS.findIndex((p) => p.type === presetState.value);
   });
 
-  let mode = $state<'custom' | 'simple'>('custom');
-  $effect(() => {
-    void miiState.tick;
-    mode = matchedPresetIndex >= 0 ? 'simple' : 'custom';
-  });
+  let mode = $derived<'custom' | 'simple'>(matchedPresetIndex >= 0 ? 'simple' : 'custom');
 
-  function commitInt(name: string, value: number) {
-    const entry = entriesByName.get(name);
-    if (!entry) return;
+  function commitInt(leaf: SchemaLeaf, value: number) {
+    if (!present.has(leaf)) return;
+    const mii = miiAccessor();
+    if (!mii) return;
     try {
-      arrSetInt(entry, miiIndex, value | 0);
-      markDirty(entry);
+      mii.setElement(leaf, miiIndex, value | 0);
     } catch {
       /* schema mismatch handled upstream */
     }
   }
 
   function commitPreset(typeHash: number) {
-    const entry = entriesByName.get(PRESET_NAME);
-    if (!entry) return;
+    if (!present.has(PRESET_LEAF)) return;
+    const mii = miiAccessor();
+    if (!mii) return;
     try {
-      arrSetEnum(entry, miiIndex, typeHash >>> 0);
-      markDirty(entry);
+      mii.setElement(PRESET_LEAF, miiIndex, typeHash >>> 0);
     } catch {
       /* ignore */
     }
   }
 
   function applyPreset(p: Preset) {
-    commitInt('Mii.Voice.Speed', p.Speed);
-    commitInt('Mii.Voice.Pitch', p.Pitch);
-    commitInt('Mii.Voice.Formant', p.Formant);
-    commitInt('Mii.Voice.Tension', p.Tension);
-    commitInt(INTONATION_NAME, p.Intonation);
+    commitInt(MII_SCHEMA.Mii.Voice.Speed, p.Speed);
+    commitInt(MII_SCHEMA.Mii.Voice.Pitch, p.Pitch);
+    commitInt(MII_SCHEMA.Mii.Voice.Formant, p.Formant);
+    commitInt(MII_SCHEMA.Mii.Voice.Tension, p.Tension);
+    commitInt(INTONATION_LEAF, p.Intonation);
     commitPreset(p.type);
   }
 
-  function onSliderInput(name: string, raw: string) {
+  function onSliderInput(leaf: SchemaLeaf, raw: string) {
     const n = Math.trunc(Number(raw));
     if (!Number.isFinite(n)) return;
-    commitInt(name, n);
+    commitInt(leaf, n);
     if (presetState.value !== PRESET_CUSTOM) commitPreset(PRESET_CUSTOM);
   }
 
   function onIntonationClick(displayIndex: number) {
-    commitInt(INTONATION_NAME, displayIndex);
+    commitInt(INTONATION_LEAF, displayIndex);
     if (presetState.value !== PRESET_CUSTOM) commitPreset(PRESET_CUSTOM);
   }
 
   function randomize() {
     const rint = (lo: number, hi: number) => Math.floor(Math.random() * (hi - lo + 1)) + lo;
-    for (const s of SLIDERS) commitInt(s.name, rint(s.min, s.max));
-    commitInt(INTONATION_NAME, rint(0, INTONATION_STEPS - 1));
+    for (const s of SLIDERS) commitInt(s.leaf, rint(s.min, s.max));
+    commitInt(INTONATION_LEAF, rint(0, INTONATION_STEPS - 1));
     commitPreset(PRESET_CUSTOM);
   }
 
@@ -328,8 +315,8 @@
     </div>
   {:else}
     <div class="mt-4 grid gap-3">
-      {#each sliderState as s (s.name)}
-        {#if s.entry}
+      {#each sliderState as s (s.leaf.hash)}
+        {#if s.has}
           {@const p = pct(s.value, s.min, s.max)}
           {@const sliderLabel = $_(`mii.voice.${s.labelKey}`)}
           <div
@@ -343,7 +330,7 @@
                 max={s.max}
                 step="1"
                 value={s.value}
-                oninput={(e) => onSliderInput(s.name, e.currentTarget.value)}
+                oninput={(e) => onSliderInput(s.leaf, e.currentTarget.value)}
                 aria-label={sliderLabel}
                 class="block h-2 w-full min-w-0 flex-1 cursor-pointer appearance-none rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600
                        [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-edge [&::-webkit-slider-thumb]:bg-surface [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:active:scale-110
@@ -358,7 +345,7 @@
         {/if}
       {/each}
 
-      {#if intonationState.entry}
+      {#if intonationState.has}
         <div
           class="flex flex-col gap-1.5 rounded-2xl bg-surface-muted px-4 py-2.5 sm:grid sm:grid-cols-[7rem_1fr] sm:items-center sm:gap-3 sm:rounded-full sm:py-2"
         >

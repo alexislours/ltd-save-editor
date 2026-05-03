@@ -15,10 +15,10 @@
 
   type Props = {
     entries: readonly Entry[];
-    markDirty: (e: Entry) => void;
+    onCommit: (e: Entry) => void;
     parseSignal?: unknown;
   };
-  let { entries, markDirty, parseSignal }: Props = $props();
+  let { entries, onCommit, parseSignal }: Props = $props();
 
   let advView = $state<'tree' | 'table'>('tree');
 
@@ -270,7 +270,7 @@
 
           <div class="md:min-h-120 md:pl-6">
             {#if selectedEntry}
-              <PlayerDetail entry={selectedEntry} path={selectedPath} {markDirty} />
+              <PlayerDetail entry={selectedEntry} path={selectedPath} {onCommit} />
             {:else}
               <p class="text-sm text-content-muted">{$_('advanced.tree_select_prompt')}</p>
             {/if}
@@ -383,7 +383,7 @@
                   {nameForHash(entry.hash) ?? ''}
                 </span>
                 <div class="adv-cell-value min-w-0" role="cell">
-                  <EntryEditor {entry} {markDirty} />
+                  <EntryEditor {entry} {onCommit} />
                 </div>
               </li>
             {:else}

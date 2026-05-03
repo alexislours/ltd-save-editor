@@ -1,8 +1,8 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { SvelteMap } from 'svelte/reactivity';
-  import { murmur3_x86_32 } from '../sav/hash';
-  import type { Entry } from '../sav/types';
+  import { bindLeaf } from '../sav/bindLeaf.svelte';
+  import { MII_SCHEMA } from '../sav/schema';
+  import type { SchemaLeaf } from '../sav/schema/paths';
   import { CARD_CLASS } from '../styles';
   import MiiElementEditor from './MiiElementEditor.svelte';
   import MiiFoodPicker from './MiiFoodPicker.svelte';
@@ -14,59 +14,37 @@
   import MiiSlotSelector from './MiiSlotSelector.svelte';
   import MiiVoiceEditor from './MiiVoiceEditor.svelte';
   import MiiWordsEditor from './MiiWordsEditor.svelte';
-  import { miiState } from './miiEditor.svelte';
+  import { miiAccessor } from './miiEditor.svelte';
   import { MII_SECTIONS, type MiiField } from './miiFields';
   import { populatedMiiIndices } from './populated';
 
-  const VOICE_FIELD_NAMES = [
-    'Mii.Voice.PresetType',
-    'Mii.Voice.Speed',
-    'Mii.Voice.Pitch',
-    'Mii.Voice.Formant',
-    'Mii.Voice.Tension',
-    'Mii.Voice.Intonation',
+  const VOICE_LEAVES = [
+    MII_SCHEMA.Mii.Voice.PresetType,
+    MII_SCHEMA.Mii.Voice.Speed,
+    MII_SCHEMA.Mii.Voice.Pitch,
+    MII_SCHEMA.Mii.Voice.Formant,
+    MII_SCHEMA.Mii.Voice.Tension,
+    MII_SCHEMA.Mii.Voice.Intonation,
   ] as const;
 
   type Props = {
-    entries: Entry[];
     selectedIndex?: number | null;
   };
-  let { entries, selectedIndex = $bindable(null) }: Props = $props();
+  let { selectedIndex = $bindable(null) }: Props = $props();
 
-  const byHash = $derived.by(() => {
-    const m = new SvelteMap<number, Entry>();
-    for (const e of entries) m.set(e.hash, e);
-    return m;
+  const mii = $derived(miiAccessor());
+  const loveGender = bindLeaf(miiAccessor, MII_SCHEMA.Mii.MiiMisc.FaceInfo.IsLoveGender);
+
+  const hasPopulatedSlot = $derived(mii != null && populatedMiiIndices(mii).length > 0);
+
+  const presentVoiceLeaves = $derived.by<SchemaLeaf[]>(() => {
+    if (!mii) return [];
+    return VOICE_LEAVES.filter((leaf) => mii.has(leaf));
   });
 
-  const LOVE_GENDER_HASH = murmur3_x86_32('Mii.MiiMisc.FaceInfo.IsLoveGender') >>> 0;
-  const loveGenderEntry = $derived(byHash.get(LOVE_GENDER_HASH) ?? null);
-
-  const hasPopulatedSlot = $derived.by(() => {
-    void miiState.tick;
-    return populatedMiiIndices(byHash).length > 0;
-  });
-
-  const voiceEntriesByName = $derived.by(() => {
-    const m = new SvelteMap<string, Entry>();
-    for (const name of VOICE_FIELD_NAMES) {
-      const h = murmur3_x86_32(name) >>> 0;
-      const e = byHash.get(h);
-      if (e) m.set(name, e);
-    }
-    return m;
-  });
-
-  function resolveFields(fields: MiiField[] | undefined) {
-    const out: { field: MiiField; entry: Entry }[] = [];
-    if (!fields) return out;
-    for (const f of fields) {
-      const e = byHash.get(f.hash);
-      if (!e) continue;
-      if (e.type !== f.expectedType) continue;
-      out.push({ field: f, entry: e });
-    }
-    return out;
+  function resolveFields(fields: MiiField[] | undefined): MiiField[] {
+    if (!mii || !fields) return [];
+    return fields.filter((f) => mii.has(f.leaf));
   }
 
   const sectionsResolved = $derived.by(() => {
@@ -85,7 +63,7 @@
 </script>
 
 <div class="grid grid-cols-1 gap-4">
-  <MiiSlotSelector {entries} bind:selectedIndex />
+  <MiiSlotSelector bind:selectedIndex />
 
   {#if hasPopulatedSlot && selectedIndex != null}
     {#each sectionsResolved as sec (sec.titleKey)}
@@ -99,17 +77,17 @@
           </p>
         {/if}
         {#if sec.titleKey === 'personality'}
-          {@const byName = new Map(sec.resolved.map((r) => [r.field.name, r.entry]))}
+          {@const leaves = sec.resolved.map((f) => f.leaf)}
           <div class="mt-4">
-            <MiiPersonalityEditor miiIndex={selectedIndex} entriesByName={byName} />
+            <MiiPersonalityEditor miiIndex={selectedIndex} {leaves} />
           </div>
         {:else if sec.resolved.length > 0}
           <div class="mt-4 grid gap-4 sm:grid-cols-2">
-            {#each sec.resolved as r (r.field.hash)}
-              <MiiElementEditor entry={r.entry} index={selectedIndex} field={r.field} />
+            {#each sec.resolved as field (field.leaf.hash)}
+              <MiiElementEditor index={selectedIndex} {field} />
             {/each}
-            {#if sec.titleKey === 'identity' && loveGenderEntry}
-              <MiiLoveGenderEditor entry={loveGenderEntry} miiIndex={selectedIndex} />
+            {#if sec.titleKey === 'identity' && loveGender.present}
+              <MiiLoveGenderEditor miiIndex={selectedIndex} />
             {/if}
           </div>
         {/if}
@@ -133,11 +111,11 @@
               </span>
             </summary>
             <div class="mt-4 grid gap-4 sm:grid-cols-2">
-              {#each sec.resolvedSpoiler as r (r.field.hash)}
+              {#each sec.resolvedSpoiler as field (field.leaf.hash)}
                 {#if sec.titleKey === 'food'}
-                  <MiiFoodPicker entry={r.entry} index={selectedIndex} field={r.field} />
+                  <MiiFoodPicker index={selectedIndex} {field} />
                 {:else}
-                  <MiiElementEditor entry={r.entry} index={selectedIndex} field={r.field} />
+                  <MiiElementEditor index={selectedIndex} {field} />
                 {/if}
               {/each}
             </div>
@@ -145,13 +123,13 @@
         {/if}
         {#if sec.resolvedPostSpoiler.length > 0}
           <div class="mt-4 grid gap-4 sm:grid-cols-2">
-            {#each sec.resolvedPostSpoiler as r (r.field.hash)}
-              {#if sec.titleKey === 'food' && r.field.name === 'Mii.MiiMisc.EatInfo.RankedFoodId.Id'}
-                <MiiRankedFoodPicker entry={r.entry} index={selectedIndex} field={r.field} />
-              {:else if sec.titleKey === 'food' && r.field.name === 'Mii.MiiMisc.EatInfo.GivenFlag'}
-                <MiiGivenFlagPicker entry={r.entry} index={selectedIndex} field={r.field} />
+            {#each sec.resolvedPostSpoiler as field (field.leaf.hash)}
+              {#if sec.titleKey === 'food' && field.leaf === MII_SCHEMA.Mii.MiiMisc.EatInfo.RankedFoodId.Id}
+                <MiiRankedFoodPicker index={selectedIndex} {field} />
+              {:else if sec.titleKey === 'food' && field.leaf === MII_SCHEMA.Mii.MiiMisc.EatInfo.GivenFlag}
+                <MiiGivenFlagPicker index={selectedIndex} {field} />
               {:else}
-                <MiiElementEditor entry={r.entry} index={selectedIndex} field={r.field} />
+                <MiiElementEditor index={selectedIndex} {field} />
               {/if}
             {/each}
           </div>
@@ -159,12 +137,12 @@
       </section>
     {/each}
 
-    {#if voiceEntriesByName.size > 0}
+    {#if presentVoiceLeaves.length > 0}
       <section class={CARD_CLASS}>
         <h3 class="text-base font-bold text-content-strong">{$_('mii.sections.voice')}</h3>
         <p class="mt-0.5 text-xs text-content-muted">{$_('mii.sections.voice_caption')}</p>
         <div class="mt-4">
-          <MiiVoiceEditor miiIndex={selectedIndex} entriesByName={voiceEntriesByName} />
+          <MiiVoiceEditor miiIndex={selectedIndex} leaves={presentVoiceLeaves} />
         </div>
       </section>
     {/if}
@@ -173,10 +151,10 @@
       <h3 class="text-base font-bold text-content-strong">{$_('mii.sections.words')}</h3>
       <p class="mt-0.5 text-xs text-content-muted">{$_('mii.sections.words_caption')}</p>
       <div class="mt-4">
-        <MiiWordsEditor {entries} miiIndex={selectedIndex} />
+        <MiiWordsEditor miiIndex={selectedIndex} />
       </div>
     </section>
 
-    <MiiRelationsTable {entries} miiIndex={selectedIndex} />
+    <MiiRelationsTable miiIndex={selectedIndex} />
   {/if}
 </div>

@@ -1,26 +1,18 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { SvelteMap } from 'svelte/reactivity';
-  import { arrGetEnum, arrGetString, arrSetEnum, arrSetString } from '../sav/codec';
   import { gameLocaleFor, type GameLocale } from '../sav/gameLocale';
   import { GENERATED_ENUM_OPTION_NAMES } from '../sav/generatedNames';
   import { murmur3_x86_32 } from '../sav/hash';
+  import { MII_SCHEMA } from '../sav/schema';
   import { wordKindLabel, wordKindNames } from '../sav/wordKindLabels.svelte';
-  import type { Entry } from '../sav/types';
   import { FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '../styles';
-  import { markDirty, miiState } from './miiEditor.svelte';
+  import { miiAccessor } from './miiEditor.svelte';
 
   type Props = {
-    entries: Entry[];
     miiIndex: number;
     perMii?: number;
   };
-  let { entries, miiIndex, perMii = 12 }: Props = $props();
-
-  const KIND_HASH = murmur3_x86_32('Mii.MiiMisc.WordInfo.WordArray.WordKind') >>> 0;
-  const TEXT_HASH = murmur3_x86_32('Mii.MiiMisc.WordInfo.WordArray.WordText') >>> 0;
-  const HOWTOCALL_HASH = murmur3_x86_32('Mii.MiiMisc.WordInfo.WordArray.WordHowToCall') >>> 0;
-  const REGION_HASH = murmur3_x86_32('Mii.MiiMisc.WordInfo.WordArray.WordRegionLanguageID') >>> 0;
+  let { miiIndex, perMii = 12 }: Props = $props();
 
   const INVALID_KIND_HASH = murmur3_x86_32('Invalid') >>> 0;
   const PHRASE_KIND_HASH = murmur3_x86_32('Phrase') >>> 0;
@@ -48,18 +40,16 @@
 
   const MAX_WIDE_CHARS = 63;
 
-  const byHash = $derived.by(() => {
-    const m = new SvelteMap<number, Entry>();
-    for (const e of entries) m.set(e.hash, e);
-    return m;
+  const KIND_LEAF = MII_SCHEMA.Mii.MiiMisc.WordInfo.WordArray.WordKind;
+  const TEXT_LEAF = MII_SCHEMA.Mii.MiiMisc.WordInfo.WordArray.WordText;
+  const HOW_LEAF = MII_SCHEMA.Mii.MiiMisc.WordInfo.WordArray.WordHowToCall;
+  const REGION_LEAF = MII_SCHEMA.Mii.MiiMisc.WordInfo.WordArray.WordRegionLanguageID;
+
+  const ready = $derived.by(() => {
+    const mii = miiAccessor();
+    if (!mii) return false;
+    return mii.has(KIND_LEAF) && mii.has(TEXT_LEAF) && mii.has(HOW_LEAF) && mii.has(REGION_LEAF);
   });
-  const kindEntry = $derived(byHash.get(KIND_HASH) ?? null);
-  const textEntry = $derived(byHash.get(TEXT_HASH) ?? null);
-  const howEntry = $derived(byHash.get(HOWTOCALL_HASH) ?? null);
-  const regionEntry = $derived(byHash.get(REGION_HASH) ?? null);
-  const ready = $derived(
-    kindEntry != null && textEntry != null && howEntry != null && regionEntry != null,
-  );
 
   const ui = $derived($locale);
   const gameLoc = $derived(gameLocaleFor(ui));
@@ -83,9 +73,10 @@
     isFilled: boolean;
   };
   const rows = $derived.by<Row[]>(() => {
-    void miiState.tick;
     const out: Row[] = [];
     if (!ready) return out;
+    const mii = miiAccessor();
+    if (!mii) return out;
     for (let s = 0; s < perMii; s++) {
       const i = arrIndex(s);
       let kindHash = INVALID_KIND_HASH;
@@ -93,22 +84,22 @@
       let text = '';
       let how = '';
       try {
-        kindHash = arrGetEnum(kindEntry!, i) >>> 0;
+        kindHash = (mii.getElement(KIND_LEAF, i) as number) >>> 0;
       } catch {
         /* empty */
       }
       try {
-        regionHash = arrGetEnum(regionEntry!, i) >>> 0;
+        regionHash = (mii.getElement(REGION_LEAF, i) as number) >>> 0;
       } catch {
         /* empty */
       }
       try {
-        text = arrGetString(textEntry!, i);
+        text = mii.getElement(TEXT_LEAF, i) as string;
       } catch {
         /* empty */
       }
       try {
-        how = arrGetString(howEntry!, i);
+        how = mii.getElement(HOW_LEAF, i) as string;
       } catch {
         /* empty */
       }
@@ -129,25 +120,21 @@
   const visibleRows = $derived(showEmpty ? rows : rows.filter((r) => r.isFilled));
 
   function commitKind(slot: number, newHash: number): void {
-    if (!kindEntry || !textEntry || !howEntry || !regionEntry) return;
+    const mii = miiAccessor();
+    if (!mii) return;
     const i = arrIndex(slot);
-    arrSetEnum(kindEntry, i, newHash >>> 0);
-    markDirty(kindEntry);
+    mii.setElement(KIND_LEAF, i, newHash >>> 0);
     if (newHash >>> 0 === INVALID_KIND_HASH) {
-      arrSetString(textEntry, i, '');
-      arrSetString(howEntry, i, '');
-      markDirty(textEntry);
-      markDirty(howEntry);
-      // Reset region to schema default for cleanliness.
-      arrSetEnum(regionEntry, i, JPJA_REGION_HASH);
-      markDirty(regionEntry);
+      mii.setElement(TEXT_LEAF, i, '');
+      mii.setElement(HOW_LEAF, i, '');
+      mii.setElement(REGION_LEAF, i, JPJA_REGION_HASH);
       return;
     }
     try {
-      if (arrGetEnum(regionEntry, i) === JPJA_REGION_HASH) {
+      const cur = (mii.getElement(REGION_LEAF, i) as number) >>> 0;
+      if (cur === JPJA_REGION_HASH) {
         const target = murmur3_x86_32(gameLoc) >>> 0;
-        arrSetEnum(regionEntry, i, target);
-        markDirty(regionEntry);
+        mii.setElement(REGION_LEAF, i, target);
       }
     } catch {
       /* empty */
@@ -155,9 +142,9 @@
   }
 
   function commitRegion(slot: number, newHash: number): void {
-    if (!regionEntry) return;
-    arrSetEnum(regionEntry, arrIndex(slot), newHash >>> 0);
-    markDirty(regionEntry);
+    const mii = miiAccessor();
+    if (!mii) return;
+    mii.setElement(REGION_LEAF, arrIndex(slot), newHash >>> 0);
   }
 
   function validateText(s: string): string | null {
@@ -174,20 +161,20 @@
   let howErrors = $state<Record<number, string | null>>({});
 
   function commitText(slot: number, raw: string): void {
-    if (!textEntry) return;
+    const mii = miiAccessor();
+    if (!mii) return;
     const err = validateText(raw);
     textErrors = { ...textErrors, [slot]: err };
     if (err) return;
-    arrSetString(textEntry, arrIndex(slot), raw);
-    markDirty(textEntry);
+    mii.setElement(TEXT_LEAF, arrIndex(slot), raw);
   }
   function commitHow(slot: number, raw: string): void {
-    if (!howEntry) return;
+    const mii = miiAccessor();
+    if (!mii) return;
     const err = validateText(raw);
     howErrors = { ...howErrors, [slot]: err };
     if (err) return;
-    arrSetString(howEntry, arrIndex(slot), raw);
-    markDirty(howEntry);
+    mii.setElement(HOW_LEAF, arrIndex(slot), raw);
   }
 
   function addSlot(): void {

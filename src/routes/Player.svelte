@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   import { _ } from 'svelte-i18n';
   import AdvancedPanel from '../lib/advanced/AdvancedPanel.svelte';
   import AppLayout from '../lib/AppLayout.svelte';
@@ -11,20 +12,25 @@
   import TreasuresPanel from '../lib/player/TreasuresPanel.svelte';
   import UgcTextPanel from '../lib/player/UgcTextPanel.svelte';
   import {
+    commitEntryEdit,
     downloadModified,
-    markDirty,
     playerState,
     syncFromSave,
   } from '../lib/playerEditor.svelte';
   import SaveBar from '../lib/SaveBar.svelte';
   import SaveTab from '../lib/SaveTab.svelte';
-  import { getSave } from '../lib/saveFile.svelte';
+  import { getEntriesForAdvanced, getSave } from '../lib/saveFile.svelte';
   import SubTabs from '../lib/SubTabs.svelte';
 
   const save = $derived(getSave('player'));
   $effect(() => {
     void save;
     syncFromSave();
+  });
+
+  const advancedEntries = $derived.by(() => {
+    void playerState.loadId;
+    return untrack(() => getEntriesForAdvanced('player'));
   });
 
   type SubTab =
@@ -66,11 +72,9 @@
     title={$_('player.title')}
     description={$_('player.description')}
     error={playerState.error}
-    ready={playerState.parsed != null}
+    ready={playerState.decoded != null}
   >
-    {#if playerState.parsed}
-      {@const parsed = playerState.parsed}
-
+    {#if playerState.decoded}
       <SaveBar
         dirty={playerState.dirty}
         actionLabel={$_('player.download_action')}
@@ -80,23 +84,27 @@
       <SubTabs tabs={SUB_TABS} bind:value={subTab} label={$_('player.sections_label')} />
 
       {#if subTab === 'profile'}
-        <Profile entries={parsed.entries} />
+        <Profile />
       {:else if subTab === 'foods'}
-        <FoodsPanel entries={parsed.entries} />
+        <FoodsPanel />
       {:else if subTab === 'clothes'}
-        <ClothesPanel entries={parsed.entries} />
+        <ClothesPanel />
       {:else if subTab === 'clothing_sets'}
-        <ClothingSetsPanel entries={parsed.entries} />
+        <ClothingSetsPanel />
       {:else if subTab === 'treasures'}
-        <TreasuresPanel entries={parsed.entries} />
+        <TreasuresPanel />
       {:else if subTab === 'interiors'}
-        <InteriorsPanel entries={parsed.entries} />
+        <InteriorsPanel />
       {:else if subTab === 'buildings'}
-        <BuildingsPanel entries={parsed.entries} />
+        <BuildingsPanel />
       {:else if subTab === 'ugc'}
-        <UgcTextPanel entries={parsed.entries} />
+        <UgcTextPanel />
       {:else}
-        <AdvancedPanel entries={parsed.entries} {markDirty} parseSignal={playerState.parsed} />
+        <AdvancedPanel
+          entries={advancedEntries}
+          onCommit={commitEntryEdit}
+          parseSignal={playerState.loadId}
+        />
       {/if}
     {/if}
   </SaveTab>

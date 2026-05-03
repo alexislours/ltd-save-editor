@@ -1,12 +1,10 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
   import { SvelteMap } from 'svelte/reactivity';
-  import { arrSetEnum, arrSetInt } from '../sav/codec';
   import { enumOptionsFor } from '../sav/knownKeys';
-  import { murmur3_x86_32 } from '../sav/hash';
-  import type { Entry } from '../sav/types';
+  import { MII_SCHEMA } from '../sav/schema';
   import { CARD_CLASS } from '../styles';
-  import { markDirty, miiState } from './miiEditor.svelte';
+  import { miiAccessor } from './miiEditor.svelte';
   import { relationTypeLabel, subRelationLabel } from './miiLabelList.svelte';
   import {
     baseRelationTypeLabel,
@@ -16,7 +14,7 @@
     crushAllowedForType,
     evaluateCoupleConstraints,
     findCrushTarget,
-    findRelationEntries,
+    findRelations,
     hasFightVariant,
     isRomanticTypeHash,
     isValidPair,
@@ -33,29 +31,20 @@
   } from './relations';
 
   type Props = {
-    entries: Entry[];
     miiIndex: number;
   };
-  let { entries, miiIndex }: Props = $props();
-  const tick = $derived(miiState.tick);
+  let { miiIndex }: Props = $props();
 
-  const byHash = $derived.by(() => {
-    const m = new SvelteMap<number, Entry>();
-    for (const e of entries) m.set(e.hash, e);
-    return m;
-  });
-
-  const relEntries = $derived(findRelationEntries(byHash));
+  const mii = $derived(miiAccessor());
+  const re = $derived(mii ? findRelations(mii) : null);
 
   const baseTypeOptions = $derived.by(() => {
-    const h = murmur3_x86_32('Relation.Info.DirectionalInfo.BaseRelationType') >>> 0;
-    return enumOptionsFor(h);
+    return enumOptionsFor(MII_SCHEMA.Relation.Info.DirectionalInfo.BaseRelationType.hash);
   });
 
   const myRelationships = $derived.by(() => {
-    void tick;
-    if (!relEntries) return [];
-    const all = listRelationships(relEntries);
+    if (!mii || !re) return [];
+    const all = listRelationships(mii, re);
     return all
       .filter((r) => r.a === miiIndex || r.b === miiIndex)
       .map((r) => {
@@ -72,7 +61,7 @@
         return {
           slot: r.slot,
           otherIndex,
-          otherName: readMiiName(relEntries.name, otherIndex),
+          otherName: readMiiName(mii, otherIndex),
           outIndex,
           inIndex,
           outType,
@@ -89,17 +78,15 @@
   });
 
   const existingCrushTarget = $derived.by(() => {
-    void tick;
-    if (!relEntries) return null;
-    return findCrushTarget(relEntries, miiIndex);
+    if (!mii || !re) return null;
+    return findCrushTarget(mii, re, miiIndex);
   });
 
   function commitMeter(directionalIndex: number, raw: string) {
-    if (!relEntries) return;
+    if (!mii || !re) return;
     const n = Number.parseInt(raw, 10);
     if (!Number.isFinite(n)) return;
-    arrSetInt(relEntries.meter, directionalIndex, n | 0);
-    markDirty(relEntries.meter);
+    mii.setElement(MII_SCHEMA.Relation.Info.DirectionalInfo.Meter, directionalIndex, n | 0);
   }
 
   const nameToHash = $derived.by(() => {
@@ -111,13 +98,13 @@
   const FIXED_METER_TYPES = new Set(['Other', 'Invalid']);
 
   function constraintsFor(slot: number, otherIndex: number): CoupleConstraints | null {
-    if (!relEntries) return null;
-    return evaluateCoupleConstraints(relEntries, miiIndex, otherIndex, slot);
+    if (!mii || !re) return null;
+    return evaluateCoupleConstraints(mii, re, miiIndex, otherIndex, slot);
   }
 
   function crushBlockFor(slot: number, otherIndex: number): CrushBlock | null {
-    if (!relEntries) return null;
-    return checkCrushAllowed(relEntries, miiIndex, otherIndex, slot);
+    if (!mii || !re) return null;
+    return checkCrushAllowed(mii, re, miiIndex, otherIndex, slot);
   }
 
   type Chip = {
@@ -221,7 +208,6 @@
 
   let typeError = $state<string | null>(null);
 
-  // Popup state for chip explanations.
   type PopupContent = { title: string; body: string; note?: string };
   let popup = $state<PopupContent | null>(null);
 
@@ -240,14 +226,14 @@
 
   function applyAcquaintAllStrangers(): void {
     confirmAcquaint = false;
-    if (!relEntries) return;
+    if (!mii || !re) return;
     const knowHash = nameToHash.get('Know');
     if (knowHash === undefined) return;
     const rawHash = String(knowHash);
     const KNOW_3_METER = 80;
     for (const r of myRelationships) {
       if (baseRelationTypeLabel(r.outType) !== 'Other') continue;
-      commitType(r.outIndex, r.inIndex, r.inType, rawHash, r.slot);
+      commitType(r.outIndex, r.inIndex, r.otherIndex, r.inType, rawHash, r.slot);
       commitMeter(r.outIndex, String(KNOW_3_METER));
       commitMeter(r.inIndex, String(KNOW_3_METER));
     }
@@ -256,26 +242,30 @@
   function commitType(
     changedIndex: number,
     otherIndex: number,
+    otherMiiIndex: number,
     otherType: number,
     rawHash: string,
     slot: number,
   ) {
-    if (!relEntries) return;
+    if (!mii || !re) return;
     const n = Number.parseInt(rawHash, 10);
     if (!Number.isFinite(n)) return;
     const newHash = n >>> 0;
 
     if (isRomanticTypeHash(newHash)) {
-      const c = evaluateCoupleConstraints(relEntries, miiIndex, otherIndex, slot);
+      const c = evaluateCoupleConstraints(mii, re, miiIndex, otherMiiIndex, slot);
       const block = blockForCandidate(c, newHash);
       if (block) {
         typeError = blockReasonMessage(block.reason);
-        miiState.tick++;
         return;
       }
     }
     typeError = null;
-    arrSetEnum(relEntries.baseType, changedIndex, newHash);
+    mii.setElement(
+      MII_SCHEMA.Relation.Info.DirectionalInfo.BaseRelationType,
+      changedIndex,
+      newHash,
+    );
 
     const newName = baseRelationTypeLabel(newHash);
     const otherName = baseRelationTypeLabel(otherType);
@@ -284,39 +274,33 @@
       const canonical = counterpartsFor(newName)[0];
       const canonicalHash = nameToHash.get(canonical);
       if (canonicalHash !== undefined) {
-        arrSetEnum(relEntries.baseType, otherIndex, canonicalHash);
+        mii.setElement(
+          MII_SCHEMA.Relation.Info.DirectionalInfo.BaseRelationType,
+          otherIndex,
+          canonicalHash,
+        );
         finalOtherName = canonical;
       }
     }
-    markDirty(relEntries.baseType);
 
     if (FIXED_METER_TYPES.has(newName)) {
-      arrSetInt(relEntries.meter, changedIndex, 100);
+      mii.setElement(MII_SCHEMA.Relation.Info.DirectionalInfo.Meter, changedIndex, 100);
     }
     if (FIXED_METER_TYPES.has(finalOtherName)) {
-      arrSetInt(relEntries.meter, otherIndex, 100);
-    }
-    if (FIXED_METER_TYPES.has(newName) || FIXED_METER_TYPES.has(finalOtherName)) {
-      markDirty(relEntries.meter);
+      mii.setElement(MII_SCHEMA.Relation.Info.DirectionalInfo.Meter, otherIndex, 100);
     }
 
-    if (relEntries.bitFlag) {
-      let dirty = false;
-      if (!crushAllowedForType(newHash) && setCrush(relEntries, changedIndex, false)) dirty = true;
+    if (re.bitFlag) {
+      if (!crushAllowedForType(newHash)) setCrush(mii, changedIndex, false);
       const otherFinalHash = nameToHash.get(finalOtherName);
-      if (
-        otherFinalHash !== undefined &&
-        !crushAllowedForType(otherFinalHash) &&
-        setCrush(relEntries, otherIndex, false)
-      ) {
-        dirty = true;
+      if (otherFinalHash !== undefined && !crushAllowedForType(otherFinalHash)) {
+        setCrush(mii, otherIndex, false);
       }
-      if (dirty) markDirty(relEntries.bitFlag);
     }
 
-    if (relEntries.isFight && !hasFightVariant(newName) && !hasFightVariant(finalOtherName)) {
-      const slot = changedIndex >>> 1;
-      if (setFight(relEntries, slot, false)) markDirty(relEntries.isFight);
+    if (re.isFight && !hasFightVariant(newName) && !hasFightVariant(finalOtherName)) {
+      const slotIdx = changedIndex >>> 1;
+      setFight(mii, slotIdx, false);
     }
   }
 
@@ -341,43 +325,41 @@
   }
 
   function commitTypeSetTime(slot: number, raw: string) {
-    if (!relEntries?.typeSetTime) return;
+    if (!mii || !re?.typeSetTime) return;
     const secs = dateTimeLocalToUnixSecs(raw);
     if (secs === null) return;
-    if (setTypeSetSec(relEntries, slot, secs)) markDirty(relEntries.typeSetTime);
+    setTypeSetSec(mii, slot, secs);
   }
 
   function commitCrush(dirIndex: number, otherIndex: number, value: boolean, slot: number): void {
-    if (!relEntries?.bitFlag) return;
+    if (!mii || !re?.bitFlag) return;
     if (value) {
-      const block = checkCrushAllowed(relEntries, miiIndex, otherIndex, slot);
+      const block = checkCrushAllowed(mii, re, miiIndex, otherIndex, slot);
       if (block) {
         typeError =
           block.reason === 'gender_incompatible'
             ? $_('mii.relations.crush_blocked_gender')
             : $_('mii.relations.crush_blocked_blood');
-        miiState.tick++;
         return;
       }
       typeError = null;
     }
-    let prevCrushSlots: number[] = [];
+    const prevCrushSlots: number[] = [];
     if (value && existingCrushTarget !== null && existingCrushTarget !== otherIndex) {
-      for (const r of listRelationships(relEntries)) {
+      for (const r of listRelationships(mii, re)) {
         if (r.a === miiIndex && r.crushAtoB) {
-          setCrush(relEntries, r.abIndex, false);
+          setCrush(mii, r.abIndex, false);
           prevCrushSlots.push(r.slot);
         } else if (r.b === miiIndex && r.crushBtoA) {
-          setCrush(relEntries, r.baIndex, false);
+          setCrush(mii, r.baIndex, false);
           prevCrushSlots.push(r.slot);
         }
       }
     }
-    if (!setCrush(relEntries, dirIndex, value)) return;
-    markDirty(relEntries.bitFlag);
+    if (!setCrush(mii, dirIndex, value)) return;
 
     if (value) {
-      if (relEntries.isFight && setFight(relEntries, slot, false)) markDirty(relEntries.isFight);
+      if (re.isFight) setFight(mii, slot, false);
     } else {
       maybeClearFightForSlot(slot);
     }
@@ -385,13 +367,13 @@
   }
 
   function maybeClearFightForSlot(slot: number): void {
-    if (!relEntries?.isFight) return;
-    const r = listRelationships(relEntries).find((x) => x.slot === slot);
+    if (!mii || !re?.isFight) return;
+    const r = listRelationships(mii, re).find((x) => x.slot === slot);
     if (!r || !r.isFight) return;
     const outName = baseRelationTypeLabel(r.typeAtoB);
     const inName = baseRelationTypeLabel(r.typeBtoA);
     if (hasFightVariant(outName) || hasFightVariant(inName)) return;
-    if (setFight(relEntries, slot, false)) markDirty(relEntries.isFight);
+    setFight(mii, slot, false);
   }
 
   function localizeRelationType(name: string): string {
@@ -415,7 +397,7 @@
       {$_('mii.relations.warning_text')}
     </span>
   </p>
-  {#if !relEntries}
+  {#if !re}
     <p class="mt-2 text-sm text-content-muted">{$_('mii.relations.no_table_short')}</p>
   {:else if myRelationships.length === 0}
     <p class="mt-2 text-sm text-content-muted">{$_('mii.relations.no_relations_for_self')}</p>
@@ -509,7 +491,14 @@
                   <select
                     class="rounded-lg border border-edge/60 bg-surface px-2 py-1 text-xs text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
                     onchange={(e) =>
-                      commitType(r.outIndex, r.inIndex, r.inType, e.currentTarget.value, r.slot)}
+                      commitType(
+                        r.outIndex,
+                        r.inIndex,
+                        r.otherIndex,
+                        r.inType,
+                        e.currentTarget.value,
+                        r.slot,
+                      )}
                   >
                     {#each baseTypeOptions as opt (opt.hash)}
                       {@const block = constraints ? blockForCandidate(constraints, opt.hash) : null}
@@ -561,7 +550,14 @@
                   <select
                     class="rounded-lg border border-edge/60 bg-surface px-2 py-1 text-xs text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
                     onchange={(e) =>
-                      commitType(r.inIndex, r.outIndex, r.outType, e.currentTarget.value, r.slot)}
+                      commitType(
+                        r.inIndex,
+                        r.outIndex,
+                        r.otherIndex,
+                        r.outType,
+                        e.currentTarget.value,
+                        r.slot,
+                      )}
                   >
                     {#each baseTypeOptions as opt (opt.hash)}
                       {@const block = constraints ? blockForCandidate(constraints, opt.hash) : null}
@@ -617,7 +613,7 @@
                     type="checkbox"
                     class="h-3.5 w-3.5 accent-pink-600"
                     checked={r.crushOut}
-                    disabled={!relEntries?.bitFlag || crushBlocked}
+                    disabled={!re?.bitFlag || crushBlocked}
                     aria-label={$_('mii.relations.crush_label_aria')}
                     onchange={(e) =>
                       commitCrush(r.outIndex, r.otherIndex, e.currentTarget.checked, r.slot)}
@@ -651,7 +647,7 @@
                     step="1"
                     class="rounded-md border border-edge/60 bg-surface px-1.5 py-0.5 font-mono text-xs text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
                     value={unixSecsToDateTimeLocal(r.typeSetSec)}
-                    disabled={!relEntries?.typeSetTime}
+                    disabled={!re?.typeSetTime}
                     title={$_('mii.relations.type_set_time_aria')}
                     aria-label={$_('mii.relations.type_set_time_aria')}
                     onchange={(e) => commitTypeSetTime(r.slot, e.currentTarget.value)}

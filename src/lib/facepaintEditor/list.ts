@@ -1,11 +1,26 @@
-import type { SavFile } from '../sav/types';
-import { entryPayload } from '../shareMii/savAccess';
+import { DataType } from '../sav/dataType';
+import type { Accessor } from '../sav/materialized/accessor';
+import { MII_SCHEMA, PLAYER_SCHEMA } from '../sav/schema';
+import { FP_STATE_UNUSED } from '../shareMii/applyMii';
+import { leafByHashOrThrow } from '../shareMii/savAccess';
 import { FACEPAINT_HASHES, MII_HASHES } from '../shareMii/ugcKinds';
-import { decodeUtf16Name } from '../shareMii/utf16';
 
-const ARRAY_HEADER = 4;
 export const FACEPAINT_REAL_SLOTS = 70;
-const UNUSED_STATE_MARKER = [0xa5, 0x8a, 0xff, 0xaf];
+const FP_INDEX_UNUSED = -1;
+
+const FP_STATE = leafByHashOrThrow(
+  PLAYER_SCHEMA,
+  FACEPAINT_HASHES.state,
+  'Facepaint.State',
+  DataType.EnumArray,
+);
+const FACE_PAINT_INDEX = leafByHashOrThrow(
+  MII_SCHEMA,
+  MII_HASHES.facePaintIndex,
+  'Mii.FacePaintIndex',
+  DataType.IntArray,
+);
+const NAMES = leafByHashOrThrow(MII_SCHEMA, MII_HASHES.names, 'Mii.Names', DataType.WString32Array);
 
 export type FacepaintInfo = {
   id: number;
@@ -14,35 +29,23 @@ export type FacepaintInfo = {
   ownerName: string;
 };
 
-function isUnused(state: Uint8Array, id: number): boolean {
-  const off = ARRAY_HEADER + 4 * id;
-  for (let i = 0; i < 4; i++) {
-    if (state[off + i] !== UNUSED_STATE_MARKER[i]) return false;
-  }
-  return true;
-}
-
-export function listFacepaints(player: SavFile, mii: SavFile | null): FacepaintInfo[] {
-  const fpState = entryPayload(player, FACEPAINT_HASHES.state, 'Facepaint.State');
-  const facePaintIndex = mii
-    ? entryPayload(mii, MII_HASHES.facePaintIndex, 'Mii.FacePaintIndex')
-    : null;
-  const miiNames = mii ? entryPayload(mii, MII_HASHES.names, 'Mii.Names') : null;
-
+export function listFacepaints(
+  player: Accessor<'player'>,
+  mii: Accessor<'mii'> | null,
+): FacepaintInfo[] {
   const ownerByFacepaint = new Map<number, { slot: number; name: string }>();
-  if (facePaintIndex && miiNames) {
+  if (mii) {
     for (let s = 0; s < FACEPAINT_REAL_SLOTS; s++) {
-      const id = facePaintIndex[ARRAY_HEADER + 4 * s];
-      if (id === 0xff) continue;
+      const id = mii.getElement(FACE_PAINT_INDEX, s);
+      if (id === FP_INDEX_UNUSED) continue;
       if (ownerByFacepaint.has(id)) continue;
-      const nameBuf = miiNames.subarray(ARRAY_HEADER + s * 64, ARRAY_HEADER + s * 64 + 64);
-      ownerByFacepaint.set(id, { slot: s + 1, name: decodeUtf16Name(nameBuf) });
+      ownerByFacepaint.set(id, { slot: s + 1, name: mii.getElement(NAMES, s) });
     }
   }
 
   const out: FacepaintInfo[] = [];
   for (let id = 0; id < FACEPAINT_REAL_SLOTS; id++) {
-    const inUse = !isUnused(fpState, id);
+    const inUse = player.getElement(FP_STATE, id) !== FP_STATE_UNUSED;
     if (!inUse) continue;
     const owner = ownerByFacepaint.get(id) ?? null;
     out.push({

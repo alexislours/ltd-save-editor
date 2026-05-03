@@ -6,9 +6,9 @@
     treasureImageUrl,
     treasureLabel,
   } from '../sav/treasureList.svelte';
-  import type { Entry } from '../sav/types';
+  import { playerAccessor } from '../playerEditor.svelte';
   import {
-    buildEntryMap,
+    leafForHash,
     readSlotQty,
     readSlotState,
     type Slot,
@@ -18,21 +18,18 @@
   import InventoryListPanel from './InventoryListPanel.svelte';
   import InventoryRow from './InventoryRow.svelte';
 
-  type Props = { entries: Entry[] };
-  let { entries }: Props = $props();
-
-  const byHash = $derived(buildEntryMap(entries));
+  const acc = $derived(playerAccessor());
 
   function slotFor(t: Treasure): Slot {
     return {
-      state: byHash.get(t.stateHash) ?? null,
-      qty: byHash.get(t.ownNumHash) ?? null,
+      state: leafForHash(t.stateHash),
+      qty: leafForHash(t.ownNumHash),
       index: null,
     };
   }
 
   const items = $derived(
-    allTreasures().filter((t) => byHash.has(t.stateHash) || byHash.has(t.ownNumHash)),
+    allTreasures().filter((t) => leafForHash(t.stateHash) || leafForHash(t.ownNumHash)),
   );
 </script>
 
@@ -58,10 +55,10 @@
       internalName={treasure.name}
       hasState={!!slot.state}
       hasQty={!!slot.qty}
-      state={readSlotState(slot)}
-      qty={readSlotQty(slot)}
-      onStateChange={(v) => writeSlotState(slot, v)}
-      onQtyChange={(v) => writeSlotQty(slot, v)}
+      state={readSlotState(acc, slot)}
+      qty={readSlotQty(acc, slot)}
+      onStateChange={(v) => writeSlotState(acc, slot, v)}
+      onQtyChange={(v) => writeSlotQty(acc, slot, v)}
     />
   {/snippet}
 </InventoryListPanel>

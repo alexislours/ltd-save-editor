@@ -1,72 +1,69 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { arrGetInt, arrSetInt } from '../sav/codec';
-  import type { Entry } from '../sav/types';
-  import { markDirty, miiState } from './miiEditor.svelte';
+  import { safe } from '../sav/format';
+  import { MII_SCHEMA } from '../sav/schema';
+  import type { SchemaLeaf } from '../sav/schema/paths';
+  import { miiAccessor } from './miiEditor.svelte';
   import { classifyPersonality } from './personality';
 
   type Props = {
     miiIndex: number;
-    entriesByName: Map<string, Entry>;
+    leaves: SchemaLeaf[];
   };
-  let { miiIndex, entriesByName }: Props = $props();
+  let { miiIndex, leaves }: Props = $props();
 
   type Axis = {
-    name: string;
-    /** Used to look up `mii.personality.axis.<axisKey>` etc. */
+    leaf: SchemaLeaf;
     axisKey: 'movement' | 'speech' | 'energy' | 'thinking' | 'overall';
   };
   const AXES: Axis[] = [
-    { name: 'Mii.CharacterParam.Gaiety', axisKey: 'movement' },
-    { name: 'Mii.CharacterParam.Activeness', axisKey: 'speech' },
-    { name: 'Mii.CharacterParam.Audaciousness', axisKey: 'energy' },
-    { name: 'Mii.CharacterParam.Sociability', axisKey: 'thinking' },
-    { name: 'Mii.CharacterParam.Commonsense', axisKey: 'overall' },
+    { leaf: MII_SCHEMA.Mii.CharacterParam.Gaiety, axisKey: 'movement' },
+    { leaf: MII_SCHEMA.Mii.CharacterParam.Activeness, axisKey: 'speech' },
+    { leaf: MII_SCHEMA.Mii.CharacterParam.Audaciousness, axisKey: 'energy' },
+    { leaf: MII_SCHEMA.Mii.CharacterParam.Sociability, axisKey: 'thinking' },
+    { leaf: MII_SCHEMA.Mii.CharacterParam.Commonsense, axisKey: 'overall' },
   ];
 
   const STEPS = 8;
 
-  type ResolvedAxis = Axis & { entry: Entry; value: number };
+  type ResolvedAxis = Axis & { value: number };
+
+  const presentSet = $derived(new Set(leaves));
 
   const resolved = $derived.by<ResolvedAxis[]>(() => {
-    void miiState.tick;
+    const mii = miiAccessor();
+    if (!mii) return [];
     const out: ResolvedAxis[] = [];
     for (const a of AXES) {
-      const e = entriesByName.get(a.name);
-      if (!e) continue;
-      let value: number;
-      try {
-        value = arrGetInt(e, miiIndex);
-      } catch {
-        value = 0;
-      }
-      out.push({ ...a, entry: e, value });
+      if (!presentSet.has(a.leaf)) continue;
+      const value = safe(() => mii.getElement(a.leaf, miiIndex) as number, 0);
+      out.push({ ...a, value });
     }
     return out;
   });
 
-  function axisValue(name: string): number {
-    return resolved.find((x) => x.name === name)?.value ?? 0;
+  function axisValue(leaf: SchemaLeaf): number {
+    return resolved.find((x) => x.leaf === leaf)?.value ?? 0;
   }
 
   const personality = $derived.by(() => {
     if (resolved.length < 4) return null;
     return classifyPersonality({
-      gaiety: axisValue('Mii.CharacterParam.Gaiety'),
-      activeness: axisValue('Mii.CharacterParam.Activeness'),
-      audaciousness: axisValue('Mii.CharacterParam.Audaciousness'),
-      sociability: axisValue('Mii.CharacterParam.Sociability'),
+      gaiety: axisValue(MII_SCHEMA.Mii.CharacterParam.Gaiety),
+      activeness: axisValue(MII_SCHEMA.Mii.CharacterParam.Activeness),
+      audaciousness: axisValue(MII_SCHEMA.Mii.CharacterParam.Audaciousness),
+      sociability: axisValue(MII_SCHEMA.Mii.CharacterParam.Sociability),
     });
   });
 
-  function setValue(entry: Entry, displayIndex: number) {
-    // displayIndex is 0..STEPS-1 (the box clicked). The save uses 1..8.
+  function setValue(leaf: SchemaLeaf, displayIndex: number) {
+    const mii = miiAccessor();
+    if (!mii) return;
     const stored = displayIndex + 1;
     try {
-      arrSetInt(entry, miiIndex, stored | 0);
-      markDirty(entry);
+      mii.setElement(leaf, miiIndex, stored | 0);
     } catch {
-      // ignore - schema mismatch is already filtered upstream
+      /* schema mismatch is filtered upstream */
     }
   }
 
@@ -97,7 +94,7 @@
     </div>
   {/if}
   <div class="grid gap-2">
-    {#each resolved as axis (axis.name)}
+    {#each resolved as axis (axis.leaf.hash)}
       {@const axisLabel = $_(`mii.personality.axis.${axis.axisKey}`)}
       {@const minWord = $_(`mii.personality.axis_min.${axis.axisKey}`)}
       {@const maxWord = $_(`mii.personality.axis_max.${axis.axisKey}`)}
@@ -124,7 +121,7 @@
                 },
               })}
               aria-pressed={selected}
-              onclick={() => setValue(axis.entry, i)}
+              onclick={() => setValue(axis.leaf, i)}
             >
               {#if selected}
                 <svg

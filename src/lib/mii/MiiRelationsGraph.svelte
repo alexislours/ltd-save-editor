@@ -2,13 +2,12 @@
   import { _, locale } from 'svelte-i18n';
   import { untrack } from 'svelte';
   import { SvelteMap, SvelteSet } from 'svelte/reactivity';
-  import type { Entry } from '../sav/types';
   import { CARD_CLASS } from '../styles';
-  import { miiState } from './miiEditor.svelte';
+  import { miiAccessor } from './miiEditor.svelte';
   import { relationTypeLabel, subRelationLabel } from './miiLabelList.svelte';
   import {
     baseRelationTypeLabel,
-    findRelationEntries,
+    findRelations,
     listRelationships,
     readMiiName,
     subRelationKey,
@@ -17,19 +16,13 @@
   import { computeForceLayout } from './forceLayout';
 
   type Props = {
-    entries: Entry[];
     selectedIndex: number | null;
     onSelect: (miiIndex: number) => void;
   };
-  let { entries, selectedIndex, onSelect }: Props = $props();
-  const tick = $derived(miiState.tick);
+  let { selectedIndex, onSelect }: Props = $props();
 
-  const byHash = $derived.by(() => {
-    const m = new SvelteMap<number, Entry>();
-    for (const e of entries) m.set(e.hash, e);
-    return m;
-  });
-  const re = $derived(findRelationEntries(byHash));
+  const mii = $derived(miiAccessor());
+  const re = $derived(mii ? findRelations(mii) : null);
 
   const TYPE_COLORS: Record<string, string> = {
     Couple: '#e11d48',
@@ -89,9 +82,8 @@
   };
 
   const allPairs = $derived.by<Pair[]>(() => {
-    void tick;
-    if (!re) return [];
-    const all = listRelationships(re);
+    if (!mii || !re) return [];
+    const all = listRelationships(mii, re);
     const out: Pair[] = [];
     for (const r of all) {
       const typeAB = baseRelationTypeLabel(r.typeAtoB);
@@ -100,8 +92,8 @@
       out.push({
         a: r.a,
         b: r.b,
-        nameA: readMiiName(re.name, r.a),
-        nameB: readMiiName(re.name, r.b),
+        nameA: readMiiName(mii, r.a),
+        nameB: readMiiName(mii, r.b),
         typeAB,
         typeBA,
         meterAB: r.meterAtoB,
@@ -115,8 +107,8 @@
   });
 
   const populated = $derived.by(() => {
-    void tick;
-    return re ? populatedMiiIndices(byHash) : [];
+    if (!mii || !re) return [];
+    return populatedMiiIndices(mii);
   });
 
   type ViewMode = 'all' | 'ego';
@@ -145,9 +137,7 @@
 
   const allLayout = $derived.by<Map<number, { x: number; y: number }>>(() => {
     if (viewMode !== 'all') return new Map();
-    void tick;
     const nodes = populated.map((idx) => ({ index: idx }));
-    // Edges: one per pair (force layout doesn't care about direction).
     const edges = allPairs.map((p) => ({ a: p.a, b: p.b }));
     return computeForceLayout(nodes, edges, { size: SIZE });
   });
@@ -196,7 +186,7 @@
     return m;
   });
 
-  const focusName = $derived(re && focusIndex != null ? readMiiName(re.name, focusIndex) : '');
+  const focusName = $derived(mii && focusIndex != null ? readMiiName(mii, focusIndex) : '');
 
   const NODE_RADIUS = 6;
   const NODE_RADIUS_FOCUS = 9;
@@ -336,7 +326,7 @@
         {#each populated as idx (idx)}
           <option value={idx}>
             {$_('mii.panel.slot_label', {
-              values: { index: idx + 1, name: re ? readMiiName(re.name, idx) : '' },
+              values: { index: idx + 1, name: mii ? readMiiName(mii, idx) : '' },
             })}
           </option>
         {/each}
@@ -455,7 +445,7 @@
               {#if pos}
                 {@const isHover = hoveredNode === idx}
                 {@const isSelected = idx === selectedIndex}
-                {@const name = re ? readMiiName(re.name, idx) : ''}
+                {@const name = mii ? readMiiName(mii, idx) : ''}
                 <g
                   role="button"
                   tabindex="0"
