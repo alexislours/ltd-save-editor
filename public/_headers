@@ -1,0 +1,23 @@
+/cloth-icons/*
+  Cross-Origin-Resource-Policy: same-site
+
+/coordinate-icons/*
+  Cross-Origin-Resource-Policy: same-site
+
+/food-icons/*
+  Cross-Origin-Resource-Policy: same-site
+
+/item-icons/*
+  Cross-Origin-Resource-Policy: same-site
+
+/roomstyle-icons/*
+  Cross-Origin-Resource-Policy: same-site
+
+/treasure-icons/*
+  Cross-Origin-Resource-Policy: same-site
+
+/voice-icons/*
+  Cross-Origin-Resource-Policy: same-site
+
+/og.png
+  Cross-Origin-Resource-Policy: cross-origin
