@@ -938,7 +938,8 @@
       "Interior": "Intérieurs",
       "Exterior": "Extérieurs",
       "MapObject": "Objets",
-      "MapFloor": "Aménagements"
+      "MapFloor": "Aménagements",
+      "FacePaint": "Maquillage"
     },
     "sidecar": {
       "none_loaded": "Aucun fichier Ugc/ chargé",
@@ -1188,7 +1189,9 @@
       "title": "Éléments ({count})",
       "empty": "Aucun élément dans cette catégorie.",
       "add_new": "+ Ajouter (emplacement {slot})",
-      "unnamed": "Élément {slot}"
+      "unnamed": "Élément {slot}",
+      "facepaint_owned": "Porté par {name}",
+      "facepaint_unassigned": "Sans propriétaire"
     },
     "editor": {
       "pick_item": "Sélectionne un élément dans la liste pour le modifier.",

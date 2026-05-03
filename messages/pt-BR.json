@@ -938,7 +938,8 @@
       "Interior": "Interiores",
       "Exterior": "Exteriores",
       "MapObject": "Objetos",
-      "MapFloor": "Paisagismo"
+      "MapFloor": "Paisagismo",
+      "FacePaint": "Pintura facial"
     },
     "sidecar": {
       "none_loaded": "Nenhum arquivo Ugc/ carregado",
@@ -1188,7 +1189,9 @@
       "title": "Itens ({count})",
       "empty": "Nenhum item nesta categoria.",
       "add_new": "+ Adicionar (slot {slot})",
-      "unnamed": "Item {slot}"
+      "unnamed": "Item {slot}",
+      "facepaint_owned": "Usada por {name}",
+      "facepaint_unassigned": "Sem dono"
     },
     "editor": {
       "pick_item": "Selecione um item na lista para editar.",

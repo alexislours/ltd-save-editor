@@ -341,7 +341,9 @@
       "title": "Items ({count})",
       "empty": "No items found in this category.",
       "add_new": "+ Add new (slot {slot})",
-      "unnamed": "Item {slot}"
+      "unnamed": "Item {slot}",
+      "facepaint_owned": "Worn by {name}",
+      "facepaint_unassigned": "Unassigned"
     },
     "editor": {
       "pick_item": "Select an item from the list to edit.",
@@ -1326,7 +1328,8 @@
       "Interior": "Interior",
       "Exterior": "Exterior",
       "MapObject": "Objects",
-      "MapFloor": "Landscaping"
+      "MapFloor": "Landscaping",
+      "FacePaint": "Face paint"
     },
     "sidecar": {
       "none_loaded": "No Ugc/ files loaded",
