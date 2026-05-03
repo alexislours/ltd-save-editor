@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _, locale } from 'svelte-i18n';
   import { SvelteMap } from 'svelte/reactivity';
   import { arrSetEnum, arrSetInt } from '../sav/codec';
   import { enumOptionsFor } from '../sav/knownKeys';
@@ -7,6 +7,7 @@
   import type { Entry } from '../sav/types';
   import { CARD_CLASS } from '../styles';
   import { markDirty, miiState } from './miiEditor.svelte';
+  import { relationTypeLabel, subRelationLabel } from './miiLabelList.svelte';
   import {
     baseRelationTypeLabel,
     blockForCandidate,
@@ -231,6 +232,27 @@
     popup = null;
   }
 
+  const strangerCount = $derived(
+    myRelationships.filter((r) => baseRelationTypeLabel(r.outType) === 'Other').length,
+  );
+
+  let confirmAcquaint = $state(false);
+
+  function applyAcquaintAllStrangers(): void {
+    confirmAcquaint = false;
+    if (!relEntries) return;
+    const knowHash = nameToHash.get('Know');
+    if (knowHash === undefined) return;
+    const rawHash = String(knowHash);
+    const KNOW_3_METER = 80;
+    for (const r of myRelationships) {
+      if (baseRelationTypeLabel(r.outType) !== 'Other') continue;
+      commitType(r.outIndex, r.inIndex, r.inType, rawHash, r.slot);
+      commitMeter(r.outIndex, String(KNOW_3_METER));
+      commitMeter(r.inIndex, String(KNOW_3_METER));
+    }
+  }
+
   function commitType(
     changedIndex: number,
     otherIndex: number,
@@ -372,11 +394,8 @@
     if (setFight(relEntries, slot, false)) markDirty(relEntries.isFight);
   }
 
-  /** Translate a base relation type internal name (e.g. "Couple"). Falls back to the raw name. */
   function localizeRelationType(name: string): string {
-    if (name.startsWith('0x')) return name;
-    const t = $_(`mii.relations.type.${name}`);
-    return t && t !== `mii.relations.type.${name}` ? t : name;
+    return relationTypeLabel(name, $locale) ?? name;
   }
 </script>
 
@@ -426,6 +445,17 @@
           aria-label={$_('mii.relations.change_blocked_dismiss')}
         >
           ×
+        </button>
+      </div>
+    {/if}
+    {#if strangerCount > 0}
+      <div class="mt-3 flex justify-end">
+        <button
+          type="button"
+          class="inline-flex items-center gap-1.5 rounded-lg bg-orange-500 px-3 py-1.5 text-xs font-bold text-white hover:bg-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/40"
+          onclick={() => (confirmAcquaint = true)}
+        >
+          {$_('mii.relations.acquaint_button')}
         </button>
       </div>
     {/if}
@@ -512,7 +542,7 @@
                   >
                     {#each outLevels as lv (lv.index)}
                       <option value={lv.meter} selected={outActive?.index === lv.index}>
-                        {$_(`mii.relations.sub.${lv.key}`)}
+                        {subRelationLabel(lv.key, $locale) ?? lv.key}
                       </option>
                     {/each}
                   </select>
@@ -564,7 +594,7 @@
                   >
                     {#each inLevels as lv (lv.index)}
                       <option value={lv.meter} selected={inActive?.index === lv.index}>
-                        {$_(`mii.relations.sub.${lv.key}`)}
+                        {subRelationLabel(lv.key, $locale) ?? lv.key}
                       </option>
                     {/each}
                   </select>
@@ -660,6 +690,55 @@
     </div>
   {/if}
 
+  {#if confirmAcquaint}
+    <div
+      class="fixed inset-0 z-40 flex items-center justify-center bg-black/40 px-4"
+      role="presentation"
+      onclick={() => (confirmAcquaint = false)}
+    >
+      <div
+        class="relative w-full max-w-sm rounded-xl bg-surface p-4 shadow-xl ring-1 ring-edge/60"
+        role="dialog"
+        tabindex="-1"
+        aria-modal="true"
+        aria-labelledby="acquaint-confirm-title"
+        onclick={(e) => e.stopPropagation()}
+        onkeydown={(e) => e.stopPropagation()}
+      >
+        <h4 id="acquaint-confirm-title" class="pr-8 text-sm font-bold text-content-strong">
+          {$_('mii.relations.acquaint_confirm_title')}
+        </h4>
+        <p class="mt-2 text-sm text-content">
+          {$_('mii.relations.acquaint_confirm_body', { values: { count: strangerCount } })}
+        </p>
+        <button
+          type="button"
+          class="absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-md text-content-muted hover:bg-surface-sunken hover:text-content-strong"
+          aria-label={$_('mii.relations.change_blocked_dismiss')}
+          onclick={() => (confirmAcquaint = false)}
+        >
+          ×
+        </button>
+        <div class="mt-3 flex justify-end gap-2">
+          <button
+            type="button"
+            class="rounded-md bg-surface-sunken px-3 py-1.5 text-xs font-bold text-content-strong ring-1 ring-edge/60 hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/40"
+            onclick={() => (confirmAcquaint = false)}
+          >
+            {$_('mii.relations.acquaint_cancel')}
+          </button>
+          <button
+            type="button"
+            class="rounded-md bg-orange-500 px-3 py-1.5 text-xs font-bold text-white hover:bg-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/40"
+            onclick={applyAcquaintAllStrangers}
+          >
+            {$_('mii.relations.acquaint_apply')}
+          </button>
+        </div>
+      </div>
+    </div>
+  {/if}
+
   {#if popup}
     <div
       class="fixed inset-0 z-40 flex items-center justify-center bg-black/40 px-4"
@@ -710,6 +789,8 @@
 
 <svelte:window
   onkeydown={(e) => {
-    if (e.key === 'Escape' && popup) closeChipPopup();
+    if (e.key !== 'Escape') return;
+    if (popup) closeChipPopup();
+    else if (confirmAcquaint) confirmAcquaint = false;
   }}
 />

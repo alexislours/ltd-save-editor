@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _, locale } from 'svelte-i18n';
   import { untrack } from 'svelte';
   import { SvelteMap, SvelteSet } from 'svelte/reactivity';
   import type { Entry } from '../sav/types';
   import { CARD_CLASS } from '../styles';
   import { miiState } from './miiEditor.svelte';
+  import { relationTypeLabel, subRelationLabel } from './miiLabelList.svelte';
   import {
     baseRelationTypeLabel,
     findRelationEntries,
@@ -29,8 +30,6 @@
     return m;
   });
   const re = $derived(findRelationEntries(byHash));
-
-  // ---- type colours ------------------------------------------------------
 
   const TYPE_COLORS: Record<string, string> = {
     Couple: '#e11d48',
@@ -279,16 +278,13 @@
   }
 
   function localizeRelationType(name: string): string {
-    if (name.startsWith('0x')) return name;
-    const t = $_(`mii.relations.type.${name}`);
-    return t && t !== `mii.relations.type.${name}` ? t : name;
+    return relationTypeLabel(name, $locale) ?? name;
   }
 
   function localizedSub(type: string, meter: number, isFight: boolean): string | null {
     const k = subRelationKey(type, meter, isFight);
     if (!k) return null;
-    const t = $_(`mii.relations.sub.${k.key}`);
-    return t && t !== `mii.relations.sub.${k.key}` ? t : null;
+    return subRelationLabel(k.key, $locale);
   }
 
   function feeling(type: string, meter: number, isFight: boolean): string {

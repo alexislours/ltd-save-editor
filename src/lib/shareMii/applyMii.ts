@@ -1,7 +1,7 @@
-import type { SavFile } from '../sav/types';
+import type { Entry, SavFile } from '../sav/types';
 import { decodeLtdMii, encodeLtdMii, type LtdMii } from './codec';
 import { ShareMiiError } from './errors';
-import { entryPayload } from './savAccess';
+import { findEntry } from './savAccess';
 import {
   FACEPAINT_HASHES,
   MII_HASHES,
@@ -34,26 +34,44 @@ type MiiEntries = {
   miiRaw: Uint8Array;
   isLoveGender: Uint8Array;
   personality: Uint8Array[];
+  playerEntries: Entry[];
+  miiEntries: Entry[];
 };
 
+function loadPayload(savFile: SavFile, hash: number, label: string, sink: Entry[]): Uint8Array {
+  const e = findEntry(savFile, hash, label);
+  if (!e.payload) {
+    throw new ShareMiiError('save_format_error', { label });
+  }
+  sink.push(e);
+  return e.payload;
+}
+
 function readEntries(player: SavFile, mii: SavFile): MiiEntries {
+  const playerEntries: Entry[] = [];
+  const miiEntries: Entry[] = [];
   return {
-    fpPrice: entryPayload(player, FACEPAINT_HASHES.price, 'Facepaint.Price'),
-    fpTexSrc: entryPayload(
+    fpPrice: loadPayload(player, FACEPAINT_HASHES.price, 'Facepaint.Price', playerEntries),
+    fpTexSrc: loadPayload(
       player,
       FACEPAINT_HASHES.textureSourceType,
       'Facepaint.TextureSourceType',
+      playerEntries,
     ),
-    fpState: entryPayload(player, FACEPAINT_HASHES.state, 'Facepaint.State'),
-    fpUnknown: entryPayload(player, FACEPAINT_HASHES.unknown, 'Facepaint.Unknown'),
-    fpHash: entryPayload(player, FACEPAINT_HASHES.hash, 'Facepaint.Hash'),
-    facePaintIndex: entryPayload(mii, MII_HASHES.facePaintIndex, 'Mii.FacePaintIndex'),
-    tempSlot: entryPayload(player, MII_HASHES.tempSlotMii, 'Player.TempSlotMii'),
-    miiNames: entryPayload(mii, MII_HASHES.names, 'Mii.Names'),
-    miiPronunciation: entryPayload(mii, MII_HASHES.pronunciation, 'Mii.Pronunciation'),
-    miiRaw: entryPayload(mii, MII_HASHES.rawMii, 'Mii.Raw'),
-    isLoveGender: entryPayload(mii, MII_HASHES.isLoveGender, 'Mii.IsLoveGender'),
-    personality: MII_HASHES.personality.map((h, i) => entryPayload(mii, h, `Personality[${i}]`)),
+    fpState: loadPayload(player, FACEPAINT_HASHES.state, 'Facepaint.State', playerEntries),
+    fpUnknown: loadPayload(player, FACEPAINT_HASHES.unknown, 'Facepaint.Unknown', playerEntries),
+    fpHash: loadPayload(player, FACEPAINT_HASHES.hash, 'Facepaint.Hash', playerEntries),
+    facePaintIndex: loadPayload(mii, MII_HASHES.facePaintIndex, 'Mii.FacePaintIndex', miiEntries),
+    tempSlot: loadPayload(player, MII_HASHES.tempSlotMii, 'Player.TempSlotMii', playerEntries),
+    miiNames: loadPayload(mii, MII_HASHES.names, 'Mii.Names', miiEntries),
+    miiPronunciation: loadPayload(mii, MII_HASHES.pronunciation, 'Mii.Pronunciation', miiEntries),
+    miiRaw: loadPayload(mii, MII_HASHES.rawMii, 'Mii.Raw', miiEntries),
+    isLoveGender: loadPayload(mii, MII_HASHES.isLoveGender, 'Mii.IsLoveGender', miiEntries),
+    personality: MII_HASHES.personality.map((h, i) =>
+      loadPayload(mii, h, `Personality[${i}]`, miiEntries),
+    ),
+    playerEntries,
+    miiEntries,
   };
 }
 
@@ -214,6 +232,8 @@ export function extractMii(
 
 export type ApplyMiiResult = {
   facepaintWrites: SidecarFile[];
+  touchedPlayerEntries: Entry[];
+  touchedMiiEntries: Entry[];
 };
 
 export function applyMii(
@@ -293,7 +313,11 @@ export function applyMii(
     for (const f of facepaintWrites) sidecar.files.set(f.name, f.bytes);
   }
 
-  return { facepaintWrites };
+  return {
+    facepaintWrites,
+    touchedPlayerEntries: e.playerEntries,
+    touchedMiiEntries: e.miiEntries,
+  };
 }
 
 function pickFacepaintId(facePaintIndex: Uint8Array): number {

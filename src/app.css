@@ -173,3 +173,25 @@ html.dark ::selection {
 .driver-popover-arrow-side-right.driver-popover-arrow {
   border-right-color: var(--color-surface);
 }
+
+.bg-checker {
+  --checker-a: #ffffff;
+  --checker-b: #d4d4d8;
+  background-color: var(--checker-a);
+  background-image:
+    linear-gradient(45deg, var(--checker-b) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--checker-b) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--checker-b) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--checker-b) 75%);
+  background-size: 16px 16px;
+  background-position:
+    0 0,
+    0 8px,
+    8px -8px,
+    -8px 0;
+}
+
+html.dark .bg-checker {
+  --checker-a: #1f1f23;
+  --checker-b: #2c2c33;
+}

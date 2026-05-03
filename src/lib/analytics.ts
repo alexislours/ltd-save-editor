@@ -17,6 +17,7 @@ type Events = {
   load_cancelled: { conflicts: number };
   parse_failed: { kind: SaveKind };
   export: { mode: 'single' | 'bulk'; kinds: string; kind_count: number };
+  export_mii_data: { format: 'json' | 'miis-csv' | 'relationships-csv'; mii_count: number };
   bulk_edit: { field: 'state' | 'qty'; count: number };
   restore_prompted: { count: number; sidecar_count: number };
   restore_accepted: { count: number; sidecar_count: number };
@@ -44,6 +45,14 @@ type Events = {
   ugc_editor_rename: { kind: UgcKind; slot: number };
   ugc_editor_transform: { transform: 'rotateCw' | 'rotateCcw' | 'flipH' | 'flipV' };
   ugc_editor_pending_downloaded: { count: number };
+  facepaint_editor_replace: {
+    id: number;
+    fit: 'fill' | 'contain' | 'cover';
+    matte: 'transparent' | 'white' | 'black' | 'custom';
+  };
+  facepaint_editor_revert: { id: number };
+  facepaint_editor_export: { id: number };
+  facepaint_editor_transform: { transform: 'rotateCw' | 'rotateCcw' | 'flipH' | 'flipV' };
   locale_changed: { from: string; to: string };
   theme_changed: { from: 'light' | 'dark'; to: 'light' | 'dark' };
   clear_all_requested: { count: number };
@@ -53,6 +62,14 @@ type Events = {
   advanced_view_changed: { to: 'tree' | 'table' };
   advanced_name_searched: { matched: boolean };
   advanced_hash_copied: Record<string, never>;
+  history_recorded: { kinds: string; kind_count: number; ugc_count: number; total_bytes: number };
+  history_downloaded: { kinds: string; kind_count: number };
+  history_delete_requested: Record<string, never>;
+  history_delete_confirmed: Record<string, never>;
+  history_delete_cancelled: Record<string, never>;
+  history_clear_requested: { count: number };
+  history_clear_confirmed: { count: number };
+  history_clear_cancelled: { count: number };
   changelog_opened: { had_new: boolean; version: string };
   channel_switch_clicked: { from: 'beta' | 'stable'; to: 'beta' | 'stable' };
   external_link: { target: string };

@@ -1,5 +1,5 @@
 import { arrayCount, isArrayType } from '../sav/codec';
-import { DataType, DataTypeName } from '../sav/dataType';
+import { DataType } from '../sav/dataType';
 import { nameForHash } from '../sav/knownKeys';
 import type { Entry } from '../sav/types';
 
@@ -66,9 +66,9 @@ export function formatHash(hash: number): string {
 function typeSuffix(e: Entry): string {
   if (isArrayType(e.type)) {
     const count = e.payload ? arrayCount(e) : 0;
-    return `(${DataTypeName[e.type]}[${count}])`;
+    return `(${DataType[e.type]}[${count}])`;
   }
-  return `(${DataTypeName[e.type]})`;
+  return `(${DataType[e.type]})`;
 }
 
 function sortTree(nodes: TreeNode[]): void {

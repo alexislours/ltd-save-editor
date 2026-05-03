@@ -6,6 +6,7 @@ import {
   planFromZip,
   type BulkPlan,
 } from './bulkLoad';
+import { recordSnapshot } from './historyCapture';
 import { getPath, navigate } from './navigation.svelte';
 import { SAVE_KINDS, type SaveKind } from './saveFile.svelte';
 
@@ -46,6 +47,12 @@ function commit(plan: BulkPlan, resolve: (o: BulkOutcome) => void): void {
     conflicts: plan.conflicts.length,
     from_zip: planFromZip(plan),
   });
+  const captures: { kind: SaveKind; name: string; bytes: Uint8Array }[] = [];
+  for (const kind of loaded) {
+    const c = plan.matches.get(kind);
+    if (c) captures.push({ kind, name: c.name, bytes: c.bytes });
+  }
+  void recordSnapshot(captures, plan.ugcFiles);
   redirectIfNeeded(loaded);
   resolve({ loaded, skipped: plan.skipped, cancelled: false });
 }

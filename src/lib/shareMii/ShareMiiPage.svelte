@@ -10,7 +10,16 @@
   import { downloadBytes } from '../sav/download';
   import { errorMessage } from '../errorMessage';
   import { getSave } from '../saveFile.svelte';
-  import { schedulePersist } from '../sessionPersist';
+  import {
+    markDirty as markPlayerDirty,
+    playerState,
+    syncFromSave as syncPlayerFromSave,
+  } from '../playerEditor.svelte';
+  import {
+    markDirty as markMiiDirty,
+    miiState,
+    syncFromSave as syncMiiFromSave,
+  } from '../mii/miiEditor.svelte';
   import {
     CARD_BASE_CLASS,
     CARD_CLASS,
@@ -59,6 +68,15 @@
   const isMii = $derived(activeKind === 'Mii');
   const haveSaves = $derived(!!playerSave && (!isMii || !!miiSave));
 
+  $effect(() => {
+    void playerSave;
+    syncPlayerFromSave();
+  });
+  $effect(() => {
+    void miiSave;
+    syncMiiFromSave();
+  });
+
   const kindTabs = $derived([
     { value: 'Mii' as Kind, label: $_('sharemii.kind.Mii') },
     ...UGC_KINDS.map((k) => ({ value: k as Kind, label: $_(`sharemii.kind.${k}`) })),
@@ -75,6 +93,8 @@
   const sidecar = $derived(getSidecarStore());
 
   const rowsResult = $derived.by<{ rows: Row[]; error: unknown }>(() => {
+    void playerState.tick;
+    void miiState.tick;
     if (!playerSave?.parsed) return { rows: [], error: null };
     if (isMii) {
       if (!miiSave?.parsed) return { rows: [], error: null };
@@ -335,6 +355,8 @@
           if (isMii) {
             const r = applyMii(player, mii!, importSlot, f.bytes, sidecar);
             writes.push(...r.facepaintWrites);
+            for (const entry of r.touchedPlayerEntries) markPlayerDirty(entry);
+            for (const entry of r.touchedMiiEntries) markMiiDirty(entry);
           } else {
             const isAdding = !!targetRow?.isAddNew;
             const r = applyUgc(
@@ -346,6 +368,7 @@
               sidecar,
             );
             writes.push(...r.textureWrites);
+            for (const entry of r.touchedPlayerEntries) markPlayerDirty(entry);
           }
           count++;
         } catch (e) {
@@ -366,9 +389,6 @@
         setToast('error', formatFailures(failures));
         return;
       }
-
-      schedulePersist('player');
-      if (isMii) schedulePersist('mii');
 
       if (writes.length > 0) {
         const fresh = new SvelteMap<string, Uint8Array>();

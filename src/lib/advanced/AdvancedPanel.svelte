@@ -6,7 +6,7 @@
   import PlayerDetail from '../player/PlayerDetail.svelte';
   import PlayerTree from '../player/PlayerTree.svelte';
   import { buildTree, type TreeNode } from '../player/tree';
-  import { DATA_TYPE_COUNT, DataType, DataTypeName } from '../sav/dataType';
+  import { DATA_TYPE_COUNT, DataType } from '../sav/dataType';
   import { hexU32 } from '../sav/format';
   import { murmur3_x86_32 } from '../sav/hash';
   import { nameForHash } from '../sav/knownKeys';
@@ -234,7 +234,7 @@
         <span class="min-w-0 basis-full text-xs text-content-muted sm:ml-auto sm:basis-auto">
           {$_('advanced.sections_label')}
           {countsByType
-            .map((c, t) => (c > 0 ? `${DataTypeName[t as DataType]} (${c})` : null))
+            .map((c, t) => (c > 0 ? `${DataType[t as DataType]} (${c})` : null))
             .filter(Boolean)
             .slice(0, 4)
             .join(' · ')}
@@ -286,7 +286,7 @@
               <option value="all">{$_('advanced.filter_type_all')}</option>
               {#each countsByType as count, t (t)}
                 {#if count > 0}
-                  <option value={t}>{DataTypeName[t as DataType]} ({count})</option>
+                  <option value={t}>{DataType[t as DataType]} ({count})</option>
                 {/if}
               {/each}
             </select>
@@ -377,7 +377,7 @@
                   {hexU32(entry.hash)}
                 </button>
                 <span class="adv-cell-type text-xs text-content-muted" role="cell">
-                  {DataTypeName[entry.type]}
+                  {DataType[entry.type]}
                 </span>
                 <span class="adv-cell-name min-w-0 truncate text-xs text-content" role="cell">
                   {nameForHash(entry.hash) ?? ''}

@@ -36,42 +36,6 @@ export enum DataType {
 
 export const DATA_TYPE_COUNT = 33;
 
-export const DataTypeName: Record<DataType, string> = {
-  [DataType.Bool]: 'Bool',
-  [DataType.BoolArray]: 'BoolArray',
-  [DataType.Int]: 'Int',
-  [DataType.IntArray]: 'IntArray',
-  [DataType.Float]: 'Float',
-  [DataType.FloatArray]: 'FloatArray',
-  [DataType.Enum]: 'Enum',
-  [DataType.EnumArray]: 'EnumArray',
-  [DataType.Vector2]: 'Vector2',
-  [DataType.Vector2Array]: 'Vector2Array',
-  [DataType.Vector3]: 'Vector3',
-  [DataType.Vector3Array]: 'Vector3Array',
-  [DataType.String16]: 'String16',
-  [DataType.String16Array]: 'String16Array',
-  [DataType.String32]: 'String32',
-  [DataType.String32Array]: 'String32Array',
-  [DataType.String64]: 'String64',
-  [DataType.String64Array]: 'String64Array',
-  [DataType.Binary]: 'Binary',
-  [DataType.BinaryArray]: 'BinaryArray',
-  [DataType.UInt]: 'UInt',
-  [DataType.UIntArray]: 'UIntArray',
-  [DataType.Int64]: 'Int64',
-  [DataType.Int64Array]: 'Int64Array',
-  [DataType.UInt64]: 'UInt64',
-  [DataType.UInt64Array]: 'UInt64Array',
-  [DataType.WString16]: 'WString16',
-  [DataType.WString16Array]: 'WString16Array',
-  [DataType.WString32]: 'WString32',
-  [DataType.WString32Array]: 'WString32Array',
-  [DataType.WString64]: 'WString64',
-  [DataType.WString64Array]: 'WString64Array',
-  [DataType.Bool64bitKey]: 'Bool64bitKey',
-};
-
 export function isInline(t: DataType): boolean {
   return (
     t === DataType.Bool ||

@@ -33,27 +33,41 @@ type UgcEntries = {
   enable: Uint8Array;
   texture: Uint8Array;
   hashId: Uint8Array;
+  playerEntries: Entry[];
 };
 
-function loadEntry(player: SavFile, hash: number, label: string): Entry {
+function loadEntry(player: SavFile, hash: number, label: string, sink: Entry[]): Entry {
   const e = findEntry(player, hash, label);
   if (!e.payload) {
     throw new ShareMiiError('save_format_error', { label });
   }
+  sink.push(e);
   return e;
+}
+
+function loadPayload(player: SavFile, hash: number, label: string, sink: Entry[]): Uint8Array {
+  return loadEntry(player, hash, label, sink).payload!;
 }
 
 function readUgcEntries(player: SavFile, kind: UgcKind): UgcEntries {
   const hashes = UGC_HASHES[kind];
-  return {
-    fields: hashes.fields.map((h, i) => loadEntry(player, h, `${kind}.field[${i}]`)),
-    names: hashes.names.map((h, i) => loadEntry(player, h, `${kind}.name[${i}]`)),
-    vector: hashes.vector ? entryPayload(player, hashes.vector, `${kind}.vector`) : null,
-    vector2: hashes.vector2 ? entryPayload(player, hashes.vector2, `${kind}.vector2`) : null,
-    enable: entryPayload(player, UGC_ENABLE_HASHES[kind], `${kind}.enable`),
-    texture: entryPayload(player, UGC_TEXTURE_HASHES[kind], `${kind}.texture`),
-    hashId: entryPayload(player, UGC_HASH_ID_HASHES[kind], `${kind}.hashId`),
-  };
+  const playerEntries: Entry[] = [];
+  const fields = hashes.fields.map((h, i) =>
+    loadEntry(player, h, `${kind}.field[${i}]`, playerEntries),
+  );
+  const names = hashes.names.map((h, i) =>
+    loadEntry(player, h, `${kind}.name[${i}]`, playerEntries),
+  );
+  const vector = hashes.vector
+    ? loadPayload(player, hashes.vector, `${kind}.vector`, playerEntries)
+    : null;
+  const vector2 = hashes.vector2
+    ? loadPayload(player, hashes.vector2, `${kind}.vector2`, playerEntries)
+    : null;
+  const enable = loadPayload(player, UGC_ENABLE_HASHES[kind], `${kind}.enable`, playerEntries);
+  const texture = loadPayload(player, UGC_TEXTURE_HASHES[kind], `${kind}.texture`, playerEntries);
+  const hashId = loadPayload(player, UGC_HASH_ID_HASHES[kind], `${kind}.hashId`, playerEntries);
+  return { fields, names, vector, vector2, enable, texture, hashId, playerEntries };
 }
 
 function entrySlotCapacity(entry: Entry): number {
@@ -232,6 +246,7 @@ export function extractUgc(
 
 export type ApplyUgcResult = {
   textureWrites: SidecarFile[];
+  touchedPlayerEntries: Entry[];
 };
 
 export function applyUgc(
@@ -305,7 +320,7 @@ export function applyUgc(
     for (const f of writes) sidecar.files.set(f.name, f.bytes);
   }
 
-  return { textureWrites: writes };
+  return { textureWrites: writes, touchedPlayerEntries: e.playerEntries };
 }
 
 export function getUgcSlotName(player: SavFile, kind: UgcKind, slot: number): string {

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { arrayCount, hasIndexedElementEditor, isArrayType } from '../sav/codec';
   import { _ } from 'svelte-i18n';
-  import { DataType, DataTypeName } from '../sav/dataType';
+  import { DataType } from '../sav/dataType';
   import { hexU32 } from '../sav/format';
   import { enumOptionsFor } from '../sav/knownKeys';
   import type { Entry } from '../sav/types';
@@ -108,7 +108,7 @@
       {path ?? $_('advanced.detail_unknown_path')}
     </h3>
     <span class="font-mono text-xs text-content-muted">
-      {hexU32(entry.hash)} · {DataTypeName[entry.type]}{isArray ? `[${count}]` : ''}
+      {hexU32(entry.hash)} · {DataType[entry.type]}{isArray ? `[${count}]` : ''}
     </span>
   </header>
 
@@ -118,7 +118,7 @@
     </div>
   {:else if !canEditElements}
     <p class="text-sm text-content-muted">
-      {$_('advanced.detail_readonly_browsing', { values: { type: DataTypeName[entry.type] } })}
+      {$_('advanced.detail_readonly_browsing', { values: { type: DataType[entry.type] } })}
     </p>
   {:else if count === 0}
     <p class="text-sm text-content-muted">{$_('advanced.detail_empty_array')}</p>

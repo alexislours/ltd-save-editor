@@ -70,6 +70,7 @@
     { href: '/map', label: $_('tab.map'), wip: false },
     { href: '/sharemii', label: $_('tab.sharemii'), wip: false },
     { href: '/ugc', label: $_('tab.ugc_editor'), wip: false },
+    { href: '/history', label: $_('tab.history'), wip: false },
     { href: '/faq', label: $_('tab.faq'), wip: false },
     { href: '/about', label: $_('tab.about'), wip: false },
   ]);

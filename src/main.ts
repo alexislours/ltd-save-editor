@@ -12,6 +12,7 @@ import { loadRoomStyleList } from './lib/sav/roomStyleList.svelte';
 import { loadTreasureList } from './lib/sav/treasureList.svelte';
 import { loadTroubleList } from './lib/sav/troubleList.svelte';
 import { loadWordKindLabels } from './lib/sav/wordKindLabels.svelte';
+import { loadMiiLabels } from './lib/mii/miiLabelList.svelte';
 
 loadHashList();
 loadFoodList();
@@ -23,6 +24,7 @@ loadItemList();
 loadTroubleList();
 loadHabitList();
 loadWordKindLabels();
+loadMiiLabels();
 
 const app = mount(App, {
   target: document.getElementById('app')!,
