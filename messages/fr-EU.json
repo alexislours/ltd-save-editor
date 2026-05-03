@@ -22,7 +22,8 @@
     "advanced": "Avancé",
     "about": "À propos",
     "faq": "FAQ",
-    "ugc_editor": "Éditeur UGC"
+    "ugc_editor": "Éditeur UGC",
+    "history": "Historique"
   },
   "lightbox": {
     "open": "Agrandir l'image de {label}",
@@ -1518,6 +1519,34 @@
         "title": "Voilà pour l'éditeur UGC",
         "description": "Choisis un emplacement, dépose une image, ajuste le cadrage, fais Remplacer, puis télécharge les fichiers modifiés depuis la barre de sauvegarde."
       }
+    }
+  },
+  "history": {
+    "title": "Historique des dépôts",
+    "description": "Une copie locale de chaque fichier de sauvegarde que tu as déposé dans l'éditeur, conservée uniquement dans ton navigateur. À utiliser en dernier recours si tu écrases ta vraie sauvegarde par accident.",
+    "warning_title": "Ceci n'est pas une solution de sauvegarde.",
+    "warning_body": "Les fichiers ici ne vivent que dans ce navigateur et peuvent être effacés à tout moment : vidage des données du site, changement de navigateur, fenêtres privées ou pression de stockage. Conserve toujours une vraie sauvegarde de tes fichiers Mii.sav, Player.sav et Map.sav en lieu sûr.",
+    "loading": "Chargement…",
+    "empty": "Aucun dépôt enregistré pour l'instant. Le prochain fichier de sauvegarde que tu charges apparaîtra ici.",
+    "unknown_player": "Sauvegarde sans nom",
+    "download": "Télécharger le zip",
+    "delete": "Supprimer",
+    "clear_all": "Vider l'historique",
+    "slots_used": "emplacements utilisés",
+    "stat": {
+      "miis": "Miis",
+      "ugc": "UGC",
+      "size": "Taille"
+    },
+    "delete_title": "Supprimer ce dépôt ?",
+    "delete_body": "Retirer ce dépôt enregistré de ce navigateur. Les fichiers .sav originaux contenus dans cet instantané seront perdus de l'historique.",
+    "delete_warning": "Cette action est irréversible. Si c'est ta seule copie de ces fichiers, télécharge le zip d'abord.",
+    "clear_title": "Vider l'historique ?",
+    "clear_body": "Retirer chaque dépôt enregistré de ce navigateur. Tous les fichiers .sav uniquement conservés ici seront perdus.",
+    "toast": {
+      "quota_exceeded": "L'historique des dépôts est plein et ton navigateur n'a plus d'espace de stockage. Ouvre Historique et supprime d'anciens dépôts pour faire de la place.",
+      "save_failed": "Impossible d'enregistrer ce dépôt dans l'historique.",
+      "download_failed": "Impossible de lire les fichiers sauvegardés de ce dépôt."
     }
   }
 }

@@ -22,7 +22,8 @@
     "advanced": "Avançado",
     "about": "Sobre",
     "faq": "FAQ",
-    "ugc_editor": "Editor UGC"
+    "ugc_editor": "Editor UGC",
+    "history": "Histórico"
   },
   "lightbox": {
     "open": "Ampliar imagem de {label}",
@@ -1518,6 +1519,34 @@
         "title": "Este é o Editor UGC",
         "description": "Escolha um slot, solte uma imagem, ajuste o enquadramento, Substitua e baixe os arquivos editados pela barra de saves."
       }
+    }
+  },
+  "history": {
+    "title": "Histórico de envios",
+    "description": "Uma cópia local de cada arquivo de save que você arrastou para o editor, guardada apenas no seu navegador. Use como último recurso de recuperação caso sobrescreva seu backup real por engano.",
+    "warning_title": "Isto não é uma solução de backup.",
+    "warning_body": "Os arquivos aqui ficam apenas neste navegador e podem ser apagados a qualquer momento: ao limpar os dados do site, trocar de navegador, usar janelas privadas ou por pressão de armazenamento. Sempre mantenha um backup real dos seus arquivos Mii.sav, Player.sav e Map.sav em um lugar seguro.",
+    "loading": "Carregando…",
+    "empty": "Nenhum envio registrado ainda. O próximo arquivo de save que você carregar aparecerá aqui.",
+    "unknown_player": "Save sem nome",
+    "download": "Baixar zip",
+    "delete": "Excluir",
+    "clear_all": "Limpar histórico",
+    "slots_used": "espaços usados",
+    "stat": {
+      "miis": "Miis",
+      "ugc": "UGC",
+      "size": "Tamanho"
+    },
+    "delete_title": "Excluir este envio?",
+    "delete_body": "Remover este envio salvo deste navegador. Os arquivos .sav originais contidos neste snapshot serão perdidos do histórico.",
+    "delete_warning": "Esta ação não pode ser desfeita. Se esta é sua única cópia destes arquivos, baixe o zip primeiro.",
+    "clear_title": "Limpar histórico?",
+    "clear_body": "Remover cada envio salvo deste navegador. Quaisquer arquivos .sav guardados apenas aqui serão perdidos.",
+    "toast": {
+      "quota_exceeded": "O histórico de envios está cheio e seu navegador ficou sem espaço de armazenamento. Abra Histórico e exclua envios antigos para liberar espaço.",
+      "save_failed": "Não foi possível salvar este envio no histórico.",
+      "download_failed": "Não foi possível ler os arquivos salvos deste envio."
     }
   }
 }

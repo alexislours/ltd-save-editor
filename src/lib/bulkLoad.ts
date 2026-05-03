@@ -22,6 +22,7 @@ export type BulkPlan = {
   conflicts: SaveKind[];
   skipped: { name: string; reason: 'unrecognized' | 'read_failed' }[];
   totalSeen: number;
+  ugcFiles: { name: string; bytes: Uint8Array }[];
 };
 
 const ZIP_EXT = /\.zip$/i;
@@ -102,7 +103,17 @@ export async function planBulkLoad(files: File[]): Promise<BulkPlan> {
   }
 
   if (folderSidecars.length > 0) sidecarBatches.push(folderSidecars);
-  for (const batch of sidecarBatches) collectSidecarFromNamedBytes('bulk', batch);
+  const ugcMap = new Map<string, Uint8Array>();
+  for (const batch of sidecarBatches) {
+    for (const { name, bytes } of batch) {
+      if (isJunkArchiveEntry(name)) continue;
+      const base = baseName(name);
+      if (!isSidecarFileName(base)) continue;
+      ugcMap.set(base, bytes);
+    }
+  }
+  const ugcFiles = Array.from(ugcMap, ([name, bytes]) => ({ name, bytes }));
+  if (ugcFiles.length > 0) collectSidecarFromNamedBytes('bulk', ugcFiles);
 
   const matches = new Map<SaveKind, Candidate>();
   for (const c of candidates) {
@@ -116,7 +127,12 @@ export async function planBulkLoad(files: File[]): Promise<BulkPlan> {
 
   const conflicts = SAVE_KINDS.filter((k) => matches.has(k) && getSave(k) != null);
 
-  return { matches, conflicts, skipped, totalSeen: candidates.length };
+  return { matches, conflicts, skipped, totalSeen: candidates.length, ugcFiles };
+}
+
+function baseName(name: string): string {
+  const idx = Math.max(name.lastIndexOf('/'), name.lastIndexOf('\\'));
+  return idx >= 0 ? name.slice(idx + 1) : name;
 }
 
 export function applyBulkPlan(plan: BulkPlan): SaveKind[] {

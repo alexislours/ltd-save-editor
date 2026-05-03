@@ -54,6 +54,14 @@ type Events = {
   advanced_view_changed: { to: 'tree' | 'table' };
   advanced_name_searched: { matched: boolean };
   advanced_hash_copied: Record<string, never>;
+  history_recorded: { kinds: string; kind_count: number; ugc_count: number; total_bytes: number };
+  history_downloaded: { kinds: string; kind_count: number };
+  history_delete_requested: Record<string, never>;
+  history_delete_confirmed: Record<string, never>;
+  history_delete_cancelled: Record<string, never>;
+  history_clear_requested: { count: number };
+  history_clear_confirmed: { count: number };
+  history_clear_cancelled: { count: number };
   changelog_opened: { had_new: boolean; version: string };
   channel_switch_clicked: { from: 'beta' | 'stable'; to: 'beta' | 'stable' };
   external_link: { target: string };

@@ -289,8 +289,37 @@
     "sharemii": "ShareMii",
     "ugc_editor": "UGC editor",
     "advanced": "Advanced",
+    "history": "History",
     "faq": "FAQ",
     "about": "About"
+  },
+  "history": {
+    "title": "Drop history",
+    "description": "A local copy of every save file you've dropped into the editor, kept in your browser only. Use it as a last-chance recovery if you accidentally save over your real backup.",
+    "warning_title": "This is not a backup solution.",
+    "warning_body": "Files here live only in this browser and can be wiped at any time by clearing site data, switching browsers, private windows, or storage pressure. Always keep a real backup of your Mii.sav, Player.sav, and Map.sav files somewhere safe.",
+    "slots_used": "slots used",
+    "loading": "Loading…",
+    "empty": "No drops recorded yet. The next save file you load will appear here.",
+    "unknown_player": "Unnamed save",
+    "stat": {
+      "miis": "Miis",
+      "ugc": "UGC",
+      "size": "Size"
+    },
+    "download": "Download zip",
+    "delete": "Delete",
+    "delete_title": "Delete this drop?",
+    "delete_body": "Remove this saved drop from this browser. The original .sav files in the snapshot will be lost from history.",
+    "delete_warning": "This can't be undone. If this is your only copy of these files, download the zip first.",
+    "clear_all": "Clear history",
+    "clear_title": "Clear history?",
+    "clear_body": "Remove every saved drop from this browser. Any .sav files only kept here will be gone.",
+    "toast": {
+      "quota_exceeded": "Drop history is full and your browser is out of storage. Open History and delete older drops to make room.",
+      "save_failed": "Could not save this drop to history.",
+      "download_failed": "Could not read the saved files for this drop."
+    }
   },
   "ugc_editor": {
     "title": "UGC editor",
