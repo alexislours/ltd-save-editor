@@ -16,7 +16,7 @@
     type MiiExportFormat,
   } from '../lib/mii/export';
   import { downloadModified, markDirty, miiState, syncFromSave } from '../lib/mii/miiEditor.svelte';
-  import { _ } from 'svelte-i18n';
+  import { _, locale } from 'svelte-i18n';
   import { track } from '../lib/analytics';
   import { downloadText } from '../lib/sav/download';
   import { expectedFileName, getSave } from '../lib/saveFile.svelte';
@@ -56,6 +56,7 @@
       const data = buildMiiExport(miiState.parsed.entries, {
         appVersion: __APP_VERSION__,
         saveFile: expectedFileName.mii,
+        uiLocale: $locale,
       });
       const file = buildMiiExportFile(data, format, exportTimestamp());
       downloadText(file.content, file.filename, file.mime);

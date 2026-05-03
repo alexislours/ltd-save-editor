@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _, locale } from 'svelte-i18n';
   import { SvelteMap } from 'svelte/reactivity';
   import { arrSetEnum, arrSetInt } from '../sav/codec';
   import { enumOptionsFor } from '../sav/knownKeys';
@@ -7,6 +7,7 @@
   import type { Entry } from '../sav/types';
   import { CARD_CLASS } from '../styles';
   import { markDirty, miiState } from './miiEditor.svelte';
+  import { relationTypeLabel, subRelationLabel } from './miiLabelList.svelte';
   import {
     baseRelationTypeLabel,
     blockForCandidate,
@@ -393,11 +394,8 @@
     if (setFight(relEntries, slot, false)) markDirty(relEntries.isFight);
   }
 
-  /** Translate a base relation type internal name (e.g. "Couple"). Falls back to the raw name. */
   function localizeRelationType(name: string): string {
-    if (name.startsWith('0x')) return name;
-    const t = $_(`mii.relations.type.${name}`);
-    return t && t !== `mii.relations.type.${name}` ? t : name;
+    return relationTypeLabel(name, $locale) ?? name;
   }
 </script>
 
@@ -544,7 +542,7 @@
                   >
                     {#each outLevels as lv (lv.index)}
                       <option value={lv.meter} selected={outActive?.index === lv.index}>
-                        {$_(`mii.relations.sub.${lv.key}`)}
+                        {subRelationLabel(lv.key, $locale) ?? lv.key}
                       </option>
                     {/each}
                   </select>
@@ -596,7 +594,7 @@
                   >
                     {#each inLevels as lv (lv.index)}
                       <option value={lv.meter} selected={inActive?.index === lv.index}>
-                        {$_(`mii.relations.sub.${lv.key}`)}
+                        {subRelationLabel(lv.key, $locale) ?? lv.key}
                       </option>
                     {/each}
                   </select>

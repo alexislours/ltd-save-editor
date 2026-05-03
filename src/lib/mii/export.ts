@@ -1,6 +1,12 @@
 import { arrGetEnum, arrGetInt, arrGetString, arrGetUInt } from '../sav/codec';
-import { enumOptionName } from '../sav/knownKeys';
+import { enumOptionsFor } from '../sav/knownKeys';
 import type { Entry } from '../sav/types';
+import {
+  genderLabel,
+  pronounLabel,
+  relationTypeLabel,
+  subRelationLabel,
+} from './miiLabelList.svelte';
 import { MII_SECTIONS, type MiiField } from './miiFields';
 import { populatedMiiIndices } from './populated';
 import {
@@ -16,6 +22,38 @@ import {
   type RelationEntries,
 } from './relations';
 
+function fieldEnumLabel(field: MiiField, value: string, uiLocale: string | null): string | null {
+  if (field.name === 'Mii.Name.PronounType') {
+    const t = pronounLabel(value, uiLocale);
+    if (t) return t;
+  }
+  if (field.name === 'Mii.MiiMisc.FaceInfo.Gender') {
+    const t = genderLabel(value, uiLocale);
+    if (t) return t;
+  }
+  const opts = enumOptionsFor(field.hash);
+  const opt = opts?.find((o) => o.name === value);
+  return opt?.label ?? null;
+}
+
+function loveGenderText(value: LoveGenderOption, uiLocale: string | null): string {
+  return genderLabel(value, uiLocale) ?? value;
+}
+
+function typeSetSecText(value: string | null, uiLocale: string | null): string | null {
+  if (value === null || value === '') return null;
+  const n = Number(value);
+  if (!Number.isFinite(n) || n <= 0) return null;
+  const d = new Date(n * 1000);
+  if (Number.isNaN(d.getTime())) return null;
+  try {
+    const tag = uiLocale ?? undefined;
+    return new Intl.DateTimeFormat(tag, { dateStyle: 'medium', timeStyle: 'medium' }).format(d);
+  } catch {
+    return d.toISOString();
+  }
+}
+
 export const EXPORT_SCHEMA = 'ltd-mii-export/v1';
 
 export type MiiSnapshot = {
@@ -23,6 +61,7 @@ export type MiiSnapshot = {
   name: string;
   fields: Record<string, string | number | null>;
   attractedTo: LoveGenderOption[];
+  attractedToLabels: string[];
 };
 
 export type RelationshipSnapshot = {
@@ -31,15 +70,18 @@ export type RelationshipSnapshot = {
   b: { index: number; name: string };
   isFight: boolean;
   typeSetSec: string | null;
+  typeSetSecLabel: string | null;
   atob: DirectionalSnapshot;
   btoa: DirectionalSnapshot;
 };
 
 export type DirectionalSnapshot = {
   type: string;
+  typeLabel: string | null;
   meter: number;
   crush: boolean;
   subRelation: string | null;
+  subRelationLabel: string | null;
 };
 
 export type MiiExport = {
@@ -55,6 +97,7 @@ export type BuildOptions = {
   appVersion: string;
   saveFile: string;
   exportedAt?: string;
+  uiLocale?: string | null;
 };
 
 export function buildMiiExport(entries: Entry[], opts: BuildOptions): MiiExport {
@@ -63,9 +106,10 @@ export function buildMiiExport(entries: Entry[], opts: BuildOptions): MiiExport 
 
   const indices = populatedMiiIndices(byHash);
   const relEntries = findRelationEntries(byHash);
+  const uiLocale = opts.uiLocale ?? null;
 
-  const miis = indices.map((index) => snapshotMii(index, byHash, relEntries));
-  const relationships = relEntries ? snapshotRelationships(relEntries) : [];
+  const miis = indices.map((index) => snapshotMii(index, byHash, relEntries, uiLocale));
+  const relationships = relEntries ? snapshotRelationships(relEntries, uiLocale) : [];
 
   return {
     schema: EXPORT_SCHEMA,
@@ -81,15 +125,17 @@ function snapshotMii(
   index: number,
   byHash: Map<number, Entry>,
   relEntries: RelationEntries | null,
+  uiLocale: string | null,
 ): MiiSnapshot {
   const fields: Record<string, string | number | null> = {};
   let name = '';
 
   for (const section of MII_SECTIONS) {
-    for (const field of section.fields) collectField(field, index, byHash, fields);
-    for (const field of section.spoilerFields ?? []) collectField(field, index, byHash, fields);
+    for (const field of section.fields) collectField(field, index, byHash, fields, uiLocale);
+    for (const field of section.spoilerFields ?? [])
+      collectField(field, index, byHash, fields, uiLocale);
     for (const field of section.postSpoilerFields ?? []) {
-      collectField(field, index, byHash, fields);
+      collectField(field, index, byHash, fields, uiLocale);
     }
   }
 
@@ -102,8 +148,9 @@ function snapshotMii(
       if (readIsLoveGender(relEntries.loveGender, index, opt)) attractedTo.push(opt);
     }
   }
+  const attractedToLabels = attractedTo.map((opt) => loveGenderText(opt, uiLocale));
 
-  return { index, name, fields, attractedTo };
+  return { index, name, fields, attractedTo, attractedToLabels };
 }
 
 function collectField(
@@ -111,11 +158,17 @@ function collectField(
   index: number,
   byHash: Map<number, Entry>,
   out: Record<string, string | number | null>,
+  uiLocale: string | null,
 ): void {
   const entry = byHash.get(field.hash);
   if (!entry || entry.type !== field.expectedType) return;
   try {
-    out[field.labelKey] = readFieldValue(entry, index, field);
+    const value = readFieldValue(entry, index, field);
+    out[field.labelKey] = value;
+    if (field.kind === 'enum' && typeof value === 'string') {
+      const label = fieldEnumLabel(field, value, uiLocale);
+      if (label !== null) out[`${field.labelKey}_label`] = label;
+    }
   } catch {
     /* skip */
   }
@@ -136,18 +189,23 @@ function readFieldValue(entry: Entry, index: number, field: MiiField): string | 
   }
 }
 
-function snapshotRelationships(re: RelationEntries): RelationshipSnapshot[] {
+function snapshotRelationships(
+  re: RelationEntries,
+  uiLocale: string | null,
+): RelationshipSnapshot[] {
   return listRelationships(re).map((r) => {
     const aName = readMiiName(re.name, r.a);
     const bName = readMiiName(re.name, r.b);
+    const typeSetSec = r.typeSetSec === null ? null : r.typeSetSec.toString();
     return {
       slot: r.slot,
       a: { index: r.a, name: aName },
       b: { index: r.b, name: bName },
       isFight: r.isFight,
-      typeSetSec: r.typeSetSec === null ? null : r.typeSetSec.toString(),
-      atob: directional(r.typeAtoB, r.meterAtoB, r.crushAtoB, r.isFight),
-      btoa: directional(r.typeBtoA, r.meterBtoA, r.crushBtoA, r.isFight),
+      typeSetSec,
+      typeSetSecLabel: typeSetSecText(typeSetSec, uiLocale),
+      atob: directional(r.typeAtoB, r.meterAtoB, r.crushAtoB, r.isFight, uiLocale),
+      btoa: directional(r.typeBtoA, r.meterBtoA, r.crushBtoA, r.isFight, uiLocale),
     };
   });
 }
@@ -157,10 +215,19 @@ function directional(
   meter: number,
   crush: boolean,
   isFight: boolean,
+  uiLocale: string | null,
 ): DirectionalSnapshot {
   const typeName = baseRelationTypeLabel(typeHash);
   const sub = subRelationKey(typeName, meter, isFight && hasFightVariant(typeName));
-  return { type: typeName, meter, crush, subRelation: sub?.key ?? null };
+  const subKey = sub?.key ?? null;
+  return {
+    type: typeName,
+    typeLabel: relationTypeLabel(typeName, uiLocale),
+    meter,
+    crush,
+    subRelation: subKey,
+    subRelationLabel: subKey === null ? null : subRelationLabel(subKey, uiLocale),
+  };
 }
 
 export function serializeMiiExportJson(data: MiiExport): string {
@@ -172,6 +239,7 @@ const COMPUTED_MII_COLUMNS: { header: string; pick: (m: MiiSnapshot) => string |
     { header: 'index', pick: (m) => m.index },
     { header: 'name', pick: (m) => m.name },
     { header: 'attracted_to', pick: (m) => m.attractedTo.join('|') },
+    { header: 'attracted_to_label', pick: (m) => m.attractedToLabels.join('|') },
   ];
 
 export const MII_FIELD_COLUMNS: string[] = (() => {
@@ -187,6 +255,7 @@ export const MII_FIELD_COLUMNS: string[] = (() => {
       if (seen.has(f.labelKey)) continue;
       seen.add(f.labelKey);
       keys.push(f.labelKey);
+      if (f.kind === 'enum') keys.push(`${f.labelKey}_label`);
     }
   }
   return keys;
@@ -210,11 +279,14 @@ const REL_CSV_HEADER = [
   'target_index',
   'target_name',
   'relation_type',
+  'relation_type_label',
   'meter',
   'crush',
   'sub_relation',
+  'sub_relation_label',
   'is_fight',
   'type_set_sec',
+  'type_set_sec_label',
   'slot',
 ];
 
@@ -280,11 +352,14 @@ function directionalRow(
     target.index,
     target.name,
     dir.type,
+    dir.typeLabel,
     dir.meter,
     dir.crush ? 'true' : 'false',
     dir.subRelation,
+    dir.subRelationLabel,
     r.isFight ? 'true' : 'false',
     r.typeSetSec,
+    r.typeSetSecLabel,
     r.slot,
   ];
 }

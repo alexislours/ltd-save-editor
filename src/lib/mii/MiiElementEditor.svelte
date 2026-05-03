@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _, locale } from 'svelte-i18n';
   import {
     arrGetEnum,
     arrGetInt,
@@ -15,6 +15,7 @@
   import type { Entry } from '../sav/types';
   import { FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
   import { markDirty, miiState } from './miiEditor.svelte';
+  import { genderLabel, pronounLabel } from './miiLabelList.svelte';
   import type { MiiField } from './miiFields';
 
   type Props = {
@@ -53,15 +54,14 @@
     return enumOptionsFor(field.hash);
   });
 
-  // Map a curated enum option name to a localized label, when we have one.
   function localizeEnumOption(name: string, fallbackLabel: string | undefined): string {
     if (field.name === 'Mii.Name.PronounType') {
-      const t = $_(`mii.pronoun.${name}`);
-      if (t && t !== `mii.pronoun.${name}`) return t;
+      const t = pronounLabel(name, $locale);
+      if (t) return t;
     }
     if (field.name === 'Mii.MiiMisc.FaceInfo.Gender') {
-      const t = $_(`mii.gender.${name}`);
-      if (t && t !== `mii.gender.${name}`) return t;
+      const t = genderLabel(name, $locale);
+      if (t) return t;
     }
     return fallbackLabel ?? name;
   }

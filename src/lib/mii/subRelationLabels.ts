@@ -1,12 +1,9 @@
-// Maps a relation's internal name + meter (+ fight flag) to a sub-relation key
-// understood by i18n (e.g. "Couple_Fight_3"). Component code is responsible
-// for resolving these via $_('mii.relations.sub.<key>').
+// Maps a relation's internal name + meter (+ fight flag) to a sub-relation
+// key understood by miiLabelList.subRelationLabel (e.g. "Couple_Fight_3").
 
 type SubGroup = {
   thresholds: readonly number[];
-  /** Base i18n key prefix (e.g. "Couple"). */
   prefix: string;
-  /** Optional fight prefix (e.g. "Couple_Fight"). */
   fightPrefix?: string;
 };
 
@@ -66,17 +63,13 @@ const SUB_RELATIONS: Record<string, SubGroup> = {
 
 /** Resolved sub-relation pointer at a given meter value. */
 export type SubRelationKey = {
-  /** i18n leaf under `mii.relations.sub` (e.g. "Couple_Fight_3"). */
   key: string;
-  /** Step index (0..6). */
   index: number;
 };
 
-/** Discrete level options usable to render a dropdown. */
 export type SubRelationLevel = {
   index: number;
   meter: number;
-  /** i18n leaf under `mii.relations.sub`. */
   key: string;
 };
 

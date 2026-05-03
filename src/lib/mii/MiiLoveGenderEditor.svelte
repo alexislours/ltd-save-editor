@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _, locale } from 'svelte-i18n';
   import type { Entry } from '../sav/types';
   import { LABEL_CLASS } from '../styles';
   import { markDirty, miiState } from './miiEditor.svelte';
+  import { genderLabel } from './miiLabelList.svelte';
   import {
     LOVE_GENDER_OPTIONS,
     readIsLoveGender,
@@ -39,7 +40,7 @@
           checked={values[i]}
           onchange={(e) => toggle(opt, e.currentTarget.checked)}
         />
-        <span>{$_(`mii.gender.${opt}`)}</span>
+        <span>{genderLabel(opt, $locale) ?? opt}</span>
       </label>
     {/each}
   </div>
