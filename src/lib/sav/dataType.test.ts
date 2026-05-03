@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import {
   DATA_TYPE_COUNT,
   DataType,
-  DataTypeName,
   isInline,
   isNarrowString,
   isWideString,
@@ -16,8 +15,8 @@ describe('DataType enum', () => {
 
   it('exposes a name for every member', () => {
     for (let t = 0; t < DATA_TYPE_COUNT; t++) {
-      expect(DataTypeName[t as DataType]).toBeDefined();
-      expect(DataTypeName[t as DataType]).toMatch(/^[A-Za-z0-9]+$/);
+      expect(DataType[t as DataType]).toBeDefined();
+      expect(DataType[t as DataType]).toMatch(/^[A-Za-z0-9]+$/);
     }
   });
 });

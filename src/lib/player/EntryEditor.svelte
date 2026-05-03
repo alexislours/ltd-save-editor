@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { DataTypeName, isInline } from '../sav/dataType';
+  import { DataType, isInline } from '../sav/dataType';
   import { hexU32 } from '../sav/format';
   import type { Entry } from '../sav/types';
   import { markDirty as playerMarkDirty } from '../playerEditor.svelte';
@@ -35,4 +35,4 @@
   <span class="font-mono text-xs text-content-faint">{heapPreview(entry)}</span>
 {/if}
 
-<span class="sr-only">{DataTypeName[entry.type]}</span>
+<span class="sr-only">{DataType[entry.type]}</span>
