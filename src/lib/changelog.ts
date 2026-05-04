@@ -6,6 +6,16 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.0.0',
+    date: '2026-05-04',
+    changes: [
+      'Migrated the app to SvelteKit.',
+      'Rewrote the save data model.',
+      'Replaced the home redirect with a real landing page.',
+      'Faster loading overall.',
+    ],
+  },
+  {
     version: '1.11.0',
     date: '2026-05-03',
     changes: [
