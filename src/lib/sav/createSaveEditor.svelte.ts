@@ -12,7 +12,7 @@ import { downloadBytes } from './download';
 import { createMaterializedAccessor, type Accessor } from './materialized/accessor';
 import { decodeValue } from './materialized/decode';
 import { buildHashMap, pathToLeafMap } from './materialized/schemaIndex';
-import { PLAN, type DecodedSave, type PlanItem, type WithPlan } from './materialized/types';
+import type { DecodedSave } from './materialized/types';
 import type { Entry } from './types';
 
 class EditorState {
@@ -92,7 +92,7 @@ export function createSaveEditor<K extends SaveKind>(
 
   function planIndexFor(decoded: DecodedSave): Map<number, number> {
     if (cachedPlanIndex && cachedDecoded === decoded) return cachedPlanIndex;
-    const plan = ((decoded as DecodedSave & WithPlan)[PLAN] as PlanItem[] | undefined) ?? [];
+    const plan = decoded.plan;
     const map = new SvelteMap<number, number>();
     const pathMap = pathToLeafMap(schema);
     for (let i = 0; i < plan.length; i++) {
@@ -116,31 +116,27 @@ export function createSaveEditor<K extends SaveKind>(
     const hash = entry.hash >>> 0;
     const info = buildHashMap(schema).get(hash);
     const values = decoded.values;
-    const plan = (decoded as DecodedSave & WithPlan)[PLAN] as PlanItem[] | undefined;
+    const plan = decoded.plan;
 
-    const planIdx = plan ? (planIndexFor(decoded).get(hash) ?? -1) : -1;
+    const planIdx = planIndexFor(decoded).get(hash) ?? -1;
 
     if (planIdx === -1) {
       if (info && info.leaf.type === entry.type) {
         values[info.path] = decodeValue(entry);
-        if (plan) {
-          plan.push({ kind: 'known', path: info.path });
-          cachedPlanIndex?.set(hash, plan.length - 1);
-        }
+        plan.push({ kind: 'known', path: info.path });
+        cachedPlanIndex?.set(hash, plan.length - 1);
       } else {
         const idx = decoded.unknowns.length;
         decoded.unknowns.push(cloneEntry(entry));
-        if (plan) {
-          plan.push({ kind: 'unknown', index: idx });
-          cachedPlanIndex?.set(hash, plan.length - 1);
-        }
+        plan.push({ kind: 'unknown', index: idx });
+        cachedPlanIndex?.set(hash, plan.length - 1);
       }
       state.dirty = true;
       schedulePersist(kind);
       return;
     }
 
-    const item = plan![planIdx];
+    const item = plan[planIdx];
     if (item.kind === 'known') {
       if (!info || info.leaf.type !== entry.type) {
         throw new Error(
@@ -152,7 +148,7 @@ export function createSaveEditor<K extends SaveKind>(
       decoded.unknowns[item.index] = cloneEntry(entry);
       if (info && info.leaf.type === entry.type) {
         values[info.path] = decodeValue(entry);
-        plan![planIdx] = { kind: 'known', path: info.path };
+        plan[planIdx] = { kind: 'known', path: info.path };
       }
     }
     state.dirty = true;

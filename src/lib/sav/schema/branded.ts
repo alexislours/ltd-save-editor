@@ -17,7 +17,9 @@ const wrap = <T extends object, K extends string>(root: T, _kind: K): BrandTree<
   const handler: ProxyHandler<object> = {
     get(target, key) {
       const v = (target as Record<string | symbol, unknown>)[key];
-      return v && typeof v === 'object' && !('hash' in (v as object)) ? wrap(v as object, _kind) : v;
+      return v && typeof v === 'object' && !('hash' in (v as object))
+        ? wrap(v as object, _kind)
+        : v;
     },
   };
   const proxy = new Proxy(root, handler);

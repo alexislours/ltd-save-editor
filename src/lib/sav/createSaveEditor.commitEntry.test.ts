@@ -11,7 +11,6 @@ import { setFloat, setInt64, setUInt } from './codec';
 import { DataType } from './dataType';
 import { decode } from './materialized/decode';
 import * as schemaIndex from './materialized/schemaIndex';
-import { PLAN, type PlanItem, type WithPlan } from './materialized/types';
 import { parseSav } from './parse';
 import { PLAYER_SCHEMA } from './schema';
 import type { Entry, SavFile } from './types';
@@ -52,24 +51,24 @@ function findMoneyEntry(savFile: SavFile): Entry | undefined {
   return savFile.entries.find((e) => e.hash === MONEY_LEAF.hash);
 }
 
-describe('commitEntryEdit PLAN-aware fix', () => {
+describe('commitEntryEdit plan-aware fix', () => {
   beforeEach(() => {
     clearSave('player', { persist: false });
     syncPlayer();
   });
 
-  it('promotes an unknown PLAN slot to known when a schema-typed edit arrives', () => {
+  it('promotes an unknown plan slot to known when a schema-typed edit arrives', () => {
     loadSyntheticPlayer([inlineFloat(MONEY_LEAF.hash, 1.5)]);
     expect(playerState.error).toBeNull();
     const decoded = playerState.decoded!;
     expect(decoded.unknowns.length).toBe(1);
     expect(decoded.unknowns[0].type).toBe(DataType.Float);
-    const plan = (decoded as typeof decoded & WithPlan)[PLAN] as ReadonlyArray<PlanItem>;
+    const plan = decoded.plan;
     expect(plan?.[0]).toEqual({ kind: 'unknown', index: 0 });
 
     commitEntryEdit(inlineUInt(MONEY_LEAF.hash, 9999));
 
-    const planAfter = (decoded as typeof decoded & WithPlan)[PLAN] as ReadonlyArray<PlanItem>;
+    const planAfter = decoded.plan;
     expect(planAfter[0]).toEqual({ kind: 'known', path: 'Player.Money' });
 
     const out = getSaveBytes('player')!;
@@ -88,7 +87,7 @@ describe('commitEntryEdit PLAN-aware fix', () => {
 
     commitEntryEdit(int64Entry(MONEY_LEAF.hash, 42n));
 
-    const planAfter = (decoded as typeof decoded & WithPlan)[PLAN] as ReadonlyArray<PlanItem>;
+    const planAfter = decoded.plan;
     expect(planAfter[0]).toEqual({ kind: 'unknown', index: 0 });
 
     const out = getSaveBytes('player')!;
@@ -97,10 +96,10 @@ describe('commitEntryEdit PLAN-aware fix', () => {
     expect(e.type).toBe(DataType.Int64);
   });
 
-  it('throws on type-mismatched commit against a known PLAN slot', () => {
+  it('throws on type-mismatched commit against a known plan slot', () => {
     loadSyntheticPlayer([inlineUInt(MONEY_LEAF.hash, 100)]);
     const decoded = playerState.decoded!;
-    const plan = (decoded as typeof decoded & WithPlan)[PLAN] as ReadonlyArray<PlanItem>;
+    const plan = decoded.plan;
     expect(plan[0]).toEqual({ kind: 'known', path: 'Player.Money' });
 
     expect(() => commitEntryEdit(inlineFloat(MONEY_LEAF.hash, 1.5))).toThrow(/type mismatch/);
@@ -124,7 +123,7 @@ describe('commitEntryEdit PLAN-aware fix', () => {
     expect((reDecoded.values as unknown as Record<string, unknown>)['Player.Money']).toBe(7777);
   });
 
-  it('builds the PLAN-by-hash index at most once across sequential commits', () => {
+  it('builds the plan-by-hash index at most once across sequential commits', () => {
     loadSyntheticPlayer([inlineUInt(MONEY_LEAF.hash, 100)]);
     const spy = vi.spyOn(schemaIndex, 'pathToLeafMap');
     for (let i = 0; i < 5; i++) {

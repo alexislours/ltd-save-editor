@@ -25,7 +25,7 @@ import {
 import { DataType } from '../dataType';
 import type { Entry, SavFile } from '../types';
 import { buildHashMap } from './schemaIndex';
-import { PLAN, type DecodedSave, type PlanItem } from './types';
+import type { DecodedSave, PlanItem } from './types';
 
 export function decode(schema: object, file: SavFile): DecodedSave {
   const hashMap = buildHashMap(schema);
@@ -49,13 +49,8 @@ export function decode(schema: object, file: SavFile): DecodedSave {
     values,
     unknowns,
     version: file.version,
+    plan,
   };
-  Object.defineProperty(result, PLAN, {
-    value: plan as ReadonlyArray<PlanItem>,
-    enumerable: false,
-    writable: false,
-    configurable: false,
-  });
   return result;
 }
 
