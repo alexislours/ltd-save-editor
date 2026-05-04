@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { unzipSync } from 'fflate';
   import { _ } from 'svelte-i18n';
   import { track } from '../analytics';
   import Card from '../Card.svelte';
@@ -15,37 +14,21 @@
     syncFromSave as syncPlayerFromSave,
   } from '../playerEditor.svelte';
   import { miiAccessor, miiState, syncFromSave as syncMiiFromSave } from '../mii/miiEditor.svelte';
+  import { UGC_KINDS, buildSidecarZip, extractMii, extractUgc, type UgcKind } from './index';
+  import { getSidecarStore, pendingSidecarCount, pendingSidecarFiles } from './sidecarStore.svelte';
   import {
-    CARD_BASE_CLASS,
-    CARD_CLASS,
-    LABEL_CLASS,
-    PILL_BUTTON_CLASS,
-    PRIMARY_BUTTON_CLASS,
-    COMPACT_SELECT_CLASS,
-  } from '../styles';
-  import {
-    UGC_KINDS,
-    applyMii,
-    applyUgc,
-    buildSidecarZip,
-    extractMii,
-    extractUgc,
-    listMiiSlots,
-    listUgcSlots,
-    sidecarFromFolderFiles,
-    sidecarFromZipFile,
-    type UgcKind,
-  } from './index';
-  import {
-    clearSidecar,
-    getSidecarStore,
-    markPendingSidecars,
-    mergeSidecarFiles,
-    pendingSidecarCount,
-    pendingSidecarFiles,
-    sidecarFileCount,
-    sidecarOrigin,
-  } from './sidecarStore.svelte';
+    buildMiiRows,
+    buildUgcRows,
+    collectExportEntries,
+    commitImportWrites,
+    expandImportFile,
+    formatFailureList,
+    runImport,
+    type ImportFailure,
+    type Row,
+  } from './shareMiiPage';
+  import ShareMiiSidecarBar from './ShareMiiSidecarBar.svelte';
+  import ShareMiiSlotsSection from './ShareMiiSlotsSection.svelte';
 
   type Kind = 'Mii' | UgcKind;
 
@@ -55,8 +38,6 @@
   let importFile = $state<File | null>(null);
   let importSlot = $state<number | null>(null);
   let working = $state(false);
-  let folderInput = $state<HTMLInputElement | null>(null);
-  let zipInput = $state<HTMLInputElement | null>(null);
 
   const playerSave = $derived(getSave('player'));
   const miiSave = $derived(getSave('mii'));
@@ -81,52 +62,20 @@
     ...UGC_KINDS.map((k) => ({ value: k as Kind, label: $_(`sharemii.kind.${k}`) })),
   ]);
 
-  type Row = {
-    slot: number;
-    name: string;
-    isTemp?: boolean;
-    isAddNew?: boolean;
-    empty?: boolean;
-  };
-
   const sidecar = $derived(getSidecarStore());
 
-  const rowsResult = $derived.by<{ rows: Row[]; error: unknown }>(() => {
+  const rowLabels = $derived({
+    inProgressMii: $_('sharemii.list.in_progress_mii'),
+    miiDefault: (slot: number) => $_('sharemii.list.mii_default_name', { values: { slot } }),
+    addNew: $_('sharemii.list.add_new_slot'),
+    slotDefault: (slot: number) => $_('sharemii.list.slot_default_name', { values: { slot } }),
+  });
+
+  const rowsResult = $derived.by(() => {
     void playerState.dirty;
     void miiState.dirty;
-    if (!playerSaves) return { rows: [], error: null };
-    if (isMii) {
-      if (!miiSaves) return { rows: [], error: null };
-      try {
-        const list = listMiiSlots(miiSaves);
-        const rows = list
-          .filter((s) => s.slot === 0 || !s.empty)
-          .map<Row>((s) => ({
-            slot: s.slot,
-            name:
-              s.slot === 0
-                ? $_('sharemii.list.in_progress_mii')
-                : s.name || $_('sharemii.list.mii_default_name', { values: { slot: s.slot } }),
-            isTemp: s.slot === 0,
-          }));
-        return { rows, error: null };
-      } catch (e) {
-        return { rows: [], error: e };
-      }
-    }
-    try {
-      const rows = listUgcSlots(playerSaves, activeKind as UgcKind, sidecar).map<Row>((s) => ({
-        slot: s.slot,
-        name: s.isAddNew
-          ? $_('sharemii.list.add_new_slot')
-          : s.name || $_('sharemii.list.slot_default_name', { values: { slot: s.slot } }),
-        isAddNew: s.isAddNew,
-        empty: s.empty,
-      }));
-      return { rows, error: null };
-    } catch (e) {
-      return { rows: [], error: e };
-    }
+    if (isMii) return buildMiiRows(miiSaves, rowLabels);
+    return buildUgcRows(playerSaves, activeKind as UgcKind, sidecar, rowLabels);
   });
 
   const rows = $derived(rowsResult.rows);
@@ -162,51 +111,12 @@
     toastTimer = setTimeout(() => (toast = null), kind === 'error' ? 8000 : 5000);
   }
 
-  async function pickFolder(event: Event): Promise<void> {
-    const target = event.target as HTMLInputElement;
-    const files = target.files ? Array.from(target.files) : [];
-    target.value = '';
-    if (files.length === 0) return;
-    try {
-      const src = await sidecarFromFolderFiles(files);
-      mergeSidecarFiles('folder', src.files);
-      track('sharemii_inbound', { source: 'folder', count: src.files.size });
-      setToast(
-        'info',
-        $_('sharemii.sidecar.loaded_from_folder', { values: { count: src.files.size } }),
-      );
-    } catch (e) {
-      setToast('error', errorMessage(e));
-    }
-  }
-
-  async function pickZip(event: Event): Promise<void> {
-    const target = event.target as HTMLInputElement;
-    const file = target.files?.[0];
-    target.value = '';
-    if (!file) return;
-    try {
-      const src = await sidecarFromZipFile(file);
-      mergeSidecarFiles('zip', src.files);
-      track('sharemii_inbound', { source: 'zip', count: src.files.size });
-      setToast(
-        'info',
-        $_('sharemii.sidecar.loaded_from_zip', { values: { count: src.files.size } }),
-      );
-    } catch (e) {
-      setToast('error', errorMessage(e));
-    }
-  }
-
   function exportRow(row: Row): void {
-    if (working) return;
-    if (row.isAddNew) return;
+    if (working || row.isAddNew) return;
     working = true;
     try {
       if (isMii) {
-        const player = playerAccessor()!;
-        const mii = miiAccessor()!;
-        const r = extractMii({ player, mii }, row.slot, sidecar);
+        const r = extractMii({ player: playerAccessor()!, mii: miiAccessor()! }, row.slot, sidecar);
         downloadBytes(r.bytes, r.fileName);
         track('sharemii_export', { kind: 'Mii', mode: 'single', count: 1 });
         setToast(
@@ -224,8 +134,12 @@
           setToast('warn', $_('sharemii.toast.ugc_needs_folder'));
           return;
         }
-        const player = playerAccessor()!;
-        const r = extractUgc({ player }, row.slot, activeKind as UgcKind, sidecar);
+        const r = extractUgc(
+          { player: playerAccessor()! },
+          row.slot,
+          activeKind as UgcKind,
+          sidecar,
+        );
         downloadBytes(r.bytes, r.fileName);
         track('sharemii_export', { kind: activeKind as UgcKind, mode: 'single', count: 1 });
         setToast(
@@ -242,49 +156,31 @@
     }
   }
 
-  async function exportAll(): Promise<void> {
+  function exportAll(): void {
     if (working) return;
     working = true;
     try {
-      const dir: { name: string; bytes: Uint8Array }[] = [];
-      if (isMii) {
-        const player = playerAccessor()!;
-        const mii = miiAccessor()!;
-        for (const r of populatedRows) {
-          if (r.isTemp) continue;
-          try {
-            const out = extractMii({ player, mii }, r.slot, sidecar);
-            dir.push({ name: out.fileName, bytes: out.bytes });
-          } catch (e) {
-            console.warn('skip slot', r.slot, e);
-          }
-        }
-      } else {
-        if (sidecar.origin === 'none') {
-          setToast('warn', $_('sharemii.toast.ugc_needs_folder_short'));
-          return;
-        }
-        const player = playerAccessor()!;
-        for (const r of populatedRows) {
-          try {
-            const out = extractUgc({ player }, r.slot, activeKind as UgcKind, sidecar);
-            dir.push({ name: out.fileName, bytes: out.bytes });
-          } catch (e) {
-            console.warn('skip slot', r.slot, e);
-          }
-        }
+      if (!isMii && sidecar.origin === 'none') {
+        setToast('warn', $_('sharemii.toast.ugc_needs_folder_short'));
+        return;
       }
+      const ctx = isMii
+        ? ({
+            kind: 'Mii',
+            saves: { player: playerAccessor()!, mii: miiAccessor()! },
+          } as const)
+        : ({
+            kind: activeKind as UgcKind,
+            saves: { player: playerAccessor()! },
+          } as const);
+      const dir = collectExportEntries(ctx, populatedRows, sidecar);
       if (dir.length === 0) {
         setToast('warn', $_('sharemii.toast.nothing_to_export'));
         return;
       }
       const zipName = isMii ? 'miis.zip' : `${activeKind.toLowerCase()}-items.zip`;
       downloadBytes(buildSidecarZip(dir), zipName);
-      track('sharemii_export', {
-        kind: isMii ? 'Mii' : (activeKind as UgcKind),
-        mode: 'all',
-        count: dir.length,
-      });
+      track('sharemii_export', { kind: ctx.kind, mode: 'all', count: dir.length });
       setToast(
         'info',
         $_('sharemii.toast.exported_count', { values: { count: dir.length, fileName: zipName } }),
@@ -306,28 +202,10 @@
     importFile = null;
   }
 
-  function handleImportFile(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    importFile = target.files?.[0] ?? null;
-  }
-
-  async function readBytes(file: File): Promise<Uint8Array> {
-    return new Uint8Array(await file.arrayBuffer());
-  }
-
-  async function expandImportFile(file: File): Promise<{ name: string; bytes: Uint8Array }[]> {
-    if (!file.name.toLowerCase().endsWith('.zip')) {
-      return [{ name: file.name, bytes: await readBytes(file) }];
-    }
-    const buf = await readBytes(file);
-    const entries = unzipSync(buf);
-    const out: { name: string; bytes: Uint8Array }[] = [];
-    for (const [name, bytes] of Object.entries(entries)) {
-      if (/\.(ltd|ltdf|ltdc|ltdg|ltdi|ltde|ltdo|ltdl)$/i.test(name)) {
-        out.push({ name: name.split('/').pop() ?? name, bytes: bytes as Uint8Array });
-      }
-    }
-    return out;
+  function failuresMessage(failures: ImportFailure[]): string {
+    return $_('sharemii.toast.import_all_failed', {
+      values: { failed: failures.length, list: formatFailureList(failures) },
+    });
   }
 
   async function applyImport(): Promise<void> {
@@ -347,35 +225,26 @@
         setToast('warn', $_('sharemii.toast.no_ltd_found'));
         return;
       }
-      const writes: { name: string; bytes: Uint8Array }[] = [];
-      const failures: { fileName: string; reason: string }[] = [];
-      let count = 0;
+      if (isMii && !miiSaves) throw new Error('save_not_ready');
+      if (!isMii && !playerSaves) throw new Error('save_not_ready');
 
-      for (const f of files) {
-        try {
-          if (isMii) {
-            if (!miiSaves) throw new Error('save_not_ready');
-            const r = applyMii(miiSaves, importSlot, f.bytes, sidecar);
-            writes.push(...r.facepaintWrites);
-          } else {
-            if (!playerSaves) throw new Error('save_not_ready');
-            const isAdding = !!targetRow?.isAddNew;
-            const r = applyUgc(
-              playerSaves,
-              importSlot,
-              activeKind as UgcKind,
-              f.bytes,
-              isAdding,
+      const { count, failures, writes } = isMii
+        ? runImport(
+            { kind: 'Mii', saves: miiSaves!, slot: importSlot, sidecar },
+            files,
+            errorMessage,
+          )
+        : runImport(
+            {
+              kind: activeKind as UgcKind,
+              saves: playerSaves!,
+              slot: importSlot,
+              isAdding: !!targetRow?.isAddNew,
               sidecar,
-            );
-            writes.push(...r.textureWrites);
-          }
-          count++;
-        } catch (e) {
-          failures.push({ fileName: f.name, reason: errorMessage(e) });
-          console.warn('ShareMii import failed', f.name, e);
-        }
-      }
+            },
+            files,
+            errorMessage,
+          );
 
       track('sharemii_import', {
         kind: importKind,
@@ -386,30 +255,17 @@
       });
 
       if (count === 0) {
-        setToast('error', formatFailures(failures));
+        setToast('error', failuresMessage(failures));
         return;
       }
 
-      if (writes.length > 0) {
-        // eslint-disable-next-line svelte/prefer-svelte-reactivity
-        const fresh = new Map<string, Uint8Array>();
-        for (const w of writes) fresh.set(w.name, w.bytes);
-        mergeSidecarFiles(
-          sidecarOrigin() === 'none' ? 'folder' : (sidecarOrigin() as 'folder' | 'zip' | 'bulk'),
-          fresh,
-        );
-        markPendingSidecars(fresh);
-      }
+      commitImportWrites(writes);
 
       if (failures.length > 0) {
         setToast(
           'warn',
           $_('sharemii.toast.imported_partial', {
-            values: {
-              count,
-              failed: failures.length,
-              list: formatFailureList(failures),
-            },
+            values: { count, failed: failures.length, list: formatFailureList(failures) },
           }),
         );
       } else if (writes.length > 0) {
@@ -430,16 +286,6 @@
     }
   }
 
-  function formatFailureList(failures: { fileName: string; reason: string }[]): string {
-    return failures.map((f) => `${f.fileName}: ${f.reason}`).join('; ');
-  }
-
-  function formatFailures(failures: { fileName: string; reason: string }[]): string {
-    return $_('sharemii.toast.import_all_failed', {
-      values: { failed: failures.length, list: formatFailureList(failures) },
-    });
-  }
-
   function downloadPendingUgc(): void {
     const files = pendingSidecarFiles();
     if (files.length === 0) return;
@@ -447,15 +293,6 @@
     track('sharemii_pending_downloaded', { count: files.length });
     setToast('info', $_('sharemii.toast.downloaded_pending', { values: { count: files.length } }));
   }
-
-  const sidecarLabel = $derived.by(() => {
-    const o = sidecarOrigin();
-    if (o === 'none') return $_('sharemii.sidecar.none_loaded');
-    const source = o === 'bulk' ? 'auto' : o;
-    return $_('sharemii.sidecar.loaded_summary', {
-      values: { count: sidecarFileCount(), source },
-    });
-  });
 </script>
 
 <div class="grid grid-cols-1 gap-6">
@@ -497,56 +334,7 @@
       <SaveBar dirty={false} />
     {/if}
 
-    <section class={[CARD_BASE_CLASS, 'flex flex-col gap-3 px-4 py-3 sm:px-5']}>
-      <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-        <span
-          class={[
-            'inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold',
-            sidecarOrigin() === 'none'
-              ? 'bg-surface-sunken text-warn'
-              : 'bg-surface-sunken text-content-strong',
-          ]}
-        >
-          <span
-            aria-hidden="true"
-            class={[
-              'h-2 w-2 rounded-full',
-              sidecarOrigin() === 'none' ? 'bg-warn' : 'bg-orange-500',
-            ]}
-          ></span>
-          {sidecarLabel}
-        </span>
-        <span class="text-xs text-content-muted">
-          {$_('sharemii.sidecar.hint')}
-        </span>
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <button
-          type="button"
-          class={PILL_BUTTON_CLASS}
-          onclick={() => folderInput?.click()}
-          disabled={working}>{$_('sharemii.sidecar.pick_folder')}</button
-        >
-        <button
-          type="button"
-          class={PILL_BUTTON_CLASS}
-          onclick={() => zipInput?.click()}
-          disabled={working}>{$_('sharemii.sidecar.pick_zip')}</button
-        >
-        {#if sidecarOrigin() !== 'none'}
-          <button
-            type="button"
-            class={PILL_BUTTON_CLASS}
-            onclick={() => {
-              clearSidecar();
-              track('sharemii_sidecar_cleared', {});
-            }}
-          >
-            {$_('sharemii.sidecar.clear')}
-          </button>
-        {/if}
-      </div>
-    </section>
+    <ShareMiiSidecarBar {working} onMessage={setToast} />
 
     <SubTabs tabs={kindTabs} bind:value={activeKind} label={$_('sharemii.kind_tabs_label')} />
 
@@ -557,170 +345,24 @@
         </p>
       </Card>
     {:else if haveSaves}
-      <section class={CARD_CLASS}>
-        <header class="mb-3 flex flex-wrap items-center justify-between gap-2">
-          <div>
-            <h3 class="text-base font-bold text-content-strong">
-              {isMii ? $_('sharemii.kind.Mii') : $_(`sharemii.kind.${activeKind}`)}
-            </h3>
-            <p class="mt-0.5 text-xs text-content-muted">
-              {$_('sharemii.list.header_count', { values: { count: populatedRows.length } })}
-              {#if !isMii && addNewRow}
-                · {$_('sharemii.list.header_add_new', { values: { slot: addNewRow.slot } })}
-              {/if}
-            </p>
-          </div>
-          <div class="flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              class={PILL_BUTTON_CLASS}
-              onclick={exportAll}
-              disabled={working ||
-                populatedRows.length === 0 ||
-                (!isMii && sidecar.origin === 'none')}
-            >
-              {$_('sharemii.list.export_all')}
-            </button>
-            <button
-              type="button"
-              class={PRIMARY_BUTTON_CLASS}
-              onclick={() => openImportFor(addNewRow?.slot ?? populatedRows[0]?.slot ?? null)}
-              disabled={working}
-            >
-              {$_('sharemii.list.import')}
-            </button>
-          </div>
-        </header>
-
-        {#if importOpen}
-          <div
-            data-tutorial="sharemii-import-panel"
-            class="mb-4 rounded-xl bg-surface-sunken p-3 sm:p-4 ring-1 ring-edge/40"
-          >
-            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <label class="block">
-                <span class={LABEL_CLASS}>{$_('sharemii.import.file_label')}</span>
-                <input
-                  data-tutorial="sharemii-import-file"
-                  type="file"
-                  accept=".ltd,.ltdf,.ltdc,.ltdg,.ltdi,.ltde,.ltdo,.ltdl,.zip"
-                  class={COMPACT_SELECT_CLASS + ' w-full'}
-                  onchange={handleImportFile}
-                />
-                {#if importFile}
-                  <span class="mt-1 block truncate font-mono text-xs text-content-muted"
-                    >{importFile.name}</span
-                  >
-                {/if}
-              </label>
-              <label class="block">
-                <span class={LABEL_CLASS}>{$_('sharemii.import.target_label')}</span>
-                <select
-                  data-tutorial="sharemii-import-target"
-                  class={COMPACT_SELECT_CLASS + ' w-full'}
-                  bind:value={importSlot}
-                >
-                  {#each rows as r (r.slot)}
-                    <option value={r.slot}>
-                      {#if r.isAddNew}
-                        {$_('sharemii.import.option_add_new', { values: { slot: r.slot } })}
-                      {:else if r.isTemp}
-                        {$_('sharemii.import.option_in_progress')}
-                      {:else}
-                        {$_('sharemii.import.option_slot', {
-                          values: { slot: r.slot, name: r.name },
-                        })}
-                      {/if}
-                    </option>
-                  {/each}
-                </select>
-              </label>
-            </div>
-            <div class="mt-3 flex flex-wrap items-center justify-end gap-2">
-              <button
-                type="button"
-                class={PILL_BUTTON_CLASS}
-                onclick={closeImport}
-                disabled={working}>{$_('sharemii.import.cancel')}</button
-              >
-              <button
-                type="button"
-                data-tutorial="sharemii-import-apply"
-                class={PRIMARY_BUTTON_CLASS}
-                onclick={applyImport}
-                disabled={working || !importFile || importSlot === null}
-              >
-                {working ? $_('sharemii.import.applying') : $_('sharemii.import.apply')}
-              </button>
-            </div>
-          </div>
-        {/if}
-
-        {#if rowsError}
-          <p
-            role="alert"
-            class="rounded-lg border border-danger-edge bg-danger-bg px-3 py-2 text-sm text-danger"
-          >
-            {$_('sharemii.list.read_failed', { values: { error: errorMessage(rowsError) } })}
-          </p>
-        {:else if rows.length === 0}
-          <p class="text-sm text-content-muted">{$_('sharemii.list.no_slots')}</p>
-        {:else}
-          <ul data-tutorial="sharemii-rows" class="divide-y divide-edge/40">
-            {#each rows as r (r.slot)}
-              <li class="flex flex-wrap items-center gap-x-3 gap-y-2 py-2">
-                <span
-                  class="shrink-0 basis-12 font-mono text-xs text-content-muted"
-                  aria-hidden="true"
-                >
-                  {r.isTemp
-                    ? $_('sharemii.list.row_temp_marker')
-                    : $_('sharemii.list.row_slot_marker', { values: { slot: r.slot } })}
-                </span>
-                <span
-                  class={[
-                    'min-w-0 flex-1 basis-40 truncate text-sm',
-                    r.isAddNew ? 'italic text-content-muted' : 'text-content-strong',
-                  ]}
-                >
-                  {r.name}
-                </span>
-                <div class="flex shrink-0 basis-full flex-wrap items-center gap-1.5 sm:basis-auto">
-                  {#if r.isAddNew}
-                    <button
-                      type="button"
-                      class={PILL_BUTTON_CLASS}
-                      onclick={() => openImportFor(r.slot)}
-                      disabled={working}
-                    >
-                      {$_('sharemii.list.add_here')}
-                    </button>
-                  {:else}
-                    <button
-                      type="button"
-                      data-tutorial-row-export
-                      class={PILL_BUTTON_CLASS}
-                      onclick={() => exportRow(r)}
-                      disabled={working || (!isMii && sidecar.origin === 'none')}
-                    >
-                      {$_('sharemii.list.export')}
-                    </button>
-                    <button
-                      type="button"
-                      data-tutorial-row-replace
-                      class={PILL_BUTTON_CLASS}
-                      onclick={() => openImportFor(r.slot)}
-                      disabled={working}
-                    >
-                      {$_('sharemii.list.replace')}
-                    </button>
-                  {/if}
-                </div>
-              </li>
-            {/each}
-          </ul>
-        {/if}
-      </section>
+      <ShareMiiSlotsSection
+        {isMii}
+        {activeKind}
+        {working}
+        {rows}
+        {populatedRows}
+        {addNewRow}
+        {rowsError}
+        sidecarMissing={sidecar.origin === 'none'}
+        {importOpen}
+        bind:importFile
+        bind:importSlot
+        onExportAll={exportAll}
+        onOpenImport={openImportFor}
+        onCancelImport={closeImport}
+        onApplyImport={applyImport}
+        onExportRow={exportRow}
+      />
     {/if}
   {/if}
 
@@ -737,14 +379,4 @@
       {toast.text}
     </div>
   {/if}
-
-  <input
-    bind:this={folderInput}
-    type="file"
-    class="hidden"
-    multiple
-    webkitdirectory
-    onchange={pickFolder}
-  />
-  <input bind:this={zipInput} type="file" class="hidden" accept=".zip" onchange={pickZip} />
 </div>
