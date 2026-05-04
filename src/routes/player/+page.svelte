@@ -2,6 +2,7 @@
   import { untrack } from 'svelte';
   import { _ } from 'svelte-i18n';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
+  import { track } from '$lib/analytics';
   import { errorMessage } from '$lib/errorMessage';
   import RouteMeta from '$lib/RouteMeta.svelte';
   import BuildingsPanel from '$lib/player/BuildingsPanel.svelte';
@@ -63,6 +64,7 @@
     try {
       downloadModified();
     } catch (e) {
+      track('export_failed', { kind: 'player' });
       showToast('error', errorMessage(e));
     }
   }

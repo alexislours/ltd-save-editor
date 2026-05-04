@@ -61,6 +61,7 @@
     try {
       downloadModified();
     } catch (e) {
+      track('export_failed', { kind: 'mii' });
       showToast('error', errorMessage(e));
     }
   }
@@ -78,6 +79,7 @@
       downloadText(file.content, file.filename, file.mime);
       track('export_mii_data', { format, mii_count: data.miis.length });
     } catch (e) {
+      track('export_mii_data_failed', { format });
       showToast('error', errorMessage(e));
     }
   }

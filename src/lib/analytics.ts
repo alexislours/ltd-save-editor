@@ -17,7 +17,9 @@ type Events = {
   load_cancelled: { conflicts: number };
   parse_failed: { kind: SaveKind };
   export: { mode: 'single' | 'bulk'; kinds: string; kind_count: number };
+  export_failed: { kind: SaveKind | 'bulk' };
   export_mii_data: { format: 'json' | 'miis-csv' | 'relationships-csv'; mii_count: number };
+  export_mii_data_failed: { format: 'json' | 'miis-csv' | 'relationships-csv' };
   bulk_edit: { field: 'state' | 'qty'; count: number };
   restore_prompted: { count: number; sidecar_count: number };
   restore_accepted: { count: number; sidecar_count: number };

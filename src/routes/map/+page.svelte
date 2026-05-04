@@ -131,6 +131,7 @@
     try {
       downloadMapSav();
     } catch (e) {
+      track('export_failed', { kind: 'map' });
       showToast('error', errorMessage(e));
     }
   }

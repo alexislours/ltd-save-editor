@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { _ } from 'svelte-i18n';
+  import { track } from './analytics';
   import { exportAllSaves, loadedKinds } from './bulkExport';
   import { bulkLoadFiles } from './bulkLoader.svelte';
   import { requestClearAll } from './clearAll.svelte';
@@ -32,6 +33,7 @@
     try {
       exportAllSaves();
     } catch (e) {
+      track('export_failed', { kind: 'bulk' });
       showToast('error', errorMessage(e));
     }
   }
