@@ -42,7 +42,7 @@ function routeForKind(kind: SaveKind): '/player' | '/mii' | '/map' {
   }
 }
 
-function redirectIfNeeded(loaded: SaveKind[]): void {
+export function redirectIfNeeded(loaded: SaveKind[]): void {
   if (loaded.length === 0) return;
   const path = page.url.pathname;
   const currentKind = SAVE_KINDS.find((k) => path === routeForKind(k));

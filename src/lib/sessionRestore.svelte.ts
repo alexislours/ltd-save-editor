@@ -1,4 +1,5 @@
 import { track } from './analytics';
+import { redirectIfNeeded } from './bulkLoader.svelte';
 import { restoreSaveFromDecoded, SAVE_KINDS, type SaveKind } from './saveFile.svelte';
 import {
   clearAllSessions,
@@ -71,6 +72,7 @@ export function confirmRestore(): void {
   state.open = false;
   state.sessions = [];
   state.sidecar = null;
+  redirectIfNeeded(loaded);
 }
 
 export function dismissRestore(): void {
