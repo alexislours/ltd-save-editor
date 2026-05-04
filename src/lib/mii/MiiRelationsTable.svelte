@@ -1,6 +1,5 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { SvelteMap } from 'svelte/reactivity';
   import { enumOptionsFor } from '../sav/knownKeys';
   import { MII_SCHEMA } from '../sav/schema';
   import { CARD_CLASS } from '../styles';
@@ -90,7 +89,8 @@
   }
 
   const nameToHash = $derived.by(() => {
-    const m = new SvelteMap<string, number>();
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
+    const m = new Map<string, number>();
     if (baseTypeOptions) for (const o of baseTypeOptions) m.set(o.name, o.hash);
     return m;
   });

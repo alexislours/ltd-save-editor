@@ -1,6 +1,5 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { SvelteMap } from 'svelte/reactivity';
   import { allCloths, type Cloth, clothImageUrl, clothLabel } from '../sav/clothList.svelte';
   import {
     allCoordinates,
@@ -109,7 +108,8 @@
   });
 
   const clothByNameHash = $derived.by(() => {
-    const m = new SvelteMap<number, Cloth>();
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
+    const m = new Map<number, Cloth>();
     for (const c of allCloths()) m.set(murmur3_x86_32(c.name) >>> 0, c);
     return m;
   });

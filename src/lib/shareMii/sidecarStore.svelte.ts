@@ -75,7 +75,8 @@ export function pendingSidecarFiles(): { name: string; bytes: Uint8Array }[] {
 }
 
 export function clearPendingSidecars(): void {
-  const snapshot = new SvelteMap(state.pending);
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  const snapshot = new Map(state.pending);
   state.pending.clear();
   void persistPendingFlag(snapshot, false);
 }
@@ -221,7 +222,8 @@ export function collectSidecarFromNamedBytes(
   origin: Exclude<Origin, 'none'>,
   entries: Iterable<{ name: string; bytes: Uint8Array }>,
 ): number {
-  const fresh = new SvelteMap<string, Uint8Array>();
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  const fresh = new Map<string, Uint8Array>();
   for (const { name, bytes } of entries) {
     if (isJunkArchiveEntry(name)) continue;
     const base = baseName(name);

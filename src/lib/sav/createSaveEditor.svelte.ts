@@ -1,4 +1,3 @@
-import { SvelteMap } from 'svelte/reactivity';
 import { track } from '../analytics';
 import {
   getSave,
@@ -47,7 +46,7 @@ export function createSaveEditor<K extends SaveKind>(
   let seenLoadId = -1;
   let cachedAccessor: Accessor<K> | null = null;
   let cachedDecoded: DecodedSave | null = null;
-  let cachedPlanIndex: SvelteMap<number, number> | null = null;
+  let cachedPlanIndex: Map<number, number> | null = null;
 
   function resetCaches(): void {
     cachedAccessor = null;
@@ -93,7 +92,8 @@ export function createSaveEditor<K extends SaveKind>(
   function planIndexFor(decoded: DecodedSave): Map<number, number> {
     if (cachedPlanIndex && cachedDecoded === decoded) return cachedPlanIndex;
     const plan = decoded.plan;
-    const map = new SvelteMap<number, number>();
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
+    const map = new Map<number, number>();
     const pathMap = pathToLeafMap(schema);
     for (let i = 0; i < plan.length; i++) {
       const item = plan[i];

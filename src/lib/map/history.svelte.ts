@@ -1,4 +1,3 @@
-import { SvelteMap } from 'svelte/reactivity';
 import { commitTileChanges, getTileByIndex, setTileIndex } from './mapEditor.svelte';
 
 export type TileChange = {
@@ -65,8 +64,10 @@ export function clearHistory(): void {
 
 export class StrokeBuilder {
   readonly name: string;
-  private readonly firstOld = new SvelteMap<number, number>();
-  private readonly latestNew = new SvelteMap<number, number>();
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  private readonly firstOld = new Map<number, number>();
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  private readonly latestNew = new Map<number, number>();
 
   constructor(name: string) {
     this.name = name;

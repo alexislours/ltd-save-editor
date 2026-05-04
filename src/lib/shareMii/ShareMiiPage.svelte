@@ -1,6 +1,5 @@
 <script lang="ts">
   import { unzipSync } from 'fflate';
-  import { SvelteMap } from 'svelte/reactivity';
   import { _ } from 'svelte-i18n';
   import { track } from '../analytics';
   import Card from '../Card.svelte';
@@ -392,7 +391,8 @@
       }
 
       if (writes.length > 0) {
-        const fresh = new SvelteMap<string, Uint8Array>();
+        // eslint-disable-next-line svelte/prefer-svelte-reactivity
+        const fresh = new Map<string, Uint8Array>();
         for (const w of writes) fresh.set(w.name, w.bytes);
         mergeSidecarFiles(
           sidecarOrigin() === 'none' ? 'folder' : (sidecarOrigin() as 'folder' | 'zip' | 'bulk'),

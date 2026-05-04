@@ -1,4 +1,3 @@
-import { SvelteSet } from 'svelte/reactivity';
 import { decode } from './sav/materialized/decode';
 import { encode } from './sav/materialized/encode';
 import type { DecodedSave } from './sav/materialized/types';
@@ -56,7 +55,8 @@ export function detectSaveKindFromBytes(bytes: Uint8Array): SaveKind | null {
   } catch {
     return null;
   }
-  const hashes = new SvelteSet(parsed.entries.map((e) => e.hash));
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  const hashes = new Set(parsed.entries.map((e) => e.hash));
   for (const kind of Object.keys(SIGNATURE_HASHES) as SaveKind[]) {
     if (hashes.has(SIGNATURE_HASHES[kind])) return kind;
   }

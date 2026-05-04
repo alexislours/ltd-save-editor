@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onDestroy, untrack } from 'svelte';
-  import { SvelteMap } from 'svelte/reactivity';
   import { _ } from 'svelte-i18n';
   import { downloadBytes } from '../sav/download';
   import { errorMessage } from '../errorMessage';
@@ -140,7 +139,8 @@
         matte: tx.matteColor,
       });
 
-      const writes = new SvelteMap<string, Uint8Array>();
+      // eslint-disable-next-line svelte/prefer-svelte-reactivity
+      const writes = new Map<string, Uint8Array>();
       writes.set(canvasName, out.canvas);
       writes.set(ugctexName, out.ugctex);
 

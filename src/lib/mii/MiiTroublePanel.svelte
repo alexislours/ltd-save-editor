@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { SvelteMap, SvelteSet } from 'svelte/reactivity';
+  import { SvelteMap } from 'svelte/reactivity';
   import { allActors, actorDisplay } from '../mapObjects/actors';
   import { allCloths, clothLabel } from '../sav/clothList.svelte';
   import { allFoods, foodByHash, foodImageUrl, foodLabel } from '../sav/foodList.svelte';
@@ -177,7 +177,8 @@
     if (newHash === currentTroubleHash) return;
 
     const next = newHash === 0 ? null : troubleByHash(newHash);
-    const keepKeys = new SvelteSet<TroubleFieldKey>();
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
+    const keepKeys = new Set<TroubleFieldKey>();
     if (next?.relevantTargets) {
       for (const tk of next.relevantTargets) {
         for (const fk of TROUBLE_TARGET_FIELDS[tk]) keepKeys.add(fk);

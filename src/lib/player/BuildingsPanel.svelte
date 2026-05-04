@@ -1,6 +1,5 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { SvelteMap } from 'svelte/reactivity';
   import { playerAccessor } from '../playerEditor.svelte';
   import { murmur3_x86_32 } from '../sav/hash';
   import {
@@ -28,7 +27,8 @@
   const hasState = $derived(acc != null && acc.has(STATE));
 
   const slotByVariantHash = $derived.by(() => {
-    const map = new SvelteMap<number, number>();
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
+    const map = new Map<number, number>();
     if (!acc || !hasKey) return map;
     const arr = acc.get(KEY_HASH) as number[];
     for (let i = 0; i < arr.length; i++) {

@@ -1,5 +1,3 @@
-import { SvelteMap } from 'svelte/reactivity';
-
 export type ToastKind = 'success' | 'error' | 'warn' | 'info';
 export type Toast = { id: number; kind: ToastKind; text: string };
 
@@ -12,7 +10,8 @@ const DEFAULT_DURATION: Record<ToastKind, number> = {
 
 let nextId = 1;
 const toasts = $state<Toast[]>([]);
-const timers = new SvelteMap<number, ReturnType<typeof setTimeout>>();
+// eslint-disable-next-line svelte/prefer-svelte-reactivity
+const timers = new Map<number, ReturnType<typeof setTimeout>>();
 
 export function getToasts(): Toast[] {
   return toasts;
