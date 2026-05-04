@@ -8,11 +8,9 @@
   import type { Snippet } from 'svelte';
   import { _ } from 'svelte-i18n';
   import { track } from '$lib/analytics';
-  import { cancelOverwrite, confirmOverwrite, overwriteModal } from '$lib/bulkLoader.svelte';
+  import BulkModals from '$lib/BulkModals.svelte';
   import { CHANGELOG } from '$lib/changelog';
   import ChangelogDialog from '$lib/ChangelogDialog.svelte';
-  import { cancelClearAll, clearAllModal, confirmClearAll } from '$lib/clearAll.svelte';
-  import ConfirmListModal from '$lib/ConfirmListModal.svelte';
   import Footer from '$lib/Footer.svelte';
   import Lightbox from '$lib/Lightbox.svelte';
   import LocaleSwitcher from '$lib/LocaleSwitcher.svelte';
@@ -232,26 +230,7 @@
 </main>
 
 <ChangelogDialog bind:open={changelogOpen} onClose={() => (changelogOpen = false)} />
-<ConfirmListModal
-  bind:open={overwriteModal.open}
-  items={overwriteModal.conflicts}
-  title={$_('bulk.overwrite_title')}
-  intro={$_('bulk.overwrite_intro')}
-  warning={$_('bulk.overwrite_warning')}
-  confirmLabel={$_('bulk.overwrite_confirm')}
-  onConfirm={confirmOverwrite}
-  onCancel={cancelOverwrite}
-/>
-<ConfirmListModal
-  bind:open={clearAllModal.open}
-  items={clearAllModal.items}
-  title={$_('bulk.clear_title')}
-  intro={$_('bulk.clear_intro')}
-  warning={$_('bulk.clear_warning')}
-  confirmLabel={$_('bulk.clear_confirm')}
-  onConfirm={confirmClearAll}
-  onCancel={cancelClearAll}
-/>
+<BulkModals />
 <RestoreSessionModal />
 <Lightbox />
 <Toaster />
