@@ -1,6 +1,4 @@
 import { DataType } from '../dataType';
-import type { Branded } from './leaf';
-import type { SchemaPaths } from './paths';
 
 const _MII_SCHEMA = {
   Childcare: {
@@ -1321,6 +1319,4 @@ const _MII_SCHEMA = {
   },
 } as const;
 
-export const MII_SCHEMA = _MII_SCHEMA as Branded<typeof _MII_SCHEMA, 'mii'>;
-
-export type MiiSchemaKey = SchemaPaths<typeof _MII_SCHEMA>;
+export const MII_SCHEMA = _MII_SCHEMA;

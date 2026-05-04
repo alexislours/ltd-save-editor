@@ -1,5 +1,5 @@
 import type { DataType } from '../sav/dataType';
-import type { SchemaLeaf } from '../sav/schema/paths';
+import type { SchemaLeaf } from '../sav/schema/leaf';
 import type { MiiAccessor } from './miiEditor.svelte';
 
 export type BitmaskAccess = {

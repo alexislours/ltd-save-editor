@@ -12,7 +12,7 @@
   import { safe } from '../sav/format';
   import { murmur3_x86_32 } from '../sav/hash';
   import { MII_SCHEMA } from '../sav/schema';
-  import type { SchemaLeaf } from '../sav/schema/paths';
+  import type { SchemaLeaf } from '../sav/schema/leaf';
   import { CARD_CLASS, PILL_BUTTON_CLASS } from '../styles';
   import { miiAccessor } from './miiEditor.svelte';
   import type { BitmaskAccess } from './ownershipBitmask';

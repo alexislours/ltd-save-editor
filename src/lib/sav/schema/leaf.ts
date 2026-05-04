@@ -11,9 +11,6 @@ export type Leaf<T extends DataType = DataType, K extends string = string> = Sch
   readonly [brand]: K;
 };
 
-export type Branded<S, K extends string> =
-  S extends SchemaLeaf<infer T> ? Leaf<T, K> : { readonly [P in keyof S]: Branded<S[P], K> };
-
 export interface ValueOf {
   [DataType.Bool]: boolean;
   [DataType.BoolArray]: boolean[];

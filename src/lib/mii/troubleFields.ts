@@ -1,5 +1,5 @@
 import { MII_SCHEMA } from '../sav/schema';
-import type { SchemaLeaf } from '../sav/schema/paths';
+import type { SchemaLeaf } from '../sav/schema/leaf';
 import type { TroubleTargetKey } from '../sav/troubleList.svelte';
 
 export type TroubleField = {

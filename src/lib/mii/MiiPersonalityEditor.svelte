@@ -2,7 +2,7 @@
   import { _ } from 'svelte-i18n';
   import { safe } from '../sav/format';
   import { MII_SCHEMA } from '../sav/schema';
-  import type { SchemaLeaf } from '../sav/schema/paths';
+  import type { SchemaLeaf } from '../sav/schema/leaf';
   import { miiAccessor } from './miiEditor.svelte';
   import { classifyPersonality } from './personality';
 

@@ -2,7 +2,7 @@ import { SvelteMap } from 'svelte/reactivity';
 import { DataType } from '../sav/dataType';
 import { buildHashMap } from '../sav/materialized/schemaIndex';
 import { PLAYER_SCHEMA } from '../sav/schema';
-import type { SchemaLeaf } from '../sav/schema/paths';
+import type { SchemaLeaf } from '../sav/schema/leaf';
 import type { PlayerAccessor } from '../playerEditor.svelte';
 import { OBTAINED_HASH } from './stateOptions';
 

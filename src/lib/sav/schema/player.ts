@@ -1,6 +1,4 @@
 import { DataType } from '../dataType';
-import type { Branded } from './leaf';
-import type { SchemaPaths } from './paths';
 
 const _PLAYER_SCHEMA = {
   DailyLog: {
@@ -5168,6 +5166,4 @@ const _PLAYER_SCHEMA = {
   },
 } as const;
 
-export const PLAYER_SCHEMA = _PLAYER_SCHEMA as Branded<typeof _PLAYER_SCHEMA, 'player'>;
-
-export type PlayerSchemaKey = SchemaPaths<typeof _PLAYER_SCHEMA>;
+export const PLAYER_SCHEMA = _PLAYER_SCHEMA;

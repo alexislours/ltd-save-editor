@@ -2,7 +2,7 @@
   import { _ } from 'svelte-i18n';
   import { bindLeaf } from '../sav/bindLeaf.svelte';
   import { enumOptionsFor, type EnumOption } from '../sav/knownKeys';
-  import { PLAYER_SCHEMA } from '../sav/schema';
+  import { player } from '../sav/schema';
   import { playerAccessor } from '../playerEditor.svelte';
   import { CARD_CLASS, COMPACT_SELECT_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
   import DateField from './DateField.svelte';
@@ -11,25 +11,25 @@
   import { HAND_COLORS } from './profileFields';
   import SwatchPicker from './SwatchPicker.svelte';
 
-  const NAME = PLAYER_SCHEMA.Player.Name;
-  const ISLAND_NAME = PLAYER_SCHEMA.Player.IslandName;
-  const HOW_CALL_NAME = PLAYER_SCHEMA.Player.HowToCallName;
-  const HOW_CALL_ISLAND = PLAYER_SCHEMA.Player.HowToCallIslandName;
-  const NAME_LANG = PLAYER_SCHEMA.Player.NameRegionLanguageID;
-  const ISLAND_LANG = PLAYER_SCHEMA.Player.IslandNameRegionLanguageID;
-  const SKIN = PLAYER_SCHEMA.Player.SkinColorIndex;
-  const MONEY = PLAYER_SCHEMA.Player.Money;
-  const CURRENCY = PLAYER_SCHEMA.Player.Currency;
-  const REGION = PLAYER_SCHEMA.Player.Region;
-  const REGION_CODE = PLAYER_SCHEMA.Player.RegionCode;
-  const BOOT_NUM = PLAYER_SCHEMA.Player.BootNum;
-  const PLAY_TIME = PLAYER_SCHEMA.Player.PlayTime;
-  const BDAY_DAY = PLAYER_SCHEMA.Player.BirthDay.BirthDay_Day;
-  const BDAY_MONTH = PLAYER_SCHEMA.Player.BirthDay.BirthDay_Month;
-  const BDAY_YEAR = PLAYER_SCHEMA.Player.BirthDay.BirthDay_Year;
-  const FOUNTAIN_LEVEL = PLAYER_SCHEMA.Liberation.FountainLevel;
-  const WISHES = PLAYER_SCHEMA.Unknown['0xA32F7E47'];
-  const ISLAND_SIZE = PLAYER_SCHEMA.Player.UnlockMapLevel;
+  const NAME = player.Player.Name;
+  const ISLAND_NAME = player.Player.IslandName;
+  const HOW_CALL_NAME = player.Player.HowToCallName;
+  const HOW_CALL_ISLAND = player.Player.HowToCallIslandName;
+  const NAME_LANG = player.Player.NameRegionLanguageID;
+  const ISLAND_LANG = player.Player.IslandNameRegionLanguageID;
+  const SKIN = player.Player.SkinColorIndex;
+  const MONEY = player.Player.Money;
+  const CURRENCY = player.Player.Currency;
+  const REGION = player.Player.Region;
+  const REGION_CODE = player.Player.RegionCode;
+  const BOOT_NUM = player.Player.BootNum;
+  const PLAY_TIME = player.Player.PlayTime;
+  const BDAY_DAY = player.Player.BirthDay.BirthDay_Day;
+  const BDAY_MONTH = player.Player.BirthDay.BirthDay_Month;
+  const BDAY_YEAR = player.Player.BirthDay.BirthDay_Year;
+  const FOUNTAIN_LEVEL = player.Liberation.FountainLevel;
+  const WISHES = player.Unknown['0xA32F7E47'];
+  const ISLAND_SIZE = player.Player.UnlockMapLevel;
 
   const ISLAND_SIZE_VALUES = [1, 2, 3, 4] as const;
 

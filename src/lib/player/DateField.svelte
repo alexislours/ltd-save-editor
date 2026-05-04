@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { DataType } from '../sav/dataType';
-  import type { SchemaLeaf } from '../sav/schema/paths';
+  import type { SchemaLeaf } from '../sav/schema/leaf';
   import { playerAccessor } from '../playerEditor.svelte';
   import { INPUT_CLASS } from '../styles';
 

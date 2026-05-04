@@ -1,6 +1,4 @@
 import { DataType } from '../dataType';
-import type { Branded } from './leaf';
-import type { SchemaPaths } from './paths';
 
 const _MAP_SCHEMA = {
   House: {
@@ -337,6 +335,4 @@ const _MAP_SCHEMA = {
   },
 } as const;
 
-export const MAP_SCHEMA = _MAP_SCHEMA as Branded<typeof _MAP_SCHEMA, 'map'>;
-
-export type MapSchemaKey = SchemaPaths<typeof _MAP_SCHEMA>;
+export const MAP_SCHEMA = _MAP_SCHEMA;

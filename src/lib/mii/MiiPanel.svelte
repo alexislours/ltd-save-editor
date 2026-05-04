@@ -1,8 +1,8 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
   import { bindLeaf } from '../sav/bindLeaf.svelte';
-  import { MII_SCHEMA } from '../sav/schema';
-  import type { SchemaLeaf } from '../sav/schema/paths';
+  import { mii, MII_SCHEMA } from '../sav/schema';
+  import type { SchemaLeaf } from '../sav/schema/leaf';
   import { CARD_CLASS } from '../styles';
   import MiiElementEditor from './MiiElementEditor.svelte';
   import MiiFoodPicker from './MiiFoodPicker.svelte';
@@ -32,19 +32,19 @@
   };
   let { selectedIndex = $bindable(null) }: Props = $props();
 
-  const mii = $derived(miiAccessor());
-  const loveGender = bindLeaf(miiAccessor, MII_SCHEMA.Mii.MiiMisc.FaceInfo.IsLoveGender);
+  const accessor = $derived(miiAccessor());
+  const loveGender = bindLeaf(miiAccessor, mii.Mii.MiiMisc.FaceInfo.IsLoveGender);
 
-  const hasPopulatedSlot = $derived(mii != null && populatedMiiIndices(mii).length > 0);
+  const hasPopulatedSlot = $derived(accessor != null && populatedMiiIndices(accessor).length > 0);
 
   const presentVoiceLeaves = $derived.by<SchemaLeaf[]>(() => {
-    if (!mii) return [];
-    return VOICE_LEAVES.filter((leaf) => mii.has(leaf));
+    if (!accessor) return [];
+    return VOICE_LEAVES.filter((leaf) => accessor.has(leaf));
   });
 
   function resolveFields(fields: MiiField[] | undefined): MiiField[] {
-    if (!mii || !fields) return [];
-    return fields.filter((f) => mii.has(f.leaf));
+    if (!accessor || !fields) return [];
+    return fields.filter((f) => accessor.has(f.leaf));
   }
 
   const sectionsResolved = $derived.by(() => {

@@ -1,6 +1,6 @@
 import { DataType } from '../sav/dataType';
 import { MII_SCHEMA } from '../sav/schema';
-import type { SchemaLeaf } from '../sav/schema/paths';
+import type { SchemaLeaf } from '../sav/schema/leaf';
 
 export type MiiFieldKind = 'string' | 'uint' | 'int' | 'enum' | 'binary';
 

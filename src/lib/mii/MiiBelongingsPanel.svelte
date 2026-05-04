@@ -15,7 +15,7 @@
     coordinateLabel,
   } from '../sav/coordinateList.svelte';
   import { bindLeaf } from '../sav/bindLeaf.svelte';
-  import { MII_SCHEMA } from '../sav/schema';
+  import { mii, MII_SCHEMA } from '../sav/schema';
   import { CARD_CLASS } from '../styles';
   import { miiAccessor } from './miiEditor.svelte';
   import MiiGoodsPocketPanel from './MiiGoodsPocketPanel.svelte';
@@ -32,13 +32,13 @@
   const SLOTS_PER_MII = 1200;
   const COORD_SLOTS_PER_MII = 400;
 
-  const mii = $derived(miiAccessor());
-  const clothOwn = bindLeaf(miiAccessor, MII_SCHEMA.Mii.Belongings.ClothOwnInfo);
-  const coordOwn = bindLeaf(miiAccessor, MII_SCHEMA.Mii.Belongings.CoordinateOwnInfo);
+  const accessor = $derived(miiAccessor());
+  const clothOwn = bindLeaf(miiAccessor, mii.Mii.Belongings.ClothOwnInfo);
+  const coordOwn = bindLeaf(miiAccessor, mii.Mii.Belongings.CoordinateOwnInfo);
 
   const clothBitmask = $derived(
     createOwnershipBitmask({
-      mii,
+      mii: accessor,
       leaf: clothOwn.present ? MII_SCHEMA.Mii.Belongings.ClothOwnInfo : null,
       totalCount: clothOwn.value?.length ?? 0,
       miiIndex: selectedIndex,
@@ -49,7 +49,7 @@
 
   const coordBitmask = $derived(
     createOwnershipBitmask({
-      mii,
+      mii: accessor,
       leaf: coordOwn.present ? MII_SCHEMA.Mii.Belongings.CoordinateOwnInfo : null,
       totalCount: coordOwn.value?.length ?? 0,
       miiIndex: selectedIndex,
@@ -69,7 +69,7 @@
   }
 </script>
 
-{#if !mii || !clothOwn.present}
+{#if !accessor || !clothOwn.present}
   <div class="grid gap-4">
     <MiiSlotSelector bind:selectedIndex />
     <section class={CARD_CLASS}>

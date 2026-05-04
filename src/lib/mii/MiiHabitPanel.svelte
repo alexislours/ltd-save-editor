@@ -14,7 +14,7 @@
   } from '../sav/habitList.svelte';
   import { buildHashMap } from '../sav/materialized/schemaIndex';
   import { MII_SCHEMA } from '../sav/schema';
-  import type { SchemaLeaf } from '../sav/schema/paths';
+  import type { SchemaLeaf } from '../sav/schema/leaf';
   import { CARD_CLASS, PILL_BUTTON_CLASS, TAB_PILL_CLASS } from '../styles';
   import { miiAccessor } from './miiEditor.svelte';
   import MiiSlotSelector from './MiiSlotSelector.svelte';

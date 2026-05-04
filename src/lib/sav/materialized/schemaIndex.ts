@@ -1,4 +1,4 @@
-import type { SchemaLeaf } from '../schema/paths';
+import type { SchemaLeaf } from '../schema/leaf';
 
 export type LeafInfo = { leaf: SchemaLeaf; path: string };
 
