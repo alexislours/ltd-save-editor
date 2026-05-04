@@ -1,7 +1,7 @@
 <script lang="ts">
   import { tick } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { driver, type Driver } from 'driver.js';
+  import type { Driver } from 'driver.js';
   import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
   import { page } from '$app/state';
@@ -589,9 +589,14 @@
 
   const visibleTutorials = $derived(tutorials.filter((t) => t.available));
 
-  function startDriver(tutorialId: Tutorial['id'], steps: DriverStep[], onEnd?: () => void): void {
-    activeDriver?.destroy();
+  async function startDriver(
+    tutorialId: Tutorial['id'],
+    steps: DriverStep[],
+    onEnd?: () => void,
+  ): Promise<void> {
     if (steps.length === 0) return;
+    const { driver } = await import('driver.js');
+    activeDriver?.destroy();
     let dismissed = false;
     let lastIndex = 0;
     const d = driver({
@@ -681,7 +686,7 @@
       await waitForElement(firstStepSelector(t), 3000);
     }
     const initialSubtab = activeSubtab();
-    startDriver(t.id, t.buildSteps(), () => {
+    await startDriver(t.id, t.buildSteps(), () => {
       if (initialSubtab && initialSubtab !== activeSubtab()) clickSubtab(initialSubtab);
     });
   }
