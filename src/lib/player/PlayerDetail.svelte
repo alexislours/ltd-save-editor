@@ -5,7 +5,6 @@
   import { hexU32 } from '../sav/format';
   import { enumOptionsFor } from '../sav/knownKeys';
   import type { Entry } from '../sav/types';
-  import { markDirty as playerMarkDirty } from '../playerEditor.svelte';
   import { INPUT_CLASS, MONO_INPUT_CLASS, PILL_BUTTON_CLASS } from '../styles';
   import ArrayElementEditor from './ArrayElementEditor.svelte';
   import EntryEditor from './EntryEditor.svelte';
@@ -14,9 +13,9 @@
   type Props = {
     entry: Entry;
     path: string | null;
-    markDirty?: (e: Entry) => void;
+    onCommit: (e: Entry) => void;
   };
-  let { entry, path, markDirty = playerMarkDirty }: Props = $props();
+  let { entry, path, onCommit }: Props = $props();
 
   const isArray = $derived(isArrayType(entry.type));
   const count = $derived(isArray ? arrayCount(entry) : 0);
@@ -50,10 +49,9 @@
       for (let i = 0; i < count; i++) {
         const access = arrayElementScalarAccess(entry, i);
         if (!access) throw new Error('Bulk edit not supported for this type');
-        // The parser guarantees `value` matches `access.kind` for this entry type.
         (access.write as (v: typeof value) => void)(value);
       }
-      markDirty(entry);
+      onCommit(entry);
       bulkTick++;
     } catch (e) {
       bulkError = e instanceof Error ? e.message : String(e);
@@ -114,7 +112,7 @@
 
   {#if !isArray}
     <div class="max-w-xl">
-      <EntryEditor {entry} {markDirty} />
+      <EntryEditor {entry} {onCommit} />
     </div>
   {:else if !canEditElements}
     <p class="text-sm text-content-muted">
@@ -173,7 +171,7 @@
                   {i}
                 </td>
                 <td class="px-3 py-1.5">
-                  <ArrayElementEditor {entry} index={i} {markDirty} />
+                  <ArrayElementEditor {entry} index={i} {onCommit} />
                 </td>
               </tr>
             {/each}

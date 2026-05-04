@@ -1,31 +1,18 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { SvelteMap } from 'svelte/reactivity';
-  import { arrGetInt, arrGetString } from '../sav/codec';
-  import { murmur3_x86_32 } from '../sav/hash';
-  import type { Entry } from '../sav/types';
+  import { safe } from '../sav/format';
+  import { MII_SCHEMA } from '../sav/schema';
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
-  import { miiState } from './miiEditor.svelte';
-  import { NAME_FIELD_HASH } from './miiFields';
+  import { miiAccessor } from './miiEditor.svelte';
   import { populatedMiiIndices } from './populated';
 
   type Props = {
-    entries: Entry[];
     selectedIndex: number | null;
   };
-  let { entries, selectedIndex = $bindable(null) }: Props = $props();
+  let { selectedIndex = $bindable(null) }: Props = $props();
 
-  const byHash = $derived.by(() => {
-    const m = new SvelteMap<number, Entry>();
-    for (const e of entries) m.set(e.hash, e);
-    return m;
-  });
-  const nameEntry = $derived(byHash.get(NAME_FIELD_HASH) ?? null);
-
-  const SATISFY_LEVEL_HASH = murmur3_x86_32('Mii.MiiMisc.SatisfyInfo.Level') >>> 0;
-  const SATISFY_METER_HASH = murmur3_x86_32('Mii.MiiMisc.SatisfyInfo.Meter') >>> 0;
-  const levelEntry = $derived(byHash.get(SATISFY_LEVEL_HASH) ?? null);
-  const meterEntry = $derived(byHash.get(SATISFY_METER_HASH) ?? null);
+  const mii = $derived(miiAccessor());
+  const hasName = $derived(mii != null && mii.has(MII_SCHEMA.Mii.Name.Name));
 
   type Slot = {
     index: number;
@@ -34,32 +21,22 @@
     xpPercent: number | null;
   };
   const slots = $derived.by<Slot[]>(() => {
-    void miiState.tick;
-    if (!nameEntry) return [];
+    if (!mii || !hasName) return [];
     const out: Slot[] = [];
-    for (const i of populatedMiiIndices(byHash)) {
-      let n: string;
-      try {
-        n = arrGetString(nameEntry, i);
-      } catch {
-        n = '';
-      }
-      let level: number | null = null;
-      if (levelEntry) {
-        try {
-          level = arrGetInt(levelEntry, i) + 1;
-        } catch {
-          level = null;
-        }
-      }
+    const hasLevel = mii.has(MII_SCHEMA.Mii.MiiMisc.SatisfyInfo.Level);
+    const hasMeter = mii.has(MII_SCHEMA.Mii.MiiMisc.SatisfyInfo.Meter);
+    for (const i of populatedMiiIndices(mii)) {
+      const n = safe(() => mii.getElement(MII_SCHEMA.Mii.Name.Name, i), '');
+      const level = hasLevel
+        ? safe(
+            () => mii.getElement(MII_SCHEMA.Mii.MiiMisc.SatisfyInfo.Level, i) + 1,
+            null as number | null,
+          )
+        : null;
       let xpPercent: number | null = null;
-      if (meterEntry) {
-        try {
-          const m = arrGetInt(meterEntry, i);
-          xpPercent = Math.max(0, Math.min(100, m));
-        } catch {
-          xpPercent = null;
-        }
+      if (hasMeter) {
+        const m = safe(() => mii.getElement(MII_SCHEMA.Mii.MiiMisc.SatisfyInfo.Meter, i), null);
+        if (m !== null) xpPercent = Math.max(0, Math.min(100, m));
       }
       out.push({ index: i, name: n, level, xpPercent });
     }
@@ -91,7 +68,7 @@
   }
 </script>
 
-{#if !nameEntry}
+{#if !hasName}
   <section class={CARD_CLASS}>
     <p class="text-sm text-content-muted">{$_('mii.panel.no_name_spine')}</p>
   </section>

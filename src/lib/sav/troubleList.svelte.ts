@@ -14,7 +14,7 @@ export type TroubleTargetKey =
   | 'targetMapObject'
   | 'targetPreset';
 
-export type TroubleFlag = 'isLove' | 'isConfession' | 'isFightReconcile' | 'isTargetMiiSetLater';
+type TroubleFlag = 'isLove' | 'isConfession' | 'isFightReconcile' | 'isTargetMiiSetLater';
 
 export type Trouble = {
   hash: number;

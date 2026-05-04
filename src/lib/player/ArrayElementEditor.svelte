@@ -2,23 +2,22 @@
   import { binaryArrayElements } from '../sav/codec';
   import { DataType } from '../sav/dataType';
   import type { Entry } from '../sav/types';
-  import { markDirty as playerMarkDirty } from '../playerEditor.svelte';
   import ScalarFieldEditor from './ScalarFieldEditor.svelte';
   import { arrayElementScalarAccess, SCALAR_SIZING_PRESETS } from './scalarFieldAccess';
 
   type Props = {
     entry: Entry;
     index: number;
-    markDirty?: (e: Entry) => void;
+    onCommit: (e: Entry) => void;
   };
-  let { entry, index, markDirty = playerMarkDirty }: Props = $props();
+  let { entry, index, onCommit }: Props = $props();
 
   let tick = $state(0);
 
   const access = $derived(arrayElementScalarAccess(entry, index));
 
-  function onCommit(): void {
-    markDirty(entry);
+  function commit(): void {
+    onCommit(entry);
     tick++;
   }
 </script>
@@ -30,7 +29,7 @@
       enumHash={entry.hash}
       showUIntEnumHint={entry.type === DataType.UIntArray}
       sizing={SCALAR_SIZING_PRESETS.array}
-      {onCommit}
+      onCommit={commit}
     />
   {:else if entry.type === DataType.BinaryArray}
     {@const el = binaryArrayElements(entry)[index]}

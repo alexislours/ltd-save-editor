@@ -25,6 +25,19 @@
     "ugc_editor": "Éditeur UGC",
     "history": "Historique"
   },
+  "home": {
+    "title": "Éditeur de sauvegarde Tomodachi Life: Living the Dream",
+    "description": "Dépose ton Player.sav, Mii.sav ou Map.sav pour commencer à éditer. Chaque fichier s'ouvre dans l'onglet correspondant.",
+    "loaded": "Chargé",
+    "not_loaded": "Non chargé"
+  },
+  "error": {
+    "not_found_title": "Page introuvable",
+    "not_found_description": "Impossible de trouver la page que tu cherches. Elle a peut-être été déplacée, ou le lien est incorrect.",
+    "generic_title": "Une erreur est survenue",
+    "generic_description": "Une erreur inattendue s'est produite lors du chargement de cette page.",
+    "back_home": "Retour à l'accueil"
+  },
   "lightbox": {
     "open": "Agrandir l'image de {label}",
     "close": "Fermer l'image agrandie"
@@ -38,6 +51,7 @@
     "waiting": "En attente de {fileName}…",
     "upload_prompt": "Charge ton fichier {fileName} pour commencer.",
     "drop_here": "Dépose {fileName} ici",
+    "drop_here_multi": "Dépose tes fichiers de sauvegarde ici",
     "drop_browse": "ou clique pour parcourir",
     "drop_warning_label": "Attention :",
     "drop_warning_text": "modifier les fichiers de sauvegarde peut corrompre ta partie. Conserve toujours une copie de l'original avant de l'envoyer.",

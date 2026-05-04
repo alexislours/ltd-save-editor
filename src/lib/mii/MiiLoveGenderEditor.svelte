@@ -1,8 +1,7 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import type { Entry } from '../sav/types';
   import { LABEL_CLASS } from '../styles';
-  import { markDirty, miiState } from './miiEditor.svelte';
+  import { miiAccessor } from './miiEditor.svelte';
   import { genderLabel } from './miiLabelList.svelte';
   import {
     LOVE_GENDER_OPTIONS,
@@ -12,20 +11,20 @@
   } from './relations';
 
   type Props = {
-    entry: Entry;
     miiIndex: number;
   };
-  let { entry, miiIndex }: Props = $props();
-
-  const tick = $derived(miiState.tick);
+  let { miiIndex }: Props = $props();
 
   const values = $derived.by(() => {
-    void tick;
-    return LOVE_GENDER_OPTIONS.map((opt) => readIsLoveGender(entry, miiIndex, opt));
+    const mii = miiAccessor();
+    if (!mii) return LOVE_GENDER_OPTIONS.map(() => false);
+    return LOVE_GENDER_OPTIONS.map((opt) => readIsLoveGender(mii, miiIndex, opt));
   });
 
   function toggle(opt: LoveGenderOption, checked: boolean): void {
-    if (writeIsLoveGender(entry, miiIndex, opt, checked)) markDirty(entry);
+    const mii = miiAccessor();
+    if (!mii) return;
+    writeIsLoveGender(mii, miiIndex, opt, checked);
   }
 </script>
 

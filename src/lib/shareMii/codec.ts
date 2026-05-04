@@ -208,7 +208,7 @@ export function encodeLtdUgc(u: LtdUgc): Uint8Array {
   );
 }
 
-export type LtdUgcSection = {
+type LtdUgcSection = {
   kindIndex: number;
   fieldsAndVectors: Uint8Array;
   namesBlock: Uint8Array;

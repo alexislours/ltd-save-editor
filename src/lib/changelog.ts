@@ -1,4 +1,4 @@
-export type ChangelogEntry = {
+type ChangelogEntry = {
   version: string;
   date: string;
   changes: string[];

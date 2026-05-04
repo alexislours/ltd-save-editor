@@ -1,8 +1,7 @@
-import { SvelteMap } from 'svelte/reactivity';
 import { type GameLocale, pickLocalized } from './gameLocale';
 import { murmur3_x86_32 } from './hash';
 
-export type RoomStyleVariant = {
+type RoomStyleVariant = {
   name: string;
   variantIndex: number;
   stateHash: number;
@@ -17,7 +16,6 @@ export type RoomStyleGroup = {
   localized: Partial<Record<GameLocale, string>>;
 };
 
-const BY_GROUP = new SvelteMap<string, RoomStyleGroup>();
 const ALL = $state<{ list: RoomStyleGroup[] }>({ list: [] });
 let started = false;
 
@@ -51,7 +49,6 @@ export function loadRoomStyleList(): void {
           variants,
           localized: r.l ?? {},
         };
-        BY_GROUP.set(group.groupKey, group);
         list.push(group);
       }
       ALL.list = list;
@@ -59,10 +56,6 @@ export function loadRoomStyleList(): void {
       console.warn('[roomStyleList] failed to load /roomstyles.json:', err);
     }
   })();
-}
-
-export function roomStyleGroupByKey(key: string): RoomStyleGroup | null {
-  return BY_GROUP.get(key) ?? null;
 }
 
 export function allRoomStyleGroups(): RoomStyleGroup[] {

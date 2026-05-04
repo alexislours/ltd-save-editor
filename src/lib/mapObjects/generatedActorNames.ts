@@ -1,4 +1,4 @@
-export type ActorInfo = { key: string; category: string };
+type ActorInfo = { key: string; category: string };
 
 export type ActorFootprint = {
   x0: number;

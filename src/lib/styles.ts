@@ -5,6 +5,8 @@ export const INPUT_CLASS =
 
 export const FORM_INPUT_CLASS = `mt-1.5 w-full ${INPUT_CLASS} px-3 py-2`;
 
+export const FORM_INPUT_MONO_CLASS = `${FORM_INPUT_CLASS} font-mono`;
+
 export const MONO_INPUT_CLASS = `${INPUT_CLASS} font-mono`;
 
 export const PILL_BUTTON_CLASS =

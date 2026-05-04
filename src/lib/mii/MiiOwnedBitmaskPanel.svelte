@@ -2,7 +2,6 @@
   import { _, locale } from 'svelte-i18n';
   import { SvelteSet } from 'svelte/reactivity';
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '../styles';
-  import { miiState } from './miiEditor.svelte';
   import type { BitmaskAccess } from './ownershipBitmask';
 
   type Props = {
@@ -39,7 +38,6 @@
     summaryFor,
   }: Props = $props();
 
-  const tick = $derived(miiState.tick);
   const ui = $derived($locale);
 
   let search = $state('');
@@ -70,7 +68,6 @@
   };
 
   const rows = $derived.by<Row[]>(() => {
-    void tick;
     if (selectedIndex == null) return [];
     const out: Row[] = [];
     for (const item of sorted) {

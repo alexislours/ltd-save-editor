@@ -1,8 +1,8 @@
-export type ForceNode = { index: number };
-export type ForceEdge = { a: number; b: number };
-export type ForcePos = { x: number; y: number };
+type ForceNode = { index: number };
+type ForceEdge = { a: number; b: number };
+type ForcePos = { x: number; y: number };
 
-export type ForceParams = {
+type ForceParams = {
   size: number;
   iterations?: number;
   springLength?: number;

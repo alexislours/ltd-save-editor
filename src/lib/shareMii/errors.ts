@@ -1,4 +1,4 @@
-export type ShareMiiErrorCode =
+type ShareMiiErrorCode =
   | 'mii_not_initialized'
   | 'no_free_facepaint_slot'
   | 'ugc_missing_textures'

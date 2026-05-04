@@ -10,7 +10,6 @@ export type Food = {
 };
 
 const BY_HASH = new SvelteMap<number, Food>();
-const BY_ID = new SvelteMap<number, Food>();
 const ALL = $state<{ list: Food[] }>({ list: [] });
 let started = false;
 
@@ -40,7 +39,6 @@ export function loadFoodList(): void {
           localized: r.l ?? {},
         };
         BY_HASH.set(food.hash, food);
-        if (food.id >= 0) BY_ID.set(food.id, food);
         list.push(food);
       }
       ALL.list = list;
@@ -52,10 +50,6 @@ export function loadFoodList(): void {
 
 export function foodByHash(hash: number): Food | null {
   return BY_HASH.get(hash >>> 0) ?? null;
-}
-
-export function foodById(id: number): Food | null {
-  return BY_ID.get(id) ?? null;
 }
 
 export function allFoods(): Food[] {

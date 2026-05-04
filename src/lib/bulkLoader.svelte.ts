@@ -6,11 +6,13 @@ import {
   planFromZip,
   type BulkPlan,
 } from './bulkLoad';
+import { goto } from '$app/navigation';
+import { resolve } from '$app/paths';
+import { page } from '$app/state';
 import { recordSnapshot } from './historyCapture';
-import { getPath, navigate } from './navigation.svelte';
 import { SAVE_KINDS, type SaveKind } from './saveFile.svelte';
 
-export type BulkOutcome = {
+type BulkOutcome = {
   loaded: SaveKind[];
   skipped: BulkPlan['skipped'];
   cancelled: boolean;
@@ -29,13 +31,24 @@ let pending: Pending | null = null;
 
 export const overwriteModal = modal;
 
-function redirectIfNeeded(loaded: SaveKind[]): void {
+function routeForKind(kind: SaveKind): '/player' | '/mii' | '/map' {
+  switch (kind) {
+    case 'player':
+      return '/player';
+    case 'mii':
+      return '/mii';
+    case 'map':
+      return '/map';
+  }
+}
+
+export function redirectIfNeeded(loaded: SaveKind[]): void {
   if (loaded.length === 0) return;
-  const path = getPath();
-  const currentKind = SAVE_KINDS.find((k) => path === `/${k}`);
+  const path = page.url.pathname;
+  const currentKind = SAVE_KINDS.find((k) => path === routeForKind(k));
   if (currentKind && loaded.includes(currentKind)) return;
   const target = SAVE_KINDS.find((k) => loaded.includes(k));
-  if (target) navigate(`/${target}`);
+  if (target) void goto(resolve(routeForKind(target)));
 }
 
 function commit(plan: BulkPlan, resolve: (o: BulkOutcome) => void): void {

@@ -74,18 +74,8 @@ export function pendingSidecarFiles(): { name: string; bytes: Uint8Array }[] {
   return Array.from(state.pending, ([name, bytes]) => ({ name, bytes }));
 }
 
-export function clearPendingSidecars(): void {
-  const snapshot = new SvelteMap(state.pending);
-  state.pending.clear();
-  void persistPendingFlag(snapshot, false);
-}
-
 export function hasOriginal(name: string): boolean {
   return state.originals.has(name);
-}
-
-export function isPendingSidecar(name: string): boolean {
-  return state.pending.has(name);
 }
 
 export function replaceSidecarFiles(files: ReadonlyMap<string, Uint8Array>): void {
@@ -171,15 +161,6 @@ async function persistPendingFlag(
   await putSidecars(records);
 }
 
-export function setSidecarFromMap(
-  origin: PersistedOrigin,
-  files: ReadonlyMap<string, Uint8Array>,
-): void {
-  state.origin = origin;
-  state.files = new SvelteMap(files);
-  void persistAll(origin, files);
-}
-
 export function mergeSidecarFiles(
   origin: PersistedOrigin,
   files: ReadonlyMap<string, Uint8Array>,
@@ -221,7 +202,8 @@ export function collectSidecarFromNamedBytes(
   origin: Exclude<Origin, 'none'>,
   entries: Iterable<{ name: string; bytes: Uint8Array }>,
 ): number {
-  const fresh = new SvelteMap<string, Uint8Array>();
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  const fresh = new Map<string, Uint8Array>();
   for (const { name, bytes } of entries) {
     if (isJunkArchiveEntry(name)) continue;
     const base = baseName(name);

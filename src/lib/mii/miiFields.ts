@@ -1,18 +1,15 @@
 import { DataType } from '../sav/dataType';
-import { murmur3_x86_32 } from '../sav/hash';
+import { MII_SCHEMA } from '../sav/schema';
+import type { SchemaLeaf } from '../sav/schema/leaf';
 
-export type MiiFieldKind = 'string' | 'uint' | 'int' | 'enum';
+type MiiFieldKind = 'string' | 'uint' | 'int' | 'enum' | 'binary';
 
-export type MiiFieldPresentation = 'input' | 'slider';
+type MiiFieldPresentation = 'input' | 'slider';
 
 export type MiiField = {
-  /** i18n key under `mii.fields.<labelKey>`. */
   labelKey: string;
-  name: string;
-  hash: number;
+  leaf: SchemaLeaf;
   kind: MiiFieldKind;
-  expectedType: DataType;
-  /** i18n key under `mii.fields.<hintKey>`, optional. */
   hintKey?: string;
   min?: number;
   max?: number;
@@ -20,47 +17,67 @@ export type MiiField = {
   presentation?: MiiFieldPresentation;
 };
 
-export type MiiSection = {
-  /** i18n key under `mii.sections.<titleKey>`. */
+type MiiSection = {
   titleKey: string;
-  /** i18n key under `mii.sections.<descriptionKey>`, optional. */
   descriptionKey?: string;
   fields: MiiField[];
   spoilerFields?: MiiField[];
   postSpoilerFields?: MiiField[];
 };
 
+const STRING_ARRAY_TYPES: ReadonlySet<DataType> = new Set([
+  DataType.String16Array,
+  DataType.String32Array,
+  DataType.String64Array,
+  DataType.WString16Array,
+  DataType.WString32Array,
+  DataType.WString64Array,
+]);
+
+function expectedTypeFor(kind: MiiFieldKind): DataType | ReadonlySet<DataType> {
+  switch (kind) {
+    case 'string':
+      return STRING_ARRAY_TYPES;
+    case 'uint':
+      return DataType.UIntArray;
+    case 'int':
+      return DataType.IntArray;
+    case 'enum':
+      return DataType.EnumArray;
+    case 'binary':
+      return DataType.BinaryArray;
+  }
+}
+
+function validateKind(kind: MiiFieldKind, type: DataType): void {
+  const allowed = expectedTypeFor(kind);
+  const ok = allowed instanceof Set ? allowed.has(type) : allowed === type;
+  if (!ok) {
+    throw new Error(`MiiField kind '${kind}' is incompatible with schema type ${type}`);
+  }
+}
+
 function f(
   labelKey: string,
-  name: string,
+  leaf: SchemaLeaf,
   kind: MiiFieldKind,
-  expectedType: DataType,
   extras: Partial<
     Pick<MiiField, 'hintKey' | 'min' | 'max' | 'displayOffset' | 'presentation'>
   > = {},
 ): MiiField {
-  return {
-    labelKey,
-    name,
-    hash: murmur3_x86_32(name) >>> 0,
-    kind,
-    expectedType,
-    ...extras,
-  };
+  validateKind(kind, leaf.type);
+  return { labelKey, leaf, kind, ...extras };
 }
-
-export const NAME_FIELD_NAME = 'Mii.Name.Name';
-export const NAME_FIELD_HASH = murmur3_x86_32(NAME_FIELD_NAME) >>> 0;
 
 export const MII_SECTIONS: MiiSection[] = [
   {
     titleKey: 'level',
     fields: [
-      f('level', 'Mii.MiiMisc.SatisfyInfo.Level', 'int', DataType.IntArray, {
+      f('level', MII_SCHEMA.Mii.MiiMisc.SatisfyInfo.Level, 'int', {
         displayOffset: 1,
         min: 1,
       }),
-      f('level_meter', 'Mii.MiiMisc.SatisfyInfo.Meter', 'int', DataType.IntArray, {
+      f('level_meter', MII_SCHEMA.Mii.MiiMisc.SatisfyInfo.Meter, 'int', {
         min: 0,
         max: 100,
         presentation: 'slider',
@@ -71,39 +88,30 @@ export const MII_SECTIONS: MiiSection[] = [
   {
     titleKey: 'identity',
     fields: [
-      f('name', 'Mii.Name.Name', 'string', DataType.WString32Array),
-      f('first_person', 'Mii.Name.FirstPerson', 'string', DataType.WString32Array, {
+      f('name', MII_SCHEMA.Mii.Name.Name, 'string'),
+      f('first_person', MII_SCHEMA.Mii.Name.FirstPerson, 'string', {
         hintKey: 'first_person_hint',
       }),
-      f('name_pronunciation', 'Mii.Name.HowToCallName', 'string', DataType.WString64Array, {
+      f('name_pronunciation', MII_SCHEMA.Mii.Name.HowToCallName, 'string', {
         hintKey: 'name_pronunciation_hint',
       }),
-      f(
-        'first_person_pronunciation',
-        'Mii.Name.HowToCallFirstPerson',
-        'string',
-        DataType.WString64Array,
-        { hintKey: 'first_person_pronunciation_hint' },
-      ),
-      f('pronoun_type', 'Mii.Name.PronounType', 'enum', DataType.EnumArray, {
+      f('first_person_pronunciation', MII_SCHEMA.Mii.Name.HowToCallFirstPerson, 'string', {
+        hintKey: 'first_person_pronunciation_hint',
+      }),
+      f('pronoun_type', MII_SCHEMA.Mii.Name.PronounType, 'enum', {
         hintKey: 'pronoun_type_hint',
       }),
-      f('gender', 'Mii.MiiMisc.FaceInfo.Gender', 'enum', DataType.EnumArray, {
+      f('gender', MII_SCHEMA.Mii.MiiMisc.FaceInfo.Gender, 'enum', {
         hintKey: 'gender_hint',
       }),
-      f('name_language', 'Mii.Name.NameRegionLanguageID', 'enum', DataType.EnumArray),
-      f(
-        'first_person_language',
-        'Mii.Name.FirstPersonRegionLanguageID',
-        'enum',
-        DataType.EnumArray,
-      ),
+      f('name_language', MII_SCHEMA.Mii.Name.NameRegionLanguageID, 'enum'),
+      f('first_person_language', MII_SCHEMA.Mii.Name.FirstPersonRegionLanguageID, 'enum'),
     ],
   },
   {
     titleKey: 'wallet',
     fields: [
-      f('money', 'Mii.Belongings.Money', 'uint', DataType.UIntArray, {
+      f('money', MII_SCHEMA.Mii.Belongings.Money, 'uint', {
         min: 0,
         hintKey: 'money_hint',
       }),
@@ -112,36 +120,36 @@ export const MII_SECTIONS: MiiSection[] = [
   {
     titleKey: 'birthday',
     fields: [
-      f('birthday_day', 'Mii.MiiMisc.BirthdayInfo.Day', 'int', DataType.IntArray, {
+      f('birthday_day', MII_SCHEMA.Mii.MiiMisc.BirthdayInfo.Day, 'int', {
         min: 1,
         max: 31,
       }),
-      f('birthday_month', 'Mii.MiiMisc.BirthdayInfo.Month', 'int', DataType.IntArray, {
+      f('birthday_month', MII_SCHEMA.Mii.MiiMisc.BirthdayInfo.Month, 'int', {
         min: 1,
         max: 12,
       }),
-      f('birthday_year', 'Mii.MiiMisc.BirthdayInfo.Year', 'int', DataType.IntArray),
-      f('direct_age', 'Mii.MiiMisc.BirthdayInfo.DirectAge', 'int', DataType.IntArray, {
+      f('birthday_year', MII_SCHEMA.Mii.MiiMisc.BirthdayInfo.Year, 'int'),
+      f('direct_age', MII_SCHEMA.Mii.MiiMisc.BirthdayInfo.DirectAge, 'int', {
         hintKey: 'direct_age_hint',
       }),
-      f('age_type', 'Mii.MiiMisc.BirthdayInfo.AgeType', 'enum', DataType.EnumArray),
+      f('age_type', MII_SCHEMA.Mii.MiiMisc.BirthdayInfo.AgeType, 'enum'),
     ],
   },
   {
     titleKey: 'personality',
     fields: [
-      f('activeness', 'Mii.CharacterParam.Activeness', 'int', DataType.IntArray),
-      f('audaciousness', 'Mii.CharacterParam.Audaciousness', 'int', DataType.IntArray),
-      f('common_sense', 'Mii.CharacterParam.Commonsense', 'int', DataType.IntArray),
-      f('gaiety', 'Mii.CharacterParam.Gaiety', 'int', DataType.IntArray),
-      f('sociability', 'Mii.CharacterParam.Sociability', 'int', DataType.IntArray),
+      f('activeness', MII_SCHEMA.Mii.CharacterParam.Activeness, 'int'),
+      f('audaciousness', MII_SCHEMA.Mii.CharacterParam.Audaciousness, 'int'),
+      f('common_sense', MII_SCHEMA.Mii.CharacterParam.Commonsense, 'int'),
+      f('gaiety', MII_SCHEMA.Mii.CharacterParam.Gaiety, 'int'),
+      f('sociability', MII_SCHEMA.Mii.CharacterParam.Sociability, 'int'),
     ],
   },
   {
     titleKey: 'mood',
     fields: [
-      f('feeling', 'Mii.Feeling.Type', 'enum', DataType.EnumArray),
-      f('bond_meter', 'Mii.MiiMisc.BondInfo.Meter', 'int', DataType.IntArray, {
+      f('feeling', MII_SCHEMA.Mii.Feeling.Type, 'enum'),
+      f('bond_meter', MII_SCHEMA.Mii.MiiMisc.BondInfo.Meter, 'int', {
         min: 0,
         max: 100,
       }),
@@ -150,31 +158,23 @@ export const MII_SECTIONS: MiiSection[] = [
   {
     titleKey: 'food',
     fields: [
-      f('eat_fullness', 'Mii.MiiMisc.EatInfo.EatFullness', 'int', DataType.IntArray, {
+      f('eat_fullness', MII_SCHEMA.Mii.MiiMisc.EatInfo.EatFullness, 'int', {
         min: 0,
         max: 100,
         presentation: 'slider',
       }),
     ],
     spoilerFields: [
-      f('ultra_best_id', 'Mii.MiiMisc.EatInfo.UltraBestId', 'uint', DataType.UIntArray, {
-        min: 0,
-      }),
-      f('best_id', 'Mii.MiiMisc.EatInfo.BestId', 'uint', DataType.UIntArray, {
-        min: 0,
-      }),
-      f('ultra_worst_id', 'Mii.MiiMisc.EatInfo.UltraWorstId', 'uint', DataType.UIntArray, {
-        min: 0,
-      }),
-      f('worst_id', 'Mii.MiiMisc.EatInfo.WorstId', 'uint', DataType.UIntArray, {
-        min: 0,
-      }),
+      f('ultra_best_id', MII_SCHEMA.Mii.MiiMisc.EatInfo.UltraBestId, 'uint', { min: 0 }),
+      f('best_id', MII_SCHEMA.Mii.MiiMisc.EatInfo.BestId, 'uint', { min: 0 }),
+      f('ultra_worst_id', MII_SCHEMA.Mii.MiiMisc.EatInfo.UltraWorstId, 'uint', { min: 0 }),
+      f('worst_id', MII_SCHEMA.Mii.MiiMisc.EatInfo.WorstId, 'uint', { min: 0 }),
     ],
     postSpoilerFields: [
-      f('ranked_food_id', 'Mii.MiiMisc.EatInfo.RankedFoodId.Id', 'uint', DataType.UIntArray, {
+      f('ranked_food_id', MII_SCHEMA.Mii.MiiMisc.EatInfo.RankedFoodId.Id, 'uint', {
         hintKey: 'ranked_food_id_hint',
       }),
-      f('given_flag', 'Mii.MiiMisc.EatInfo.GivenFlag', 'uint', DataType.BinaryArray),
+      f('given_flag', MII_SCHEMA.Mii.MiiMisc.EatInfo.GivenFlag, 'binary'),
     ],
   },
 ];

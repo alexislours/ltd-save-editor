@@ -1,5 +1,4 @@
 import { addMessages, init, getLocaleFromNavigator, locale } from 'svelte-i18n';
-import { get } from 'svelte/store';
 
 type LocaleMessages = Parameters<typeof addMessages>[1];
 
@@ -97,8 +96,4 @@ if (typeof window !== 'undefined') {
 
 export function setAppLocale(loc: AppLocale): void {
   locale.set(loc);
-}
-
-export function getAppLocale(): AppLocale {
-  return get(locale) ?? FALLBACK_LOCALE;
 }

@@ -1,23 +1,24 @@
 <script lang="ts">
-  import { getUInt, setUInt } from '../sav/codec';
-  import type { Entry } from '../sav/types';
-  import { markDirty } from '../playerEditor.svelte';
+  import type { DataType } from '../sav/dataType';
+  import type { SchemaLeaf } from '../sav/schema/leaf';
+  import { playerAccessor } from '../playerEditor.svelte';
   import { INPUT_CLASS } from '../styles';
 
-  type Props = { day: Entry; month: Entry; year: Entry };
-  let { day, month, year }: Props = $props();
+  type UIntLeaf = SchemaLeaf<DataType.UInt>;
 
-  let tick = $state(0);
+  type Props = { dayLeaf: UIntLeaf; monthLeaf: UIntLeaf; yearLeaf: UIntLeaf };
+  let { dayLeaf, monthLeaf, yearLeaf }: Props = $props();
 
   function pad(n: number, w: number): string {
     return String(n).padStart(w, '0');
   }
 
   const isoValue = $derived.by(() => {
-    void tick;
-    const y = getUInt(year);
-    const m = getUInt(month);
-    const d = getUInt(day);
+    const acc = playerAccessor();
+    if (!acc) return '';
+    const y = acc.get(yearLeaf);
+    const m = acc.get(monthLeaf);
+    const d = acc.get(dayLeaf);
     if (y === 0 || m === 0 || d === 0) return '';
     if (m < 1 || m > 12 || d < 1 || d > 31) return '';
     return `${pad(y, 4)}-${pad(m, 2)}-${pad(d, 2)}`;
@@ -40,13 +41,11 @@
       error = 'Invalid date';
       return;
     }
-    setUInt(year, y);
-    setUInt(month, mo);
-    setUInt(day, d);
-    markDirty(year);
-    markDirty(month);
-    markDirty(day);
-    tick++;
+    const acc = playerAccessor();
+    if (!acc) return;
+    acc.set(yearLeaf, y);
+    acc.set(monthLeaf, mo);
+    acc.set(dayLeaf, d);
   }
 </script>
 

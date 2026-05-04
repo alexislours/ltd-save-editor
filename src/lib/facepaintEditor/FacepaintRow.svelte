@@ -1,9 +1,8 @@
 <script module lang="ts">
-  import { SvelteMap } from 'svelte/reactivity';
-
   type CacheEntry = { bytes: Uint8Array; url: string };
   const THUMB_CACHE_MAX = 96;
-  const thumbUrlCache = new SvelteMap<string, CacheEntry>();
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  const thumbUrlCache = new Map<string, CacheEntry>();
 
   function rememberThumb(name: string, entry: CacheEntry): void {
     thumbUrlCache.set(name, entry);

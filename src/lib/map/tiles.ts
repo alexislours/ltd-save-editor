@@ -47,7 +47,7 @@ export const TILE_DEFS: readonly TileDef[] = [
   { hash: 0x69fff2f1, code: 'UGC', color: '#ED2424', internal: true },
 ];
 
-export const UNKNOWN_TILE_COLOR = '#FF00FF';
+const UNKNOWN_TILE_COLOR = '#FF00FF';
 
 const TILE_BY_HASH: ReadonlyMap<number, TileDef> = new Map(TILE_DEFS.map((t) => [t.hash >>> 0, t]));
 
@@ -59,7 +59,7 @@ export function tileColorForHash(hash: number): string {
   return tileDefForHash(hash)?.color ?? UNKNOWN_TILE_COLOR;
 }
 
-export type TileTranslator = (key: string) => string;
+type TileTranslator = (key: string) => string;
 
 export function tileLabelForHash(hash: number, t: TileTranslator): string {
   const def = tileDefForHash(hash);

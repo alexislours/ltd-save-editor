@@ -1,4 +1,4 @@
-export type Theme = 'light' | 'dark';
+type Theme = 'light' | 'dark';
 
 const STORAGE_KEY = 'ltd-save-editor:theme';
 
@@ -20,7 +20,7 @@ export function getTheme(): Theme {
   return state.value;
 }
 
-export function setTheme(next: Theme): void {
+function setTheme(next: Theme): void {
   state.value = next;
   applyToDocument(next);
   if (typeof localStorage !== 'undefined') {

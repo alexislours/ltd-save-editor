@@ -21,14 +21,6 @@ function normalizeName(name: string): string {
   return idx >= 0 ? name.slice(idx + 1) : name;
 }
 
-export function getSidecar(source: SidecarSource, fileName: string): Uint8Array | null {
-  return source.files.get(fileName) ?? null;
-}
-
-export function hasSidecar(source: SidecarSource, fileName: string): boolean {
-  return source.files.has(fileName);
-}
-
 export async function sidecarFromFolderFiles(files: File[]): Promise<SidecarSource> {
   const out = new Map<string, Uint8Array>();
   for (const file of files) {
