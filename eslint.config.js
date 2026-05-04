@@ -6,7 +6,7 @@ import prettier from 'eslint-config-prettier';
 import svelteConfig from './svelte.config.js';
 
 export default ts.config(
-  { ignores: ['dist/', 'node_modules/', '.svelte-kit/', 'src/lib/paraglide/'] },
+  { ignores: ['dist/', 'node_modules/', '.svelte-kit/'] },
   js.configs.recommended,
   ...ts.configs.recommended,
   ...svelte.configs.recommended,
