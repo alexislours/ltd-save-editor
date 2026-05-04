@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { PUBLIC_SITE_URL } from '$env/static/public';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
+  import RouteMeta from '$lib/RouteMeta.svelte';
   import SaveBar from '$lib/SaveBar.svelte';
   import SaveTab from '$lib/SaveTab.svelte';
   import SubTabs from '$lib/SubTabs.svelte';
@@ -82,15 +82,7 @@
   }
 </script>
 
-<svelte:head>
-  <title>Mii save - LTD Save Editor</title>
-  <link rel="canonical" href="{PUBLIC_SITE_URL}/mii" />
-  <meta property="og:title" content="Mii save - LTD Save Editor" />
-  <meta property="og:description" content="Save editor for Tomodachi Life: Living the Dream." />
-  <meta property="og:url" content="{PUBLIC_SITE_URL}/mii" />
-  <meta name="twitter:title" content="Mii save - LTD Save Editor" />
-  <meta name="twitter:description" content="Save editor for Tomodachi Life: Living the Dream." />
-</svelte:head>
+<RouteMeta title="Mii save - LTD Save Editor" />
 
 <SaveTab
   kind="mii"

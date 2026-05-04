@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { PUBLIC_SITE_URL } from '$env/static/public';
   import { _ } from 'svelte-i18n';
   import Card from '$lib/Card.svelte';
+  import RouteMeta from '$lib/RouteMeta.svelte';
 
   const repoUrl = 'https://github.com/alexislours/ltd-save-editor';
   const issuesUrl = 'https://github.com/alexislours/ltd-save-editor/issues/new';
@@ -28,15 +28,7 @@
   const followUpClass = 'mt-3 text-sm text-content';
 </script>
 
-<svelte:head>
-  <title>FAQ - LTD Save Editor</title>
-  <link rel="canonical" href="{PUBLIC_SITE_URL}/faq" />
-  <meta property="og:title" content="FAQ - LTD Save Editor" />
-  <meta property="og:description" content="Save editor for Tomodachi Life: Living the Dream." />
-  <meta property="og:url" content="{PUBLIC_SITE_URL}/faq" />
-  <meta name="twitter:title" content="FAQ - LTD Save Editor" />
-  <meta name="twitter:description" content="Save editor for Tomodachi Life: Living the Dream." />
-</svelte:head>
+<RouteMeta title="FAQ - LTD Save Editor" />
 
 <div class="space-y-6">
   <Card title={$_('faq.title')} description={$_('faq.subtitle')}>

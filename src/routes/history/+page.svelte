@@ -1,6 +1,5 @@
 <script lang="ts">
   import { zipSync } from 'fflate';
-  import { PUBLIC_SITE_URL } from '$env/static/public';
   import { _, locale } from 'svelte-i18n';
   import { track } from '$lib/analytics';
   import {
@@ -11,6 +10,7 @@
     listSnapshotMeta,
     type HistorySnapshotMeta,
   } from '$lib/historyStore';
+  import RouteMeta from '$lib/RouteMeta.svelte';
   import { downloadBytes } from '$lib/sav/download';
   import { CARD_BASE_CLASS, PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/styles';
   import { showToast } from '$lib/toast.svelte';
@@ -149,15 +149,7 @@
   );
 </script>
 
-<svelte:head>
-  <title>History - LTD Save Editor</title>
-  <link rel="canonical" href="{PUBLIC_SITE_URL}/history" />
-  <meta property="og:title" content="History - LTD Save Editor" />
-  <meta property="og:description" content="Save editor for Tomodachi Life: Living the Dream." />
-  <meta property="og:url" content="{PUBLIC_SITE_URL}/history" />
-  <meta name="twitter:title" content="History - LTD Save Editor" />
-  <meta name="twitter:description" content="Save editor for Tomodachi Life: Living the Dream." />
-</svelte:head>
+<RouteMeta title="History - LTD Save Editor" />
 
 <div class="space-y-5">
   <header class="space-y-1.5">

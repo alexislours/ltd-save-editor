@@ -102,8 +102,6 @@
 </script>
 
 <svelte:head>
-  <title>Tomodachi Life: Living the Dream - Save Editor</title>
-  <meta name="description" content="Save editor for Tomodachi Life: Living the Dream." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="LTD Save Editor" />
   <meta property="og:locale" content="en_US" />

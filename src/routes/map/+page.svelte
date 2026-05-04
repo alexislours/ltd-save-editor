@@ -1,10 +1,10 @@
 <script lang="ts">
   import { untrack } from 'svelte';
   import { SvelteSet } from 'svelte/reactivity';
-  import { PUBLIC_SITE_URL } from '$env/static/public';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
   import { track } from '$lib/analytics';
   import Card from '$lib/Card.svelte';
+  import RouteMeta from '$lib/RouteMeta.svelte';
   import SaveBar from '$lib/SaveBar.svelte';
   import SaveTab from '$lib/SaveTab.svelte';
   import SubTabs from '$lib/SubTabs.svelte';
@@ -167,15 +167,7 @@
   }
 </script>
 
-<svelte:head>
-  <title>Map save - LTD Save Editor</title>
-  <link rel="canonical" href="{PUBLIC_SITE_URL}/map" />
-  <meta property="og:title" content="Map save - LTD Save Editor" />
-  <meta property="og:description" content="Save editor for Tomodachi Life: Living the Dream." />
-  <meta property="og:url" content="{PUBLIC_SITE_URL}/map" />
-  <meta name="twitter:title" content="Map save - LTD Save Editor" />
-  <meta name="twitter:description" content="Save editor for Tomodachi Life: Living the Dream." />
-</svelte:head>
+<RouteMeta title="Map save - LTD Save Editor" />
 
 <svelte:window onkeydown={onKey} />
 

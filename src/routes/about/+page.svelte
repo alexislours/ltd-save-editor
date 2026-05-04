@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { PUBLIC_SITE_URL } from '$env/static/public';
   import { _, locale } from 'svelte-i18n';
   import Card from '$lib/Card.svelte';
+  import RouteMeta from '$lib/RouteMeta.svelte';
 
   const repoUrl = 'https://github.com/alexislours/ltd-save-editor';
   const discordUrl = 'https://discord.gg/YHFNTvXrdE';
@@ -57,15 +57,7 @@
   );
 </script>
 
-<svelte:head>
-  <title>About - LTD Save Editor</title>
-  <link rel="canonical" href="{PUBLIC_SITE_URL}/about" />
-  <meta property="og:title" content="About - LTD Save Editor" />
-  <meta property="og:description" content="Save editor for Tomodachi Life: Living the Dream." />
-  <meta property="og:url" content="{PUBLIC_SITE_URL}/about" />
-  <meta name="twitter:title" content="About - LTD Save Editor" />
-  <meta name="twitter:description" content="Save editor for Tomodachi Life: Living the Dream." />
-</svelte:head>
+<RouteMeta title="About - LTD Save Editor" />
 
 <div class="space-y-6">
   <div

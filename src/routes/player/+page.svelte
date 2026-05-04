@@ -1,9 +1,9 @@
 <script lang="ts">
   import { untrack } from 'svelte';
-  import { PUBLIC_SITE_URL } from '$env/static/public';
   import { _ } from 'svelte-i18n';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
   import { errorMessage } from '$lib/errorMessage';
+  import RouteMeta from '$lib/RouteMeta.svelte';
   import BuildingsPanel from '$lib/player/BuildingsPanel.svelte';
   import ClothesPanel from '$lib/player/ClothesPanel.svelte';
   import ClothingSetsPanel from '$lib/player/ClothingSetsPanel.svelte';
@@ -68,15 +68,7 @@
   }
 </script>
 
-<svelte:head>
-  <title>Player save - LTD Save Editor</title>
-  <link rel="canonical" href="{PUBLIC_SITE_URL}/player" />
-  <meta property="og:title" content="Player save - LTD Save Editor" />
-  <meta property="og:description" content="Save editor for Tomodachi Life: Living the Dream." />
-  <meta property="og:url" content="{PUBLIC_SITE_URL}/player" />
-  <meta name="twitter:title" content="Player save - LTD Save Editor" />
-  <meta name="twitter:description" content="Save editor for Tomodachi Life: Living the Dream." />
-</svelte:head>
+<RouteMeta title="Player save - LTD Save Editor" />
 
 <SaveTab
   kind="player"

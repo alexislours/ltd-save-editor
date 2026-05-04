@@ -1,9 +1,9 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import { PUBLIC_SITE_URL } from '$env/static/public';
   import { _ } from 'svelte-i18n';
   import Card from '$lib/Card.svelte';
   import FileDropZone from '$lib/FileDropZone.svelte';
+  import RouteMeta from '$lib/RouteMeta.svelte';
   import { getSave } from '$lib/saveFile.svelte';
 
   const pills = $derived([
@@ -18,15 +18,7 @@
   ]);
 </script>
 
-<svelte:head>
-  <title>Tomodachi Life: Living the Dream - Save Editor</title>
-  <link rel="canonical" href="{PUBLIC_SITE_URL}/" />
-  <meta property="og:title" content="Tomodachi Life: Living the Dream - Save Editor" />
-  <meta property="og:description" content="Save editor for Tomodachi Life: Living the Dream." />
-  <meta property="og:url" content="{PUBLIC_SITE_URL}/" />
-  <meta name="twitter:title" content="Tomodachi Life: Living the Dream - Save Editor" />
-  <meta name="twitter:description" content="Save editor for Tomodachi Life: Living the Dream." />
-</svelte:head>
+<RouteMeta title="Tomodachi Life: Living the Dream - Save Editor" />
 
 <div class="grid grid-cols-1 gap-6">
   <header class="min-w-0">
