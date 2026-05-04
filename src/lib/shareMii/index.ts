@@ -9,9 +9,7 @@ export {
 export {
   applyUgc,
   extractUgc,
-  getUgcSlotName,
   listUgcSlots,
-  renameUgcSlot,
   type ApplyUgcResult,
   type ExtractUgcResult,
   type UgcSlotInfo,

@@ -1,37 +1,35 @@
-import { DataType } from '../sav/dataType';
-import { murmur3_x86_32 } from '../sav/hash';
+import { MII_SCHEMA } from '../sav/schema';
+import type { SchemaLeaf } from '../sav/schema/leaf';
 import type { TroubleTargetKey } from '../sav/troubleList.svelte';
 
-export type TroubleField = {
-  name: string;
-  hash: number;
-  type: DataType;
+type TroubleField = {
+  leaf: SchemaLeaf;
   perMii: number;
 };
 
-function f(name: string, type: DataType, perMii = 1): TroubleField {
-  return { name, hash: murmur3_x86_32(name) >>> 0, type, perMii };
+function f(leaf: SchemaLeaf, perMii = 1): TroubleField {
+  return { leaf, perMii };
 }
 
 export const TROUBLE_FIELDS = {
-  id: f('Mii.Trouble.Info.Id', DataType.UIntArray, 1),
-  nextGameTime: f('Mii.Trouble.Info.NextGameTime', DataType.UInt64Array, 1),
-  endGameTime: f('Mii.Trouble.Info.EndGameTime', DataType.UInt64Array, 1),
-  targetMii: f('Mii.Trouble.Info.TargetMiiIndex', DataType.IntArray, 4),
-  targetItemType: f('Mii.Trouble.Info.TargetItemType', DataType.IntArray, 1),
-  targetFood: f('Mii.Trouble.Info.TargetFoodId', DataType.UIntArray, 1),
-  targetGoods: f('Mii.Trouble.Info.TargetGoodsId', DataType.UIntArray, 1),
-  targetCloth: f('Mii.Trouble.Info.TargetClothId', DataType.UIntArray, 1),
-  targetCoordinate: f('Mii.Trouble.Info.TargetCoordinateId', DataType.UIntArray, 1),
-  targetUgcFood: f('Mii.Trouble.Info.TargetUgcFoodIndex', DataType.IntArray, 1),
-  targetUgcGoods: f('Mii.Trouble.Info.TargetUgcGoodsIndex', DataType.IntArray, 1),
-  targetUgcText: f('Mii.Trouble.Info.TargetUgcTextIndex', DataType.IntArray, 1),
-  targetPreset: f('Mii.Trouble.Info.TargetPresetIndex', DataType.IntArray, 1),
-  mapObjId: f('Mii.Trouble.Info.TargetMapObject.MapObjectId', DataType.UIntArray, 5),
-  mapObjX: f('Mii.Trouble.Info.TargetMapObject.GridPosX', DataType.IntArray, 5),
-  mapObjY: f('Mii.Trouble.Info.TargetMapObject.GridPosY', DataType.IntArray, 5),
-  isFirstDemoDone: f('Mii.Trouble.Info.IsFirstDemoDone', DataType.BoolArray, 1),
-  childBirthBlockTime: f('Mii.Trouble.ChildBirthBlockTime', DataType.UInt64Array, 1),
+  id: f(MII_SCHEMA.Mii.Trouble.Info.Id, 1),
+  nextGameTime: f(MII_SCHEMA.Mii.Trouble.Info.NextGameTime, 1),
+  endGameTime: f(MII_SCHEMA.Mii.Trouble.Info.EndGameTime, 1),
+  targetMii: f(MII_SCHEMA.Mii.Trouble.Info.TargetMiiIndex, 4),
+  targetItemType: f(MII_SCHEMA.Mii.Trouble.Info.TargetItemType, 1),
+  targetFood: f(MII_SCHEMA.Mii.Trouble.Info.TargetFoodId, 1),
+  targetGoods: f(MII_SCHEMA.Mii.Trouble.Info.TargetGoodsId, 1),
+  targetCloth: f(MII_SCHEMA.Mii.Trouble.Info.TargetClothId, 1),
+  targetCoordinate: f(MII_SCHEMA.Mii.Trouble.Info.TargetCoordinateId, 1),
+  targetUgcFood: f(MII_SCHEMA.Mii.Trouble.Info.TargetUgcFoodIndex, 1),
+  targetUgcGoods: f(MII_SCHEMA.Mii.Trouble.Info.TargetUgcGoodsIndex, 1),
+  targetUgcText: f(MII_SCHEMA.Mii.Trouble.Info.TargetUgcTextIndex, 1),
+  targetPreset: f(MII_SCHEMA.Mii.Trouble.Info.TargetPresetIndex, 1),
+  mapObjId: f(MII_SCHEMA.Mii.Trouble.Info.TargetMapObject.MapObjectId, 5),
+  mapObjX: f(MII_SCHEMA.Mii.Trouble.Info.TargetMapObject.GridPosX, 5),
+  mapObjY: f(MII_SCHEMA.Mii.Trouble.Info.TargetMapObject.GridPosY, 5),
+  isFirstDemoDone: f(MII_SCHEMA.Mii.Trouble.Info.IsFirstDemoDone, 1),
+  childBirthBlockTime: f(MII_SCHEMA.Mii.Trouble.ChildBirthBlockTime, 1),
 } as const;
 
 export type TroubleFieldKey = keyof typeof TROUBLE_FIELDS;

@@ -3,7 +3,7 @@
   import { bulkLoadFiles, bulkLoadFromDataTransfer } from './bulkLoader.svelte';
   import { expectedFileName, type SaveKind } from './saveFile.svelte';
 
-  type Props = { kind: SaveKind };
+  type Props = { kind?: SaveKind };
   let { kind }: Props = $props();
 
   let dragging = $state(false);
@@ -88,7 +88,9 @@
       />
     </svg>
     <p class="text-base font-bold text-content-strong">
-      {$_('save.drop_here', { values: { fileName: expectedFileName[kind] } })}
+      {kind
+        ? $_('save.drop_here', { values: { fileName: expectedFileName[kind] } })
+        : $_('save.drop_here_multi')}
     </p>
     <p class="text-sm text-content-muted">{$_('bulk.drop_hint')}</p>
 

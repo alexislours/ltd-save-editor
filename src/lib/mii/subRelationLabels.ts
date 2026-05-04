@@ -61,13 +61,12 @@ const SUB_RELATIONS: Record<string, SubGroup> = {
   },
 };
 
-/** Resolved sub-relation pointer at a given meter value. */
-export type SubRelationKey = {
+type SubRelationKey = {
   key: string;
   index: number;
 };
 
-export type SubRelationLevel = {
+type SubRelationLevel = {
   index: number;
   meter: number;
   key: string;
@@ -110,13 +109,4 @@ export function subRelationLevels(
     out.push({ index: i, meter, key: `${prefix}_${i}` });
   }
   return out;
-}
-
-export function subRelationLevelIndex(internalName: string, meter: number): number | null {
-  const def = SUB_RELATIONS[internalName];
-  if (!def) return null;
-  for (let i = 0; i < def.thresholds.length; i++) {
-    if (meter < def.thresholds[i]) return i;
-  }
-  return def.thresholds.length;
 }

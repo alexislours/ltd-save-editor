@@ -1,22 +1,15 @@
-import { arrGetString, arrayCount, binaryArrayElements } from '../sav/codec';
-import { DataType } from '../sav/dataType';
-import { murmur3_x86_32 } from '../sav/hash';
-import type { Entry } from '../sav/types';
-import { NAME_FIELD_HASH } from './miiFields';
+import { MII_SCHEMA } from '../sav/schema';
+import type { MiiAccessor } from './miiEditor.svelte';
 
-const CHAR_INFO_EX_HASH = murmur3_x86_32('Mii.CharInfoEx') >>> 0;
-
-export function populatedMiiIndices(byHash: Map<number, Entry>): number[] {
-  const nameEntry = byHash.get(NAME_FIELD_HASH);
-  if (!nameEntry) return [];
-  const count = arrayCount(nameEntry);
-  const charInfoEntry = byHash.get(CHAR_INFO_EX_HASH);
-  if (charInfoEntry && charInfoEntry.type === DataType.BinaryArray) {
-    const elements = binaryArrayElements(charInfoEntry);
+export function populatedMiiIndices(mii: MiiAccessor): number[] {
+  if (!mii.has(MII_SCHEMA.Mii.Name.Name)) return [];
+  const names = mii.get(MII_SCHEMA.Mii.Name.Name);
+  if (mii.has(MII_SCHEMA.Mii.CharInfoEx)) {
+    const elements = mii.get(MII_SCHEMA.Mii.CharInfoEx);
     const out: number[] = [];
-    const limit = Math.min(count, elements.length);
+    const limit = Math.min(names.length, elements.length);
     for (let i = 0; i < limit; i++) {
-      const bytes = elements[i].bytes;
+      const bytes = elements[i];
       for (let b = 0; b < bytes.length; b++) {
         if (bytes[b] !== 0) {
           out.push(i);
@@ -27,12 +20,8 @@ export function populatedMiiIndices(byHash: Map<number, Entry>): number[] {
     return out;
   }
   const out: number[] = [];
-  for (let i = 0; i < count; i++) {
-    try {
-      if (arrGetString(nameEntry, i).length > 0) out.push(i);
-    } catch {
-      /* skip */
-    }
+  for (let i = 0; i < names.length; i++) {
+    if (names[i].length > 0) out.push(i);
   }
   return out;
 }

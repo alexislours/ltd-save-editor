@@ -10,7 +10,7 @@ import {
 import { isJunkArchiveEntry, isSidecarFileName } from './shareMii/sidecar';
 import { collectSidecarFromNamedBytes } from './shareMii/sidecarStore.svelte';
 
-export type Candidate = {
+type Candidate = {
   name: string;
   bytes: Uint8Array;
   lastModified: number;

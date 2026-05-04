@@ -293,6 +293,19 @@
     "faq": "FAQ",
     "about": "About"
   },
+  "home": {
+    "title": "Tomodachi Life: Living the Dream Save Editor",
+    "description": "Drop your Player.sav, Mii.sav, or Map.sav to start editing. Each file opens in the matching tab.",
+    "loaded": "Loaded",
+    "not_loaded": "Not loaded"
+  },
+  "error": {
+    "not_found_title": "Page not found",
+    "not_found_description": "We couldn't find the page you were looking for. It may have moved, or the link may be wrong.",
+    "generic_title": "Something went wrong",
+    "generic_description": "An unexpected error occurred while loading this page.",
+    "back_home": "Back to start"
+  },
   "history": {
     "title": "Drop history",
     "description": "A local copy of every save file you've dropped into the editor, kept in your browser only. Use it as a last-chance recovery if you accidentally save over your real backup.",
@@ -421,6 +434,7 @@
     "waiting": "Waiting for {fileName}…",
     "upload_prompt": "Upload your {fileName} to begin.",
     "drop_here": "Drop {fileName} here",
+    "drop_here_multi": "Drop your save files here",
     "drop_browse": "or click to browse",
     "drop_warning_label": "Warning:",
     "drop_warning_text": "editing save files can corrupt your game. Always keep a backup of the original file before uploading.",

@@ -403,7 +403,7 @@ export function arrSetString(e: Entry, i: number, s: string): void {
   e.payload.set(fresh, start);
 }
 
-export type BinaryArrayElement = { size: number; bytes: Uint8Array };
+type BinaryArrayElement = { size: number; bytes: Uint8Array };
 
 export function binaryArrayElements(e: Entry): BinaryArrayElement[] {
   assertType(e, DataType.BinaryArray);

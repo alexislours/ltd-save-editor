@@ -3,12 +3,11 @@ import {
   ACTOR_NAMES,
   DEFAULT_FOOTPRINT,
   type ActorFootprint,
-  type ActorInfo,
 } from './generatedActorNames';
 
 export type ActorGroup = 'house' | 'facility' | 'deco' | 'room' | 'step' | 'unknown';
 
-export type ActorDisplay = {
+type ActorDisplay = {
   hash: number;
   key: string;
   category: string;
@@ -26,7 +25,7 @@ function groupForCategory(category: string): ActorGroup {
   return 'unknown';
 }
 
-export const GROUP_COLOR: Record<ActorGroup, string> = {
+const GROUP_COLOR: Record<ActorGroup, string> = {
   house: '#e11d48', // rose-600
   facility: '#2563eb', // blue-600
   deco: '#16a34a', // green-600
@@ -94,12 +93,7 @@ export function allActors(): readonly ActorDisplay[] {
   return items;
 }
 
-export function actorInfo(hash: number): ActorInfo | null {
-  return ACTOR_NAMES.get(hash >>> 0) ?? null;
-}
-
-export type FootprintCell = { dx: number; dy: number };
-export type FootprintRect = {
+type FootprintRect = {
   x0: number;
   y0: number;
   w: number;
@@ -172,22 +166,6 @@ export function footprintRect(hash: number, rotDeg: number): FootprintRect {
     goalX,
     goalY,
   };
-}
-
-export function footprintCells(hash: number, rotDeg: number): FootprintCell[] {
-  const { x0, y0, w, h } = footprintRect(hash, rotDeg);
-  const out: FootprintCell[] = [];
-  for (let dy = 0; dy < h; dy++) {
-    for (let dx = 0; dx < w; dx++) {
-      out.push({ dx: x0 + dx, dy: y0 + dy });
-    }
-  }
-  return out;
-}
-
-export function isSingleCell(hash: number): boolean {
-  const fp = rawFootprint(hash);
-  return fp.w === 1 && fp.h === 1;
 }
 
 export function footprintSizeLabel(hash: number): string {

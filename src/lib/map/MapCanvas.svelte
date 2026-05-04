@@ -1,6 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { inBounds, indexFromXY, MAP_HEIGHT, MAP_WIDTH, mapState } from './mapEditor.svelte';
+  import {
+    floorTiles,
+    inBounds,
+    indexFromXY,
+    MAP_HEIGHT,
+    MAP_WIDTH,
+    mapState,
+  } from './mapEditor.svelte';
   import { packColorRGBA, tileColorForHash } from './tiles';
   import { BrushStroke, floodFill, RectangleStroke, type ToolKind } from './tools';
 
@@ -38,7 +45,7 @@
 
   $effect(() => {
     void mapState.tileRev;
-    void mapState.entry;
+    void mapState.ready;
     void tileSize;
     if (offBuf32) redraw();
   });
@@ -47,15 +54,11 @@
     const ctx = canvas?.getContext('2d');
     if (!ctx || !offBuf32) return;
 
-    if (mapState.entry?.payload) {
-      const tiles = new Uint32Array(
-        mapState.entry.payload.buffer,
-        mapState.entry.payload.byteOffset + 4,
-        MAP_WIDTH * MAP_HEIGHT,
-      );
+    const tiles = floorTiles();
+    if (tiles) {
       for (let y = 0; y < MAP_HEIGHT; y++) {
         for (let x = 0; x < MAP_WIDTH; x++) {
-          const hash = tiles[indexFromXY(x, y)];
+          const hash = tiles[indexFromXY(x, y)] >>> 0;
           const pixelIndex = y * MAP_WIDTH + x;
           offBuf32[pixelIndex] = packColorRGBA(tileColorForHash(hash));
         }
@@ -89,8 +92,8 @@
       e.preventDefault();
       picking = true;
       canvas.setPointerCapture(e.pointerId);
-      const tiles = tilesView();
-      if (tiles) onPickTile(tiles[indexFromXY(c.x, c.y)]);
+      const tiles = floorTiles();
+      if (tiles) onPickTile(tiles[indexFromXY(c.x, c.y)] >>> 0);
       return;
     }
     if (e.button !== 0) return;
@@ -98,8 +101,8 @@
     canvas.setPointerCapture(e.pointerId);
 
     if (tool === 'picker') {
-      const tiles = tilesView();
-      if (tiles) onPickTile(tiles[indexFromXY(c.x, c.y)]);
+      const tiles = floorTiles();
+      if (tiles) onPickTile(tiles[indexFromXY(c.x, c.y)] >>> 0);
       picking = true;
       return;
     }
@@ -120,8 +123,8 @@
 
     if (picking) {
       if (!c) return;
-      const tiles = tilesView();
-      if (tiles) onPickTile(tiles[indexFromXY(c.x, c.y)]);
+      const tiles = floorTiles();
+      if (tiles) onPickTile(tiles[indexFromXY(c.x, c.y)] >>> 0);
       return;
     }
 
@@ -145,15 +148,6 @@
 
   function onPointerLeave(): void {
     onHover(null);
-  }
-
-  function tilesView(): Uint32Array | null {
-    if (!mapState.entry?.payload) return null;
-    return new Uint32Array(
-      mapState.entry.payload.buffer,
-      mapState.entry.payload.byteOffset + 4,
-      MAP_WIDTH * MAP_HEIGHT,
-    );
   }
 </script>
 

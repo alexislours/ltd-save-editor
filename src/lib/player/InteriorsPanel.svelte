@@ -6,12 +6,12 @@
     roomStyleGroupLabel,
     roomStyleVariantImageUrl,
   } from '../sav/roomStyleList.svelte';
-  import type { Entry } from '../sav/types';
+  import { playerAccessor } from '../playerEditor.svelte';
   import InventoryExpandableRow, { type SubItem } from './InventoryExpandableRow.svelte';
   import {
     applyQtyToSlots,
     applyStateToSlots,
-    buildEntryMap,
+    leafForHash,
     readSlotQty,
     readSlotState,
     type Slot,
@@ -20,20 +20,17 @@
   } from './inventoryHelpers';
   import InventoryListPanel from './InventoryListPanel.svelte';
 
-  type Props = { entries: Entry[] };
-  let { entries }: Props = $props();
-
-  const byHash = $derived(buildEntryMap(entries));
+  const acc = $derived(playerAccessor());
 
   function variantSlot(group: RoomStyleGroup, variantIndex: number): Slot {
     const v = group.variants[variantIndex];
     if (!v) return { state: null, qty: null, index: null };
     return {
-      state: byHash.get(v.stateHash) ?? null,
-      qty: byHash.get(v.ownNumHash) ?? null,
+      state: leafForHash(v.stateHash),
+      qty: leafForHash(v.ownNumHash),
       index: null,
-      newlyOwned: byHash.get(v.newlyOwnedHash) ?? null,
-      mystery: v.mysteryHash != null ? (byHash.get(v.mysteryHash) ?? null) : null,
+      newlyOwned: leafForHash(v.newlyOwnedHash),
+      mystery: v.mysteryHash != null ? leafForHash(v.mysteryHash) : null,
     };
   }
 
@@ -43,7 +40,7 @@
 
   const items = $derived(
     allRoomStyleGroups().filter((group) =>
-      group.variants.some((v) => byHash.has(v.stateHash) || byHash.has(v.ownNumHash)),
+      group.variants.some((v) => leafForHash(v.stateHash) || leafForHash(v.ownNumHash)),
     ),
   );
 
@@ -85,15 +82,15 @@
       imageUrl={roomStyleVariantImageUrl(group.variants[0])}
       {label}
       caption={`${group.groupKey} · ${$_('player.interiors.variant_count', { values: { count: group.variants.length } })}`}
-      primaryState={readSlotState(slots[0])}
-      primaryQty={readSlotQty(slots[0])}
+      primaryState={readSlotState(acc, slots[0])}
+      primaryQty={readSlotQty(acc, slots[0])}
       subItems={variantSubItems(group, label)}
-      readSubState={(i) => readSlotState(slots[i])}
-      readSubQty={(i) => readSlotQty(slots[i])}
-      writeStateAll={(v) => applyStateToSlots(slots, v)}
-      writeQtyAll={(v) => applyQtyToSlots(slots, v)}
-      writeSubState={(i, v) => writeSlotState(slots[i], v)}
-      writeSubQty={(i, v) => writeSlotQty(slots[i], v)}
+      readSubState={(i) => readSlotState(acc, slots[i])}
+      readSubQty={(i) => readSlotQty(acc, slots[i])}
+      writeStateAll={(v) => applyStateToSlots(acc, slots, v)}
+      writeQtyAll={(v) => applyQtyToSlots(acc, slots, v)}
+      writeSubState={(i, v) => writeSlotState(acc, slots[i], v)}
+      writeSubQty={(i, v) => writeSlotQty(acc, slots[i], v)}
       expandLabel={$_('player.inventory.expand_variants')}
       collapseLabel={$_('player.inventory.collapse_variants')}
     />

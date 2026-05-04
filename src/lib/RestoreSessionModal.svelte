@@ -74,7 +74,7 @@
             <span class="font-mono font-normal text-content/80">— {s.name}</span>
           </span>
           <span class="font-mono text-xs text-content/70">
-            {formatBytes(s.bytes.byteLength)} · {formatSavedAt(s.savedAt, $locale ?? '')}
+            {formatSavedAt(s.savedAt, $locale ?? '')}
           </span>
         </li>
       {/each}

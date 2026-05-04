@@ -1,6 +1,6 @@
-import { arrGetUInt, arrSetUInt } from '../sav/codec';
-import type { Entry } from '../sav/types';
-import { markDirty } from './miiEditor.svelte';
+import type { DataType } from '../sav/dataType';
+import type { SchemaLeaf } from '../sav/schema/leaf';
+import type { MiiAccessor } from './miiEditor.svelte';
 
 export type BitmaskAccess = {
   available: boolean;
@@ -14,7 +14,8 @@ export type BitmaskAccess = {
 };
 
 type Config = {
-  entry: Entry | null;
+  mii: MiiAccessor | null;
+  leaf: SchemaLeaf<DataType.UIntArray> | null;
   totalCount: number;
   miiIndex: number | null;
   slotsPerMii: number;
@@ -22,7 +23,8 @@ type Config = {
 };
 
 export function createOwnershipBitmask({
-  entry,
+  mii,
+  leaf,
   totalCount,
   miiIndex,
   slotsPerMii,
@@ -31,23 +33,22 @@ export function createOwnershipBitmask({
   const slot = (itemIndex: number) => (miiIndex ?? 0) * slotsPerMii + itemIndex;
 
   const read = (itemIndex: number): number => {
-    if (!entry || miiIndex == null) return 0;
+    if (!mii || !leaf || miiIndex == null) return 0;
     const i = slot(itemIndex);
     if (i < 0 || i >= totalCount) return 0;
     try {
-      return arrGetUInt(entry, i) >>> 0;
+      return mii.getElement(leaf, i) >>> 0;
     } catch {
       return 0;
     }
   };
 
   const write = (itemIndex: number, mask: number): void => {
-    if (!entry || miiIndex == null) return;
+    if (!mii || !leaf || miiIndex == null) return;
     const i = slot(itemIndex);
     if (i < 0 || i >= totalCount) return;
     try {
-      arrSetUInt(entry, i, mask >>> 0);
-      markDirty(entry);
+      mii.setElement(leaf, i, mask >>> 0);
     } catch {
       /* out of range */
     }
@@ -95,7 +96,7 @@ export function createOwnershipBitmask({
   };
 
   return {
-    available: entry != null,
+    available: mii != null && leaf != null,
     read,
     write,
     validMask,

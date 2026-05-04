@@ -1,16 +1,7 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { SvelteMap } from 'svelte/reactivity';
-  import {
-    arrayCount,
-    arrGetInt,
-    arrGetUInt,
-    arrGetUInt64,
-    arrSetInt,
-    arrSetUInt,
-    arrSetUInt64,
-  } from '../sav/codec';
   import { safe } from '../sav/format';
+  import { MII_SCHEMA } from '../sav/schema';
   import {
     allTreasures,
     type Treasure,
@@ -18,36 +9,37 @@
     treasureImageUrl,
     treasureLabel,
   } from '../sav/treasureList.svelte';
-  import { murmur3_x86_32 } from '../sav/hash';
-  import type { Entry } from '../sav/types';
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
-  import { markDirty, miiState } from './miiEditor.svelte';
+  import { miiAccessor } from './miiEditor.svelte';
 
   type Props = {
-    byHash: SvelteMap<number, Entry>;
     selectedIndex: number | null;
   };
-  let { byHash, selectedIndex }: Props = $props();
+  let { selectedIndex }: Props = $props();
 
-  const STRING_ID_HASH = murmur3_x86_32('Mii.Belongings.GoodsOwnInfoSlot.GoodsStringId') >>> 0;
-  const GET_TIME_HASH = murmur3_x86_32('Mii.Belongings.GoodsOwnInfoSlot.GetTime') >>> 0;
-  const UGC_INDEX_HASH = murmur3_x86_32('Mii.Belongings.GoodsOwnInfoSlot.UgcGoodsIndex') >>> 0;
+  const mii = $derived(miiAccessor());
 
-  const stringIdEntry = $derived(byHash.get(STRING_ID_HASH) ?? null);
-  const getTimeEntry = $derived(byHash.get(GET_TIME_HASH) ?? null);
-  const ugcIndexEntry = $derived(byHash.get(UGC_INDEX_HASH) ?? null);
+  const hasStringId = $derived(
+    mii != null && mii.has(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.GoodsStringId),
+  );
+  const hasGetTime = $derived(
+    mii != null && mii.has(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.GetTime),
+  );
+  const hasUgcIndex = $derived(
+    mii != null && mii.has(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.UgcGoodsIndex),
+  );
 
   const slotsPerMii = $derived.by(() => {
-    if (!stringIdEntry) return 0;
-    const total = arrayCount(stringIdEntry);
+    if (!mii || !hasStringId) return 0;
+    const total = mii.get(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.GoodsStringId).length;
     if (total === 0) return 0;
-    const meterEntry = byHash.get(murmur3_x86_32('Mii.MiiMisc.SatisfyInfo.Level') >>> 0);
-    const miiCount = meterEntry ? arrayCount(meterEntry) : 0;
+    const miiCount = mii.has(MII_SCHEMA.Mii.MiiMisc.SatisfyInfo.Level)
+      ? mii.get(MII_SCHEMA.Mii.MiiMisc.SatisfyInfo.Level).length
+      : 0;
     if (miiCount > 0 && total % miiCount === 0) return total / miiCount;
     return 12;
   });
 
-  const tick = $derived(miiState.tick);
   const ui = $derived($locale);
 
   type Slot = {
@@ -60,14 +52,29 @@
   };
 
   const slots = $derived.by<Slot[]>(() => {
-    void tick;
-    if (!stringIdEntry || selectedIndex == null || slotsPerMii === 0) return [];
+    if (!mii || !hasStringId || selectedIndex == null || slotsPerMii === 0) return [];
     const out: Slot[] = [];
     for (let s = 0; s < slotsPerMii; s++) {
       const i = selectedIndex * slotsPerMii + s;
-      const stringId = safe(() => arrGetUInt(stringIdEntry, i), 0) >>> 0;
-      const ugcIndex = ugcIndexEntry ? safe(() => arrGetInt(ugcIndexEntry, i), -1) : -1;
-      const getTime = getTimeEntry ? safe(() => arrGetUInt64(getTimeEntry, i), 0n) : 0n;
+      const stringId =
+        safe(
+          () =>
+            mii.getElement(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.GoodsStringId, i) as number,
+          0,
+        ) >>> 0;
+      const ugcIndex = hasUgcIndex
+        ? safe(
+            () =>
+              mii.getElement(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.UgcGoodsIndex, i) as number,
+            -1,
+          )
+        : -1;
+      const getTime = hasGetTime
+        ? safe(
+            () => mii.getElement(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.GetTime, i) as bigint,
+            0n,
+          )
+        : 0n;
       out.push({
         slotIndex: s,
         arrayIndex: i,
@@ -118,33 +125,27 @@
   });
 
   function commitGoods(slot: Slot, rawHash: string): void {
-    if (!stringIdEntry) return;
+    if (!mii || !hasStringId) return;
     const next = (Number.parseInt(rawHash, 10) || 0) >>> 0;
     if (next === slot.stringId && slot.ugcIndex < 0) return;
-    arrSetUInt(stringIdEntry, slot.arrayIndex, next);
-    markDirty(stringIdEntry);
-    if (ugcIndexEntry) {
-      arrSetInt(ugcIndexEntry, slot.arrayIndex, -1);
-      markDirty(ugcIndexEntry);
+    mii.setElement(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.GoodsStringId, slot.arrayIndex, next);
+    if (hasUgcIndex) {
+      mii.setElement(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.UgcGoodsIndex, slot.arrayIndex, -1);
     }
-    if (getTimeEntry) {
+    if (hasGetTime) {
       const now = next === 0 ? 0n : BigInt(Math.floor(Date.now() / 1000));
-      arrSetUInt64(getTimeEntry, slot.arrayIndex, now);
-      markDirty(getTimeEntry);
+      mii.setElement(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.GetTime, slot.arrayIndex, now);
     }
   }
 
   function clearSlot(slot: Slot): void {
-    if (!stringIdEntry) return;
-    arrSetUInt(stringIdEntry, slot.arrayIndex, 0);
-    markDirty(stringIdEntry);
-    if (ugcIndexEntry) {
-      arrSetInt(ugcIndexEntry, slot.arrayIndex, -1);
-      markDirty(ugcIndexEntry);
+    if (!mii || !hasStringId) return;
+    mii.setElement(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.GoodsStringId, slot.arrayIndex, 0);
+    if (hasUgcIndex) {
+      mii.setElement(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.UgcGoodsIndex, slot.arrayIndex, -1);
     }
-    if (getTimeEntry) {
-      arrSetUInt64(getTimeEntry, slot.arrayIndex, 0n);
-      markDirty(getTimeEntry);
+    if (hasGetTime) {
+      mii.setElement(MII_SCHEMA.Mii.Belongings.GoodsOwnInfoSlot.GetTime, slot.arrayIndex, 0n);
     }
   }
 
@@ -164,7 +165,7 @@
   }
 </script>
 
-{#if stringIdEntry && selectedIndex != null && slotsPerMii > 0}
+{#if hasStringId && selectedIndex != null && slotsPerMii > 0}
   <section class={CARD_CLASS}>
     <div class="flex flex-wrap items-start justify-between gap-2">
       <div class="min-w-0">

@@ -10,17 +10,17 @@ const PARENT_GRID = [
   ['Considerate', 'Outgoing'],
 ] as const;
 
-export type ChildArchetype = (typeof CHILD_GRID)[number][number];
-export type ParentArchetype = (typeof PARENT_GRID)[number][number];
+type ChildArchetype = (typeof CHILD_GRID)[number][number];
+type ParentArchetype = (typeof PARENT_GRID)[number][number];
 
-export type PersonalityInput = {
+type PersonalityInput = {
   gaiety: number;
   activeness: number;
   audaciousness: number;
   sociability: number;
 };
 
-export type Personality = {
+type Personality = {
   parent: ParentArchetype;
   child: ChildArchetype;
 };

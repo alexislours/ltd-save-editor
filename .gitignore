@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.svelte-kit
 *.local
 
 # Editor directories and files
@@ -25,21 +26,19 @@ dist-ssr
 .wrangler/
 sample
 
-# Downloaded by the gamedata-hash-list Vite plugin
-public/GameData.txt
-
 # Generated from romfs/Icon by scripts/generate-food-data.mjs (WebP)
-public/food-icons
+static/food-icons
 # Generated from romfs/Icon by scripts/generate-cloth-data.mjs (WebP)
-public/cloth-icons
+static/cloth-icons
 # Generated from romfs/Icon by scripts/generate-treasure-data.mjs (WebP)
-public/treasure-icons
+static/treasure-icons
 # Generated from romfs/Icon by scripts/generate-roomstyle-data.mjs (WebP)
-public/roomstyle-icons
+static/roomstyle-icons
 # Generated from romfs/Icon by scripts/generate-item-data.mjs (WebP)
-public/item-icons
+static/item-icons
 # Generated from romfs/Icon by scripts/generate-coordinate-data.mjs (WebP)
-public/coordinate-icons
+static/coordinate-icons
+static/voice-icons
 
 # Local-only generation/inspection scripts (require romfs paths on disk)
 scripts

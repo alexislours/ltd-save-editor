@@ -1,17 +1,17 @@
-import { arrGetEnum, arrGetInt, arrGetString, arrGetUInt } from '../sav/codec';
-import { enumOptionsFor } from '../sav/knownKeys';
-import type { Entry } from '../sav/types';
+import { enumOptionName, enumOptionsFor } from '../sav/knownKeys';
+import { MII_SCHEMA } from '../sav/schema';
 import {
   genderLabel,
   pronounLabel,
   relationTypeLabel,
   subRelationLabel,
 } from './miiLabelList.svelte';
+import type { MiiAccessor } from './miiEditor.svelte';
 import { MII_SECTIONS, type MiiField } from './miiFields';
 import { populatedMiiIndices } from './populated';
 import {
   baseRelationTypeLabel,
-  findRelationEntries,
+  findRelations,
   hasFightVariant,
   listRelationships,
   LOVE_GENDER_OPTIONS,
@@ -19,19 +19,19 @@ import {
   readMiiName,
   subRelationKey,
   type LoveGenderOption,
-  type RelationEntries,
+  type RelationAvailability,
 } from './relations';
 
 function fieldEnumLabel(field: MiiField, value: string, uiLocale: string | null): string | null {
-  if (field.name === 'Mii.Name.PronounType') {
+  if (field.leaf === MII_SCHEMA.Mii.Name.PronounType) {
     const t = pronounLabel(value, uiLocale);
     if (t) return t;
   }
-  if (field.name === 'Mii.MiiMisc.FaceInfo.Gender') {
+  if (field.leaf === MII_SCHEMA.Mii.MiiMisc.FaceInfo.Gender) {
     const t = genderLabel(value, uiLocale);
     if (t) return t;
   }
-  const opts = enumOptionsFor(field.hash);
+  const opts = enumOptionsFor(field.leaf.hash);
   const opt = opts?.find((o) => o.name === value);
   return opt?.label ?? null;
 }
@@ -54,9 +54,9 @@ function typeSetSecText(value: string | null, uiLocale: string | null): string |
   }
 }
 
-export const EXPORT_SCHEMA = 'ltd-mii-export/v1';
+const EXPORT_SCHEMA = 'ltd-mii-export/v1';
 
-export type MiiSnapshot = {
+type MiiSnapshot = {
   index: number;
   name: string;
   fields: Record<string, string | number | null>;
@@ -64,7 +64,7 @@ export type MiiSnapshot = {
   attractedToLabels: string[];
 };
 
-export type RelationshipSnapshot = {
+type RelationshipSnapshot = {
   slot: number;
   a: { index: number; name: string };
   b: { index: number; name: string };
@@ -75,7 +75,7 @@ export type RelationshipSnapshot = {
   btoa: DirectionalSnapshot;
 };
 
-export type DirectionalSnapshot = {
+type DirectionalSnapshot = {
   type: string;
   typeLabel: string | null;
   meter: number;
@@ -84,7 +84,7 @@ export type DirectionalSnapshot = {
   subRelationLabel: string | null;
 };
 
-export type MiiExport = {
+type MiiExport = {
   schema: typeof EXPORT_SCHEMA;
   exportedAt: string;
   appVersion: string;
@@ -93,23 +93,20 @@ export type MiiExport = {
   relationships: RelationshipSnapshot[];
 };
 
-export type BuildOptions = {
+type BuildOptions = {
   appVersion: string;
   saveFile: string;
   exportedAt?: string;
   uiLocale?: string | null;
 };
 
-export function buildMiiExport(entries: Entry[], opts: BuildOptions): MiiExport {
-  const byHash = new Map<number, Entry>();
-  for (const e of entries) byHash.set(e.hash, e);
-
-  const indices = populatedMiiIndices(byHash);
-  const relEntries = findRelationEntries(byHash);
+export function buildMiiExport(mii: MiiAccessor, opts: BuildOptions): MiiExport {
+  const indices = populatedMiiIndices(mii);
+  const re = findRelations(mii);
   const uiLocale = opts.uiLocale ?? null;
 
-  const miis = indices.map((index) => snapshotMii(index, byHash, relEntries, uiLocale));
-  const relationships = relEntries ? snapshotRelationships(relEntries, uiLocale) : [];
+  const miis = indices.map((index) => snapshotMii(index, mii, re, uiLocale));
+  const relationships = re ? snapshotRelationships(mii, re, uiLocale) : [];
 
   return {
     schema: EXPORT_SCHEMA,
@@ -123,29 +120,29 @@ export function buildMiiExport(entries: Entry[], opts: BuildOptions): MiiExport 
 
 function snapshotMii(
   index: number,
-  byHash: Map<number, Entry>,
-  relEntries: RelationEntries | null,
+  mii: MiiAccessor,
+  re: RelationAvailability | null,
   uiLocale: string | null,
 ): MiiSnapshot {
   const fields: Record<string, string | number | null> = {};
   let name = '';
 
   for (const section of MII_SECTIONS) {
-    for (const field of section.fields) collectField(field, index, byHash, fields, uiLocale);
+    for (const field of section.fields) collectField(field, index, mii, fields, uiLocale);
     for (const field of section.spoilerFields ?? [])
-      collectField(field, index, byHash, fields, uiLocale);
+      collectField(field, index, mii, fields, uiLocale);
     for (const field of section.postSpoilerFields ?? []) {
-      collectField(field, index, byHash, fields, uiLocale);
+      collectField(field, index, mii, fields, uiLocale);
     }
   }
 
-  if (relEntries) name = readMiiName(relEntries.name, index);
+  if (re) name = readMiiName(mii, index);
   if (!name && typeof fields.name === 'string') name = fields.name;
 
   const attractedTo: LoveGenderOption[] = [];
-  if (relEntries?.loveGender) {
+  if (re?.loveGender) {
     for (const opt of LOVE_GENDER_OPTIONS) {
-      if (readIsLoveGender(relEntries.loveGender, index, opt)) attractedTo.push(opt);
+      if (readIsLoveGender(mii, index, opt)) attractedTo.push(opt);
     }
   }
   const attractedToLabels = attractedTo.map((opt) => loveGenderText(opt, uiLocale));
@@ -156,14 +153,13 @@ function snapshotMii(
 function collectField(
   field: MiiField,
   index: number,
-  byHash: Map<number, Entry>,
+  mii: MiiAccessor,
   out: Record<string, string | number | null>,
   uiLocale: string | null,
 ): void {
-  const entry = byHash.get(field.hash);
-  if (!entry || entry.type !== field.expectedType) return;
+  if (!mii.has(field.leaf)) return;
   try {
-    const value = readFieldValue(entry, index, field);
+    const value = readFieldValue(mii, index, field);
     out[field.labelKey] = value;
     if (field.kind === 'enum' && typeof value === 'string') {
       const label = fieldEnumLabel(field, value, uiLocale);
@@ -174,28 +170,31 @@ function collectField(
   }
 }
 
-function readFieldValue(entry: Entry, index: number, field: MiiField): string | number | null {
+function readFieldValue(mii: MiiAccessor, index: number, field: MiiField): string | number | null {
   switch (field.kind) {
     case 'string':
-      return arrGetString(entry, index);
+      return mii.getElement(field.leaf, index) as string;
     case 'int': {
-      const raw = arrGetInt(entry, index);
+      const raw = mii.getElement(field.leaf, index) as number;
       return raw + (field.displayOffset ?? 0);
     }
     case 'uint':
-      return arrGetUInt(entry, index);
+      return (mii.getElement(field.leaf, index) as number) >>> 0;
     case 'enum':
-      return enumOptionName(arrGetEnum(entry, index)) ?? null;
+      return enumOptionName(mii.getElement(field.leaf, index) as number) ?? null;
+    case 'binary':
+      return null;
   }
 }
 
 function snapshotRelationships(
-  re: RelationEntries,
+  mii: MiiAccessor,
+  re: RelationAvailability,
   uiLocale: string | null,
 ): RelationshipSnapshot[] {
-  return listRelationships(re).map((r) => {
-    const aName = readMiiName(re.name, r.a);
-    const bName = readMiiName(re.name, r.b);
+  return listRelationships(mii, re).map((r) => {
+    const aName = readMiiName(mii, r.a);
+    const bName = readMiiName(mii, r.b);
     const typeSetSec = r.typeSetSec === null ? null : r.typeSetSec.toString();
     return {
       slot: r.slot,
@@ -230,7 +229,7 @@ function directional(
   };
 }
 
-export function serializeMiiExportJson(data: MiiExport): string {
+function serializeMiiExportJson(data: MiiExport): string {
   return JSON.stringify(data, null, 2);
 }
 
@@ -242,7 +241,7 @@ const COMPUTED_MII_COLUMNS: { header: string; pick: (m: MiiSnapshot) => string |
     { header: 'attracted_to_label', pick: (m) => m.attractedToLabels.join('|') },
   ];
 
-export const MII_FIELD_COLUMNS: string[] = (() => {
+const MII_FIELD_COLUMNS: string[] = (() => {
   const seen = new Set<string>(['name']);
   const keys: string[] = [];
   for (const section of MII_SECTIONS) {
@@ -261,7 +260,7 @@ export const MII_FIELD_COLUMNS: string[] = (() => {
   return keys;
 })();
 
-export function serializeMiisCsv(data: MiiExport): string {
+function serializeMiisCsv(data: MiiExport): string {
   const headers = [...COMPUTED_MII_COLUMNS.map((c) => c.header), ...MII_FIELD_COLUMNS];
   const rows: (string | number | null)[][] = [headers];
   for (const m of data.miis) {
@@ -290,7 +289,7 @@ const REL_CSV_HEADER = [
   'slot',
 ];
 
-export function serializeRelationshipsCsv(data: MiiExport): string {
+function serializeRelationshipsCsv(data: MiiExport): string {
   const rows: (string | number | null)[][] = [REL_CSV_HEADER];
   for (const r of data.relationships) {
     rows.push(directionalRow(r, 'atob'));
@@ -301,7 +300,7 @@ export function serializeRelationshipsCsv(data: MiiExport): string {
 
 export type MiiExportFormat = 'json' | 'miis-csv' | 'relationships-csv';
 
-export type MiiExportFile = {
+type MiiExportFile = {
   filename: string;
   mime: string;
   content: string;

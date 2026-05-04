@@ -1,35 +1,24 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { SvelteMap } from 'svelte/reactivity';
-  import {
-    arrayCount,
-    arrGetEnum,
-    arrGetInt64,
-    arrGetString,
-    arrGetUInt,
-    arrSetEnum,
-    arrSetInt64,
-    arrSetString,
-    arrSetUInt,
-  } from '../sav/codec';
-  import { DataType } from '../sav/dataType';
   import { GENERATED_ENUM_OPTION_NAMES } from '../sav/generatedNames';
   import { murmur3_x86_32 } from '../sav/hash';
   import { enumOptionsFor } from '../sav/knownKeys';
-  import type { Entry } from '../sav/types';
-  import { markDirty, playerState } from '../playerEditor.svelte';
+  import { PLAYER_SCHEMA } from '../sav/schema';
+  import { playerAccessor } from '../playerEditor.svelte';
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '../styles';
 
-  type Props = { entries: Entry[] };
-  let { entries }: Props = $props();
+  const TEXT_DATA = PLAYER_SCHEMA.UGC.Text.TextData;
+  const TEXT = TEXT_DATA.Text;
+  const HOW = TEXT_DATA.HowToCallText;
+  const GENRE = TEXT_DATA.Genre;
+  const REGION = TEXT_DATA.RegionLanguageID;
+  const ATTR = TEXT_DATA.Attribute;
+  const GRAM = TEXT_DATA.WordAttrGrammaticality;
+  const TIME = TEXT_DATA.AddTime;
 
-  const TEXT_HASH = murmur3_x86_32('UGC.Text.TextData.Text') >>> 0;
-  const HOW_HASH = murmur3_x86_32('UGC.Text.TextData.HowToCallText') >>> 0;
-  const GENRE_HASH = murmur3_x86_32('UGC.Text.TextData.Genre') >>> 0;
-  const REGION_HASH = murmur3_x86_32('UGC.Text.TextData.RegionLanguageID') >>> 0;
-  const ATTR_HASH = murmur3_x86_32('UGC.Text.TextData.Attribute') >>> 0;
-  const GRAM_HASH = murmur3_x86_32('UGC.Text.TextData.WordAttrGrammaticality') >>> 0;
-  const TIME_HASH = murmur3_x86_32('UGC.Text.TextData.AddTime') >>> 0;
+  const GENRE_HASH = GENRE.hash;
+  const ATTR_HASH = ATTR.hash;
+  const GRAM_HASH = GRAM.hash;
 
   const INVALID_GENRE_HASH = murmur3_x86_32('Invalid') >>> 0;
   const PHRASE_GENRE_HASH = murmur3_x86_32('Phrase') >>> 0;
@@ -59,37 +48,28 @@
     name: n,
   }));
 
-  const byHash = $derived.by(() => {
-    const m = new SvelteMap<number, Entry>();
-    for (const e of entries) m.set(e.hash, e);
-    return m;
-  });
-  const textEntry = $derived(byHash.get(TEXT_HASH) ?? null);
-  const howEntry = $derived(byHash.get(HOW_HASH) ?? null);
-  const genreEntry = $derived(byHash.get(GENRE_HASH) ?? null);
-  const regionEntry = $derived(byHash.get(REGION_HASH) ?? null);
-  const attrEntry = $derived(byHash.get(ATTR_HASH) ?? null);
-  const gramEntry = $derived(byHash.get(GRAM_HASH) ?? null);
-  const timeEntry = $derived(byHash.get(TIME_HASH) ?? null);
+  const typed = $derived(playerAccessor());
 
-  const ready = $derived(
-    textEntry != null && howEntry != null && genreEntry != null && regionEntry != null,
-  );
+  const hasText = $derived(typed != null && typed.has(TEXT));
+  const hasHow = $derived(typed != null && typed.has(HOW));
+  const hasGenre = $derived(typed != null && typed.has(GENRE));
+  const hasRegion = $derived(typed != null && typed.has(REGION));
+  const hasAttr = $derived(typed != null && typed.has(ATTR));
+  const hasGram = $derived(typed != null && typed.has(GRAM));
+  const hasTime = $derived(typed != null && typed.has(TIME));
+
+  const ready = $derived(hasText && hasHow && hasGenre && hasRegion);
 
   const length = $derived.by(() => {
-    void playerState.tick;
+    if (!typed) return 0;
     let max = 0;
-    for (const e of [
-      textEntry,
-      howEntry,
-      genreEntry,
-      regionEntry,
-      attrEntry,
-      gramEntry,
-      timeEntry,
-    ]) {
-      if (e) max = Math.max(max, arrayCount(e));
-    }
+    if (hasText) max = Math.max(max, (typed.get(TEXT) as string[]).length);
+    if (hasHow) max = Math.max(max, (typed.get(HOW) as string[]).length);
+    if (hasGenre) max = Math.max(max, (typed.get(GENRE) as number[]).length);
+    if (hasRegion) max = Math.max(max, (typed.get(REGION) as number[]).length);
+    if (hasAttr) max = Math.max(max, (typed.get(ATTR) as number[]).length);
+    if (hasGram) max = Math.max(max, (typed.get(GRAM) as number[]).length);
+    if (hasTime) max = Math.max(max, (typed.get(TIME) as bigint[]).length);
     return max;
   });
 
@@ -114,63 +94,33 @@
     isFilled: boolean;
   };
 
+  function safeElem<T>(read: () => T, fallback: T): T {
+    try {
+      return read();
+    } catch {
+      return fallback;
+    }
+  }
+
   const rows = $derived.by<Row[]>(() => {
-    void playerState.tick;
     const out: Row[] = [];
-    if (!ready) return out;
+    if (!ready || !typed) return out;
     for (let i = 0; i < length; i++) {
-      let genreHash = INVALID_GENRE_HASH;
-      let regionHashV = JPJA_REGION_HASH;
-      let attrHash = NEUTRAL_ATTR_HASH;
-      let gramHash = NONE_GRAM_HASH;
-      let addTime = 0n;
-      let text = '';
-      let how = '';
-      try {
-        if (genreEntry) genreHash = arrGetEnum(genreEntry, i) >>> 0;
-      } catch {
-        /* empty */
-      }
-      try {
-        if (regionEntry) regionHashV = arrGetEnum(regionEntry, i) >>> 0;
-      } catch {
-        /* empty */
-      }
-      try {
-        if (attrEntry) {
-          attrHash =
-            attrEntry.type === DataType.EnumArray
-              ? arrGetEnum(attrEntry, i) >>> 0
-              : arrGetUInt(attrEntry, i) >>> 0;
-        }
-      } catch {
-        /* empty */
-      }
-      try {
-        if (gramEntry) {
-          gramHash =
-            gramEntry.type === DataType.EnumArray
-              ? arrGetEnum(gramEntry, i) >>> 0
-              : arrGetUInt(gramEntry, i) >>> 0;
-        }
-      } catch {
-        /* empty */
-      }
-      try {
-        if (timeEntry) addTime = arrGetInt64(timeEntry, i);
-      } catch {
-        /* empty */
-      }
-      try {
-        if (textEntry) text = arrGetString(textEntry, i);
-      } catch {
-        /* empty */
-      }
-      try {
-        if (howEntry) how = arrGetString(howEntry, i);
-      } catch {
-        /* empty */
-      }
+      const genreHash = hasGenre
+        ? safeElem(() => (typed.getElement(GENRE, i) as number) >>> 0, INVALID_GENRE_HASH)
+        : INVALID_GENRE_HASH;
+      const regionHashV = hasRegion
+        ? safeElem(() => (typed.getElement(REGION, i) as number) >>> 0, JPJA_REGION_HASH)
+        : JPJA_REGION_HASH;
+      const attrHash = hasAttr
+        ? safeElem(() => (typed.getElement(ATTR, i) as number) >>> 0, NEUTRAL_ATTR_HASH)
+        : NEUTRAL_ATTR_HASH;
+      const gramHash = hasGram
+        ? safeElem(() => (typed.getElement(GRAM, i) as number) >>> 0, NONE_GRAM_HASH)
+        : NONE_GRAM_HASH;
+      const addTime = hasTime ? safeElem(() => typed.getElement(TIME, i) as bigint, 0n) : 0n;
+      const text = hasText ? safeElem(() => typed.getElement(TEXT, i) as string, '') : '';
+      const how = hasHow ? safeElem(() => typed.getElement(HOW, i) as string, '') : '';
       out.push({
         index: i,
         genreHash,
@@ -191,44 +141,34 @@
   const filledCount = $derived(rows.filter((r) => r.isFilled).length);
 
   function commitGenre(index: number, newHash: number): void {
-    if (!genreEntry || !textEntry || !howEntry || !regionEntry) return;
-    arrSetEnum(genreEntry, index, newHash >>> 0);
-    markDirty(genreEntry);
+    if (!typed || !hasGenre || !hasText || !hasHow || !hasRegion) return;
+    typed.setElement(GENRE, index, newHash >>> 0);
     if (newHash >>> 0 === INVALID_GENRE_HASH) {
-      arrSetString(textEntry, index, '');
-      arrSetString(howEntry, index, '');
-      markDirty(textEntry);
-      markDirty(howEntry);
-      arrSetEnum(regionEntry, index, JPJA_REGION_HASH);
-      markDirty(regionEntry);
+      typed.setElement(TEXT, index, '');
+      typed.setElement(HOW, index, '');
+      typed.setElement(REGION, index, JPJA_REGION_HASH);
     }
   }
 
   function commitRegion(index: number, newHash: number): void {
-    if (!regionEntry) return;
-    arrSetEnum(regionEntry, index, newHash >>> 0);
-    markDirty(regionEntry);
+    if (!typed || !hasRegion) return;
+    typed.setElement(REGION, index, newHash >>> 0);
   }
 
   function commitAttr(index: number, newHash: number): void {
-    if (!attrEntry) return;
-    if (attrEntry.type === DataType.EnumArray) arrSetEnum(attrEntry, index, newHash >>> 0);
-    else arrSetUInt(attrEntry, index, newHash >>> 0);
-    markDirty(attrEntry);
+    if (!typed || !hasAttr) return;
+    typed.setElement(ATTR, index, newHash >>> 0);
   }
 
   function commitGram(index: number, newHash: number): void {
-    if (!gramEntry) return;
-    if (gramEntry.type === DataType.EnumArray) arrSetEnum(gramEntry, index, newHash >>> 0);
-    else arrSetUInt(gramEntry, index, newHash >>> 0);
-    markDirty(gramEntry);
+    if (!typed || !hasGram) return;
+    typed.setElement(GRAM, index, newHash >>> 0);
   }
 
   function commitAddTime(index: number, raw: string): void {
-    if (!timeEntry) return;
+    if (!typed || !hasTime) return;
     try {
-      arrSetInt64(timeEntry, index, BigInt(raw.trim() || '0'));
-      markDirty(timeEntry);
+      typed.setElement(TIME, index, BigInt(raw.trim() || '0'));
     } catch {
       /* swallow */
     }
@@ -248,21 +188,19 @@
   let howErrors = $state<Record<number, string | null>>({});
 
   function commitText(index: number, raw: string): void {
-    if (!textEntry) return;
+    if (!typed || !hasText) return;
     const err = validateText(raw);
     textErrors = { ...textErrors, [index]: err };
     if (err) return;
-    arrSetString(textEntry, index, raw);
-    markDirty(textEntry);
+    typed.setElement(TEXT, index, raw);
   }
 
   function commitHow(index: number, raw: string): void {
-    if (!howEntry) return;
+    if (!typed || !hasHow) return;
     const err = validateText(raw);
     howErrors = { ...howErrors, [index]: err };
     if (err) return;
-    arrSetString(howEntry, index, raw);
-    markDirty(howEntry);
+    typed.setElement(HOW, index, raw);
   }
 
   function addSlot(): void {
@@ -470,9 +408,9 @@
                 </label>
               </div>
 
-              {#if attrEntry || gramEntry || timeEntry}
+              {#if hasAttr || hasGram || hasTime}
                 <div class="mt-3 grid gap-3 sm:grid-cols-3">
-                  {#if attrEntry}
+                  {#if hasAttr}
                     <label class="block min-w-0">
                       <span class={LABEL_CLASS}>{$_('player.ugc_text.field.attribute')}</span>
                       <select
@@ -487,7 +425,7 @@
                       </select>
                     </label>
                   {/if}
-                  {#if gramEntry}
+                  {#if hasGram}
                     <label class="block min-w-0">
                       <span class={LABEL_CLASS}
                         >{$_('player.ugc_text.field.wordAttrGrammaticality')}</span
@@ -504,7 +442,7 @@
                       </select>
                     </label>
                   {/if}
-                  {#if timeEntry}
+                  {#if hasTime}
                     <label class="block min-w-0">
                       <span class={LABEL_CLASS}>{$_('player.ugc_text.field.addTime')}</span>
                       <input

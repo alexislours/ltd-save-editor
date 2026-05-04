@@ -1,6 +1,7 @@
 <script lang="ts" generics="T">
   import type { Snippet } from 'svelte';
   import { locale } from 'svelte-i18n';
+  import { playerAccessor } from '../playerEditor.svelte';
   import InventoryPanel from './InventoryPanel.svelte';
   import {
     applyQtyToSlots,
@@ -46,6 +47,7 @@
 
   let query = $state('');
   const ui = $derived($locale);
+  const acc = $derived(playerAccessor());
   const sorted = $derived(sortByLabel(items, (i) => label(i, ui), ui));
   const visible = $derived(filterBySearch(sorted, query, (i) => searchKeys(i, ui)));
   const visibleSlots = $derived(visible.flatMap(slotsFor));
@@ -62,8 +64,8 @@
   {emptyMessage}
   {bulkHasState}
   {bulkHasQty}
-  onApplyState={(v) => applyStateToSlots(visibleSlots, v)}
-  onApplyQty={(v) => applyQtyToSlots(visibleSlots, v)}
+  onApplyState={(v) => applyStateToSlots(acc, visibleSlots, v)}
+  onApplyQty={(v) => applyQtyToSlots(acc, visibleSlots, v)}
   {note}
 >
   {#snippet rows()}

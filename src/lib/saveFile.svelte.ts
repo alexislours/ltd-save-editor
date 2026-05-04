@@ -1,20 +1,22 @@
-import { SvelteSet } from 'svelte/reactivity';
+import { decode } from './sav/materialized/decode';
+import { encode } from './sav/materialized/encode';
+import type { DecodedSave } from './sav/materialized/types';
 import { parseSav } from './sav/parse';
+import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from './sav/schema';
 import { writeSav } from './sav/write';
-import type { SavFile } from './sav/types';
-import { murmur3_x86_32 } from './sav/hash';
+import type { Entry } from './sav/types';
 import { clearAllSessions, deleteSession, putSession } from './sessionStore';
 import { clearSidecar } from './shareMii/sidecarStore.svelte';
 
 export type SaveKind = 'player' | 'mii' | 'map';
 
-export type LoadedSave = {
+type LoadedSave = {
   name: string;
   size: number;
   lastModified: number;
-  parsed: SavFile | null;
+  decoded: DecodedSave | null;
+  loadedBytes: Uint8Array | null;
   parseError: string | null;
-  /** Bumped on each successful parse */
   loadId: number;
 };
 
@@ -24,10 +26,22 @@ export const expectedFileName: Record<SaveKind, string> = {
   map: 'Map.sav',
 };
 
+export type SchemaForKind = {
+  player: typeof PLAYER_SCHEMA;
+  mii: typeof MII_SCHEMA;
+  map: typeof MAP_SCHEMA;
+};
+
+const SCHEMAS: SchemaForKind = {
+  mii: MII_SCHEMA,
+  player: PLAYER_SCHEMA,
+  map: MAP_SCHEMA,
+};
+
 const SIGNATURE_HASHES: Record<SaveKind, number> = {
-  player: murmur3_x86_32('Player.Name'),
-  mii: murmur3_x86_32('Mii.Name.Name'),
-  map: 0x78e32e1c,
+  player: PLAYER_SCHEMA.Player.Name.hash,
+  mii: MII_SCHEMA.Mii.Name.Name.hash,
+  map: MAP_SCHEMA.MapGrid.GridX.GridZ.FloorKeyHash.hash,
 };
 
 export function detectSaveKindFromBytes(bytes: Uint8Array): SaveKind | null {
@@ -37,7 +51,8 @@ export function detectSaveKindFromBytes(bytes: Uint8Array): SaveKind | null {
   } catch {
     return null;
   }
-  const hashes = new SvelteSet(parsed.entries.map((e) => e.hash));
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  const hashes = new Set(parsed.entries.map((e) => e.hash));
   for (const kind of Object.keys(SIGNATURE_HASHES) as SaveKind[]) {
     if (hashes.has(SIGNATURE_HASHES[kind])) return kind;
   }
@@ -64,19 +79,29 @@ export function getSave(kind: SaveKind): LoadedSave | null {
   return saves[kind];
 }
 
-export function getSaveBytes(kind: SaveKind): Uint8Array | null {
+export function isSaveLoaded(kind: SaveKind): boolean {
   const save = saves[kind];
-  if (!save || !save.parsed) return null;
-  return writeSav(save.parsed);
+  return save != null && save.parseError == null && save.decoded != null;
 }
 
-export async function setSaveFromFile(kind: SaveKind, file: File): Promise<void> {
-  const bytes = new Uint8Array(await file.arrayBuffer());
-  setSaveFromBytes(kind, {
-    name: file.name,
-    bytes,
-    lastModified: file.lastModified,
-  });
+export function getSaveBytes(kind: SaveKind): Uint8Array | null {
+  const save = saves[kind];
+  if (!save) return null;
+  const decoded = save.decoded;
+  if (decoded) {
+    return writeSav(encode(SCHEMAS[kind], decoded));
+  }
+  return save.loadedBytes;
+}
+
+export function getEntriesForAdvanced(kind: SaveKind): Entry[] {
+  const bytes = getSaveBytes(kind);
+  if (!bytes) return [];
+  try {
+    return parseSav(bytes).entries;
+  } catch {
+    return [];
+  }
 }
 
 type SetSaveOptions = { persist?: boolean };
@@ -87,10 +112,11 @@ export function setSaveFromBytes(
   options: SetSaveOptions = {},
 ): void {
   const lastModified = input.lastModified ?? Date.now();
-  let parsed: SavFile | null = null;
+  let decoded: DecodedSave | null = null;
   let parseError: string | null = null;
   try {
-    parsed = parseSav(input.bytes);
+    const parsed = parseSav(input.bytes);
+    decoded = decode(SCHEMAS[kind], parsed);
   } catch (e) {
     parseError = e instanceof Error ? e.message : String(e);
   }
@@ -98,32 +124,68 @@ export function setSaveFromBytes(
     name: input.name,
     size: input.bytes.byteLength,
     lastModified,
-    parsed,
+    decoded,
+    loadedBytes: input.bytes,
     parseError,
     loadId: nextLoadId++,
   };
-  if (options.persist !== false) {
-    void putSession({
-      kind,
-      name: input.name,
-      bytes: input.bytes,
-      lastModified,
-      savedAt: Date.now(),
-    });
-  }
+  if (options.persist !== false && decoded) persistCurrent(kind);
 }
 
-/** Persist the current in-memory state for crash recovery. */
+export function restoreSaveFromDecoded(
+  kind: SaveKind,
+  input: { name: string; size: number; lastModified: number; decoded: DecodedSave },
+): void {
+  const { decoded } = input;
+  if (
+    !decoded ||
+    typeof decoded !== 'object' ||
+    !decoded.values ||
+    typeof decoded.values !== 'object' ||
+    !Array.isArray(decoded.unknowns) ||
+    !Array.isArray(decoded.plan) ||
+    typeof decoded.version !== 'number'
+  ) {
+    throw new Error('restoreSaveFromDecoded: invalid decoded shape');
+  }
+  const unknownsLen = decoded.unknowns.length;
+  const values = decoded.values;
+  for (const item of decoded.plan) {
+    if (item.kind === 'known') {
+      if (typeof item.hash !== 'number' || !Object.hasOwn(values, item.hash)) {
+        throw new Error('restoreSaveFromDecoded: invalid plan entry');
+      }
+    } else if (item.kind === 'unknown') {
+      if (typeof item.index !== 'number' || item.index < 0 || item.index >= unknownsLen) {
+        throw new Error('restoreSaveFromDecoded: plan references missing unknown');
+      }
+    } else {
+      throw new Error('restoreSaveFromDecoded: invalid plan entry');
+    }
+  }
+  saves[kind] = {
+    name: input.name,
+    size: input.size,
+    lastModified: input.lastModified,
+    decoded,
+    loadedBytes: null,
+    parseError: null,
+    loadId: nextLoadId++,
+  };
+}
+
 export function persistCurrent(kind: SaveKind): void {
   const save = saves[kind];
-  if (!save || !save.parsed) return;
-  const bytes = writeSav(save.parsed);
+  if (!save) return;
+  const decoded = save.decoded;
+  if (!decoded) return;
   void putSession({
     kind,
     name: save.name,
-    bytes,
+    size: save.size,
     lastModified: save.lastModified,
     savedAt: Date.now(),
+    decoded: $state.snapshot(decoded) as DecodedSave,
   });
 }
 

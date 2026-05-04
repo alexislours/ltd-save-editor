@@ -52,6 +52,10 @@ export function relationTypeLabel(
   return lookup(STATE.labels.relationTypes, value, uiLocale);
 }
 
+export function localizeRelationType(value: string, uiLocale: string | null | undefined): string {
+  return relationTypeLabel(value, uiLocale) ?? value;
+}
+
 export function subRelationLabel(
   value: string,
   uiLocale: string | null | undefined,

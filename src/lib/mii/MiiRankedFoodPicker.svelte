@@ -1,23 +1,19 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { arrGetUInt, arrSetUInt } from '../sav/codec';
   import { allFoods, foodByHash, foodImageUrl, foodLabel } from '../sav/foodList.svelte';
   import { safe } from '../sav/format';
-  import type { Entry } from '../sav/types';
   import { FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
-  import { markDirty, miiState } from './miiEditor.svelte';
+  import { miiAccessor } from './miiEditor.svelte';
   import type { MiiField } from './miiFields';
 
   const RANKS_PER_MII = 3;
 
   type Props = {
-    entry: Entry;
     index: number;
     field: MiiField;
   };
-  let { entry, index, field }: Props = $props();
+  let { index, field }: Props = $props();
 
-  const tick = $derived(miiState.tick);
   const ui = $derived($locale);
   let error = $state<string | null>(null);
 
@@ -31,11 +27,11 @@
   });
 
   const ranks = $derived.by(() => {
-    void tick;
     const out: { rank: number; arrayIndex: number; hash: number }[] = [];
+    const mii = miiAccessor();
     for (let r = 0; r < RANKS_PER_MII; r++) {
       const arrayIndex = index * RANKS_PER_MII + r;
-      const hash = safe(() => arrGetUInt(entry, arrayIndex), 0) >>> 0;
+      const hash = mii ? safe(() => mii.getElement(field.leaf, arrayIndex) as number, 0) >>> 0 : 0;
       out.push({ rank: r, arrayIndex, hash });
     }
     return out;
@@ -44,9 +40,10 @@
   function commit(arrayIndex: number, raw: string): void {
     const n = Number.parseInt(raw, 10);
     if (!Number.isFinite(n)) return;
+    const mii = miiAccessor();
+    if (!mii) return;
     try {
-      arrSetUInt(entry, arrayIndex, n >>> 0);
-      markDirty(entry);
+      mii.setElement(field.leaf, arrayIndex, n >>> 0);
       error = null;
     } catch (e) {
       error = e instanceof Error ? e.message : String(e);

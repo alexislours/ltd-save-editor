@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import {
+    floorTiles,
     mapState as floorState,
     MAP_HEIGHT,
     MAP_WIDTH,
@@ -49,7 +50,7 @@
   $effect(() => {
     void objectsState.rev;
     void floorState.tileRev;
-    void floorState.entry;
+    void floorState.ready;
     void tileSize;
     void selectedIndex;
     if (offBuf32) redraw();
@@ -59,15 +60,11 @@
     const ctx = canvas?.getContext('2d');
     if (!ctx || !offBuf32) return;
 
-    if (floorState.entry?.payload) {
-      const tiles = new Uint32Array(
-        floorState.entry.payload.buffer,
-        floorState.entry.payload.byteOffset + 4,
-        MAP_WIDTH * MAP_HEIGHT,
-      );
+    const tiles = floorTiles();
+    if (tiles) {
       for (let y = 0; y < MAP_HEIGHT; y++) {
         for (let x = 0; x < MAP_WIDTH; x++) {
-          const hash = tiles[indexFromXY(x, y)];
+          const hash = tiles[indexFromXY(x, y)] >>> 0;
           const pixelIndex = y * MAP_WIDTH + x;
           offBuf32[pixelIndex] = dimColor(tileColorForHash(hash));
         }

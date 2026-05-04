@@ -30,13 +30,13 @@ export type HistorySnapshotMeta = {
   contentHash: number;
 };
 
-export type HistorySnapshotFiles = {
+type HistorySnapshotFiles = {
   id: string;
   saves: HistorySaveFile[];
   ugc: HistoryUgcFile[];
 };
 
-export type SaveResult =
+type SaveResult =
   | { ok: true; snapshot: HistorySnapshotMeta }
   | { ok: false; reason: 'quota' | 'duplicate' | 'unavailable' | 'error' };
 
@@ -154,7 +154,7 @@ function newSnapshotId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
-export type SnapshotInput = {
+type SnapshotInput = {
   saves: HistorySaveFile[];
   ugc: HistoryUgcFile[];
   contentHash: number;

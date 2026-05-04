@@ -1,4 +1,3 @@
-import { SvelteMap } from 'svelte/reactivity';
 import { type GameLocale, pickLocalized } from './gameLocale';
 
 export type Cloth = {
@@ -10,7 +9,6 @@ export type Cloth = {
 
 export const CLOTH_COLOR_SLOTS = 16;
 
-const BY_INDEX = new SvelteMap<number, Cloth>();
 const ALL = $state<{ list: Cloth[] }>({ list: [] });
 let started = false;
 
@@ -37,7 +35,6 @@ export function loadClothList(): void {
           colorCount: Math.max(1, r.c | 0),
           localized: r.l ?? {},
         };
-        BY_INDEX.set(cloth.index, cloth);
         list.push(cloth);
       }
       ALL.list = list;
@@ -45,10 +42,6 @@ export function loadClothList(): void {
       console.warn('[clothList] failed to load /clothes.json:', err);
     }
   })();
-}
-
-export function clothByIndex(index: number): Cloth | null {
-  return BY_INDEX.get(index) ?? null;
 }
 
 export function allCloths(): Cloth[] {
