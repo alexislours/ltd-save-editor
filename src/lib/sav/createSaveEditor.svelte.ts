@@ -71,7 +71,7 @@ export function createSaveEditor<K extends SaveKind>(
       if (state.decoded || state.error || state.loadedBytes) clear();
       return;
     }
-    const decoded = (save.decoded as Record<SaveKind, DecodedSave | null>)[kind];
+    const decoded = save.decoded;
     if (
       save.loadId === seenLoadId &&
       state.decoded === decoded &&

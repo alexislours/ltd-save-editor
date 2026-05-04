@@ -11,17 +11,11 @@ import { clearSidecar } from './shareMii/sidecarStore.svelte';
 
 export type SaveKind = 'player' | 'mii' | 'map';
 
-export type DecodedByKind = {
-  mii: DecodedSave | null;
-  player: DecodedSave | null;
-  map: DecodedSave | null;
-};
-
 export type LoadedSave = {
   name: string;
   size: number;
   lastModified: number;
-  decoded: DecodedByKind;
+  decoded: DecodedSave | null;
   loadedBytes: Uint8Array;
   parseError: string | null;
   loadId: number;
@@ -91,13 +85,13 @@ export function getSave(kind: SaveKind): LoadedSave | null {
 
 export function isSaveLoaded(kind: SaveKind): boolean {
   const save = saves[kind];
-  return save != null && save.parseError == null && save.decoded[kind] != null;
+  return save != null && save.parseError == null && save.decoded != null;
 }
 
 export function getSaveBytes(kind: SaveKind): Uint8Array | null {
   const save = saves[kind];
   if (!save) return null;
-  const decoded = save.decoded[kind];
+  const decoded = save.decoded;
   if (decoded) {
     return writeSav(encode(SCHEMAS[kind], decoded));
   }
@@ -125,24 +119,17 @@ export async function setSaveFromFile(kind: SaveKind, file: File): Promise<void>
 
 type SetSaveOptions = { persist?: boolean };
 
-function emptyDecoded(): DecodedByKind {
-  return { mii: null, player: null, map: null };
-}
-
 export function setSaveFromBytes(
   kind: SaveKind,
   input: { name: string; bytes: Uint8Array; lastModified?: number },
   options: SetSaveOptions = {},
 ): void {
   const lastModified = input.lastModified ?? Date.now();
+  let decoded: DecodedSave | null = null;
   let parseError: string | null = null;
-  const decoded: DecodedByKind = emptyDecoded();
   try {
     const parsed = parseSav(input.bytes);
-    const d = decode(SCHEMAS[kind], parsed);
-    if (kind === 'mii') decoded.mii = d;
-    else if (kind === 'player') decoded.player = d;
-    else decoded.map = d;
+    decoded = decode(SCHEMAS[kind], parsed);
   } catch (e) {
     parseError = e instanceof Error ? e.message : String(e);
   }
