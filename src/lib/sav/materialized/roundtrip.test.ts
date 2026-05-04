@@ -2,9 +2,9 @@ import { Buffer } from 'node:buffer';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { parseSav } from '../parse';
-import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from '../schema';
-import { writeSav } from '../write';
+import { parseSav } from '$lib/sav/parse';
+import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from '$lib/sav/schema';
+import { writeSav } from '$lib/sav/write';
 import { decode } from './decode';
 import { encode } from './encode';
 

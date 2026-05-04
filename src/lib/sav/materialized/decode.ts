@@ -21,9 +21,9 @@ import {
   getUInt64,
   getVector2,
   getVector3,
-} from '../codec';
-import { DataType } from '../dataType';
-import type { Entry, SavFile } from '../types';
+} from '$lib/sav/codec';
+import { DataType } from '$lib/sav/dataType';
+import type { Entry, SavFile } from '$lib/sav/types';
 import { buildHashMap } from './schemaIndex';
 import type { DecodedSave, PlanItem } from './types';
 

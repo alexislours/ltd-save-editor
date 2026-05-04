@@ -1,21 +1,29 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { track } from '../analytics';
-  import Card from '../Card.svelte';
-  import SaveBar from '../SaveBar.svelte';
-  import SubTabs from '../SubTabs.svelte';
-  import Tutorial from '../Tutorial.svelte';
-  import { downloadBytes } from '../sav/download';
-  import { errorMessage } from '../errorMessage';
-  import { getSave } from '../saveFile.svelte';
+  import { track } from '$lib/analytics';
+  import Card from '$lib/ui/Card.svelte';
+  import SaveBar from '$lib/saveFile/SaveBar.svelte';
+  import SubTabs from '$lib/ui/SubTabs.svelte';
+  import Tutorial from '$lib/tutorial/Tutorial.svelte';
+  import { downloadBytes } from '$lib/sav/download';
+  import { errorMessage } from '$lib/errorMessage';
+  import { getSave } from '$lib/saveFile/saveFile.svelte';
   import {
     playerAccessor,
     playerState,
     syncFromSave as syncPlayerFromSave,
-  } from '../playerEditor.svelte';
-  import { miiAccessor, miiState, syncFromSave as syncMiiFromSave } from '../mii/miiEditor.svelte';
+  } from '$lib/player/playerEditor.svelte';
+  import {
+    miiAccessor,
+    miiState,
+    syncFromSave as syncMiiFromSave,
+  } from '$lib/mii/miiEditor.svelte';
   import { UGC_KINDS, buildSidecarZip, extractMii, extractUgc, type UgcKind } from './index';
-  import { getSidecarStore, pendingSidecarCount, pendingSidecarFiles } from './sidecarStore.svelte';
+  import {
+    getSidecarStore,
+    pendingSidecarCount,
+    pendingSidecarFiles,
+  } from './sidecar/sidecarStore.svelte';
   import {
     buildMiiRows,
     buildUgcRows,

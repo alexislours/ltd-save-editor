@@ -1,12 +1,12 @@
-import { track } from '../analytics';
+import { track } from '$lib/analytics';
 import {
   getSave,
   getSaveBytes,
   type SaveKind,
   type SchemaForKind,
   expectedFileName,
-} from '../saveFile.svelte';
-import { schedulePersist } from '../sessionPersist';
+} from '$lib/saveFile/saveFile.svelte';
+import { schedulePersist } from '$lib/session/sessionPersist';
 import { downloadBytes } from './download';
 import { createMaterializedAccessor, type Accessor } from './materialized/accessor';
 import { decodeValue } from './materialized/decode';

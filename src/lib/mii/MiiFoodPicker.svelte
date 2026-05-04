@@ -1,8 +1,8 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { allFoods, foodByHash, foodImageUrl, foodLabel } from '../sav/foodList.svelte';
-  import { safe } from '../sav/format';
-  import { FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
+  import { allFoods, foodByHash, foodImageUrl, foodLabel } from '$lib/sav/lists/foodList.svelte';
+  import { safe } from '$lib/sav/format';
+  import { FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from './miiEditor.svelte';
   import type { MiiField } from './miiFields';
 

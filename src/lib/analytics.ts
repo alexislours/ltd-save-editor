@@ -1,5 +1,5 @@
-import type { SaveKind } from './saveFile.svelte';
-import type { UgcKind } from './shareMii/ugcKinds';
+import type { SaveKind } from '$lib/saveFile/saveFile.svelte';
+import type { UgcKind } from './shareMii/codec/ugcKinds';
 
 type ShareMiiKind = 'Mii' | UgcKind;
 

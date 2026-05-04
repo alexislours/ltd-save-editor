@@ -1,10 +1,10 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
   import { _ } from 'svelte-i18n';
-  import Card from '$lib/Card.svelte';
-  import FileDropZone from '$lib/FileDropZone.svelte';
-  import RouteMeta from '$lib/RouteMeta.svelte';
-  import { getSave } from '$lib/saveFile.svelte';
+  import Card from '$lib/ui/Card.svelte';
+  import FileDropZone from '$lib/saveFile/FileDropZone.svelte';
+  import RouteMeta from '$lib/layout/RouteMeta.svelte';
+  import { getSave } from '$lib/saveFile/saveFile.svelte';
 
   const pills = $derived([
     {

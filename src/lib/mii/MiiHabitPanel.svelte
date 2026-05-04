@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
   import { SvelteMap } from 'svelte/reactivity';
-  import { safe } from '../sav/format';
+  import { safe } from '$lib/sav/format';
   import {
     allHabits,
     HABIT_STATE_NEVER_OWNED,
@@ -11,11 +11,11 @@
     habitLabel,
     type Habit,
     type HabitCategory,
-  } from '../sav/habitList.svelte';
-  import { buildHashMap } from '../sav/materialized/schemaIndex';
-  import { MII_SCHEMA } from '../sav/schema';
-  import type { SchemaLeaf } from '../sav/schema/leaf';
-  import { CARD_CLASS, PILL_BUTTON_CLASS, TAB_PILL_CLASS } from '../styles';
+  } from '$lib/sav/lists/habitList.svelte';
+  import { buildHashMap } from '$lib/sav/materialized/schemaIndex';
+  import { MII_SCHEMA } from '$lib/sav/schema';
+  import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+  import { CARD_CLASS, PILL_BUTTON_CLASS, TAB_PILL_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from './miiEditor.svelte';
   import MiiSlotSelector from './MiiSlotSelector.svelte';
 

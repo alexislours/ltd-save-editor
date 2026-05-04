@@ -2,16 +2,20 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('../sessionPersist', () => ({
+vi.mock('$lib/session/sessionPersist', () => ({
   schedulePersist: vi.fn(),
   flushAllPending: vi.fn(),
 }));
 
-import { playerAccessor, playerState, syncFromSave as syncPlayer } from '../playerEditor.svelte';
+import {
+  playerAccessor,
+  playerState,
+  syncFromSave as syncPlayer,
+} from '$lib/player/playerEditor.svelte';
 import { PLAYER_SCHEMA } from './schema';
 import { DataType } from './dataType';
-import { setSaveFromBytes, clearSave } from '../saveFile.svelte';
-import { schedulePersist } from '../sessionPersist';
+import { setSaveFromBytes, clearSave } from '$lib/saveFile/saveFile.svelte';
+import { schedulePersist } from '$lib/session/sessionPersist';
 import * as encodeModule from './materialized/encode';
 import * as writeModule from './write';
 

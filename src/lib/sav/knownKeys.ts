@@ -1,7 +1,7 @@
 import { DataType } from './dataType';
 import { GENERATED_ENUM_OPTION_NAMES, GENERATED_ENUM_OPTIONS_FOR } from './generatedNames';
 import { murmur3_x86_32 } from './hash';
-import { fetchedNameForHash } from './hashList.svelte';
+import { fetchedNameForHash } from './lists/hashList.svelte';
 
 type KnownKey = {
   name: string;

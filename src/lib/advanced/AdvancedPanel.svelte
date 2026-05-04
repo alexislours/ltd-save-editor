@@ -1,17 +1,22 @@
 <script lang="ts">
   import { SvelteSet } from 'svelte/reactivity';
   import { _ } from 'svelte-i18n';
-  import { track } from '../analytics';
-  import EntryEditor from '../player/EntryEditor.svelte';
-  import PlayerDetail from '../player/PlayerDetail.svelte';
-  import PlayerTree from '../player/PlayerTree.svelte';
-  import { buildTree, type TreeNode } from '../player/tree';
-  import { DATA_TYPE_COUNT, DataType } from '../sav/dataType';
-  import { hexU32 } from '../sav/format';
-  import { murmur3_x86_32 } from '../sav/hash';
-  import { nameForHash } from '../sav/knownKeys';
-  import type { Entry } from '../sav/types';
-  import { CARD_BASE_CLASS, INPUT_CLASS, MONO_INPUT_CLASS, PILL_BUTTON_CLASS } from '../styles';
+  import { track } from '$lib/analytics';
+  import EntryEditor from '$lib/ui/fields/EntryEditor.svelte';
+  import PlayerDetail from '$lib/player/PlayerDetail.svelte';
+  import PlayerTree from '$lib/player/PlayerTree.svelte';
+  import { buildTree, type TreeNode } from '$lib/player/tree';
+  import { DATA_TYPE_COUNT, DataType } from '$lib/sav/dataType';
+  import { hexU32 } from '$lib/sav/format';
+  import { murmur3_x86_32 } from '$lib/sav/hash';
+  import { nameForHash } from '$lib/sav/knownKeys';
+  import type { Entry } from '$lib/sav/types';
+  import {
+    CARD_BASE_CLASS,
+    INPUT_CLASS,
+    MONO_INPUT_CLASS,
+    PILL_BUTTON_CLASS,
+  } from '$lib/ui/styles';
 
   type Props = {
     entries: readonly Entry[];

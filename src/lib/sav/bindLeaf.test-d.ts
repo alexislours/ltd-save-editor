@@ -1,5 +1,5 @@
-import { miiAccessor } from '../mii/miiEditor.svelte';
-import { playerAccessor } from '../playerEditor.svelte';
+import { miiAccessor } from '$lib/mii/miiEditor.svelte';
+import { playerAccessor } from '$lib/player/playerEditor.svelte';
 import { bindLeaf } from './bindLeaf.svelte';
 import { mii, player } from './schema';
 

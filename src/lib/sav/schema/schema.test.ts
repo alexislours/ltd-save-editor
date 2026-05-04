@@ -1,9 +1,9 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { DataType } from '../dataType';
-import { murmur3_x86_32 } from '../hash';
-import { parseSav } from '../parse';
+import { DataType } from '$lib/sav/dataType';
+import { murmur3_x86_32 } from '$lib/sav/hash';
+import { parseSav } from '$lib/sav/parse';
 import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from './index';
 
 type Leaf = { hash: number; type: DataType };

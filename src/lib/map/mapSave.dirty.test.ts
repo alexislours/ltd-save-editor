@@ -2,17 +2,17 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('../sessionPersist', () => ({
+vi.mock('$lib/session/sessionPersist', () => ({
   schedulePersist: vi.fn(),
   flushAllPending: vi.fn(),
 }));
 
 import { mapAccessor, mapSave, syncFromSave as syncMap } from './mapSave.svelte';
-import { MAP_SCHEMA } from '../sav/schema';
-import { setSaveFromBytes, clearSave } from '../saveFile.svelte';
-import { schedulePersist } from '../sessionPersist';
-import * as encodeModule from '../sav/materialized/encode';
-import * as writeModule from '../sav/write';
+import { MAP_SCHEMA } from '$lib/sav/schema';
+import { setSaveFromBytes, clearSave } from '$lib/saveFile/saveFile.svelte';
+import { schedulePersist } from '$lib/session/sessionPersist';
+import * as encodeModule from '$lib/sav/materialized/encode';
+import * as writeModule from '$lib/sav/write';
 
 const MAP_PATH = resolve('sample/saves/1/Map.sav');
 

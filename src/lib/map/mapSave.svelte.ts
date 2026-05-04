@@ -1,5 +1,5 @@
-import { createSaveEditor } from '../sav/createSaveEditor.svelte';
-import { MAP_SCHEMA } from '../sav/schema';
+import { createSaveEditor } from '$lib/sav/createSaveEditor.svelte';
+import { MAP_SCHEMA } from '$lib/sav/schema';
 
 const editor = createSaveEditor<'map'>('map', MAP_SCHEMA);
 

@@ -1,14 +1,17 @@
 <script lang="ts">
-  import { arrayCount, hasIndexedElementEditor, isArrayType } from '../sav/codec';
+  import { arrayCount, hasIndexedElementEditor, isArrayType } from '$lib/sav/codec';
   import { _ } from 'svelte-i18n';
-  import { DataType } from '../sav/dataType';
-  import { hexU32 } from '../sav/format';
-  import { enumOptionsFor } from '../sav/knownKeys';
-  import type { Entry } from '../sav/types';
-  import { INPUT_CLASS, MONO_INPUT_CLASS, PILL_BUTTON_CLASS } from '../styles';
-  import ArrayElementEditor from './ArrayElementEditor.svelte';
-  import EntryEditor from './EntryEditor.svelte';
-  import { arrayElementScalarAccess, parseBulkValueForArrayType } from './scalarFieldAccess';
+  import { DataType } from '$lib/sav/dataType';
+  import { hexU32 } from '$lib/sav/format';
+  import { enumOptionsFor } from '$lib/sav/knownKeys';
+  import type { Entry } from '$lib/sav/types';
+  import { INPUT_CLASS, MONO_INPUT_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
+  import ArrayElementEditor from '$lib/ui/fields/ArrayElementEditor.svelte';
+  import EntryEditor from '$lib/ui/fields/EntryEditor.svelte';
+  import {
+    arrayElementScalarAccess,
+    parseBulkValueForArrayType,
+  } from '$lib/ui/fields/scalarFieldAccess';
 
   type Props = {
     entry: Entry;

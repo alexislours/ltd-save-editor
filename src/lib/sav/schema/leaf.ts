@@ -1,4 +1,4 @@
-import { DataType } from '../dataType';
+import { DataType } from '$lib/sav/dataType';
 
 declare const brand: unique symbol;
 

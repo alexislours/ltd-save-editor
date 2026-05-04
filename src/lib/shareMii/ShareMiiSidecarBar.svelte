@@ -1,15 +1,15 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { track } from '../analytics';
-  import { errorMessage } from '../errorMessage';
-  import { CARD_BASE_CLASS, PILL_BUTTON_CLASS } from '../styles';
-  import { sidecarFromFolderFiles, sidecarFromZipFile } from './sidecar';
+  import { track } from '$lib/analytics';
+  import { errorMessage } from '$lib/errorMessage';
+  import { CARD_BASE_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
+  import { sidecarFromFolderFiles, sidecarFromZipFile } from './sidecar/sidecar';
   import {
     clearSidecar,
     mergeSidecarFiles,
     sidecarFileCount,
     sidecarOrigin,
-  } from './sidecarStore.svelte';
+  } from './sidecar/sidecarStore.svelte';
 
   type Props = {
     working: boolean;
