@@ -1,10 +1,8 @@
 import { defineConfig, type Plugin } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
-import { mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { mkdirSync, statSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-
-const pkg = JSON.parse(readFileSync(resolve('package.json'), 'utf8')) as { version: string };
 
 // Pulls the community-maintained hash list and stages it under static/ so it
 // ships as a static asset and is fetched client-side (see src/lib/sav/hashList.svelte.ts).
@@ -49,7 +47,4 @@ function gameDataHashList(): Plugin {
 
 export default defineConfig({
   plugins: [gameDataHashList(), sveltekit(), tailwindcss()],
-  define: {
-    __APP_VERSION__: JSON.stringify(pkg.version),
-  },
 });

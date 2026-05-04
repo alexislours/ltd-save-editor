@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { version } from '$app/environment';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
   import RouteMeta from '$lib/RouteMeta.svelte';
   import SaveBar from '$lib/SaveBar.svelte';
@@ -69,7 +70,7 @@
     if (!mii) return;
     try {
       const data = buildMiiExport(mii, {
-        appVersion: __APP_VERSION__,
+        appVersion: version,
         saveFile: expectedFileName.mii,
         uiLocale: $locale,
       });

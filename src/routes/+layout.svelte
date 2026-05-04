@@ -1,7 +1,7 @@
 <script lang="ts">
   import '../app.css';
   import '$lib/i18n';
-  import { browser } from '$app/environment';
+  import { browser, version } from '$app/environment';
   import { resolve } from '$app/paths';
   import { page } from '$app/state';
   import { PUBLIC_SITE_URL } from '$env/static/public';
@@ -171,7 +171,7 @@
             onclick={openChangelog}
             class="relative rounded-full bg-surface-muted/80 px-2 py-0.5 font-mono text-xs text-brand/90 ring-1 ring-edge/60 transition-colors hover:bg-surface hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
           >
-            v{__APP_VERSION__}
+            v{version}
             <span class="sr-only"
               >{hasNewChangelog ? $_('header.changelog_sr_new') : $_('header.changelog_sr')}</span
             >
