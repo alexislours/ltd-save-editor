@@ -25,9 +25,11 @@
   import { _, locale } from 'svelte-i18n';
   import { untrack } from 'svelte';
   import { track } from '$lib/analytics';
+  import { errorMessage } from '$lib/errorMessage';
   import { downloadText } from '$lib/sav/download';
   import { expectedFileName, getEntriesForAdvanced, getSave } from '$lib/saveFile.svelte';
   import { PILL_BUTTON_CLASS } from '$lib/styles';
+  import { showToast } from '$lib/toast.svelte';
 
   const save = $derived(getSave('mii'));
   $effect(() => {
@@ -58,7 +60,7 @@
     try {
       downloadModified();
     } catch (e) {
-      alert(e instanceof Error ? e.message : String(e));
+      showToast('error', errorMessage(e));
     }
   }
 
@@ -75,7 +77,7 @@
       downloadText(file.content, file.filename, file.mime);
       track('export_mii_data', { format, mii_count: data.miis.length });
     } catch (e) {
-      alert(e instanceof Error ? e.message : String(e));
+      showToast('error', errorMessage(e));
     }
   }
 </script>

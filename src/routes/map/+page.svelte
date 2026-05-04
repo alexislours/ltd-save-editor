@@ -38,8 +38,10 @@
     syncFromSave as syncObjectsFromSave,
   } from '$lib/mapObjects/mapObjectsEditor.svelte';
   import { _ } from 'svelte-i18n';
+  import { errorMessage } from '$lib/errorMessage';
   import { getEntriesForAdvanced, getSave } from '$lib/saveFile.svelte';
   import { CARD_BASE_CLASS, TOOLBAR_CLASS } from '$lib/styles';
+  import { showToast } from '$lib/toast.svelte';
 
   const save = $derived(getSave('map'));
   $effect(() => {
@@ -129,7 +131,7 @@
     try {
       downloadMapSav();
     } catch (e) {
-      alert(e instanceof Error ? e.message : String(e));
+      showToast('error', errorMessage(e));
     }
   }
 

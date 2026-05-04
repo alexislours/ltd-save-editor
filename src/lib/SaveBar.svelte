@@ -4,7 +4,9 @@
   import { exportAllSaves, loadedKinds } from './bulkExport';
   import { bulkLoadFiles } from './bulkLoader.svelte';
   import { requestClearAll } from './clearAll.svelte';
+  import { errorMessage } from './errorMessage';
   import { PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from './styles';
+  import { showToast } from './toast.svelte';
 
   type Props = {
     dirty: boolean;
@@ -30,7 +32,7 @@
     try {
       exportAllSaves();
     } catch (e) {
-      alert(e instanceof Error ? e.message : String(e));
+      showToast('error', errorMessage(e));
     }
   }
 </script>

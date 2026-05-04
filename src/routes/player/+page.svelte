@@ -3,6 +3,7 @@
   import { PUBLIC_SITE_URL } from '$env/static/public';
   import { _ } from 'svelte-i18n';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
+  import { errorMessage } from '$lib/errorMessage';
   import BuildingsPanel from '$lib/player/BuildingsPanel.svelte';
   import ClothesPanel from '$lib/player/ClothesPanel.svelte';
   import ClothingSetsPanel from '$lib/player/ClothingSetsPanel.svelte';
@@ -21,6 +22,7 @@
   import SaveTab from '$lib/SaveTab.svelte';
   import { getEntriesForAdvanced, getSave } from '$lib/saveFile.svelte';
   import SubTabs from '$lib/SubTabs.svelte';
+  import { showToast } from '$lib/toast.svelte';
 
   const save = $derived(getSave('player'));
   $effect(() => {
@@ -61,7 +63,7 @@
     try {
       downloadModified();
     } catch (e) {
-      alert(e instanceof Error ? e.message : String(e));
+      showToast('error', errorMessage(e));
     }
   }
 </script>
