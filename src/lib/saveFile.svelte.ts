@@ -6,7 +6,6 @@ import { parseSav } from './sav/parse';
 import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from './sav/schema';
 import { writeSav } from './sav/write';
 import type { Entry } from './sav/types';
-import { murmur3_x86_32 } from './sav/hash';
 import { clearAllSessions, deleteSession, putSession } from './sessionStore';
 import { clearSidecar } from './shareMii/sidecarStore.svelte';
 
@@ -51,8 +50,8 @@ export function schemaFor<K extends SaveKind>(kind: K): SchemaForKind[K] {
 }
 
 const SIGNATURE_HASHES: Record<SaveKind, number> = {
-  player: murmur3_x86_32('Player.Name'),
-  mii: murmur3_x86_32('Mii.Name.Name'),
+  player: PLAYER_SCHEMA.Player.Name.hash,
+  mii: MII_SCHEMA.Mii.Name.Name.hash,
   map: MAP_SCHEMA.MapGrid.GridX.GridZ.FloorKeyHash.hash,
 };
 
