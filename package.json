@@ -13,6 +13,7 @@
     "test:watch": "vitest",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
+    "gamedata:update": "node tools/update-gamedata.ts",
     "i18n:check": "node tools/i18n-sync.ts check",
     "i18n:sync": "node tools/i18n-sync.ts sync",
     "knip": "knip",

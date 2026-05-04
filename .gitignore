@@ -26,9 +26,6 @@ dist-ssr
 .wrangler/
 sample
 
-# Downloaded by the gamedata-hash-list Vite plugin
-static/GameData.txt
-
 # Generated from romfs/Icon by scripts/generate-food-data.mjs (WebP)
 static/food-icons
 # Generated from romfs/Icon by scripts/generate-cloth-data.mjs (WebP)
