@@ -1,12 +1,12 @@
 import { defineConfig, type Plugin } from 'vite';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const pkg = JSON.parse(readFileSync(resolve('package.json'), 'utf8')) as { version: string };
 
-// Pulls the community-maintained hash list and stages it under public/ so it
+// Pulls the community-maintained hash list and stages it under static/ so it
 // ships as a static asset and is fetched client-side (see src/lib/sav/hashList.svelte.ts).
 // The file changes infrequently - re-download once per day to avoid hammering
 // the upstream raw.githubusercontent.com endpoint during dev iteration.
@@ -19,7 +19,7 @@ function gameDataHashList(): Plugin {
   async function ensure(root: string) {
     if (fetched) return;
     fetched = true;
-    const out = resolve(root, 'public/GameData.txt');
+    const out = resolve(root, 'static/GameData.txt');
     try {
       const age = Date.now() - statSync(out).mtimeMs;
       if (age < MAX_AGE_MS) return;
@@ -30,9 +30,9 @@ function gameDataHashList(): Plugin {
       const res = await fetch(URL);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const body = await res.text();
-      mkdirSync(resolve(root, 'public'), { recursive: true });
+      mkdirSync(resolve(root, 'static'), { recursive: true });
       writeFileSync(out, body);
-      console.log(`[gamedata] fetched ${body.length} bytes → public/GameData.txt`);
+      console.log(`[gamedata] fetched ${body.length} bytes -> static/GameData.txt`);
     } catch (err) {
       console.warn(`[gamedata] failed to refresh hash list: ${(err as Error).message}`);
       // Don't fail the build - the existing copy (if any) will still be served.
@@ -48,7 +48,7 @@ function gameDataHashList(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [gameDataHashList(), svelte(), tailwindcss()],
+  plugins: [gameDataHashList(), sveltekit(), tailwindcss()],
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
   },

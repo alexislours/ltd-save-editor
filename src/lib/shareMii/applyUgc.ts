@@ -47,7 +47,7 @@ type UgcLeaves = {
 };
 
 function resolveScalarFieldLeaf(hash: number, label: string): SchemaLeaf<ScalarFieldType> {
-  const info = buildHashMap(PLAYER_SCHEMA as object).get(hash >>> 0);
+  const info = buildHashMap(PLAYER_SCHEMA).get(hash >>> 0);
   if (!info) throw new ShareMiiError('save_format_error', { label });
   const t = info.leaf.type;
   if (
@@ -63,7 +63,7 @@ function resolveScalarFieldLeaf(hash: number, label: string): SchemaLeaf<ScalarF
 }
 
 function resolveNameLeaf(hash: number, label: string): SchemaLeaf<NameType> {
-  const info = buildHashMap(PLAYER_SCHEMA as object).get(hash >>> 0);
+  const info = buildHashMap(PLAYER_SCHEMA).get(hash >>> 0);
   if (!info) throw new ShareMiiError('save_format_error', { label });
   const t = info.leaf.type;
   if (t !== DataType.WString32Array && t !== DataType.WString64Array) {

@@ -1,30 +1,33 @@
 import js from '@eslint/js';
 import ts from 'typescript-eslint';
 import svelte from 'eslint-plugin-svelte';
-import svelteParser from 'svelte-eslint-parser';
 import globals from 'globals';
 import prettier from 'eslint-config-prettier';
+import svelteConfig from './svelte.config.js';
 
 export default ts.config(
   { ignores: ['dist/', 'node_modules/', '.svelte-kit/', 'src/lib/paraglide/'] },
   js.configs.recommended,
   ...ts.configs.recommended,
-  ...svelte.configs['flat/recommended'],
+  ...svelte.configs.recommended,
   prettier,
-  ...svelte.configs['flat/prettier'],
+  ...svelte.configs.prettier,
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.node, __APP_VERSION__: 'readonly' },
     },
+    rules: {
+      'no-undef': 'off',
+    },
   },
   {
-    files: ['**/*.svelte', '**/*.svelte.ts'],
+    files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
     languageOptions: {
-      parser: svelteParser,
       parserOptions: {
-        parser: ts.parser,
+        projectService: true,
         extraFileExtensions: ['.svelte'],
-        svelteFeatures: { experimentalGenerics: true },
+        parser: ts.parser,
+        svelteConfig,
       },
     },
   },

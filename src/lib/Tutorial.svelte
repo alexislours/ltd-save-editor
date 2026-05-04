@@ -2,17 +2,21 @@
   import { tick } from 'svelte';
   import { _ } from 'svelte-i18n';
   import { driver, type Driver } from 'driver.js';
+  import { goto } from '$app/navigation';
+  import { resolve } from '$app/paths';
+  import { page } from '$app/state';
   import { track } from './analytics';
-  import { getPath, navigate } from './navigation.svelte';
   import { isSaveLoaded } from './saveFile.svelte';
 
   type DriverStep = Parameters<Driver['setSteps']>[0][number];
+
+  type TutorialRoute = '/player' | '/mii' | '/map' | '/sharemii' | '/ugc';
 
   type Tutorial = {
     id: 'getting-started' | 'save-bar' | 'player' | 'mii' | 'map' | 'sharemii' | 'ugc';
     name: string;
     description: string;
-    route?: string;
+    route?: TutorialRoute;
     available: boolean;
     iconPath: string;
     accent: string;
@@ -503,7 +507,7 @@
     ]);
   }
 
-  const saveBarRoute = $derived.by(() => {
+  const saveBarRoute = $derived.by((): TutorialRoute | undefined => {
     if (playerLoaded) return '/player';
     if (miiLoaded) return '/mii';
     if (mapLoaded) return '/map';
@@ -670,9 +674,9 @@
 
   async function start(t: Tutorial): Promise<void> {
     open = false;
-    track('tutorial_started', { from: getPath(), tutorial: t.id });
-    if (t.route && getPath() !== t.route) {
-      navigate(t.route);
+    track('tutorial_started', { from: page.url.pathname, tutorial: t.id });
+    if (t.route && page.url.pathname !== t.route) {
+      await goto(resolve(t.route));
       await tick();
       await waitForElement(firstStepSelector(t), 3000);
     }

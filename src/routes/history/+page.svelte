@@ -1,8 +1,8 @@
 <script lang="ts">
   import { zipSync } from 'fflate';
+  import { PUBLIC_SITE_URL } from '$env/static/public';
   import { _, locale } from 'svelte-i18n';
-  import { track } from '../lib/analytics';
-  import AppLayout from '../lib/AppLayout.svelte';
+  import { track } from '$lib/analytics';
   import {
     clearHistory,
     deleteSnapshot,
@@ -10,10 +10,10 @@
     HISTORY_MAX_SNAPSHOTS,
     listSnapshotMeta,
     type HistorySnapshotMeta,
-  } from '../lib/historyStore';
-  import { downloadBytes } from '../lib/sav/download';
-  import { CARD_BASE_CLASS, PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '../lib/styles';
-  import { showToast } from '../lib/toast.svelte';
+  } from '$lib/historyStore';
+  import { downloadBytes } from '$lib/sav/download';
+  import { CARD_BASE_CLASS, PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/styles';
+  import { showToast } from '$lib/toast.svelte';
 
   let snapshots = $state<HistorySnapshotMeta[]>([]);
   let loading = $state(true);
@@ -149,134 +149,142 @@
   );
 </script>
 
-<AppLayout>
-  <div class="space-y-5">
-    <header class="space-y-1.5">
-      <h1 class="text-2xl font-bold text-content-strong">{$_('history.title')}</h1>
-      <p class="text-sm text-content">{$_('history.description')}</p>
-    </header>
+<svelte:head>
+  <title>History - LTD Save Editor</title>
+  <link rel="canonical" href="{PUBLIC_SITE_URL}/history" />
+  <meta property="og:title" content="History - LTD Save Editor" />
+  <meta property="og:description" content="Save editor for Tomodachi Life: Living the Dream." />
+  <meta property="og:url" content="{PUBLIC_SITE_URL}/history" />
+  <meta name="twitter:title" content="History - LTD Save Editor" />
+  <meta name="twitter:description" content="Save editor for Tomodachi Life: Living the Dream." />
+</svelte:head>
 
-    <div
-      role="alert"
-      class="flex gap-3 rounded-2xl bg-danger-bg p-4 text-sm text-danger shadow-sm ring-1 ring-danger-edge"
-    >
-      <span aria-hidden="true" class="text-lg leading-none">⚠️</span>
-      <div>
-        <p class="font-bold">{$_('history.warning_title')}</p>
-        <p class="mt-1">{$_('history.warning_body')}</p>
-      </div>
+<div class="space-y-5">
+  <header class="space-y-1.5">
+    <h1 class="text-2xl font-bold text-content-strong">{$_('history.title')}</h1>
+    <p class="text-sm text-content">{$_('history.description')}</p>
+  </header>
+
+  <div
+    role="alert"
+    class="flex gap-3 rounded-2xl bg-danger-bg p-4 text-sm text-danger shadow-sm ring-1 ring-danger-edge"
+  >
+    <span aria-hidden="true" class="text-lg leading-none">⚠️</span>
+    <div>
+      <p class="font-bold">{$_('history.warning_title')}</p>
+      <p class="mt-1">{$_('history.warning_body')}</p>
     </div>
+  </div>
 
-    <div
-      class="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-surface/40 px-4 py-3 text-sm text-content-muted ring-1 ring-edge/40"
-    >
-      <span>
-        <span class="font-bold text-content-strong">{snapshots.length}</span>
-        / {HISTORY_MAX_SNAPSHOTS}
-        {$_('history.slots_used')}
-      </span>
-      {#if snapshots.length > 0}
-        <button
-          type="button"
-          class="{PILL_BUTTON_CLASS} text-danger hover:bg-danger-bg"
-          onclick={askClearAll}
-        >
-          {$_('history.clear_all')}
-        </button>
-      {/if}
-    </div>
-
-    {#if loading}
-      <p class="rounded-2xl bg-surface/40 p-6 text-center text-sm text-content-muted">
-        {$_('history.loading')}
-      </p>
-    {:else if snapshots.length === 0}
-      <div class="rounded-2xl bg-surface/40 p-8 text-center ring-1 ring-edge/40">
-        <p class="text-sm text-content-muted">{$_('history.empty')}</p>
-      </div>
-    {:else}
-      <ul class="{CARD_BASE_CLASS} divide-y divide-edge/40 overflow-hidden">
-        {#each snapshots as snap (snap.id)}
-          <li
-            class="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:gap-4 sm:px-5 sm:py-3.5"
-          >
-            <div class="min-w-0 sm:flex-1">
-              <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                <p class="truncate text-sm font-bold text-content-strong">
-                  {snap.playerName ?? $_('history.unknown_player')}
-                </p>
-                {#if snap.islandName}
-                  <p class="truncate text-xs text-content-muted">- {snap.islandName}</p>
-                {/if}
-              </div>
-              <p class="mt-0.5 text-xs text-content-muted">
-                {dateFormatter.format(new Date(snap.savedAt))}
-              </p>
-            </div>
-
-            <dl
-              class="grid shrink-0 grid-cols-3 gap-2 text-center text-xs sm:flex sm:gap-4 sm:text-left"
-            >
-              <div class="sm:min-w-[3.5rem]">
-                <dt class="text-[10px] font-bold tracking-wider text-content-muted uppercase">
-                  {$_('history.stat.miis')}
-                </dt>
-                <dd class="font-mono text-sm text-content-strong tabular-nums">
-                  {snap.miiCount != null ? numberFormatter.format(snap.miiCount) : '-'}
-                </dd>
-              </div>
-              <div class="sm:min-w-[3.5rem]">
-                <dt class="text-[10px] font-bold tracking-wider text-content-muted uppercase">
-                  {$_('history.stat.ugc')}
-                </dt>
-                <dd class="font-mono text-sm text-content-strong tabular-nums">
-                  {numberFormatter.format(snap.ugcFiles.length)}
-                </dd>
-              </div>
-              <div class="sm:min-w-[4.5rem]">
-                <dt class="text-[10px] font-bold tracking-wider text-content-muted uppercase">
-                  {$_('history.stat.size')}
-                </dt>
-                <dd class="font-mono text-sm text-content-strong tabular-nums">
-                  {formatBytes(snap.totalBytes)}
-                </dd>
-              </div>
-            </dl>
-
-            <div class="hidden shrink-0 flex-wrap gap-1 sm:flex">
-              {#each snap.saveFiles as file (file.kind)}
-                <span
-                  class="rounded-full bg-orange-500/10 px-2 py-0.5 text-[10px] font-bold tracking-wider text-orange-500 uppercase ring-1 ring-orange-500/30"
-                >
-                  {kindLabel(file.kind)}
-                </span>
-              {/each}
-            </div>
-
-            <div class="flex shrink-0 gap-2">
-              <button
-                type="button"
-                class="{PILL_BUTTON_CLASS} flex-1 sm:flex-none"
-                disabled={downloadingId === snap.id}
-                onclick={() => downloadSnapshot(snap)}
-              >
-                {$_('history.download')}
-              </button>
-              <button
-                type="button"
-                class="{PILL_BUTTON_CLASS} flex-1 text-danger hover:bg-danger-bg sm:flex-none"
-                disabled={busyId === snap.id}
-                onclick={() => askDelete(snap)}
-              >
-                {$_('history.delete')}
-              </button>
-            </div>
-          </li>
-        {/each}
-      </ul>
+  <div
+    class="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-surface/40 px-4 py-3 text-sm text-content-muted ring-1 ring-edge/40"
+  >
+    <span>
+      <span class="font-bold text-content-strong">{snapshots.length}</span>
+      / {HISTORY_MAX_SNAPSHOTS}
+      {$_('history.slots_used')}
+    </span>
+    {#if snapshots.length > 0}
+      <button
+        type="button"
+        class="{PILL_BUTTON_CLASS} text-danger hover:bg-danger-bg"
+        onclick={askClearAll}
+      >
+        {$_('history.clear_all')}
+      </button>
     {/if}
   </div>
-</AppLayout>
+
+  {#if loading}
+    <p class="rounded-2xl bg-surface/40 p-6 text-center text-sm text-content-muted">
+      {$_('history.loading')}
+    </p>
+  {:else if snapshots.length === 0}
+    <div class="rounded-2xl bg-surface/40 p-8 text-center ring-1 ring-edge/40">
+      <p class="text-sm text-content-muted">{$_('history.empty')}</p>
+    </div>
+  {:else}
+    <ul class="{CARD_BASE_CLASS} divide-y divide-edge/40 overflow-hidden">
+      {#each snapshots as snap (snap.id)}
+        <li
+          class="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:gap-4 sm:px-5 sm:py-3.5"
+        >
+          <div class="min-w-0 sm:flex-1">
+            <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+              <p class="truncate text-sm font-bold text-content-strong">
+                {snap.playerName ?? $_('history.unknown_player')}
+              </p>
+              {#if snap.islandName}
+                <p class="truncate text-xs text-content-muted">- {snap.islandName}</p>
+              {/if}
+            </div>
+            <p class="mt-0.5 text-xs text-content-muted">
+              {dateFormatter.format(new Date(snap.savedAt))}
+            </p>
+          </div>
+
+          <dl
+            class="grid shrink-0 grid-cols-3 gap-2 text-center text-xs sm:flex sm:gap-4 sm:text-left"
+          >
+            <div class="sm:min-w-[3.5rem]">
+              <dt class="text-[10px] font-bold tracking-wider text-content-muted uppercase">
+                {$_('history.stat.miis')}
+              </dt>
+              <dd class="font-mono text-sm text-content-strong tabular-nums">
+                {snap.miiCount != null ? numberFormatter.format(snap.miiCount) : '-'}
+              </dd>
+            </div>
+            <div class="sm:min-w-[3.5rem]">
+              <dt class="text-[10px] font-bold tracking-wider text-content-muted uppercase">
+                {$_('history.stat.ugc')}
+              </dt>
+              <dd class="font-mono text-sm text-content-strong tabular-nums">
+                {numberFormatter.format(snap.ugcFiles.length)}
+              </dd>
+            </div>
+            <div class="sm:min-w-[4.5rem]">
+              <dt class="text-[10px] font-bold tracking-wider text-content-muted uppercase">
+                {$_('history.stat.size')}
+              </dt>
+              <dd class="font-mono text-sm text-content-strong tabular-nums">
+                {formatBytes(snap.totalBytes)}
+              </dd>
+            </div>
+          </dl>
+
+          <div class="hidden shrink-0 flex-wrap gap-1 sm:flex">
+            {#each snap.saveFiles as file (file.kind)}
+              <span
+                class="rounded-full bg-orange-500/10 px-2 py-0.5 text-[10px] font-bold tracking-wider text-orange-500 uppercase ring-1 ring-orange-500/30"
+              >
+                {kindLabel(file.kind)}
+              </span>
+            {/each}
+          </div>
+
+          <div class="flex shrink-0 gap-2">
+            <button
+              type="button"
+              class="{PILL_BUTTON_CLASS} flex-1 sm:flex-none"
+              disabled={downloadingId === snap.id}
+              onclick={() => downloadSnapshot(snap)}
+            >
+              {$_('history.download')}
+            </button>
+            <button
+              type="button"
+              class="{PILL_BUTTON_CLASS} flex-1 text-danger hover:bg-danger-bg sm:flex-none"
+              disabled={busyId === snap.id}
+              onclick={() => askDelete(snap)}
+            >
+              {$_('history.delete')}
+            </button>
+          </div>
+        </li>
+      {/each}
+    </ul>
+  {/if}
+</div>
 
 <dialog
   bind:this={dialog}

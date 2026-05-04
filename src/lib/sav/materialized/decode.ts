@@ -27,8 +27,8 @@ import type { Entry, SavFile } from '../types';
 import { buildHashMap } from './schemaIndex';
 import { PLAN, type DecodedSave, type PlanItem } from './types';
 
-export function decode(schema: unknown, file: SavFile): DecodedSave {
-  const hashMap = buildHashMap(schema as object);
+export function decode(schema: object, file: SavFile): DecodedSave {
+  const hashMap = buildHashMap(schema);
   const values: Record<string, unknown> = {};
   const unknowns: Entry[] = [];
   const plan: PlanItem[] = [];

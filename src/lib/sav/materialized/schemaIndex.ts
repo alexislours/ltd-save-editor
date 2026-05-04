@@ -5,10 +5,7 @@ export type LeafInfo = { leaf: SchemaLeaf; path: string };
 const HASH_CACHE = new WeakMap<object, Map<number, LeafInfo>>();
 const PATH_CACHE = new WeakMap<object, Map<string, SchemaLeaf>>();
 
-export function buildHashMap(schema: unknown): Map<number, LeafInfo> {
-  if (typeof schema !== 'object' || schema === null) {
-    throw new Error('Schema must be an object');
-  }
+export function buildHashMap(schema: object): Map<number, LeafInfo> {
   const cached = HASH_CACHE.get(schema);
   if (cached) return cached;
   const map = new Map<number, LeafInfo>();
@@ -17,10 +14,7 @@ export function buildHashMap(schema: unknown): Map<number, LeafInfo> {
   return map;
 }
 
-export function pathToLeafMap(schema: unknown): Map<string, SchemaLeaf> {
-  if (typeof schema !== 'object' || schema === null) {
-    throw new Error('Schema must be an object');
-  }
+export function pathToLeafMap(schema: object): Map<string, SchemaLeaf> {
   const cached = PATH_CACHE.get(schema);
   if (cached) return cached;
   const out = new Map<string, SchemaLeaf>();
@@ -31,7 +25,7 @@ export function pathToLeafMap(schema: unknown): Map<string, SchemaLeaf> {
   return out;
 }
 
-export function pathFor(schema: unknown, leaf: SchemaLeaf): string {
+export function pathFor(schema: object, leaf: SchemaLeaf): string {
   const info = buildHashMap(schema).get(leaf.hash >>> 0);
   if (!info || info.leaf !== leaf) {
     throw new Error(`Leaf 0x${leaf.hash.toString(16)} not found in schema`);

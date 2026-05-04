@@ -25,14 +25,14 @@ import type { Entry, SavFile } from '../types';
 import { pathToLeafMap } from './schemaIndex';
 import { PLAN, type DecodedSave, type WithPlan } from './types';
 
-export function encode(schema: unknown, decoded: DecodedSave): SavFile {
+export function encode(schema: object, decoded: DecodedSave): SavFile {
   const plan = (decoded as DecodedSave & WithPlan)[PLAN];
   if (!plan) {
     throw new Error(
       'encode: DecodedSave is missing PLAN. Construct via decode() or attach a PlanItem[] under the PLAN symbol before encoding.',
     );
   }
-  const pathMap = pathToLeafMap(schema as object);
+  const pathMap = pathToLeafMap(schema);
   const values = decoded.values;
   const entries: Entry[] = [];
   for (const item of plan) {

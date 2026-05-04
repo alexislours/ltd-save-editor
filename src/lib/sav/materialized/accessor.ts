@@ -41,14 +41,13 @@ const ARRAY_TYPES: ReadonlySet<DataType> = new Set([
 ]);
 
 export function createMaterializedAccessor<K extends string>(
-  schema: unknown,
+  schema: object,
   decoded: DecodedSave,
 ): Accessor<K> {
   const values = decoded.values;
-  const schemaObj = schema as object;
 
   function resolve(leaf: SchemaLeaf): { path: string; expected: DataType } {
-    const info = buildHashMap(schemaObj).get(leaf.hash >>> 0);
+    const info = buildHashMap(schema).get(leaf.hash >>> 0);
     if (!info) throw new Error(`Leaf 0x${leaf.hash.toString(16)} not found in schema`);
     if (info.leaf.type !== leaf.type) {
       throw new Error(
@@ -68,7 +67,7 @@ export function createMaterializedAccessor<K extends string>(
 
   return {
     has(leaf) {
-      const info = buildHashMap(schemaObj).get(leaf.hash >>> 0);
+      const info = buildHashMap(schema).get(leaf.hash >>> 0);
       if (!info) return false;
       if (info.leaf.type !== leaf.type) {
         throw new Error(

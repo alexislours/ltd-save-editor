@@ -1,6 +1,12 @@
 import { SvelteMap } from 'svelte/reactivity';
 import { track } from '../analytics';
-import { getSave, getSaveBytes, type SaveKind, expectedFileName } from '../saveFile.svelte';
+import {
+  getSave,
+  getSaveBytes,
+  type SaveKind,
+  type SchemaForKind,
+  expectedFileName,
+} from '../saveFile.svelte';
 import { schedulePersist } from '../sessionPersist';
 import { downloadBytes } from './download';
 import { createMaterializedAccessor, type Accessor } from './materialized/accessor';
@@ -33,7 +39,10 @@ function cloneEntry(e: Entry): Entry {
   return { hash: e.hash, type: e.type, inlineRaw: e.inlineRaw, payload: e.payload.slice() };
 }
 
-export function createSaveEditor<K extends string>(kind: SaveKind, schema: unknown): SaveEditor<K> {
+export function createSaveEditor<K extends SaveKind>(
+  kind: K,
+  schema: SchemaForKind[K],
+): SaveEditor<K> {
   const state = new EditorState();
   let seenLoadId = -1;
   let cachedAccessor: Accessor<K> | null = null;
@@ -85,7 +94,7 @@ export function createSaveEditor<K extends string>(kind: SaveKind, schema: unkno
     if (cachedPlanIndex && cachedDecoded === decoded) return cachedPlanIndex;
     const plan = ((decoded as DecodedSave & WithPlan)[PLAN] as PlanItem[] | undefined) ?? [];
     const map = new SvelteMap<number, number>();
-    const pathMap = pathToLeafMap(schema as object);
+    const pathMap = pathToLeafMap(schema);
     for (let i = 0; i < plan.length; i++) {
       const item = plan[i];
       if (item.kind === 'known') {
@@ -105,7 +114,7 @@ export function createSaveEditor<K extends string>(kind: SaveKind, schema: unkno
     const decoded = state.decoded;
     if (!decoded) return;
     const hash = entry.hash >>> 0;
-    const info = buildHashMap(schema as object).get(hash);
+    const info = buildHashMap(schema).get(hash);
     const values = decoded.values;
     const plan = (decoded as DecodedSave & WithPlan)[PLAN] as PlanItem[] | undefined;
 

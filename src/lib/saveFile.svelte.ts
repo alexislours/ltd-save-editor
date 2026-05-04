@@ -34,11 +34,21 @@ export const expectedFileName: Record<SaveKind, string> = {
   map: 'Map.sav',
 };
 
-const SCHEMAS = {
+export type SchemaForKind = {
+  player: typeof PLAYER_SCHEMA;
+  mii: typeof MII_SCHEMA;
+  map: typeof MAP_SCHEMA;
+};
+
+const SCHEMAS: SchemaForKind = {
   mii: MII_SCHEMA,
   player: PLAYER_SCHEMA,
   map: MAP_SCHEMA,
-} as const;
+};
+
+export function schemaFor<K extends SaveKind>(kind: K): SchemaForKind[K] {
+  return SCHEMAS[kind];
+}
 
 const SIGNATURE_HASHES: Record<SaveKind, number> = {
   player: murmur3_x86_32('Player.Name'),
@@ -90,8 +100,7 @@ export function getSaveBytes(kind: SaveKind): Uint8Array | null {
   if (!save) return null;
   const decoded = save.decoded[kind];
   if (decoded) {
-    const schema = SCHEMAS[kind] as unknown;
-    return writeSav(encode(schema as never, decoded as never));
+    return writeSav(encode(SCHEMAS[kind], decoded));
   }
   return save.loadedBytes;
 }
@@ -131,8 +140,7 @@ export function setSaveFromBytes(
   const decoded: DecodedByKind = emptyDecoded();
   try {
     const parsed = parseSav(input.bytes);
-    const schema = SCHEMAS[kind] as unknown;
-    const d = decode(schema, parsed);
+    const d = decode(SCHEMAS[kind], parsed);
     if (kind === 'mii') decoded.mii = d;
     else if (kind === 'player') decoded.player = d;
     else decoded.map = d;

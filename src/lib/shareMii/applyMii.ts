@@ -104,7 +104,7 @@ const MII_LEAVES = {
     DataType.BoolArray,
   ),
   personality: MII_HASHES.personality.map((h, i) => {
-    const info = buildHashMap(MII_SCHEMA as object).get(h >>> 0);
+    const info = buildHashMap(MII_SCHEMA).get(h >>> 0);
     if (!info) throw new ShareMiiError('save_format_error', { label: `Personality[${i}]` });
     if (info.leaf.type !== DataType.IntArray && info.leaf.type !== DataType.EnumArray) {
       throw new ShareMiiError('save_format_error', { label: `Personality[${i}]` });

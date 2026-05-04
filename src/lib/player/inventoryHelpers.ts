@@ -6,7 +6,7 @@ import type { SchemaLeaf } from '../sav/schema/paths';
 import type { PlayerAccessor } from '../playerEditor.svelte';
 import { OBTAINED_HASH } from './stateOptions';
 
-const HASH_MAP = buildHashMap(PLAYER_SCHEMA as unknown as object);
+const HASH_MAP = buildHashMap(PLAYER_SCHEMA);
 
 export function leafForHash(hash: number): SchemaLeaf | null {
   return HASH_MAP.get(hash >>> 0)?.leaf ?? null;

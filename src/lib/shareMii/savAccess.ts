@@ -17,7 +17,7 @@ export function leafByHashOrThrow<T extends DataType>(
   label: string,
   expected: T,
 ): SchemaLeaf<T> {
-  const info = buildHashMap(schema as object).get(hash >>> 0);
+  const info = buildHashMap(schema).get(hash >>> 0);
   if (!info) throw new ShareMiiError('save_format_error', { label });
   if (info.leaf.type !== expected) {
     throw new ShareMiiError('save_format_error', { label });
