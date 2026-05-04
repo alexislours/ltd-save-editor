@@ -59,7 +59,7 @@ export function buildTree(entries: readonly Entry[]): TreeNode[] {
   return roots;
 }
 
-export function formatHash(hash: number): string {
+function formatHash(hash: number): string {
   return '0x' + (hash >>> 0).toString(16).padStart(8, '0');
 }
 

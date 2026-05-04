@@ -23,7 +23,7 @@ import {
   type Translator,
 } from './relationsTableHelpers';
 
-export type CommitResult = { ok: true; applied: boolean } | { ok: false; error: string };
+type CommitResult = { ok: true; applied: boolean } | { ok: false; error: string };
 
 export function commitMeter(mii: MiiAccessor, directionalIndex: number, raw: string): void {
   const n = Number.parseInt(raw, 10);
@@ -31,7 +31,7 @@ export function commitMeter(mii: MiiAccessor, directionalIndex: number, raw: str
   mii.setElement(MII_SCHEMA.Relation.Info.DirectionalInfo.Meter, directionalIndex, n | 0);
 }
 
-export type CommitTypeArgs = {
+type CommitTypeArgs = {
   mii: MiiAccessor;
   re: RelationAvailability;
   miiIndex: number;
@@ -122,7 +122,7 @@ export function commitTypeSetTime(
   setTypeSetSec(mii, slot, secs);
 }
 
-export type CommitCrushArgs = {
+type CommitCrushArgs = {
   mii: MiiAccessor;
   re: RelationAvailability;
   miiIndex: number;
@@ -180,7 +180,7 @@ function maybeClearFightForSlot(mii: MiiAccessor, re: RelationAvailability, slot
   setFight(mii, slot, false);
 }
 
-export type AcquaintArgs = {
+type AcquaintArgs = {
   mii: MiiAccessor;
   re: RelationAvailability;
   miiIndex: number;

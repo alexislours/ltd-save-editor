@@ -1,7 +1,7 @@
 import type { Driver } from 'driver.js';
 
 export type DriverStep = Parameters<Driver['setSteps']>[0][number];
-export type Translate = (key: string) => string;
+type Translate = (key: string) => string;
 export type TutorialId =
   | 'getting-started'
   | 'save-bar'
@@ -476,7 +476,7 @@ export function firstStepSelector(id: TutorialId): string {
   return '[data-tutorial="nav"]';
 }
 
-export type TutorialRoute = '/player' | '/mii' | '/map' | '/sharemii' | '/ugc';
+type TutorialRoute = '/player' | '/mii' | '/map' | '/sharemii' | '/ugc';
 
 export type TutorialEntry = {
   id: TutorialId;

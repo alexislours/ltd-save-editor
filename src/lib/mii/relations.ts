@@ -94,7 +94,7 @@ export function readMiiName(mii: MiiAccessor, index: number): string {
   return arr[index] ?? '';
 }
 
-export function readMiiGender(mii: MiiAccessor, miiIndex: number): string | null {
+function readMiiGender(mii: MiiAccessor, miiIndex: number): string | null {
   if (!mii.has(MII_SCHEMA.Mii.MiiMisc.FaceInfo.Gender)) return null;
   const arr = mii.get(MII_SCHEMA.Mii.MiiMisc.FaceInfo.Gender);
   const v = arr[miiIndex];
@@ -215,12 +215,6 @@ export function setFight(mii: MiiAccessor, slot: number, value: boolean): boolea
   }
 }
 
-export function hasCrush(mii: MiiAccessor, dirIndex: number): boolean {
-  if (!mii.has(MII_SCHEMA.Relation.Info.DirectionalInfo.BitFlag)) return false;
-  const arr = mii.get(MII_SCHEMA.Relation.Info.DirectionalInfo.BitFlag);
-  return hasCrushBit(arr, dirIndex);
-}
-
 export function setCrush(mii: MiiAccessor, dirIndex: number, value: boolean): boolean {
   if (!mii.has(MII_SCHEMA.Relation.Info.DirectionalInfo.BitFlag)) return false;
   try {
@@ -270,7 +264,7 @@ export function setTypeSetSec(mii: MiiAccessor, slot: number, secs: bigint): boo
   }
 }
 
-export type CoupleBlockReason =
+type CoupleBlockReason =
   | 'gender_incompatible'
   | 'blood_related'
   | 'self_already_paired'
@@ -388,10 +382,4 @@ export function isValidPair(aName: string, bName: string): boolean {
   return counterpartsFor(aName).includes(bName);
 }
 
-export {
-  hasFightVariant,
-  subRelationKey,
-  subRelationLevelIndex,
-  subRelationLevels,
-} from './subRelationLabels';
-export type { SubRelationKey, SubRelationLevel } from './subRelationLabels';
+export { hasFightVariant, subRelationKey, subRelationLevels } from './subRelationLabels';

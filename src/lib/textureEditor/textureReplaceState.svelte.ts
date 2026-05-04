@@ -2,7 +2,7 @@ import type { Matte } from '../ugcEditor/codec';
 
 export type DecodedRgba = { width: number; height: number; rgba: Uint8ClampedArray };
 export type FitMode = 'fill' | 'contain' | 'cover';
-export type MatteOption = 'transparent' | 'white' | 'black' | 'custom';
+type MatteOption = 'transparent' | 'white' | 'black' | 'custom';
 
 const SUPPORTED_IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.webp'];
 

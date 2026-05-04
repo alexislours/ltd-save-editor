@@ -41,12 +41,6 @@ export function ugcKindIndex(kind: UgcKind): number {
   return UGC_KINDS.indexOf(kind);
 }
 
-export function ugcKindFromIndex(i: number): UgcKind {
-  const kind = UGC_KINDS[i];
-  if (!kind) throw new Error(`Invalid UGC kind index: ${i}`);
-  return kind;
-}
-
 export const UGC_MAX_SLOTS: Record<UgcKind, number> = {
   Food: 99,
   Cloth: 299,
@@ -57,7 +51,7 @@ export const UGC_MAX_SLOTS: Record<UgcKind, number> = {
   MapFloor: 99,
 };
 
-export function ugcFileBase(kind: UgcKind, slot: number): string {
+function ugcFileBase(kind: UgcKind, slot: number): string {
   return `Ugc${kind}${String(slot).padStart(3, '0')}`;
 }
 
@@ -73,7 +67,7 @@ export function ugcThumbFileName(kind: UgcKind, slot: number): string {
   return `${ugcFileBase(kind, slot)}_Thumb.ugctex.zs`;
 }
 
-export function facepaintFileBase(id: number): string {
+function facepaintFileBase(id: number): string {
   return `UgcFacePaint${String(id).padStart(3, '0')}`;
 }
 
@@ -85,7 +79,7 @@ export function facepaintTexFileName(id: number): string {
   return `${facepaintFileBase(id)}.ugctex.zs`;
 }
 
-export type UgcFieldHashes = {
+type UgcFieldHashes = {
   fields: readonly number[];
   names: readonly number[];
   vector?: number;

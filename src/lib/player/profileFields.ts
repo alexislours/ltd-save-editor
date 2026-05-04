@@ -16,7 +16,7 @@ export const HAND_COLORS: readonly string[] = [
 
 export const ISLAND_SIZE_VALUES = [1, 2, 3, 4] as const;
 
-export const MAX_MONEY_CENTS = 99_999_999;
+const MAX_MONEY_CENTS = 99_999_999;
 
 export function writeNonNegativeInt(
   raw: string,

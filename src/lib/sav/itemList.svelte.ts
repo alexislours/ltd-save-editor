@@ -1,7 +1,6 @@
-import { SvelteMap } from 'svelte/reactivity';
 import { type GameLocale, pickLocalized } from './gameLocale';
 
-export type ItemCategory = 'f' | 'm';
+type ItemCategory = 'f' | 'm';
 
 export type ItemVariant = {
   name: string;
@@ -17,7 +16,6 @@ export type Item = {
   localized: Partial<Record<GameLocale, string>>;
 };
 
-const BY_NAME = new SvelteMap<string, Item>();
 const ALL = $state<{ list: Item[] }>({ list: [] });
 let started = false;
 
@@ -47,7 +45,6 @@ export function loadItemList(): void {
           variants: r.v.map((v) => ({ name: v.n, hash: v.h >>> 0, color: v.c })),
           localized: r.l ?? {},
         };
-        BY_NAME.set(item.name, item);
         list.push(item);
       }
       ALL.list = list;
@@ -59,10 +56,6 @@ export function loadItemList(): void {
 
 export function allItems(): Item[] {
   return ALL.list;
-}
-
-export function itemByName(name: string): Item | null {
-  return BY_NAME.get(name) ?? null;
 }
 
 export function itemLabel(item: Item, uiLocale: string | null | undefined): string {

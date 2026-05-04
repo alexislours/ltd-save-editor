@@ -1,5 +1,5 @@
-export type ToastKind = 'success' | 'error' | 'warn' | 'info';
-export type Toast = { id: number; kind: ToastKind; text: string };
+type ToastKind = 'success' | 'error' | 'warn' | 'info';
+type Toast = { id: number; kind: ToastKind; text: string };
 
 const DEFAULT_DURATION: Record<ToastKind, number> = {
   success: 3000,

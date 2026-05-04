@@ -52,7 +52,7 @@ export function isHiddenType(label: string): boolean {
   return HIDDEN_TYPES.has(label) || label.startsWith('0x');
 }
 
-export function colorForType(name: string): string {
+function colorForType(name: string): string {
   return TYPE_COLORS[name] ?? FALLBACK_COLOR;
 }
 

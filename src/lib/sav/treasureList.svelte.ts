@@ -2,7 +2,7 @@ import { SvelteMap } from 'svelte/reactivity';
 import { type GameLocale, pickLocalized } from './gameLocale';
 import { murmur3_x86_32 } from './hash';
 
-export type TreasureType = 'Treasure' | 'Levelup' | '';
+type TreasureType = 'Treasure' | 'Levelup' | '';
 
 export type Treasure = {
   name: string;
@@ -14,7 +14,6 @@ export type Treasure = {
   localized: Partial<Record<GameLocale, string>>;
 };
 
-const BY_NAME = new SvelteMap<string, Treasure>();
 const BY_NAME_HASH = new SvelteMap<number, Treasure>();
 const ALL = $state<{ list: Treasure[] }>({ list: [] });
 let started = false;
@@ -45,7 +44,6 @@ export function loadTreasureList(): void {
           ownNumHash: murmur3_x86_32(`Player.GoodsInfo2.${r.n}.OwnNum`) >>> 0,
           localized: r.l ?? {},
         };
-        BY_NAME.set(treasure.name, treasure);
         BY_NAME_HASH.set(treasure.nameHash, treasure);
         list.push(treasure);
       }
@@ -54,10 +52,6 @@ export function loadTreasureList(): void {
       console.warn('[treasureList] failed to load /treasures.json:', err);
     }
   })();
-}
-
-export function treasureByName(name: string): Treasure | null {
-  return BY_NAME.get(name) ?? null;
 }
 
 export function treasureByNameHash(hash: number): Treasure | null {

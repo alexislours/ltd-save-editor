@@ -6,7 +6,7 @@ import { hasOriginal } from '../shareMii/sidecarStore.svelte';
 import { ugcCanvasFileName, ugcTexFileName, ugcThumbFileName } from '../shareMii/ugcKinds';
 import type { Matte } from './codec';
 
-export const UGC_NAME_LEAVES = {
+const UGC_NAME_LEAVES = {
   Cloth: PLAYER_SCHEMA.UGC.Cloth.Name,
   Food: PLAYER_SCHEMA.UGC.Food.Name,
   Goods: PLAYER_SCHEMA.UGC.Goods.Name,
@@ -18,7 +18,7 @@ export const UGC_NAME_LEAVES = {
 
 export type UgcRow = { slot: number; name: string };
 
-export type UgcRowLabels = {
+type UgcRowLabels = {
   unnamed: (slot: number) => string;
 };
 
@@ -111,7 +111,7 @@ export async function decodeSidecarToPngUrl(
   return null;
 }
 
-export type ReplaceArgs = {
+type ReplaceArgs = {
   decoded: DecodedRgba;
   kind: UgcKind;
   slot: number;

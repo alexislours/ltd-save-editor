@@ -54,9 +54,9 @@ function typeSetSecText(value: string | null, uiLocale: string | null): string |
   }
 }
 
-export const EXPORT_SCHEMA = 'ltd-mii-export/v1';
+const EXPORT_SCHEMA = 'ltd-mii-export/v1';
 
-export type MiiSnapshot = {
+type MiiSnapshot = {
   index: number;
   name: string;
   fields: Record<string, string | number | null>;
@@ -64,7 +64,7 @@ export type MiiSnapshot = {
   attractedToLabels: string[];
 };
 
-export type RelationshipSnapshot = {
+type RelationshipSnapshot = {
   slot: number;
   a: { index: number; name: string };
   b: { index: number; name: string };
@@ -75,7 +75,7 @@ export type RelationshipSnapshot = {
   btoa: DirectionalSnapshot;
 };
 
-export type DirectionalSnapshot = {
+type DirectionalSnapshot = {
   type: string;
   typeLabel: string | null;
   meter: number;
@@ -84,7 +84,7 @@ export type DirectionalSnapshot = {
   subRelationLabel: string | null;
 };
 
-export type MiiExport = {
+type MiiExport = {
   schema: typeof EXPORT_SCHEMA;
   exportedAt: string;
   appVersion: string;
@@ -93,7 +93,7 @@ export type MiiExport = {
   relationships: RelationshipSnapshot[];
 };
 
-export type BuildOptions = {
+type BuildOptions = {
   appVersion: string;
   saveFile: string;
   exportedAt?: string;
@@ -229,7 +229,7 @@ function directional(
   };
 }
 
-export function serializeMiiExportJson(data: MiiExport): string {
+function serializeMiiExportJson(data: MiiExport): string {
   return JSON.stringify(data, null, 2);
 }
 
@@ -241,7 +241,7 @@ const COMPUTED_MII_COLUMNS: { header: string; pick: (m: MiiSnapshot) => string |
     { header: 'attracted_to_label', pick: (m) => m.attractedToLabels.join('|') },
   ];
 
-export const MII_FIELD_COLUMNS: string[] = (() => {
+const MII_FIELD_COLUMNS: string[] = (() => {
   const seen = new Set<string>(['name']);
   const keys: string[] = [];
   for (const section of MII_SECTIONS) {
@@ -260,7 +260,7 @@ export const MII_FIELD_COLUMNS: string[] = (() => {
   return keys;
 })();
 
-export function serializeMiisCsv(data: MiiExport): string {
+function serializeMiisCsv(data: MiiExport): string {
   const headers = [...COMPUTED_MII_COLUMNS.map((c) => c.header), ...MII_FIELD_COLUMNS];
   const rows: (string | number | null)[][] = [headers];
   for (const m of data.miis) {
@@ -289,7 +289,7 @@ const REL_CSV_HEADER = [
   'slot',
 ];
 
-export function serializeRelationshipsCsv(data: MiiExport): string {
+function serializeRelationshipsCsv(data: MiiExport): string {
   const rows: (string | number | null)[][] = [REL_CSV_HEADER];
   for (const r of data.relationships) {
     rows.push(directionalRow(r, 'atob'));
@@ -300,7 +300,7 @@ export function serializeRelationshipsCsv(data: MiiExport): string {
 
 export type MiiExportFormat = 'json' | 'miis-csv' | 'relationships-csv';
 
-export type MiiExportFile = {
+type MiiExportFile = {
   filename: string;
   mime: string;
   content: string;

@@ -110,10 +110,6 @@ export async function getAllSessions(): Promise<StoredSession[]> {
   return out ?? [];
 }
 
-export async function putSidecar(record: StoredSidecar): Promise<void> {
-  await withStore(SIDECAR_STORE, 'readwrite', (s) => s.put(record));
-}
-
 export async function putSidecars(records: StoredSidecar[]): Promise<void> {
   if (records.length === 0) return;
   await withStore<void>(SIDECAR_STORE, 'readwrite', (s) => {

@@ -19,8 +19,6 @@ export type Accessor<K extends string = string> = {
   readonly _brand?: K;
 };
 
-export type MaterializedAccessor<K extends string = string> = Accessor<K>;
-
 const ARRAY_TYPES: ReadonlySet<DataType> = new Set([
   DataType.BoolArray,
   DataType.IntArray,

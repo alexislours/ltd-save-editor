@@ -6,7 +6,7 @@ export type TileChange = {
   newValue: number;
 };
 
-export type MapAction = {
+type MapAction = {
   name: string;
   changes: TileChange[];
 };
@@ -18,8 +18,6 @@ const state = $state<{
   undoStack: [],
   redoStack: [],
 });
-
-export const historyState = state;
 
 export function canUndo(): boolean {
   return state.undoStack.length > 0;

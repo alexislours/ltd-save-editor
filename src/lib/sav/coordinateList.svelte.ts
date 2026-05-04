@@ -1,7 +1,7 @@
 import { SvelteMap } from 'svelte/reactivity';
 import { type GameLocale, pickLocalized } from './gameLocale';
 
-export type CoordinateSlots = {
+type CoordinateSlots = {
   Tops: number;
   Topslong: number;
   BottomsA: number;
@@ -81,13 +81,6 @@ export function loadCoordinateList(): void {
 
 export function coordinateByKey(keyHash: number): Coordinate | null {
   return BY_KEY.get(keyHash >>> 0) ?? null;
-}
-
-export function coordinateBySaveIndex(saveIndex: number): Coordinate | null {
-  for (const c of ALL.list) {
-    if (c.saveIndex === saveIndex) return c;
-  }
-  return null;
 }
 
 export function allCoordinates(): Coordinate[] {

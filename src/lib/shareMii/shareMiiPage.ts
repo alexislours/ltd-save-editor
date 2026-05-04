@@ -20,9 +20,9 @@ export type Row = {
   empty?: boolean;
 };
 
-export type RowsResult = { rows: Row[]; error: unknown };
+type RowsResult = { rows: Row[]; error: unknown };
 
-export type RowLabels = {
+type RowLabels = {
   inProgressMii: string;
   miiDefault: (slot: number) => string;
   addNew: string;
@@ -93,7 +93,7 @@ export function formatFailureList(failures: ImportFailure[]): string {
   return failures.map((f) => `${f.fileName}: ${f.reason}`).join('; ');
 }
 
-export type RunImportContext =
+type RunImportContext =
   | { kind: 'Mii'; saves: MiiSaves; slot: number; sidecar: SidecarSource }
   | {
       kind: UgcKind;
@@ -103,7 +103,7 @@ export type RunImportContext =
       sidecar: SidecarSource;
     };
 
-export type ImportRunResult = {
+type ImportRunResult = {
   count: number;
   failures: ImportFailure[];
   writes: { name: string; bytes: Uint8Array }[];
@@ -144,9 +144,7 @@ export function commitImportWrites(writes: { name: string; bytes: Uint8Array }[]
   markPendingSidecars(fresh);
 }
 
-export type ExportContext =
-  | { kind: 'Mii'; saves: MiiSaves }
-  | { kind: UgcKind; saves: PlayerOnlySaves };
+type ExportContext = { kind: 'Mii'; saves: MiiSaves } | { kind: UgcKind; saves: PlayerOnlySaves };
 
 export function collectExportEntries(
   ctx: ExportContext,

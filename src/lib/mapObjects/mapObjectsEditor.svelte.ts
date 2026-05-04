@@ -132,12 +132,6 @@ export function getRow(index: number): MapObjectRow | null {
   };
 }
 
-export function isEmpty(index: number): boolean {
-  const arrs = arrays();
-  if (!arrs || index < 0 || index >= state.count) return true;
-  return arrs.actor[index] >>> 0 === 0;
-}
-
 export function liveRows(): MapObjectRow[] {
   void state.rev;
   const arrs = arrays();

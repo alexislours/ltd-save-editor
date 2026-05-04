@@ -1,4 +1,3 @@
-import { SvelteMap } from 'svelte/reactivity';
 import { type GameLocale, pickLocalized } from './gameLocale';
 import { murmur3_x86_32 } from './hash';
 
@@ -24,7 +23,6 @@ export type Habit = {
   caption: Partial<Record<GameLocale, string>>;
 };
 
-const BY_NAME = new SvelteMap<string, Habit>();
 const ALL = $state<{ list: Habit[] }>({ list: [] });
 let started = false;
 
@@ -56,7 +54,6 @@ export function loadHabitList(): void {
           localized: r.l ?? {},
           caption: r.cap ?? {},
         };
-        BY_NAME.set(habit.name, habit);
         list.push(habit);
       }
       ALL.list = list;
@@ -64,10 +61,6 @@ export function loadHabitList(): void {
       console.warn('[habitList] failed to load /habits.json:', err);
     }
   })();
-}
-
-export function habitByName(name: string): Habit | null {
-  return BY_NAME.get(name) ?? null;
 }
 
 export function allHabits(): Habit[] {
@@ -85,18 +78,3 @@ export function habitCaption(h: Habit, uiLocale: string | null | undefined): str
 export const HABIT_STATE_NEVER_OWNED = murmur3_x86_32('NeverOwned') >>> 0;
 export const HABIT_STATE_UNOWN = murmur3_x86_32('Unown') >>> 0;
 export const HABIT_STATE_OWN = murmur3_x86_32('Own') >>> 0;
-
-export type HabitStateValue = 'NeverOwned' | 'Unown' | 'Own';
-
-export function habitStateFromHash(hash: number): HabitStateValue {
-  const v = hash >>> 0;
-  if (v === HABIT_STATE_OWN) return 'Own';
-  if (v === HABIT_STATE_UNOWN) return 'Unown';
-  return 'NeverOwned';
-}
-
-export function habitStateToHash(state: HabitStateValue): number {
-  if (state === 'Own') return HABIT_STATE_OWN;
-  if (state === 'Unown') return HABIT_STATE_UNOWN;
-  return HABIT_STATE_NEVER_OWNED;
-}

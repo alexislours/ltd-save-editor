@@ -467,35 +467,6 @@ export function applyUgc(
   return { textureWrites: writes };
 }
 
-export function getUgcSlotName(saves: PlayerOnlySaves, kind: UgcKind, slot: number): string {
-  try {
-    const leaf = leafByHashOrThrow(
-      PLAYER_SCHEMA,
-      UGC_NAME_HASHES[kind],
-      `${kind}.names`,
-      DataType.WString64Array,
-    );
-    return saves.player.getElement(leaf, slot - 1) ?? '';
-  } catch {
-    return '';
-  }
-}
-
-export function renameUgcSlot(
-  saves: PlayerOnlySaves,
-  kind: UgcKind,
-  slot: number,
-  newName: string,
-): void {
-  const leaf = leafByHashOrThrow(
-    PLAYER_SCHEMA,
-    UGC_NAME_HASHES[kind],
-    `${kind}.names`,
-    DataType.WString64Array,
-  );
-  saves.player.setElement(leaf, slot - 1, newName);
-}
-
 function buffersEqual(a: Uint8Array, b: Uint8Array): boolean {
   if (a.byteLength !== b.byteLength) return false;
   for (let i = 0; i < a.byteLength; i++) {

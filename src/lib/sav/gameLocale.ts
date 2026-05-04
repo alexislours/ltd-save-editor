@@ -1,4 +1,4 @@
-export const GAME_LOCALES = [
+const GAME_LOCALES = [
   'CNzh',
   'EUde',
   'EUen',
@@ -16,14 +16,9 @@ export const GAME_LOCALES = [
 
 export type GameLocale = (typeof GAME_LOCALES)[number];
 
-const GAME_LOCALE_SET = new Set<string>(GAME_LOCALES);
-export function isGameLocale(value: string): value is GameLocale {
-  return GAME_LOCALE_SET.has(value);
-}
+const DEFAULT_GAME_LOCALE: GameLocale = 'USen';
 
-export const DEFAULT_GAME_LOCALE: GameLocale = 'USen';
-
-export const UI_TO_GAME_LOCALE: Record<string, GameLocale> = {
+const UI_TO_GAME_LOCALE: Record<string, GameLocale> = {
   'de-EU': 'EUde',
   'en-EU': 'EUen',
   'en-US': 'USen',

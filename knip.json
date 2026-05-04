@@ -1,0 +1,4 @@
+{
+  "entry": ["src/lib/shareMii/index.ts"],
+  "ignore": ["src/**/*.test-d.ts"]
+}

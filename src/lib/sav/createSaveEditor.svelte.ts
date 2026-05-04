@@ -22,9 +22,7 @@ class EditorState {
   dirty = $state<boolean>(false);
 }
 
-export type SaveEditorState = EditorState;
-
-export type SaveEditor<K extends string> = {
+type SaveEditor<K extends SaveKind> = {
   readonly state: EditorState;
   syncFromSave: () => void;
   commitEntryEdit: (entry: Entry) => void;

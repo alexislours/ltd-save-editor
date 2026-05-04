@@ -13,7 +13,7 @@ const ARROW_SIZE = 7;
 const LANE = 5;
 const CURVE_BOW = 14;
 
-export type ArrowGeometry = { d: string; arrow: string };
+type ArrowGeometry = { d: string; arrow: string };
 
 export function arrowGeometry(
   sx: number,
@@ -71,7 +71,7 @@ export function localizedSub(
   return subRelationLabel(k.key, locale);
 }
 
-export function feeling(
+function feeling(
   type: string,
   meter: number,
   isFight: boolean,

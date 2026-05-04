@@ -2,7 +2,6 @@ import type { DataType } from '../dataType';
 import type { Leaf, SchemaLeaf } from './leaf';
 import { MII_SCHEMA } from './mii';
 import { PLAYER_SCHEMA } from './player';
-import { MAP_SCHEMA } from './map';
 
 type BrandTree<S, K extends string> =
   S extends SchemaLeaf<infer T extends DataType>
@@ -29,4 +28,3 @@ const wrap = <T extends object, K extends string>(root: T, _kind: K): BrandTree<
 
 export const player = wrap(PLAYER_SCHEMA, 'player');
 export const mii = wrap(MII_SCHEMA, 'mii');
-export const map = wrap(MAP_SCHEMA, 'map');

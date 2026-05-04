@@ -74,19 +74,8 @@ export function pendingSidecarFiles(): { name: string; bytes: Uint8Array }[] {
   return Array.from(state.pending, ([name, bytes]) => ({ name, bytes }));
 }
 
-export function clearPendingSidecars(): void {
-  // eslint-disable-next-line svelte/prefer-svelte-reactivity
-  const snapshot = new Map(state.pending);
-  state.pending.clear();
-  void persistPendingFlag(snapshot, false);
-}
-
 export function hasOriginal(name: string): boolean {
   return state.originals.has(name);
-}
-
-export function isPendingSidecar(name: string): boolean {
-  return state.pending.has(name);
 }
 
 export function replaceSidecarFiles(files: ReadonlyMap<string, Uint8Array>): void {
@@ -170,15 +159,6 @@ async function persistPendingFlag(
     });
   }
   await putSidecars(records);
-}
-
-export function setSidecarFromMap(
-  origin: PersistedOrigin,
-  files: ReadonlyMap<string, Uint8Array>,
-): void {
-  state.origin = origin;
-  state.files = new SvelteMap(files);
-  void persistAll(origin, files);
 }
 
 export function mergeSidecarFiles(

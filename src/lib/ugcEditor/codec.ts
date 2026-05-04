@@ -4,10 +4,10 @@ import {
   init as zstdInit,
 } from '@bokuweb/zstd-wasm';
 
-export type TextureKind = 'Canvas' | 'Ugctex' | 'Thumb';
-export type TextureFormat = 'Bc1' | 'Bc3';
+type TextureKind = 'Canvas' | 'Ugctex' | 'Thumb';
+type TextureFormat = 'Bc1' | 'Bc3';
 
-export type UgctexLayout = {
+type UgctexLayout = {
   width: number;
   height: number;
   blockHeight: number;
@@ -25,18 +25,14 @@ function ensureZstd(): Promise<void> {
   return zstdReady;
 }
 
-export async function initCodec(): Promise<void> {
-  await ensureZstd();
-}
-
-export function detectKind(fileName: string): TextureKind {
+function detectKind(fileName: string): TextureKind {
   const lower = fileName.toLowerCase();
   if (lower.includes('thumb')) return 'Thumb';
   if (lower.includes('ugctex')) return 'Ugctex';
   return 'Canvas';
 }
 
-export function detectUgctexLayout(decompressedBytes: number): UgctexLayout {
+function detectUgctexLayout(decompressedBytes: number): UgctexLayout {
   switch (decompressedBytes) {
     case 131072:
       return { width: 512, height: 512, blockHeight: 16, format: 'Bc1', bytesPerBlock: 8 };
@@ -52,7 +48,7 @@ export function detectUgctexLayout(decompressedBytes: number): UgctexLayout {
   }
 }
 
-export type DecodedImage = {
+type DecodedImage = {
   width: number;
   height: number;
   rgba: Uint8ClampedArray;
@@ -133,18 +129,18 @@ function decodeThumb(raw: Uint8Array): DecodedImage {
   };
 }
 
-export type FitMode = 'fill' | 'contain' | 'cover';
+type FitMode = 'fill' | 'contain' | 'cover';
 
 export type Matte = { r: number; g: number; b: number; a: number };
 
-export type EncodeOptions = {
+type EncodeOptions = {
   originalUgctex?: Uint8Array | null;
   encodeThumb?: boolean;
   fitMode?: FitMode;
   matte?: Matte | null;
 };
 
-export type EncodeResult = {
+type EncodeResult = {
   canvas: Uint8Array;
   ugctex: Uint8Array;
   thumb: Uint8Array | null;

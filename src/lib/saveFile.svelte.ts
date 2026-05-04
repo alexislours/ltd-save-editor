@@ -10,7 +10,7 @@ import { clearSidecar } from './shareMii/sidecarStore.svelte';
 
 export type SaveKind = 'player' | 'mii' | 'map';
 
-export type LoadedSave = {
+type LoadedSave = {
   name: string;
   size: number;
   lastModified: number;
@@ -37,10 +37,6 @@ const SCHEMAS: SchemaForKind = {
   player: PLAYER_SCHEMA,
   map: MAP_SCHEMA,
 };
-
-export function schemaFor<K extends SaveKind>(kind: K): SchemaForKind[K] {
-  return SCHEMAS[kind];
-}
 
 const SIGNATURE_HASHES: Record<SaveKind, number> = {
   player: PLAYER_SCHEMA.Player.Name.hash,
@@ -106,15 +102,6 @@ export function getEntriesForAdvanced(kind: SaveKind): Entry[] {
   } catch {
     return [];
   }
-}
-
-export async function setSaveFromFile(kind: SaveKind, file: File): Promise<void> {
-  const bytes = new Uint8Array(await file.arrayBuffer());
-  setSaveFromBytes(kind, {
-    name: file.name,
-    bytes,
-    lastModified: file.lastModified,
-  });
 }
 
 type SetSaveOptions = { persist?: boolean };

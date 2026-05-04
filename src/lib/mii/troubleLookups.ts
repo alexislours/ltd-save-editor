@@ -3,8 +3,8 @@ import { allFoods, foodLabel } from '../sav/foodList.svelte';
 import { murmur3_x86_32 } from '../sav/hash';
 import { allTreasures, treasureLabel } from '../sav/treasureList.svelte';
 
-export type ClothEntry = { hash: number; index: number; label: string };
-export type TreasureEntry = { hash: number; name: string; label: string };
+type ClothEntry = { hash: number; index: number; label: string };
+type TreasureEntry = { hash: number; name: string; label: string };
 
 export function sortedFoodsFor(ui: string | null | undefined) {
   const list = allFoods();

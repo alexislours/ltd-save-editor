@@ -12,7 +12,7 @@ import { page } from '$app/state';
 import { recordSnapshot } from './historyCapture';
 import { SAVE_KINDS, type SaveKind } from './saveFile.svelte';
 
-export type BulkOutcome = {
+type BulkOutcome = {
   loaded: SaveKind[];
   skipped: BulkPlan['skipped'];
   cancelled: boolean;

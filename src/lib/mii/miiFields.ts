@@ -2,9 +2,9 @@ import { DataType } from '../sav/dataType';
 import { MII_SCHEMA } from '../sav/schema';
 import type { SchemaLeaf } from '../sav/schema/leaf';
 
-export type MiiFieldKind = 'string' | 'uint' | 'int' | 'enum' | 'binary';
+type MiiFieldKind = 'string' | 'uint' | 'int' | 'enum' | 'binary';
 
-export type MiiFieldPresentation = 'input' | 'slider';
+type MiiFieldPresentation = 'input' | 'slider';
 
 export type MiiField = {
   labelKey: string;
@@ -17,7 +17,7 @@ export type MiiField = {
   presentation?: MiiFieldPresentation;
 };
 
-export type MiiSection = {
+type MiiSection = {
   titleKey: string;
   descriptionKey?: string;
   fields: MiiField[];
@@ -68,8 +68,6 @@ function f(
   validateKind(kind, leaf.type);
   return { labelKey, leaf, kind, ...extras };
 }
-
-export const NAME_FIELD = MII_SCHEMA.Mii.Name.Name;
 
 export const MII_SECTIONS: MiiSection[] = [
   {

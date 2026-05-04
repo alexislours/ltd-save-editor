@@ -47,8 +47,8 @@ import { parseMaybeHex } from '../sav/format';
 import type { Entry } from '../sav/types';
 import { INPUT_CLASS, MONO_INPUT_CLASS } from '../styles';
 
-export type Vec2 = { x: number; y: number };
-export type Vec3 = { x: number; y: number; z: number };
+type Vec2 = { x: number; y: number };
+type Vec3 = { x: number; y: number; z: number };
 
 export type ScalarAccess =
   | { kind: 'bool'; read: () => boolean; write: (v: boolean) => void }
@@ -220,7 +220,7 @@ export function fieldWriteError(fn: () => void): string | null {
   }
 }
 
-export type BulkParseResult =
+type BulkParseResult =
   | { ok: true; value: boolean | number | bigint | string }
   | { ok: false; error: string };
 

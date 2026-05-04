@@ -1,7 +1,5 @@
 import type { Entry } from '../types';
 
-export type RawEntries = Entry[];
-
 export type PlanItem = { kind: 'known'; hash: number } | { kind: 'unknown'; index: number };
 
 export type DecodedSave = {
@@ -10,5 +8,3 @@ export type DecodedSave = {
   version: number;
   plan: PlanItem[];
 };
-
-export type { Leaf, SchemaLeaf, ValueOf, ElementOf } from '../schema/leaf';

@@ -2,9 +2,9 @@ import type { CoupleBlock, CoupleConstraints, CrushBlock } from './relations';
 
 export const FIXED_METER_TYPES: ReadonlySet<string> = new Set(['Other', 'Invalid']);
 
-export type ChipTone = 'romance' | 'crush' | 'danger';
+type ChipTone = 'romance' | 'crush' | 'danger';
 
-export type ChipKind =
+type ChipKind =
   | 'gender'
   | 'blood'
   | 'self_paired'
@@ -56,7 +56,7 @@ export function detectChips(
 
 export type Translator = (key: string) => string;
 
-export type ChipText = { label: string; full: string; note?: string };
+type ChipText = { label: string; full: string; note?: string };
 
 export type ChipView = ChipText & { tone: ChipTone };
 

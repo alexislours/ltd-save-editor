@@ -2,7 +2,7 @@ import { MII_SCHEMA } from '../sav/schema';
 import type { SchemaLeaf } from '../sav/schema/leaf';
 import type { TroubleTargetKey } from '../sav/troubleList.svelte';
 
-export type TroubleField = {
+type TroubleField = {
   leaf: SchemaLeaf;
   perMii: number;
 };

@@ -1,4 +1,3 @@
-import { SvelteMap } from 'svelte/reactivity';
 import { DataType } from '../sav/dataType';
 import { buildHashMap } from '../sav/materialized/schemaIndex';
 import { PLAYER_SCHEMA } from '../sav/schema';
@@ -10,15 +9,6 @@ const HASH_MAP = buildHashMap(PLAYER_SCHEMA);
 
 export function leafForHash(hash: number): SchemaLeaf | null {
   return HASH_MAP.get(hash >>> 0) ?? null;
-}
-
-export function buildLeafMap(hashes: Iterable<number>): SvelteMap<number, SchemaLeaf> {
-  const m = new SvelteMap<number, SchemaLeaf>();
-  for (const h of hashes) {
-    const leaf = leafForHash(h);
-    if (leaf) m.set(h >>> 0, leaf);
-  }
-  return m;
 }
 
 export function sortByLabel<T>(
