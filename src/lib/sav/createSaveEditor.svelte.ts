@@ -33,9 +33,12 @@ export type SaveEditor<K extends string> = {
 };
 
 function cloneEntry(e: Entry): Entry {
-  if (e.payload == null)
-    return { hash: e.hash, type: e.type, inlineRaw: e.inlineRaw, payload: e.payload };
-  return { hash: e.hash, type: e.type, inlineRaw: e.inlineRaw, payload: e.payload.slice() };
+  return {
+    hash: e.hash,
+    type: e.type,
+    inlineRaw: e.inlineRaw,
+    payload: e.payload?.slice() ?? null,
+  };
 }
 
 export function createSaveEditor<K extends SaveKind>(
@@ -44,14 +47,16 @@ export function createSaveEditor<K extends SaveKind>(
 ): SaveEditor<K> {
   const state = new EditorState();
   let seenLoadId = -1;
-  let cachedAccessor: Accessor<K> | null = null;
-  let cachedDecoded: DecodedSave | null = null;
-  let cachedPlanIndex: Map<number, number> | null = null;
+  const cache = {
+    accessor: null as Accessor<K> | null,
+    decoded: null as DecodedSave | null,
+    planIndex: null as Map<number, number> | null,
+  };
 
   function resetCaches(): void {
-    cachedAccessor = null;
-    cachedDecoded = null;
-    cachedPlanIndex = null;
+    cache.accessor = null;
+    cache.decoded = null;
+    cache.planIndex = null;
   }
 
   function clear(): void {
@@ -90,7 +95,7 @@ export function createSaveEditor<K extends SaveKind>(
   }
 
   function planIndexFor(decoded: DecodedSave): Map<number, number> {
-    if (cachedPlanIndex && cachedDecoded === decoded) return cachedPlanIndex;
+    if (cache.planIndex && cache.decoded === decoded) return cache.planIndex;
     const plan = decoded.plan;
     // eslint-disable-next-line svelte/prefer-svelte-reactivity
     const map = new Map<number, number>();
@@ -105,8 +110,8 @@ export function createSaveEditor<K extends SaveKind>(
         if (u) map.set(u.hash >>> 0, i);
       }
     }
-    cachedDecoded = decoded;
-    cachedPlanIndex = map;
+    cache.decoded = decoded;
+    cache.planIndex = map;
     return map;
   }
 
@@ -115,21 +120,22 @@ export function createSaveEditor<K extends SaveKind>(
     if (!decoded) return;
     const hash = entry.hash >>> 0;
     const info = buildHashMap(schema).get(hash);
+    const typeMatches = info?.leaf.type === entry.type;
     const values = decoded.values;
     const plan = decoded.plan;
 
     const planIdx = planIndexFor(decoded).get(hash) ?? -1;
 
     if (planIdx === -1) {
-      if (info && info.leaf.type === entry.type) {
+      if (typeMatches && info) {
         values[info.path] = decodeValue(entry);
         plan.push({ kind: 'known', path: info.path });
-        cachedPlanIndex?.set(hash, plan.length - 1);
+        cache.planIndex?.set(hash, plan.length - 1);
       } else {
         const idx = decoded.unknowns.length;
         decoded.unknowns.push(cloneEntry(entry));
         plan.push({ kind: 'unknown', index: idx });
-        cachedPlanIndex?.set(hash, plan.length - 1);
+        cache.planIndex?.set(hash, plan.length - 1);
       }
       state.dirty = true;
       schedulePersist(kind);
@@ -138,7 +144,7 @@ export function createSaveEditor<K extends SaveKind>(
 
     const item = plan[planIdx];
     if (item.kind === 'known') {
-      if (!info || info.leaf.type !== entry.type) {
+      if (!typeMatches) {
         throw new Error(
           `commitEntryEdit: type mismatch for hash 0x${hash.toString(16)} (schema=${info?.leaf.type}, entry=${entry.type})`,
         );
@@ -146,7 +152,7 @@ export function createSaveEditor<K extends SaveKind>(
       values[item.path] = decodeValue(entry);
     } else {
       decoded.unknowns[item.index] = cloneEntry(entry);
-      if (info && info.leaf.type === entry.type) {
+      if (typeMatches && info) {
         values[info.path] = decodeValue(entry);
         plan[planIdx] = { kind: 'known', path: info.path };
       }
@@ -183,15 +189,11 @@ export function createSaveEditor<K extends SaveKind>(
 
   function accessor(): Accessor<K> | null {
     const decoded = state.decoded;
-    if (!decoded) {
-      cachedAccessor = null;
-      cachedDecoded = null;
-      return null;
-    }
-    if (cachedAccessor && cachedDecoded === decoded) return cachedAccessor;
-    cachedDecoded = decoded;
-    cachedAccessor = wrap(createMaterializedAccessor<K>(schema, decoded));
-    return cachedAccessor;
+    if (!decoded) return null;
+    if (cache.accessor && cache.decoded === decoded) return cache.accessor;
+    cache.decoded = decoded;
+    cache.accessor = wrap(createMaterializedAccessor<K>(schema, decoded));
+    return cache.accessor;
   }
 
   return { state, syncFromSave, commitEntryEdit, downloadModified, accessor };
