@@ -1,6 +1,11 @@
 import { track } from './analytics';
-import { SAVE_KINDS, setSaveFromBytes, type SaveKind } from './saveFile.svelte';
-import { clearAllSessions, getAllSessions, type StoredSession } from './sessionStore';
+import { restoreSaveFromDecoded, SAVE_KINDS, type SaveKind } from './saveFile.svelte';
+import {
+  clearAllSessions,
+  deleteSession,
+  getAllSessions,
+  type StoredSession,
+} from './sessionStore';
 import {
   clearSidecar,
   restorePersistedSidecars,
@@ -46,12 +51,18 @@ export async function bootRestoreScan(): Promise<void> {
 export function confirmRestore(): void {
   const loaded: SaveKind[] = [];
   for (const session of state.sessions) {
-    setSaveFromBytes(
-      session.kind,
-      { name: session.name, bytes: session.bytes, lastModified: session.lastModified },
-      { persist: false },
-    );
-    loaded.push(session.kind);
+    try {
+      restoreSaveFromDecoded(session.kind, {
+        name: session.name,
+        size: session.size,
+        lastModified: session.lastModified,
+        decoded: session.decoded,
+      });
+      loaded.push(session.kind);
+    } catch {
+      track('restore_failed', { kind: session.kind });
+      void deleteSession(session.kind);
+    }
   }
   track('restore_accepted', {
     count: loaded.length,

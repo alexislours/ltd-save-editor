@@ -9,7 +9,7 @@ import { OBTAINED_HASH } from './stateOptions';
 const HASH_MAP = buildHashMap(PLAYER_SCHEMA);
 
 export function leafForHash(hash: number): SchemaLeaf | null {
-  return HASH_MAP.get(hash >>> 0)?.leaf ?? null;
+  return HASH_MAP.get(hash >>> 0) ?? null;
 }
 
 export function buildLeafMap(hashes: Iterable<number>): SvelteMap<number, SchemaLeaf> {

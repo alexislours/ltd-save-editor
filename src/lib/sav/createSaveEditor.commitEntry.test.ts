@@ -10,13 +10,13 @@ import { clearSave, getSaveBytes, setSaveFromBytes } from '../saveFile.svelte';
 import { setFloat, setInt64, setUInt } from './codec';
 import { DataType } from './dataType';
 import { decode } from './materialized/decode';
-import * as schemaIndex from './materialized/schemaIndex';
 import { parseSav } from './parse';
 import { PLAYER_SCHEMA } from './schema';
 import type { Entry, SavFile } from './types';
 import { writeSav } from './write';
 
 const MONEY_LEAF = PLAYER_SCHEMA.Player.Money;
+const MONEY_HASH = MONEY_LEAF.hash >>> 0;
 
 function inlineFloat(hash: number, value: number): Entry {
   const e: Entry = { hash, type: DataType.Float, inlineRaw: 0 };
@@ -69,7 +69,7 @@ describe('commitEntryEdit plan-aware fix', () => {
     commitEntryEdit(inlineUInt(MONEY_LEAF.hash, 9999));
 
     const planAfter = decoded.plan;
-    expect(planAfter[0]).toEqual({ kind: 'known', path: 'Player.Money' });
+    expect(planAfter[0]).toEqual({ kind: 'known', hash: MONEY_HASH });
 
     const out = getSaveBytes('player')!;
     const parsed = parseSav(out);
@@ -77,7 +77,7 @@ describe('commitEntryEdit plan-aware fix', () => {
     expect(moneyEntry).toBeDefined();
     expect(moneyEntry!.type).toBe(DataType.UInt);
     const reDecoded = decode(PLAYER_SCHEMA, parsed);
-    expect((reDecoded.values as unknown as Record<string, unknown>)['Player.Money']).toBe(9999);
+    expect(reDecoded.values[MONEY_HASH]).toBe(9999);
   });
 
   it('preserves a foreign-typed unknown when the edit is also foreign-typed', () => {
@@ -100,7 +100,7 @@ describe('commitEntryEdit plan-aware fix', () => {
     loadSyntheticPlayer([inlineUInt(MONEY_LEAF.hash, 100)]);
     const decoded = playerState.decoded!;
     const plan = decoded.plan;
-    expect(plan[0]).toEqual({ kind: 'known', path: 'Player.Money' });
+    expect(plan[0]).toEqual({ kind: 'known', hash: MONEY_HASH });
 
     expect(() => commitEntryEdit(inlineFloat(MONEY_LEAF.hash, 1.5))).toThrow(/type mismatch/);
 
@@ -109,7 +109,7 @@ describe('commitEntryEdit plan-aware fix', () => {
     const e = findMoneyEntry(parsed)!;
     expect(e.type).toBe(DataType.UInt);
     const reDecoded = decode(PLAYER_SCHEMA, parsed);
-    expect((reDecoded.values as unknown as Record<string, unknown>)['Player.Money']).toBe(100);
+    expect(reDecoded.values[MONEY_HASH]).toBe(100);
   });
 
   it('round-trips a normal known commit', () => {
@@ -120,17 +120,7 @@ describe('commitEntryEdit plan-aware fix', () => {
     const out = getSaveBytes('player')!;
     const parsed = parseSav(out);
     const reDecoded = decode(PLAYER_SCHEMA, parsed);
-    expect((reDecoded.values as unknown as Record<string, unknown>)['Player.Money']).toBe(7777);
-  });
-
-  it('builds the plan-by-hash index at most once across sequential commits', () => {
-    loadSyntheticPlayer([inlineUInt(MONEY_LEAF.hash, 100)]);
-    const spy = vi.spyOn(schemaIndex, 'pathToLeafMap');
-    for (let i = 0; i < 5; i++) {
-      commitEntryEdit(inlineUInt(MONEY_LEAF.hash, 200 + i));
-    }
-    expect(spy).toHaveBeenCalledTimes(1);
-    spy.mockRestore();
+    expect(reDecoded.values[MONEY_HASH]).toBe(7777);
   });
 
   it('mutating the source payload after commit does not affect decoded.unknowns', () => {

@@ -22,21 +22,21 @@ import {
 } from '../codec';
 import { DataType, isInline } from '../dataType';
 import type { Entry, SavFile } from '../types';
-import { pathToLeafMap } from './schemaIndex';
+import { buildHashMap } from './schemaIndex';
 import type { DecodedSave } from './types';
 
 export function encode(schema: object, decoded: DecodedSave): SavFile {
   const plan = decoded.plan;
-  const pathMap = pathToLeafMap(schema);
+  const hashMap = buildHashMap(schema);
   const values = decoded.values;
   const entries: Entry[] = [];
   for (const item of plan) {
     if (item.kind === 'unknown') {
       entries.push(decoded.unknowns[item.index]);
     } else {
-      const leaf = pathMap.get(item.path);
-      if (!leaf) throw new Error(`No leaf for path ${item.path}`);
-      entries.push(buildEntry(leaf.hash >>> 0, leaf.type, values[item.path]));
+      const leaf = hashMap.get(item.hash);
+      if (!leaf) throw new Error(`No leaf for hash 0x${item.hash.toString(16)}`);
+      entries.push(buildEntry(item.hash, leaf.type, values[item.hash]));
     }
   }
   return { version: decoded.version, entries };

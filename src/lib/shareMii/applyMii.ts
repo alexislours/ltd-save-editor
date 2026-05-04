@@ -104,12 +104,12 @@ const MII_LEAVES = {
     DataType.BoolArray,
   ),
   personality: MII_HASHES.personality.map((h, i) => {
-    const info = buildHashMap(MII_SCHEMA).get(h >>> 0);
-    if (!info) throw new ShareMiiError('save_format_error', { label: `Personality[${i}]` });
-    if (info.leaf.type !== DataType.IntArray && info.leaf.type !== DataType.EnumArray) {
+    const leaf = buildHashMap(MII_SCHEMA).get(h >>> 0);
+    if (!leaf) throw new ShareMiiError('save_format_error', { label: `Personality[${i}]` });
+    if (leaf.type !== DataType.IntArray && leaf.type !== DataType.EnumArray) {
       throw new ShareMiiError('save_format_error', { label: `Personality[${i}]` });
     }
-    return info.leaf as SchemaLeaf<DataType.IntArray> | SchemaLeaf<DataType.EnumArray>;
+    return leaf as SchemaLeaf<DataType.IntArray> | SchemaLeaf<DataType.EnumArray>;
   }) as readonly (SchemaLeaf<DataType.IntArray> | SchemaLeaf<DataType.EnumArray>)[],
 } as const;
 

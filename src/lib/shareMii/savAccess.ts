@@ -17,10 +17,10 @@ export function leafByHashOrThrow<T extends DataType>(
   label: string,
   expected: T,
 ): SchemaLeaf<T> {
-  const info = buildHashMap(schema).get(hash >>> 0);
-  if (!info) throw new ShareMiiError('save_format_error', { label });
-  if (info.leaf.type !== expected) {
+  const leaf = buildHashMap(schema).get(hash >>> 0);
+  if (!leaf) throw new ShareMiiError('save_format_error', { label });
+  if (leaf.type !== expected) {
     throw new ShareMiiError('save_format_error', { label });
   }
-  return info.leaf as SchemaLeaf<T>;
+  return leaf as SchemaLeaf<T>;
 }

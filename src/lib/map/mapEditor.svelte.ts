@@ -11,7 +11,7 @@ export const MAP_HEIGHT = 80;
 export const MAP_TILE_COUNT = MAP_WIDTH * MAP_HEIGHT;
 
 const FLOOR_LEAF = MAP_SCHEMA.MapGrid.GridX.GridZ.FloorKeyHash;
-const FLOOR_PATH = 'MapGrid.GridX.GridZ.FloorKeyHash';
+const FLOOR_HASH = FLOOR_LEAF.hash >>> 0;
 
 type EditorState = {
   ready: boolean;
@@ -36,9 +36,7 @@ function bumpRev(): void {
 function tilesArray(): number[] | null {
   const decoded = mapSave.decoded;
   if (!decoded) return null;
-  const arr = (decoded.values as unknown as Record<string, unknown>)[FLOOR_PATH] as
-    | number[]
-    | undefined;
+  const arr = decoded.values[FLOOR_HASH] as number[] | undefined;
   return arr ?? null;
 }
 

@@ -1,16 +1,18 @@
+import type { DecodedSave } from './sav/materialized/types';
 import type { SaveKind } from './saveFile.svelte';
 
 const DB_NAME = 'ltd-save-editor';
 const STORE = 'sessions';
 const SIDECAR_STORE = 'sidecars';
-const VERSION = 2;
+const VERSION = 5;
 
 export type StoredSession = {
   kind: SaveKind;
   name: string;
-  bytes: Uint8Array;
+  size: number;
   lastModified: number;
   savedAt: number;
+  decoded: DecodedSave;
 };
 
 export type StoredSidecar = {
@@ -35,8 +37,11 @@ function openDb(): Promise<IDBDatabase | null> {
       resolve(null);
       return;
     }
-    req.onupgradeneeded = () => {
+    req.onupgradeneeded = (event) => {
       const db = req.result;
+      if (event.oldVersion < 5 && db.objectStoreNames.contains(STORE)) {
+        db.deleteObjectStore(STORE);
+      }
       if (!db.objectStoreNames.contains(STORE)) {
         db.createObjectStore(STORE, { keyPath: 'kind' });
       }

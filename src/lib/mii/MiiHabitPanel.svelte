@@ -29,7 +29,7 @@
   const SCHEMA_BY_HASH = buildHashMap(MII_SCHEMA);
 
   function leafForHash(hash: number): SchemaLeaf | null {
-    return SCHEMA_BY_HASH.get(hash >>> 0)?.leaf ?? null;
+    return SCHEMA_BY_HASH.get(hash >>> 0) ?? null;
   }
 
   const habits = $derived(allHabits());

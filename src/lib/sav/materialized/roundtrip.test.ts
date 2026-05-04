@@ -7,7 +7,6 @@ import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from '../schema';
 import { writeSav } from '../write';
 import { decode } from './decode';
 import { encode } from './encode';
-import { pathFor } from './schemaIndex';
 
 const KINDS = [
   { kind: 'mii', schema: MII_SCHEMA, file: 'Mii.sav' },
@@ -68,22 +67,23 @@ describe.runIf(existsSync(resolve(SLOT_DIR, 'Mii.sav')))('materialized round-tri
     const bytes = new Uint8Array(readFileSync(path));
     const parsed = parseSav(bytes);
     const baseline = decode(PLAYER_SCHEMA, parsed);
-    const baselineValues = baseline.values as unknown as Record<string, unknown>;
+    const baselineValues = baseline.values;
 
     const decoded = decode(PLAYER_SCHEMA, parsed);
-    const moneyPath = pathFor(PLAYER_SCHEMA, PLAYER_SCHEMA.DailyLog.MoneyGet);
-    (decoded.values as unknown as Record<string, unknown>)[moneyPath] = 9999;
+    const moneyHash = PLAYER_SCHEMA.DailyLog.MoneyGet.hash >>> 0;
+    decoded.values[moneyHash] = 9999;
 
     const reEncoded = encode(PLAYER_SCHEMA, decoded);
     const rewritten = writeSav(reEncoded);
     const reparsed = parseSav(rewritten);
     const redecoded = decode(PLAYER_SCHEMA, reparsed);
-    const newValues = redecoded.values as unknown as Record<string, unknown>;
+    const newValues = redecoded.values;
 
-    expect(newValues[moneyPath]).toBe(9999);
+    expect(newValues[moneyHash]).toBe(9999);
     for (const key of Object.keys(baselineValues)) {
-      if (key === moneyPath) continue;
-      expect(deepEqual(newValues[key], baselineValues[key])).toBe(true);
+      const k = Number(key);
+      if (k === moneyHash) continue;
+      expect(deepEqual(newValues[k], baselineValues[k])).toBe(true);
     }
   });
 });

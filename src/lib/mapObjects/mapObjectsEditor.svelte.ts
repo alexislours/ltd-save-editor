@@ -19,11 +19,11 @@ const Y_LEAF = MAP_SCHEMA.MapObject.Location.GridPosY;
 const LINK_LEAF = MAP_SCHEMA.MapObject.MapLink.LinkedMapId;
 const ROT_LEAF = MAP_SCHEMA.MapObject.MapObjectMisc.RotY;
 
-const ACTOR_PATH = 'MapObject.ActorKey';
-const X_PATH = 'MapObject.Location.GridPosX';
-const Y_PATH = 'MapObject.Location.GridPosY';
-const LINK_PATH = 'MapObject.MapLink.LinkedMapId';
-const ROT_PATH = 'MapObject.MapObjectMisc.RotY';
+const ACTOR_HASH = ACTOR_LEAF.hash >>> 0;
+const X_HASH = X_LEAF.hash >>> 0;
+const Y_HASH = Y_LEAF.hash >>> 0;
+const LINK_HASH = LINK_LEAF.hash >>> 0;
+const ROT_HASH = ROT_LEAF.hash >>> 0;
 
 type EditorState = {
   count: number;
@@ -56,12 +56,12 @@ type Arrays = {
 function arrays(): Arrays | null {
   const decoded = mapSave.decoded;
   if (!decoded) return null;
-  const v = decoded.values as unknown as Record<string, unknown>;
-  const actor = v[ACTOR_PATH] as number[] | undefined;
-  const x = v[X_PATH] as number[] | undefined;
-  const y = v[Y_PATH] as number[] | undefined;
-  const link = v[LINK_PATH] as number[] | undefined;
-  const rot = v[ROT_PATH] as number[] | undefined;
+  const v = decoded.values;
+  const actor = v[ACTOR_HASH] as number[] | undefined;
+  const x = v[X_HASH] as number[] | undefined;
+  const y = v[Y_HASH] as number[] | undefined;
+  const link = v[LINK_HASH] as number[] | undefined;
+  const rot = v[ROT_HASH] as number[] | undefined;
   if (!actor || !x || !y || !link || !rot) return null;
   return { actor, x, y, link, rot };
 }

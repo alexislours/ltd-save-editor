@@ -22,6 +22,7 @@ type Events = {
   restore_prompted: { count: number; sidecar_count: number };
   restore_accepted: { count: number; sidecar_count: number };
   restore_dismissed: { count: number; sidecar_count: number };
+  restore_failed: { kind: SaveKind };
   sharemii_inbound: { source: 'folder' | 'zip'; count: number };
   sharemii_import: {
     kind: ShareMiiKind;

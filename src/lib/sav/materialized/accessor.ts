@@ -46,18 +46,19 @@ export function createMaterializedAccessor<K extends string>(
 ): Accessor<K> {
   const values = decoded.values;
 
-  function resolve(leaf: SchemaLeaf): { path: string; expected: DataType } {
-    const info = buildHashMap(schema).get(leaf.hash >>> 0);
-    if (!info) throw new Error(`Leaf 0x${leaf.hash.toString(16)} not found in schema`);
-    if (info.leaf.type !== leaf.type) {
+  function resolve(leaf: SchemaLeaf): { hash: number; expected: DataType } {
+    const hash = leaf.hash >>> 0;
+    const found = buildHashMap(schema).get(hash);
+    if (!found) throw new Error(`Leaf 0x${leaf.hash.toString(16)} not found in schema`);
+    if (found.type !== leaf.type) {
       throw new Error(
-        `Leaf 0x${leaf.hash.toString(16)} type mismatch: schema=${info.leaf.type} caller=${leaf.type}`,
+        `Leaf 0x${leaf.hash.toString(16)} type mismatch: schema=${found.type} caller=${leaf.type}`,
       );
     }
-    return { path: info.path, expected: info.leaf.type };
+    return { hash, expected: found.type };
   }
 
-  function resolveArray(leaf: SchemaLeaf): { path: string; expected: DataType } {
+  function resolveArray(leaf: SchemaLeaf): { hash: number; expected: DataType } {
     const r = resolve(leaf);
     if (!ARRAY_TYPES.has(r.expected)) {
       throw new Error(`Leaf 0x${leaf.hash.toString(16)} is not an array type (type=${r.expected})`);
@@ -67,31 +68,32 @@ export function createMaterializedAccessor<K extends string>(
 
   return {
     has(leaf) {
-      const info = buildHashMap(schema).get(leaf.hash >>> 0);
-      if (!info) return false;
-      if (info.leaf.type !== leaf.type) {
+      const hash = leaf.hash >>> 0;
+      const found = buildHashMap(schema).get(hash);
+      if (!found) return false;
+      if (found.type !== leaf.type) {
         throw new Error(
-          `Leaf 0x${leaf.hash.toString(16)} type mismatch: schema=${info.leaf.type} caller=${leaf.type}`,
+          `Leaf 0x${leaf.hash.toString(16)} type mismatch: schema=${found.type} caller=${leaf.type}`,
         );
       }
-      return info.path in values;
+      return hash in values;
     },
     get(leaf) {
-      const { path } = resolve(leaf);
-      return values[path] as never;
+      const { hash } = resolve(leaf);
+      return values[hash] as never;
     },
     set(leaf, v) {
-      const { path } = resolve(leaf);
-      values[path] = v;
+      const { hash } = resolve(leaf);
+      values[hash] = v;
     },
     getElement(leaf, i) {
-      const { path } = resolveArray(leaf);
-      const arr = values[path] as unknown[];
+      const { hash } = resolveArray(leaf);
+      const arr = values[hash] as unknown[];
       return arr[i] as never;
     },
     setElement(leaf, i, v) {
-      const { path } = resolveArray(leaf);
-      const arr = values[path] as unknown[];
+      const { hash } = resolveArray(leaf);
+      const arr = values[hash] as unknown[];
       arr[i] = v;
     },
   };

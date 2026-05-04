@@ -15,7 +15,7 @@ export type LoadedSave = {
   size: number;
   lastModified: number;
   decoded: DecodedSave | null;
-  loadedBytes: Uint8Array;
+  loadedBytes: Uint8Array | null;
   parseError: string | null;
   loadId: number;
 };
@@ -142,28 +142,63 @@ export function setSaveFromBytes(
     parseError,
     loadId: nextLoadId++,
   };
-  if (options.persist !== false) {
-    void putSession({
-      kind,
-      name: input.name,
-      bytes: input.bytes,
-      lastModified,
-      savedAt: Date.now(),
-    });
+  if (options.persist !== false && decoded) persistCurrent(kind);
+}
+
+export function restoreSaveFromDecoded(
+  kind: SaveKind,
+  input: { name: string; size: number; lastModified: number; decoded: DecodedSave },
+): void {
+  const { decoded } = input;
+  if (
+    !decoded ||
+    typeof decoded !== 'object' ||
+    !decoded.values ||
+    typeof decoded.values !== 'object' ||
+    !Array.isArray(decoded.unknowns) ||
+    !Array.isArray(decoded.plan) ||
+    typeof decoded.version !== 'number'
+  ) {
+    throw new Error('restoreSaveFromDecoded: invalid decoded shape');
   }
+  const unknownsLen = decoded.unknowns.length;
+  const values = decoded.values;
+  for (const item of decoded.plan) {
+    if (item.kind === 'known') {
+      if (typeof item.hash !== 'number' || !Object.hasOwn(values, item.hash)) {
+        throw new Error('restoreSaveFromDecoded: invalid plan entry');
+      }
+    } else if (item.kind === 'unknown') {
+      if (typeof item.index !== 'number' || item.index < 0 || item.index >= unknownsLen) {
+        throw new Error('restoreSaveFromDecoded: plan references missing unknown');
+      }
+    } else {
+      throw new Error('restoreSaveFromDecoded: invalid plan entry');
+    }
+  }
+  saves[kind] = {
+    name: input.name,
+    size: input.size,
+    lastModified: input.lastModified,
+    decoded,
+    loadedBytes: null,
+    parseError: null,
+    loadId: nextLoadId++,
+  };
 }
 
 export function persistCurrent(kind: SaveKind): void {
   const save = saves[kind];
   if (!save) return;
-  const bytes = getSaveBytes(kind);
-  if (!bytes) return;
+  const decoded = save.decoded;
+  if (!decoded) return;
   void putSession({
     kind,
     name: save.name,
-    bytes,
+    size: save.size,
     lastModified: save.lastModified,
     savedAt: Date.now(),
+    decoded: $state.snapshot(decoded) as DecodedSave,
   });
 }
 

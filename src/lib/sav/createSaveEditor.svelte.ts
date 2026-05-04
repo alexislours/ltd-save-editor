@@ -10,7 +10,7 @@ import { schedulePersist } from '../sessionPersist';
 import { downloadBytes } from './download';
 import { createMaterializedAccessor, type Accessor } from './materialized/accessor';
 import { decodeValue } from './materialized/decode';
-import { buildHashMap, pathToLeafMap } from './materialized/schemaIndex';
+import { buildHashMap } from './materialized/schemaIndex';
 import type { DecodedSave } from './materialized/types';
 import type { Entry } from './types';
 
@@ -99,12 +99,10 @@ export function createSaveEditor<K extends SaveKind>(
     const plan = decoded.plan;
     // eslint-disable-next-line svelte/prefer-svelte-reactivity
     const map = new Map<number, number>();
-    const pathMap = pathToLeafMap(schema);
     for (let i = 0; i < plan.length; i++) {
       const item = plan[i];
       if (item.kind === 'known') {
-        const leaf = pathMap.get(item.path);
-        if (leaf) map.set(leaf.hash >>> 0, i);
+        map.set(item.hash, i);
       } else {
         const u = decoded.unknowns[item.index];
         if (u) map.set(u.hash >>> 0, i);
@@ -120,7 +118,7 @@ export function createSaveEditor<K extends SaveKind>(
     if (!decoded) return;
     const hash = entry.hash >>> 0;
     const info = buildHashMap(schema).get(hash);
-    const typeMatches = info?.leaf.type === entry.type;
+    const typeMatches = info?.type === entry.type;
     const values = decoded.values;
     const plan = decoded.plan;
 
@@ -128,8 +126,8 @@ export function createSaveEditor<K extends SaveKind>(
 
     if (planIdx === -1) {
       if (typeMatches && info) {
-        values[info.path] = decodeValue(entry);
-        plan.push({ kind: 'known', path: info.path });
+        values[hash] = decodeValue(entry);
+        plan.push({ kind: 'known', hash });
         cache.planIndex?.set(hash, plan.length - 1);
       } else {
         const idx = decoded.unknowns.length;
@@ -146,15 +144,15 @@ export function createSaveEditor<K extends SaveKind>(
     if (item.kind === 'known') {
       if (!typeMatches) {
         throw new Error(
-          `commitEntryEdit: type mismatch for hash 0x${hash.toString(16)} (schema=${info?.leaf.type}, entry=${entry.type})`,
+          `commitEntryEdit: type mismatch for hash 0x${hash.toString(16)} (schema=${info?.type}, entry=${entry.type})`,
         );
       }
-      values[item.path] = decodeValue(entry);
+      values[item.hash] = decodeValue(entry);
     } else {
       decoded.unknowns[item.index] = cloneEntry(entry);
       if (typeMatches && info) {
-        values[info.path] = decodeValue(entry);
-        plan[planIdx] = { kind: 'known', path: info.path };
+        values[hash] = decodeValue(entry);
+        plan[planIdx] = { kind: 'known', hash };
       }
     }
     state.dirty = true;

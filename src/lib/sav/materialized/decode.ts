@@ -29,15 +29,16 @@ import type { DecodedSave, PlanItem } from './types';
 
 export function decode(schema: object, file: SavFile): DecodedSave {
   const hashMap = buildHashMap(schema);
-  const values: Record<string, unknown> = {};
+  const values: Record<number, unknown> = {};
   const unknowns: Entry[] = [];
   const plan: PlanItem[] = [];
 
   for (const entry of file.entries) {
-    const info = hashMap.get(entry.hash >>> 0);
-    if (info && info.leaf.type === entry.type) {
-      values[info.path] = decodeValue(entry);
-      plan.push({ kind: 'known', path: info.path });
+    const hash = entry.hash >>> 0;
+    const info = hashMap.get(hash);
+    if (info && info.type === entry.type) {
+      values[hash] = decodeValue(entry);
+      plan.push({ kind: 'known', hash });
     } else {
       const idx = unknowns.length;
       unknowns.push(entry);

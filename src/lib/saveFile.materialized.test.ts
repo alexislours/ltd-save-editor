@@ -40,8 +40,7 @@ describe.runIf(existsSync(MII_PATH))('materialized write path through saveFile',
 
     const reparsed = parseSav(out);
     const redecoded = decode(MII_SCHEMA, reparsed);
-    const values = redecoded.values as unknown as Record<string, unknown>;
-    const names = values['Mii.Name.Name'] as string[];
+    const names = redecoded.values[MII_SCHEMA.Mii.Name.Name.hash >>> 0] as string[];
     expect(names[0]).toBe(newName);
     expect(names[1]).toBe(otherOriginal);
   });
@@ -69,9 +68,8 @@ describe.runIf(existsSync(PLAYER_PATH))('materialized write path through saveFil
 
     const reparsed = parseSav(out);
     const redecoded = decode(PLAYER_SCHEMA, reparsed);
-    const values = redecoded.values as unknown as Record<string, unknown>;
-    expect(values['DailyLog.MoneyGet']).toBe(newMoney);
-    expect(values['DailyLog.MoneySpent']).toBe(originalSpent);
+    expect(redecoded.values[PLAYER_SCHEMA.DailyLog.MoneyGet.hash >>> 0]).toBe(newMoney);
+    expect(redecoded.values[PLAYER_SCHEMA.DailyLog.MoneySpent.hash >>> 0]).toBe(originalSpent);
   });
 
   it('player: accessor write flips state.dirty to true', () => {
@@ -109,8 +107,7 @@ describe.runIf(existsSync(MAP_PATH))('materialized write path through saveFile (
 
     const reparsed = parseSav(out);
     const redecoded = decode(MAP_SCHEMA, reparsed);
-    const values = redecoded.values as unknown as Record<string, unknown>;
-    const groups = values['MapGrid.UnlockAreaGroup'] as bigint[];
+    const groups = redecoded.values[MAP_SCHEMA.MapGrid.UnlockAreaGroup.hash >>> 0] as bigint[];
     expect(groups[0]).toBe(newGroup);
     expect(groups[1]).toBe(otherOriginal);
   });
