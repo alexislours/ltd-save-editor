@@ -106,7 +106,7 @@ export function profileHasAnyContent(acc: PlayerAccessor | null): boolean {
     acc.has(player.Player.PlayTime) ||
     acc.has(player.Player.SkinColorIndex) ||
     acc.has(player.Liberation.FountainLevel) ||
-    acc.has(player.Unknown['0xA32F7E47']) ||
+    acc.has(player.Liberation.LiberateRightStock) ||
     acc.has(player.Player.UnlockMapLevel) ||
     (acc.has(player.Player.BirthDay.BirthDay_Day) &&
       acc.has(player.Player.BirthDay.BirthDay_Month) &&

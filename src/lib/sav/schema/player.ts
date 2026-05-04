@@ -74,6 +74,7 @@ const _PLAYER_SCHEMA = {
     ComeTrueCount: { hash: 0xa58f70d5, type: DataType.UInt },
     FountainEmotionBall: { hash: 0x41e43c1e, type: DataType.UInt },
     FountainLevel: { hash: 0xa4e65f79, type: DataType.UInt },
+    LiberateRightStock: { hash: 0xa32f7e47, type: DataType.UInt },
     SeasonInfo: {
       IsBuildingLifted: { hash: 0x1281bb65, type: DataType.BoolArray },
       IsLayingLifted: { hash: 0xabb09e9b, type: DataType.BoolArray },
@@ -5113,7 +5114,6 @@ const _PLAYER_SCHEMA = {
     '0x5C80D288': { hash: 0x5c80d288, type: DataType.UInt },
     '0x84A85193': { hash: 0x84a85193, type: DataType.UInt },
     '0x8E79031D': { hash: 0x8e79031d, type: DataType.Bool },
-    '0xA32F7E47': { hash: 0xa32f7e47, type: DataType.UInt },
     '0xB679F9D3': { hash: 0xb679f9d3, type: DataType.Bool },
     '0xB7B42DF5': { hash: 0xb7b42df5, type: DataType.UInt },
     '0xD9276E3A': { hash: 0xd9276e3a, type: DataType.Int },

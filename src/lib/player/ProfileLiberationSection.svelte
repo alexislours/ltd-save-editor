@@ -8,7 +8,7 @@
   import { writeNonNegativeInt } from './profileFields';
 
   const FOUNTAIN_LEVEL = player.Liberation.FountainLevel;
-  const WISHES = player.Unknown['0xA32F7E47'];
+  const WISHES = player.Liberation.LiberateRightStock;
 
   const fountainLevel = bindLeaf(playerAccessor, FOUNTAIN_LEVEL);
   const wishes = bindLeaf(playerAccessor, WISHES);
