@@ -807,6 +807,7 @@ const _MII_SCHEMA = {
       },
       InteriorNextEmotionBallTime: { hash: 0x5ca4f5d2, type: DataType.UInt64Array },
       Money: { hash: 0xf334fd2e, type: DataType.UIntArray },
+      NextInteriorWantGameTime: { hash: 0x800e786e, type: DataType.UInt64Array },
       RoomStyleInfo: {
         Flag: {
           Abduction00: { hash: 0x032e96c2, type: DataType.BoolArray },
@@ -1313,7 +1314,6 @@ const _MII_SCHEMA = {
   },
   Unknown: {
     '0x75B0A7FD': { hash: 0x75b0a7fd, type: DataType.IntArray },
-    '0x800E786E': { hash: 0x800e786e, type: DataType.UInt64Array },
     '0xCAB805E6': { hash: 0xcab805e6, type: DataType.BinaryArray },
     '0xFA21F70E': { hash: 0xfa21f70e, type: DataType.BoolArray },
   },
