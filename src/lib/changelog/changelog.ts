@@ -6,6 +6,15 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.1.0',
+    date: '2026-05-06',
+    changes: [
+      'Redesigned the UGC editor with a WASM backend and higher encoding quality.',
+      'Advanced search now matches segments and hashes.',
+      'Added the ability to clear the LAN restriction on UGC slots.',
+    ],
+  },
+  {
     version: '2.0.0',
     date: '2026-05-04',
     changes: [
