@@ -24,6 +24,7 @@
   import { track } from '$lib/analytics';
   import { showToast } from '$lib/toast/toast.svelte';
   import FacepaintSection from '$lib/ugc/facepaint/FacepaintSection.svelte';
+  import { listFacepaints, listFacepaintsFromSidecar } from '$lib/ugc/facepaint/list';
   import {
     buildKindCounts,
     buildReplaceWrites,
@@ -31,6 +32,7 @@
     clearLanRestriction,
     decodeSidecarToPngUrl,
     decodeSlotToPng,
+    exportSlotZsFiles,
     getSlotOriginalUgctex,
     getUgcSlotName,
     hasLanRestriction,
@@ -40,12 +42,13 @@
     slotPreviewCandidates,
     slotThumbName,
   } from './ugcEditorPage';
+  import UgcDropZone from './UgcDropZone.svelte';
   import UgcSidecarBar from './UgcSidecarBar.svelte';
   import UgcSlotEditor from './UgcSlotEditor.svelte';
   import UgcSlotList from './UgcSlotList.svelte';
 
   type TabKind = UgcKind | 'FacePaint';
-  let activeKind = $state<TabKind>('Goods');
+  let activeKind = $state<TabKind>('FacePaint');
   let selectedSlot = $state<number | null>(null);
   let busy = $state(false);
   let pngInput = $state<HTMLInputElement | null>(null);
@@ -69,6 +72,8 @@
 
   const playerSave = $derived(getSave('player'));
   const sidecar = $derived(getSidecarStore());
+  const playerless = $derived(!playerSave);
+  const sidecarLoaded = $derived(sidecarOrigin() !== 'none');
 
   const ugcKind = $derived<UgcKind | null>(
     activeKind === 'FacePaint' ? null : (activeKind as UgcKind),
@@ -84,13 +89,31 @@
     return buildKindCounts(playerAccessor(), sidecar);
   });
 
+  const facepaintCount = $derived.by(() => {
+    void playerState.dirty;
+    void sidecar.files.size;
+    const acc = playerAccessor();
+    try {
+      if (acc) return listFacepaints(acc, miiAccessor()).length;
+      return listFacepaintsFromSidecar(sidecar).length;
+    } catch {
+      return 0;
+    }
+  });
+
   const kindTabs = $derived([
+    {
+      value: 'FacePaint' as TabKind,
+      label:
+        facepaintCount > 0
+          ? `${$_('sharemii.kind.FacePaint')} (${facepaintCount})`
+          : $_('sharemii.kind.FacePaint'),
+    },
     ...UGC_KINDS.map((k) => {
       const base = $_(`sharemii.kind.${k}`);
       const n = kindCounts[k];
       return { value: k as TabKind, label: n > 0 ? `${base} (${n})` : base };
     }),
-    { value: 'FacePaint' as TabKind, label: $_('sharemii.kind.FacePaint') },
   ]);
 
   const rows = $derived.by(() => {
@@ -127,8 +150,11 @@
     void sidecar.files.size;
     void playerSave?.loadId;
     untrack(() => {
-      if (activeKind === 'FacePaint') return;
-      if (kindCounts[activeKind] > 0) return;
+      if (activeKind === 'FacePaint' ? facepaintCount > 0 : kindCounts[activeKind] > 0) return;
+      if (facepaintCount > 0) {
+        activeKind = 'FacePaint';
+        return;
+      }
       const firstWithContent = UGC_KINDS.find((k) => kindCounts[k] > 0);
       if (firstWithContent) activeKind = firstWithContent;
     });
@@ -267,6 +293,23 @@
     }
   }
 
+  function exportSelectedAsUgc(): void {
+    if (busy || selectedSlot === null || !ugcKind) return;
+    const result = exportSlotZsFiles(sidecar, ugcKind, selectedSlot);
+    if (!result) {
+      showToast('warn', $_('ugc_editor.toast.no_texture'));
+      return;
+    }
+    downloadBytes(result.bytes, result.fileName);
+    track('ugc_editor_export_ugc', { kind: ugcKind, slot: selectedSlot, count: result.count });
+    showToast(
+      'success',
+      $_('ugc_editor.toast.exported_ugc', {
+        values: { fileName: result.fileName, count: result.count },
+      }),
+    );
+  }
+
   function clearLan(): void {
     if (busy || selectedSlot === null || !ugcKind) return;
     const acc = playerAccessor();
@@ -329,12 +372,13 @@
     <Tutorial />
   </header>
 
-  {#if !playerSave}
+  {#if playerless && !sidecarLoaded}
     <Card>
       <p class="text-sm text-content">
-        {$_('ugc_editor.needs_player', { values: { playerSav: 'Player.sav' } })}
+        {$_('ugc_editor.needs_player_or_folder', { values: { playerSav: 'Player.sav' } })}
       </p>
     </Card>
+    <UgcDropZone bind:busy />
   {:else}
     {#if pendingSidecarCount() > 0}
       <SaveBar
@@ -344,11 +388,31 @@
         })}
         onAction={downloadPending}
       />
-    {:else}
+    {:else if playerSave}
       <SaveBar dirty={playerState.dirty} />
     {/if}
 
     <UgcSidecarBar bind:busy />
+
+    {#if playerless}
+      <p class="flex items-center gap-1.5 text-xs text-warn">
+        <svg
+          class="h-3.5 w-3.5 shrink-0"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 9v3.75m0 3.75h.008v.008H12v-.008zM10.342 3.94l-8.4 14.55A1.5 1.5 0 003.243 21h17.514a1.5 1.5 0 001.301-2.51l-8.4-14.55a1.5 1.5 0 00-2.598 0z"
+          />
+        </svg>
+        {$_('ugc_editor.sidecar_only_notice', { values: { playerSav: 'Player.sav' } })}
+      </p>
+    {/if}
 
     <SubTabs tabs={kindTabs} bind:value={activeKind} label={$_('ugc_editor.kind_tabs_label')} />
 
@@ -356,11 +420,7 @@
       {#if !ugcKind}
         {@const player = playerAccessor()}
         {@const mii = miiAccessor()}
-        {#if player}
-          <FacepaintSection {player} {mii} />
-        {:else}
-          <p class="text-sm text-content-muted">{$_('ugc_editor.editor.pick_item')}</p>
-        {/if}
+        <FacepaintSection {player} {mii} />
       {:else}
         <div class="grid gap-4 md:grid-cols-[280px_1fr]">
           <div>
@@ -382,11 +442,13 @@
                 hasLanRestriction={selectedHasLanRestriction}
                 bind:regenerateThumb
                 sidecarMissing={sidecarOrigin() === 'none'}
+                {playerless}
                 onApplyRename={applyRename}
                 onPickPng={() => pngInput?.click()}
                 onLoadFile={(file) => void tx.loadFile(file)}
                 onApplyReplace={applyReplace}
                 onExportPng={exportSelectedAsPng}
+                onExportUgc={exportSelectedAsUgc}
                 onRevertSelected={revertSelected}
                 onClearLanRestriction={clearLan}
               />

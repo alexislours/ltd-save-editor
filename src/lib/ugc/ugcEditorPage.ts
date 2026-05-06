@@ -1,10 +1,18 @@
 import type { Accessor } from '$lib/sav/materialized/accessor';
 import { PLAYER_SCHEMA } from '$lib/sav/schema';
 import type { DecodedRgba, FitMode } from '$lib/ugc/texture/textureReplaceState.svelte';
-import { UGC_KINDS, listUgcSlots, type SidecarSource, type UgcKind } from '$lib/shareMii';
+import {
+  UGC_KINDS,
+  buildSidecarZip,
+  listUgcSlots,
+  type SidecarFile,
+  type SidecarSource,
+  type UgcKind,
+} from '$lib/shareMii';
 import { hasOriginal } from '$lib/shareMii/sidecar/sidecarStore.svelte';
 import { ugcCanvasFileName, ugcTexFileName, ugcThumbFileName } from '$lib/shareMii/codec/ugcKinds';
 import type { Bc1Mode, Encoder, Matte } from './codec';
+import { parseSidecarIds } from './sidecarParse';
 
 const UGC_NAME_LEAVES = {
   Cloth: PLAYER_SCHEMA.UGC.Cloth.Name,
@@ -32,24 +40,33 @@ type UgcRowLabels = {
   unnamed: (slot: number) => string;
 };
 
+export function listSidecarSlots(sidecar: SidecarSource, kind: UgcKind): number[] {
+  return parseSidecarIds(sidecar, `Ugc${kind}`).map((idx) => idx + 1);
+}
+
 export function buildUgcRows(
   player: Accessor<'player'> | null,
   kind: UgcKind,
   sidecar: SidecarSource,
   labels: UgcRowLabels,
 ): UgcRow[] {
-  if (!player) return [];
-  try {
-    const list = listUgcSlots({ player }, kind, sidecar);
-    return list
-      .filter((s) => !s.isAddNew)
-      .map<UgcRow>((s) => ({
-        slot: s.slot,
-        name: s.name || labels.unnamed(s.slot),
-      }));
-  } catch {
-    return [];
+  if (player) {
+    try {
+      const list = listUgcSlots({ player }, kind, sidecar);
+      return list
+        .filter((s) => !s.isAddNew)
+        .map<UgcRow>((s) => ({
+          slot: s.slot,
+          name: s.name || labels.unnamed(s.slot),
+        }));
+    } catch {
+      return [];
+    }
   }
+  return listSidecarSlots(sidecar, kind).map((slot) => ({
+    slot,
+    name: labels.unnamed(slot),
+  }));
 }
 
 export function buildKindCounts(
@@ -57,14 +74,19 @@ export function buildKindCounts(
   sidecar: SidecarSource,
 ): Record<UgcKind, number> {
   const out = Object.fromEntries(UGC_KINDS.map((k) => [k, 0])) as Record<UgcKind, number>;
-  if (!player) return out;
-  for (const k of UGC_KINDS) {
-    try {
-      const list = listUgcSlots({ player }, k, sidecar);
-      out[k] = list.filter((s) => !s.isAddNew).length;
-    } catch {
-      out[k] = 0;
+  if (player) {
+    for (const k of UGC_KINDS) {
+      try {
+        const list = listUgcSlots({ player }, k, sidecar);
+        out[k] = list.filter((s) => !s.isAddNew).length;
+      } catch {
+        out[k] = 0;
+      }
     }
+    return out;
+  }
+  for (const k of UGC_KINDS) {
+    out[k] = listSidecarSlots(sidecar, k).length;
   }
   return out;
 }
@@ -190,6 +212,27 @@ export function clearLanRestriction(player: Accessor<'player'>, kind: UgcKind, s
   const leaf = UGC_NETWORK_DELIVER_LEAVES[kind];
   if (!player.has(leaf)) throw new Error('UGC NetworkDeliverCount array not present in save');
   player.setElement(leaf, slot - 1, 0);
+}
+
+export function exportSlotZsFiles(
+  sidecar: SidecarSource,
+  kind: UgcKind,
+  slot: number,
+): { fileName: string; bytes: Uint8Array; count: number } | null {
+  const slotIdx = slot - 1;
+  const names = [
+    ugcCanvasFileName(kind, slotIdx),
+    ugcTexFileName(kind, slotIdx),
+    ugcThumbFileName(kind, slotIdx),
+  ];
+  const files: SidecarFile[] = [];
+  for (const name of names) {
+    const bytes = sidecar.files.get(name);
+    if (bytes) files.push({ name, bytes });
+  }
+  if (files.length === 0) return null;
+  const fileName = `Ugc${kind}${String(slotIdx).padStart(3, '0')}.zip`;
+  return { fileName, bytes: buildSidecarZip(files), count: files.length };
 }
 
 export async function decodeSlotToPng(

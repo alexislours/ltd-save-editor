@@ -1062,9 +1062,15 @@
     "title": "Éditeur UGC",
     "description": "Remplace les textures UGC (vêtements, aliments, trésors, extérieurs, intérieurs, objets et aménagements de carte) par tes propres images PNG. Charge les fichiers .canvas.zs et .ugctex.zs depuis ton dossier de sauvegarde.",
     "needs_player": "Charge {playerSav} depuis l'onglet Joueur pour commencer.",
+    "needs_player_or_folder": "Charge {playerSav} depuis l'onglet Joueur, ou choisis un dossier Ugc/ ci-dessous pour modifier les textures sans le {playerSav}.",
+    "sidecar_only_notice": "Édition sans {playerSav} : certaines fonctionnalités peuvent ne pas être disponibles.",
     "kind_tabs_label": "Type d'élément UGC",
     "save_bar": {
       "download_pending": "Télécharger {count, plural, one {# fichier modifié} other {# fichiers modifiés}}"
+    },
+    "dropzone": {
+      "title": "Dépose ton dossier Ugc/ ou un zip ici",
+      "hint": "Tous les fichiers .canvas.zs / .ugctex.zs à l'intérieur seront chargés."
     },
     "sidecar": {
       "none": "Aucun dossier Ugc/ chargé",
@@ -1091,6 +1097,7 @@
       "drop_png": "Clique ou dépose un PNG, JPG ou WEBP ici",
       "preview_elapsed": "Aperçu généré en {ms} ms",
       "export_png": "Exporter en PNG",
+      "export_ugc": "Exporter les fichiers UGC",
       "replace": "Remplacer la texture",
       "revert": "Annuler",
       "applying": "Encodage…",
@@ -1164,6 +1171,7 @@
       "replaced": "Emplacement {slot} remplacé. Fichiers prêts à être téléchargés.",
       "reverted": "Emplacement {slot} restauré à son état chargé.",
       "exported": "{fileName} exporté",
+      "exported_ugc": "{fileName} exporté ({count, plural, one {# fichier} other {# fichiers}})",
       "downloaded_pending": "{count, plural, one {# fichier modifié téléchargé} other {# fichiers modifiés téléchargés}} en zip.",
       "lan_restriction_cleared": "Restriction de communication locale levée sur l'emplacement {slot}."
     }

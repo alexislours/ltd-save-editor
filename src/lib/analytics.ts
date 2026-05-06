@@ -48,6 +48,7 @@ type Events = {
   ugc_editor_revert: { kind: UgcKind; slot: number };
   ugc_editor_clear_lan_restriction: { kind: UgcKind; slot: number };
   ugc_editor_export: { kind: UgcKind; slot: number };
+  ugc_editor_export_ugc: { kind: UgcKind; slot: number; count: number };
   ugc_editor_rename: { kind: UgcKind; slot: number };
   ugc_editor_transform: { transform: 'rotateCw' | 'rotateCcw' | 'flipH' | 'flipV' };
   ugc_editor_pending_downloaded: { count: number };
@@ -60,6 +61,7 @@ type Events = {
   };
   facepaint_editor_revert: { id: number };
   facepaint_editor_export: { id: number };
+  facepaint_editor_export_ugc: { id: number; count: number };
   facepaint_editor_transform: { transform: 'rotateCw' | 'rotateCcw' | 'flipH' | 'flipV' };
   locale_changed: { from: string; to: string };
   theme_changed: { from: 'light' | 'dark'; to: 'light' | 'dark' };

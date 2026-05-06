@@ -1,15 +1,12 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { errorMessage } from '$lib/errorMessage';
-  import { sidecarFromFolderFiles, sidecarFromZipFile } from '$lib/shareMii';
   import {
     clearSidecar,
-    mergeSidecarFiles,
     sidecarFileCount,
     sidecarOrigin,
   } from '$lib/shareMii/sidecar/sidecarStore.svelte';
   import { CARD_BASE_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
-  import { showToast } from '$lib/toast/toast.svelte';
+  import { loadFolderToSidecar, loadZipToSidecar } from './sidecarLoaders';
 
   type Props = {
     busy: boolean;
@@ -30,21 +27,9 @@
     const target = event.target as HTMLInputElement;
     const files = target.files ? Array.from(target.files) : [];
     target.value = '';
-    if (files.length === 0) return;
     busy = true;
     try {
-      const src = await sidecarFromFolderFiles(files);
-      if (src.files.size === 0) {
-        showToast('warn', $_('ugc_editor.toast.no_zs_in_folder'));
-        return;
-      }
-      mergeSidecarFiles('folder', src.files);
-      showToast(
-        'success',
-        $_('ugc_editor.toast.loaded_folder', { values: { count: src.files.size } }),
-      );
-    } catch (e) {
-      showToast('error', errorMessage(e));
+      await loadFolderToSidecar(files);
     } finally {
       busy = false;
     }
@@ -57,18 +42,7 @@
     if (!file) return;
     busy = true;
     try {
-      const src = await sidecarFromZipFile(file);
-      if (src.files.size === 0) {
-        showToast('warn', $_('ugc_editor.toast.no_zs_in_zip'));
-        return;
-      }
-      mergeSidecarFiles('zip', src.files);
-      showToast(
-        'success',
-        $_('ugc_editor.toast.loaded_zip', { values: { count: src.files.size } }),
-      );
-    } catch (e) {
-      showToast('error', errorMessage(e));
+      await loadZipToSidecar(file);
     } finally {
       busy = false;
     }

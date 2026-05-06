@@ -4,6 +4,8 @@ import { MII_SCHEMA, PLAYER_SCHEMA } from '$lib/sav/schema';
 import { FP_STATE_UNUSED } from '$lib/shareMii/codec/applyMii';
 import { leafByHashOrThrow } from '$lib/shareMii/codec/savAccess';
 import { FACEPAINT_HASHES, MII_HASHES } from '$lib/shareMii/codec/ugcKinds';
+import type { SidecarSource } from '$lib/shareMii';
+import { parseSidecarIds } from '../sidecarParse';
 
 const FACEPAINT_REAL_SLOTS = 70;
 const FP_INDEX_UNUSED = -1;
@@ -22,12 +24,21 @@ const FACE_PAINT_INDEX = leafByHashOrThrow(
 );
 const NAMES = leafByHashOrThrow(MII_SCHEMA, MII_HASHES.names, 'Mii.Names', DataType.WString32Array);
 
-type FacepaintInfo = {
+export type FacepaintInfo = {
   id: number;
   inUse: boolean;
   ownerSlot: number | null;
   ownerName: string;
 };
+
+export function listFacepaintsFromSidecar(sidecar: SidecarSource): FacepaintInfo[] {
+  return parseSidecarIds(sidecar, 'UgcFacePaint').map((id) => ({
+    id,
+    inUse: true,
+    ownerSlot: null,
+    ownerName: '',
+  }));
+}
 
 export function listFacepaints(
   player: Accessor<'player'>,
