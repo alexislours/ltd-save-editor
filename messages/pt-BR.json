@@ -1142,6 +1142,11 @@
         "saved": "Slot {slot} renomeado.",
         "empty": "O nome não pode ficar vazio."
       },
+      "lan_restriction": {
+        "label": "Restrição de comunicação local",
+        "hint": "Este item foi recebido por comunicação local e está travado para ser compartilhado de novo. Remova a restrição para liberá-lo.",
+        "clear": "Remover restrição"
+      },
       "texture": {
         "canvas": "Canvas",
         "ugctex": "UgcTex",
@@ -1159,7 +1164,8 @@
       "replaced": "Slot {slot} substituído. Arquivos prontos para baixar.",
       "reverted": "Slot {slot} revertido ao estado carregado.",
       "exported": "{fileName} exportado",
-      "downloaded_pending": "{count, plural, one {# arquivo editado baixado} other {# arquivos editados baixados}} como zip."
+      "downloaded_pending": "{count, plural, one {# arquivo editado baixado} other {# arquivos editados baixados}} como zip.",
+      "lan_restriction_cleared": "Restrição de comunicação local removida do slot {slot}."
     }
   },
   "tutorial": {

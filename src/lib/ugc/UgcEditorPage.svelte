@@ -28,10 +28,12 @@
     buildKindCounts,
     buildReplaceWrites,
     buildUgcRows,
+    clearLanRestriction,
     decodeSidecarToPngUrl,
     decodeSlotToPng,
     getSlotOriginalUgctex,
     getUgcSlotName,
+    hasLanRestriction,
     isSlotEdited,
     setUgcSlotName,
     slotFileNames,
@@ -113,6 +115,12 @@
     if (selectedSlot === null || !ugcKind) return false;
     void sidecar.files.size;
     return isSlotEdited(ugcKind, selectedSlot);
+  });
+
+  const selectedHasLanRestriction = $derived.by(() => {
+    void playerState.dirty;
+    if (selectedSlot === null || !ugcKind) return false;
+    return hasLanRestriction(playerAccessor(), ugcKind, selectedSlot);
   });
 
   $effect(() => {
@@ -259,6 +267,22 @@
     }
   }
 
+  function clearLan(): void {
+    if (busy || selectedSlot === null || !ugcKind) return;
+    const acc = playerAccessor();
+    if (!acc) return;
+    try {
+      clearLanRestriction(acc, ugcKind, selectedSlot);
+      track('ugc_editor_clear_lan_restriction', { kind: ugcKind, slot: selectedSlot });
+      showToast(
+        'success',
+        $_('ugc_editor.toast.lan_restriction_cleared', { values: { slot: selectedSlot } }),
+      );
+    } catch (e) {
+      showToast('error', errorMessage(e));
+    }
+  }
+
   function revertSelected(): void {
     if (busy || selectedSlot === null || !ugcKind) return;
     const names = slotFileNames(ugcKind, selectedSlot);
@@ -355,6 +379,7 @@
                 {tx}
                 {selectedHasThumb}
                 {selectedIsEdited}
+                hasLanRestriction={selectedHasLanRestriction}
                 bind:regenerateThumb
                 sidecarMissing={sidecarOrigin() === 'none'}
                 onApplyRename={applyRename}
@@ -363,6 +388,7 @@
                 onApplyReplace={applyReplace}
                 onExportPng={exportSelectedAsPng}
                 onRevertSelected={revertSelected}
+                onClearLanRestriction={clearLan}
               />
             {/if}
           </div>

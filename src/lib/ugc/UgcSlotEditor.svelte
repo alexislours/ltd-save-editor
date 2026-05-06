@@ -13,6 +13,7 @@
     tx: TextureReplaceState;
     selectedHasThumb: boolean;
     selectedIsEdited: boolean;
+    hasLanRestriction: boolean;
     regenerateThumb: boolean;
     sidecarMissing: boolean;
     onApplyRename: () => void;
@@ -21,6 +22,7 @@
     onApplyReplace: () => void;
     onExportPng: () => void;
     onRevertSelected: () => void;
+    onClearLanRestriction: () => void;
   };
 
   let {
@@ -31,6 +33,7 @@
     tx,
     selectedHasThumb,
     selectedIsEdited,
+    hasLanRestriction,
     regenerateThumb = $bindable(),
     sidecarMissing,
     onApplyRename,
@@ -39,6 +42,7 @@
     onApplyReplace,
     onExportPng,
     onRevertSelected,
+    onClearLanRestriction,
   }: Props = $props();
 </script>
 
@@ -81,6 +85,22 @@
 
 {#if tx.pendingDecoded}
   <TextureControls state={tx} {busy} />
+{/if}
+
+{#if hasLanRestriction}
+  <div class="mt-4 flex items-start gap-3 rounded-lg border border-edge/60 bg-surface/50 p-3">
+    <div class="min-w-0 flex-1">
+      <span class="block text-xs font-bold text-content-strong">
+        {$_('ugc_editor.editor.lan_restriction.label')}
+      </span>
+      <span class="mt-0.5 block text-xs text-content-muted">
+        {$_('ugc_editor.editor.lan_restriction.hint')}
+      </span>
+    </div>
+    <button type="button" class={PILL_BUTTON_CLASS} onclick={onClearLanRestriction} disabled={busy}>
+      {$_('ugc_editor.editor.lan_restriction.clear')}
+    </button>
+  </div>
 {/if}
 
 {#if selectedHasThumb}

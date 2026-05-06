@@ -1142,6 +1142,11 @@
         "saved": "Emplacement {slot} renommé.",
         "empty": "Le nom ne peut pas être vide."
       },
+      "lan_restriction": {
+        "label": "Restriction de communication locale",
+        "hint": "Cet élément a été reçu en communication locale et ne peut plus être repartagé. Lève la restriction pour pouvoir le repartager.",
+        "clear": "Lever la restriction"
+      },
       "texture": {
         "canvas": "Canvas",
         "ugctex": "UgcTex",
@@ -1159,7 +1164,8 @@
       "replaced": "Emplacement {slot} remplacé. Fichiers prêts à être téléchargés.",
       "reverted": "Emplacement {slot} restauré à son état chargé.",
       "exported": "{fileName} exporté",
-      "downloaded_pending": "{count, plural, one {# fichier modifié téléchargé} other {# fichiers modifiés téléchargés}} en zip."
+      "downloaded_pending": "{count, plural, one {# fichier modifié téléchargé} other {# fichiers modifiés téléchargés}} en zip.",
+      "lan_restriction_cleared": "Restriction de communication locale levée sur l'emplacement {slot}."
     }
   },
   "tutorial": {

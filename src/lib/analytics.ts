@@ -46,6 +46,7 @@ type Events = {
     encoder: 'custom' | 'rgbcx';
   };
   ugc_editor_revert: { kind: UgcKind; slot: number };
+  ugc_editor_clear_lan_restriction: { kind: UgcKind; slot: number };
   ugc_editor_export: { kind: UgcKind; slot: number };
   ugc_editor_rename: { kind: UgcKind; slot: number };
   ugc_editor_transform: { transform: 'rotateCw' | 'rotateCcw' | 'flipH' | 'flipV' };

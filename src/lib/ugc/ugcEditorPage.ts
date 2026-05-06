@@ -16,6 +16,16 @@ const UGC_NAME_LEAVES = {
   MapFloor: PLAYER_SCHEMA.UGC.MapFloor.Name,
 } as const;
 
+const UGC_NETWORK_DELIVER_LEAVES = {
+  Cloth: PLAYER_SCHEMA.UGC.Cloth.NetworkDeliverCount,
+  Food: PLAYER_SCHEMA.UGC.Food.NetworkDeliverCount,
+  Goods: PLAYER_SCHEMA.UGC.Goods.NetworkDeliverCount,
+  Interior: PLAYER_SCHEMA.UGC.Interior.NetworkDeliverCount,
+  Exterior: PLAYER_SCHEMA.UGC.Exterior.NetworkDeliverCount,
+  MapObject: PLAYER_SCHEMA.UGC.MapObject.NetworkDeliverCount,
+  MapFloor: PLAYER_SCHEMA.UGC.MapFloor.NetworkDeliverCount,
+} as const;
+
 export type UgcRow = { slot: number; name: string };
 
 type UgcRowLabels = {
@@ -162,6 +172,24 @@ export function setUgcSlotName(
   const leaf = UGC_NAME_LEAVES[kind];
   if (!player.has(leaf)) throw new Error('UGC name array not present in save');
   player.setElement(leaf, slot - 1, name);
+}
+
+export function hasLanRestriction(
+  player: Accessor<'player'> | null,
+  kind: UgcKind,
+  slot: number,
+): boolean {
+  if (!player) return false;
+  const leaf = UGC_NETWORK_DELIVER_LEAVES[kind];
+  if (!player.has(leaf)) return false;
+  const arr = player.get(leaf) as number[];
+  return (arr[slot - 1] ?? 0) > 0;
+}
+
+export function clearLanRestriction(player: Accessor<'player'>, kind: UgcKind, slot: number): void {
+  const leaf = UGC_NETWORK_DELIVER_LEAVES[kind];
+  if (!player.has(leaf)) throw new Error('UGC NetworkDeliverCount array not present in save');
+  player.setElement(leaf, slot - 1, 0);
 }
 
 export async function decodeSlotToPng(

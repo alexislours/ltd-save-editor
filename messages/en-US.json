@@ -418,6 +418,11 @@
         "saved": "Renamed slot {slot}.",
         "empty": "Name cannot be empty."
       },
+      "lan_restriction": {
+        "label": "LAN restriction",
+        "hint": "This item was received over local wireless and is locked from being shared again. Clear it to lift the restriction.",
+        "clear": "Clear restriction"
+      },
       "texture": {
         "canvas": "Canvas",
         "ugctex": "UgcTex",
@@ -435,7 +440,8 @@
       "replaced": "Replaced slot {slot}. Files staged for download.",
       "reverted": "Reverted slot {slot} to its loaded state.",
       "exported": "Exported {fileName}",
-      "downloaded_pending": "Downloaded {count} edited file(s) as zip."
+      "downloaded_pending": "Downloaded {count} edited file(s) as zip.",
+      "lan_restriction_cleared": "Cleared LAN restriction on slot {slot}."
     }
   },
   "lightbox": {
