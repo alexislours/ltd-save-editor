@@ -1,17 +1,22 @@
 <script lang="ts">
   import { SvelteSet } from 'svelte/reactivity';
   import { _ } from 'svelte-i18n';
-  import { track } from '../analytics';
-  import EntryEditor from '../player/EntryEditor.svelte';
-  import PlayerDetail from '../player/PlayerDetail.svelte';
-  import PlayerTree from '../player/PlayerTree.svelte';
-  import { buildTree, type TreeNode } from '../player/tree';
-  import { DATA_TYPE_COUNT, DataType } from '../sav/dataType';
-  import { hexU32 } from '../sav/format';
-  import { murmur3_x86_32 } from '../sav/hash';
-  import { nameForHash } from '../sav/knownKeys';
-  import type { Entry } from '../sav/types';
-  import { CARD_BASE_CLASS, INPUT_CLASS, MONO_INPUT_CLASS, PILL_BUTTON_CLASS } from '../styles';
+  import { track } from '$lib/analytics';
+  import EntryEditor from '$lib/ui/fields/EntryEditor.svelte';
+  import PlayerDetail from '$lib/player/PlayerDetail.svelte';
+  import PlayerTree from '$lib/player/PlayerTree.svelte';
+  import { buildTree, type TreeNode } from '$lib/player/tree';
+  import { DATA_TYPE_COUNT, DataType } from '$lib/sav/dataType';
+  import { hexU32 } from '$lib/sav/format';
+  import { murmur3_x86_32 } from '$lib/sav/hash';
+  import { nameForHash } from '$lib/sav/knownKeys';
+  import type { Entry } from '$lib/sav/types';
+  import {
+    CARD_BASE_CLASS,
+    INPUT_CLASS,
+    MONO_INPUT_CLASS,
+    PILL_BUTTON_CLASS,
+  } from '$lib/ui/styles';
 
   type Props = {
     entries: readonly Entry[];
@@ -67,25 +72,55 @@
 
   let treeSearch = $state('');
   const searchLc = $derived(treeSearch.trim().toLowerCase());
+  const searchHash = $derived.by(() => {
+    const q = searchLc;
+    if (!q) return null;
+    const hex = q.startsWith('0x')
+      ? Number.parseInt(q.slice(2), 16)
+      : /^[0-9a-f]{8}$/.test(q)
+        ? Number.parseInt(q, 16)
+        : NaN;
+    return Number.isFinite(hex) ? hex >>> 0 : null;
+  });
 
-  const visibleTree = $derived.by(() => {
-    if (!searchLc) return tree;
-    function prune(nodes: TreeNode[]): TreeNode[] {
-      const out: TreeNode[] = [];
-      for (const n of nodes) {
-        if (n.children.length > 0) {
-          const kids = prune(n.children);
-          if (kids.length > 0) {
-            out.push({ ...n, children: kids });
-            expanded.add(n.path);
-          }
-        } else if (n.path.toLowerCase().includes(searchLc)) {
-          out.push(n);
-        }
+  function leafMatches(n: TreeNode): boolean {
+    if (!searchLc) return true;
+    if (n.path.toLowerCase().includes(searchLc)) return true;
+    if (n.label.toLowerCase().includes(searchLc)) return true;
+    if (n.segment.toLowerCase().includes(searchLc)) return true;
+    if (searchHash != null && n.hash === searchHash) return true;
+    return false;
+  }
+
+  function pruneTree(nodes: TreeNode[]): TreeNode[] {
+    const out: TreeNode[] = [];
+    for (const n of nodes) {
+      if (n.children.length > 0) {
+        const kids = pruneTree(n.children);
+        if (kids.length > 0) out.push({ ...n, children: kids });
+      } else if (leafMatches(n)) {
+        out.push(n);
       }
-      return out;
     }
-    return prune(tree);
+    return out;
+  }
+
+  const visibleTree = $derived(searchLc ? pruneTree(tree) : tree);
+
+  function collectFolderPaths(nodes: TreeNode[], out: string[]): void {
+    for (const n of nodes) {
+      if (n.children.length > 0) {
+        out.push(n.path);
+        collectFolderPaths(n.children, out);
+      }
+    }
+  }
+
+  $effect(() => {
+    if (!searchLc) return;
+    const paths: string[] = [];
+    collectFolderPaths(visibleTree, paths);
+    for (const p of paths) expanded.add(p);
   });
 
   const countsByType = $derived.by(() => {
@@ -102,7 +137,9 @@
   let advPage = $state(0);
   const advPageSize = 50;
 
-  const advNameHash = $derived(advNameInput.trim() ? murmur3_x86_32(advNameInput.trim()) : null);
+  const advNameTrimmed = $derived(advNameInput.trim());
+  const advNameHash = $derived(advNameTrimmed ? murmur3_x86_32(advNameTrimmed) : null);
+  const advNameLc = $derived(advNameTrimmed.toLowerCase());
 
   function advSearchByName(): void {
     if (advNameHash == null) return;
@@ -144,8 +181,14 @@
     for (const e of entries) {
       if (advTypeFilter !== 'all' && e.type !== advTypeFilter) continue;
       if (hashMatch !== null && e.hash !== hashMatch) continue;
-      if (advOnlyKnown && nameForHash(e.hash) == null) continue;
+      const knownName = nameForHash(e.hash);
+      if (advOnlyKnown && knownName == null) continue;
       if (advOnlyEditable && !EDITABLE_TYPES.has(e.type)) continue;
+      if (advNameLc) {
+        const nameMatch = knownName != null && knownName.toLowerCase().includes(advNameLc);
+        const hashEq = advNameHash != null && e.hash === advNameHash;
+        if (!nameMatch && !hashEq) continue;
+      }
       out.push(e);
     }
     return out;
@@ -305,7 +348,7 @@
             />
           </label>
 
-          <label class="flex flex-col gap-1 text-xs text-content">
+          <label class="relative flex flex-col gap-1 text-xs text-content">
             <span class="font-bold text-content-strong">{$_('advanced.filter_name_label')}</span>
             <div class="flex gap-2">
               <input
@@ -313,6 +356,7 @@
                 class="flex-1 {INPUT_CLASS}"
                 placeholder={$_('advanced.filter_name_placeholder')}
                 bind:value={advNameInput}
+                oninput={() => (advPage = 0)}
                 onkeydown={(e) => e.key === 'Enter' && advSearchByName()}
               />
               <button
@@ -324,9 +368,11 @@
                 {$_('advanced.filter_find_action')}
               </button>
             </div>
-            {#if advNameHash != null}
-              <span class="font-mono text-[11px] text-content-muted">→ {hexU32(advNameHash)}</span>
-            {/if}
+            <span
+              class="pointer-events-none absolute -bottom-4 left-0 font-mono text-[11px] text-content-muted"
+            >
+              {advNameHash != null ? `→ ${hexU32(advNameHash)}` : ''}
+            </span>
           </label>
         </div>
 

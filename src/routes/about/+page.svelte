@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import Card from '$lib/Card.svelte';
-  import RouteMeta from '$lib/RouteMeta.svelte';
+  import Card from '$lib/ui/Card.svelte';
+  import RouteMeta from '$lib/layout/RouteMeta.svelte';
 
   const repoUrl = 'https://github.com/alexislours/ltd-save-editor';
   const discordUrl = 'https://discord.gg/YHFNTvXrdE';

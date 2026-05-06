@@ -1,8 +1,8 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { safe } from '../sav/format';
-  import { MII_SCHEMA } from '../sav/schema';
-  import type { SchemaLeaf } from '../sav/schema/leaf';
+  import { safe } from '$lib/sav/format';
+  import { MII_SCHEMA } from '$lib/sav/schema';
+  import type { SchemaLeaf } from '$lib/sav/schema/leaf';
   import { miiAccessor } from './miiEditor.svelte';
   import { classifyPersonality } from './personality';
 

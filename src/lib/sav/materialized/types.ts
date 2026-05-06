@@ -1,4 +1,4 @@
-import type { Entry } from '../types';
+import type { Entry } from '$lib/sav/types';
 
 export type PlanItem = { kind: 'known'; hash: number } | { kind: 'unknown'; index: number };
 

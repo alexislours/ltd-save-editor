@@ -1,4 +1,4 @@
-import { DataType } from '../dataType';
+import { DataType } from '$lib/sav/dataType';
 
 const _MAP_SCHEMA = {
   House: {

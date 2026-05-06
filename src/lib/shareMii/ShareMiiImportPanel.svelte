@@ -5,7 +5,7 @@
     LABEL_CLASS,
     PILL_BUTTON_CLASS,
     PRIMARY_BUTTON_CLASS,
-  } from '../styles';
+  } from '$lib/ui/styles';
   import type { Row } from './shareMiiPage';
 
   type Props = {

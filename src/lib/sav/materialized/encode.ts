@@ -19,9 +19,9 @@ import {
   setUInt64,
   setVector2,
   setVector3,
-} from '../codec';
-import { DataType, isInline } from '../dataType';
-import type { Entry, SavFile } from '../types';
+} from '$lib/sav/codec';
+import { DataType, isInline } from '$lib/sav/dataType';
+import type { Entry, SavFile } from '$lib/sav/types';
 import { buildHashMap } from './schemaIndex';
 import type { DecodedSave } from './types';
 

@@ -4,26 +4,26 @@
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
   import { track } from '$lib/analytics';
   import { errorMessage } from '$lib/errorMessage';
-  import RouteMeta from '$lib/RouteMeta.svelte';
-  import BuildingsPanel from '$lib/player/BuildingsPanel.svelte';
-  import ClothesPanel from '$lib/player/ClothesPanel.svelte';
-  import ClothingSetsPanel from '$lib/player/ClothingSetsPanel.svelte';
-  import FoodsPanel from '$lib/player/FoodsPanel.svelte';
-  import InteriorsPanel from '$lib/player/InteriorsPanel.svelte';
-  import Profile from '$lib/player/Profile.svelte';
-  import TreasuresPanel from '$lib/player/TreasuresPanel.svelte';
+  import RouteMeta from '$lib/layout/RouteMeta.svelte';
+  import BuildingsPanel from '$lib/player/inventory/BuildingsPanel.svelte';
+  import ClothesPanel from '$lib/player/inventory/ClothesPanel.svelte';
+  import ClothingSetsPanel from '$lib/player/inventory/ClothingSetsPanel.svelte';
+  import FoodsPanel from '$lib/player/inventory/FoodsPanel.svelte';
+  import InteriorsPanel from '$lib/player/inventory/InteriorsPanel.svelte';
+  import Profile from '$lib/player/profile/Profile.svelte';
+  import TreasuresPanel from '$lib/player/inventory/TreasuresPanel.svelte';
   import UgcTextPanel from '$lib/player/UgcTextPanel.svelte';
   import {
     commitEntryEdit,
     downloadModified,
     playerState,
     syncFromSave,
-  } from '$lib/playerEditor.svelte';
-  import SaveBar from '$lib/SaveBar.svelte';
-  import SaveTab from '$lib/SaveTab.svelte';
-  import { getEntriesForAdvanced, getSave } from '$lib/saveFile.svelte';
-  import SubTabs from '$lib/SubTabs.svelte';
-  import { showToast } from '$lib/toast.svelte';
+  } from '$lib/player/playerEditor.svelte';
+  import SaveBar from '$lib/saveFile/SaveBar.svelte';
+  import SaveTab from '$lib/saveFile/SaveTab.svelte';
+  import { getEntriesForAdvanced, getSave } from '$lib/saveFile/saveFile.svelte';
+  import SubTabs from '$lib/ui/SubTabs.svelte';
+  import { showToast } from '$lib/toast/toast.svelte';
 
   const save = $derived(getSave('player'));
   $effect(() => {

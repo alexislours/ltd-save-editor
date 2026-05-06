@@ -1,4 +1,4 @@
-import { DataType } from '../dataType';
+import { DataType } from '$lib/sav/dataType';
 
 const _PLAYER_SCHEMA = {
   DailyLog: {
@@ -199,6 +199,7 @@ const _PLAYER_SCHEMA = {
     },
     CommonDailyItem: {
       LastUpdateTime: { hash: 0x34eaa2b5, type: DataType.UInt64 },
+      NextUpdateRandomSeed: { hash: 0xb7b42df5, type: DataType.UInt },
     },
     CoordinateInfo: {
       OwnInfoArray: {
@@ -4726,6 +4727,9 @@ const _PLAYER_SCHEMA = {
     IsCameraReverseRotateY: { hash: 0x49dd6d07, type: DataType.Bool },
     IsExplainedIslandGauge: { hash: 0xb10c8c18, type: DataType.Bool },
     IsLocalNetworkExplained: { hash: 0x95a68688, type: DataType.Bool },
+    IsLocalNetworkFirstReceivedItem: { hash: 0x8e79031d, type: DataType.Bool },
+    IsLocalNetworkFirstReceivedMii: { hash: 0x306439c2, type: DataType.Bool },
+    IsLocalNetworkFirstReceivedUgc: { hash: 0xb679f9d3, type: DataType.Bool },
     IslandName: { hash: 0xd46df986, type: DataType.WString32 },
     IslandNameRegionLanguageID: { hash: 0x7bbff932, type: DataType.Enum },
     ItemShopDisplayItem: {
@@ -5110,12 +5114,8 @@ const _PLAYER_SCHEMA = {
   },
   Unknown: {
     '0x17512C0D': { hash: 0x17512c0d, type: DataType.UInt },
-    '0x306439C2': { hash: 0x306439c2, type: DataType.Bool },
     '0x5C80D288': { hash: 0x5c80d288, type: DataType.UInt },
     '0x84A85193': { hash: 0x84a85193, type: DataType.UInt },
-    '0x8E79031D': { hash: 0x8e79031d, type: DataType.Bool },
-    '0xB679F9D3': { hash: 0xb679f9d3, type: DataType.Bool },
-    '0xB7B42DF5': { hash: 0xb7b42df5, type: DataType.UInt },
     '0xD9276E3A': { hash: 0xd9276e3a, type: DataType.Int },
     '0xE6F98671': { hash: 0xe6f98671, type: DataType.UInt },
     '0xF16A6B96': { hash: 0xf16a6b96, type: DataType.Bool },

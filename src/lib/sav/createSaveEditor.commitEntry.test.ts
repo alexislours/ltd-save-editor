@@ -1,12 +1,16 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('../sessionPersist', () => ({
+vi.mock('$lib/session/sessionPersist', () => ({
   schedulePersist: vi.fn(),
   flushAllPending: vi.fn(),
 }));
 
-import { commitEntryEdit, playerState, syncFromSave as syncPlayer } from '../playerEditor.svelte';
-import { clearSave, getSaveBytes, setSaveFromBytes } from '../saveFile.svelte';
+import {
+  commitEntryEdit,
+  playerState,
+  syncFromSave as syncPlayer,
+} from '$lib/player/playerEditor.svelte';
+import { clearSave, getSaveBytes, setSaveFromBytes } from '$lib/saveFile/saveFile.svelte';
 import { setFloat, setInt64, setUInt } from './codec';
 import { DataType } from './dataType';
 import { decode } from './materialized/decode';

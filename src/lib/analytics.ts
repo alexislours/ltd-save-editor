@@ -1,5 +1,5 @@
-import type { SaveKind } from './saveFile.svelte';
-import type { UgcKind } from './shareMii/ugcKinds';
+import type { SaveKind } from '$lib/saveFile/saveFile.svelte';
+import type { UgcKind } from './shareMii/codec/ugcKinds';
 
 type ShareMiiKind = 'Mii' | UgcKind;
 
@@ -42,8 +42,11 @@ type Events = {
     thumb: boolean;
     fit: 'fill' | 'contain' | 'cover';
     matte: 'transparent' | 'white' | 'black' | 'custom';
+    bc1Mode: 'auto' | 'fourColor' | 'threeColor';
+    encoder: 'custom' | 'rgbcx';
   };
   ugc_editor_revert: { kind: UgcKind; slot: number };
+  ugc_editor_clear_lan_restriction: { kind: UgcKind; slot: number };
   ugc_editor_export: { kind: UgcKind; slot: number };
   ugc_editor_rename: { kind: UgcKind; slot: number };
   ugc_editor_transform: { transform: 'rotateCw' | 'rotateCcw' | 'flipH' | 'flipV' };
@@ -52,6 +55,8 @@ type Events = {
     id: number;
     fit: 'fill' | 'contain' | 'cover';
     matte: 'transparent' | 'white' | 'black' | 'custom';
+    bc1Mode: 'auto' | 'fourColor' | 'threeColor';
+    encoder: 'custom' | 'rgbcx';
   };
   facepaint_editor_revert: { id: number };
   facepaint_editor_export: { id: number };

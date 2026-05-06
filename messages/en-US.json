@@ -365,6 +365,7 @@
       "no_current": "Not in sidecar.",
       "needs_sidecar": "Load Ugc/ folder.",
       "drop_png": "Click or drop a PNG, JPG or WEBP here",
+      "preview_elapsed": "Preview generated in {ms}ms",
       "export_png": "Export as PNG",
       "replace": "Replace texture",
       "revert": "Revert",
@@ -394,12 +395,33 @@
         "black": "Black",
         "custom": "Custom color"
       },
+      "encoder": {
+        "label": "Encoder",
+        "custom": "Custom",
+        "rgbcx": "rgbcx",
+        "custom_hint": "Tuned for shadows and gradients via gamma-aware fitting. Default.",
+        "rgbcx_hint": "Richard Geldreich's reference BC1 encoder. Higher overall quality, weaker on shadow detail."
+      },
+      "bc1_mode": {
+        "label": "BC1 mode",
+        "auto": "Auto",
+        "fourColor": "4-color",
+        "threeColor": "3-color",
+        "auto_hint": "Picks the best mode for each block. Recommended.",
+        "fourColor_hint": "Sharper colors. Transparent pixels are still preserved.",
+        "threeColor_hint": "Optimized for images with transparency. Less color detail."
+      },
       "rename": {
         "label": "Name",
         "placeholder": "Item name",
         "save": "Rename",
         "saved": "Renamed slot {slot}.",
         "empty": "Name cannot be empty."
+      },
+      "lan_restriction": {
+        "label": "LAN restriction",
+        "hint": "This item was received over local wireless and is locked from being shared again. Clear it to lift the restriction.",
+        "clear": "Clear restriction"
       },
       "texture": {
         "canvas": "Canvas",
@@ -418,7 +440,8 @@
       "replaced": "Replaced slot {slot}. Files staged for download.",
       "reverted": "Reverted slot {slot} to its loaded state.",
       "exported": "Exported {fileName}",
-      "downloaded_pending": "Downloaded {count} edited file(s) as zip."
+      "downloaded_pending": "Downloaded {count} edited file(s) as zip.",
+      "lan_restriction_cleared": "Cleared LAN restriction on slot {slot}."
     }
   },
   "lightbox": {
@@ -1305,15 +1328,15 @@
     "view_tree": "Tree",
     "view_table": "Flat table",
     "sections_label": "Sections:",
-    "tree_filter_placeholder": "Filter by path…",
+    "tree_filter_placeholder": "Filter by path, segment, or hash…",
     "tree_no_match": "No entries match this filter.",
     "tree_select_prompt": "Select an entry from the tree to edit.",
     "table_intro": "Full, searchable list of every entry in the save.",
     "filter_type_label": "Type",
     "filter_type_all": "All",
     "filter_hash_label": "Hash filter (e.g. {example})",
-    "filter_name_label": "Find by name (MurmurHash3)",
-    "filter_name_placeholder": "Player.GoodsInfo2.TreasureMap.State",
+    "filter_name_label": "Search by name or segment (MurmurHash3)",
+    "filter_name_placeholder": "NetworkDeliverCount or Player.GoodsInfo2.TreasureMap.State",
     "filter_find_action": "Find",
     "filter_known_only": "Known keys only",
     "filter_editable_only": "Editable types only",

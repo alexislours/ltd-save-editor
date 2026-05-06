@@ -1,4 +1,4 @@
-import { MAP_SCHEMA } from '../sav/schema';
+import { MAP_SCHEMA } from '$lib/sav/schema';
 import { mapAccessor, mapSave, syncFromSave as syncMapSave } from './mapSave.svelte';
 
 export const MAP_WIDTH = 120;

@@ -1,22 +1,22 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { bindLeaf } from '../sav/bindLeaf.svelte';
-  import { mii, MII_SCHEMA } from '../sav/schema';
-  import type { SchemaLeaf } from '../sav/schema/leaf';
-  import { CARD_CLASS } from '../styles';
+  import { bindLeaf } from '$lib/sav/bindLeaf.svelte';
+  import { mii, MII_SCHEMA } from '$lib/sav/schema';
+  import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+  import { CARD_CLASS } from '$lib/ui/styles';
   import MiiElementEditor from './MiiElementEditor.svelte';
   import MiiFoodPicker from './MiiFoodPicker.svelte';
   import MiiGivenFlagPicker from './MiiGivenFlagPicker.svelte';
   import MiiLoveGenderEditor from './MiiLoveGenderEditor.svelte';
   import MiiPersonalityEditor from './MiiPersonalityEditor.svelte';
   import MiiRankedFoodPicker from './MiiRankedFoodPicker.svelte';
-  import MiiRelationsTable from './MiiRelationsTable.svelte';
+  import MiiRelationsTable from './relations/MiiRelationsTable.svelte';
   import MiiSlotSelector from './MiiSlotSelector.svelte';
   import MiiVoiceEditor from './MiiVoiceEditor.svelte';
   import MiiWordsEditor from './MiiWordsEditor.svelte';
   import { miiAccessor } from './miiEditor.svelte';
   import { MII_SECTIONS, type MiiField } from './miiFields';
-  import { populatedMiiIndices } from './populated';
+  import { populatedMiiIndices } from './ownership/populated';
 
   const VOICE_LEAVES = [
     MII_SCHEMA.Mii.Voice.PresetType,

@@ -9,11 +9,11 @@
     HISTORY_MAX_SNAPSHOTS,
     listSnapshotMeta,
     type HistorySnapshotMeta,
-  } from '$lib/historyStore';
-  import RouteMeta from '$lib/RouteMeta.svelte';
+  } from '$lib/session/historyStore';
+  import RouteMeta from '$lib/layout/RouteMeta.svelte';
   import { downloadBytes } from '$lib/sav/download';
-  import { CARD_BASE_CLASS, PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/styles';
-  import { showToast } from '$lib/toast.svelte';
+  import { CARD_BASE_CLASS, PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
+  import { showToast } from '$lib/toast/toast.svelte';
 
   let snapshots = $state<HistorySnapshotMeta[]>([]);
   let loading = $state(true);

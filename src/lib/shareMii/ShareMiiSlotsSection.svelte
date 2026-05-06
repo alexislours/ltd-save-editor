@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { errorMessage } from '../errorMessage';
-  import { CARD_CLASS, PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '../styles';
+  import { errorMessage } from '$lib/errorMessage';
+  import { CARD_CLASS, PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
   import type { UgcKind } from './index';
   import type { Row } from './shareMiiPage';
   import ShareMiiImportPanel from './ShareMiiImportPanel.svelte';

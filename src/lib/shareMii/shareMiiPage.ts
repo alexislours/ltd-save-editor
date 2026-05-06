@@ -9,8 +9,12 @@ import {
   type SidecarSource,
   type UgcKind,
 } from './index';
-import type { MiiSaves, PlayerOnlySaves } from './savAccess';
-import { markPendingSidecars, mergeSidecarFiles, sidecarOrigin } from './sidecarStore.svelte';
+import type { MiiSaves, PlayerOnlySaves } from './codec/savAccess';
+import {
+  markPendingSidecars,
+  mergeSidecarFiles,
+  sidecarOrigin,
+} from './sidecar/sidecarStore.svelte';
 
 export type Row = {
   slot: number;

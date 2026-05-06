@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { PILL_BUTTON_CLASS } from '../styles';
+  import { PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import type { Row } from './shareMiiPage';
 
   type Props = {

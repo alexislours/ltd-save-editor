@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { LABEL_CLASS } from '../styles';
+  import { LABEL_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from './miiEditor.svelte';
   import { genderLabel } from './miiLabelList.svelte';
   import {
@@ -8,7 +8,7 @@
     readIsLoveGender,
     writeIsLoveGender,
     type LoveGenderOption,
-  } from './relations';
+  } from './relations/relations';
 
   type Props = {
     miiIndex: number;

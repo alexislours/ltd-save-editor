@@ -1,9 +1,9 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { safe } from '../sav/format';
-  import { enumOptionName, enumOptionsFor } from '../sav/knownKeys';
-  import { MII_SCHEMA } from '../sav/schema';
-  import { FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
+  import { safe } from '$lib/sav/format';
+  import { enumOptionName, enumOptionsFor } from '$lib/sav/knownKeys';
+  import { MII_SCHEMA } from '$lib/sav/schema';
+  import { FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from './miiEditor.svelte';
   import { genderLabel, pronounLabel } from './miiLabelList.svelte';
   import type { MiiField } from './miiFields';

@@ -1,4 +1,4 @@
-import type { DataType } from '../dataType';
+import type { DataType } from '$lib/sav/dataType';
 import type { Leaf, SchemaLeaf } from './leaf';
 import { MII_SCHEMA } from './mii';
 import { PLAYER_SCHEMA } from './player';

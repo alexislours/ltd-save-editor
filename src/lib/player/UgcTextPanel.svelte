@@ -1,11 +1,11 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { GENERATED_ENUM_OPTION_NAMES } from '../sav/generatedNames';
-  import { murmur3_x86_32 } from '../sav/hash';
-  import { enumOptionsFor } from '../sav/knownKeys';
-  import { PLAYER_SCHEMA } from '../sav/schema';
-  import { playerAccessor } from '../playerEditor.svelte';
-  import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '../styles';
+  import { GENERATED_ENUM_OPTION_NAMES } from '$lib/sav/generatedNames';
+  import { murmur3_x86_32 } from '$lib/sav/hash';
+  import { enumOptionsFor } from '$lib/sav/knownKeys';
+  import { PLAYER_SCHEMA } from '$lib/sav/schema';
+  import { playerAccessor } from '$lib/player/playerEditor.svelte';
+  import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
 
   const TEXT_DATA = PLAYER_SCHEMA.UGC.Text.TextData;
   const TEXT = TEXT_DATA.Text;

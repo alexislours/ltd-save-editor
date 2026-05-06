@@ -1,4 +1,4 @@
-import type { SchemaLeaf } from '../schema/leaf';
+import type { SchemaLeaf } from '$lib/sav/schema/leaf';
 
 const HASH_CACHE = new WeakMap<object, Map<number, SchemaLeaf>>();
 

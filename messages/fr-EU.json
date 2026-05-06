@@ -915,15 +915,15 @@
     "view_tree": "Arborescence",
     "view_table": "Tableau",
     "sections_label": "Sections :",
-    "tree_filter_placeholder": "Filtrer par chemin…",
+    "tree_filter_placeholder": "Filtrer par chemin, segment ou hash…",
     "tree_no_match": "Aucune entrée ne correspond à ce filtre.",
     "tree_select_prompt": "Sélectionne une entrée dans l'arborescence pour la modifier.",
     "table_intro": "Liste complète et filtrable de toutes les entrées de la sauvegarde.",
     "filter_type_label": "Type",
     "filter_type_all": "Tous",
     "filter_hash_label": "Filtre par hash (ex. {example})",
-    "filter_name_label": "Recherche par nom (MurmurHash3)",
-    "filter_name_placeholder": "Player.GoodsInfo2.TreasureMap.State",
+    "filter_name_label": "Recherche par nom ou segment (MurmurHash3)",
+    "filter_name_placeholder": "NetworkDeliverCount ou Player.GoodsInfo2.TreasureMap.State",
     "filter_find_action": "Rechercher",
     "filter_known_only": "Seulement les clés connues",
     "filter_editable_only": "Seulement les types modifiables",
@@ -1089,6 +1089,7 @@
       "no_current": "Absent du dossier Ugc/.",
       "needs_sidecar": "Charge le dossier Ugc/.",
       "drop_png": "Clique ou dépose un PNG, JPG ou WEBP ici",
+      "preview_elapsed": "Aperçu généré en {ms} ms",
       "export_png": "Exporter en PNG",
       "replace": "Remplacer la texture",
       "revert": "Annuler",
@@ -1118,12 +1119,33 @@
         "black": "Noir",
         "custom": "Couleur personnalisée"
       },
+      "encoder": {
+        "label": "Encodeur",
+        "custom": "Personnalisé",
+        "rgbcx": "rgbcx",
+        "custom_hint": "Optimisé pour les ombres et les dégradés via un ajustement sensible au gamma. Par défaut.",
+        "rgbcx_hint": "Encodeur BC1 de référence de Richard Geldreich. Qualité globale supérieure, moins fin sur les ombres."
+      },
+      "bc1_mode": {
+        "label": "Mode BC1",
+        "auto": "Auto",
+        "fourColor": "4 couleurs",
+        "threeColor": "3 couleurs",
+        "auto_hint": "Choisit le meilleur mode pour chaque bloc. Recommandé.",
+        "fourColor_hint": "Couleurs plus nettes. La transparence reste préservée.",
+        "threeColor_hint": "Pensé pour les images avec transparence. Moins de détail de couleur."
+      },
       "rename": {
         "label": "Nom",
         "placeholder": "Nom de l'élément",
         "save": "Renommer",
         "saved": "Emplacement {slot} renommé.",
         "empty": "Le nom ne peut pas être vide."
+      },
+      "lan_restriction": {
+        "label": "Restriction de communication locale",
+        "hint": "Cet élément a été reçu en communication locale et ne peut plus être repartagé. Lève la restriction pour pouvoir le repartager.",
+        "clear": "Lever la restriction"
       },
       "texture": {
         "canvas": "Canvas",
@@ -1142,7 +1164,8 @@
       "replaced": "Emplacement {slot} remplacé. Fichiers prêts à être téléchargés.",
       "reverted": "Emplacement {slot} restauré à son état chargé.",
       "exported": "{fileName} exporté",
-      "downloaded_pending": "{count, plural, one {# fichier modifié téléchargé} other {# fichiers modifiés téléchargés}} en zip."
+      "downloaded_pending": "{count, plural, one {# fichier modifié téléchargé} other {# fichiers modifiés téléchargés}} en zip.",
+      "lan_restriction_cleared": "Restriction de communication locale levée sur l'emplacement {slot}."
     }
   },
   "tutorial": {

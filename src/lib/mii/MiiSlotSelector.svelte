@@ -1,10 +1,10 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { safe } from '../sav/format';
-  import { MII_SCHEMA } from '../sav/schema';
-  import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
+  import { safe } from '$lib/sav/format';
+  import { MII_SCHEMA } from '$lib/sav/schema';
+  import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from './miiEditor.svelte';
-  import { populatedMiiIndices } from './populated';
+  import { populatedMiiIndices } from './ownership/populated';
 
   type Props = {
     selectedIndex: number | null;

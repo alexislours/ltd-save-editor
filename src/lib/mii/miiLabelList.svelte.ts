@@ -1,4 +1,4 @@
-import { type GameLocale, pickLocalized } from '../sav/gameLocale';
+import { type GameLocale, pickLocalized } from '$lib/sav/gameLocale';
 
 type LocalizedString = Partial<Record<GameLocale, string>>;
 

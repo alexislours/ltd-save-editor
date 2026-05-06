@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PLAYER_SCHEMA } from '../schema';
+import { PLAYER_SCHEMA } from '$lib/sav/schema';
 import { encode } from './encode';
 import type { DecodedSave } from './types';
 

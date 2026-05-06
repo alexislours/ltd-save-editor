@@ -1,15 +1,15 @@
 <script lang="ts">
   import { version } from '$app/environment';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
-  import RouteMeta from '$lib/RouteMeta.svelte';
-  import SaveBar from '$lib/SaveBar.svelte';
-  import SaveTab from '$lib/SaveTab.svelte';
-  import SubTabs from '$lib/SubTabs.svelte';
-  import MiiBelongingsPanel from '$lib/mii/MiiBelongingsPanel.svelte';
+  import RouteMeta from '$lib/layout/RouteMeta.svelte';
+  import SaveBar from '$lib/saveFile/SaveBar.svelte';
+  import SaveTab from '$lib/saveFile/SaveTab.svelte';
+  import SubTabs from '$lib/ui/SubTabs.svelte';
+  import MiiBelongingsPanel from '$lib/mii/ownership/MiiBelongingsPanel.svelte';
   import MiiHabitPanel from '$lib/mii/MiiHabitPanel.svelte';
   import MiiPanel from '$lib/mii/MiiPanel.svelte';
-  import MiiRelationsGraph from '$lib/mii/MiiRelationsGraph.svelte';
-  import MiiTroublePanel from '$lib/mii/MiiTroublePanel.svelte';
+  import MiiRelationsGraph from '$lib/mii/relations/MiiRelationsGraph.svelte';
+  import MiiTroublePanel from '$lib/mii/trouble/MiiTroublePanel.svelte';
   import {
     buildMiiExport,
     buildMiiExportFile,
@@ -28,9 +28,9 @@
   import { track } from '$lib/analytics';
   import { errorMessage } from '$lib/errorMessage';
   import { downloadText } from '$lib/sav/download';
-  import { expectedFileName, getEntriesForAdvanced, getSave } from '$lib/saveFile.svelte';
-  import { PILL_BUTTON_CLASS } from '$lib/styles';
-  import { showToast } from '$lib/toast.svelte';
+  import { expectedFileName, getEntriesForAdvanced, getSave } from '$lib/saveFile/saveFile.svelte';
+  import { PILL_BUTTON_CLASS } from '$lib/ui/styles';
+  import { showToast } from '$lib/toast/toast.svelte';
 
   const save = $derived(getSave('mii'));
   $effect(() => {

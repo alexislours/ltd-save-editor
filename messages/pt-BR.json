@@ -915,15 +915,15 @@
     "view_tree": "Árvore",
     "view_table": "Tabela plana",
     "sections_label": "Seções:",
-    "tree_filter_placeholder": "Filtrar por caminho…",
+    "tree_filter_placeholder": "Filtrar por caminho, segmento ou hash…",
     "tree_no_match": "Nenhuma entrada corresponde a este filtro.",
     "tree_select_prompt": "Selecione uma entrada da árvore para editar.",
     "table_intro": "Lista completa e pesquisável de todas as entradas no save.",
     "filter_type_label": "Tipo",
     "filter_type_all": "Todos",
     "filter_hash_label": "Filtro de hash (ex.: {example})",
-    "filter_name_label": "Encontrar por nome (MurmurHash3)",
-    "filter_name_placeholder": "Player.GoodsInfo2.TreasureMap.State",
+    "filter_name_label": "Buscar por nome ou segmento (MurmurHash3)",
+    "filter_name_placeholder": "NetworkDeliverCount ou Player.GoodsInfo2.TreasureMap.State",
     "filter_find_action": "Encontrar",
     "filter_known_only": "Apenas chaves conhecidas",
     "filter_editable_only": "Apenas tipos editáveis",
@@ -1089,6 +1089,7 @@
       "no_current": "Não está na pasta Ugc/.",
       "needs_sidecar": "Carregue a pasta Ugc/.",
       "drop_png": "Clique ou solte um PNG, JPG ou WEBP aqui",
+      "preview_elapsed": "Pré-visualização gerada em {ms} ms",
       "export_png": "Exportar como PNG",
       "replace": "Substituir textura",
       "revert": "Reverter",
@@ -1118,12 +1119,33 @@
         "black": "Preto",
         "custom": "Cor personalizada"
       },
+      "encoder": {
+        "label": "Codificador",
+        "custom": "Personalizado",
+        "rgbcx": "rgbcx",
+        "custom_hint": "Ajustado para sombras e degradês com correção de gama. Padrão.",
+        "rgbcx_hint": "Codificador BC1 de referência de Richard Geldreich. Maior qualidade geral, mais fraco em detalhes de sombra."
+      },
+      "bc1_mode": {
+        "label": "Modo BC1",
+        "auto": "Auto",
+        "fourColor": "4 cores",
+        "threeColor": "3 cores",
+        "auto_hint": "Escolhe o melhor modo para cada bloco. Recomendado.",
+        "fourColor_hint": "Cores mais nítidas. A transparência ainda é preservada.",
+        "threeColor_hint": "Voltado para imagens com transparência. Menos detalhe de cor."
+      },
       "rename": {
         "label": "Nome",
         "placeholder": "Nome do item",
         "save": "Renomear",
         "saved": "Slot {slot} renomeado.",
         "empty": "O nome não pode ficar vazio."
+      },
+      "lan_restriction": {
+        "label": "Restrição de comunicação local",
+        "hint": "Este item foi recebido por comunicação local e está travado para ser compartilhado de novo. Remova a restrição para liberá-lo.",
+        "clear": "Remover restrição"
       },
       "texture": {
         "canvas": "Canvas",
@@ -1142,7 +1164,8 @@
       "replaced": "Slot {slot} substituído. Arquivos prontos para baixar.",
       "reverted": "Slot {slot} revertido ao estado carregado.",
       "exported": "{fileName} exportado",
-      "downloaded_pending": "{count, plural, one {# arquivo editado baixado} other {# arquivos editados baixados}} como zip."
+      "downloaded_pending": "{count, plural, one {# arquivo editado baixado} other {# arquivos editados baixados}} como zip.",
+      "lan_restriction_cleared": "Restrição de comunicação local removida do slot {slot}."
     }
   },
   "tutorial": {

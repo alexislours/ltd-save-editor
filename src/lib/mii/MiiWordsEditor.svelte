@@ -1,11 +1,11 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { gameLocaleFor, type GameLocale } from '../sav/gameLocale';
-  import { GENERATED_ENUM_OPTION_NAMES } from '../sav/generatedNames';
-  import { murmur3_x86_32 } from '../sav/hash';
-  import { MII_SCHEMA } from '../sav/schema';
-  import { wordKindLabel, wordKindNames } from '../sav/wordKindLabels.svelte';
-  import { FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '../styles';
+  import { gameLocaleFor, type GameLocale } from '$lib/sav/gameLocale';
+  import { GENERATED_ENUM_OPTION_NAMES } from '$lib/sav/generatedNames';
+  import { murmur3_x86_32 } from '$lib/sav/hash';
+  import { MII_SCHEMA } from '$lib/sav/schema';
+  import { wordKindLabel, wordKindNames } from '$lib/sav/lists/wordKindLabels.svelte';
+  import { FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from './miiEditor.svelte';
 
   type Props = {

@@ -1,5 +1,5 @@
-import { DataType } from '../dataType';
-import type { ElementOf, SchemaLeaf, ValueOf } from '../schema/leaf';
+import { DataType } from '$lib/sav/dataType';
+import type { ElementOf, SchemaLeaf, ValueOf } from '$lib/sav/schema/leaf';
 import { buildHashMap } from './schemaIndex';
 import type { DecodedSave } from './types';
 

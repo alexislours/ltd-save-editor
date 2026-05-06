@@ -3,12 +3,12 @@
   import { SvelteSet } from 'svelte/reactivity';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
   import { track } from '$lib/analytics';
-  import Card from '$lib/Card.svelte';
-  import RouteMeta from '$lib/RouteMeta.svelte';
-  import SaveBar from '$lib/SaveBar.svelte';
-  import SaveTab from '$lib/SaveTab.svelte';
-  import SubTabs from '$lib/SubTabs.svelte';
-  import ZoomControls from '$lib/ZoomControls.svelte';
+  import Card from '$lib/ui/Card.svelte';
+  import RouteMeta from '$lib/layout/RouteMeta.svelte';
+  import SaveBar from '$lib/saveFile/SaveBar.svelte';
+  import SaveTab from '$lib/saveFile/SaveTab.svelte';
+  import SubTabs from '$lib/ui/SubTabs.svelte';
+  import ZoomControls from '$lib/ui/ZoomControls.svelte';
   import MapCanvas from '$lib/map/MapCanvas.svelte';
   import Palette from '$lib/map/Palette.svelte';
   import { canRedo, canUndo, clearHistory, redo, undo } from '$lib/map/history.svelte';
@@ -28,20 +28,20 @@
     type TileDef,
   } from '$lib/map/tiles';
   import type { ToolKind } from '$lib/map/tools';
-  import MapObjectsCanvas from '$lib/mapObjects/MapObjectsCanvas.svelte';
-  import ObjectForm from '$lib/mapObjects/ObjectForm.svelte';
-  import ObjectList from '$lib/mapObjects/ObjectList.svelte';
-  import { actorDisplay, footprintRect, footprintSizeLabel } from '$lib/mapObjects/actors';
+  import MapObjectsCanvas from '$lib/map/MapObjectsCanvas.svelte';
+  import ObjectForm from '$lib/map/ObjectForm.svelte';
+  import ObjectList from '$lib/map/ObjectList.svelte';
+  import { actorDisplay, footprintRect, footprintSizeLabel } from '$lib/map/actors';
   import {
     liveRows,
     objectsState,
     syncFromSave as syncObjectsFromSave,
-  } from '$lib/mapObjects/mapObjectsEditor.svelte';
+  } from '$lib/map/mapObjectsEditor.svelte';
   import { _ } from 'svelte-i18n';
   import { errorMessage } from '$lib/errorMessage';
-  import { getEntriesForAdvanced, getSave } from '$lib/saveFile.svelte';
-  import { CARD_BASE_CLASS, TOOLBAR_CLASS } from '$lib/styles';
-  import { showToast } from '$lib/toast.svelte';
+  import { getEntriesForAdvanced, getSave } from '$lib/saveFile/saveFile.svelte';
+  import { CARD_BASE_CLASS, TOOLBAR_CLASS } from '$lib/ui/styles';
+  import { showToast } from '$lib/toast/toast.svelte';
 
   const save = $derived(getSave('map'));
   $effect(() => {

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { allFoods, foodImageUrl, foodLabel, type Food } from '../sav/foodList.svelte';
-  import { FORM_INPUT_CLASS, LABEL_CLASS } from '../styles';
+  import { allFoods, foodImageUrl, foodLabel, type Food } from '$lib/sav/lists/foodList.svelte';
+  import { FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from './miiEditor.svelte';
   import type { MiiField } from './miiFields';
 

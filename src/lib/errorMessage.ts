@@ -1,6 +1,6 @@
 import { format } from 'svelte-i18n';
 import { get } from 'svelte/store';
-import { ShareMiiError } from './shareMii/errors';
+import { ShareMiiError } from './shareMii/codec/errors';
 
 export function errorMessage(e: unknown): string {
   if (e instanceof ShareMiiError) {

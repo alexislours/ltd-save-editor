@@ -1,5 +1,5 @@
-import { enumOptionName, enumOptionsFor } from '../sav/knownKeys';
-import { MII_SCHEMA } from '../sav/schema';
+import { enumOptionName, enumOptionsFor } from '$lib/sav/knownKeys';
+import { MII_SCHEMA } from '$lib/sav/schema';
 import {
   genderLabel,
   pronounLabel,
@@ -8,7 +8,7 @@ import {
 } from './miiLabelList.svelte';
 import type { MiiAccessor } from './miiEditor.svelte';
 import { MII_SECTIONS, type MiiField } from './miiFields';
-import { populatedMiiIndices } from './populated';
+import { populatedMiiIndices } from './ownership/populated';
 import {
   baseRelationTypeLabel,
   findRelations,
@@ -20,7 +20,7 @@ import {
   subRelationKey,
   type LoveGenderOption,
   type RelationAvailability,
-} from './relations';
+} from './relations/relations';
 
 function fieldEnumLabel(field: MiiField, value: string, uiLocale: string | null): string | null {
   if (field.leaf === MII_SCHEMA.Mii.Name.PronounType) {
