@@ -6,14 +6,22 @@
   type Props = {
     currentPreview: string | null;
     newPreview: string | null;
+    newPreviewElapsedMs?: number | null;
     sidecarMissing: boolean;
     dropTutorialId?: string;
     onPick: () => void;
     onDropFile: (file: File) => void;
   };
 
-  let { currentPreview, newPreview, sidecarMissing, dropTutorialId, onPick, onDropFile }: Props =
-    $props();
+  let {
+    currentPreview,
+    newPreview,
+    newPreviewElapsedMs = null,
+    sidecarMissing,
+    dropTutorialId,
+    onPick,
+    onDropFile,
+  }: Props = $props();
 
   function onDrop(event: DragEvent): void {
     event.preventDefault();
@@ -81,5 +89,12 @@
         </span>
       {/if}
     </button>
+    {#if newPreview && newPreviewElapsedMs != null}
+      <figcaption class="mt-1 text-center text-[11px] text-content-muted tabular-nums">
+        {$_('ugc_editor.editor.preview_elapsed', {
+          values: { ms: newPreviewElapsedMs.toFixed(2) },
+        })}
+      </figcaption>
+    {/if}
   </figure>
 </div>

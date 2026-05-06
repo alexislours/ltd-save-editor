@@ -1,0 +1,28 @@
+{
+  "targets": {
+    "release": {
+      "outFile": "build/ugc.wasm",
+      "optimize": true,
+      "converge": true,
+      "shrinkLevel": 0,
+      "runtime": "stub",
+      "initialMemory": 16,
+      "maximumMemory": 1024,
+      "exportRuntime": false,
+      "importMemory": false,
+      "enable": ["simd"]
+    },
+    "debug": {
+      "outFile": "build/ugc.wasm",
+      "sourceMap": "build/ugc.wasm.map",
+      "debug": true,
+      "optimizeLevel": 0,
+      "runtime": "stub",
+      "initialMemory": 16,
+      "maximumMemory": 1024,
+      "exportRuntime": false,
+      "importMemory": false,
+      "enable": ["simd"]
+    }
+  }
+}

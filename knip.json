@@ -1,4 +1,5 @@
 {
   "entry": ["src/lib/shareMii/index.ts"],
-  "ignore": ["src/**/*.test-d.ts"]
+  "ignore": ["src/**/*.test-d.ts", "src/lib/ugc/wasm/assembly/**"],
+  "ignoreDependencies": ["@assemblyscript/loader"]
 }

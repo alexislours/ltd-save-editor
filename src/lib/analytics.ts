@@ -42,6 +42,8 @@ type Events = {
     thumb: boolean;
     fit: 'fill' | 'contain' | 'cover';
     matte: 'transparent' | 'white' | 'black' | 'custom';
+    bc1Mode: 'auto' | 'fourColor' | 'threeColor';
+    encoder: 'custom' | 'rgbcx';
   };
   ugc_editor_revert: { kind: UgcKind; slot: number };
   ugc_editor_export: { kind: UgcKind; slot: number };
@@ -52,6 +54,8 @@ type Events = {
     id: number;
     fit: 'fill' | 'contain' | 'cover';
     matte: 'transparent' | 'white' | 'black' | 'custom';
+    bc1Mode: 'auto' | 'fourColor' | 'threeColor';
+    encoder: 'custom' | 'rgbcx';
   };
   facepaint_editor_revert: { id: number };
   facepaint_editor_export: { id: number };

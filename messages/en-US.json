@@ -365,6 +365,7 @@
       "no_current": "Not in sidecar.",
       "needs_sidecar": "Load Ugc/ folder.",
       "drop_png": "Click or drop a PNG, JPG or WEBP here",
+      "preview_elapsed": "Preview generated in {ms}ms",
       "export_png": "Export as PNG",
       "replace": "Replace texture",
       "revert": "Revert",
@@ -393,6 +394,22 @@
         "white": "White",
         "black": "Black",
         "custom": "Custom color"
+      },
+      "encoder": {
+        "label": "Encoder",
+        "custom": "Custom",
+        "rgbcx": "rgbcx",
+        "custom_hint": "Tuned for shadows and gradients via gamma-aware fitting. Default.",
+        "rgbcx_hint": "Richard Geldreich's reference BC1 encoder. Higher overall quality, weaker on shadow detail."
+      },
+      "bc1_mode": {
+        "label": "BC1 mode",
+        "auto": "Auto",
+        "fourColor": "4-color",
+        "threeColor": "3-color",
+        "auto_hint": "Picks the best mode for each block. Recommended.",
+        "fourColor_hint": "Sharper colors. Transparent pixels are still preserved.",
+        "threeColor_hint": "Optimized for images with transparency. Less color detail."
       },
       "rename": {
         "label": "Name",

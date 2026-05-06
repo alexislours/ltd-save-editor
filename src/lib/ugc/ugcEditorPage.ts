@@ -4,7 +4,7 @@ import type { DecodedRgba, FitMode } from '$lib/ugc/texture/textureReplaceState.
 import { UGC_KINDS, listUgcSlots, type SidecarSource, type UgcKind } from '$lib/shareMii';
 import { hasOriginal } from '$lib/shareMii/sidecar/sidecarStore.svelte';
 import { ugcCanvasFileName, ugcTexFileName, ugcThumbFileName } from '$lib/shareMii/codec/ugcKinds';
-import type { Matte } from './codec';
+import type { Bc1Mode, Encoder, Matte } from './codec';
 
 const UGC_NAME_LEAVES = {
   Cloth: PLAYER_SCHEMA.UGC.Cloth.Name,
@@ -73,6 +73,14 @@ export function slotThumbName(kind: UgcKind, slot: number): string {
   return ugcThumbFileName(kind, slot - 1);
 }
 
+export function getSlotOriginalUgctex(
+  sidecar: SidecarSource,
+  kind: UgcKind,
+  slot: number,
+): Uint8Array | null {
+  return sidecar.files.get(ugcTexFileName(kind, slot - 1)) ?? null;
+}
+
 export function isSlotEdited(kind: UgcKind, slot: number): boolean {
   for (const name of slotFileNames(kind, slot)) {
     if (hasOriginal(name)) return true;
@@ -119,6 +127,8 @@ type ReplaceArgs = {
   encodeThumb: boolean;
   fitMode: FitMode;
   matte: Matte | null;
+  bc1Mode: Bc1Mode;
+  encoder: Encoder;
 };
 
 export async function buildReplaceWrites(args: ReplaceArgs): Promise<Map<string, Uint8Array>> {
@@ -133,6 +143,8 @@ export async function buildReplaceWrites(args: ReplaceArgs): Promise<Map<string,
     encodeThumb: args.encodeThumb,
     fitMode: args.fitMode,
     matte: args.matte,
+    bc1Mode: args.bc1Mode,
+    encoder: args.encoder,
   });
   const writes = new Map<string, Uint8Array>();
   writes.set(canvasName, out.canvas);

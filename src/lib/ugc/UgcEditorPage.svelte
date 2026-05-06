@@ -30,6 +30,7 @@
     buildUgcRows,
     decodeSidecarToPngUrl,
     decodeSlotToPng,
+    getSlotOriginalUgctex,
     getUgcSlotName,
     isSlotEdited,
     setUgcSlotName,
@@ -141,8 +142,10 @@
     void sidecar.files.size;
     if (slot === null || !kind) {
       revokeCurrentPreview();
+      tx.originalUgctex = null;
       return;
     }
+    tx.originalUgctex = getSlotOriginalUgctex(sidecar, kind, slot);
     untrack(() => {
       regenerateThumb = true;
       void loadCurrentPreview(kind, slot);
@@ -211,6 +214,8 @@
         encodeThumb: regenerateThumb,
         fitMode: tx.fitMode,
         matte: tx.matteColor,
+        bc1Mode: tx.bc1Mode,
+        encoder: tx.encoder,
       });
       replaceSidecarFiles(writes);
       track('ugc_editor_replace', {
@@ -219,6 +224,8 @@
         thumb: regenerateThumb,
         fit: tx.fitMode,
         matte: tx.matteOption,
+        bc1Mode: tx.bc1Mode,
+        encoder: tx.encoder,
       });
       showToast('success', $_('ugc_editor.toast.replaced', { values: { slot: selectedSlot } }));
       tx.reset();

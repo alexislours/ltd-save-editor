@@ -86,8 +86,10 @@
     void sidecar.files.size;
     if (id === null) {
       revokeCurrentPreview();
+      tx.originalUgctex = null;
       return;
     }
+    tx.originalUgctex = sidecar.files.get(facepaintTexFileName(id)) ?? null;
     untrack(() => {
       void loadCurrentPreview(id);
     });
@@ -137,6 +139,8 @@
         encodeThumb: false,
         fitMode: tx.fitMode,
         matte: tx.matteColor,
+        bc1Mode: tx.bc1Mode,
+        encoder: tx.encoder,
       });
 
       // eslint-disable-next-line svelte/prefer-svelte-reactivity
@@ -150,6 +154,8 @@
         id,
         fit: tx.fitMode,
         matte: tx.matteOption,
+        bc1Mode: tx.bc1Mode,
+        encoder: tx.encoder,
       });
       showToast('success', $_('ugc_editor.toast.replaced', { values: { slot: id } }));
 
@@ -248,6 +254,7 @@
       <PreviewPair
         {currentPreview}
         newPreview={tx.newPreview}
+        newPreviewElapsedMs={tx.previewElapsedMs}
         sidecarMissing={sidecarOrigin() === 'none'}
         onPick={() => pngInput?.click()}
         onDropFile={(file) => void tx.loadFile(file)}

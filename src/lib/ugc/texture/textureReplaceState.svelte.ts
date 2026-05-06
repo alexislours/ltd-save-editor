@@ -1,4 +1,4 @@
-import type { Matte } from '$lib/ugc/codec';
+import type { Bc1Mode, Encoder, Matte } from '$lib/ugc/codec';
 
 export type DecodedRgba = { width: number; height: number; rgba: Uint8ClampedArray };
 export type FitMode = 'fill' | 'contain' | 'cover';
@@ -14,9 +14,13 @@ export function isSupportedImage(file: File): boolean {
 export class TextureReplaceState {
   pendingDecoded = $state<DecodedRgba | null>(null);
   newPreview = $state<string | null>(null);
+  previewElapsedMs = $state<number | null>(null);
   fitMode = $state<FitMode>('cover');
   matteOption = $state<MatteOption>('transparent');
   customMatteHex = $state('#000000');
+  bc1Mode = $state<Bc1Mode>('auto');
+  encoder = $state<Encoder>('custom');
+  originalUgctex = $state<Uint8Array | null>(null);
 
   matteColor = $derived.by<Matte | null>(() => {
     switch (this.matteOption) {
@@ -53,6 +57,7 @@ export class TextureReplaceState {
       URL.revokeObjectURL(this.newPreview);
       this.newPreview = null;
     }
+    this.previewElapsedMs = null;
   }
 
   reset(): void {
@@ -76,14 +81,31 @@ export class TextureReplaceState {
     const decoded = this.pendingDecoded;
     const matte = this.matteColor;
     const fit = this.fitMode;
-    this.revokeNewPreview();
-    if (!decoded) return;
+    const bc1Mode = this.bc1Mode;
+    const encoder = this.encoder;
+    const originalUgctex = this.originalUgctex;
+    if (!decoded) {
+      this.revokeNewPreview();
+      return;
+    }
     try {
-      const { buildFitPreviewBlob } = await import('$lib/ugc/codec');
-      const blob = await buildFitPreviewBlob(decoded, 256, fit, matte);
+      const { buildEncodedPreviewBlob } = await import('$lib/ugc/codec');
+      const start = performance.now();
+      const blob = await buildEncodedPreviewBlob(decoded, {
+        fitMode: fit,
+        matte,
+        bc1Mode,
+        encoder,
+        originalUgctex,
+      });
+      const elapsed = performance.now() - start;
       const stillCurrent = token === this.#previewToken && this.pendingDecoded === decoded;
       if (!stillCurrent) return;
-      this.newPreview = URL.createObjectURL(blob);
+      const nextUrl = URL.createObjectURL(blob);
+      const previous = this.newPreview;
+      this.newPreview = nextUrl;
+      this.previewElapsedMs = elapsed;
+      if (previous) URL.revokeObjectURL(previous);
     } catch (e) {
       this.#onError(e);
     }

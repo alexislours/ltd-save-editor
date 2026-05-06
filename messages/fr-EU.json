@@ -1089,6 +1089,7 @@
       "no_current": "Absent du dossier Ugc/.",
       "needs_sidecar": "Charge le dossier Ugc/.",
       "drop_png": "Clique ou dépose un PNG, JPG ou WEBP ici",
+      "preview_elapsed": "Aperçu généré en {ms} ms",
       "export_png": "Exporter en PNG",
       "replace": "Remplacer la texture",
       "revert": "Annuler",
@@ -1117,6 +1118,22 @@
         "white": "Blanc",
         "black": "Noir",
         "custom": "Couleur personnalisée"
+      },
+      "encoder": {
+        "label": "Encodeur",
+        "custom": "Personnalisé",
+        "rgbcx": "rgbcx",
+        "custom_hint": "Optimisé pour les ombres et les dégradés via un ajustement sensible au gamma. Par défaut.",
+        "rgbcx_hint": "Encodeur BC1 de référence de Richard Geldreich. Qualité globale supérieure, moins fin sur les ombres."
+      },
+      "bc1_mode": {
+        "label": "Mode BC1",
+        "auto": "Auto",
+        "fourColor": "4 couleurs",
+        "threeColor": "3 couleurs",
+        "auto_hint": "Choisit le meilleur mode pour chaque bloc. Recommandé.",
+        "fourColor_hint": "Couleurs plus nettes. La transparence reste préservée.",
+        "threeColor_hint": "Pensé pour les images avec transparence. Moins de détail de couleur."
       },
       "rename": {
         "label": "Nom",

@@ -13,6 +13,9 @@
     void state.fitMode;
     void state.pendingDecoded;
     void state.matteColor;
+    void state.bc1Mode;
+    void state.encoder;
+    void state.originalUgctex;
     untrack(() => {
       void state.rebuildNewPreview();
     });
@@ -151,6 +154,114 @@
     {$_(`ugc_editor.editor.fit_mode.${state.fitMode}_hint`)}
   </p>
 </fieldset>
+
+<fieldset class="mt-4">
+  <legend class="text-xs font-bold uppercase tracking-wider text-content-muted">
+    {$_('ugc_editor.editor.encoder.label')}
+  </legend>
+  <div
+    class="mt-1.5 inline-flex rounded-full bg-surface-sunken p-1 ring-1 ring-edge/40"
+    role="radiogroup"
+    aria-label={$_('ugc_editor.editor.encoder.label')}
+  >
+    {#each ['custom', 'rgbcx'] as const as enc, idx (enc)}
+      {@const encs = ['custom', 'rgbcx'] as const}
+      <button
+        type="button"
+        role="radio"
+        aria-checked={state.encoder === enc}
+        tabindex={state.encoder === enc ? 0 : -1}
+        onclick={() => (state.encoder = enc)}
+        onkeydown={(e) => {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            const next = encs[(idx + 1) % encs.length];
+            state.encoder = next;
+            (
+              e.currentTarget.parentElement?.children[(idx + 1) % encs.length] as HTMLElement
+            )?.focus();
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prev = encs[(idx - 1 + encs.length) % encs.length];
+            state.encoder = prev;
+            (
+              e.currentTarget.parentElement?.children[
+                (idx - 1 + encs.length) % encs.length
+              ] as HTMLElement
+            )?.focus();
+          }
+        }}
+        disabled={busy}
+        class={[
+          'rounded-full px-3 py-1 text-xs font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 disabled:opacity-50',
+          state.encoder === enc
+            ? 'bg-orange-500 text-white shadow'
+            : 'text-content hover:text-content-strong',
+        ]}
+      >
+        {$_(`ugc_editor.editor.encoder.${enc}`)}
+      </button>
+    {/each}
+  </div>
+  <p class="mt-1 text-xs text-content-muted">
+    {$_(`ugc_editor.editor.encoder.${state.encoder}_hint`)}
+  </p>
+</fieldset>
+
+{#if state.encoder === 'custom'}
+  <fieldset class="mt-4">
+    <legend class="text-xs font-bold uppercase tracking-wider text-content-muted">
+      {$_('ugc_editor.editor.bc1_mode.label')}
+    </legend>
+    <div
+      class="mt-1.5 inline-flex rounded-full bg-surface-sunken p-1 ring-1 ring-edge/40"
+      role="radiogroup"
+      aria-label={$_('ugc_editor.editor.bc1_mode.label')}
+    >
+      {#each ['auto', 'fourColor', 'threeColor'] as const as mode, idx (mode)}
+        {@const modes = ['auto', 'fourColor', 'threeColor'] as const}
+        <button
+          type="button"
+          role="radio"
+          aria-checked={state.bc1Mode === mode}
+          tabindex={state.bc1Mode === mode ? 0 : -1}
+          onclick={() => (state.bc1Mode = mode)}
+          onkeydown={(e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+              e.preventDefault();
+              const next = modes[(idx + 1) % modes.length];
+              state.bc1Mode = next;
+              (
+                e.currentTarget.parentElement?.children[(idx + 1) % modes.length] as HTMLElement
+              )?.focus();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+              e.preventDefault();
+              const prev = modes[(idx - 1 + modes.length) % modes.length];
+              state.bc1Mode = prev;
+              (
+                e.currentTarget.parentElement?.children[
+                  (idx - 1 + modes.length) % modes.length
+                ] as HTMLElement
+              )?.focus();
+            }
+          }}
+          disabled={busy}
+          class={[
+            'rounded-full px-3 py-1 text-xs font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 disabled:opacity-50',
+            state.bc1Mode === mode
+              ? 'bg-orange-500 text-white shadow'
+              : 'text-content hover:text-content-strong',
+          ]}
+        >
+          {$_(`ugc_editor.editor.bc1_mode.${mode}`)}
+        </button>
+      {/each}
+    </div>
+    <p class="mt-1 text-xs text-content-muted">
+      {$_(`ugc_editor.editor.bc1_mode.${state.bc1Mode}_hint`)}
+    </p>
+  </fieldset>
+{/if}
 
 {#if state.fitMode === 'contain'}
   <fieldset class="mt-4">

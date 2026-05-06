@@ -72,6 +72,7 @@
 <PreviewPair
   {currentPreview}
   newPreview={tx.newPreview}
+  newPreviewElapsedMs={tx.previewElapsedMs}
   {sidecarMissing}
   dropTutorialId="ugc-drop"
   onPick={onPickPng}
