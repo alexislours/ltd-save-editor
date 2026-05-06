@@ -1,6 +1,6 @@
 # Tomodachi Life: Living the Dream - Save Editor
 
-![Tomodachi Life: Living the Dream - Save Editor](./public/og.png)
+![Tomodachi Life: Living the Dream - Save Editor](./static/og.png)
 
 A browser-based save editor for _Tomodachi Life: Living the Dream_ (Nintendo Switch). Drop your `Mii.sav`, `Player.sav`, and `Map.sav` files in, edit, and download a patched copy. Everything runs locally - files never leave your machine.
 
