@@ -103,6 +103,12 @@ const MII_LEAVES = {
     'Mii.IsLoveGender',
     DataType.BoolArray,
   ),
+  satisfyLevel: leafByHashOrThrow(
+    MII_SCHEMA,
+    MII_HASHES.satisfyLevel,
+    'Mii.SatisfyInfo.Level',
+    DataType.IntArray,
+  ),
   personality: MII_HASHES.personality.map((h, i) => {
     const leaf = buildHashMap(MII_SCHEMA).get(h >>> 0);
     if (!leaf) throw new ShareMiiError('save_format_error', { label: `Personality[${i}]` });
@@ -366,10 +372,12 @@ export function applyMii(
     saves.mii.setElement(MII_LEAVES.names, slotIdx, decodeUtf16Name(ltd.name));
     saves.mii.setElement(MII_LEAVES.pronunciation, slotIdx, decodeUtf16Name(ltd.pronounce));
 
-    const base = slotIdx * 3;
-    saves.mii.setElement(MII_LEAVES.isLoveGender, base, (ltd.sexuality[0] & 1) === 1);
-    saves.mii.setElement(MII_LEAVES.isLoveGender, base + 1, (ltd.sexuality[1] & 1) === 1);
-    saves.mii.setElement(MII_LEAVES.isLoveGender, base + 2, (ltd.sexuality[2] & 1) === 1);
+    if (saves.mii.getElement(MII_LEAVES.satisfyLevel, slotIdx) < 2) {
+      const base = slotIdx * 3;
+      saves.mii.setElement(MII_LEAVES.isLoveGender, base, (ltd.sexuality[0] & 1) === 1);
+      saves.mii.setElement(MII_LEAVES.isLoveGender, base + 1, (ltd.sexuality[1] & 1) === 1);
+      saves.mii.setElement(MII_LEAVES.isLoveGender, base + 2, (ltd.sexuality[2] & 1) === 1);
+    }
   }
 
   if (sidecar.origin !== 'none' && facepaintWrites.length > 0) {
