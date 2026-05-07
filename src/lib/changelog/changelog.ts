@@ -6,6 +6,14 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.2.0',
+    date: '2026-05-08',
+    changes: [
+      'Added the ability to edit UGC textures without uploading Player.sav.',
+      'Fixed love-gender being overwritten when importing over a leveled Mii.',
+    ],
+  },
+  {
     version: '2.1.0',
     date: '2026-05-06',
     changes: [
