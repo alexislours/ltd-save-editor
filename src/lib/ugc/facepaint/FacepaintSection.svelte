@@ -3,6 +3,7 @@
   import { _ } from 'svelte-i18n';
   import { downloadBytes } from '$lib/sav/download';
   import { errorMessage } from '$lib/errorMessage';
+  import { buildSidecarZip, type SidecarFile } from '$lib/shareMii';
   import { facepaintCanvasFileName, facepaintTexFileName } from '$lib/shareMii/codec/ugcKinds';
   import {
     getSidecarStore,
@@ -18,11 +19,11 @@
   import { TextureReplaceState } from '$lib/ugc/texture/textureReplaceState.svelte';
   import PreviewPair from '$lib/ugc/texture/PreviewPair.svelte';
   import TextureControls from '$lib/ugc/texture/TextureControls.svelte';
-  import { listFacepaints } from './list';
+  import { listFacepaints, listFacepaintsFromSidecar } from './list';
   import FacepaintRow from './FacepaintRow.svelte';
 
   type Props = {
-    player: Accessor<'player'>;
+    player: Accessor<'player'> | null;
     mii: Accessor<'mii'> | null;
   };
   let { player, mii }: Props = $props();
@@ -51,8 +52,9 @@
   type Row = { id: number; label: string };
 
   const rows = $derived.by<Row[]>(() => {
+    void sidecar.files.size;
     try {
-      const list = listFacepaints(player, mii);
+      const list = player ? listFacepaints(player, mii) : listFacepaintsFromSidecar(sidecar);
       return list.map<Row>((f) => ({
         id: f.id,
         label: f.ownerName
@@ -198,6 +200,28 @@
     }
   }
 
+  function exportSelectedAsUgc(): void {
+    if (busy || selectedId === null) return;
+    const id = selectedId;
+    const names = [facepaintCanvasFileName(id), facepaintTexFileName(id)];
+    const files: SidecarFile[] = [];
+    for (const name of names) {
+      const bytes = sidecar.files.get(name);
+      if (bytes) files.push({ name, bytes });
+    }
+    if (files.length === 0) {
+      showToast('warn', $_('ugc_editor.toast.no_texture'));
+      return;
+    }
+    const fileName = `UgcFacePaint${String(id).padStart(3, '0')}.zip`;
+    downloadBytes(buildSidecarZip(files), fileName);
+    track('facepaint_editor_export_ugc', { id, count: files.length });
+    showToast(
+      'success',
+      $_('ugc_editor.toast.exported_ugc', { values: { fileName, count: files.length } }),
+    );
+  }
+
   function revertSelected(): void {
     if (busy || selectedId === null) return;
     const names = slotFileNames(selectedId);
@@ -277,6 +301,14 @@
           disabled={busy || sidecarOrigin() === 'none'}
         >
           {$_('ugc_editor.editor.export_png')}
+        </button>
+        <button
+          type="button"
+          class={PILL_BUTTON_CLASS}
+          onclick={exportSelectedAsUgc}
+          disabled={busy || sidecarOrigin() === 'none'}
+        >
+          {$_('ugc_editor.editor.export_ugc')}
         </button>
         <button
           type="button"

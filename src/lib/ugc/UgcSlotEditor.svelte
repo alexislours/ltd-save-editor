@@ -16,11 +16,13 @@
     hasLanRestriction: boolean;
     regenerateThumb: boolean;
     sidecarMissing: boolean;
+    playerless: boolean;
     onApplyRename: () => void;
     onPickPng: () => void;
     onLoadFile: (file: File) => void;
     onApplyReplace: () => void;
     onExportPng: () => void;
+    onExportUgc: () => void;
     onRevertSelected: () => void;
     onClearLanRestriction: () => void;
   };
@@ -36,42 +38,46 @@
     hasLanRestriction,
     regenerateThumb = $bindable(),
     sidecarMissing,
+    playerless,
     onApplyRename,
     onPickPng,
     onLoadFile,
     onApplyReplace,
     onExportPng,
+    onExportUgc,
     onRevertSelected,
     onClearLanRestriction,
   }: Props = $props();
 </script>
 
-<div class="mb-4">
-  <label
-    for="ugc-rename-input"
-    class="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-content-muted"
-  >
-    {$_('ugc_editor.editor.rename.label')}
-  </label>
-  <div class="flex items-center gap-2">
-    <input
-      id="ugc-rename-input"
-      type="text"
-      bind:value={editedName}
-      maxlength={63}
-      placeholder={$_('ugc_editor.editor.rename.placeholder')}
-      class="min-w-0 flex-1 rounded-lg border border-edge/60 bg-surface px-3 py-1.5 text-sm text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
-    />
-    <button
-      type="button"
-      class={PILL_BUTTON_CLASS}
-      onclick={onApplyRename}
-      disabled={busy || editedName.trim().length === 0 || editedName.trim() === currentName}
+{#if !playerless}
+  <div class="mb-4">
+    <label
+      for="ugc-rename-input"
+      class="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-content-muted"
     >
-      {$_('ugc_editor.editor.rename.save')}
-    </button>
+      {$_('ugc_editor.editor.rename.label')}
+    </label>
+    <div class="flex items-center gap-2">
+      <input
+        id="ugc-rename-input"
+        type="text"
+        bind:value={editedName}
+        maxlength={63}
+        placeholder={$_('ugc_editor.editor.rename.placeholder')}
+        class="min-w-0 flex-1 rounded-lg border border-edge/60 bg-surface px-3 py-1.5 text-sm text-content-strong focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+      />
+      <button
+        type="button"
+        class={PILL_BUTTON_CLASS}
+        onclick={onApplyRename}
+        disabled={busy || editedName.trim().length === 0 || editedName.trim() === currentName}
+      >
+        {$_('ugc_editor.editor.rename.save')}
+      </button>
+    </div>
   </div>
-</div>
+{/if}
 
 <PreviewPair
   {currentPreview}
@@ -134,6 +140,14 @@
     disabled={busy || sidecarMissing}
   >
     {$_('ugc_editor.editor.export_png')}
+  </button>
+  <button
+    type="button"
+    class={PILL_BUTTON_CLASS}
+    onclick={onExportUgc}
+    disabled={busy || sidecarMissing}
+  >
+    {$_('ugc_editor.editor.export_ugc')}
   </button>
   <button
     type="button"

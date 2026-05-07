@@ -41,8 +41,12 @@ export async function bootRestoreScan(): Promise<void> {
     return;
   }
   state.sessions = sessions.sort((a, b) => SAVE_KINDS.indexOf(a.kind) - SAVE_KINDS.indexOf(b.kind));
-  state.open = true;
   state.loaded = true;
+  if (typeof localStorage !== 'undefined' && localStorage.getItem('dev-auto-restore')) {
+    confirmRestore();
+    return;
+  }
+  state.open = true;
   track('restore_prompted', {
     count: sessions.length,
     sidecar_count: sidecar?.count ?? 0,

@@ -1,23 +1,73 @@
+/_app/immutable/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /cloth-icons/*
+  Cache-Control: public, max-age=86400
   Cross-Origin-Resource-Policy: same-site
 
 /coordinate-icons/*
+  Cache-Control: public, max-age=86400
   Cross-Origin-Resource-Policy: same-site
 
 /food-icons/*
+  Cache-Control: public, max-age=86400
   Cross-Origin-Resource-Policy: same-site
 
 /item-icons/*
+  Cache-Control: public, max-age=86400
   Cross-Origin-Resource-Policy: same-site
 
 /roomstyle-icons/*
+  Cache-Control: public, max-age=86400
   Cross-Origin-Resource-Policy: same-site
 
 /treasure-icons/*
+  Cache-Control: public, max-age=86400
   Cross-Origin-Resource-Policy: same-site
 
 /voice-icons/*
+  Cache-Control: public, max-age=86400
   Cross-Origin-Resource-Policy: same-site
 
+/clothes.json
+  Cache-Control: public, max-age=3600
+
+/coordinates.json
+  Cache-Control: public, max-age=3600
+
+/foods.json
+  Cache-Control: public, max-age=3600
+
+/items.json
+  Cache-Control: public, max-age=3600
+
+/roomstyles.json
+  Cache-Control: public, max-age=3600
+
+/treasures.json
+  Cache-Control: public, max-age=3600
+
+/habits.json
+  Cache-Control: public, max-age=3600
+
+/troubles.json
+  Cache-Control: public, max-age=3600
+
+/mii-labels.json
+  Cache-Control: public, max-age=3600
+
+/word-kinds.json
+  Cache-Control: public, max-age=3600
+
+/GameData.txt
+  Cache-Control: public, max-age=3600
+
 /og.png
+  Cache-Control: public, max-age=86400
   Cross-Origin-Resource-Policy: cross-origin
+
+/favicon.svg
+  Cache-Control: public, max-age=86400
+
+/robots.txt
+  Cache-Control: public, max-age=86400

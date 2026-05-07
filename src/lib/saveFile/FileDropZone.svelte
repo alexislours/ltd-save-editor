@@ -2,19 +2,14 @@
   import { _ } from 'svelte-i18n';
   import { bulkLoadFiles, bulkLoadFromDataTransfer } from '$lib/bulk/bulkLoader.svelte';
   import { expectedFileName, type SaveKind } from '$lib/saveFile/saveFile.svelte';
+  import DropZone from '$lib/ui/DropZone.svelte';
+  import UploadArrowIcon from '$lib/ui/UploadArrowIcon.svelte';
 
   type Props = { kind?: SaveKind };
   let { kind }: Props = $props();
 
-  let dragging = $state(false);
   let error = $state<string | null>(null);
   let summary = $state<{ loaded: SaveKind[]; skipped: number } | null>(null);
-  let fileInput: HTMLInputElement;
-
-  const baseClass =
-    'group flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed bg-surface p-12 text-center transition-colors';
-  const draggingClass = 'border-orange-500 bg-surface-sunken';
-  const idleClass = 'border-edge/70 hover:border-orange-500';
 
   function reset(): void {
     error = null;
@@ -30,7 +25,7 @@
     summary = { loaded, skipped };
   }
 
-  async function handleFiles(files: File[]): Promise<void> {
+  async function onFiles(files: File[]): Promise<void> {
     reset();
     if (files.length === 0) return;
     const outcome = await bulkLoadFiles(files);
@@ -38,82 +33,38 @@
     reportOutcome(outcome.loaded, outcome.skipped.length, files.length);
   }
 
-  async function onDrop(event: DragEvent): Promise<void> {
-    event.preventDefault();
-    dragging = false;
-    if (!event.dataTransfer) return;
+  async function onDataTransfer(dt: DataTransfer): Promise<void> {
     reset();
-    const outcome = await bulkLoadFromDataTransfer(event.dataTransfer);
+    const outcome = await bulkLoadFromDataTransfer(dt);
     if (outcome.cancelled) return;
     const seen = outcome.loaded.length + outcome.skipped.length;
     reportOutcome(outcome.loaded, outcome.skipped.length, seen);
   }
-
-  function onDragOver(event: DragEvent): void {
-    event.preventDefault();
-    dragging = true;
-  }
-
-  function onPick(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const files = target.files ? Array.from(target.files) : [];
-    void handleFiles(files);
-    target.value = '';
-  }
 </script>
 
 <div class="w-full" data-tutorial="drop-zone">
-  <div
-    role="button"
-    tabindex="0"
-    class="{baseClass} {dragging ? draggingClass : idleClass}"
-    ondragover={onDragOver}
-    ondragleave={() => (dragging = false)}
-    ondrop={onDrop}
-    onclick={() => fileInput.click()}
-    onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && fileInput.click()}
-  >
-    <svg
-      class="h-10 w-10 text-orange-500"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      aria-hidden="true"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
-      />
-    </svg>
-    <p class="text-base font-bold text-content-strong">
-      {kind
-        ? $_('save.drop_here', { values: { fileName: expectedFileName[kind] } })
-        : $_('save.drop_here_multi')}
-    </p>
-    <p class="text-sm text-content-muted">{$_('bulk.drop_hint')}</p>
+  <DropZone multiple accept=".sav,.zip" paddingClass="p-12" {onFiles} {onDataTransfer}>
+    {#snippet children({ openPicker })}
+      <UploadArrowIcon />
+      <p class="text-base font-bold text-content-strong">
+        {kind
+          ? $_('save.drop_here', { values: { fileName: expectedFileName[kind] } })
+          : $_('save.drop_here_multi')}
+      </p>
+      <p class="text-sm text-content-muted">{$_('bulk.drop_hint')}</p>
 
-    <button
-      type="button"
-      class="mt-2 rounded-full bg-surface-muted px-3 py-1 text-xs font-bold text-content-strong shadow-sm ring-1 ring-edge/60 transition-colors hover:bg-surface-sunken"
-      onclick={(e) => {
-        e.stopPropagation();
-        fileInput.click();
-      }}
-    >
-      {$_('save.drop_browse')}
-    </button>
-
-    <input
-      bind:this={fileInput}
-      type="file"
-      class="hidden"
-      multiple
-      accept=".sav,.zip"
-      onchange={onPick}
-    />
-  </div>
+      <button
+        type="button"
+        class="mt-2 rounded-full bg-surface-muted px-3 py-1 text-xs font-bold text-content-strong shadow-sm ring-1 ring-edge/60 transition-colors hover:bg-surface-sunken"
+        onclick={(e) => {
+          e.stopPropagation();
+          openPicker();
+        }}
+      >
+        {$_('save.drop_browse')}
+      </button>
+    {/snippet}
+  </DropZone>
 
   <div class="mt-3 text-center">
     <p class="inline-block text-xs text-warn" data-tutorial="warning">
