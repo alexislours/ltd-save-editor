@@ -6,8 +6,8 @@
   const repoUrl = 'https://github.com/alexislours/ltd-save-editor';
   const issuesUrl = 'https://github.com/alexislours/ltd-save-editor/issues/new';
   const discordUrl = 'https://discord.gg/YHFNTvXrdE';
-  const stableUrl = 'https://ltd-save-editor.pages.dev';
-  const betaUrl = 'https://beta.ltd-save-editor.pages.dev';
+  const stableUrl = 'https://ltdsave.app';
+  const betaUrl = 'https://beta.ltdsave.app';
 
   const ITEM_IDS = [
     'brick',
@@ -93,7 +93,7 @@
                     >{$_('faq.items.stable_beta.stable_label')}</strong
                   >
                   (<a href={stableUrl} target="_blank" rel="noopener noreferrer" class={linkClass}
-                    >ltd-save-editor.pages.dev</a
+                    >ltdsave.app</a
                   >) - {$_('faq.items.stable_beta.stable_body')}
                 </li>
                 <li>
@@ -101,7 +101,7 @@
                     >{$_('faq.items.stable_beta.beta_label')}</strong
                   >
                   (<a href={betaUrl} target="_blank" rel="noopener noreferrer" class={linkClass}
-                    >beta.ltd-save-editor.pages.dev</a
+                    >beta.ltdsave.app</a
                   >) - {$_('faq.items.stable_beta.beta_body')}
                 </li>
               </ul>

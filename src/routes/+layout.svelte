@@ -49,9 +49,12 @@
   type Props = { children: Snippet };
   let { children }: Props = $props();
 
-  const BETA_URL = 'https://beta.ltd-save-editor.pages.dev';
-  const STABLE_URL = 'https://ltd-save-editor.pages.dev';
-  const isBeta = browser && window.location.hostname === 'beta.ltd-save-editor.pages.dev';
+  const BETA_URL = 'https://beta.ltdsave.app';
+  const STABLE_URL = 'https://ltdsave.app';
+  const isBeta =
+    browser &&
+    (window.location.hostname === 'beta.ltdsave.app' ||
+      window.location.hostname === 'beta.ltd-save-editor.pages.dev');
 
   const path = $derived(page.url.pathname);
   let changelogOpen = $state(false);

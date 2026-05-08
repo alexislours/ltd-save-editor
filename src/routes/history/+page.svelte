@@ -19,6 +19,15 @@
   let loading = $state(true);
   let busyId = $state<string | null>(null);
   let downloadingId = $state<string | null>(null);
+  let legacyTarget = $state<string | null>(null);
+
+  $effect(() => {
+    const map: Record<string, string> = {
+      'ltd-save-editor.pages.dev': 'https://ltdsave.app',
+      'beta.ltd-save-editor.pages.dev': 'https://beta.ltdsave.app',
+    };
+    legacyTarget = map[window.location.hostname] ?? null;
+  });
 
   type Pending = { kind: 'one'; snap: HistorySnapshotMeta } | { kind: 'all' };
   let pending = $state<Pending | null>(null);
@@ -156,6 +165,24 @@
     <h1 class="text-2xl font-bold text-content-strong">{$_('history.title')}</h1>
     <p class="text-sm text-content">{$_('history.description')}</p>
   </header>
+
+  {#if legacyTarget}
+    <div
+      role="alert"
+      class="flex gap-3 rounded-2xl bg-surface-muted p-4 text-sm text-content shadow-sm ring-1 ring-edge/60"
+    >
+      <span aria-hidden="true" class="text-lg leading-none">📦</span>
+      <div>
+        <p class="font-bold text-content-strong">This is the old URL.</p>
+        <p class="mt-1">
+          The editor moved to
+          <a href={legacyTarget} class="font-bold text-warn underline"
+            >{legacyTarget.replace('https://', '')}</a
+          >. Your snapshots stay here - download them below and re-upload them on the new site.
+        </p>
+      </div>
+    </div>
+  {/if}
 
   <div
     role="alert"
