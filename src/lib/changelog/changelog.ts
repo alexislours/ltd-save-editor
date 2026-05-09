@@ -6,6 +6,18 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.3.0',
+    date: '2026-05-09',
+    changes: [
+      'Overhauled the Map editor with a new layout, layer toggles, mini-map, context menu, and keyboard shortcuts.',
+      'Added a Residents panel to assign Miis to houses and swap rooms.',
+      'Added a Find palette to search tiles, actors, map links, and UGC slots.',
+      'Added the ability to import and export maps layouts in a .ltdmap format.',
+      'Added PNG export of the map.',
+      'Added a Replace tool and adjustable brush size and shape.',
+    ],
+  },
+  {
     version: '2.2.0',
     date: '2026-05-08',
     changes: [

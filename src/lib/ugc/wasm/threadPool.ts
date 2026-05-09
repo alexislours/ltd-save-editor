@@ -1,5 +1,5 @@
 import { Bc1Mode } from './types';
-import { isNodeEnv, loadWasmBytes } from './wasmLoader';
+import { loadWasmBytes } from './wasmLoader';
 
 type WorkerHandle = {
   postMessage(msg: unknown, transfer?: Transferable[]): void;
@@ -14,27 +14,6 @@ type WorkerMessage =
   | { type: 'error'; id?: number; error: string };
 
 async function createWorker(): Promise<WorkerHandle> {
-  if (isNodeEnv) {
-    const wt = await import(/* @vite-ignore */ 'node:worker_threads');
-    const url = new URL('./bcEncodeWorker.ts', import.meta.url);
-    const w = new wt.Worker(url);
-    return {
-      postMessage: (msg, transfer) => {
-        w.postMessage(msg, (transfer ?? []) as unknown as ArrayBuffer[]);
-      },
-      setMessageHandler: (cb) => {
-        w.removeAllListeners('message');
-        w.on('message', cb);
-      },
-      setErrorHandler: (cb) => {
-        w.removeAllListeners('error');
-        w.on('error', cb);
-      },
-      terminate: () => {
-        void w.terminate();
-      },
-    };
-  }
   const mod = await import('./bcEncodeWorker.ts?worker');
   const w = new mod.default();
   return {

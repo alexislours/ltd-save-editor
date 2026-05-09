@@ -732,33 +732,7 @@
     "description": "Aménagement de l'île, grille de tuiles et objets placés.",
     "download_action": "Télécharger Map.sav",
     "sections_label": "Sections Carte",
-    "subtab_floor": "Sol",
-    "subtab_objects": "Objets",
-    "object_slots_status": "· {placed} placés / {total} emplacements",
-    "no_object_slots": "Aucun emplacement d'objet n'a été trouvé dans ce Map.sav.",
-    "floor": {
-      "tool_brush": "Pinceau",
-      "tool_brush_title": "Pinceau (clic + glisser pour peindre)",
-      "tool_fill": "Remplir",
-      "tool_fill_title": "Pot de peinture (clic pour remplir une zone)",
-      "tool_rectangle": "Rectangle",
-      "tool_rectangle_title": "Rectangle (clic + glisser pour remplir une zone rectangulaire)",
-      "tool_picker": "Pipette",
-      "tool_picker_title": "Pipette (clic pour échantillonner une tuile de la carte)",
-      "undo": "Annuler",
-      "undo_title": "Annuler (⌘Z)",
-      "redo": "Rétablir",
-      "redo_title": "Rétablir (⇧⌘Z)",
-      "right_click_hint": "Clic droit n'importe où pour échantillonner une tuile.",
-      "hover_position": "X {x}, Y {y} · {label}",
-      "size_hint": "{width} × {height} tuiles - survole pour voir les coordonnées"
-    },
     "objects": {
-      "click_hint": "Clique sur une empreinte pour sélectionner · glisse pour déplacer · le sol est affiché en transparence.",
-      "hover_with_object": "X {x}, Y {y} · {label} ({size})",
-      "hover_empty": "X {x}, Y {y} - vide",
-      "slots_hint": "{count} emplacements - survole pour voir les coordonnées",
-      "select_prompt": "Sélectionne un objet sur la carte pour le modifier.",
       "group": {
         "all": "Tout",
         "house": "Maison",
@@ -766,8 +740,10 @@
         "deco": "Objet",
         "step": "Marche",
         "room": "Pièce",
-        "unknown": "Inconnu"
-      }
+        "unknown": "Inconnu",
+        "ugc": "Personnalisé (UGC)"
+      },
+      "save_full": "Sauvegarde pleine - libère un emplacement pour placer de nouveaux objets"
     },
     "tile": {
       "Archstone": "Pavés en arche",
@@ -809,6 +785,336 @@
       "Seaside": "Bord de mer",
       "RoomInvalid": "Pièce (invalide)",
       "UGC": "Sol UGC"
+    },
+    "common": {
+      "cancel": "Annuler"
+    },
+    "workbench": {
+      "toolbar_placeholder": "Barre d'outils",
+      "palette_placeholder": "Palette",
+      "canvas_placeholder": "Toile",
+      "inspector_placeholder": "Inspecteur",
+      "status_placeholder": "X · Y · tuile survolée · résumé de la sélection · modifié",
+      "status_hover_hint": "Survole la toile"
+    },
+    "toolbar": {
+      "mode_paint": "Peindre",
+      "mode_select": "Sélection",
+      "mode_paint_title": "Mode peinture (B)",
+      "mode_select_title": "Mode sélection (V)",
+      "layers_button": "Calques",
+      "layers_button_title": "Activer/désactiver la visibilité et l'opacité des calques",
+      "fullscreen_enter_title": "Passer en plein écran",
+      "fullscreen_exit_title": "Quitter le plein écran",
+      "layer_floor": "Sol",
+      "layer_objects": "Objets",
+      "layer_fence": "Clôtures",
+      "layer_ugc": "UGC",
+      "layer_diff": "Modifications",
+      "layer_grid": "Grille",
+      "layer_tier": "Niveau de l'île",
+      "layer_minimap": "Mini-carte",
+      "overflow_label": "Plus d'actions",
+      "tool_brush": "Pinceau",
+      "tool_brush_title": "Pinceau (B)",
+      "tool_fill": "Remplissage",
+      "tool_fill_title": "Remplissage (F)",
+      "tool_rect": "Rect",
+      "tool_rect_title": "Rectangle (R)",
+      "tool_picker": "Pipette",
+      "tool_picker_title": "Pipette (I)",
+      "tool_replace": "Remplacer",
+      "tool_replace_title": "Remplacer (E) - clique sur une tuile pour remplacer toutes les cases avec le même hash",
+      "brush_size_title": "Taille du pinceau {size}",
+      "brush_size_decrease": "Diminuer la taille du pinceau",
+      "brush_size_increase": "Augmenter la taille du pinceau",
+      "brush_size_label": "Taille",
+      "brush_shape_label": "Forme",
+      "brush_picker_title": "Taille et forme du pinceau",
+      "shape_square_title": "Pinceau carré",
+      "shape_diamond_title": "Pinceau losange",
+      "shape_circle_title": "Pinceau circulaire"
+    },
+    "palette": {
+      "recent": "Récents",
+      "search_placeholder": "Rechercher des tuiles…",
+      "search_aria": "Rechercher des tuiles"
+    },
+    "canvas": {
+      "empty_hint": "Dépose un objet pour commencer"
+    },
+    "export": {
+      "title": "Exporter en PNG",
+      "resolution": "Résolution",
+      "scale_1x": "1×",
+      "scale_2x": "2×",
+      "scale_4x": "4×",
+      "scale_8x": "8×",
+      "background": "Fond",
+      "bg_dark": "Sombre",
+      "bg_light": "Clair",
+      "bg_transparent": "Transparent",
+      "filename": "Nom du fichier",
+      "confirm": "Exporter",
+      "exporting": "Exportation…"
+    },
+    "residents": {
+      "title": "Résidents",
+      "house_label": "{name} (id {id})",
+      "room_short": "Pièce {index}",
+      "empty_room": "Vide",
+      "unnamed": "(sans nom)",
+      "move": "Déplacer",
+      "move_hint": "Choisis un emplacement de destination ou un autre Mii sur l'île",
+      "move_title": "Choisir une destination",
+      "move_up": "Monter",
+      "move_up_hint": "Échanger de pièce avec celui du dessus",
+      "move_down": "Descendre",
+      "move_down_hint": "Échanger de pièce avec celui du dessous",
+      "add": "Ajouter",
+      "add_hint": "Choisis un insulaire pour vivre ici",
+      "add_title": "Choisis un insulaire pour {house} pièce {room}",
+      "remove": "Expulser",
+      "remove_hint": "Retirer de cette maison (devient sans logement)",
+      "fix_overflow": "Caser",
+      "fix_overflow_hint": "Placer dans la pièce libre la plus basse de cette maison",
+      "added": "Résident ajouté",
+      "moved": "Résident déplacé",
+      "removed": "Le résident est maintenant sans logement",
+      "swapped": "Résidents échangés",
+      "reordered": "Pièces réorganisées",
+      "no_link": "Cette maison n'est pas liée à un ID de carte. Définis d'abord une carte liée.",
+      "no_rooms": "Aucune pièce détectée pour cette maison.",
+      "mii_not_loaded": "Charge Mii.sav pour gérer les résidents.",
+      "mii_unavailable": "Mii.sav n'a pas de données de résidence.",
+      "picker_search": "Rechercher par nom, maison ou index de Mii…",
+      "picker_islanders": "Insulaires",
+      "picker_at_room": "{house} · pièce {room}",
+      "picker_unhoused_label": "Sans logement",
+      "picker_unhoused_section": "Sans logement / dehors",
+      "picker_make_unhoused": "Envoyer dehors (sans maison)",
+      "picker_make_unhoused_hint": "Identique à Expulser - efface HouseMapId et RoomIndex",
+      "picker_swap_with": "Échanger avec ce résident",
+      "picker_current_slot": "C'est l'emplacement actuel",
+      "friendship": {
+        "title": "Renforcer les relations d'abord ?",
+        "intro": "Un Mii doit être au moins Ami avec tous les habitants de la maison pour emménager. Certaines relations sont trop faibles :",
+        "section": "{name} partagerait une maison avec",
+        "bump_hint": "En confirmant, chaque relation signalée passe à Ami (jauge 80) pour autoriser le déplacement.",
+        "bump": "Renforcer et déplacer",
+        "cancel": "Annuler le déplacement",
+        "bumped": "{count, plural, one {# relation renforcée} other {# relations renforcées}}"
+      },
+      "empty_house_delete": {
+        "title": "Maison vide, la supprimer ?",
+        "intro": "{house} (id {id}) n'a plus de résidents.",
+        "delete": "Supprimer la maison",
+        "keep": "Conserver",
+        "deleted": "Maison vide supprimée"
+      }
+    },
+    "stats": {
+      "title": "Statistiques",
+      "issues_count": "{count, plural, one {# problème} other {# problèmes}}",
+      "tile_coverage": "Couverture des tuiles",
+      "no_tiles": "Aucune tuile chargée.",
+      "unknown_hex": "Inconnu {hex}",
+      "snap_to": "Aller à {target}",
+      "filter_library_by": "Filtrer la bibliothèque par {group}",
+      "free_slots": "Emplacements libres",
+      "issues_section": "Problèmes",
+      "no_issues": "Aucun problème détecté.",
+      "oob_objects": "{count, plural, one {# objet hors limites} other {# objets hors limites}}",
+      "snap_to_slot": "Aller à l'emplacement #{index}",
+      "overlap_clusters": "{count, plural, one {# zone de chevauchement} other {# zones de chevauchement}}",
+      "snap_cluster": "Aller au groupe",
+      "cells_count": "{count, plural, one {# case} other {# cases}}",
+      "obj_count": "{count} obj",
+      "unknown_actors": "{count, plural, one {# objet inconnu} other {# objets inconnus}}",
+      "unknown_tile_hashes": "{count, plural, one {# hash de tuile inconnu} other {# hashes de tuile inconnus}}",
+      "residents_total": "Total des Miis",
+      "residents_housed": "Logés",
+      "residents_unhoused_empty": "Tous les insulaires ont un logement.",
+      "residents_unhoused_hint": "Clique pour attribuer à une pièce vide",
+      "residents_unhoused_assign_title": "Attribuer {name} à une pièce",
+      "empty_houses": "Maisons vides",
+      "empty_houses_empty": "Aucune maison vide.",
+      "empty_houses_hint": "Aller à cette maison",
+      "empty_houses_count": "{count, plural, one {# maison vide} other {# maisons vides}}"
+    },
+    "status": {
+      "ugc_tier": "UGC #{index} · niveau {tier}",
+      "collision": "Collision · {count} objets se superposent ici",
+      "modified": "Modifié · était {was}, maintenant {now}",
+      "selected": "{count} sélectionné(s)"
+    },
+    "delete_house": {
+      "title": "Supprimer une maison avec des résidents ?",
+      "intro": "{count, plural, one {# résident vit} other {# résidents vivent}} dans cette maison. La supprimer sans libérer les résidents peut corrompre ta sauvegarde.",
+      "evict_label": "Expulser les résidents et supprimer",
+      "delete_only_label": "Supprimer la maison uniquement (avancé)"
+    },
+    "context_menu": {
+      "eyedropper": "Pipette",
+      "replace_this_tile": "Remplacer cette tuile",
+      "open_object_inspector": "Ouvrir l'inspecteur d'objet",
+      "copy": "Copier"
+    },
+    "help": {
+      "title": "Raccourcis clavier",
+      "close": "Fermer"
+    },
+    "keymap": {
+      "groups": {
+        "tools": "Outils",
+        "modes": "Modes",
+        "view": "Vue",
+        "selection": "Sélection",
+        "edit": "Édition",
+        "find": "Recherche",
+        "misc": "Divers"
+      },
+      "actions": {
+        "tool": {
+          "rectangle": "Rectangle",
+          "picker": "Pipette à tuiles"
+        },
+        "mode": {
+          "select": "Mode sélection"
+        },
+        "pan": {
+          "hold": "Déplacer (maintenir)"
+        },
+        "view": {
+          "fit": "Ajuster à la fenêtre",
+          "zoom100": "Zoom 100%"
+        },
+        "brush": {
+          "smaller": "Pinceau plus petit",
+          "bigger": "Pinceau plus grand"
+        },
+        "palette": {
+          "recent": "Sélection rapide d'une tuile récente"
+        },
+        "select": {
+          "allVisible": "Sélectionner tout le visible",
+          "delete": "Supprimer la sélection",
+          "duplicate": "Dupliquer la sélection",
+          "rotate": "Tourner la sélection +90°",
+          "rotateBack": "Tourner la sélection -90°",
+          "nudge": "Décaler la sélection"
+        },
+        "history": {
+          "undo": "Annuler",
+          "redo": "Rétablir"
+        },
+        "find": {
+          "open": "Rechercher"
+        },
+        "overlay": {
+          "escape": "Effacer la sélection / fermer le calque"
+        }
+      }
+    },
+    "inspector": {
+      "link": {
+        "label": "Carte liée",
+        "none": "Aucune",
+        "fallback_map_name": "Carte {id}",
+        "custom_id_placeholder": "id personnalisé",
+        "set": "Définir",
+        "snap_title": "Aller au premier objet lié à cette carte",
+        "snap_aria": "Aller à la carte liée",
+        "goto": "Aller",
+        "no_object_links": "Aucun objet ne renvoie à la carte {id}"
+      },
+      "multi": {
+        "count": "{count} objets",
+        "title": "Plusieurs sélectionnés",
+        "groups": "Groupes",
+        "link_all": "Lier tous à la carte",
+        "link_placeholder": "-1 = aucune",
+        "apply": "Appliquer",
+        "delete_all": "Tout supprimer"
+      },
+      "actor": {
+        "label": "Objet",
+        "select_all": "Tout sélectionner ({count})"
+      },
+      "position": {
+        "label": "Position",
+        "grid_x": "Grille X",
+        "grid_y": "Grille Y"
+      },
+      "rotation": {
+        "label": "Rotation",
+        "non_standard": "Angle non standard : {deg}° (conservé)"
+      },
+      "tile": {
+        "usage": "Utilisation",
+        "with_hash": "Tuiles avec ce hash"
+      },
+      "library": {
+        "drag_hint": "Glisse sur la toile pour placer {label}"
+      },
+      "actions": {
+        "delete": "Supprimer",
+        "duplicate": "Dupliquer",
+        "done": "Terminé"
+      },
+      "find": {
+        "results": "Résultats",
+        "rows": "{count, plural, one {# ligne} other {# lignes}}",
+        "type_to_search": "Tape pour rechercher…",
+        "no_matches": "Aucun résultat.",
+        "snap_kbd": "⏎ aller",
+        "tile": "Tuile",
+        "unknown_tile_label": "Tuile inconnue",
+        "unknown_tile": "Tuile inconnue {hex}",
+        "unknown_actor": "Objet inconnu {hex}",
+        "link_to_map": "Lien → carte {id}",
+        "ugc_index": "Index UGC {index}",
+        "placements": "{count, plural, one {# placement} other {# placements}}"
+      },
+      "actor_search_placeholder": "Rechercher des objets…",
+      "result_hint": "Entrée pour aller · Cmd+clic pour sélectionner",
+      "ugc": {
+        "label": "Contenu UGC",
+        "name": "Nom",
+        "shape": "Forme",
+        "size": "Taille",
+        "scale": "Échelle",
+        "footprint": "Empreinte",
+        "unnamed": "UGC sans nom nº{slot}",
+        "needs_player": "Charge Player.sav pour voir les dimensions, le nom et la texture du contenu UGC.",
+        "missing_slot": "Emplacement UGC introuvable dans Player.sav (la sauvegarde provient peut-être d'un autre joueur)."
+      }
+    },
+    "find": {
+      "aria": "Rechercher sur la carte",
+      "placeholder": "Rechercher sur la carte (essaye tile:grass, actor:lamp, link:7, unknown:, ugc:)"
+    },
+    "share": {
+      "export_title": "Partager la carte",
+      "import_title": "Importer une carte partagée",
+      "export_intro": "Sauvegarde l'aménagement de ton île dans un fichier .ltdmap. Les tuiles UGC sont exportées comme de l'herbe ; les maisons, bâtiments et objets UGC ne sont jamais inclus.",
+      "import_intro": "Charge un fichier .ltdmap pour remplacer tes tuiles de sol et tes objets décoratifs. Les maisons, bâtiments et objets UGC sont conservés tels quels.",
+      "include_objects": "Inclure les objets",
+      "include_objects_hint": "Lampadaires, clôtures, chemins, arbres, pas japonais et autres décorations.",
+      "filename": "Nom du fichier",
+      "file_label": "Fichier de carte (.ltdmap)",
+      "confirm_export": "Télécharger",
+      "confirm_import": "Appliquer",
+      "exporting": "Exportation…",
+      "importing": "Application…",
+      "preview": "Aperçu",
+      "preview_tiles": "Tuiles",
+      "preview_objects": "Objets",
+      "preview_no_objects": "Tuiles uniquement",
+      "preview_app_version": "Depuis la version",
+      "import_warning": "Toutes tes tuiles de sol seront remplacées et tes décorations actuelles supprimées avant le placement des nouvelles.",
+      "applied": "{tiles, plural, one {# tuile mise à jour} other {# tuiles mises à jour}}, {placed, plural, one {# objet placé} other {# objets placés}} ({cleared} supprimés).",
+      "truncated": "Carte pleine : {count, plural, one {# objet n'a pas été placé} other {# objets n'ont pas été placés}}."
     }
   },
   "sharemii": {
@@ -1330,36 +1636,6 @@
         "habits": {
           "title": "Manies",
           "description": "Modifie ses petits travers."
-        },
-        "advanced": {
-          "title": "Avancé",
-          "description": "La vue brute des entrées. Cherche par hash ou par nom, inspecte chaque champ, et modifie tout ce que les panneaux structurés n'exposent pas. À manier avec précaution."
-        }
-      }
-    },
-    "map": {
-      "name": "Visite de l'éditeur Carte",
-      "description": "Parcours chaque section de l'onglet Carte.",
-      "intro": {
-        "title": "Éditeur Carte",
-        "description": "Réagence ton île, les tuiles de sol sur lesquelles tu marches et l'emplacement de chaque bâtiment. Cette visite passe par toutes les sections."
-      },
-      "subtabs": {
-        "title": "Sections Carte",
-        "description": "Ces pastilles permettent de basculer entre les panneaux structurés. Clique sur chacune pour voir le contenu changer, ou laisse-toi guider par la visite."
-      },
-      "outro": {
-        "title": "Voilà pour l'onglet Carte",
-        "description": "Fais les modifications que tu veux, puis télécharge Map.sav depuis la barre de sauvegarde."
-      },
-      "tabs": {
-        "floor": {
-          "title": "Sol",
-          "description": "Peins les tuiles de sol de ton île. Choisis une tuile dans la palette, puis utilise Pinceau, Remplir ou Rectangle. Le clic droit échantillonne la tuile sous le curseur. Cmd/Ctrl+Z et Cmd/Ctrl+Maj+Z pour annuler et rétablir."
-        },
-        "objects": {
-          "title": "Objets",
-          "description": "Tous les bâtiments et décors présents sur la carte. Déplace-les, fais-les pivoter."
         },
         "advanced": {
           "title": "Avancé",

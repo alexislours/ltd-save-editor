@@ -20,6 +20,7 @@ class EditorState {
   loadId = $state<number>(0);
   loadedBytes = $state<Uint8Array | null>(null);
   dirty = $state<boolean>(false);
+  rev = $state<number>(0);
 }
 
 type SaveEditor<K extends SaveKind> = {
@@ -45,6 +46,10 @@ export function createSaveEditor<K extends SaveKind>(
 ): SaveEditor<K> {
   const state = new EditorState();
   let seenLoadId = -1;
+
+  function bumpRev(): void {
+    state.rev = (state.rev + 1) | 0;
+  }
   const cache = {
     accessor: null as Accessor<K> | null,
     decoded: null as DecodedSave | null,
@@ -64,6 +69,7 @@ export function createSaveEditor<K extends SaveKind>(
     state.loadedBytes = null;
     state.dirty = false;
     seenLoadId = -1;
+    bumpRev();
     resetCaches();
   }
 
@@ -88,6 +94,7 @@ export function createSaveEditor<K extends SaveKind>(
     state.loadedBytes = save.loadedBytes;
     state.dirty = false;
     seenLoadId = save.loadId;
+    bumpRev();
     resetCaches();
     if (save.parseError) track('parse_failed', { kind });
   }
@@ -134,6 +141,7 @@ export function createSaveEditor<K extends SaveKind>(
         cache.planIndex?.set(hash, plan.length - 1);
       }
       state.dirty = true;
+      bumpRev();
       schedulePersist(kind);
       return;
     }
@@ -154,6 +162,7 @@ export function createSaveEditor<K extends SaveKind>(
       }
     }
     state.dirty = true;
+    bumpRev();
     schedulePersist(kind);
   }
 
@@ -173,11 +182,13 @@ export function createSaveEditor<K extends SaveKind>(
       set(leaf, v) {
         inner.set(leaf, v);
         state.dirty = true;
+        bumpRev();
         schedulePersist(kind);
       },
       setElement(leaf, i, v) {
         inner.setElement(leaf, i, v);
         state.dirty = true;
+        bumpRev();
         schedulePersist(kind);
       },
     };

@@ -6,6 +6,16 @@
     <link rel="icon" type="image/svg+xml" href="%sveltekit.assets%/favicon.svg" />
     <meta name="theme-color" content="#EA580C" />
     <script>
+      (function () {
+        var legacy = {
+          'ltd-save-editor.pages.dev': 'https://ltdsave.app',
+          'beta.ltd-save-editor.pages.dev': 'https://beta.ltdsave.app',
+        };
+        var target = legacy[location.hostname];
+        if (target && !location.pathname.startsWith('/history')) {
+          location.replace(target + location.pathname + location.search + location.hash);
+        }
+      })();
       try {
         if (localStorage.getItem('ltd-save-editor:theme') === 'dark') {
           document.documentElement.classList.add('dark');

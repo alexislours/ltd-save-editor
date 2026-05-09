@@ -22,7 +22,5 @@ export const CARD_BASE_CLASS = 'rounded-2xl bg-surface shadow-sm ring-1 ring-edg
 
 export const CARD_CLASS = `${CARD_BASE_CLASS} p-4 sm:p-6`;
 
-export const TOOLBAR_CLASS = `flex flex-wrap items-center gap-3 ${CARD_BASE_CLASS} px-5 py-3 text-sm`;
-
 export const COMPACT_SELECT_CLASS =
   'mt-1.5 rounded-lg border border-edge/60 bg-surface px-2.5 py-2 text-sm text-content-strong shadow-sm transition-colors focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30';

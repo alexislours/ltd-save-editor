@@ -175,36 +175,6 @@
         }
       }
     },
-    "map": {
-      "name": "Map editor tour",
-      "description": "Walk through every Map section.",
-      "intro": {
-        "title": "Map editor",
-        "description": "Redesign the layout of your island, the floor tiles you walk on, and where every building stands. This tour walks you through every section."
-      },
-      "subtabs": {
-        "title": "Map sections",
-        "description": "These pills switch between the curated panels. Click each one to see how the body changes, or let this tour drive."
-      },
-      "outro": {
-        "title": "That's the Map tab",
-        "description": "Make any edits you want, then download Map.sav from the save bar."
-      },
-      "tabs": {
-        "floor": {
-          "title": "Floor",
-          "description": "Paint the ground tiles of your island. Pick a tile from the palette, then use Brush, Fill or Rectangle. Right click picks the tile under the cursor. Cmd/Ctrl+Z and Cmd/Ctrl+Shift+Z undo and redo."
-        },
-        "objects": {
-          "title": "Objects",
-          "description": "Every building and prop on the map. Move them around, rotate them."
-        },
-        "advanced": {
-          "title": "Advanced",
-          "description": "The raw entries view. Search by hash or name, inspect every field, and edit anything the curated panels don't expose. Treat with care."
-        }
-      }
-    },
     "sharemii": {
       "name": "ShareMii tour",
       "description": "Learn how to import and export ShareMii files.",
@@ -1150,36 +1120,10 @@
   },
   "map": {
     "title": "Map",
-    "description": "Island layout, tile grid, and placed objects.",
+    "description": "Next-generation map workbench. Work in progress.",
     "download_action": "Download Map.sav",
     "sections_label": "Map sections",
-    "subtab_floor": "Floor",
-    "subtab_objects": "Objects",
-    "object_slots_status": "· {placed} placed / {total} slots",
-    "no_object_slots": "No object slots were found in this Map.sav.",
-    "floor": {
-      "tool_brush": "Brush",
-      "tool_brush_title": "Brush (click + drag to paint)",
-      "tool_fill": "Fill",
-      "tool_fill_title": "Bucket (click to flood fill)",
-      "tool_rectangle": "Rectangle",
-      "tool_rectangle_title": "Rectangle (click + drag to fill a rectangular area)",
-      "tool_picker": "Picker",
-      "tool_picker_title": "Picker (click to sample a tile from the map)",
-      "undo": "Undo",
-      "undo_title": "Undo (⌘Z)",
-      "redo": "Redo",
-      "redo_title": "Redo (⇧⌘Z)",
-      "right_click_hint": "Right-click anywhere to sample a tile.",
-      "hover_position": "X {x}, Y {y} · {label}",
-      "size_hint": "{width} × {height} tiles - hover for coordinates"
-    },
     "objects": {
-      "click_hint": "Click a footprint to select · drag to move · floor shown dimmed.",
-      "hover_with_object": "X {x}, Y {y} · {label} ({size})",
-      "hover_empty": "X {x}, Y {y} - empty",
-      "slots_hint": "{count} slots - hover for coordinates",
-      "select_prompt": "Select an object on the map to edit.",
       "group": {
         "all": "All",
         "house": "House",
@@ -1187,8 +1131,10 @@
         "deco": "Object",
         "step": "Step",
         "room": "Room",
+        "ugc": "Custom (UGC)",
         "unknown": "Unknown"
-      }
+      },
+      "save_full": "Save is full - free a slot to place new objects"
     },
     "tile": {
       "Archstone": "Arched cobblestone",
@@ -1230,6 +1176,316 @@
       "Seaside": "Seaside",
       "RoomInvalid": "Room (invalid)",
       "UGC": "UGC floor"
+    },
+    "common": {
+      "cancel": "Cancel"
+    },
+    "workbench": {
+      "toolbar_placeholder": "Toolbar",
+      "palette_placeholder": "Palette",
+      "canvas_placeholder": "Canvas",
+      "inspector_placeholder": "Inspector",
+      "status_placeholder": "X · Y · hovered tile · selection summary · dirty",
+      "status_hover_hint": "Hover the canvas"
+    },
+    "toolbar": {
+      "mode_paint": "Paint",
+      "mode_select": "Select",
+      "mode_paint_title": "Paint mode (B)",
+      "mode_select_title": "Select mode (V)",
+      "layers_button": "Layers",
+      "layers_button_title": "Toggle layer visibility and opacity",
+      "fullscreen_enter_title": "Enter fullscreen",
+      "fullscreen_exit_title": "Exit fullscreen",
+      "layer_floor": "Floor",
+      "layer_objects": "Objects",
+      "layer_fence": "Fences",
+      "layer_ugc": "UGC",
+      "layer_diff": "Changes",
+      "layer_grid": "Grid",
+      "layer_tier": "Island tier",
+      "layer_minimap": "Mini-map",
+      "overflow_label": "More actions",
+      "tool_brush": "Brush",
+      "tool_brush_title": "Brush (B)",
+      "tool_fill": "Fill",
+      "tool_fill_title": "Fill (F)",
+      "tool_rect": "Rect",
+      "tool_rect_title": "Rectangle (R)",
+      "tool_picker": "Pick",
+      "tool_picker_title": "Picker (I)",
+      "tool_replace": "Replace",
+      "tool_replace_title": "Replace (E) - click a tile to replace every cell with the same hash",
+      "brush_size_title": "Brush size {size}",
+      "brush_size_decrease": "Decrease brush size",
+      "brush_size_increase": "Increase brush size",
+      "brush_size_label": "Size",
+      "brush_shape_label": "Shape",
+      "brush_picker_title": "Brush size and shape",
+      "shape_square_title": "Square brush",
+      "shape_diamond_title": "Diamond brush",
+      "shape_circle_title": "Circle brush"
+    },
+    "palette": {
+      "recent": "Recent",
+      "search_placeholder": "Search tiles…",
+      "search_aria": "Search tiles"
+    },
+    "canvas": {
+      "empty_hint": "Drop an actor to get started"
+    },
+    "export": {
+      "title": "Export PNG",
+      "resolution": "Resolution",
+      "scale_1x": "1×",
+      "scale_2x": "2×",
+      "scale_4x": "4×",
+      "scale_8x": "8×",
+      "background": "Background",
+      "bg_dark": "Dark",
+      "bg_light": "Light",
+      "bg_transparent": "Transparent",
+      "filename": "File name",
+      "confirm": "Export",
+      "exporting": "Exporting…"
+    },
+    "share": {
+      "export_title": "Share map",
+      "import_title": "Import shared map",
+      "export_intro": "Save your island layout as a .ltdmap file. UGC tiles are exported as grass; houses, facilities and UGC objects are never included.",
+      "import_intro": "Load a .ltdmap file to replace your ground tiles and decorative objects. Houses, facilities and UGC objects are kept as-is.",
+      "include_objects": "Include objects",
+      "include_objects_hint": "Lamps, fences, paths, trees, stepping stones, and other decorations.",
+      "filename": "File name",
+      "file_label": "Map file (.ltdmap)",
+      "confirm_export": "Download",
+      "confirm_import": "Apply",
+      "exporting": "Exporting…",
+      "importing": "Applying…",
+      "preview": "Preview",
+      "preview_tiles": "Tiles",
+      "preview_objects": "Objects",
+      "preview_no_objects": "Tiles only",
+      "preview_app_version": "From version",
+      "import_warning": "This replaces every ground tile and clears all your existing decorations before placing the new ones.",
+      "applied": "{tiles, plural, one {# tile} other {# tiles}} updated, {placed, plural, one {# object} other {# objects}} placed ({cleared} cleared).",
+      "truncated": "Map is full: {count, plural, one {# object was} other {# objects were}} not placed."
+    },
+    "residents": {
+      "title": "Residents",
+      "house_label": "{name} (id {id})",
+      "room_short": "Room {index}",
+      "empty_room": "Empty",
+      "unnamed": "(unnamed)",
+      "move": "Move",
+      "move_hint": "Pick a destination slot or another mii on the island",
+      "move_title": "Pick a destination",
+      "move_up": "Move up",
+      "move_up_hint": "Swap rooms with the slot above",
+      "move_down": "Move down",
+      "move_down_hint": "Swap rooms with the slot below",
+      "add": "Add",
+      "add_hint": "Pick an islander to live here",
+      "add_title": "Pick an islander for {house} room {room}",
+      "remove": "Evict",
+      "remove_hint": "Remove from this house (becomes unhoused)",
+      "fix_overflow": "Fit",
+      "fix_overflow_hint": "Move to the lowest free room in this house",
+      "added": "Resident added",
+      "moved": "Resident moved",
+      "removed": "Resident is now unhoused",
+      "swapped": "Residents swapped",
+      "reordered": "Rooms reordered",
+      "no_link": "This house is not linked to a map ID. Set a Linked map first.",
+      "no_rooms": "No rooms detected for this house actor.",
+      "mii_not_loaded": "Load Mii.sav to manage residents.",
+      "mii_unavailable": "Mii.sav is missing residency data.",
+      "picker_search": "Search by name, house, or mii index…",
+      "picker_islanders": "Islanders",
+      "picker_at_room": "{house} · room {room}",
+      "picker_unhoused_label": "Unhoused",
+      "picker_unhoused_section": "Unhoused / outside",
+      "picker_make_unhoused": "Send outside (no house)",
+      "picker_make_unhoused_hint": "Same as Evict — clears HouseMapId and RoomIndex",
+      "picker_swap_with": "Swap with this resident",
+      "picker_current_slot": "This is the current slot",
+      "friendship": {
+        "title": "Boost relationships first?",
+        "intro": "A Mii needs to be at least Friend with everyone in the house to move in. Some relationships are too low:",
+        "section": "{name} would share a house with",
+        "bump_hint": "Confirming sets every flagged direction to Friend (meter 80) so the move is allowed.",
+        "bump": "Bump and move",
+        "cancel": "Cancel move",
+        "bumped": "{count, plural, one {# relationship boosted} other {# relationships boosted}}"
+      },
+      "empty_house_delete": {
+        "title": "Empty house, delete it?",
+        "intro": "{house} (id {id}) has no more residents.",
+        "delete": "Delete house",
+        "keep": "Keep",
+        "deleted": "Empty house deleted"
+      }
+    },
+    "stats": {
+      "title": "Stats",
+      "issues_count": "{count, plural, one {# issue} other {# issues}}",
+      "tile_coverage": "Tile coverage",
+      "no_tiles": "No tiles loaded.",
+      "unknown_hex": "Unknown {hex}",
+      "snap_to": "Snap to {target}",
+      "filter_library_by": "Filter library by {group}",
+      "free_slots": "Free slots",
+      "issues_section": "Issues",
+      "no_issues": "No issues detected.",
+      "oob_objects": "{count, plural, one {# out-of-bounds object} other {# out-of-bounds objects}}",
+      "snap_to_slot": "Snap to slot #{index}",
+      "overlap_clusters": "{count, plural, one {# overlap cluster} other {# overlap clusters}}",
+      "snap_cluster": "Snap to cluster",
+      "cells_count": "{count, plural, one {# cell} other {# cells}}",
+      "obj_count": "{count} obj",
+      "unknown_actors": "{count, plural, one {# unknown actor} other {# unknown actors}}",
+      "unknown_tile_hashes": "{count, plural, one {# unknown tile hash} other {# unknown tile hashes}}",
+      "residents_total": "Total miis",
+      "residents_housed": "Housed",
+      "residents_unhoused_empty": "Every islander has a home.",
+      "residents_unhoused_hint": "Click to assign to an empty room",
+      "residents_unhoused_assign_title": "Assign {name} to a room",
+      "empty_houses": "Empty houses",
+      "empty_houses_empty": "No empty houses.",
+      "empty_houses_hint": "Snap to this house",
+      "empty_houses_count": "{count, plural, one {# empty house} other {# empty houses}}"
+    },
+    "status": {
+      "ugc_tier": "UGC #{index} · tier {tier}",
+      "collision": "Collision · {count} objects overlap here",
+      "modified": "Modified · was {was}, now {now}",
+      "selected": "{count} selected"
+    },
+    "delete_house": {
+      "title": "Delete house with residents?",
+      "intro": "{count, plural, one {# resident lives} other {# residents live}} in this house. Deleting it without freeing the residents may corrupt your save.",
+      "evict_label": "Evict residents and delete",
+      "delete_only_label": "Delete house only (advanced)"
+    },
+    "context_menu": {
+      "eyedropper": "Eyedropper",
+      "replace_this_tile": "Replace this tile",
+      "open_object_inspector": "Open object inspector",
+      "copy": "Copy"
+    },
+    "help": {
+      "title": "Keyboard shortcuts",
+      "close": "Close"
+    },
+    "keymap": {
+      "groups": {
+        "tools": "Tools",
+        "modes": "Modes",
+        "view": "View",
+        "selection": "Selection",
+        "edit": "Edit",
+        "find": "Search",
+        "misc": "Misc"
+      },
+      "actions": {
+        "tool.rectangle": "Rectangle",
+        "tool.picker": "Tile picker",
+        "mode.select": "Select mode",
+        "pan.hold": "Pan (hold)",
+        "view.fit": "Fit to viewport",
+        "view.zoom100": "100% zoom",
+        "brush.smaller": "Smaller brush",
+        "brush.bigger": "Bigger brush",
+        "palette.recent": "Quick-pick recent tile",
+        "select.allVisible": "Select all visible",
+        "select.delete": "Delete selection",
+        "select.duplicate": "Duplicate selection",
+        "select.rotate": "Rotate selection +90°",
+        "select.rotateBack": "Rotate selection -90°",
+        "select.nudge": "Nudge selection",
+        "history.undo": "Undo",
+        "history.redo": "Redo",
+        "find.open": "Find",
+        "overlay.escape": "Clear selection / close overlay"
+      }
+    },
+    "inspector": {
+      "link": {
+        "label": "Linked map",
+        "none": "None",
+        "fallback_map_name": "Map {id}",
+        "custom_id_placeholder": "custom id",
+        "set": "Set",
+        "snap_title": "Snap to first object linking to this map",
+        "snap_aria": "Snap to linked map",
+        "goto": "Goto",
+        "no_object_links": "No object links to map {id}"
+      },
+      "multi": {
+        "count": "{count} objects",
+        "title": "Multiple selected",
+        "groups": "Groups",
+        "link_all": "Link all to map",
+        "link_placeholder": "-1 = none",
+        "apply": "Apply",
+        "delete_all": "Delete all"
+      },
+      "actor": {
+        "label": "Actor",
+        "select_all": "Select all ({count})"
+      },
+      "position": {
+        "label": "Position",
+        "grid_x": "Grid X",
+        "grid_y": "Grid Y"
+      },
+      "rotation": {
+        "label": "Rotation",
+        "non_standard": "Non-standard angle: {deg}° (preserved)"
+      },
+      "tile": {
+        "usage": "Usage",
+        "with_hash": "Tiles with this hash"
+      },
+      "ugc": {
+        "label": "UGC content",
+        "name": "Name",
+        "shape": "Shape",
+        "size": "Size",
+        "scale": "Scale",
+        "footprint": "Footprint",
+        "unnamed": "Untitled UGC #{slot}",
+        "needs_player": "Load Player.sav to see UGC dimensions, name, and texture.",
+        "missing_slot": "UGC slot not found in Player.sav (the save may be from a different player)."
+      },
+      "library": {
+        "drag_hint": "Drag to canvas to place {label}"
+      },
+      "actions": {
+        "delete": "Delete",
+        "duplicate": "Duplicate",
+        "done": "Done"
+      },
+      "find": {
+        "results": "Find results",
+        "rows": "{count, plural, one {# row} other {# rows}}",
+        "type_to_search": "Type to search…",
+        "no_matches": "No matches.",
+        "snap_kbd": "⏎ snap",
+        "tile": "Tile",
+        "unknown_tile_label": "Unknown tile",
+        "unknown_tile": "Unknown tile {hex}",
+        "unknown_actor": "Unknown actor {hex}",
+        "link_to_map": "Link → map {id}",
+        "ugc_index": "UGC index {index}",
+        "placements": "{count, plural, one {# placement} other {# placements}}"
+      },
+      "actor_search_placeholder": "Search actors…",
+      "result_hint": "Enter to snap · Cmd+click to select"
+    },
+    "find": {
+      "aria": "Find in map",
+      "placeholder": "Find in map (try tile:grass, actor:lamp, link:7, unknown:, ugc:)"
     }
   },
   "sharemii": {

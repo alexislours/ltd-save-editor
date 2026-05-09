@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { actorDisplay, allActors } from '$lib/map/actors';
+  import { actorDisplay, allActors } from '$lib/map/actors/actors';
   import { foodByHash, foodImageUrl, foodLabel } from '$lib/sav/lists/foodList.svelte';
   import { safe } from '$lib/sav/format';
   import { MII_SCHEMA } from '$lib/sav/schema';

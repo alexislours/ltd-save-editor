@@ -732,33 +732,7 @@
     "description": "Layout da ilha, grade de pisos e objetos colocados.",
     "download_action": "Baixar Map.sav",
     "sections_label": "Seções do mapa",
-    "subtab_floor": "Piso",
-    "subtab_objects": "Objetos",
-    "object_slots_status": "· {placed} colocados / {total} slots",
-    "no_object_slots": "Nenhum slot de objeto foi encontrado neste Map.sav.",
-    "floor": {
-      "tool_brush": "Pincel",
-      "tool_brush_title": "Pincel (clique + arraste para pintar)",
-      "tool_fill": "Preencher",
-      "tool_fill_title": "Balde (clique para preencher área)",
-      "tool_rectangle": "Retângulo",
-      "tool_rectangle_title": "Retângulo (clique + arraste para preencher uma área retangular)",
-      "tool_picker": "Conta-gotas",
-      "tool_picker_title": "Conta-gotas (clique para copiar um piso do mapa)",
-      "undo": "Desfazer",
-      "undo_title": "Desfazer (⌘Z)",
-      "redo": "Refazer",
-      "redo_title": "Refazer (⇧⌘Z)",
-      "right_click_hint": "Clique com o botão direito em qualquer lugar para copiar um piso.",
-      "hover_position": "X {x}, Y {y} · {label}",
-      "size_hint": "{width} × {height} pisos - passe o mouse para ver coordenadas"
-    },
     "objects": {
-      "click_hint": "Clique em uma área ocupada para selecionar · arraste para mover · piso exibido escurecido.",
-      "hover_with_object": "X {x}, Y {y} · {label} ({size})",
-      "hover_empty": "X {x}, Y {y} - vazio",
-      "slots_hint": "{count} slots - passe o mouse para ver coordenadas",
-      "select_prompt": "Selecione um objeto no mapa para editar.",
       "group": {
         "all": "Todos",
         "house": "Casa",
@@ -766,8 +740,10 @@
         "deco": "Objeto",
         "step": "Degrau",
         "room": "Sala",
-        "unknown": "Desconhecido"
-      }
+        "unknown": "Desconhecido",
+        "ugc": "Personalizado (UGC)"
+      },
+      "save_full": "Save cheio - libere um espaço para colocar novos objetos"
     },
     "tile": {
       "Archstone": "Paralelepípedos arqueados",
@@ -809,6 +785,336 @@
       "Seaside": "Beira-mar",
       "RoomInvalid": "Sala (inválida)",
       "UGC": "Piso UGC"
+    },
+    "common": {
+      "cancel": "Cancelar"
+    },
+    "workbench": {
+      "toolbar_placeholder": "Barra de ferramentas",
+      "palette_placeholder": "Paleta",
+      "canvas_placeholder": "Canvas",
+      "inspector_placeholder": "Inspetor",
+      "status_placeholder": "X · Y · ladrilho sob o cursor · resumo da seleção · modificado",
+      "status_hover_hint": "Passe o cursor sobre o canvas"
+    },
+    "toolbar": {
+      "mode_paint": "Pintar",
+      "mode_select": "Selecionar",
+      "mode_paint_title": "Modo pintar (B)",
+      "mode_select_title": "Modo selecionar (V)",
+      "layers_button": "Camadas",
+      "layers_button_title": "Alternar visibilidade e opacidade das camadas",
+      "fullscreen_enter_title": "Entrar em tela cheia",
+      "fullscreen_exit_title": "Sair da tela cheia",
+      "layer_floor": "Piso",
+      "layer_objects": "Objetos",
+      "layer_fence": "Cercas",
+      "layer_ugc": "UGC",
+      "layer_diff": "Mudanças",
+      "layer_grid": "Grade",
+      "layer_tier": "Nível da ilha",
+      "layer_minimap": "Mini-mapa",
+      "overflow_label": "Mais ações",
+      "tool_brush": "Pincel",
+      "tool_brush_title": "Pincel (B)",
+      "tool_fill": "Preencher",
+      "tool_fill_title": "Preencher (F)",
+      "tool_rect": "Ret",
+      "tool_rect_title": "Retângulo (R)",
+      "tool_picker": "Conta-gotas",
+      "tool_picker_title": "Conta-gotas (I)",
+      "tool_replace": "Substituir",
+      "tool_replace_title": "Substituir (E) - clique em um ladrilho para substituir todas as células com o mesmo hash",
+      "brush_size_title": "Tamanho do pincel {size}",
+      "brush_size_decrease": "Diminuir tamanho do pincel",
+      "brush_size_increase": "Aumentar tamanho do pincel",
+      "brush_size_label": "Tamanho",
+      "brush_shape_label": "Formato",
+      "brush_picker_title": "Tamanho e formato do pincel",
+      "shape_square_title": "Pincel quadrado",
+      "shape_diamond_title": "Pincel losango",
+      "shape_circle_title": "Pincel circular"
+    },
+    "palette": {
+      "recent": "Recentes",
+      "search_placeholder": "Buscar ladrilhos…",
+      "search_aria": "Buscar ladrilhos"
+    },
+    "canvas": {
+      "empty_hint": "Solte um objeto para começar"
+    },
+    "export": {
+      "title": "Exportar PNG",
+      "resolution": "Resolução",
+      "scale_1x": "1×",
+      "scale_2x": "2×",
+      "scale_4x": "4×",
+      "scale_8x": "8×",
+      "background": "Fundo",
+      "bg_dark": "Escuro",
+      "bg_light": "Claro",
+      "bg_transparent": "Transparente",
+      "filename": "Nome do arquivo",
+      "confirm": "Exportar",
+      "exporting": "Exportando…"
+    },
+    "residents": {
+      "title": "Moradores",
+      "house_label": "{name} (id {id})",
+      "room_short": "Sala {index}",
+      "empty_room": "Vazio",
+      "unnamed": "(sem nome)",
+      "move": "Mover",
+      "move_hint": "Escolha um espaço de destino ou outro mii na ilha",
+      "move_title": "Escolha um destino",
+      "move_up": "Mover para cima",
+      "move_up_hint": "Trocar de sala com o espaço acima",
+      "move_down": "Mover para baixo",
+      "move_down_hint": "Trocar de sala com o espaço abaixo",
+      "add": "Adicionar",
+      "add_hint": "Escolha um habitante para morar aqui",
+      "add_title": "Escolha um habitante para {house} sala {room}",
+      "remove": "Despejar",
+      "remove_hint": "Remover desta casa (fica sem moradia)",
+      "fix_overflow": "Encaixar",
+      "fix_overflow_hint": "Mover para a sala livre mais baixa desta casa",
+      "added": "Morador adicionado",
+      "moved": "Morador movido",
+      "removed": "O morador agora está sem moradia",
+      "swapped": "Moradores trocados",
+      "reordered": "Salas reorganizadas",
+      "no_link": "Esta casa não está vinculada a um ID de mapa. Defina um Mapa vinculado primeiro.",
+      "no_rooms": "Nenhuma sala detectada para esta casa.",
+      "mii_not_loaded": "Carregue Mii.sav para gerenciar moradores.",
+      "mii_unavailable": "Mii.sav não tem dados de residência.",
+      "picker_search": "Buscar por nome, casa ou índice de mii…",
+      "picker_islanders": "Habitantes",
+      "picker_at_room": "{house} · sala {room}",
+      "picker_unhoused_label": "Sem moradia",
+      "picker_unhoused_section": "Sem moradia / fora",
+      "picker_make_unhoused": "Mandar para fora (sem casa)",
+      "picker_make_unhoused_hint": "Igual a Despejar - limpa HouseMapId e RoomIndex",
+      "picker_swap_with": "Trocar com este morador",
+      "picker_current_slot": "Este é o espaço atual",
+      "friendship": {
+        "title": "Aumentar relações primeiro?",
+        "intro": "Um Mii precisa ser pelo menos Amigo de todos da casa para entrar. Algumas relações estão muito baixas:",
+        "section": "{name} dividiria a casa com",
+        "bump_hint": "Confirmar define cada direção sinalizada como Amigo (medidor 80) para permitir a mudança.",
+        "bump": "Aumentar e mover",
+        "cancel": "Cancelar mudança",
+        "bumped": "{count, plural, one {# relação aumentada} other {# relações aumentadas}}"
+      },
+      "empty_house_delete": {
+        "title": "Casa vazia, excluir?",
+        "intro": "{house} (id {id}) não tem mais moradores.",
+        "delete": "Excluir casa",
+        "keep": "Manter",
+        "deleted": "Casa vazia excluída"
+      }
+    },
+    "stats": {
+      "title": "Estatísticas",
+      "issues_count": "{count, plural, one {# problema} other {# problemas}}",
+      "tile_coverage": "Cobertura dos ladrilhos",
+      "no_tiles": "Nenhum ladrilho carregado.",
+      "unknown_hex": "Desconhecido {hex}",
+      "snap_to": "Ir para {target}",
+      "filter_library_by": "Filtrar biblioteca por {group}",
+      "free_slots": "Espaços livres",
+      "issues_section": "Problemas",
+      "no_issues": "Nenhum problema detectado.",
+      "oob_objects": "{count, plural, one {# objeto fora dos limites} other {# objetos fora dos limites}}",
+      "snap_to_slot": "Ir para o espaço #{index}",
+      "overlap_clusters": "{count, plural, one {# grupo de sobreposição} other {# grupos de sobreposição}}",
+      "snap_cluster": "Ir para o grupo",
+      "cells_count": "{count, plural, one {# célula} other {# células}}",
+      "obj_count": "{count} obj",
+      "unknown_actors": "{count, plural, one {# objeto desconhecido} other {# objetos desconhecidos}}",
+      "unknown_tile_hashes": "{count, plural, one {# hash de ladrilho desconhecido} other {# hashes de ladrilho desconhecidos}}",
+      "residents_total": "Total de miis",
+      "residents_housed": "Com moradia",
+      "residents_unhoused_empty": "Todo habitante tem uma casa.",
+      "residents_unhoused_hint": "Clique para atribuir a uma sala vazia",
+      "residents_unhoused_assign_title": "Atribuir {name} a uma sala",
+      "empty_houses": "Casas vazias",
+      "empty_houses_empty": "Nenhuma casa vazia.",
+      "empty_houses_hint": "Ir para esta casa",
+      "empty_houses_count": "{count, plural, one {# casa vazia} other {# casas vazias}}"
+    },
+    "status": {
+      "ugc_tier": "UGC #{index} · nível {tier}",
+      "collision": "Colisão · {count} objetos se sobrepõem aqui",
+      "modified": "Modificado · era {was}, agora {now}",
+      "selected": "{count} selecionado(s)"
+    },
+    "delete_house": {
+      "title": "Excluir casa com moradores?",
+      "intro": "{count, plural, one {# morador vive} other {# moradores vivem}} nesta casa. Excluir sem liberar os moradores pode corromper seu save.",
+      "evict_label": "Despejar moradores e excluir",
+      "delete_only_label": "Excluir somente a casa (avançado)"
+    },
+    "context_menu": {
+      "eyedropper": "Conta-gotas",
+      "replace_this_tile": "Substituir este ladrilho",
+      "open_object_inspector": "Abrir inspetor de objeto",
+      "copy": "Copiar"
+    },
+    "help": {
+      "title": "Atalhos de teclado",
+      "close": "Fechar"
+    },
+    "keymap": {
+      "groups": {
+        "tools": "Ferramentas",
+        "modes": "Modos",
+        "view": "Visão",
+        "selection": "Seleção",
+        "edit": "Edição",
+        "find": "Busca",
+        "misc": "Diversos"
+      },
+      "actions": {
+        "tool": {
+          "rectangle": "Retângulo",
+          "picker": "Conta-gotas de ladrilho"
+        },
+        "mode": {
+          "select": "Modo selecionar"
+        },
+        "pan": {
+          "hold": "Arrastar (segurar)"
+        },
+        "view": {
+          "fit": "Ajustar à janela",
+          "zoom100": "Zoom 100%"
+        },
+        "brush": {
+          "smaller": "Pincel menor",
+          "bigger": "Pincel maior"
+        },
+        "palette": {
+          "recent": "Selecionar ladrilho recente"
+        },
+        "select": {
+          "allVisible": "Selecionar todos visíveis",
+          "delete": "Excluir seleção",
+          "duplicate": "Duplicar seleção",
+          "rotate": "Girar seleção +90°",
+          "rotateBack": "Girar seleção -90°",
+          "nudge": "Empurrar seleção"
+        },
+        "history": {
+          "undo": "Desfazer",
+          "redo": "Refazer"
+        },
+        "find": {
+          "open": "Buscar"
+        },
+        "overlay": {
+          "escape": "Limpar seleção / fechar sobreposição"
+        }
+      }
+    },
+    "inspector": {
+      "link": {
+        "label": "Mapa vinculado",
+        "none": "Nenhum",
+        "fallback_map_name": "Mapa {id}",
+        "custom_id_placeholder": "id personalizado",
+        "set": "Definir",
+        "snap_title": "Ir para o primeiro objeto vinculado a este mapa",
+        "snap_aria": "Ir para o mapa vinculado",
+        "goto": "Ir",
+        "no_object_links": "Nenhum objeto vincula ao mapa {id}"
+      },
+      "multi": {
+        "count": "{count} objetos",
+        "title": "Vários selecionados",
+        "groups": "Grupos",
+        "link_all": "Vincular todos ao mapa",
+        "link_placeholder": "-1 = nenhum",
+        "apply": "Aplicar",
+        "delete_all": "Excluir todos"
+      },
+      "actor": {
+        "label": "Objeto",
+        "select_all": "Selecionar todos ({count})"
+      },
+      "position": {
+        "label": "Posição",
+        "grid_x": "Grade X",
+        "grid_y": "Grade Y"
+      },
+      "rotation": {
+        "label": "Rotação",
+        "non_standard": "Ângulo não padrão: {deg}° (preservado)"
+      },
+      "tile": {
+        "usage": "Uso",
+        "with_hash": "Ladrilhos com este hash"
+      },
+      "library": {
+        "drag_hint": "Arraste para o canvas para colocar {label}"
+      },
+      "actions": {
+        "delete": "Excluir",
+        "duplicate": "Duplicar",
+        "done": "Pronto"
+      },
+      "find": {
+        "results": "Resultados",
+        "rows": "{count, plural, one {# linha} other {# linhas}}",
+        "type_to_search": "Digite para buscar…",
+        "no_matches": "Nenhum resultado.",
+        "snap_kbd": "⏎ ir",
+        "tile": "Ladrilho",
+        "unknown_tile_label": "Ladrilho desconhecido",
+        "unknown_tile": "Ladrilho desconhecido {hex}",
+        "unknown_actor": "Objeto desconhecido {hex}",
+        "link_to_map": "Vínculo → mapa {id}",
+        "ugc_index": "Índice UGC {index}",
+        "placements": "{count, plural, one {# colocação} other {# colocações}}"
+      },
+      "actor_search_placeholder": "Buscar objetos…",
+      "result_hint": "Enter para ir · Cmd+clique para selecionar",
+      "ugc": {
+        "label": "Conteúdo UGC",
+        "name": "Nome",
+        "shape": "Formato",
+        "size": "Tamanho",
+        "scale": "Escala",
+        "footprint": "Área",
+        "unnamed": "UGC sem título nº{slot}",
+        "needs_player": "Carregue Player.sav para ver as dimensões, o nome e a textura do UGC.",
+        "missing_slot": "Slot UGC não encontrado em Player.sav (o save pode ser de outro jogador)."
+      }
+    },
+    "find": {
+      "aria": "Buscar no mapa",
+      "placeholder": "Buscar no mapa (tente tile:grass, actor:lamp, link:7, unknown:, ugc:)"
+    },
+    "share": {
+      "export_title": "Compartilhar mapa",
+      "import_title": "Importar mapa compartilhado",
+      "export_intro": "Salve o layout da sua ilha em um arquivo .ltdmap. Ladrilhos UGC são exportados como grama; casas, estabelecimentos e objetos UGC nunca são incluídos.",
+      "import_intro": "Carregue um arquivo .ltdmap para substituir seus ladrilhos de solo e objetos decorativos. Casas, estabelecimentos e objetos UGC são mantidos como estão.",
+      "include_objects": "Incluir objetos",
+      "include_objects_hint": "Lampiões, cercas, caminhos, árvores, pedras de pisar e outras decorações.",
+      "filename": "Nome do arquivo",
+      "file_label": "Arquivo de mapa (.ltdmap)",
+      "confirm_export": "Baixar",
+      "confirm_import": "Aplicar",
+      "exporting": "Exportando…",
+      "importing": "Aplicando…",
+      "preview": "Pré-visualização",
+      "preview_tiles": "Ladrilhos",
+      "preview_objects": "Objetos",
+      "preview_no_objects": "Apenas ladrilhos",
+      "preview_app_version": "Da versão",
+      "import_warning": "Isto substitui todos os ladrilhos de solo e remove todas as decorações existentes antes de colocar as novas.",
+      "applied": "{tiles, plural, one {# ladrilho atualizado} other {# ladrilhos atualizados}}, {placed, plural, one {# objeto colocado} other {# objetos colocados}} ({cleared} removidos).",
+      "truncated": "Mapa cheio: {count, plural, one {# objeto não foi colocado} other {# objetos não foram colocados}}."
     }
   },
   "sharemii": {
@@ -1330,36 +1636,6 @@
         "habits": {
           "title": "Manias",
           "description": "Edite as manias e peculiaridades do Mii."
-        },
-        "advanced": {
-          "title": "Avançado",
-          "description": "A visualização das entradas brutas. Busque por hash ou nome, inspecione cada campo e edite qualquer coisa que os painéis prontos não exponham. Use com cuidado."
-        }
-      }
-    },
-    "map": {
-      "name": "Tour do editor de Mapa",
-      "description": "Conheça cada seção do Mapa.",
-      "intro": {
-        "title": "Editor de Mapa",
-        "description": "Refaça o layout da sua ilha, os pisos por onde se anda e o lugar de cada edifício. Este tour passa por cada seção."
-      },
-      "subtabs": {
-        "title": "Seções do Mapa",
-        "description": "Estes botões alternam entre os painéis prontos. Clique em cada um para ver o conteúdo mudar, ou deixe o tour conduzir."
-      },
-      "outro": {
-        "title": "Esta é a aba Mapa",
-        "description": "Faça as edições que quiser e depois baixe Map.sav pela barra de saves."
-      },
-      "tabs": {
-        "floor": {
-          "title": "Piso",
-          "description": "Pinte os pisos da sua ilha. Escolha um piso na paleta e use Pincel, Preencher ou Retângulo. Clique com o botão direito para copiar o piso sob o cursor. Cmd/Ctrl+Z e Cmd/Ctrl+Shift+Z desfazem e refazem."
-        },
-        "objects": {
-          "title": "Objetos",
-          "description": "Cada edifício e adereço no mapa. Mova-os pela ilha e rotacione conforme quiser."
         },
         "advanced": {
           "title": "Avançado",
