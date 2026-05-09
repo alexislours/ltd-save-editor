@@ -102,6 +102,7 @@
     "fountain_section": "Fonte",
     "fountain_level_label": "Nível da fonte",
     "wishes_label": "Desejos",
+    "wishes_come_true_label": "Desejos realizados",
     "region_section": "Região e idioma",
     "region_label": "Região",
     "region_code_label": "Código da região",
@@ -259,6 +260,60 @@
       "variant_label": "{color} (#{index})",
       "category_facility": "Estabelecimento",
       "category_object": "Objeto do mapa"
+    },
+    "subtab_wishes": "Desejos",
+    "wishes": {
+      "heading": "Desejos da fonte",
+      "caption": "{liberated} de {total} desejos realizados.",
+      "missing": "Este save não expõe os arrays Liberation.WishInfo, portanto os desejos não podem ser editados aqui.",
+      "loading": "Carregando lista de desejos…",
+      "search": "Buscar",
+      "search_placeholder": "Filtrar por nome…",
+      "category_label": "Categoria",
+      "category_all": "Todas as categorias",
+      "bulk_liberate": "Realizar visíveis ({count})",
+      "bulk_reset": "Redefinir visíveis ({count})",
+      "bulk_confirm": "Aplicar esta alteração a {count} desejos? Isso só pode ser desfeito reabrindo seu save.",
+      "bulk_confirm_title": "Aplicar aos desejos visíveis?",
+      "bulk_confirm_apply": "Aplicar",
+      "empty": "Nada corresponde ao filtro atual.",
+      "category": {
+        "Facility": "Estabelecimento",
+        "Goods": "Mercadorias",
+        "StyleGroup": "Estilo de interior",
+        "Travel": "Viagem",
+        "HabitGroup": "Hábito",
+        "Service": "Serviço",
+        "Object": "Objeto",
+        "Ground": "Solo",
+        "Ugc": "UGC",
+        "Unknown": "Desconhecido"
+      },
+      "player_level": "Fonte nv. {level}",
+      "gate": {
+        "level": "Nv. {level}",
+        "level_tip": "Requer fonte nv. {level}",
+        "count": "Após {count} desejos",
+        "count_tip": "Desbloqueia após {count} desejos terem se realizado",
+        "season_tip": "Só pode ser realizado durante {season}"
+      },
+      "bump": {
+        "title": "Ajustar estatísticas para satisfazer o desbloqueio?",
+        "apply": "Ajustar estatísticas",
+        "skip": "Pular",
+        "level": "Um destes desejos requer fonte nv. {level}, mas o seu é menor. Ajustar o nível da sua fonte para {level} para que o desbloqueio funcione?",
+        "count": "Um destes desejos desbloqueia após {count} desejos realizados anteriormente. Ajustar seu contador para {count} para que o desbloqueio funcione?",
+        "both": "Estes desejos precisam de fonte nv. {level} e {count} desejos realizados anteriormente. Ajustar o nível da sua fonte e o contador para satisfazê-los?"
+      },
+      "season": {
+        "Spring": "Primavera",
+        "Summer": "Verão",
+        "Autumn": "Outono",
+        "Winter": "Inverno",
+        "Christmas": "Natal",
+        "Halloween": "Halloween",
+        "AutumnWinter": "Outono/Inverno"
+      }
     }
   },
   "mii": {

@@ -13,6 +13,7 @@
   import Profile from '$lib/player/profile/Profile.svelte';
   import TreasuresPanel from '$lib/player/inventory/TreasuresPanel.svelte';
   import UgcTextPanel from '$lib/player/UgcTextPanel.svelte';
+  import WishesPanel from '$lib/player/wishes/WishesPanel.svelte';
   import {
     commitEntryEdit,
     downloadModified,
@@ -44,6 +45,7 @@
     | 'treasures'
     | 'interiors'
     | 'buildings'
+    | 'wishes'
     | 'ugc'
     | 'advanced';
   let subTab = $state<SubTab>('profile');
@@ -56,6 +58,7 @@
     { value: 'treasures', label: $_('player.subtab_treasures') },
     { value: 'interiors', label: $_('player.subtab_interiors') },
     { value: 'buildings', label: $_('player.subtab_buildings') },
+    { value: 'wishes', label: $_('player.subtab_wishes') },
     { value: 'ugc', label: $_('player.subtab_ugc') },
     { value: 'advanced', label: $_('tab.advanced') },
   ]);
@@ -102,6 +105,8 @@
       <InteriorsPanel />
     {:else if subTab === 'buildings'}
       <BuildingsPanel />
+    {:else if subTab === 'wishes'}
+      <WishesPanel />
     {:else if subTab === 'ugc'}
       <UgcTextPanel />
     {:else}

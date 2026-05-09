@@ -9,15 +9,22 @@
 
   const FOUNTAIN_LEVEL = player.Liberation.FountainLevel;
   const WISHES = player.Liberation.LiberateRightStock;
+  const COME_TRUE_COUNT = player.Liberation.ComeTrueCount;
 
   const fountainLevel = bindLeaf(playerAccessor, FOUNTAIN_LEVEL);
   const wishes = bindLeaf(playerAccessor, WISHES);
+  const comeTrueCount = bindLeaf(playerAccessor, COME_TRUE_COUNT);
 
-  const visible = $derived(fountainLevel.present || wishes.present);
+  const visible = $derived(fountainLevel.present || wishes.present || comeTrueCount.present);
 
-  const errors = $state<{ fountainLevel: string | null; wishes: string | null }>({
+  const errors = $state<{
+    fountainLevel: string | null;
+    wishes: string | null;
+    comeTrueCount: string | null;
+  }>({
     fountainLevel: null,
     wishes: null,
+    comeTrueCount: null,
   });
 </script>
 
@@ -51,6 +58,21 @@
             value={(wishes.value ?? 0).toString()}
             onchange={(e) =>
               (errors.wishes = writeNonNegativeInt(e.currentTarget.value, (v) => wishes.commit(v)))}
+          />
+        </FormFieldWrapper>
+      {/if}
+
+      {#if comeTrueCount.present}
+        <FormFieldWrapper label={$_('player.wishes_come_true_label')} error={errors.comeTrueCount}>
+          <input
+            type="text"
+            inputmode="numeric"
+            class="{FORM_INPUT_MONO_CLASS} w-28"
+            value={(comeTrueCount.value ?? 0).toString()}
+            onchange={(e) =>
+              (errors.comeTrueCount = writeNonNegativeInt(e.currentTarget.value, (v) =>
+                comeTrueCount.commit(v),
+              ))}
           />
         </FormFieldWrapper>
       {/if}

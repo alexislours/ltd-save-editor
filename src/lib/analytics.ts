@@ -20,7 +20,8 @@ type Events = {
   export_failed: { kind: SaveKind | 'bulk' };
   export_mii_data: { format: 'json' | 'miis-csv' | 'relationships-csv'; mii_count: number };
   export_mii_data_failed: { format: 'json' | 'miis-csv' | 'relationships-csv' };
-  bulk_edit: { field: 'state' | 'qty'; count: number };
+  bulk_edit: { field: 'state' | 'qty' | 'wish_liberated'; count: number };
+  wish_stats_bumped: { level: number | null; count: number | null };
   restore_prompted: { count: number; sidecar_count: number };
   restore_accepted: { count: number; sidecar_count: number };
   restore_dismissed: { count: number; sidecar_count: number };

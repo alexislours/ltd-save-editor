@@ -493,6 +493,7 @@
     "fountain_section": "Fountain",
     "fountain_level_label": "Fountain level",
     "wishes_label": "Wishes",
+    "wishes_come_true_label": "Wishes come true",
     "region_section": "Region & language",
     "region_label": "Region",
     "region_code_label": "Region code",
@@ -534,6 +535,7 @@
     "subtab_treasures": "Treasures",
     "subtab_interiors": "Interiors",
     "subtab_buildings": "Buildings",
+    "subtab_wishes": "Wishes",
     "subtab_ugc": "UGC",
     "ugc_text": {
       "heading": "UGC text",
@@ -650,6 +652,59 @@
       "variant_label": "{color} (#{index})",
       "category_facility": "Facility",
       "category_object": "Map object"
+    },
+    "wishes": {
+      "heading": "Fountain wishes",
+      "caption": "{liberated} of {total} wishes unlocked.",
+      "missing": "This save does not expose Liberation.WishInfo arrays, so wishes can't be edited here.",
+      "loading": "Loading wish list…",
+      "search": "Search",
+      "search_placeholder": "Filter by name…",
+      "category_label": "Category",
+      "category_all": "All categories",
+      "bulk_liberate": "Unlock visible ({count})",
+      "bulk_reset": "Reset visible ({count})",
+      "bulk_confirm": "Apply this change to {count} wishes? This cannot be undone except by re-opening your save.",
+      "bulk_confirm_title": "Apply to visible wishes?",
+      "bulk_confirm_apply": "Apply",
+      "empty": "Nothing matches the current filter.",
+      "player_level": "Fountain Lv. {level}",
+      "gate": {
+        "level": "Lv. {level}",
+        "level_tip": "Requires fountain level {level}",
+        "count": "After {count} wishes",
+        "count_tip": "Unlocks after {count} prior wishes have come true",
+        "season_tip": "Only liftable during {season}"
+      },
+      "bump": {
+        "title": "Bump stats to satisfy unlock?",
+        "apply": "Bump stats",
+        "skip": "Skip",
+        "level": "One of these wishes requires Fountain Lv. {level}, but yours is lower. Bump your fountain level to {level} so the unlock sticks?",
+        "count": "One of these wishes unlocks after {count} prior wishes-come-true. Bump your counter to {count} so the unlock sticks?",
+        "both": "These wishes need Fountain Lv. {level} and {count} prior wishes-come-true. Bump your fountain level and counter to satisfy them?"
+      },
+      "season": {
+        "Spring": "Spring",
+        "Summer": "Summer",
+        "Autumn": "Autumn",
+        "Winter": "Winter",
+        "Christmas": "Christmas",
+        "Halloween": "Halloween",
+        "AutumnWinter": "Autumn/Winter"
+      },
+      "category": {
+        "Facility": "Facility",
+        "Goods": "Goods",
+        "StyleGroup": "Interior style",
+        "Travel": "Travel",
+        "HabitGroup": "Habit",
+        "Service": "Service",
+        "Object": "Object",
+        "Ground": "Ground",
+        "Ugc": "UGC",
+        "Unknown": "Unknown"
+      }
     }
   },
   "mii": {

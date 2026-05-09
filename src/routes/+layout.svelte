@@ -25,6 +25,7 @@
   import { loadRoomStyleList } from '$lib/sav/lists/roomStyleList.svelte';
   import { loadTreasureList } from '$lib/sav/lists/treasureList.svelte';
   import { loadTroubleList } from '$lib/sav/lists/troubleList.svelte';
+  import { loadWishList } from '$lib/sav/lists/wishList.svelte';
   import { loadWordKindLabels } from '$lib/sav/lists/wordKindLabels.svelte';
   import { bootRestoreScan } from '$lib/session/sessionRestore.svelte';
   import { flushAllPending } from '$lib/session/sessionPersist';
@@ -42,6 +43,7 @@
     loadItemList();
     loadTroubleList();
     loadHabitList();
+    loadWishList();
     loadWordKindLabels();
     loadMiiLabels();
   }

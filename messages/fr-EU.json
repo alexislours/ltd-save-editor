@@ -102,6 +102,7 @@
     "fountain_section": "Fontaine",
     "fountain_level_label": "Niveau de la fontaine",
     "wishes_label": "Vœux",
+    "wishes_come_true_label": "Vœux exaucés",
     "region_section": "Région et langue",
     "region_label": "Région",
     "region_code_label": "Code de région",
@@ -259,6 +260,60 @@
       "variant_label": "{color} (#{index})",
       "category_facility": "Bâtiment public",
       "category_object": "Objet de carte"
+    },
+    "subtab_wishes": "Vœux",
+    "wishes": {
+      "heading": "Vœux de la fontaine",
+      "caption": "{liberated} sur {total} vœux exaucés.",
+      "missing": "Cette sauvegarde n'expose pas de tableaux Liberation.WishInfo, les vœux ne peuvent donc pas être édités ici.",
+      "loading": "Chargement de la liste des vœux…",
+      "search": "Rechercher",
+      "search_placeholder": "Filtrer par nom…",
+      "category_label": "Catégorie",
+      "category_all": "Toutes les catégories",
+      "bulk_liberate": "Exaucer les vœux affichés ({count})",
+      "bulk_reset": "Réinitialiser les vœux affichés ({count})",
+      "bulk_confirm": "Appliquer ce changement à {count} vœux ? Cela ne pourra être annulé qu'en rechargeant ta sauvegarde.",
+      "bulk_confirm_title": "Appliquer aux vœux affichés ?",
+      "bulk_confirm_apply": "Appliquer",
+      "empty": "Aucun résultat ne correspond au filtre actuel.",
+      "category": {
+        "Facility": "Bâtiment public",
+        "Goods": "Marchandise",
+        "StyleGroup": "Style d'intérieur",
+        "Travel": "Voyage",
+        "HabitGroup": "Habitude",
+        "Service": "Service",
+        "Object": "Objet",
+        "Ground": "Sol",
+        "Ugc": "UGC",
+        "Unknown": "Inconnu"
+      },
+      "player_level": "Fontaine niv. {level}",
+      "gate": {
+        "level": "Niv. {level}",
+        "level_tip": "Nécessite la fontaine niv. {level}",
+        "count": "Après {count} vœux",
+        "count_tip": "Se débloque après {count} vœux exaucés",
+        "season_tip": "Exauçable uniquement en {season}"
+      },
+      "bump": {
+        "title": "Ajuster les statistiques pour débloquer ?",
+        "apply": "Ajuster",
+        "skip": "Ignorer",
+        "level": "Un de ces vœux nécessite la fontaine niv. {level}, mais le tien est inférieur. Mettre ton niveau de fontaine à {level} pour que le déblocage tienne ?",
+        "count": "Un de ces vœux se débloque après {count} vœux exaucés au préalable. Mettre ton compteur à {count} pour que le déblocage tienne ?",
+        "both": "Ces vœux nécessitent la fontaine niv. {level} et {count} vœux exaucés au préalable. Ajuster ton niveau de fontaine et ton compteur pour les satisfaire ?"
+      },
+      "season": {
+        "Spring": "Printemps",
+        "Summer": "Été",
+        "Autumn": "Automne",
+        "Winter": "Hiver",
+        "Christmas": "Noël",
+        "Halloween": "Halloween",
+        "AutumnWinter": "Automne/Hiver"
+      }
     }
   },
   "mii": {
