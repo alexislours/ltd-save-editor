@@ -277,7 +277,10 @@
       "slot_label_with_level": "n°{index} · {name} · Niv. {level}",
       "level_pill": "Niveau {level}",
       "level_meter_label": "Niveau %",
-      "slot_short": "emplacement n°{index}"
+      "slot_short": "emplacement n°{index}",
+      "fix_zero_charinfoex": "Ta sauvegarde semble corrompue : toutes les entrées de Mii.CharInfoEx (le design des Miis) sont vides. L'éditeur peut les remplacer par un design de Mii par défaut si tu essaies de récupérer une sauvegarde.",
+      "fix_zero_charinfoex_button": "Continuer",
+      "fix_zero_charinfoex_done": "{count, plural, one {Design remplacé pour # Mii.} other {Designs remplacés pour # Miis.}}"
     },
     "sections": {
       "level": "Niveau",

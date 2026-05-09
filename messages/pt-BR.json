@@ -277,7 +277,10 @@
       "slot_label_with_level": "#{index} · {name} · Nv {level}",
       "level_pill": "Nível {level}",
       "level_meter_label": "Nível %",
-      "slot_short": "slot #{index}"
+      "slot_short": "slot #{index}",
+      "fix_zero_charinfoex": "Seu save parece estar corrompido: todas as entradas de Mii.CharInfoEx (o design dos Miis) estão vazias. O editor pode substituí-las pelo design de Mii padrão caso você esteja tentando recuperar um save.",
+      "fix_zero_charinfoex_button": "Continuar",
+      "fix_zero_charinfoex_done": "{count, plural, one {Design substituído para # Mii.} other {Designs substituídos para # Miis.}}"
     },
     "sections": {
       "level": "Nível",

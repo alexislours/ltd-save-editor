@@ -858,6 +858,9 @@
     "panel": {
       "no_name_spine": "This save doesn't expose the Mii.Name.Name spine - there's nothing to enumerate. Use the Player tab's advanced panel to inspect raw entries.",
       "no_slots": "No populated Mii slots were found. Slots are detected by checking Mii.Name.Name for a non-empty string.",
+      "fix_zero_charinfoex": "Your save appears to be corrupt, all entries in Mii.CharInfoEx (the Mii's design) are empty. The save editor can replace them with the default Mii design if you are trying to recover a save.",
+      "fix_zero_charinfoex_button": "Proceed",
+      "fix_zero_charinfoex_done": "{count, plural, one {Replaced # Mii's design} other {Replaced # Miis' designs}}.",
       "selector_label": "Mii",
       "slot_count": "{count, plural, one {# populated slot} other {# populated slots}}",
       "slot_label": "#{index} · {name}",
