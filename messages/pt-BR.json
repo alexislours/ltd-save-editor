@@ -323,6 +323,18 @@
     "sections_label": "Seções do Mii",
     "subtab_profile": "Perfil",
     "subtab_relationships": "Grafo de relacionamentos",
+    "subtab_housing": "Moradia",
+    "housing": {
+      "title": "Moradia",
+      "intro": "Mova os habitantes entre as casas do mapa.",
+      "map_not_loaded": "Carregue Map.sav para ver as casas da ilha.",
+      "no_houses": "Nenhuma casa encontrada no mapa carregado.",
+      "rooms_filled": "{filled}/{total} ocupados",
+      "unhoused_section": "Sem moradia ({count})",
+      "unhoused_empty": "Todos os habitantes têm uma casa.",
+      "assign": "Encontrar uma casa",
+      "assign_hint": "Escolha uma casa e um quarto para este habitante"
+    },
     "panel": {
       "no_name_spine": "Este save não contém Mii.Name.Name. não há nada para enumerar. Use o painel avançado da aba Jogador para inspecionar entradas brutas.",
       "no_slots": "Nenhum slot de Mii preenchido foi encontrado. Os slots são detectados verificando Mii.Name.Name por uma string não vazia.",

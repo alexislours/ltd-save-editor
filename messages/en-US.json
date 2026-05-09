@@ -714,9 +714,21 @@
     "sections_label": "Mii sections",
     "subtab_profile": "Profile",
     "subtab_relationships": "Relationships graph",
+    "subtab_housing": "Housing",
     "subtab_belongings": "Belongings",
     "subtab_troubles": "Troubles",
     "subtab_habits": "Habits",
+    "housing": {
+      "title": "Housing",
+      "intro": "Move islanders between houses on the map.",
+      "map_not_loaded": "Load Map.sav to view houses on the island.",
+      "no_houses": "No houses found on the loaded map.",
+      "rooms_filled": "{filled}/{total} filled",
+      "unhoused_section": "Unhoused ({count})",
+      "unhoused_empty": "Every islander has a home.",
+      "assign": "Find a home",
+      "assign_hint": "Pick a house and room for this islander"
+    },
     "export": {
       "summary": "Export island data",
       "show": "Show",
