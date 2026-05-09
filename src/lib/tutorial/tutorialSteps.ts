@@ -2,14 +2,7 @@ import type { Driver } from 'driver.js';
 
 export type DriverStep = Parameters<Driver['setSteps']>[0][number];
 type Translate = (key: string) => string;
-export type TutorialId =
-  | 'getting-started'
-  | 'save-bar'
-  | 'player'
-  | 'mii'
-  | 'map'
-  | 'sharemii'
-  | 'ugc';
+export type TutorialId = 'getting-started' | 'save-bar' | 'player' | 'mii' | 'sharemii' | 'ugc';
 
 const PLAYER_SUBTAB_ORDER = [
   'profile',
@@ -31,8 +24,6 @@ const MII_SUBTAB_ORDER = [
   'habits',
   'advanced',
 ] as const;
-
-const MAP_SUBTAB_ORDER = ['floor', 'objects', 'advanced'] as const;
 
 function exists(selector: string): boolean {
   return typeof document !== 'undefined' && document.querySelector(selector) !== null;
@@ -267,33 +258,6 @@ function miiSteps(t: Translate): DriverStep[] {
   ]);
 }
 
-function mapSteps(t: Translate): DriverStep[] {
-  return compact([
-    {
-      popover: {
-        title: t('tutorial.map.intro.title'),
-        description: t('tutorial.map.intro.description'),
-      },
-    },
-    whenAvailable('[data-tutorial="subtabs"]', {
-      element: '[data-tutorial="subtabs"]',
-      popover: {
-        title: t('tutorial.map.subtabs.title'),
-        description: t('tutorial.map.subtabs.description'),
-        side: 'bottom',
-        align: 'start',
-      },
-    }),
-    ...subtabWalk(t, MAP_SUBTAB_ORDER, 'tutorial.map.tabs'),
-    {
-      popover: {
-        title: t('tutorial.map.outro.title'),
-        description: t('tutorial.map.outro.description'),
-      },
-    },
-  ]);
-}
-
 function shareMiiSteps(t: Translate): DriverStep[] {
   return compact([
     {
@@ -461,7 +425,6 @@ export const TUTORIAL_STEP_BUILDERS: Record<TutorialId, (t: Translate) => Driver
   'save-bar': saveBarSteps,
   player: playerSteps,
   mii: miiSteps,
-  map: mapSteps,
   sharemii: shareMiiSteps,
   ugc: ugcSteps,
 };
@@ -472,7 +435,6 @@ export function firstStepSelector(id: TutorialId): string {
   if (id === 'ugc') return '[data-tutorial="ugc-rows"]';
   if (id === 'player') return '[data-subtab="foods"]';
   if (id === 'mii') return '[data-subtab="relationships"]';
-  if (id === 'map') return '[data-subtab="floor"]';
   return '[data-tutorial="nav"]';
 }
 
@@ -495,7 +457,6 @@ const ICONS = {
     'M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z',
   users:
     'M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z',
-  map: 'M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z',
   share:
     'M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z',
   palette:
@@ -552,15 +513,6 @@ export function buildTutorials(
       available: miiLoaded,
       iconPath: ICONS.users,
       accent: 'bg-violet-500/15 text-violet-700 ring-violet-500/30',
-    },
-    {
-      id: 'map',
-      name: t('tutorial.map.name'),
-      description: t('tutorial.map.description'),
-      route: '/map',
-      available: mapLoaded,
-      iconPath: ICONS.map,
-      accent: 'bg-sky-500/15 text-sky-700 ring-sky-500/30',
     },
     {
       id: 'sharemii',

@@ -35,6 +35,11 @@
   --color-beta: #fda4af; /* rose-300 */
   --color-beta-edge: #f43f5e; /* rose-500 */
   --color-beta-content: #9f1239; /* rose-800 */
+
+  /* Map canvas (light) */
+  --map-canvas-bg: #1f1f23; /* dark gutter even in light theme; keeps tile colors readable */
+  --map-canvas-empty: #f3f4f6; /* placeholder before tiles are loaded */
+  --map-tile-sat-boost: 0; /* 0..1, applied to tile colors at render time */
 }
 
 html.dark {
@@ -63,6 +68,11 @@ html.dark {
   --color-beta: #881337; /* rose-900 */
   --color-beta-edge: #be123c; /* rose-700 */
   --color-beta-content: #fecdd3; /* rose-200 */
+
+  /* Map canvas (dark) */
+  --map-canvas-bg: #0d0d10;
+  --map-canvas-empty: #18181b;
+  --map-tile-sat-boost: 0.08;
 }
 
 html,

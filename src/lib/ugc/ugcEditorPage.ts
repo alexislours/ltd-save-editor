@@ -40,7 +40,7 @@ type UgcRowLabels = {
   unnamed: (slot: number) => string;
 };
 
-export function listSidecarSlots(sidecar: SidecarSource, kind: UgcKind): number[] {
+function listSidecarSlots(sidecar: SidecarSource, kind: UgcKind): number[] {
   return parseSidecarIds(sidecar, `Ugc${kind}`).map((idx) => idx + 1);
 }
 

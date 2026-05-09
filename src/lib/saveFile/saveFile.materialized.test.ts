@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { mapAccessor, syncFromSave as syncMap } from '$lib/map/mapSave.svelte';
+import { mapAccessor, syncFromSave as syncMap } from '$lib/map/state/mapSave.svelte';
 import { miiAccessor, syncFromSave as syncMii } from '$lib/mii/miiEditor.svelte';
 import {
   playerAccessor,

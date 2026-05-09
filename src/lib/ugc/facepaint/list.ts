@@ -24,7 +24,7 @@ const FACE_PAINT_INDEX = leafByHashOrThrow(
 );
 const NAMES = leafByHashOrThrow(MII_SCHEMA, MII_HASHES.names, 'Mii.Names', DataType.WString32Array);
 
-export type FacepaintInfo = {
+type FacepaintInfo = {
   id: number;
   inUse: boolean;
   ownerSlot: number | null;

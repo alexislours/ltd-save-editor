@@ -176,7 +176,7 @@
         <p class="font-bold text-content-strong">This is the old URL.</p>
         <p class="mt-1">
           The editor moved to
-          <a href={legacyTarget} class="font-bold text-warn underline"
+          <a href={legacyTarget} rel="external" class="font-bold text-warn underline"
             >{legacyTarget.replace('https://', '')}</a
           >. Your snapshots stay here - download them below and re-upload them on the new site.
         </p>
