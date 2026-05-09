@@ -212,6 +212,7 @@ const _PLAYER_SCHEMA = {
     },
     Currency: { hash: 0xdc88f139, type: DataType.Enum },
     EmotionBall: { hash: 0x65f482a4, type: DataType.UInt },
+    EncyclopediaOpenedSector: { hash: 0x5c80d288, type: DataType.UInt },
     FirstBootTime: { hash: 0x4c34eeb4, type: DataType.UInt64 },
     FloorInfo: {
       InformedNewRelease: { hash: 0xd8f2e3f3, type: DataType.BoolArray },
@@ -5114,7 +5115,6 @@ const _PLAYER_SCHEMA = {
   },
   Unknown: {
     '0x17512C0D': { hash: 0x17512c0d, type: DataType.UInt },
-    '0x5C80D288': { hash: 0x5c80d288, type: DataType.UInt },
     '0x84A85193': { hash: 0x84a85193, type: DataType.UInt },
     '0xD9276E3A': { hash: 0xd9276e3a, type: DataType.Int },
     '0xE6F98671': { hash: 0xe6f98671, type: DataType.UInt },
