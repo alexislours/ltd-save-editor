@@ -7,11 +7,7 @@ import {
   setUgcIndex,
 } from '$lib/map/state/mapEditor.svelte';
 
-function diffReplaceAll(
-  tiles: readonly number[],
-  hashFrom: number,
-  hashTo: number,
-): TileChange[] {
+function diffReplaceAll(tiles: readonly number[], hashFrom: number, hashTo: number): TileChange[] {
   const from = hashFrom >>> 0;
   const to = hashTo >>> 0;
   if (from === to) return [];
