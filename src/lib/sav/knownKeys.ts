@@ -1,7 +1,8 @@
 import { DataType } from './dataType';
 import { GENERATED_ENUM_OPTION_NAMES, GENERATED_ENUM_OPTIONS_FOR } from './generatedNames';
 import { murmur3_x86_32 } from './hash';
-import { fetchedNameForHash } from './lists/hashList.svelte';
+import { buildPathMap } from './materialized/schemaIndex';
+import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from './schema';
 
 type KnownKey = {
   name: string;
@@ -20,9 +21,22 @@ const CURATED_KEYS: readonly KnownKey[] = CURATED_SEEDS.map((k) => ({
 
 const KNOWN_BY_HASH: ReadonlyMap<number, KnownKey> = new Map(CURATED_KEYS.map((k) => [k.hash, k]));
 
+let SCHEMA_PATHS: ReadonlyMap<number, string> | null = null;
+function schemaPaths(): ReadonlyMap<number, string> {
+  if (SCHEMA_PATHS) return SCHEMA_PATHS;
+  const merged = new Map<number, string>();
+  for (const schema of [PLAYER_SCHEMA, MII_SCHEMA, MAP_SCHEMA]) {
+    for (const [hash, path] of buildPathMap(schema)) {
+      if (!merged.has(hash)) merged.set(hash, path);
+    }
+  }
+  SCHEMA_PATHS = merged;
+  return merged;
+}
+
 // Public API: hash → name, for labelling entries.
 export function nameForHash(hash: number): string | null {
-  return KNOWN_BY_HASH.get(hash)?.name ?? fetchedNameForHash(hash);
+  return KNOWN_BY_HASH.get(hash)?.name ?? schemaPaths().get(hash) ?? null;
 }
 
 export type EnumOption = { hash: number; name: string; label?: string };

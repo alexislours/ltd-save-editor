@@ -20,7 +20,6 @@
   import { loadCoordinateList } from '$lib/sav/lists/coordinateList.svelte';
   import { loadFoodList } from '$lib/sav/lists/foodList.svelte';
   import { loadHabitList } from '$lib/sav/lists/habitList.svelte';
-  import { loadHashList } from '$lib/sav/lists/hashList.svelte';
   import { loadItemList } from '$lib/sav/lists/itemList.svelte';
   import { loadRoomStyleList } from '$lib/sav/lists/roomStyleList.svelte';
   import { loadTreasureList } from '$lib/sav/lists/treasureList.svelte';
@@ -34,7 +33,6 @@
   import { TAB_PILL_CLASS } from '$lib/ui/styles';
 
   if (browser) {
-    loadHashList();
     loadFoodList();
     loadClothList();
     loadCoordinateList();
