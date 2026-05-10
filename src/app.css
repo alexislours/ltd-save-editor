@@ -21,8 +21,8 @@
   --color-edge-strong: #f59e0b; /* amber-500 */
 
   /* Brand accent — readable text/icon color over the header & chip backgrounds */
-  --color-brand: #c2410c; /* orange-700 */
-  --color-brand-soft: #ea580c; /* orange-600 */
+  --color-brand: #9a3412; /* orange-800: 5.04:1 over header amber-300, 7:1+ over chip surfaces */
+  --color-brand-soft: #c2410c; /* orange-700 */
 
   /* Status surfaces */
   --color-danger: #b91c1c; /* red-700 */
