@@ -1,4 +1,5 @@
 import { DataType } from '$lib/sav/dataType';
+import { GRAMMAR_GENDER, GRAMMAR_NUMBER, LANGUAGE } from './enumOptions';
 
 const _MAP_SCHEMA = {
   House: {
@@ -12,7 +13,7 @@ const _MAP_SCHEMA = {
         SubActorSetHash: { hash: 0x90b5f643, type: DataType.UIntArray },
       },
     },
-    RegionLanguageID: { hash: 0xd0a95ebb, type: DataType.EnumArray },
+    RegionLanguageID: { hash: 0xd0a95ebb, type: DataType.EnumArray, options: LANGUAGE },
     RoomSettings: {
       BaseStyleId: { hash: 0xe3f33431, type: DataType.UIntArray },
       OverrideFloorStyleId: { hash: 0x08bd24c3, type: DataType.UIntArray },
@@ -300,8 +301,8 @@ const _MAP_SCHEMA = {
     RoommateGroupName: { hash: 0x0d96409e, type: DataType.WString32Array },
     UgcExteriorOwnInfo: { hash: 0xbc21e34f, type: DataType.BoolArray },
     UgcInteriorOwnInfo: { hash: 0xe880c81c, type: DataType.BoolArray },
-    WordAttrCount: { hash: 0x0534fa39, type: DataType.EnumArray },
-    WordAttrGrammaticality: { hash: 0xa2f92241, type: DataType.EnumArray },
+    WordAttrCount: { hash: 0x0534fa39, type: DataType.EnumArray, options: GRAMMAR_NUMBER },
+    WordAttrGrammaticality: { hash: 0xa2f92241, type: DataType.EnumArray, options: GRAMMAR_GENDER },
   },
   MapGrid: {
     GridX: {

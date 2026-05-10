@@ -5,6 +5,7 @@ declare const brand: unique symbol;
 export type SchemaLeaf<T extends DataType = DataType> = {
   readonly hash: number;
   readonly type: T;
+  readonly options?: readonly string[];
 };
 
 export type Leaf<T extends DataType = DataType, K extends string = string> = SchemaLeaf<T> & {

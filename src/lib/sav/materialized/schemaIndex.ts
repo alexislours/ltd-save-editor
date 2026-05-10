@@ -2,6 +2,7 @@ import type { SchemaLeaf } from '$lib/sav/schema/leaf';
 
 const HASH_CACHE = new WeakMap<object, Map<number, SchemaLeaf>>();
 const PATH_CACHE = new WeakMap<object, Map<number, string>>();
+const OPTIONS_CACHE = new WeakMap<object, Map<number, readonly string[]>>();
 
 export function buildHashMap(schema: object): Map<number, SchemaLeaf> {
   const cached = HASH_CACHE.get(schema);
@@ -18,6 +19,17 @@ export function buildPathMap(schema: object): Map<number, string> {
   const map = new Map<number, string>();
   walkPaths(schema, '', map);
   PATH_CACHE.set(schema, map);
+  return map;
+}
+
+export function buildOptionsMap(schema: object): Map<number, readonly string[]> {
+  const cached = OPTIONS_CACHE.get(schema);
+  if (cached) return cached;
+  const map = new Map<number, readonly string[]>();
+  for (const [hash, leaf] of buildHashMap(schema)) {
+    if (leaf.options) map.set(hash, leaf.options);
+  }
+  OPTIONS_CACHE.set(schema, map);
   return map;
 }
 

@@ -3,7 +3,7 @@
   import { track } from '$lib/analytics';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { PLAYER_SCHEMA } from '$lib/sav/schema';
-  import { GENERATED_ENUM_OPTION_NAMES } from '$lib/sav/generatedNames';
+  import { enumOptionName } from '$lib/sav/knownKeys';
   import { allWishes, wishLabel, type Wish } from '$lib/sav/lists/wishList.svelte';
   import ConfirmDialog from '$lib/ui/ConfirmDialog.svelte';
   import { CARD_CLASS, INPUT_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
@@ -35,7 +35,7 @@
     const ids = acc.get(leaf) as number[];
     const out: string[] = [];
     for (const id of ids) {
-      const name = GENERATED_ENUM_OPTION_NAMES.get(id >>> 0);
+      const name = enumOptionName(id >>> 0);
       if (name && !out.includes(name)) out.push(name);
     }
     return out;
