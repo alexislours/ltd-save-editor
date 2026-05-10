@@ -6,6 +6,18 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.4.0',
+    date: '2026-05-10',
+    changes: [
+      'Added a Wishes editor in the Player tab to bulk unlock and reset fountain wishes.',
+      'Added a Housing sub-tab in the Mii tab to assign islanders to houses without using the Map editor.',
+      'Added a recovery option for some saves corrupted by Ryujinx.',
+      'Fixed ToolKit’s UGC backup folder being read.',
+      'Performance improvements.',
+      'Removed the interactive tutorials.',
+    ],
+  },
+  {
     version: '2.3.0',
     date: '2026-05-09',
     changes: [
