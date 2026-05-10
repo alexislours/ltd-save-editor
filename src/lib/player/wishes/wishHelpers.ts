@@ -15,24 +15,6 @@ function readArray<T>(
   return ((acc.get(leaf) as unknown as T[]) ?? []) as T[];
 }
 
-export function findWishIndex(acc: PlayerAccessor | null, wishHash: number): number {
-  if (!acc) return -1;
-  const ids = readArray<number>(acc, ID_LEAF);
-  const target = wishHash >>> 0;
-  for (let i = 0; i < ids.length; i++) {
-    if (ids[i] >>> 0 === target) return i;
-  }
-  return -1;
-}
-
-export function isWishLiberated(acc: PlayerAccessor | null, wishHash: number): boolean {
-  if (!acc) return false;
-  const idx = findWishIndex(acc, wishHash);
-  if (idx < 0) return false;
-  const flags = readArray<boolean>(acc, LIB_LEAF);
-  return flags[idx] === true;
-}
-
 export function liberatedWishHashes(acc: PlayerAccessor | null): Set<number> {
   const out = new Set<number>();
   if (!acc) return out;

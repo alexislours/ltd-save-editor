@@ -1,6 +1,6 @@
 import { type GameLocale, pickLocalized } from '$lib/sav/gameLocale';
 
-export type WishCategory =
+type WishCategory =
   | 'Facility'
   | 'Goods'
   | 'StyleGroup'
@@ -12,7 +12,7 @@ export type WishCategory =
   | 'Ugc'
   | 'Unknown';
 
-export type WishSeason =
+type WishSeason =
   | 'Spring'
   | 'Summer'
   | 'Autumn'

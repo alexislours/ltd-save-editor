@@ -52,34 +52,6 @@ export function computeCollisions(rows: readonly MapObjectRow[], out?: Uint8Arra
   return mask;
 }
 
-type CollisionGroup = {
-  cellX: number;
-  cellY: number;
-  count: number;
-  indices: number[];
-};
-
-export function collisionGroups(rows: readonly MapObjectRow[]): CollisionGroup[] {
-  const buckets = new Map<number, number[]>();
-  forEachCollisionCell(rows, (key, row) => {
-    const bucket = buckets.get(key);
-    if (bucket) bucket.push(row.index);
-    else buckets.set(key, [row.index]);
-  });
-  const out: CollisionGroup[] = [];
-  for (const [key, indices] of buckets) {
-    if (indices.length < 2) continue;
-    out.push({
-      cellX: key % COLLISION_GRID_W,
-      cellY: (key / COLLISION_GRID_W) | 0,
-      count: indices.length,
-      indices,
-    });
-  }
-  out.sort((a, b) => a.cellY - b.cellY || a.cellX - b.cellX);
-  return out;
-}
-
 export function collisionCountAt(mask: Uint8Array, x: number, y: number): number {
   if (x < 0 || y < 0 || x >= COLLISION_GRID_W || y >= COLLISION_GRID_H) return 0;
   return mask[maskIndex(x, y)];

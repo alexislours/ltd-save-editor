@@ -55,5 +55,3 @@ export function issues(): IssueGroups {
   issuesCache = { tileRev, objRev, result };
   return result;
 }
-
-export { computeIssues, computeObjectCounts, computeTileCoverage };

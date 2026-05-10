@@ -48,9 +48,3 @@ export function modifiedFloorCount(): number {
   }
   return count;
 }
-
-export function resetBaselineForTests(): void {
-  state.loadId = -2;
-  state.floor = null;
-  state.rev = (state.rev + 1) | 0;
-}

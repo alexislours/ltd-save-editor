@@ -218,7 +218,7 @@ export function closeHelp(): void {
   keymapState.helpOpen = false;
 }
 
-export type DispatchInput = {
+type DispatchInput = {
   key: string;
   code?: string;
   metaKey: boolean;
@@ -228,7 +228,7 @@ export type DispatchInput = {
   repeat?: boolean;
 };
 
-export type DispatchContext = {
+type DispatchContext = {
   isMac: boolean;
   mode: Mode;
   selectionSize: number;
@@ -241,7 +241,7 @@ export type DispatchContext = {
 
 const ARROW_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown']);
 
-export function resolveAction(input: DispatchInput, ctx: DispatchContext): KeyAction | null {
+function resolveAction(input: DispatchInput, ctx: DispatchContext): KeyAction | null {
   const { key, code, metaKey, ctrlKey, shiftKey, altKey } = input;
   const meta = ctx.isMac ? metaKey : ctrlKey;
 

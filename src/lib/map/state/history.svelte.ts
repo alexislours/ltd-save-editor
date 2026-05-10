@@ -71,10 +71,6 @@ export function pushAction(action: MapAction): void {
   state.redoStack = [];
 }
 
-export function clearRedoStack(): void {
-  if (state.redoStack.length > 0) state.redoStack = [];
-}
-
 function applyTile(
   changes: TileChange[],
   pick: (c: TileChange) => number,
@@ -143,11 +139,6 @@ export function redo(): void {
     reapplyAtomic(action);
   }
   state.undoStack.push(action);
-}
-
-export function clearHistory(): void {
-  state.undoStack = [];
-  state.redoStack = [];
 }
 
 export class StrokeBuilder {
