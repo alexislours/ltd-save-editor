@@ -16,7 +16,7 @@ export const PRIMARY_BUTTON_CLASS =
   'inline-flex shrink-0 items-center gap-2 rounded-full bg-orange-500 px-5 py-2 text-sm font-bold text-white shadow ring-2 ring-orange-600 transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-700 active:scale-95';
 
 export const TAB_PILL_CLASS =
-  'inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600';
+  'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600';
 
 export const CARD_BASE_CLASS = 'rounded-2xl bg-surface shadow-sm ring-1 ring-edge/40';
 
