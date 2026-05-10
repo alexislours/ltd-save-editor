@@ -4839,6 +4839,7 @@ const _PLAYER_SCHEMA = {
     },
     UnlockMapLevel: { hash: 0x870a807c, type: DataType.Int },
     VoiceVolume: { hash: 0x38468a2a, type: DataType.UInt },
+    WeeklyInteriorShopFurnitureIdx: { hash: 0xd9276e3a, type: DataType.Int },
   },
   Trial: {
     IsClothShopDialogShown: { hash: 0x7448d1e7, type: DataType.Bool },
@@ -5204,7 +5205,6 @@ const _PLAYER_SCHEMA = {
   },
   Unknown: {
     '0x84A85193': { hash: 0x84a85193, type: DataType.UInt },
-    '0xD9276E3A': { hash: 0xd9276e3a, type: DataType.Int },
     '0xE6F98671': { hash: 0xe6f98671, type: DataType.UInt },
     '0xFFC750B6': { hash: 0xffc750b6, type: DataType.UIntArray },
   },
