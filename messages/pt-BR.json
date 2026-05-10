@@ -55,9 +55,7 @@
     "drop_browse": "ou clique para procurar",
     "drop_warning_label": "Aviso:",
     "drop_warning_text": "editar arquivos de save pode corromper seu jogo. Sempre mantenha um backup do arquivo original antes de enviar.",
-    "read_failed": "Falha ao ler o arquivo",
-    "wrong_tab": "{actual} pertence à aba {correctTab}, não à aba {expectedTab}.",
-    "unrecognized_file": "{actual} não é um arquivo de save reconhecido. Esperado Player.sav, Mii.sav ou Map.sav."
+    "read_failed": "Falha ao ler o arquivo"
   },
   "bulk": {
     "drop_hint": "Solte um ou mais arquivos .sav, uma pasta ou um .zip. Cada arquivo é direcionado para a aba certa.",
@@ -129,12 +127,10 @@
     },
     "errors": {
       "non_negative_integer": "Deve ser um número inteiro não negativo",
-      "integer": "Deve ser um número inteiro",
       "number": "Deve ser um número",
       "non_negative_number": "Deve ser um número não negativo",
       "money_max": "O máximo é 999.999,99",
-      "invalid_number": "Número inválido",
-      "unsupported_type": "Tipo de campo não suportado"
+      "invalid_number": "Número inválido"
     },
     "sections_label": "Seções do jogador",
     "subtab_profile": "Perfil",
@@ -571,7 +567,6 @@
       "crush_blocked_by_fight": "Paixão não pode coexistir com briga. Termine a briga primeiro",
       "crush_blocked_gender": "Este Mii não é atraído pelo gênero do outro Mii. Ajuste \"Atraído(a) por\" primeiro.",
       "crush_blocked_blood": "Paixão não pode ser definida entre parentes consanguíneos.",
-      "fight_unavailable": "Briga só se aplica a relacionamentos de Amigo, Cônjuge ou Namorado(a)",
       "couple_blocked_gender": "Namorado(a) / Cônjuge exige que ambos os Miis sejam atraídos pelo gênero um do outro. Ajuste \"Atraído(a) por\" ou o Gênero primeiro.",
       "couple_blocked_blood": "Namorado(a) / Cônjuge não pode ser definido entre parentes consanguíneos.",
       "couple_blocked_self_paired": "Este Mii já está em um relacionamento de Namorado(a) / Cônjuge. Termine o relacionamento existente primeiro.",
@@ -860,11 +855,6 @@
       "cancel": "Cancelar"
     },
     "workbench": {
-      "toolbar_placeholder": "Barra de ferramentas",
-      "palette_placeholder": "Paleta",
-      "canvas_placeholder": "Canvas",
-      "inspector_placeholder": "Inspetor",
-      "status_placeholder": "X · Y · ladrilho sob o cursor · resumo da seleção · modificado",
       "status_hover_hint": "Passe o cursor sobre o canvas"
     },
     "toolbar": {
@@ -896,8 +886,6 @@
       "tool_replace": "Substituir",
       "tool_replace_title": "Substituir (E) - clique em um ladrilho para substituir todas as células com o mesmo hash",
       "brush_size_title": "Tamanho do pincel {size}",
-      "brush_size_decrease": "Diminuir tamanho do pincel",
-      "brush_size_increase": "Aumentar tamanho do pincel",
       "brush_size_label": "Tamanho",
       "brush_shape_label": "Formato",
       "brush_picker_title": "Tamanho e formato do pincel",
@@ -1008,7 +996,6 @@
       "residents_unhoused_hint": "Clique para atribuir a uma sala vazia",
       "residents_unhoused_assign_title": "Atribuir {name} a uma sala",
       "empty_houses": "Casas vazias",
-      "empty_houses_empty": "Nenhuma casa vazia.",
       "empty_houses_hint": "Ir para esta casa",
       "empty_houses_count": "{count, plural, one {# casa vazia} other {# casas vazias}}"
     },
@@ -1220,7 +1207,6 @@
       "download_pending": "Baixar {count, plural, one {# novo arquivo Ugc} other {# novos arquivos Ugc}}"
     },
     "list": {
-      "section_miis": "Miis",
       "header_count": "{count, plural, one {# slot preenchido} other {# slots preenchidos}}",
       "header_add_new": "slot {slot} disponível para novos itens",
       "export_all": "Exportar tudo",
@@ -1459,7 +1445,6 @@
     "list": {
       "title": "Itens ({count})",
       "empty": "Nenhum item nesta categoria.",
-      "add_new": "+ Adicionar (slot {slot})",
       "unnamed": "Item {slot}",
       "facepaint_owned": "Usada por {name}",
       "facepaint_unassigned": "Sem dono"
@@ -1529,11 +1514,6 @@
         "label": "Restrição de comunicação local",
         "hint": "Este item foi recebido por comunicação local e está travado para ser compartilhado de novo. Remova a restrição para liberá-lo.",
         "clear": "Remover restrição"
-      },
-      "texture": {
-        "canvas": "Canvas",
-        "ugctex": "UgcTex",
-        "thumb": "Miniatura"
       }
     },
     "toast": {
@@ -1541,7 +1521,6 @@
       "loaded_zip": "{count, plural, one {# arquivo .zs carregado} other {# arquivos .zs carregados}} do zip.",
       "no_zs_in_folder": "Nenhum arquivo .canvas.zs / .ugctex.zs nessa pasta.",
       "no_zs_in_zip": "Nenhum arquivo .canvas.zs / .ugctex.zs nesse zip.",
-      "only_png": "Solte um arquivo PNG.",
       "unsupported_image": "Solte um arquivo PNG, JPG ou WEBP.",
       "no_texture": "Ainda não há arquivo de textura para este item.",
       "replaced": "Slot {slot} substituído. Arquivos prontos para baixar.",

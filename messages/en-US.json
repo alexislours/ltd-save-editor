@@ -329,7 +329,6 @@
     "list": {
       "title": "Items ({count})",
       "empty": "No items found in this category.",
-      "add_new": "+ Add new (slot {slot})",
       "unnamed": "Item {slot}",
       "facepaint_owned": "Worn by {name}",
       "facepaint_unassigned": "Unassigned"
@@ -399,11 +398,6 @@
         "label": "LAN restriction",
         "hint": "This item was received over local wireless and is locked from being shared again. Clear it to lift the restriction.",
         "clear": "Clear restriction"
-      },
-      "texture": {
-        "canvas": "Canvas",
-        "ugctex": "UgcTex",
-        "thumb": "Thumb"
       }
     },
     "toast": {
@@ -411,7 +405,6 @@
       "loaded_zip": "Loaded {count} .zs file(s) from zip.",
       "no_zs_in_folder": "No .canvas.zs / .ugctex.zs files in that folder.",
       "no_zs_in_zip": "No .canvas.zs / .ugctex.zs files in that zip.",
-      "only_png": "Drop a PNG file.",
       "unsupported_image": "Drop a PNG, JPG or WEBP file.",
       "no_texture": "No texture file for this item yet.",
       "replaced": "Replaced slot {slot}. Files staged for download.",
@@ -439,9 +432,7 @@
     "drop_browse": "or click to browse",
     "drop_warning_label": "Warning:",
     "drop_warning_text": "editing save files can corrupt your game. Always keep a backup of the original file before uploading.",
-    "read_failed": "Failed to read file",
-    "wrong_tab": "{actual} belongs in the {correctTab} tab, not the {expectedTab} tab.",
-    "unrecognized_file": "{actual} isn't a recognised save file. Expected Player.sav, Mii.sav, or Map.sav."
+    "read_failed": "Failed to read file"
   },
   "bulk": {
     "drop_hint": "Drop one or more .sav files, a folder, or a .zip. Each file is routed to the right tab.",
@@ -520,12 +511,10 @@
     },
     "errors": {
       "non_negative_integer": "Must be a non-negative integer",
-      "integer": "Must be an integer",
       "number": "Must be a number",
       "non_negative_number": "Must be a non-negative number",
       "money_max": "Max is 999,999.99",
-      "invalid_number": "Invalid number",
-      "unsupported_type": "Unsupported field type"
+      "invalid_number": "Invalid number"
     },
     "sections_label": "Player sections",
     "subtab_profile": "Profile",
@@ -1158,7 +1147,6 @@
       "crush_blocked_by_fight": "Crush can't coexist with a fight. End the fight first",
       "crush_blocked_gender": "This Mii isn't attracted to the other Mii's gender. Adjust their \"Attracted to\" first.",
       "crush_blocked_blood": "Crushes can't be set on blood relatives.",
-      "fight_unavailable": "Fight only applies to Friend, Couple or Sweetheart relationships",
       "couple_blocked_gender": "Sweetheart / Spouse needs both Miis to be attracted to each other's gender. Adjust their \"Attracted to\" or Gender first.",
       "couple_blocked_blood": "Sweetheart / Spouse can't be set on blood relatives.",
       "couple_blocked_self_paired": "This Mii is already in a Sweetheart / Spouse relationship. Break the existing one first.",
@@ -1251,11 +1239,6 @@
       "cancel": "Cancel"
     },
     "workbench": {
-      "toolbar_placeholder": "Toolbar",
-      "palette_placeholder": "Palette",
-      "canvas_placeholder": "Canvas",
-      "inspector_placeholder": "Inspector",
-      "status_placeholder": "X · Y · hovered tile · selection summary · dirty",
       "status_hover_hint": "Hover the canvas"
     },
     "toolbar": {
@@ -1287,8 +1270,6 @@
       "tool_replace": "Replace",
       "tool_replace_title": "Replace (E) - click a tile to replace every cell with the same hash",
       "brush_size_title": "Brush size {size}",
-      "brush_size_decrease": "Decrease brush size",
-      "brush_size_increase": "Increase brush size",
       "brush_size_label": "Size",
       "brush_shape_label": "Shape",
       "brush_picker_title": "Brush size and shape",
@@ -1421,7 +1402,6 @@
       "residents_unhoused_hint": "Click to assign to an empty room",
       "residents_unhoused_assign_title": "Assign {name} to a room",
       "empty_houses": "Empty houses",
-      "empty_houses_empty": "No empty houses.",
       "empty_houses_hint": "Snap to this house",
       "empty_houses_count": "{count, plural, one {# empty house} other {# empty houses}}"
     },
@@ -1591,7 +1571,6 @@
       "download_pending": "Download {count, plural, one {# new Ugc file} other {# new Ugc files}}"
     },
     "list": {
-      "section_miis": "Miis",
       "header_count": "{count, plural, one {# populated slot} other {# populated slots}}",
       "header_add_new": "slot {slot} available for new items",
       "export_all": "Export all",

@@ -55,9 +55,7 @@
     "drop_browse": "ou clique pour parcourir",
     "drop_warning_label": "Attention :",
     "drop_warning_text": "modifier les fichiers de sauvegarde peut corrompre ta partie. Conserve toujours une copie de l'original avant de l'envoyer.",
-    "read_failed": "Échec de la lecture du fichier",
-    "wrong_tab": "{actual} se place dans l'onglet {correctTab}, pas dans l'onglet {expectedTab}.",
-    "unrecognized_file": "{actual} n'est pas un fichier de sauvegarde reconnu. Player.sav, Mii.sav ou Map.sav attendu."
+    "read_failed": "Échec de la lecture du fichier"
   },
   "bulk": {
     "drop_hint": "Dépose un ou plusieurs fichiers .sav, un dossier ou un .zip. Chaque fichier est dirigé vers le bon onglet.",
@@ -129,12 +127,10 @@
     },
     "errors": {
       "non_negative_integer": "Doit être un entier positif ou nul",
-      "integer": "Doit être un entier",
       "number": "Doit être un nombre",
       "non_negative_number": "Doit être un nombre positif ou nul",
       "money_max": "Maximum : 999 999,99",
-      "invalid_number": "Nombre invalide",
-      "unsupported_type": "Type de champ non pris en charge"
+      "invalid_number": "Nombre invalide"
     },
     "sections_label": "Sections Joueur",
     "subtab_profile": "Profil",
@@ -571,7 +567,6 @@
       "crush_blocked_by_fight": "Impossible d'avoir le béguin pendant une dispute. Termine la dispute d'abord",
       "crush_blocked_gender": "Ce Mii n'est pas attiré par le genre de l'autre Mii. Ajuste « Attiré(e) par » d'abord.",
       "crush_blocked_blood": "Le béguin n'est pas autorisé entre membres de la même famille de sang.",
-      "fight_unavailable": "La dispute ne s'applique qu'aux relations Ami, Conjoint ou Petit(e) ami(e)",
       "couple_blocked_gender": "Petit(e) ami(e) / Conjoint(e) requiert que les deux Miis soient attirés par le genre de l'autre. Ajuste « Attiré(e) par » ou le genre d'abord.",
       "couple_blocked_blood": "Petit(e) ami(e) / Conjoint(e) impossible entre membres de la même famille de sang.",
       "couple_blocked_self_paired": "Ce Mii est déjà en couple (Petit(e) ami(e) / Conjoint(e)). Romps d'abord la relation existante.",
@@ -860,11 +855,6 @@
       "cancel": "Annuler"
     },
     "workbench": {
-      "toolbar_placeholder": "Barre d'outils",
-      "palette_placeholder": "Palette",
-      "canvas_placeholder": "Toile",
-      "inspector_placeholder": "Inspecteur",
-      "status_placeholder": "X · Y · tuile survolée · résumé de la sélection · modifié",
       "status_hover_hint": "Survole la toile"
     },
     "toolbar": {
@@ -896,8 +886,6 @@
       "tool_replace": "Remplacer",
       "tool_replace_title": "Remplacer (E) - clique sur une tuile pour remplacer toutes les cases avec le même hash",
       "brush_size_title": "Taille du pinceau {size}",
-      "brush_size_decrease": "Diminuer la taille du pinceau",
-      "brush_size_increase": "Augmenter la taille du pinceau",
       "brush_size_label": "Taille",
       "brush_shape_label": "Forme",
       "brush_picker_title": "Taille et forme du pinceau",
@@ -1008,7 +996,6 @@
       "residents_unhoused_hint": "Clique pour attribuer à une pièce vide",
       "residents_unhoused_assign_title": "Attribuer {name} à une pièce",
       "empty_houses": "Maisons vides",
-      "empty_houses_empty": "Aucune maison vide.",
       "empty_houses_hint": "Aller à cette maison",
       "empty_houses_count": "{count, plural, one {# maison vide} other {# maisons vides}}"
     },
@@ -1220,7 +1207,6 @@
       "download_pending": "Télécharger {count, plural, one {# nouveau fichier Ugc} other {# nouveaux fichiers Ugc}}"
     },
     "list": {
-      "section_miis": "Miis",
       "header_count": "{count, plural, one {# emplacement utilisé} other {# emplacements utilisés}}",
       "header_add_new": "emplacement {slot} disponible pour de nouveaux éléments",
       "export_all": "Tout exporter",
@@ -1459,7 +1445,6 @@
     "list": {
       "title": "Éléments ({count})",
       "empty": "Aucun élément dans cette catégorie.",
-      "add_new": "+ Ajouter (emplacement {slot})",
       "unnamed": "Élément {slot}",
       "facepaint_owned": "Porté par {name}",
       "facepaint_unassigned": "Sans propriétaire"
@@ -1529,11 +1514,6 @@
         "label": "Restriction de communication locale",
         "hint": "Cet élément a été reçu en communication locale et ne peut plus être repartagé. Lève la restriction pour pouvoir le repartager.",
         "clear": "Lever la restriction"
-      },
-      "texture": {
-        "canvas": "Canvas",
-        "ugctex": "UgcTex",
-        "thumb": "Miniature"
       }
     },
     "toast": {
@@ -1541,7 +1521,6 @@
       "loaded_zip": "{count, plural, one {# fichier .zs chargé} other {# fichiers .zs chargés}} depuis le zip.",
       "no_zs_in_folder": "Aucun fichier .canvas.zs / .ugctex.zs dans ce dossier.",
       "no_zs_in_zip": "Aucun fichier .canvas.zs / .ugctex.zs dans ce zip.",
-      "only_png": "Dépose un fichier PNG.",
       "unsupported_image": "Dépose un fichier PNG, JPG ou WEBP.",
       "no_texture": "Pas encore de fichier de texture pour cet élément.",
       "replaced": "Emplacement {slot} remplacé. Fichiers prêts à être téléchargés.",
