@@ -2,8 +2,10 @@
   import { _ } from 'svelte-i18n';
   import { safe } from '$lib/sav/format';
   import { MII_SCHEMA } from '$lib/sav/schema';
-  import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
+  import { showToast } from '$lib/toast/toast.svelte';
+  import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from './miiEditor.svelte';
+  import { DEFAULT_CHAR_INFO_EX } from './ownership/defaultCharInfoEx';
   import { populatedMiiIndices } from './ownership/populated';
 
   type Props = {
@@ -13,6 +15,37 @@
 
   const mii = $derived(miiAccessor());
   const hasName = $derived(mii != null && mii.has(MII_SCHEMA.Mii.Name.Name));
+  const namedIndices = $derived.by<number[]>(() => {
+    if (!mii || !hasName) return [];
+    const names = mii.get(MII_SCHEMA.Mii.Name.Name);
+    const out: number[] = [];
+    for (let i = 0; i < names.length; i++) {
+      if (names[i].length > 0) out.push(i);
+    }
+    return out;
+  });
+  const canStampCharInfoEx = $derived(
+    mii != null &&
+      mii.has(MII_SCHEMA.Mii.CharInfoEx) &&
+      namedIndices.length > 0 &&
+      namedIndices.every((i) => {
+        const bytes = mii.getElement(MII_SCHEMA.Mii.CharInfoEx, i);
+        for (let b = 0; b < bytes.length; b++) if (bytes[b] !== 0) return false;
+        return true;
+      }),
+  );
+
+  function stampDefaultCharInfoEx(): void {
+    if (!mii) return;
+    const targets = namedIndices;
+    for (const i of targets) {
+      mii.setElement(MII_SCHEMA.Mii.CharInfoEx, i, new Uint8Array(DEFAULT_CHAR_INFO_EX));
+    }
+    showToast(
+      'success',
+      $_('mii.panel.fix_zero_charinfoex_done', { values: { count: targets.length } }),
+    );
+  }
 
   type Slot = {
     index: number;
@@ -74,7 +107,14 @@
   </section>
 {:else if slots.length === 0}
   <section class={CARD_CLASS}>
-    <p class="text-sm text-content-muted">{$_('mii.panel.no_slots')}</p>
+    {#if canStampCharInfoEx}
+      <p class="text-sm text-content-muted">{$_('mii.panel.fix_zero_charinfoex')}</p>
+      <button type="button" class="{PILL_BUTTON_CLASS} mt-3" onclick={stampDefaultCharInfoEx}>
+        {$_('mii.panel.fix_zero_charinfoex_button')}
+      </button>
+    {:else}
+      <p class="text-sm text-content-muted">{$_('mii.panel.no_slots')}</p>
+    {/if}
   </section>
 {:else}
   <section class={CARD_CLASS}>

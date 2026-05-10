@@ -1,10 +1,12 @@
 <script lang="ts">
   import { untrack } from 'svelte';
   import { _ } from 'svelte-i18n';
+  import { browser } from '$app/environment';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
   import { track } from '$lib/analytics';
   import { errorMessage } from '$lib/errorMessage';
   import RouteMeta from '$lib/layout/RouteMeta.svelte';
+  import { loadListsForPlayer } from '$lib/sav/lists/perRoute';
   import BuildingsPanel from '$lib/player/inventory/BuildingsPanel.svelte';
   import ClothesPanel from '$lib/player/inventory/ClothesPanel.svelte';
   import ClothingSetsPanel from '$lib/player/inventory/ClothingSetsPanel.svelte';
@@ -13,6 +15,7 @@
   import Profile from '$lib/player/profile/Profile.svelte';
   import TreasuresPanel from '$lib/player/inventory/TreasuresPanel.svelte';
   import UgcTextPanel from '$lib/player/UgcTextPanel.svelte';
+  import WishesPanel from '$lib/player/wishes/WishesPanel.svelte';
   import {
     commitEntryEdit,
     downloadModified,
@@ -24,6 +27,8 @@
   import { getEntriesForAdvanced, getSave } from '$lib/saveFile/saveFile.svelte';
   import SubTabs from '$lib/ui/SubTabs.svelte';
   import { showToast } from '$lib/toast/toast.svelte';
+
+  if (browser) loadListsForPlayer();
 
   const save = $derived(getSave('player'));
   $effect(() => {
@@ -44,6 +49,7 @@
     | 'treasures'
     | 'interiors'
     | 'buildings'
+    | 'wishes'
     | 'ugc'
     | 'advanced';
   let subTab = $state<SubTab>('profile');
@@ -56,6 +62,7 @@
     { value: 'treasures', label: $_('player.subtab_treasures') },
     { value: 'interiors', label: $_('player.subtab_interiors') },
     { value: 'buildings', label: $_('player.subtab_buildings') },
+    { value: 'wishes', label: $_('player.subtab_wishes') },
     { value: 'ugc', label: $_('player.subtab_ugc') },
     { value: 'advanced', label: $_('tab.advanced') },
   ]);
@@ -102,6 +109,8 @@
       <InteriorsPanel />
     {:else if subTab === 'buildings'}
       <BuildingsPanel />
+    {:else if subTab === 'wishes'}
+      <WishesPanel />
     {:else if subTab === 'ugc'}
       <UgcTextPanel />
     {:else}

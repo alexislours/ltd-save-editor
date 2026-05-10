@@ -48,10 +48,10 @@ export type RouterState = {
   multiTapEndPositions: Map<number, { x: number; y: number; startX: number; startY: number }>;
 };
 
-export const LONG_PRESS_MS = 500;
+const LONG_PRESS_MS = 500;
 const LONG_PRESS_MOVE_TOL = 6;
 const ROTATE_SNAP_DEG = 15;
-export const ROTATE_PAUSE_MS = 300;
+const ROTATE_PAUSE_MS = 300;
 const MULTI_TAP_MAX_MS = 300;
 const MULTI_TAP_MOVE_TOL = 10;
 const MULTI_SWIPE_MIN_PX = 40;

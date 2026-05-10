@@ -15,7 +15,7 @@
   let { rows, working, isMii, sidecarMissing, onExportRow, onOpenImportFor }: Props = $props();
 </script>
 
-<ul data-tutorial="sharemii-rows" class="divide-y divide-edge/40">
+<ul class="divide-y divide-edge/40">
   {#each rows as r (r.slot)}
     <li class="flex flex-wrap items-center gap-x-3 gap-y-2 py-2">
       <span class="shrink-0 basis-12 font-mono text-xs text-content-muted" aria-hidden="true">
@@ -44,7 +44,6 @@
         {:else}
           <button
             type="button"
-            data-tutorial-row-export
             class={PILL_BUTTON_CLASS}
             onclick={() => onExportRow(r)}
             disabled={working || (!isMii && sidecarMissing)}
@@ -53,7 +52,6 @@
           </button>
           <button
             type="button"
-            data-tutorial-row-replace
             class={PILL_BUTTON_CLASS}
             onclick={() => onOpenImportFor(r.slot)}
             disabled={working}

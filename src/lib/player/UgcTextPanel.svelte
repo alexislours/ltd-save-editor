@@ -1,8 +1,7 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { GENERATED_ENUM_OPTION_NAMES } from '$lib/sav/generatedNames';
   import { murmur3_x86_32 } from '$lib/sav/hash';
-  import { enumOptionsFor } from '$lib/sav/knownKeys';
+  import { enumOptionName, enumOptionsFor } from '$lib/sav/knownKeys';
   import { PLAYER_SCHEMA } from '$lib/sav/schema';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
@@ -77,8 +76,7 @@
 
   function regionLabel(regionHash: number): string {
     return (
-      GENERATED_ENUM_OPTION_NAMES.get(regionHash >>> 0) ??
-      `0x${(regionHash >>> 0).toString(16).padStart(8, '0')}`
+      enumOptionName(regionHash >>> 0) ?? `0x${(regionHash >>> 0).toString(16).padStart(8, '0')}`
     );
   }
 

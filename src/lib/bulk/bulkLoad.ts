@@ -3,10 +3,9 @@ import {
   detectSaveKindFromBytes,
   detectSaveKindFromName,
   getSave,
-  SAVE_KINDS,
   setSaveFromBytes,
-  type SaveKind,
 } from '$lib/saveFile/saveFile.svelte';
+import { SAVE_KINDS, type SaveKind } from '$lib/saveFile/types';
 import { isJunkArchiveEntry, isSidecarFileName } from '$lib/shareMii/sidecar/sidecar';
 import { collectSidecarFromNamedBytes } from '$lib/shareMii/sidecar/sidecarStore.svelte';
 
@@ -50,7 +49,7 @@ async function expandZip(file: File): Promise<ZipExpansion> {
     if (SAV_EXT.test(name)) {
       savs.push({ name, bytes, lastModified: file.lastModified, fromZip: true });
     } else if (isSidecarFileName(name)) {
-      sidecars.push({ name, bytes });
+      sidecars.push({ name: path, bytes });
     }
   }
   return { savs, sidecars };
@@ -89,7 +88,7 @@ export async function planBulkLoad(files: File[]): Promise<BulkPlan> {
       if (isJunkArchiveEntry(fullPath)) continue;
       try {
         const bytes = new Uint8Array(await file.arrayBuffer());
-        folderSidecars.push({ name: file.name, bytes });
+        folderSidecars.push({ name: fullPath, bytes });
       } catch {
         skipped.push({ name: file.name, reason: 'read_failed' });
       }
@@ -107,6 +106,7 @@ export async function planBulkLoad(files: File[]): Promise<BulkPlan> {
   for (const batch of sidecarBatches) {
     for (const { name, bytes } of batch) {
       if (isJunkArchiveEntry(name)) continue;
+      if (isInUgcBackupFolder(name)) continue;
       const base = baseName(name);
       if (!isSidecarFileName(base)) continue;
       ugcMap.set(base, bytes);
@@ -133,6 +133,14 @@ export async function planBulkLoad(files: File[]): Promise<BulkPlan> {
 function baseName(name: string): string {
   const idx = Math.max(name.lastIndexOf('/'), name.lastIndexOf('\\'));
   return idx >= 0 ? name.slice(idx + 1) : name;
+}
+
+function isInUgcBackupFolder(path: string): boolean {
+  const segments = path.split(/[/\\]/).map((s) => s.toLowerCase());
+  for (let i = 0; i < segments.length - 2; i++) {
+    if (segments[i] === 'ugc' && segments[i + 1] === 'backup') return true;
+  }
+  return false;
 }
 
 export function applyBulkPlan(plan: BulkPlan): SaveKind[] {

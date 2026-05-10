@@ -303,6 +303,32 @@ export function emptyHouses(): EmptyHouse[] {
   return out;
 }
 
+export type HouseSummary = {
+  mapId: number;
+  roomCount: number;
+  residents: Resident[];
+};
+
+export function allHouses(): HouseSummary[] {
+  void state.rev;
+  const out: HouseSummary[] = [];
+  for (const r of liveRows()) {
+    if (!isHouseActor(r.actor)) continue;
+    if (r.link < 0) continue;
+    const residents = residentsForHouse(r.link);
+    const declared = roomCountForActor(r.actor);
+    let observedMax = -1;
+    for (const m of residents) if (m.roomIndex > observedMax) observedMax = m.roomIndex;
+    out.push({
+      mapId: r.link,
+      roomCount: Math.max(declared, observedMax + 1),
+      residents,
+    });
+  }
+  out.sort((a, b) => a.mapId - b.mapId);
+  return out;
+}
+
 export function findHouseRowByMapId(mapId: number): { index: number; actor: number } | null {
   if (!Number.isFinite(mapId) || mapId < 0) return null;
   for (const r of liveRows()) {

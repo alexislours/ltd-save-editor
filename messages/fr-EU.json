@@ -55,9 +55,7 @@
     "drop_browse": "ou clique pour parcourir",
     "drop_warning_label": "Attention :",
     "drop_warning_text": "modifier les fichiers de sauvegarde peut corrompre ta partie. Conserve toujours une copie de l'original avant de l'envoyer.",
-    "read_failed": "Échec de la lecture du fichier",
-    "wrong_tab": "{actual} se place dans l'onglet {correctTab}, pas dans l'onglet {expectedTab}.",
-    "unrecognized_file": "{actual} n'est pas un fichier de sauvegarde reconnu. Player.sav, Mii.sav ou Map.sav attendu."
+    "read_failed": "Échec de la lecture du fichier"
   },
   "bulk": {
     "drop_hint": "Dépose un ou plusieurs fichiers .sav, un dossier ou un .zip. Chaque fichier est dirigé vers le bon onglet.",
@@ -102,6 +100,7 @@
     "fountain_section": "Fontaine",
     "fountain_level_label": "Niveau de la fontaine",
     "wishes_label": "Vœux",
+    "wishes_come_true_label": "Vœux exaucés",
     "region_section": "Région et langue",
     "region_label": "Région",
     "region_code_label": "Code de région",
@@ -128,12 +127,10 @@
     },
     "errors": {
       "non_negative_integer": "Doit être un entier positif ou nul",
-      "integer": "Doit être un entier",
       "number": "Doit être un nombre",
       "non_negative_number": "Doit être un nombre positif ou nul",
       "money_max": "Maximum : 999 999,99",
-      "invalid_number": "Nombre invalide",
-      "unsupported_type": "Type de champ non pris en charge"
+      "invalid_number": "Nombre invalide"
     },
     "sections_label": "Sections Joueur",
     "subtab_profile": "Profil",
@@ -259,6 +256,60 @@
       "variant_label": "{color} (#{index})",
       "category_facility": "Bâtiment public",
       "category_object": "Objet de carte"
+    },
+    "subtab_wishes": "Vœux",
+    "wishes": {
+      "heading": "Vœux de la fontaine",
+      "caption": "{liberated} sur {total} vœux exaucés.",
+      "missing": "Cette sauvegarde n'expose pas de tableaux Liberation.WishInfo, les vœux ne peuvent donc pas être édités ici.",
+      "loading": "Chargement de la liste des vœux…",
+      "search": "Rechercher",
+      "search_placeholder": "Filtrer par nom…",
+      "category_label": "Catégorie",
+      "category_all": "Toutes les catégories",
+      "bulk_liberate": "Exaucer les vœux affichés ({count})",
+      "bulk_reset": "Réinitialiser les vœux affichés ({count})",
+      "bulk_confirm": "Appliquer ce changement à {count} vœux ? Cela ne pourra être annulé qu'en rechargeant ta sauvegarde.",
+      "bulk_confirm_title": "Appliquer aux vœux affichés ?",
+      "bulk_confirm_apply": "Appliquer",
+      "empty": "Aucun résultat ne correspond au filtre actuel.",
+      "category": {
+        "Facility": "Bâtiment public",
+        "Goods": "Marchandise",
+        "StyleGroup": "Style d'intérieur",
+        "Travel": "Voyage",
+        "HabitGroup": "Habitude",
+        "Service": "Service",
+        "Object": "Objet",
+        "Ground": "Sol",
+        "Ugc": "UGC",
+        "Unknown": "Inconnu"
+      },
+      "player_level": "Fontaine niv. {level}",
+      "gate": {
+        "level": "Niv. {level}",
+        "level_tip": "Nécessite la fontaine niv. {level}",
+        "count": "Après {count} vœux",
+        "count_tip": "Se débloque après {count} vœux exaucés",
+        "season_tip": "Exauçable uniquement en {season}"
+      },
+      "bump": {
+        "title": "Ajuster les statistiques pour débloquer ?",
+        "apply": "Ajuster",
+        "skip": "Ignorer",
+        "level": "Un de ces vœux nécessite la fontaine niv. {level}, mais le tien est inférieur. Mettre ton niveau de fontaine à {level} pour que le déblocage tienne ?",
+        "count": "Un de ces vœux se débloque après {count} vœux exaucés au préalable. Mettre ton compteur à {count} pour que le déblocage tienne ?",
+        "both": "Ces vœux nécessitent la fontaine niv. {level} et {count} vœux exaucés au préalable. Ajuster ton niveau de fontaine et ton compteur pour les satisfaire ?"
+      },
+      "season": {
+        "Spring": "Printemps",
+        "Summer": "Été",
+        "Autumn": "Automne",
+        "Winter": "Hiver",
+        "Christmas": "Noël",
+        "Halloween": "Halloween",
+        "AutumnWinter": "Automne/Hiver"
+      }
     }
   },
   "mii": {
@@ -268,6 +319,18 @@
     "sections_label": "Sections Mii",
     "subtab_profile": "Profil",
     "subtab_relationships": "Graphe des relations",
+    "subtab_housing": "Logements",
+    "housing": {
+      "title": "Logements",
+      "intro": "Déplace les habitants entre les maisons de l'île.",
+      "map_not_loaded": "Charge Map.sav pour voir les maisons de l'île.",
+      "no_houses": "Aucune maison trouvée sur le plan chargé.",
+      "rooms_filled": "{filled}/{total} occupées",
+      "unhoused_section": "Sans logement ({count})",
+      "unhoused_empty": "Tous les habitants ont un logement.",
+      "assign": "Trouver un toit",
+      "assign_hint": "Choisis une maison et une chambre pour cet habitant"
+    },
     "panel": {
       "no_name_spine": "Cette sauvegarde n'expose pas l'arête Mii.Name.Name : il n'y a rien à énumérer. Utilise le panneau Avancé de l'onglet Joueur pour inspecter les entrées brutes.",
       "no_slots": "Aucun emplacement Mii rempli n'a été trouvé. Les emplacements sont détectés en vérifiant que Mii.Name.Name contient une chaîne non vide.",
@@ -277,7 +340,10 @@
       "slot_label_with_level": "n°{index} · {name} · Niv. {level}",
       "level_pill": "Niveau {level}",
       "level_meter_label": "Niveau %",
-      "slot_short": "emplacement n°{index}"
+      "slot_short": "emplacement n°{index}",
+      "fix_zero_charinfoex": "Ta sauvegarde semble corrompue : toutes les entrées de Mii.CharInfoEx (le design des Miis) sont vides. L'éditeur peut les remplacer par un design de Mii par défaut si tu essaies de récupérer une sauvegarde.",
+      "fix_zero_charinfoex_button": "Continuer",
+      "fix_zero_charinfoex_done": "{count, plural, one {Design remplacé pour # Mii.} other {Designs remplacés pour # Miis.}}"
     },
     "sections": {
       "level": "Niveau",
@@ -501,7 +567,6 @@
       "crush_blocked_by_fight": "Impossible d'avoir le béguin pendant une dispute. Termine la dispute d'abord",
       "crush_blocked_gender": "Ce Mii n'est pas attiré par le genre de l'autre Mii. Ajuste « Attiré(e) par » d'abord.",
       "crush_blocked_blood": "Le béguin n'est pas autorisé entre membres de la même famille de sang.",
-      "fight_unavailable": "La dispute ne s'applique qu'aux relations Ami, Conjoint ou Petit(e) ami(e)",
       "couple_blocked_gender": "Petit(e) ami(e) / Conjoint(e) requiert que les deux Miis soient attirés par le genre de l'autre. Ajuste « Attiré(e) par » ou le genre d'abord.",
       "couple_blocked_blood": "Petit(e) ami(e) / Conjoint(e) impossible entre membres de la même famille de sang.",
       "couple_blocked_self_paired": "Ce Mii est déjà en couple (Petit(e) ami(e) / Conjoint(e)). Romps d'abord la relation existante.",
@@ -790,11 +855,6 @@
       "cancel": "Annuler"
     },
     "workbench": {
-      "toolbar_placeholder": "Barre d'outils",
-      "palette_placeholder": "Palette",
-      "canvas_placeholder": "Toile",
-      "inspector_placeholder": "Inspecteur",
-      "status_placeholder": "X · Y · tuile survolée · résumé de la sélection · modifié",
       "status_hover_hint": "Survole la toile"
     },
     "toolbar": {
@@ -826,8 +886,6 @@
       "tool_replace": "Remplacer",
       "tool_replace_title": "Remplacer (E) - clique sur une tuile pour remplacer toutes les cases avec le même hash",
       "brush_size_title": "Taille du pinceau {size}",
-      "brush_size_decrease": "Diminuer la taille du pinceau",
-      "brush_size_increase": "Augmenter la taille du pinceau",
       "brush_size_label": "Taille",
       "brush_shape_label": "Forme",
       "brush_picker_title": "Taille et forme du pinceau",
@@ -872,8 +930,8 @@
       "move_down": "Descendre",
       "move_down_hint": "Échanger de pièce avec celui du dessous",
       "add": "Ajouter",
-      "add_hint": "Choisis un insulaire pour vivre ici",
-      "add_title": "Choisis un insulaire pour {house} pièce {room}",
+      "add_hint": "Choisis un habitant pour vivre ici",
+      "add_title": "Choisis un habitant pour {house} pièce {room}",
       "remove": "Expulser",
       "remove_hint": "Retirer de cette maison (devient sans logement)",
       "fix_overflow": "Caser",
@@ -888,7 +946,7 @@
       "mii_not_loaded": "Charge Mii.sav pour gérer les résidents.",
       "mii_unavailable": "Mii.sav n'a pas de données de résidence.",
       "picker_search": "Rechercher par nom, maison ou index de Mii…",
-      "picker_islanders": "Insulaires",
+      "picker_islanders": "Habitants",
       "picker_at_room": "{house} · pièce {room}",
       "picker_unhoused_label": "Sans logement",
       "picker_unhoused_section": "Sans logement / dehors",
@@ -934,11 +992,10 @@
       "unknown_tile_hashes": "{count, plural, one {# hash de tuile inconnu} other {# hashes de tuile inconnus}}",
       "residents_total": "Total des Miis",
       "residents_housed": "Logés",
-      "residents_unhoused_empty": "Tous les insulaires ont un logement.",
+      "residents_unhoused_empty": "Tous les habitants ont un logement.",
       "residents_unhoused_hint": "Clique pour attribuer à une pièce vide",
       "residents_unhoused_assign_title": "Attribuer {name} à une pièce",
       "empty_houses": "Maisons vides",
-      "empty_houses_empty": "Aucune maison vide.",
       "empty_houses_hint": "Aller à cette maison",
       "empty_houses_count": "{count, plural, one {# maison vide} other {# maisons vides}}"
     },
@@ -1150,7 +1207,6 @@
       "download_pending": "Télécharger {count, plural, one {# nouveau fichier Ugc} other {# nouveaux fichiers Ugc}}"
     },
     "list": {
-      "section_miis": "Miis",
       "header_count": "{count, plural, one {# emplacement utilisé} other {# emplacements utilisés}}",
       "header_add_new": "emplacement {slot} disponible pour de nouveaux éléments",
       "export_all": "Tout exporter",
@@ -1389,7 +1445,6 @@
     "list": {
       "title": "Éléments ({count})",
       "empty": "Aucun élément dans cette catégorie.",
-      "add_new": "+ Ajouter (emplacement {slot})",
       "unnamed": "Élément {slot}",
       "facepaint_owned": "Porté par {name}",
       "facepaint_unassigned": "Sans propriétaire"
@@ -1459,11 +1514,6 @@
         "label": "Restriction de communication locale",
         "hint": "Cet élément a été reçu en communication locale et ne peut plus être repartagé. Lève la restriction pour pouvoir le repartager.",
         "clear": "Lever la restriction"
-      },
-      "texture": {
-        "canvas": "Canvas",
-        "ugctex": "UgcTex",
-        "thumb": "Miniature"
       }
     },
     "toast": {
@@ -1471,7 +1521,6 @@
       "loaded_zip": "{count, plural, one {# fichier .zs chargé} other {# fichiers .zs chargés}} depuis le zip.",
       "no_zs_in_folder": "Aucun fichier .canvas.zs / .ugctex.zs dans ce dossier.",
       "no_zs_in_zip": "Aucun fichier .canvas.zs / .ugctex.zs dans ce zip.",
-      "only_png": "Dépose un fichier PNG.",
       "unsupported_image": "Dépose un fichier PNG, JPG ou WEBP.",
       "no_texture": "Pas encore de fichier de texture pour cet élément.",
       "replaced": "Emplacement {slot} remplacé. Fichiers prêts à être téléchargés.",
@@ -1480,244 +1529,6 @@
       "exported_ugc": "{fileName} exporté ({count, plural, one {# fichier} other {# fichiers}})",
       "downloaded_pending": "{count, plural, one {# fichier modifié téléchargé} other {# fichiers modifiés téléchargés}} en zip.",
       "lan_restriction_cleared": "Restriction de communication locale levée sur l'emplacement {slot}."
-    }
-  },
-  "tutorial": {
-    "button": "Tutoriels",
-    "dialog_eyebrow": "Visites guidées",
-    "dialog_title": "Choisis un tutoriel",
-    "dialog_intro": "D'autres tutoriels apparaissent au fur et à mesure que tu charges des sauvegardes.",
-    "dialog_close": "Fermer les tutoriels",
-    "next": "Suivant",
-    "prev": "Précédent",
-    "done": "Compris",
-    "gs": {
-      "name": "Premiers pas",
-      "description": "Comment charger tes fichiers de sauvegarde pour la première fois.",
-      "welcome": {
-        "title": "Bienvenue",
-        "description": "Un petit tour rapide pour bien démarrer avec l'édition de tes sauvegardes Tomodachi Life. Tu peux quitter à tout moment."
-      },
-      "nav": {
-        "title": "Choisis un type de sauvegarde",
-        "description": "Chaque onglet édite une partie de ta sauvegarde : Joueur pour les statistiques et les déblocages, Mii pour tes habitants, Carte pour l'agencement de l'île. ShareMii et l'éditeur UGC réutilisent la sauvegarde Joueur."
-      },
-      "drop": {
-        "title": "Dépose ta sauvegarde ici",
-        "description": "Dépose ton dossier de sauvegarde, un zip ou un fichier .sav individuel ici."
-      },
-      "backup": {
-        "title": "Garde toujours une copie",
-        "description": "Une modification peut corrompre ta partie. Mets ton fichier d'origine en lieu sûr avant d'essayer d'y toucher."
-      },
-      "done": {
-        "title": "Tu es prêt(e)",
-        "description": "Une fois une sauvegarde chargée, l'éditeur se déverrouille. Tu peux revenir à ce menu Tutoriels à tout moment, et d'autres visites apparaissent à mesure que tu charges des sauvegardes."
-      }
-    },
-    "save_bar": {
-      "name": "Visite de la barre de sauvegarde",
-      "description": "Comment charger, exporter, effacer et télécharger les sauvegardes.",
-      "intro": {
-        "title": "La barre de sauvegarde",
-        "description": "La barre en haut de chaque onglet chargé est ton centre de contrôle pour gérer ce qui se trouve dans l'éditeur."
-      },
-      "bar": {
-        "title": "Vue d'ensemble",
-        "description": "Elle indique en permanence si la sauvegarde affichée a des modifications non enregistrées, et regroupe les actions qui s'appliquent à toutes les sauvegardes chargées d'un coup."
-      },
-      "status": {
-        "title": "Indicateur de modifications non enregistrées",
-        "description": "Un point orange et la mention « Modifications non enregistrées » apparaissent dès que tu modifies quelque chose."
-      },
-      "open": {
-        "title": "Tout ouvrir",
-        "description": "Parcours et choisis un ou plusieurs fichiers .sav (ou un zip / un dossier de sauvegarde)."
-      },
-      "export": {
-        "title": "Tout exporter",
-        "description": "Télécharge toutes les sauvegardes chargées dans un seul zip. Pratique pour récupérer toutes tes modifications d'un coup."
-      },
-      "clear": {
-        "title": "Tout effacer",
-        "description": "Retire toutes les sauvegardes chargées de l'éditeur. Si tu veux repartir de zéro, c'est par là."
-      },
-      "download": {
-        "title": "Télécharger cette sauvegarde",
-        "description": "Télécharge uniquement la sauvegarde de l'onglet actuel."
-      }
-    },
-    "player": {
-      "name": "Visite de l'éditeur Joueur",
-      "description": "Parcours chaque section de l'onglet Joueur.",
-      "intro": {
-        "title": "Éditeur Joueur",
-        "description": "Modifie le nom de ton personnage, l'argent, le temps de jeu, les objets débloqués, les vêtements, les aliments, les trésors et les bâtiments. Cette visite passe par toutes les sections."
-      },
-      "subtabs": {
-        "title": "Sections Joueur",
-        "description": "Ces pastilles permettent de basculer entre les panneaux structurés. Clique sur chacune pour voir le contenu changer, ou laisse-toi guider par la visite."
-      },
-      "outro": {
-        "title": "Voilà pour l'onglet Joueur",
-        "description": "Fais les modifications que tu veux, puis télécharge Player.sav depuis la barre de sauvegarde."
-      },
-      "tabs": {
-        "profile": {
-          "title": "Profil",
-          "description": "Définit le nom de ton personnage (avec prononciation facultative), le nom de l'île, l'argent en poche et le temps de jeu total."
-        },
-        "foods": {
-          "title": "Aliments",
-          "description": "Tous les aliments que le jeu connaît. Active ceux qui sont débloqués, ou ajuste la quantité possédée."
-        },
-        "clothes": {
-          "title": "Vêtements",
-          "description": "Même principe, mais pour les vêtements. Chaque entrée peut être débloquée, verrouillée, ou voir sa quantité ajustée."
-        },
-        "clothing_sets": {
-          "title": "Tenues",
-          "description": "Les tenues complètes proposées par le jeu. Pratique pour débloquer un look entier en un clic, sans toucher aux vêtements un par un."
-        },
-        "treasures": {
-          "title": "Trésors",
-          "description": "Débloque les différents trésors qu'on peut obtenir dans le jeu."
-        },
-        "interiors": {
-          "title": "Intérieurs",
-          "description": "Les déblocages de styles de pièce. Même principe d'activation et de quantité que les autres collections."
-        },
-        "buildings": {
-          "title": "Bâtiments",
-          "description": "Les bâtiments et objets que tu peux placer sur la carte (boutique, lampadaire, bancs, etc.)."
-        },
-        "ugc": {
-          "title": "Texte UGC",
-          "description": "Tout le vocabulaire de l'île."
-        },
-        "advanced": {
-          "title": "Avancé",
-          "description": "La vue brute des entrées. Cherche par hash ou par nom, inspecte chaque champ, et modifie tout ce que les panneaux structurés n'exposent pas. À manier avec précaution."
-        }
-      }
-    },
-    "mii": {
-      "name": "Visite de l'éditeur Mii",
-      "description": "Parcours chaque section de l'onglet Mii.",
-      "intro": {
-        "title": "Éditeur Mii",
-        "description": "Édite chaque Mii de ton île : qui ils sont, ce qu'ils ressentent les uns pour les autres, et ce qu'ils possèdent. Cette visite passe par toutes les sections."
-      },
-      "subtabs": {
-        "title": "Sections Mii",
-        "description": "Ces pastilles permettent de basculer entre les panneaux structurés. Clique sur chacune pour voir le contenu changer, ou laisse-toi guider par la visite."
-      },
-      "outro": {
-        "title": "Voilà pour l'onglet Mii",
-        "description": "Fais les modifications que tu veux, puis télécharge Mii.sav depuis la barre de sauvegarde."
-      },
-      "tabs": {
-        "profile": {
-          "title": "Profil",
-          "description": "L'identité de chaque Mii : nom et prononciation, voix, genre, anniversaire, silhouette, traits de personnalité et expressions qu'il utilise en jeu."
-        },
-        "relationships": {
-          "title": "Graphe des relations",
-          "description": "Le graphe social des habitants. Visualise ce que chaque Mii ressent pour les autres."
-        },
-        "belongings": {
-          "title": "Affaires",
-          "description": "Ce que chaque Mii porte et possède : sa tenue, ses aliments et ses trésors. Distribue ou récupère ce que tu veux."
-        },
-        "troubles": {
-          "title": "Soucis",
-          "description": "Tous les soucis qu'un Mii a en cours. Résous-les, ignore-les ou déclenches-en de nouveaux."
-        },
-        "habits": {
-          "title": "Manies",
-          "description": "Modifie ses petits travers."
-        },
-        "advanced": {
-          "title": "Avancé",
-          "description": "La vue brute des entrées. Cherche par hash ou par nom, inspecte chaque champ, et modifie tout ce que les panneaux structurés n'exposent pas. À manier avec précaution."
-        }
-      }
-    },
-    "sharemii": {
-      "name": "Visite de ShareMii",
-      "description": "Apprends à importer et exporter des fichiers ShareMii.",
-      "intro": {
-        "title": "ShareMii",
-        "description": "Échange des Miis et des éléments UGC avec d'autres joueurs grâce au format ShareMii. Nécessite une sauvegarde Joueur chargée."
-      },
-      "kinds": {
-        "title": "Types ShareMii",
-        "description": "Bascule entre les Miis et les différents types UGC. La liste en dessous s'adapte automatiquement."
-      },
-      "replace": {
-        "title": "Remplacer un emplacement",
-        "description": "Clique sur Remplacer dans une ligne pour échanger cet emplacement. Le panneau d'import s'ouvre en dessous pour que tu puisses choisir le fichier et confirmer la cible."
-      },
-      "import_file": {
-        "title": "Choisis un fichier ShareMii",
-        "description": "Choisis ici le fichier ShareMii .ltd à importer (ou un .zip groupé). C'est le fichier que tu as récupéré d'un autre joueur ou exporté toi-même."
-      },
-      "import_target": {
-        "title": "Emplacement cible",
-        "description": "Choisis l'emplacement où le Mii ou l'élément importé doit atterrir. Remplacer pré-sélectionne la ligne sur laquelle tu as cliqué."
-      },
-      "import_apply": {
-        "title": "Appliquer l'import",
-        "description": "Appliquer écrit les modifications dans tes sauvegardes chargées. Pour les Miis, cela modifie à la fois Mii.sav et Player.sav (relations, propriété d'objets, etc.)."
-      },
-      "save_bar_export": {
-        "title": "Tout exporter depuis la barre de sauvegarde",
-        "description": "Comme l'import d'un Mii ShareMii modifie à la fois Mii.sav et Player.sav, utilise Tout exporter dans la barre de sauvegarde pour récupérer toutes les sauvegardes modifiées d'un coup. C'est le bon réflexe dans la majorité des cas."
-      },
-      "export_row": {
-        "title": "Exporter ligne par ligne",
-        "description": "Tu peux aussi exporter un Mii ou un élément UGC individuellement au format ShareMii."
-      },
-      "outro": {
-        "title": "Voilà pour ShareMii",
-        "description": "Charge un pack, choisis un type, fais Remplacer dans un emplacement, puis télécharge les sauvegardes modifiées via Tout exporter dans la barre de sauvegarde. Pense à toujours sauvegarder une copie avant d'importer."
-      }
-    },
-    "ugc": {
-      "name": "Visite de l'éditeur UGC",
-      "description": "Parcours chaque type d'élément UGC.",
-      "intro": {
-        "title": "Éditeur UGC",
-        "description": "Remplace les textures des éléments UGC (vêtements, aliments, trésors, extérieurs, intérieurs, objets et aménagements de carte) par tes propres images."
-      },
-      "kinds": {
-        "title": "Types UGC",
-        "description": "Bascule entre les types que tu peux éditer. La liste en dessous affiche les emplacements de cette catégorie."
-      },
-      "pick_slot": {
-        "title": "Choisis un emplacement",
-        "description": "Clique sur un emplacement pour le sélectionner. La texture actuelle se charge à droite et un éditeur apparaît."
-      },
-      "editor": {
-        "title": "L'éditeur",
-        "description": "C'est ici que tu modifies l'emplacement sélectionné. Renomme-le en haut, compare la texture actuelle à la nouvelle, et ajuste cadrage et fond une fois une image chargée. Les boutons en bas permettent d'annuler les modifications, d'exporter la texture actuelle en PNG, ou de la remplacer."
-      },
-      "drop": {
-        "title": "Dépose un PNG",
-        "description": "Dépose un fichier .png, .jpg ou .webp ici (ou clique pour en choisir un). Une fois l'image chargée, des options de cadrage et de fond apparaissent en dessous."
-      },
-      "replace": {
-        "title": "Remplacer la texture",
-        "description": "Remplacer intègre la nouvelle image dans les fichiers UGC de cet emplacement. Utilise Annuler à côté pour revenir en arrière. Remplacer ne touche qu'aux fichiers UGC, ni à Mii.sav ni à Player.sav."
-      },
-      "download_pending": {
-        "title": "Télécharge tes modifications",
-        "description": "Les fichiers UGC modifiés s'accumulent ici. Clique pour récupérer un .zip contenant les fichiers .canvas.zs et .ugctex.zs modifiés, puis remets-les dans ton dossier Ugc/ sur la console."
-      },
-      "outro": {
-        "title": "Voilà pour l'éditeur UGC",
-        "description": "Choisis un emplacement, dépose une image, ajuste le cadrage, fais Remplacer, puis télécharge les fichiers modifiés depuis la barre de sauvegarde."
-      }
     }
   },
   "history": {

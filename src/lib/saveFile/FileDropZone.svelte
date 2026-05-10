@@ -1,7 +1,6 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { bulkLoadFiles, bulkLoadFromDataTransfer } from '$lib/bulk/bulkLoader.svelte';
-  import { expectedFileName, type SaveKind } from '$lib/saveFile/saveFile.svelte';
+  import { expectedFileName, type SaveKind } from '$lib/saveFile/types';
   import DropZone from '$lib/ui/DropZone.svelte';
   import UploadArrowIcon from '$lib/ui/UploadArrowIcon.svelte';
 
@@ -28,6 +27,7 @@
   async function onFiles(files: File[]): Promise<void> {
     reset();
     if (files.length === 0) return;
+    const { bulkLoadFiles } = await import('$lib/bulk/bulkLoader.svelte');
     const outcome = await bulkLoadFiles(files);
     if (outcome.cancelled) return;
     reportOutcome(outcome.loaded, outcome.skipped.length, files.length);
@@ -35,6 +35,7 @@
 
   async function onDataTransfer(dt: DataTransfer): Promise<void> {
     reset();
+    const { bulkLoadFromDataTransfer } = await import('$lib/bulk/bulkLoader.svelte');
     const outcome = await bulkLoadFromDataTransfer(dt);
     if (outcome.cancelled) return;
     const seen = outcome.loaded.length + outcome.skipped.length;
@@ -42,7 +43,7 @@
   }
 </script>
 
-<div class="w-full" data-tutorial="drop-zone">
+<div class="w-full">
   <DropZone multiple accept=".sav,.zip" paddingClass="p-12" {onFiles} {onDataTransfer}>
     {#snippet children({ openPicker })}
       <UploadArrowIcon />
@@ -67,7 +68,7 @@
   </DropZone>
 
   <div class="mt-3 text-center">
-    <p class="inline-block text-xs text-warn" data-tutorial="warning">
+    <p class="inline-block text-xs text-warn">
       <span class="font-semibold">{$_('save.drop_warning_label')}</span>
       {$_('save.drop_warning_text')}
     </p>

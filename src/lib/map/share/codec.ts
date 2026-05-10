@@ -8,8 +8,8 @@ import { actorDisplay, type ActorGroup } from '$lib/map/actors/actors';
 import type { MapObjectRow } from '$lib/map/state/mapObjectsEditor.svelte';
 import { TILE_DEFS, tileDefForHash } from '$lib/map/tiles/tiles';
 
-export const MAP_SHARE_MAGIC = 'LTDMAP';
-export const MAP_SHARE_VERSION = 1;
+const MAP_SHARE_MAGIC = 'LTDMAP';
+const MAP_SHARE_VERSION = 1;
 export const MAP_SHARE_EXT = '.ltdmap';
 
 const ZSTD_LEVEL = 16;
@@ -70,7 +70,7 @@ function hashForCode(code: string): number {
   throw new Error(`Unknown tile code "${code}" in .ltdmap palette`);
 }
 
-export function encodeJson(input: EncodeInput): MapShareDoc {
+function encodeJson(input: EncodeInput): MapShareDoc {
   if (input.tiles.length !== SHARE_TILE_COUNT) {
     throw new Error(`Expected ${SHARE_TILE_COUNT} tiles, got ${input.tiles.length}`);
   }
@@ -116,7 +116,7 @@ function filterObjects(rows: readonly MapObjectRow[]): MapShareObject[] {
   return out;
 }
 
-export function decodeJson(raw: unknown): DecodedShare {
+function decodeJson(raw: unknown): DecodedShare {
   const doc = parseDoc(raw);
 
   const palette = doc.tiles.palette.map(hashForCode);

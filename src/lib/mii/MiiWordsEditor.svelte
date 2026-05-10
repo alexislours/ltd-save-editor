@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
   import { gameLocaleFor, type GameLocale } from '$lib/sav/gameLocale';
-  import { GENERATED_ENUM_OPTION_NAMES } from '$lib/sav/generatedNames';
+  import { enumOptionName } from '$lib/sav/knownKeys';
   import { murmur3_x86_32 } from '$lib/sav/hash';
   import { MII_SCHEMA } from '$lib/sav/schema';
   import { wordKindLabel, wordKindNames } from '$lib/sav/lists/wordKindLabels.svelte';
@@ -55,7 +55,7 @@
   const gameLoc = $derived(gameLocaleFor(ui));
 
   function regionLabel(regionHash: number): string {
-    const name = GENERATED_ENUM_OPTION_NAMES.get(regionHash >>> 0);
+    const name = enumOptionName(regionHash >>> 0);
     return name ?? `0x${(regionHash >>> 0).toString(16).padStart(8, '0')}`;
   }
 

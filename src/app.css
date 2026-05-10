@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import 'driver.js/dist/driver.css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -120,68 +119,6 @@ html.dark ::selection {
   select:disabled {
     cursor: not-allowed;
   }
-}
-
-.driver-popover {
-  background-color: var(--color-surface);
-  color: var(--color-content);
-}
-
-.driver-popover-title {
-  color: var(--color-content-strong);
-}
-
-.driver-popover-description {
-  color: var(--color-content);
-}
-
-.driver-popover-progress-text {
-  color: var(--color-content-muted);
-}
-
-.driver-popover-footer button {
-  background-color: var(--color-surface-muted);
-  color: var(--color-content-strong);
-  border-color: var(--color-edge);
-  text-shadow: none;
-}
-
-.driver-popover-footer button:hover,
-.driver-popover-footer button:focus {
-  background-color: var(--color-surface-sunken);
-}
-
-.driver-popover-next-btn {
-  background-color: var(--color-brand-soft) !important;
-  color: #fff !important;
-  border-color: var(--color-brand) !important;
-}
-
-.driver-popover-next-btn:hover,
-.driver-popover-next-btn:focus {
-  background-color: var(--color-brand) !important;
-}
-
-.driver-popover-close-btn {
-  color: var(--color-content-faint);
-}
-
-.driver-popover-close-btn:hover,
-.driver-popover-close-btn:focus {
-  color: var(--color-content-strong);
-}
-
-.driver-popover-arrow-side-top.driver-popover-arrow {
-  border-top-color: var(--color-surface);
-}
-.driver-popover-arrow-side-bottom.driver-popover-arrow {
-  border-bottom-color: var(--color-surface);
-}
-.driver-popover-arrow-side-left.driver-popover-arrow {
-  border-left-color: var(--color-surface);
-}
-.driver-popover-arrow-side-right.driver-popover-arrow {
-  border-right-color: var(--color-surface);
 }
 
 .bg-checker {

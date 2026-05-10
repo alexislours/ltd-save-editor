@@ -14,244 +14,6 @@
     "changelog_sr_new": ", show changelog (new updates)",
     "language_sr": "Change language, current:"
   },
-  "tutorial": {
-    "button": "Tutorials",
-    "dialog_eyebrow": "Guided tours",
-    "dialog_title": "Pick a tutorial",
-    "dialog_intro": "More tutorials appear as you load more saves.",
-    "dialog_close": "Close tutorials",
-    "next": "Next",
-    "prev": "Back",
-    "done": "Got it",
-    "gs": {
-      "name": "Getting started",
-      "description": "How to load your save files for the first time.",
-      "welcome": {
-        "title": "Welcome",
-        "description": "A quick tour to get you started editing your Tomodachi Life save files. You can leave at any time."
-      },
-      "nav": {
-        "title": "Pick a save file type",
-        "description": "Each tab edits a parts of your save: Player for stats and unlocks, Mii for your residents, Map for the island layout. The ShareMii and the UGC editor features reuse the Player save."
-      },
-      "drop": {
-        "title": "Drop your save here",
-        "description": "Drop your save folder, a zip or the individual .sav file here."
-      },
-      "backup": {
-        "title": "Always keep a backup",
-        "description": "Edits can corrupt your game. Copy your original save file somewhere safe before trying to modify it."
-      },
-      "done": {
-        "title": "You are ready",
-        "description": "Once a save is loaded the editor unlocks. You can revisit this Tutorials menu at any time, and more tours appear as you load more saves."
-      }
-    },
-    "save_bar": {
-      "name": "Save bar tour",
-      "description": "How to load, export, clear and download saves.",
-      "intro": {
-        "title": "The save bar",
-        "description": "The save bar at the top of every loaded tab is your control center for managing what's in the editor."
-      },
-      "bar": {
-        "title": "Overview",
-        "description": "It always tells you whether the current save has unsaved edits, and gathers the actions that affect every loaded save at once."
-      },
-      "status": {
-        "title": "Unsaved changes indicator",
-        "description": "An orange dot and \"Unsaved changes\" label appear as soon as you edit something."
-      },
-      "open": {
-        "title": "Open all",
-        "description": "Browse and pick one or several .sav files (or a zip / save folder)."
-      },
-      "export": {
-        "title": "Export all",
-        "description": "Download every loaded save in a single zip. Useful when you want to export all your edits."
-      },
-      "clear": {
-        "title": "Clear all",
-        "description": "Removes every loaded save from the editor. If you want a fresh start, this is the way to go."
-      },
-      "download": {
-        "title": "Download this save",
-        "description": "Download only the current tab's save."
-      }
-    },
-    "player": {
-      "name": "Player editor tour",
-      "description": "Walk through every Player section.",
-      "intro": {
-        "title": "Player editor",
-        "description": "Edit your character's name, money, play time, unlocked items, clothes, food, treasures and buildings. This tour walks you through every section."
-      },
-      "subtabs": {
-        "title": "Player sections",
-        "description": "These pills switch between the curated panels. Click each one to see how the body changes, or let this tour drive."
-      },
-      "outro": {
-        "title": "That's the Player tab",
-        "description": "Make any edits you want, then download Player.sav from the save bar."
-      },
-      "tabs": {
-        "profile": {
-          "title": "Profile",
-          "description": "Sets your character's name (with optional pronunciation), island name, money on hand and total play time."
-        },
-        "foods": {
-          "title": "Foods",
-          "description": "Every food item the game knows about. Toggle which ones are unlocked, or change how many you own."
-        },
-        "clothes": {
-          "title": "Clothes",
-          "description": "Same idea, but for clothing items. Each entry can be unlocked, locked, or have its quantity adjusted."
-        },
-        "clothing_sets": {
-          "title": "Clothing sets",
-          "description": "Curated outfits the game offers. Useful to unlock a full look in one click without flipping individual clothes."
-        },
-        "treasures": {
-          "title": "Treasures",
-          "description": "Unlock the different treasures you can get in the game."
-        },
-        "interiors": {
-          "title": "Interiors",
-          "description": "Room styles unlocks. Same toggle/quantity pattern as the other collections."
-        },
-        "buildings": {
-          "title": "Buildings",
-          "description": "The buildings and objects you can place on the map (shop, lamp post, benches, etc.)."
-        },
-        "ugc": {
-          "title": "UGC text",
-          "description": "All the island's vocabulary."
-        },
-        "advanced": {
-          "title": "Advanced",
-          "description": "The raw entries view. Search by hash or name, inspect every field, and edit anything the curated panels don't expose. Treat with care."
-        }
-      }
-    },
-    "mii": {
-      "name": "Mii editor tour",
-      "description": "Walk through every Mii section.",
-      "intro": {
-        "title": "Mii editor",
-        "description": "Edit every Mii on your island: who they are, how they feel about each other, and what they own. This tour walks you through every section."
-      },
-      "subtabs": {
-        "title": "Mii sections",
-        "description": "These pills switch between the curated panels. Click each one to see how the body changes, or let this tour drive."
-      },
-      "outro": {
-        "title": "That's the Mii tab",
-        "description": "Make any edits you want, then download Mii.sav from the save bar."
-      },
-      "tabs": {
-        "profile": {
-          "title": "Profile",
-          "description": "Each Mii's identity: name and pronunciation, voice, gender, birthday, body shape, personality traits and the catchphrases they speak in-game."
-        },
-        "relationships": {
-          "title": "Relationships graph",
-          "description": "The social graph between residents. See how each Mii feels about the others."
-        },
-        "belongings": {
-          "title": "Belongings",
-          "description": "What each Mii is wearing and carrying: their outfit, food and treasures. Hand items out or take them back."
-        },
-        "troubles": {
-          "title": "Troubles",
-          "description": "Every complaint a Mii currently has. Resolve, ignore or trigger new ones."
-        },
-        "habits": {
-          "title": "Habits",
-          "description": "Edit their quirks."
-        },
-        "advanced": {
-          "title": "Advanced",
-          "description": "The raw entries view. Search by hash or name, inspect every field, and edit anything the curated panels don't expose. Treat with care."
-        }
-      }
-    },
-    "sharemii": {
-      "name": "ShareMii tour",
-      "description": "Learn how to import and export ShareMii files.",
-      "intro": {
-        "title": "ShareMii",
-        "description": "Trade Miis and UGC items with other players using the ShareMii format. Requires a loaded Player save."
-      },
-      "kinds": {
-        "title": "ShareMii kinds",
-        "description": "Switch between Miis and the UGC kinds. The list below changes to match."
-      },
-      "replace": {
-        "title": "Replace a slot",
-        "description": "Click Replace on a row to swap that slot. The import panel opens below so you can pick the file and confirm the target."
-      },
-      "import_file": {
-        "title": "Pick a ShareMii file",
-        "description": "Choose the .ltd ShareMii file you want to import here (or a .zip bundle). This is the file you got from another player or exported earlier."
-      },
-      "import_target": {
-        "title": "Target slot",
-        "description": "Pick the slot the imported Mii or item should land in. Replace pre-selects the row you clicked."
-      },
-      "import_apply": {
-        "title": "Apply the import",
-        "description": "Apply writes the changes into your loaded saves. For Miis, this modifies Mii.sav and Player.sav (relationships, ownership, etc.)."
-      },
-      "save_bar_export": {
-        "title": "Export all from the save bar",
-        "description": "Because importing a ShareMii Mii modifies both Mii.sav and Player.sav, use Export all in the save bar to download every modified save in one go. That's the right move in most cases."
-      },
-      "export_row": {
-        "title": "Per-row Export",
-        "description": "You can also export a Mii or UGC item individually in ShareMii format."
-      },
-      "outro": {
-        "title": "That's ShareMii",
-        "description": "Load a pack, pick a kind, Replace into a slot, then download both modified saves with Export all from the save bar. Always back up before importing."
-      }
-    },
-    "ugc": {
-      "name": "UGC editor tour",
-      "description": "Walk through every UGC kind.",
-      "intro": {
-        "title": "UGC editor",
-        "description": "Replace the textures of UGC items (clothes, food, goods, exteriors, interiors, map objects, map floors) with your own images."
-      },
-      "kinds": {
-        "title": "UGC kinds",
-        "description": "Switch between the kinds you can edit. The list below shows the slots in that category."
-      },
-      "pick_slot": {
-        "title": "Pick a slot",
-        "description": "Click a slot to select it. The current texture loads on the right and an editor appears."
-      },
-      "editor": {
-        "title": "The editor",
-        "description": "This is where you tweak the selected slot. Rename it at the top, see the current texture next to the new one, and adjust fit/background once you load an image. Buttons at the bottom Revert, export the current texture as PNG, or Replace it."
-      },
-      "drop": {
-        "title": "Drop a PNG",
-        "description": "Drop a .png, .jpg, or .webp here (or click to pick one). Once loaded, you'll get fit mode and background options below."
-      },
-      "replace": {
-        "title": "Replace the texture",
-        "description": "Replace bakes the new image into the UGC files for this slot. Use Revert next to it to undo. Replace only changes UGC files, not Mii.sav or Player.sav."
-      },
-      "download_pending": {
-        "title": "Download your edits",
-        "description": "Edited UGC files queue up here. Click to grab a .zip with the modified .canvas.zs and .ugctex.zs files, then drop them back into your Ugc/ folder on the console."
-      },
-      "outro": {
-        "title": "That's the UGC editor",
-        "description": "Pick a slot, drop an image, tweak the fit, Replace, then download the edited files from the save bar."
-      }
-    }
-  },
   "tab": {
     "player": "Player",
     "mii": "Mii",
@@ -329,7 +91,6 @@
     "list": {
       "title": "Items ({count})",
       "empty": "No items found in this category.",
-      "add_new": "+ Add new (slot {slot})",
       "unnamed": "Item {slot}",
       "facepaint_owned": "Worn by {name}",
       "facepaint_unassigned": "Unassigned"
@@ -399,11 +160,6 @@
         "label": "LAN restriction",
         "hint": "This item was received over local wireless and is locked from being shared again. Clear it to lift the restriction.",
         "clear": "Clear restriction"
-      },
-      "texture": {
-        "canvas": "Canvas",
-        "ugctex": "UgcTex",
-        "thumb": "Thumb"
       }
     },
     "toast": {
@@ -411,7 +167,6 @@
       "loaded_zip": "Loaded {count} .zs file(s) from zip.",
       "no_zs_in_folder": "No .canvas.zs / .ugctex.zs files in that folder.",
       "no_zs_in_zip": "No .canvas.zs / .ugctex.zs files in that zip.",
-      "only_png": "Drop a PNG file.",
       "unsupported_image": "Drop a PNG, JPG or WEBP file.",
       "no_texture": "No texture file for this item yet.",
       "replaced": "Replaced slot {slot}. Files staged for download.",
@@ -439,9 +194,7 @@
     "drop_browse": "or click to browse",
     "drop_warning_label": "Warning:",
     "drop_warning_text": "editing save files can corrupt your game. Always keep a backup of the original file before uploading.",
-    "read_failed": "Failed to read file",
-    "wrong_tab": "{actual} belongs in the {correctTab} tab, not the {expectedTab} tab.",
-    "unrecognized_file": "{actual} isn't a recognised save file. Expected Player.sav, Mii.sav, or Map.sav."
+    "read_failed": "Failed to read file"
   },
   "bulk": {
     "drop_hint": "Drop one or more .sav files, a folder, or a .zip. Each file is routed to the right tab.",
@@ -493,6 +246,7 @@
     "fountain_section": "Fountain",
     "fountain_level_label": "Fountain level",
     "wishes_label": "Wishes",
+    "wishes_come_true_label": "Wishes come true",
     "region_section": "Region & language",
     "region_label": "Region",
     "region_code_label": "Region code",
@@ -519,12 +273,10 @@
     },
     "errors": {
       "non_negative_integer": "Must be a non-negative integer",
-      "integer": "Must be an integer",
       "number": "Must be a number",
       "non_negative_number": "Must be a non-negative number",
       "money_max": "Max is 999,999.99",
-      "invalid_number": "Invalid number",
-      "unsupported_type": "Unsupported field type"
+      "invalid_number": "Invalid number"
     },
     "sections_label": "Player sections",
     "subtab_profile": "Profile",
@@ -534,6 +286,7 @@
     "subtab_treasures": "Treasures",
     "subtab_interiors": "Interiors",
     "subtab_buildings": "Buildings",
+    "subtab_wishes": "Wishes",
     "subtab_ugc": "UGC",
     "ugc_text": {
       "heading": "UGC text",
@@ -650,6 +403,59 @@
       "variant_label": "{color} (#{index})",
       "category_facility": "Facility",
       "category_object": "Map object"
+    },
+    "wishes": {
+      "heading": "Fountain wishes",
+      "caption": "{liberated} of {total} wishes unlocked.",
+      "missing": "This save does not expose Liberation.WishInfo arrays, so wishes can't be edited here.",
+      "loading": "Loading wish list…",
+      "search": "Search",
+      "search_placeholder": "Filter by name…",
+      "category_label": "Category",
+      "category_all": "All categories",
+      "bulk_liberate": "Unlock visible ({count})",
+      "bulk_reset": "Reset visible ({count})",
+      "bulk_confirm": "Apply this change to {count} wishes? This cannot be undone except by re-opening your save.",
+      "bulk_confirm_title": "Apply to visible wishes?",
+      "bulk_confirm_apply": "Apply",
+      "empty": "Nothing matches the current filter.",
+      "player_level": "Fountain Lv. {level}",
+      "gate": {
+        "level": "Lv. {level}",
+        "level_tip": "Requires fountain level {level}",
+        "count": "After {count} wishes",
+        "count_tip": "Unlocks after {count} prior wishes have come true",
+        "season_tip": "Only liftable during {season}"
+      },
+      "bump": {
+        "title": "Bump stats to satisfy unlock?",
+        "apply": "Bump stats",
+        "skip": "Skip",
+        "level": "One of these wishes requires Fountain Lv. {level}, but yours is lower. Bump your fountain level to {level} so the unlock sticks?",
+        "count": "One of these wishes unlocks after {count} prior wishes-come-true. Bump your counter to {count} so the unlock sticks?",
+        "both": "These wishes need Fountain Lv. {level} and {count} prior wishes-come-true. Bump your fountain level and counter to satisfy them?"
+      },
+      "season": {
+        "Spring": "Spring",
+        "Summer": "Summer",
+        "Autumn": "Autumn",
+        "Winter": "Winter",
+        "Christmas": "Christmas",
+        "Halloween": "Halloween",
+        "AutumnWinter": "Autumn/Winter"
+      },
+      "category": {
+        "Facility": "Facility",
+        "Goods": "Goods",
+        "StyleGroup": "Interior style",
+        "Travel": "Travel",
+        "HabitGroup": "Habit",
+        "Service": "Service",
+        "Object": "Object",
+        "Ground": "Ground",
+        "Ugc": "UGC",
+        "Unknown": "Unknown"
+      }
     }
   },
   "mii": {
@@ -659,9 +465,21 @@
     "sections_label": "Mii sections",
     "subtab_profile": "Profile",
     "subtab_relationships": "Relationships graph",
+    "subtab_housing": "Housing",
     "subtab_belongings": "Belongings",
     "subtab_troubles": "Troubles",
     "subtab_habits": "Habits",
+    "housing": {
+      "title": "Housing",
+      "intro": "Move islanders between houses on the map.",
+      "map_not_loaded": "Load Map.sav to view houses on the island.",
+      "no_houses": "No houses found on the loaded map.",
+      "rooms_filled": "{filled}/{total} filled",
+      "unhoused_section": "Unhoused ({count})",
+      "unhoused_empty": "Every islander has a home.",
+      "assign": "Find a home",
+      "assign_hint": "Pick a house and room for this islander"
+    },
     "export": {
       "summary": "Export island data",
       "show": "Show",
@@ -858,6 +676,9 @@
     "panel": {
       "no_name_spine": "This save doesn't expose the Mii.Name.Name spine - there's nothing to enumerate. Use the Player tab's advanced panel to inspect raw entries.",
       "no_slots": "No populated Mii slots were found. Slots are detected by checking Mii.Name.Name for a non-empty string.",
+      "fix_zero_charinfoex": "Your save appears to be corrupt, all entries in Mii.CharInfoEx (the Mii's design) are empty. The save editor can replace them with the default Mii design if you are trying to recover a save.",
+      "fix_zero_charinfoex_button": "Proceed",
+      "fix_zero_charinfoex_done": "{count, plural, one {Replaced # Mii's design} other {Replaced # Miis' designs}}.",
       "selector_label": "Mii",
       "slot_count": "{count, plural, one {# populated slot} other {# populated slots}}",
       "slot_label": "#{index} · {name}",
@@ -1088,7 +909,6 @@
       "crush_blocked_by_fight": "Crush can't coexist with a fight. End the fight first",
       "crush_blocked_gender": "This Mii isn't attracted to the other Mii's gender. Adjust their \"Attracted to\" first.",
       "crush_blocked_blood": "Crushes can't be set on blood relatives.",
-      "fight_unavailable": "Fight only applies to Friend, Couple or Sweetheart relationships",
       "couple_blocked_gender": "Sweetheart / Spouse needs both Miis to be attracted to each other's gender. Adjust their \"Attracted to\" or Gender first.",
       "couple_blocked_blood": "Sweetheart / Spouse can't be set on blood relatives.",
       "couple_blocked_self_paired": "This Mii is already in a Sweetheart / Spouse relationship. Break the existing one first.",
@@ -1181,11 +1001,6 @@
       "cancel": "Cancel"
     },
     "workbench": {
-      "toolbar_placeholder": "Toolbar",
-      "palette_placeholder": "Palette",
-      "canvas_placeholder": "Canvas",
-      "inspector_placeholder": "Inspector",
-      "status_placeholder": "X · Y · hovered tile · selection summary · dirty",
       "status_hover_hint": "Hover the canvas"
     },
     "toolbar": {
@@ -1217,8 +1032,6 @@
       "tool_replace": "Replace",
       "tool_replace_title": "Replace (E) - click a tile to replace every cell with the same hash",
       "brush_size_title": "Brush size {size}",
-      "brush_size_decrease": "Decrease brush size",
-      "brush_size_increase": "Increase brush size",
       "brush_size_label": "Size",
       "brush_shape_label": "Shape",
       "brush_picker_title": "Brush size and shape",
@@ -1351,7 +1164,6 @@
       "residents_unhoused_hint": "Click to assign to an empty room",
       "residents_unhoused_assign_title": "Assign {name} to a room",
       "empty_houses": "Empty houses",
-      "empty_houses_empty": "No empty houses.",
       "empty_houses_hint": "Snap to this house",
       "empty_houses_count": "{count, plural, one {# empty house} other {# empty houses}}"
     },
@@ -1521,7 +1333,6 @@
       "download_pending": "Download {count, plural, one {# new Ugc file} other {# new Ugc files}}"
     },
     "list": {
-      "section_miis": "Miis",
       "header_count": "{count, plural, one {# populated slot} other {# populated slots}}",
       "header_add_new": "slot {slot} available for new items",
       "export_all": "Export all",

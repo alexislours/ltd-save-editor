@@ -4,7 +4,6 @@
   import Card from '$lib/ui/Card.svelte';
   import SaveBar from '$lib/saveFile/SaveBar.svelte';
   import SubTabs from '$lib/ui/SubTabs.svelte';
-  import Tutorial from '$lib/tutorial/Tutorial.svelte';
   import { downloadBytes } from '$lib/sav/download';
   import { errorMessage } from '$lib/errorMessage';
   import { getSave } from '$lib/saveFile/saveFile.svelte';
@@ -318,7 +317,6 @@
         >{$_('sharemii.description_suffix')}
       </p>
     </div>
-    <Tutorial />
   </header>
 
   {#if !playerSave}

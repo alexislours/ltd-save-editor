@@ -1,11 +1,6 @@
 import { track } from '$lib/analytics';
-import {
-  getSave,
-  getSaveBytes,
-  type SaveKind,
-  type SchemaForKind,
-  expectedFileName,
-} from '$lib/saveFile/saveFile.svelte';
+import { getSave, getSaveBytes, type SchemaForKind } from '$lib/saveFile/saveFile.svelte';
+import { expectedFileName, type SaveKind } from '$lib/saveFile/types';
 import { schedulePersist } from '$lib/session/sessionPersist';
 import { downloadBytes } from './download';
 import { createMaterializedAccessor, type Accessor } from './materialized/accessor';

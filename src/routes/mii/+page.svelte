@@ -7,6 +7,7 @@
   import SubTabs from '$lib/ui/SubTabs.svelte';
   import MiiBelongingsPanel from '$lib/mii/ownership/MiiBelongingsPanel.svelte';
   import MiiHabitPanel from '$lib/mii/MiiHabitPanel.svelte';
+  import MiiHousingPanel from '$lib/mii/housing/MiiHousingPanel.svelte';
   import MiiPanel from '$lib/mii/MiiPanel.svelte';
   import MiiRelationsGraph from '$lib/mii/relations/MiiRelationsGraph.svelte';
   import MiiTroublePanel from '$lib/mii/trouble/MiiTroublePanel.svelte';
@@ -25,12 +26,17 @@
   } from '$lib/mii/miiEditor.svelte';
   import { _, locale } from 'svelte-i18n';
   import { untrack } from 'svelte';
+  import { browser } from '$app/environment';
   import { track } from '$lib/analytics';
   import { errorMessage } from '$lib/errorMessage';
   import { downloadText } from '$lib/sav/download';
-  import { expectedFileName, getEntriesForAdvanced, getSave } from '$lib/saveFile/saveFile.svelte';
+  import { loadListsForMii } from '$lib/sav/lists/perRoute';
+  import { getEntriesForAdvanced, getSave } from '$lib/saveFile/saveFile.svelte';
+  import { expectedFileName } from '$lib/saveFile/types';
   import { PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import { showToast } from '$lib/toast/toast.svelte';
+
+  if (browser) loadListsForMii();
 
   const save = $derived(getSave('mii'));
   $effect(() => {
@@ -43,7 +49,14 @@
     return untrack(() => getEntriesForAdvanced('mii'));
   });
 
-  type SubTab = 'profile' | 'relationships' | 'belongings' | 'troubles' | 'habits' | 'advanced';
+  type SubTab =
+    | 'profile'
+    | 'relationships'
+    | 'housing'
+    | 'belongings'
+    | 'troubles'
+    | 'habits'
+    | 'advanced';
   let subTab = $state<SubTab>('profile');
 
   let selectedIndex = $state<number | null>(null);
@@ -51,6 +64,7 @@
   const SUB_TABS: { value: SubTab; label: string }[] = $derived([
     { value: 'profile', label: $_('mii.subtab_profile') },
     { value: 'relationships', label: $_('mii.subtab_relationships') },
+    { value: 'housing', label: $_('mii.subtab_housing') },
     { value: 'belongings', label: $_('mii.subtab_belongings') },
     { value: 'troubles', label: $_('mii.subtab_troubles') },
     { value: 'habits', label: $_('mii.subtab_habits') },
@@ -103,6 +117,8 @@
       <MiiPanel bind:selectedIndex />
     {:else if subTab === 'relationships'}
       <MiiRelationsGraph {selectedIndex} onSelect={(i) => (selectedIndex = i)} />
+    {:else if subTab === 'housing'}
+      <MiiHousingPanel />
     {:else if subTab === 'belongings'}
       <MiiBelongingsPanel bind:selectedIndex />
     {:else if subTab === 'troubles'}

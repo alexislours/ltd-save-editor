@@ -1,13 +1,8 @@
 import { zipSync } from 'fflate';
 import { track } from '$lib/analytics';
 import { downloadBytes } from '$lib/sav/download';
-import {
-  expectedFileName,
-  getSave,
-  getSaveBytes,
-  SAVE_KINDS,
-  type SaveKind,
-} from '$lib/saveFile/saveFile.svelte';
+import { getSave, getSaveBytes } from '$lib/saveFile/saveFile.svelte';
+import { expectedFileName, SAVE_KINDS, type SaveKind } from '$lib/saveFile/types';
 import { getSidecarStore } from '$lib/shareMii/sidecar/sidecarStore.svelte';
 
 function pad(n: number): string {

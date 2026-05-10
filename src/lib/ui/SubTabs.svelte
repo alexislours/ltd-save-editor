@@ -10,7 +10,10 @@
   let { tabs, value = $bindable(), label }: Props = $props();
 </script>
 
-<nav class="flex flex-wrap gap-2" aria-label={label} data-tutorial="subtabs">
+<nav
+  class="flex flex-nowrap gap-2 overflow-x-auto sm:flex-wrap sm:overflow-x-visible"
+  aria-label={label}
+>
   {#each tabs as tab (tab.value)}
     {@const active = tab.value === value}
     <button

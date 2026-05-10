@@ -15,36 +15,9 @@
   import Lightbox from '$lib/ui/Lightbox.svelte';
   import LocaleSwitcher from '$lib/i18n/LocaleSwitcher.svelte';
   import RestoreSessionModal from '$lib/session/RestoreSessionModal.svelte';
-  import { loadMiiLabels } from '$lib/mii/miiLabelList.svelte';
-  import { loadClothList } from '$lib/sav/lists/clothList.svelte';
-  import { loadCoordinateList } from '$lib/sav/lists/coordinateList.svelte';
-  import { loadFoodList } from '$lib/sav/lists/foodList.svelte';
-  import { loadHabitList } from '$lib/sav/lists/habitList.svelte';
-  import { loadHashList } from '$lib/sav/lists/hashList.svelte';
-  import { loadItemList } from '$lib/sav/lists/itemList.svelte';
-  import { loadRoomStyleList } from '$lib/sav/lists/roomStyleList.svelte';
-  import { loadTreasureList } from '$lib/sav/lists/treasureList.svelte';
-  import { loadTroubleList } from '$lib/sav/lists/troubleList.svelte';
-  import { loadWordKindLabels } from '$lib/sav/lists/wordKindLabels.svelte';
-  import { bootRestoreScan } from '$lib/session/sessionRestore.svelte';
-  import { flushAllPending } from '$lib/session/sessionPersist';
   import ThemeSwitcher from '$lib/theme/ThemeSwitcher.svelte';
   import Toaster from '$lib/toast/Toaster.svelte';
   import { TAB_PILL_CLASS } from '$lib/ui/styles';
-
-  if (browser) {
-    loadHashList();
-    loadFoodList();
-    loadClothList();
-    loadCoordinateList();
-    loadTreasureList();
-    loadRoomStyleList();
-    loadItemList();
-    loadTroubleList();
-    loadHabitList();
-    loadWordKindLabels();
-    loadMiiLabels();
-  }
 
   type Props = { children: Snippet };
   let { children }: Props = $props();
@@ -73,13 +46,25 @@
   });
 
   $effect(() => {
-    void bootRestoreScan();
-    const flush = (): void => flushAllPending();
-    window.addEventListener('pagehide', flush);
-    window.addEventListener('beforeunload', flush);
+    let aborted = false;
+    let flush: (() => void) | null = null;
+    void (async () => {
+      const [{ bootRestoreScan }, { flushAllPending }] = await Promise.all([
+        import('$lib/session/sessionRestore.boot'),
+        import('$lib/session/sessionPersist'),
+      ]);
+      if (aborted) return;
+      void bootRestoreScan();
+      flush = (): void => flushAllPending();
+      window.addEventListener('pagehide', flush);
+      window.addEventListener('beforeunload', flush);
+    })();
     return () => {
-      window.removeEventListener('pagehide', flush);
-      window.removeEventListener('beforeunload', flush);
+      aborted = true;
+      if (flush) {
+        window.removeEventListener('pagehide', flush);
+        window.removeEventListener('beforeunload', flush);
+      }
     };
   });
 
@@ -191,10 +176,10 @@
       </div>
 
       <nav
-        class="mx-auto mt-3 flex w-full max-w-6xl px-4 pb-3 sm:mt-4 sm:px-6 sm:pb-4"
+        class="mx-auto mt-3 flex w-full max-w-6xl overflow-x-auto px-4 pb-3 sm:mt-4 sm:overflow-x-visible sm:px-6 sm:pb-4"
         aria-label="Sections"
       >
-        <div class="flex flex-wrap gap-1.5 sm:gap-2" data-tutorial="nav">
+        <div class="flex flex-nowrap gap-1.5 sm:flex-wrap sm:gap-2">
           {#each tabs as tab (tab.route)}
             {@const active = path === tab.route}
             <a

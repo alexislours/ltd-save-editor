@@ -10,7 +10,7 @@ import { parseSav } from '$lib/sav/parse';
 import { MII_SCHEMA, PLAYER_SCHEMA } from '$lib/sav/schema';
 import type { SchemaLeaf } from '$lib/sav/schema/leaf';
 import { type HistorySaveFile, type HistoryUgcFile, saveSnapshot } from '$lib/session/historyStore';
-import type { SaveKind } from '$lib/saveFile/saveFile.svelte';
+import type { SaveKind } from '$lib/saveFile/types';
 import { showToast } from '$lib/toast/toast.svelte';
 
 function safeAccessorString<K extends string>(

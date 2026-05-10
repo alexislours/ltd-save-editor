@@ -1,9 +1,7 @@
-import type { SaveKind } from '$lib/saveFile/saveFile.svelte';
+import type { SaveKind } from '$lib/saveFile/types';
 import type { UgcKind } from './shareMii/codec/ugcKinds';
 
 type ShareMiiKind = 'Mii' | UgcKind;
-
-type TutorialId = 'getting-started' | 'save-bar' | 'player' | 'mii' | 'map' | 'sharemii' | 'ugc';
 
 type Events = {
   load_attempted: { file_count: number; has_zip: boolean };
@@ -20,7 +18,8 @@ type Events = {
   export_failed: { kind: SaveKind | 'bulk' };
   export_mii_data: { format: 'json' | 'miis-csv' | 'relationships-csv'; mii_count: number };
   export_mii_data_failed: { format: 'json' | 'miis-csv' | 'relationships-csv' };
-  bulk_edit: { field: 'state' | 'qty'; count: number };
+  bulk_edit: { field: 'state' | 'qty' | 'wish_liberated'; count: number };
+  wish_stats_bumped: { level: number | null; count: number | null };
   restore_prompted: { count: number; sidecar_count: number };
   restore_accepted: { count: number; sidecar_count: number };
   restore_dismissed: { count: number; sidecar_count: number };
@@ -85,9 +84,6 @@ type Events = {
   external_link: { target: string };
   map_tool_selected: { tool: 'brush' | 'fill' | 'rectangle' | 'picker' };
   map_history: { direction: 'undo' | 'redo'; source: 'keyboard' | 'button' };
-  tutorial_started: { from: string; tutorial: TutorialId };
-  tutorial_completed: { tutorial: TutorialId; steps: number };
-  tutorial_dismissed: { tutorial: TutorialId; step: number; steps: number };
 };
 
 type Umami = {

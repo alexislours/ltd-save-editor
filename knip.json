@@ -1,5 +1,12 @@
 {
-  "entry": ["src/lib/shareMii/index.ts"],
+  "entry": [
+    "src/lib/shareMii/index.ts",
+    "src/lib/bulk/bulkLoader.svelte.ts",
+    "src/lib/bulk/clearAll.svelte.ts",
+    "src/lib/session/sessionPersist.ts",
+    "src/lib/session/sessionRestore.boot.ts",
+    "src/lib/session/sessionRestore.svelte.ts"
+  ],
   "ignore": ["src/**/*.test-d.ts", "src/lib/ugc/wasm/assembly/**"],
   "ignoreDependencies": ["@assemblyscript/loader"]
 }

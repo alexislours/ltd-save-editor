@@ -14,7 +14,7 @@ import {
   type FootprintRect,
 } from './actors';
 import type { ActorFootprint } from './generatedActorNames';
-import { GENERATED_ENUM_OPTION_NAMES } from '$lib/sav/generatedNames';
+import { enumOptionName } from '$lib/sav/knownKeys';
 import { DataType } from '$lib/sav/dataType';
 import type { SchemaLeaf } from '$lib/sav/schema/leaf';
 
@@ -91,7 +91,7 @@ function buildIndex(acc: ReturnType<typeof playerAccessor>, leaves: SlotLeaves):
       size: sizes[i] ?? 1,
       scale: scales[i] ?? { x: 1, y: 1, z: 1 },
       type: t,
-      typeLabel: GENERATED_ENUM_OPTION_NAMES.get(t) ?? `0x${t.toString(16).padStart(8, '0')}`,
+      typeLabel: enumOptionName(t) ?? `0x${t.toString(16).padStart(8, '0')}`,
     });
   }
   return out;
