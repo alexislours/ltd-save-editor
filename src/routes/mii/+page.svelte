@@ -26,12 +26,16 @@
   } from '$lib/mii/miiEditor.svelte';
   import { _, locale } from 'svelte-i18n';
   import { untrack } from 'svelte';
+  import { browser } from '$app/environment';
   import { track } from '$lib/analytics';
   import { errorMessage } from '$lib/errorMessage';
   import { downloadText } from '$lib/sav/download';
+  import { loadListsForMii } from '$lib/sav/lists/perRoute';
   import { expectedFileName, getEntriesForAdvanced, getSave } from '$lib/saveFile/saveFile.svelte';
   import { PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import { showToast } from '$lib/toast/toast.svelte';
+
+  if (browser) loadListsForMii();
 
   const save = $derived(getSave('mii'));
   $effect(() => {

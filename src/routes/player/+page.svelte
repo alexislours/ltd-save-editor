@@ -1,10 +1,12 @@
 <script lang="ts">
   import { untrack } from 'svelte';
   import { _ } from 'svelte-i18n';
+  import { browser } from '$app/environment';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
   import { track } from '$lib/analytics';
   import { errorMessage } from '$lib/errorMessage';
   import RouteMeta from '$lib/layout/RouteMeta.svelte';
+  import { loadListsForPlayer } from '$lib/sav/lists/perRoute';
   import BuildingsPanel from '$lib/player/inventory/BuildingsPanel.svelte';
   import ClothesPanel from '$lib/player/inventory/ClothesPanel.svelte';
   import ClothingSetsPanel from '$lib/player/inventory/ClothingSetsPanel.svelte';
@@ -25,6 +27,8 @@
   import { getEntriesForAdvanced, getSave } from '$lib/saveFile/saveFile.svelte';
   import SubTabs from '$lib/ui/SubTabs.svelte';
   import { showToast } from '$lib/toast/toast.svelte';
+
+  if (browser) loadListsForPlayer();
 
   const save = $derived(getSave('player'));
   $effect(() => {

@@ -15,36 +15,11 @@
   import Lightbox from '$lib/ui/Lightbox.svelte';
   import LocaleSwitcher from '$lib/i18n/LocaleSwitcher.svelte';
   import RestoreSessionModal from '$lib/session/RestoreSessionModal.svelte';
-  import { loadMiiLabels } from '$lib/mii/miiLabelList.svelte';
-  import { loadClothList } from '$lib/sav/lists/clothList.svelte';
-  import { loadCoordinateList } from '$lib/sav/lists/coordinateList.svelte';
-  import { loadFoodList } from '$lib/sav/lists/foodList.svelte';
-  import { loadHabitList } from '$lib/sav/lists/habitList.svelte';
-  import { loadItemList } from '$lib/sav/lists/itemList.svelte';
-  import { loadRoomStyleList } from '$lib/sav/lists/roomStyleList.svelte';
-  import { loadTreasureList } from '$lib/sav/lists/treasureList.svelte';
-  import { loadTroubleList } from '$lib/sav/lists/troubleList.svelte';
-  import { loadWishList } from '$lib/sav/lists/wishList.svelte';
-  import { loadWordKindLabels } from '$lib/sav/lists/wordKindLabels.svelte';
   import { bootRestoreScan } from '$lib/session/sessionRestore.svelte';
   import { flushAllPending } from '$lib/session/sessionPersist';
   import ThemeSwitcher from '$lib/theme/ThemeSwitcher.svelte';
   import Toaster from '$lib/toast/Toaster.svelte';
   import { TAB_PILL_CLASS } from '$lib/ui/styles';
-
-  if (browser) {
-    loadFoodList();
-    loadClothList();
-    loadCoordinateList();
-    loadTreasureList();
-    loadRoomStyleList();
-    loadItemList();
-    loadTroubleList();
-    loadHabitList();
-    loadWishList();
-    loadWordKindLabels();
-    loadMiiLabels();
-  }
 
   type Props = { children: Snippet };
   let { children }: Props = $props();
