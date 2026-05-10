@@ -84,7 +84,6 @@
   newPreview={tx.newPreview}
   newPreviewElapsedMs={tx.previewElapsedMs}
   {sidecarMissing}
-  dropTutorialId="ugc-drop"
   onPick={onPickPng}
   onDropFile={onLoadFile}
 />
@@ -151,7 +150,6 @@
   </button>
   <button
     type="button"
-    data-tutorial="ugc-replace"
     class={PRIMARY_BUTTON_CLASS}
     onclick={onApplyReplace}
     disabled={busy || !tx.pendingDecoded}

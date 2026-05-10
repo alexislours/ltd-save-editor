@@ -3,7 +3,6 @@
   import { _ } from 'svelte-i18n';
   import Card from '$lib/ui/Card.svelte';
   import FileDropZone from '$lib/saveFile/FileDropZone.svelte';
-  import Tutorial from '$lib/tutorial/Tutorial.svelte';
   import { clearSave, getSave } from '$lib/saveFile/saveFile.svelte';
   import { expectedFileName, type SaveKind } from '$lib/saveFile/types';
 
@@ -31,12 +30,10 @@
       </h2>
       <p class="mt-1 text-sm text-content">{description}</p>
     </div>
-    <Tutorial />
   </header>
 
   {#if save}
     <div
-      data-tutorial="save-info"
       class="flex items-center justify-between gap-3 rounded-2xl bg-header/90 px-4 py-2.5 shadow-sm ring-1 ring-edge/60 sm:gap-4 sm:rounded-full sm:px-5"
     >
       <div class="min-w-0 flex-1">

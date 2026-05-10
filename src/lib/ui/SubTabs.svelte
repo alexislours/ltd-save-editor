@@ -13,7 +13,6 @@
 <nav
   class="flex flex-nowrap gap-2 overflow-x-auto sm:flex-wrap sm:overflow-x-visible"
   aria-label={label}
-  data-tutorial="subtabs"
 >
   {#each tabs as tab (tab.value)}
     {@const active = tab.value === value}

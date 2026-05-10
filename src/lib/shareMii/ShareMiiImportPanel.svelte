@@ -32,15 +32,11 @@
   }
 </script>
 
-<div
-  data-tutorial="sharemii-import-panel"
-  class="mb-4 rounded-xl bg-surface-sunken p-3 sm:p-4 ring-1 ring-edge/40"
->
+<div class="mb-4 rounded-xl bg-surface-sunken p-3 sm:p-4 ring-1 ring-edge/40">
   <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
     <label class="block">
       <span class={LABEL_CLASS}>{$_('sharemii.import.file_label')}</span>
       <input
-        data-tutorial="sharemii-import-file"
         type="file"
         accept=".ltd,.ltdf,.ltdc,.ltdg,.ltdi,.ltde,.ltdo,.ltdl,.zip"
         class={COMPACT_SELECT_CLASS + ' w-full'}
@@ -54,11 +50,7 @@
     </label>
     <label class="block">
       <span class={LABEL_CLASS}>{$_('sharemii.import.target_label')}</span>
-      <select
-        data-tutorial="sharemii-import-target"
-        class={COMPACT_SELECT_CLASS + ' w-full'}
-        bind:value={importSlot}
-      >
+      <select class={COMPACT_SELECT_CLASS + ' w-full'} bind:value={importSlot}>
         {#each rows as r (r.slot)}
           <option value={r.slot}>
             {#if r.isAddNew}
@@ -81,7 +73,6 @@
     >
     <button
       type="button"
-      data-tutorial="sharemii-import-apply"
       class={PRIMARY_BUTTON_CLASS}
       onclick={onApply}
       disabled={working || !importFile || importSlot === null}

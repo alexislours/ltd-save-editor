@@ -3,8 +3,6 @@ import type { UgcKind } from './shareMii/codec/ugcKinds';
 
 type ShareMiiKind = 'Mii' | UgcKind;
 
-type TutorialId = 'getting-started' | 'save-bar' | 'player' | 'mii' | 'map' | 'sharemii' | 'ugc';
-
 type Events = {
   load_attempted: { file_count: number; has_zip: boolean };
   load_completed: {
@@ -86,9 +84,6 @@ type Events = {
   external_link: { target: string };
   map_tool_selected: { tool: 'brush' | 'fill' | 'rectangle' | 'picker' };
   map_history: { direction: 'undo' | 'redo'; source: 'keyboard' | 'button' };
-  tutorial_started: { from: string; tutorial: TutorialId };
-  tutorial_completed: { tutorial: TutorialId; steps: number };
-  tutorial_dismissed: { tutorial: TutorialId; step: number; steps: number };
 };
 
 type Umami = {

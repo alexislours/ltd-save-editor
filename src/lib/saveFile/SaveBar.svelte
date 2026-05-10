@@ -40,10 +40,9 @@
 </script>
 
 <div
-  data-tutorial="save-bar"
   class="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 rounded-2xl bg-header/90 px-4 py-2.5 shadow-sm ring-1 ring-edge/60 sm:rounded-full sm:px-5"
 >
-  <div class="flex items-center gap-2.5" data-tutorial="save-bar-status">
+  <div class="flex items-center gap-2.5">
     <span
       class="h-2.5 w-2.5 shrink-0 rounded-full"
       class:bg-orange-500={dirty}
@@ -56,12 +55,7 @@
     </p>
   </div>
   <div class="flex flex-wrap items-center gap-2">
-    <button
-      type="button"
-      class={PILL_BUTTON_CLASS}
-      onclick={() => fileInput.click()}
-      data-tutorial="save-bar-open"
-    >
+    <button type="button" class={PILL_BUTTON_CLASS} onclick={() => fileInput.click()}>
       {$_('bulk.open_all')}
     </button>
     <button
@@ -69,7 +63,6 @@
       class={PILL_BUTTON_CLASS}
       onclick={exportAll}
       disabled={exportableCount === 0}
-      data-tutorial="save-bar-export"
     >
       {$_('bulk.export_all', { values: { count: exportableCount } })}
     </button>
@@ -78,17 +71,11 @@
       class={PILL_BUTTON_CLASS}
       onclick={requestClearAll}
       disabled={exportableCount === 0}
-      data-tutorial="save-bar-clear"
     >
       {$_('bulk.clear_all')}
     </button>
     {#if onAction && actionLabel}
-      <button
-        type="button"
-        class={PRIMARY_BUTTON_CLASS}
-        onclick={onAction}
-        data-tutorial="save-bar-download"
-      >
+      <button type="button" class={PRIMARY_BUTTON_CLASS} onclick={onAction}>
         {actionLabel}
       </button>
     {/if}

@@ -22,7 +22,6 @@
   <p class="text-sm text-content-muted">{$_('ugc_editor.list.empty')}</p>
 {:else}
   <ul
-    data-tutorial="ugc-rows"
     class="max-h-[480px] divide-y divide-edge/40 overflow-y-auto rounded-lg bg-surface-sunken ring-1 ring-edge/40"
   >
     {#each rows as r (r.slot)}

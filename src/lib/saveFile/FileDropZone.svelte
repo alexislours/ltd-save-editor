@@ -43,7 +43,7 @@
   }
 </script>
 
-<div class="w-full" data-tutorial="drop-zone">
+<div class="w-full">
   <DropZone multiple accept=".sav,.zip" paddingClass="p-12" {onFiles} {onDataTransfer}>
     {#snippet children({ openPicker })}
       <UploadArrowIcon />
@@ -68,7 +68,7 @@
   </DropZone>
 
   <div class="mt-3 text-center">
-    <p class="inline-block text-xs text-warn" data-tutorial="warning">
+    <p class="inline-block text-xs text-warn">
       <span class="font-semibold">{$_('save.drop_warning_label')}</span>
       {$_('save.drop_warning_text')}
     </p>

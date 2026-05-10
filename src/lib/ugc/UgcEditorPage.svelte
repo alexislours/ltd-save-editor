@@ -4,7 +4,6 @@
   import Card from '$lib/ui/Card.svelte';
   import SaveBar from '$lib/saveFile/SaveBar.svelte';
   import SubTabs from '$lib/ui/SubTabs.svelte';
-  import Tutorial from '$lib/tutorial/Tutorial.svelte';
   import { downloadBytes } from '$lib/sav/download';
   import { errorMessage } from '$lib/errorMessage';
   import { getSave } from '$lib/saveFile/saveFile.svelte';
@@ -369,7 +368,6 @@
       </h2>
       <p class="mt-1 text-sm text-content">{$_('ugc_editor.description')}</p>
     </div>
-    <Tutorial />
   </header>
 
   {#if playerless && !sidecarLoaded}
@@ -427,7 +425,7 @@
             <UgcSlotList {rows} kind={ugcKind} {sidecar} {selectedSlot} onSelect={selectRow} />
           </div>
 
-          <div data-tutorial="ugc-editor">
+          <div>
             {#if selectedSlot === null}
               <p class="text-sm text-content-muted">{$_('ugc_editor.editor.pick_item')}</p>
             {:else}

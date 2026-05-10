@@ -8,7 +8,6 @@
     newPreview: string | null;
     newPreviewElapsedMs?: number | null;
     sidecarMissing: boolean;
-    dropTutorialId?: string;
     onPick: () => void;
     onDropFile: (file: File) => void;
   };
@@ -18,7 +17,6 @@
     newPreview,
     newPreviewElapsedMs = null,
     sidecarMissing,
-    dropTutorialId,
     onPick,
     onDropFile,
   }: Props = $props();
@@ -69,7 +67,6 @@
     </figcaption>
     <button
       type="button"
-      data-tutorial={dropTutorialId}
       ondrop={onDrop}
       ondragover={onDragOver}
       onclick={onPick}

@@ -179,7 +179,7 @@
         class="mx-auto mt-3 flex w-full max-w-6xl overflow-x-auto px-4 pb-3 sm:mt-4 sm:overflow-x-visible sm:px-6 sm:pb-4"
         aria-label="Sections"
       >
-        <div class="flex flex-nowrap gap-1.5 sm:flex-wrap sm:gap-2" data-tutorial="nav">
+        <div class="flex flex-nowrap gap-1.5 sm:flex-wrap sm:gap-2">
           {#each tabs as tab (tab.route)}
             {@const active = path === tab.route}
             <a
