@@ -31,7 +31,8 @@
   import { errorMessage } from '$lib/errorMessage';
   import { downloadText } from '$lib/sav/download';
   import { loadListsForMii } from '$lib/sav/lists/perRoute';
-  import { expectedFileName, getEntriesForAdvanced, getSave } from '$lib/saveFile/saveFile.svelte';
+  import { getEntriesForAdvanced, getSave } from '$lib/saveFile/saveFile.svelte';
+  import { expectedFileName } from '$lib/saveFile/types';
   import { PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import { showToast } from '$lib/toast/toast.svelte';
 

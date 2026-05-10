@@ -1,5 +1,5 @@
 import type { DecodedSave } from '$lib/sav/materialized/types';
-import type { SaveKind } from '$lib/saveFile/saveFile.svelte';
+import type { SaveKind } from '$lib/saveFile/types';
 
 const DB_NAME = 'ltd-save-editor';
 const STORE = 'sessions';

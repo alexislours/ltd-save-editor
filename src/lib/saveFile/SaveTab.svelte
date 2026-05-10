@@ -4,12 +4,8 @@
   import Card from '$lib/ui/Card.svelte';
   import FileDropZone from '$lib/saveFile/FileDropZone.svelte';
   import Tutorial from '$lib/tutorial/Tutorial.svelte';
-  import {
-    clearSave,
-    expectedFileName,
-    getSave,
-    type SaveKind,
-  } from '$lib/saveFile/saveFile.svelte';
+  import { clearSave, getSave } from '$lib/saveFile/saveFile.svelte';
+  import { expectedFileName, type SaveKind } from '$lib/saveFile/types';
 
   type Props = {
     kind: SaveKind;

@@ -5,10 +5,10 @@ import { parseSav } from '$lib/sav/parse';
 import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from '$lib/sav/schema';
 import { writeSav } from '$lib/sav/write';
 import type { Entry } from '$lib/sav/types';
+import { clearAllSlotSummaries, setSlotSummary } from '$lib/saveFile/slotSummary.svelte';
+import { expectedFileName, SAVE_KINDS, type SaveKind } from '$lib/saveFile/types';
 import { clearAllSessions, deleteSession, putSession } from '$lib/session/sessionStore';
 import { clearSidecar } from '$lib/shareMii/sidecar/sidecarStore.svelte';
-
-export type SaveKind = 'player' | 'mii' | 'map';
 
 type LoadedSave = {
   name: string;
@@ -18,12 +18,6 @@ type LoadedSave = {
   loadedBytes: Uint8Array | null;
   parseError: string | null;
   loadId: number;
-};
-
-export const expectedFileName: Record<SaveKind, string> = {
-  player: 'Player.sav',
-  mii: 'Mii.sav',
-  map: 'Map.sav',
 };
 
 export type SchemaForKind = {
@@ -129,6 +123,7 @@ export function setSaveFromBytes(
     parseError,
     loadId: nextLoadId++,
   };
+  setSlotSummary(kind, { name: input.name });
   if (options.persist !== false && decoded) persistCurrent(kind);
 }
 
@@ -172,6 +167,7 @@ export function restoreSaveFromDecoded(
     parseError: null,
     loadId: nextLoadId++,
   };
+  setSlotSummary(kind, { name: input.name });
 }
 
 export function persistCurrent(kind: SaveKind): void {
@@ -189,10 +185,9 @@ export function persistCurrent(kind: SaveKind): void {
   });
 }
 
-export const SAVE_KINDS: readonly SaveKind[] = ['player', 'mii', 'map'];
-
 export function clearSave(kind: SaveKind, options: SetSaveOptions = {}): void {
   saves[kind] = null;
+  setSlotSummary(kind, null);
   if (options.persist !== false) void deleteSession(kind);
 }
 
@@ -204,6 +199,7 @@ export function clearAllSaves(options: SetSaveOptions = {}): SaveKind[] {
       cleared.push(kind);
     }
   }
+  clearAllSlotSummaries();
   clearSidecar();
   if (options.persist !== false) void clearAllSessions();
   return cleared;

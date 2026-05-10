@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import type { SaveKind } from '$lib/saveFile/saveFile.svelte';
+  import type { SaveKind } from '$lib/saveFile/types';
   import { PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
 
   type Props = {

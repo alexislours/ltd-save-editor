@@ -1,7 +1,13 @@
 <script lang="ts">
   import { _, locale } from 'svelte-i18n';
-  import { confirmRestore, dismissRestore, restoreModal } from '$lib/session/sessionRestore.svelte';
+  import { restoreModal } from '$lib/session/sessionRestoreState.svelte';
   import { PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
+
+  const loadSessionRestore = (): Promise<typeof import('$lib/session/sessionRestore.svelte')> =>
+    import('$lib/session/sessionRestore.svelte');
+
+  const confirmRestore = async (): Promise<void> => (await loadSessionRestore()).confirmRestore();
+  const dismissRestore = async (): Promise<void> => (await loadSessionRestore()).dismissRestore();
 
   let dialog: HTMLDialogElement | undefined = $state();
   let suppressNextClose = false;

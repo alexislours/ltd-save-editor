@@ -1,4 +1,5 @@
 import { track } from '$lib/analytics';
+import { overwriteModal } from '$lib/bulk/bulkOverwriteState.svelte';
 import {
   applyBulkPlan,
   filesFromDataTransfer,
@@ -10,7 +11,7 @@ import { goto } from '$app/navigation';
 import { resolve } from '$app/paths';
 import { page } from '$app/state';
 import { recordSnapshot } from '$lib/session/historyCapture';
-import { SAVE_KINDS, type SaveKind } from '$lib/saveFile/saveFile.svelte';
+import { SAVE_KINDS, type SaveKind } from '$lib/saveFile/types';
 
 type BulkOutcome = {
   loaded: SaveKind[];
@@ -23,13 +24,7 @@ type Pending = {
   resolve: (outcome: BulkOutcome) => void;
 };
 
-const modal = $state<{ open: boolean; conflicts: SaveKind[] }>({
-  open: false,
-  conflicts: [],
-});
 let pending: Pending | null = null;
-
-export const overwriteModal = modal;
 
 function routeForKind(kind: SaveKind): '/player' | '/mii' | '/map' {
   switch (kind) {
@@ -79,8 +74,8 @@ async function runPlan(plan: BulkPlan): Promise<BulkOutcome> {
   }
   return await new Promise<BulkOutcome>((resolve) => {
     pending = { plan, resolve };
-    modal.conflicts = plan.conflicts;
-    modal.open = true;
+    overwriteModal.conflicts = plan.conflicts;
+    overwriteModal.open = true;
   });
 }
 
@@ -100,23 +95,23 @@ export async function bulkLoadFromDataTransfer(dt: DataTransfer): Promise<BulkOu
 
 export function confirmOverwrite(): void {
   if (!pending) {
-    modal.open = false;
+    overwriteModal.open = false;
     return;
   }
   const { plan, resolve } = pending;
   pending = null;
-  modal.open = false;
+  overwriteModal.open = false;
   commit(plan, resolve);
 }
 
 export function cancelOverwrite(): void {
   if (!pending) {
-    modal.open = false;
+    overwriteModal.open = false;
     return;
   }
   const { plan, resolve } = pending;
   pending = null;
-  modal.open = false;
+  overwriteModal.open = false;
   track('load_cancelled', { conflicts: plan.conflicts.length });
   resolve({ loaded: [], skipped: plan.skipped, cancelled: true });
 }

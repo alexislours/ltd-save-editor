@@ -15,8 +15,6 @@
   import Lightbox from '$lib/ui/Lightbox.svelte';
   import LocaleSwitcher from '$lib/i18n/LocaleSwitcher.svelte';
   import RestoreSessionModal from '$lib/session/RestoreSessionModal.svelte';
-  import { bootRestoreScan } from '$lib/session/sessionRestore.svelte';
-  import { flushAllPending } from '$lib/session/sessionPersist';
   import ThemeSwitcher from '$lib/theme/ThemeSwitcher.svelte';
   import Toaster from '$lib/toast/Toaster.svelte';
   import { TAB_PILL_CLASS } from '$lib/ui/styles';
@@ -48,13 +46,25 @@
   });
 
   $effect(() => {
-    void bootRestoreScan();
-    const flush = (): void => flushAllPending();
-    window.addEventListener('pagehide', flush);
-    window.addEventListener('beforeunload', flush);
+    let aborted = false;
+    let flush: (() => void) | null = null;
+    void (async () => {
+      const [{ bootRestoreScan }, { flushAllPending }] = await Promise.all([
+        import('$lib/session/sessionRestore.boot'),
+        import('$lib/session/sessionPersist'),
+      ]);
+      if (aborted) return;
+      void bootRestoreScan();
+      flush = (): void => flushAllPending();
+      window.addEventListener('pagehide', flush);
+      window.addEventListener('beforeunload', flush);
+    })();
     return () => {
-      window.removeEventListener('pagehide', flush);
-      window.removeEventListener('beforeunload', flush);
+      aborted = true;
+      if (flush) {
+        window.removeEventListener('pagehide', flush);
+        window.removeEventListener('beforeunload', flush);
+      }
     };
   });
 

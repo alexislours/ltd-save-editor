@@ -3,10 +3,9 @@ import {
   detectSaveKindFromBytes,
   detectSaveKindFromName,
   getSave,
-  SAVE_KINDS,
   setSaveFromBytes,
-  type SaveKind,
 } from '$lib/saveFile/saveFile.svelte';
+import { SAVE_KINDS, type SaveKind } from '$lib/saveFile/types';
 import { isJunkArchiveEntry, isSidecarFileName } from '$lib/shareMii/sidecar/sidecar';
 import { collectSidecarFromNamedBytes } from '$lib/shareMii/sidecar/sidecarStore.svelte';
 

@@ -1,30 +1,25 @@
 import { track } from '$lib/analytics';
-import { clearAllSaves, getSave, SAVE_KINDS, type SaveKind } from '$lib/saveFile/saveFile.svelte';
-
-const modal = $state<{ open: boolean; items: SaveKind[] }>({
-  open: false,
-  items: [],
-});
-
-export const clearAllModal = modal;
+import { clearAllModal } from '$lib/bulk/clearAllState.svelte';
+import { clearAllSaves, getSave } from '$lib/saveFile/saveFile.svelte';
+import { SAVE_KINDS } from '$lib/saveFile/types';
 
 export function requestClearAll(): void {
   const items = SAVE_KINDS.filter((k) => getSave(k) != null);
   if (items.length === 0) return;
-  modal.items = items;
-  modal.open = true;
+  clearAllModal.items = items;
+  clearAllModal.open = true;
   track('clear_all_requested', { count: items.length });
 }
 
 export function confirmClearAll(): void {
-  const count = modal.items.length;
-  modal.open = false;
+  const count = clearAllModal.items.length;
+  clearAllModal.open = false;
   clearAllSaves();
   track('clear_all_confirmed', { count });
 }
 
 export function cancelClearAll(): void {
-  const count = modal.items.length;
-  modal.open = false;
+  const count = clearAllModal.items.length;
+  clearAllModal.open = false;
   track('clear_all_cancelled', { count });
 }

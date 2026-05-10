@@ -1,57 +1,10 @@
 import { track } from '$lib/analytics';
 import { redirectIfNeeded } from '$lib/bulk/bulkLoader.svelte';
-import { restoreSaveFromDecoded, SAVE_KINDS, type SaveKind } from '$lib/saveFile/saveFile.svelte';
-import {
-  clearAllSessions,
-  deleteSession,
-  getAllSessions,
-  type StoredSession,
-} from '$lib/session/sessionStore';
-import {
-  clearSidecar,
-  restorePersistedSidecars,
-  type SidecarRestoreSummary,
-} from '$lib/shareMii/sidecar/sidecarStore.svelte';
-
-type ModalState = {
-  open: boolean;
-  sessions: StoredSession[];
-  sidecar: SidecarRestoreSummary | null;
-  loaded: boolean;
-};
-
-const state = $state<ModalState>({
-  open: false,
-  sessions: [],
-  sidecar: null,
-  loaded: false,
-});
-
-export const restoreModal = state;
-
-let bootScanStarted = false;
-
-export async function bootRestoreScan(): Promise<void> {
-  if (bootScanStarted) return;
-  bootScanStarted = true;
-  const [sidecar, sessions] = await Promise.all([restorePersistedSidecars(), getAllSessions()]);
-  state.sidecar = sidecar;
-  if (sessions.length === 0 && !sidecar) {
-    state.loaded = true;
-    return;
-  }
-  state.sessions = sessions.sort((a, b) => SAVE_KINDS.indexOf(a.kind) - SAVE_KINDS.indexOf(b.kind));
-  state.loaded = true;
-  if (typeof localStorage !== 'undefined' && localStorage.getItem('dev-auto-restore')) {
-    confirmRestore();
-    return;
-  }
-  state.open = true;
-  track('restore_prompted', {
-    count: sessions.length,
-    sidecar_count: sidecar?.count ?? 0,
-  });
-}
+import { restoreSaveFromDecoded } from '$lib/saveFile/saveFile.svelte';
+import type { SaveKind } from '$lib/saveFile/types';
+import { restoreModal as state } from '$lib/session/sessionRestoreState.svelte';
+import { clearAllSessions, deleteSession } from '$lib/session/sessionStore';
+import { clearSidecar } from '$lib/shareMii/sidecar/sidecarStore.svelte';
 
 export function confirmRestore(): void {
   const loaded: SaveKind[] = [];

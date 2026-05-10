@@ -1,7 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { detectSaveKindFromBytes, type SaveKind } from '$lib/saveFile/saveFile.svelte';
+import { detectSaveKindFromBytes } from '$lib/saveFile/saveFile.svelte';
+import type { SaveKind } from '$lib/saveFile/types';
 
 const SLOT_DIR = resolve('sample/saves/1');
 const PLAYER_PATH = resolve(SLOT_DIR, 'Player.sav');

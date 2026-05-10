@@ -1,8 +1,18 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { cancelOverwrite, confirmOverwrite, overwriteModal } from '$lib/bulk/bulkLoader.svelte';
-  import { cancelClearAll, clearAllModal, confirmClearAll } from '$lib/bulk/clearAll.svelte';
+  import { overwriteModal } from '$lib/bulk/bulkOverwriteState.svelte';
+  import { clearAllModal } from '$lib/bulk/clearAllState.svelte';
   import ConfirmListModal from '$lib/ui/ConfirmListModal.svelte';
+
+  const loadBulkLoader = (): Promise<typeof import('$lib/bulk/bulkLoader.svelte')> =>
+    import('$lib/bulk/bulkLoader.svelte');
+  const loadClearAll = (): Promise<typeof import('$lib/bulk/clearAll.svelte')> =>
+    import('$lib/bulk/clearAll.svelte');
+
+  const confirmOverwrite = async (): Promise<void> => (await loadBulkLoader()).confirmOverwrite();
+  const cancelOverwrite = async (): Promise<void> => (await loadBulkLoader()).cancelOverwrite();
+  const confirmClearAll = async (): Promise<void> => (await loadClearAll()).confirmClearAll();
+  const cancelClearAll = async (): Promise<void> => (await loadClearAll()).cancelClearAll();
 </script>
 
 <ConfirmListModal

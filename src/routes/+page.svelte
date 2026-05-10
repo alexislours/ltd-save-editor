@@ -4,17 +4,27 @@
   import Card from '$lib/ui/Card.svelte';
   import FileDropZone from '$lib/saveFile/FileDropZone.svelte';
   import RouteMeta from '$lib/layout/RouteMeta.svelte';
-  import { getSave } from '$lib/saveFile/saveFile.svelte';
+  import { getSlotSummary } from '$lib/saveFile/slotSummary.svelte';
 
   const pills = $derived([
     {
       kind: 'player' as const,
       href: resolve('/player'),
       label: $_('tab.player'),
-      save: getSave('player'),
+      save: getSlotSummary('player'),
     },
-    { kind: 'mii' as const, href: resolve('/mii'), label: $_('tab.mii'), save: getSave('mii') },
-    { kind: 'map' as const, href: resolve('/map'), label: $_('tab.map'), save: getSave('map') },
+    {
+      kind: 'mii' as const,
+      href: resolve('/mii'),
+      label: $_('tab.mii'),
+      save: getSlotSummary('mii'),
+    },
+    {
+      kind: 'map' as const,
+      href: resolve('/map'),
+      label: $_('tab.map'),
+      save: getSlotSummary('map'),
+    },
   ]);
 </script>
 
