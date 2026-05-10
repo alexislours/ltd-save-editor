@@ -15,13 +15,13 @@
   }
 </script>
 
-<dialog
-  bind:this={dialog}
-  onclose={closeLightbox}
-  onclick={handleBackdropClick}
-  class="lightbox m-auto rounded-3xl bg-transparent p-0 shadow-none"
->
-  {#if lightbox.src}
+{#if lightbox.src}
+  <dialog
+    bind:this={dialog}
+    onclose={closeLightbox}
+    onclick={handleBackdropClick}
+    class="lightbox m-auto rounded-3xl bg-transparent p-0 shadow-none"
+  >
     <div
       class="lightbox-card relative overflow-hidden rounded-3xl bg-surface shadow-2xl ring-1 ring-edge/60"
     >
@@ -49,8 +49,8 @@
         ✕
       </button>
     </div>
-  {/if}
-</dialog>
+  </dialog>
+{/if}
 
 <style>
   .lightbox {
