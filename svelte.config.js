@@ -8,6 +8,7 @@ export default {
   preprocess: vitePreprocess(),
   kit: {
     version: { name: pkg.version },
+    inlineStyleThreshold: 100_000,
     adapter: adapter({
       pages: 'dist',
       assets: 'dist',

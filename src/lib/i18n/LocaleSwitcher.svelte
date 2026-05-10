@@ -66,12 +66,12 @@
     aria-haspopup="listbox"
     aria-expanded={open}
     onclick={() => (open = !open)}
-    class="flex items-center gap-1.5 rounded-full bg-surface-muted/80 px-3 py-1 text-xs font-semibold leading-none text-brand/90 ring-1 ring-edge/60 transition-colors hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+    class="flex items-center gap-1.5 rounded-full bg-surface-muted/80 px-3 py-1 text-xs font-semibold leading-none text-brand ring-1 ring-edge/60 transition-colors hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
   >
     <span class="sr-only">{$_('header.language_sr')}</span>
     <span>{META[currentValue].name}</span>
     {#if META[currentValue].region}
-      <span class="text-[10px] font-bold uppercase tracking-wider text-brand/70">
+      <span class="text-[10px] font-bold uppercase tracking-wider text-brand">
         {META[currentValue].region}
       </span>
     {/if}

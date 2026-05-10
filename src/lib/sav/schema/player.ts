@@ -4810,6 +4810,7 @@ const _PLAYER_SCHEMA = {
     Name: { hash: 0xc7fb279b, type: DataType.WString32 },
     NameRegionLanguageID: { hash: 0xb3229c6b, type: DataType.Enum, options: LANGUAGE },
     NextGeneratableTroubleIslandEditTime: { hash: 0xd13e751b, type: DataType.UInt64 },
+    NextUpdateNewsRandomSeed: { hash: 0x17512c0d, type: DataType.UInt },
     NoInputPlayTime: { hash: 0xc3525bf3, type: DataType.UInt64 },
     PhotoStudioUnlockFlag: { hash: 0xbe8e39ac, type: DataType.UInt64 },
     PhotoStudioUnlockNewFlag: { hash: 0xf86c0976, type: DataType.UInt64 },
@@ -4822,6 +4823,7 @@ const _PLAYER_SCHEMA = {
       RoomStyleVariationGroupStringId: { hash: 0xdbf3bc31, type: DataType.UInt },
     },
     SEVolume: { hash: 0x9dc950d2, type: DataType.UInt },
+    SaveDataCreateFromProduct: { hash: 0xf16a6b96, type: DataType.Bool },
     SaveDataUniqueHash: { hash: 0x68af134a, type: DataType.UInt64 },
     SaveDataVersion: { hash: 0x39cdf730, type: DataType.Int },
     SaveEventFlag: { hash: 0xfdb31247, type: DataType.UInt },
@@ -4837,6 +4839,7 @@ const _PLAYER_SCHEMA = {
     },
     UnlockMapLevel: { hash: 0x870a807c, type: DataType.Int },
     VoiceVolume: { hash: 0x38468a2a, type: DataType.UInt },
+    WeeklyInteriorShopFurnitureIdx: { hash: 0xd9276e3a, type: DataType.Int },
   },
   Trial: {
     IsClothShopDialogShown: { hash: 0x7448d1e7, type: DataType.Bool },
@@ -5201,11 +5204,8 @@ const _PLAYER_SCHEMA = {
     },
   },
   Unknown: {
-    '0x17512C0D': { hash: 0x17512c0d, type: DataType.UInt },
     '0x84A85193': { hash: 0x84a85193, type: DataType.UInt },
-    '0xD9276E3A': { hash: 0xd9276e3a, type: DataType.Int },
     '0xE6F98671': { hash: 0xe6f98671, type: DataType.UInt },
-    '0xF16A6B96': { hash: 0xf16a6b96, type: DataType.Bool },
     '0xFFC750B6': { hash: 0xffc750b6, type: DataType.UIntArray },
   },
   Unlock: {

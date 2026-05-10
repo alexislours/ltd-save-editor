@@ -1134,6 +1134,7 @@ const _MII_SCHEMA = {
       },
       BirthdayInfo: {
         AgeType: { hash: 0x46d52648, type: DataType.EnumArray, options: AGE_TYPE },
+        BackupHeightBeforeSpray: { hash: 0x75b0a7fd, type: DataType.IntArray },
         Day: { hash: 0xab8ae08b, type: DataType.IntArray },
         DirectAge: { hash: 0x2545e583, type: DataType.IntArray },
         Month: { hash: 0x6cf484f4, type: DataType.IntArray },
@@ -1229,6 +1230,7 @@ const _MII_SCHEMA = {
         IsFacePaintFront: { hash: 0xde73cee6, type: DataType.BoolArray },
         IsLoveGender: { hash: 0xdfc82223, type: DataType.BoolArray },
         IsSelectedGoodHairChangeTalk: { hash: 0x9959aeea, type: DataType.BoolArray },
+        PrevHairChangeCharInfo: { hash: 0xf13124bd, type: DataType.BinaryArray },
         ReadyHairChangeGameTime: { hash: 0x819d8134, type: DataType.UInt64Array },
         RejectHairChangeGameTime: { hash: 0x4d27e120, type: DataType.UInt64Array },
       },
@@ -1352,8 +1354,6 @@ const _MII_SCHEMA = {
     },
   },
   Unknown: {
-    '0x75B0A7FD': { hash: 0x75b0a7fd, type: DataType.IntArray },
-    '0xCAB805E6': { hash: 0xcab805e6, type: DataType.BinaryArray },
     '0xFA21F70E': { hash: 0xfa21f70e, type: DataType.BoolArray },
   },
 } as const;

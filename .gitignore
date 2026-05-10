@@ -40,9 +40,11 @@ static/item-icons
 static/coordinate-icons
 static/voice-icons
 
-# Local-only generation/inspection scripts (require romfs paths on disk)
-scripts
-
 src/lib/ugc/wasm/build/*.wasm
 src/lib/ugc/wasm/build/*.wasm.map
 src/lib/ugc/wasm/build/last-run.json
+
+game-data/**/
+game-data/nstool
+game-data/prod.keys
+game-data/*.nsp

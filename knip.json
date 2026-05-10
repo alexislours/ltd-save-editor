@@ -5,7 +5,8 @@
     "src/lib/bulk/clearAll.svelte.ts",
     "src/lib/session/sessionPersist.ts",
     "src/lib/session/sessionRestore.boot.ts",
-    "src/lib/session/sessionRestore.svelte.ts"
+    "src/lib/session/sessionRestore.svelte.ts",
+    "scripts/generators/*.ts"
   ],
   "ignore": ["src/**/*.test-d.ts", "src/lib/ugc/wasm/assembly/**"],
   "ignoreDependencies": ["@assemblyscript/loader"]

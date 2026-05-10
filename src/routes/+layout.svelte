@@ -122,7 +122,7 @@
           <p
             class={[
               'text-[11px] font-bold uppercase tracking-[0.18em] sm:text-xs',
-              isBeta ? 'text-beta-content' : 'text-brand/90',
+              isBeta ? 'text-beta-content' : 'text-brand',
             ]}
           >
             {$_('app.title')}{#if isBeta}<span
@@ -155,7 +155,7 @@
           <button
             type="button"
             onclick={openChangelog}
-            class="relative rounded-full bg-surface-muted/80 px-2 py-0.5 font-mono text-xs text-brand/90 ring-1 ring-edge/60 transition-colors hover:bg-surface hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+            class="relative rounded-full bg-surface-muted/80 px-2 py-0.5 font-mono text-xs text-brand ring-1 ring-edge/60 transition-colors hover:bg-surface hover:text-brand-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
           >
             v{version}
             <span class="sr-only"
@@ -187,7 +187,7 @@
               class={[
                 TAB_PILL_CLASS,
                 active
-                  ? 'bg-orange-500 text-white shadow'
+                  ? 'bg-orange-700 text-white shadow'
                   : 'bg-surface-muted text-content hover:text-content-strong',
               ]}
               aria-current={active ? 'page' : undefined}
