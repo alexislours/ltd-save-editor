@@ -1526,7 +1526,7 @@
       "test_saves_note": "For providing test save files.",
       "hash_work_note": "For the work on the hash list.",
       "wish_offset_note": "For finding the wish counter offset.",
-      "island_size_note": "For finding the island size hash.",
+      "research_note": "For finding additional hashes.",
       "sharemii_note": "For creating the ShareMii tool."
     },
     "translations_title": "Translations",

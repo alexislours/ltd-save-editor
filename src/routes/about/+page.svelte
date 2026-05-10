@@ -35,7 +35,7 @@
     },
     {
       label: 'Morgan',
-      noteKey: 'about.credits.island_size_note',
+      noteKey: 'about.credits.research_note',
     },
   ];
 
