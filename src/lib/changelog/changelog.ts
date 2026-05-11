@@ -6,6 +6,13 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.4.2',
+    date: '2026-05-11',
+    changes: [
+      'Fixed save imports failing in Chromium browsers on drag and drop.',
+    ],
+  },
+  {
     version: '2.4.1',
     date: '2026-05-11',
     changes: [

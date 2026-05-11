@@ -103,6 +103,7 @@ const _PLAYER_SCHEMA = {
     },
   },
   Introduction: {
+    EmotionBallAtGraduate: { hash: 0xe6f98671, type: DataType.UInt },
     FocusLeadingInfo: {
       CounterMii: { hash: 0x1b766439, type: DataType.UInt },
       CounterObject: { hash: 0xc876b069, type: DataType.UInt },
@@ -5205,7 +5206,6 @@ const _PLAYER_SCHEMA = {
   },
   Unknown: {
     '0x84A85193': { hash: 0x84a85193, type: DataType.UInt },
-    '0xE6F98671': { hash: 0xe6f98671, type: DataType.UInt },
     '0xFFC750B6': { hash: 0xffc750b6, type: DataType.UIntArray },
   },
   Unlock: {

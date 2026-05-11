@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import { snapshotDataTransfer, type DragSnapshot } from './dragSnapshot';
 
   type Props = {
     accept?: string;
@@ -7,7 +8,7 @@
     webkitdirectory?: boolean;
     paddingClass?: string;
     onFiles?: (files: File[]) => void;
-    onDataTransfer?: (dt: DataTransfer) => void;
+    onDataTransfer?: (snapshot: DragSnapshot) => void;
     children: Snippet<[{ openPicker: () => void }]>;
   };
 
@@ -43,7 +44,7 @@
     dragging = false;
     if (!event.dataTransfer) return;
     if (onDataTransfer) {
-      onDataTransfer(event.dataTransfer);
+      onDataTransfer(snapshotDataTransfer(event.dataTransfer));
       return;
     }
     onFiles?.(Array.from(event.dataTransfer.files));
