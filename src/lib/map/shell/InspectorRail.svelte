@@ -2,7 +2,14 @@
   import { _ } from 'virtual:i18n/map+residents+advanced';
   import { hexU32 } from '$lib/sav/format';
   import { FORM_INPUT_CLASS } from '$lib/ui/styles';
-  import { actorDisplay, allActors, isHouseActor, type ActorGroup } from '$lib/map/actors/actors';
+  import {
+    actorDisplay,
+    allActors,
+    HOUSE_DOLL_HOUSE_ACTOR,
+    HOUSE_ONE_ROOM_ACTOR,
+    isHouseActor,
+    type ActorGroup,
+  } from '$lib/map/actors/actors';
   import {
     isPlayerLoaded,
     rowFootprintSizeLabel,
@@ -10,7 +17,12 @@
     ugcSlotForRow,
   } from '$lib/map/actors/ugcDimensions.svelte';
   import ResidentsPanel from '../residents/ResidentsPanel.svelte';
-  import { residentsForHouse, residentsState, vacateHouse } from '../residents/residents.svelte';
+  import {
+    convertHouseActor,
+    residentsForHouse,
+    residentsState,
+    vacateHouse,
+  } from '../residents/residents.svelte';
   import { PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
   import {
     clearSlot,
@@ -247,6 +259,29 @@
 
   function onDeleteCancel(): void {
     deleteConfirmOpen = false;
+  }
+
+  function onConvertHouse(targetActor: number): void {
+    if (!row) return;
+    const result = convertHouseActor(row.index, targetActor);
+    if (!result.ok) return;
+    const key =
+      targetActor === HOUSE_DOLL_HOUSE_ACTOR
+        ? 'map.inspector.house.upgraded'
+        : 'map.inspector.house.downgraded';
+    showToast('info', $_(key));
+    if (result.evicted > 0) {
+      showToast(
+        'info',
+        $_('map.inspector.house.converted_evicted', { values: { count: result.evicted } }),
+      );
+    }
+    if (result.reseated > 0) {
+      showToast(
+        'info',
+        $_('map.inspector.house.converted_reseated', { values: { count: result.reseated } }),
+      );
+    }
   }
 
   function onClone(): void {
@@ -807,6 +842,25 @@
           </section>
 
           {#if isHouseActor(row.actor)}
+            {#if row.actor === HOUSE_ONE_ROOM_ACTOR}
+              <button
+                type="button"
+                class="rounded-lg bg-surface-muted px-3 py-1.5 text-sm font-bold text-content ring-1 ring-edge/60 hover:bg-surface-sunken"
+                onclick={() => onConvertHouse(HOUSE_DOLL_HOUSE_ACTOR)}
+                title={$_('map.inspector.house.upgrade_hint')}
+              >
+                {$_('map.inspector.house.upgrade')}
+              </button>
+            {:else if row.actor === HOUSE_DOLL_HOUSE_ACTOR}
+              <button
+                type="button"
+                class="rounded-lg bg-surface-muted px-3 py-1.5 text-sm font-bold text-content ring-1 ring-edge/60 hover:bg-surface-sunken"
+                onclick={() => onConvertHouse(HOUSE_ONE_ROOM_ACTOR)}
+                title={$_('map.inspector.house.downgrade_hint')}
+              >
+                {$_('map.inspector.house.downgrade')}
+              </button>
+            {/if}
             <ResidentsPanel actorHash={row.actor} linkedMapId={row.link} />
           {/if}
         </div>

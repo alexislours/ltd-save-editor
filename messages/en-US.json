@@ -319,6 +319,16 @@
         "unknown_tile": "Unknown tile {hex}",
         "unknown_tile_label": "Unknown tile"
       },
+      "house": {
+        "converted_evicted": "{count, plural, one {# resident evicted} other {# residents evicted}}",
+        "converted_reseated": "{count, plural, one {# resident reseated} other {# residents reseated}}",
+        "downgrade": "Downgrade to Single Room",
+        "downgrade_hint": "Convert this Doll House into a Single Room. The lowest-room resident is kept and reseated to room 0; the rest are evicted.",
+        "downgraded": "Downgraded to Single Room",
+        "upgrade": "Upgrade to Doll House",
+        "upgrade_hint": "Convert this Single Room into a Doll House (8 rooms). Make sure there is enough free space next to it.",
+        "upgraded": "Upgraded to Doll House"
+      },
       "library": {
         "drag_hint": "Drag to canvas to place {label}"
       },
@@ -476,6 +486,8 @@
       "snap_to_slot": "Snap to slot #{index}",
       "tile_coverage": "Tile coverage",
       "title": "Stats",
+      "underfilled_dollhouse_hint": "Doll Houses need at least 2 residents. Snap to this house.",
+      "underfilled_dollhouses_count": "{count, plural, one {# under-filled Doll House} other {# under-filled Doll Houses}}",
       "unknown_actors": "{count, plural, one {# unknown actor} other {# unknown actors}}",
       "unknown_hex": "Unknown {hex}",
       "unknown_tile_hashes": "{count, plural, one {# unknown tile hash} other {# unknown tile hashes}}"

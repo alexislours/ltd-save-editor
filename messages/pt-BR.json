@@ -319,6 +319,16 @@
         "unknown_tile": "Ladrilho desconhecido {hex}",
         "unknown_tile_label": "Ladrilho desconhecido"
       },
+      "house": {
+        "converted_evicted": "{count, plural, one {# residente despejado} other {# residentes despejados}}",
+        "converted_reseated": "{count, plural, one {# residente realocado} other {# residentes realocados}}",
+        "downgrade": "Rebaixar para Single Room",
+        "downgrade_hint": "Converter esta Doll House em Single Room. O residente do quarto mais baixo é mantido e realocado para o quarto 0; os demais são despejados.",
+        "downgraded": "Rebaixada para Single Room",
+        "upgrade": "Atualizar para Doll House",
+        "upgrade_hint": "Converter esta Single Room em Doll House (8 quartos). Verifique se há espaço livre suficiente ao lado.",
+        "upgraded": "Atualizada para Doll House"
+      },
       "library": {
         "drag_hint": "Arraste para o canvas para colocar {label}"
       },
@@ -498,6 +508,8 @@
       "snap_to_slot": "Ir para o espaço #{index}",
       "tile_coverage": "Cobertura dos ladrilhos",
       "title": "Estatísticas",
+      "underfilled_dollhouse_hint": "Doll Houses precisam de pelo menos 2 residentes. Ir para esta casa.",
+      "underfilled_dollhouses_count": "{count, plural, one {# Doll House com poucos residentes} other {# Doll Houses com poucos residentes}}",
       "unknown_actors": "{count, plural, one {# objeto desconhecido} other {# objetos desconhecidos}}",
       "unknown_hex": "Desconhecido {hex}",
       "unknown_tile_hashes": "{count, plural, one {# hash de ladrilho desconhecido} other {# hashes de ladrilho desconhecidos}}"

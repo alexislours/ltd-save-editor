@@ -319,6 +319,16 @@
         "unknown_tile": "Tuile inconnue {hex}",
         "unknown_tile_label": "Tuile inconnue"
       },
+      "house": {
+        "converted_evicted": "{count, plural, one {# résident expulsé} other {# résidents expulsés}}",
+        "converted_reseated": "{count, plural, one {# résident réinstallé} other {# résidents réinstallés}}",
+        "downgrade": "Rétrograder en Single Room",
+        "downgrade_hint": "Convertir cette Doll House en Single Room. Le résident de la chambre la plus basse est conservé et réinstallé dans la chambre 0 ; les autres sont expulsés.",
+        "downgraded": "Rétrogradée en Single Room",
+        "upgrade": "Améliorer en Doll House",
+        "upgrade_hint": "Convertir cette Single Room en Doll House (8 chambres). Assurez-vous qu'il y a assez d'espace libre à côté.",
+        "upgraded": "Améliorée en Doll House"
+      },
       "library": {
         "drag_hint": "Glisse sur la toile pour placer {label}"
       },
@@ -498,6 +508,8 @@
       "snap_to_slot": "Aller à l'emplacement #{index}",
       "tile_coverage": "Couverture des tuiles",
       "title": "Statistiques",
+      "underfilled_dollhouse_hint": "Les Doll Houses nécessitent au moins 2 résidents. Aller à cette maison.",
+      "underfilled_dollhouses_count": "{count, plural, one {# Doll House sous-peuplée} other {# Doll Houses sous-peuplées}}",
       "unknown_actors": "{count, plural, one {# objet inconnu} other {# objets inconnus}}",
       "unknown_hex": "Inconnu {hex}",
       "unknown_tile_hashes": "{count, plural, one {# hash de tuile inconnu} other {# hashes de tuile inconnus}}"

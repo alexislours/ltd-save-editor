@@ -23,6 +23,7 @@
     residentsState,
     setHouseAssignment,
     swapResidents,
+    underfilledDollHouses,
     unhousedMiis,
   } from '../residents/residents.svelte';
   import { mapDisplayLabel } from '../tiles/mapNameRegistry';
@@ -45,6 +46,7 @@
   let unknownTilesOpen = $state(false);
   let unhousedOpen = $state(false);
   let emptyHousesOpen = $state(false);
+  let underfilledDollHousesOpen = $state(false);
 
   const miiLoaded = $derived.by(() => {
     void residentsState.rev;
@@ -69,7 +71,15 @@
     return emptyHouses();
   });
 
-  const totalIssues = $derived(allIssues.total + emptyHousesList.length);
+  const underfilledDollHousesList = $derived.by(() => {
+    void residentsState.rev;
+    if (!miiLoaded) return [];
+    return underfilledDollHouses();
+  });
+
+  const totalIssues = $derived(
+    allIssues.total + emptyHousesList.length + underfilledDollHousesList.length,
+  );
 
   let assignDialogOpen = $state(false);
   let assignMiiIndex = $state<number | null>(null);
@@ -342,6 +352,51 @@
                           class="flex h-6 w-full items-center justify-between rounded px-1.5 text-left hover:bg-surface-muted"
                           onclick={() => snapToObject(h.index)}
                           title={$_('map.stats.empty_houses_hint')}
+                        >
+                          <span class="min-w-0 truncate text-xs text-content">{label}</span>
+                          <span class="font-mono text-[11px] text-content-faint">
+                            id {h.mapId}
+                          </span>
+                        </button>
+                      </li>
+                    {/each}
+                  </ul>
+                {/if}
+              </li>
+            {/if}
+
+            {#if underfilledDollHousesList.length > 0}
+              <li>
+                <button
+                  type="button"
+                  class="flex h-8 w-full items-center justify-between rounded px-1.5 text-left hover:bg-surface-muted"
+                  onclick={() => (underfilledDollHousesOpen = !underfilledDollHousesOpen)}
+                  aria-expanded={underfilledDollHousesOpen}
+                >
+                  <span class="flex items-center gap-2">
+                    <span class="text-amber-500" aria-hidden="true">▲</span>
+                    <span class="text-xs text-content">
+                      {$_('map.stats.underfilled_dollhouses_count', {
+                        values: { count: underfilledDollHousesList.length },
+                      })}
+                    </span>
+                  </span>
+                  <span
+                    class="rounded-full bg-amber-500/15 px-2 py-0.5 font-mono text-[10px] text-amber-700"
+                  >
+                    {underfilledDollHousesList.length}
+                  </span>
+                </button>
+                {#if underfilledDollHousesOpen}
+                  <ul class="grid gap-0.5 pl-4">
+                    {#each underfilledDollHousesList as h (h.index)}
+                      {@const label = mapDisplayLabel(h.mapId).label}
+                      <li>
+                        <button
+                          type="button"
+                          class="flex h-6 w-full items-center justify-between rounded px-1.5 text-left hover:bg-surface-muted"
+                          onclick={() => snapToObject(h.index)}
+                          title={$_('map.stats.underfilled_dollhouse_hint')}
                         >
                           <span class="min-w-0 truncate text-xs text-content">{label}</span>
                           <span class="font-mono text-[11px] text-content-faint">
