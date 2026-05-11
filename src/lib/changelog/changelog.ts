@@ -6,6 +6,18 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.5.0',
+    date: '2026-05-12',
+    changes: [
+      'Added a region select tool in the Map editor with marquee selection, copy and paste, and rotate, flip, and fill transforms.',
+      'Added stamp mode, brush rotation, a brush preview overlay, and seven new brush shapes to the Map editor.',
+      'Added upgrade and downgrade controls for houses in the Map inspector.',
+      'Added warnings for under-filled Doll Houses to the Map stats panel.',
+      'Added a hex viewer and editor for Binary and BinaryArray entries in the Advanced tab.',
+      'Improved loading performance.',
+    ],
+  },
+  {
     version: '2.4.2',
     date: '2026-05-11',
     changes: ['Fixed save imports failing in Chromium browsers on drag and drop.'],
