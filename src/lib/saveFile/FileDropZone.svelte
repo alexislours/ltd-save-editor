@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/_shared';
   import { expectedFileName, type SaveKind } from '$lib/saveFile/types';
   import DropZone from '$lib/ui/DropZone.svelte';
   import type { DragSnapshot } from '$lib/ui/dragSnapshot';

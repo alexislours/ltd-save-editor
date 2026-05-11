@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/sharemii+content_kinds';
   import { track } from '$lib/analytics';
   import Card from '$lib/ui/Card.svelte';
   import SaveBar from '$lib/saveFile/SaveBar.svelte';
@@ -65,8 +65,8 @@
   });
 
   const kindTabs = $derived([
-    { value: 'Mii' as Kind, label: $_('sharemii.kind.Mii') },
-    ...UGC_KINDS.map((k) => ({ value: k as Kind, label: $_(`sharemii.kind.${k}`) })),
+    { value: 'Mii' as Kind, label: $_('content_kinds.Mii') },
+    ...UGC_KINDS.map((k) => ({ value: k as Kind, label: $_(`content_kinds.${k}`) })),
   ]);
 
   const sidecar = $derived(getSidecarStore());

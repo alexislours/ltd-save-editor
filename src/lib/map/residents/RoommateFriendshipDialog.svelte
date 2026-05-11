@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
   import type { MoveImpact } from './housingFriendship';
 
@@ -53,19 +53,19 @@
 >
   <div class="border-b border-edge/40 bg-surface-muted/80 px-6 py-4">
     <h2 class="text-lg font-bold text-content-strong">
-      {$_('map.residents.friendship.title')}
+      {$_('residents.friendship.title')}
     </h2>
   </div>
 
   <div class="px-6 py-5">
-    <p class="text-sm text-content">{$_('map.residents.friendship.intro')}</p>
+    <p class="text-sm text-content">{$_('residents.friendship.intro')}</p>
     {#if impact}
       <div class="mt-3 grid gap-3">
         {#each impact.conflicts as c (c.moving)}
           <section class="grid gap-1.5">
             <p class="text-xs font-bold uppercase tracking-wider text-content-muted">
-              {$_('map.residents.friendship.section', {
-                values: { name: c.movingName || $_('map.residents.unnamed') },
+              {$_('residents.friendship.section', {
+                values: { name: c.movingName || $_('residents.unnamed') },
               })}
             </p>
             <ul class="grid gap-1">
@@ -74,7 +74,7 @@
                   class="flex items-center justify-between gap-2 rounded-lg bg-surface-muted px-3 py-1.5 ring-1 ring-edge/40"
                 >
                   <span class="min-w-0 flex-1 truncate text-sm font-bold text-content-strong">
-                    {l.name || $_('map.residents.unnamed')}
+                    {l.name || $_('residents.unnamed')}
                   </span>
                   <span class="font-mono text-[10px] text-content-faint">#{l.miiIndex}</span>
                   <span
@@ -89,17 +89,17 @@
         {/each}
       </div>
       <p class="mt-4 text-xs text-content-muted">
-        {$_('map.residents.friendship.bump_hint')}
+        {$_('residents.friendship.bump_hint')}
       </p>
     {/if}
   </div>
 
   <div class="flex justify-end gap-2 border-t border-edge/40 bg-surface-muted/40 px-6 py-3">
     <button type="button" class={PILL_BUTTON_CLASS} onclick={cancel}>
-      {$_('map.residents.friendship.cancel')}
+      {$_('residents.friendship.cancel')}
     </button>
     <button type="button" class={PRIMARY_BUTTON_CLASS} onclick={confirm}>
-      {$_('map.residents.friendship.bump')}
+      {$_('residents.friendship.bump')}
     </button>
   </div>
 </dialog>

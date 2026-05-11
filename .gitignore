@@ -44,6 +44,8 @@ src/lib/ugc/wasm/build/*.wasm
 src/lib/ugc/wasm/build/*.wasm.map
 src/lib/ugc/wasm/build/last-run.json
 
+src/generated/
+
 game-data/**/
 game-data/nstool
 game-data/prod.keys

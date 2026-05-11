@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { hexU32 } from '$lib/sav/format';
   import { FORM_INPUT_CLASS } from '$lib/ui/styles';
   import { actorDisplay, allActors, isHouseActor, type ActorGroup } from '$lib/map/actors/actors';
@@ -26,7 +26,7 @@
     type ObjectSnapshot,
   } from '$lib/map/state/mapObjectsEditor.svelte';
   import { floorTiles, mapState } from '$lib/map/state/mapEditor.svelte';
-  import { tileColorForHash, tileLabelForHash } from '$lib/map/tiles/tiles';
+  import { tileColorForHash, tileKeyForHash } from '$lib/map/tiles/tiles';
   import { pushAction } from '$lib/map/state/history.svelte';
   import { showToast } from '$lib/toast/toast.svelte';
   import {
@@ -80,9 +80,9 @@
   const groupBreakdown = $derived.by(() => {
     void objectsState.rev;
     void selection.rev;
-    if (selectedCount < 2) return [] as Array<{ group: string; count: number }>;
+    if (selectedCount < 2) return [] as Array<{ group: ActorGroup; count: number }>;
     // eslint-disable-next-line svelte/prefer-svelte-reactivity
-    const counts = new Map<string, number>();
+    const counts = new Map<ActorGroup, number>();
     for (const i of selection.indices) {
       const r = getRow(i);
       if (!r) continue;
@@ -314,9 +314,10 @@
   const tileInfo = $derived.by(() => {
     void mapState.tileRev;
     const hash = paintState.selectedTileHash >>> 0;
+    const key = tileKeyForHash(hash);
     return {
       hash,
-      label: tileLabelForHash(hash, $_),
+      label: key ? $_(key) : hexU32(hash),
       color: tileColorForHash(hash),
     };
   });
@@ -1032,14 +1033,14 @@
       {$_('map.delete_house.intro', { values: { count: houseResidents.length } })}
     </p>
     <p class="mt-3 text-xs font-bold uppercase tracking-wider text-content-muted">
-      {$_('map.residents.title')}
+      {$_('residents.title')}
     </p>
     <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-content-strong">
       {#each houseResidents as r (r.miiIndex)}
         <li class="truncate">
-          <span class="font-bold">{r.name || $_('map.residents.unnamed')}</span>
+          <span class="font-bold">{r.name || $_('residents.unnamed')}</span>
           <span class="font-mono text-[11px] text-content-faint">
-            #{r.miiIndex} · {$_('map.residents.room_short', { values: { index: r.roomIndex } })}
+            #{r.miiIndex} · {$_('residents.room_short', { values: { index: r.roomIndex } })}
           </span>
         </li>
       {/each}

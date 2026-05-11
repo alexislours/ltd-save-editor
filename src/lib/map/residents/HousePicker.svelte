@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import { knownMapEntries, mapDisplayLabel } from '../tiles/mapNameRegistry';
   import {
@@ -174,7 +174,7 @@
   <div class="px-5 py-3">
     <input
       type="search"
-      placeholder={$_('map.residents.picker_search')}
+      placeholder={$_('residents.picker_search')}
       bind:value={query}
       class="w-full rounded-lg border border-edge/60 bg-surface px-3 py-1.5 text-sm shadow-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
     />
@@ -192,7 +192,7 @@
           </header>
           {#if g.rooms.length === 0}
             <p class="text-xs italic text-content-muted">
-              {$_('map.residents.no_rooms')}
+              {$_('residents.no_rooms')}
             </p>
           {:else}
             <ul class="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
@@ -209,7 +209,7 @@
                     ]}
                     disabled={current}
                     onclick={() => pick({ kind: 'slot', mapId: g.mapId, roomIndex: r.index })}
-                    title={current ? $_('map.residents.picker_current_slot') : ''}
+                    title={current ? $_('residents.picker_current_slot') : ''}
                   >
                     <span
                       class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-surface text-[10px] font-bold text-content-strong ring-1 ring-edge/40"
@@ -219,14 +219,14 @@
                     <span class="min-w-0 flex-1 truncate">
                       {#if r.resident}
                         <span class="block truncate font-bold">
-                          {r.resident.name || $_('map.residents.unnamed')}
+                          {r.resident.name || $_('residents.unnamed')}
                         </span>
                         <span class="block text-[10px] text-content-muted">
-                          {$_('map.residents.picker_swap_with')}
+                          {$_('residents.picker_swap_with')}
                         </span>
                       {:else}
                         <span class="block italic text-content-muted">
-                          {$_('map.residents.empty_room')}
+                          {$_('residents.empty_room')}
                         </span>
                       {/if}
                     </span>
@@ -240,15 +240,15 @@
 
       <section class="grid gap-1.5 border-t border-edge/40 pt-3">
         <span class="text-xs font-bold uppercase tracking-wider text-content-muted">
-          {$_('map.residents.picker_unhoused_section')}
+          {$_('residents.picker_unhoused_section')}
         </span>
         <button
           type="button"
           class="rounded-lg bg-surface-muted px-3 py-2 text-left text-xs ring-1 ring-edge/40 hover:bg-surface-sunken"
           onclick={() => pick({ kind: 'unhoused' })}
-          title={$_('map.residents.picker_make_unhoused_hint')}
+          title={$_('residents.picker_make_unhoused_hint')}
         >
-          {$_('map.residents.picker_make_unhoused')}
+          {$_('residents.picker_make_unhoused')}
         </button>
         {#if filteredUnhoused.length > 0}
           <ul class="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
@@ -261,10 +261,10 @@
                 >
                   <span class="min-w-0 flex-1 truncate">
                     <span class="block truncate font-bold">
-                      {m.name || $_('map.residents.unnamed')}
+                      {m.name || $_('residents.unnamed')}
                     </span>
                     <span class="block text-[10px] text-content-muted">
-                      {$_('map.residents.picker_swap_with')}
+                      {$_('residents.picker_swap_with')}
                     </span>
                   </span>
                   <span class="font-mono text-[10px] text-content-faint">#{m.miiIndex}</span>
@@ -277,11 +277,11 @@
     {:else}
       <section class="grid gap-1.5">
         <span class="text-xs font-bold uppercase tracking-wider text-content-muted">
-          {$_('map.residents.picker_islanders')}
+          {$_('residents.picker_islanders')}
         </span>
         {#if filteredAllMiis.length === 0}
           <p class="text-xs italic text-content-muted">
-            {$_('map.inspector.find.no_matches')}
+            {$_('residents.no_matches')}
           </p>
         {:else}
           <ul class="grid gap-1">
@@ -302,15 +302,15 @@
                 >
                   <span class="min-w-0 flex-1">
                     <span class="block truncate font-bold text-content-strong">
-                      {m.name || $_('map.residents.unnamed')}
+                      {m.name || $_('residents.unnamed')}
                     </span>
                     <span class="block truncate text-[11px] text-content-muted">
                       {#if m.housed}
-                        {$_('map.residents.picker_at_room', {
+                        {$_('residents.picker_at_room', {
                           values: { house: houseLabel, room: m.roomIndex },
                         })}
                       {:else}
-                        {$_('map.residents.picker_unhoused_label')}
+                        {$_('residents.picker_unhoused_label')}
                       {/if}
                     </span>
                   </span>
@@ -326,7 +326,7 @@
 
   <div class="flex justify-end gap-2 border-t border-edge/40 bg-surface-muted/40 px-5 py-3">
     <button type="button" class={PILL_BUTTON_CLASS} onclick={close}>
-      {$_('map.common.cancel')}
+      {$_('residents.cancel')}
     </button>
   </div>
 </dialog>

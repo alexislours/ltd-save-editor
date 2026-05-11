@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
   import { CARD_CLASS, INPUT_CLASS } from '$lib/ui/styles';
   import BulkEditPanel from './BulkEditPanel.svelte';
 

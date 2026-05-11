@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/sharemii+content_kinds';
   import { track } from '$lib/analytics';
   import { errorMessage } from '$lib/errorMessage';
   import { CARD_BASE_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';

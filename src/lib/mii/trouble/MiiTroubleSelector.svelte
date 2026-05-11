@@ -1,7 +1,13 @@
 <script lang="ts">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
+  import { locale } from 'svelte-i18n';
   import { SvelteMap } from 'svelte/reactivity';
-  import { allTroubles, troublePreview, type Trouble } from '$lib/sav/lists/troubleList.svelte';
+  import {
+    allTroubles,
+    isTroubleCategory,
+    troublePreview,
+    type Trouble,
+  } from '$lib/sav/lists/troubleList.svelte';
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
 
   type Props = {
@@ -29,7 +35,9 @@
     }
     const out: TroubleGroup[] = [];
     for (const [category, list] of buckets) {
-      const label = $_(`mii.troubles.category.${category}`, { default: category });
+      const label = isTroubleCategory(category)
+        ? $_(`mii.troubles.category.${category}`)
+        : category;
       list.sort((a, b) => a.name.localeCompare(b.name));
       out.push({ category, label, troubles: list });
     }
@@ -139,9 +147,9 @@
           class="rounded-full bg-surface-sunken px-2.5 py-0.5 font-bold text-content"
           title={$_('mii.troubles.meta.category_tip')}
         >
-          {$_(`mii.troubles.category.${currentTrouble.category}`, {
-            default: currentTrouble.category,
-          })}
+          {isTroubleCategory(currentTrouble.category)
+            ? $_(`mii.troubles.category.${currentTrouble.category}`)
+            : currentTrouble.category}
         </span>
         <span
           class="rounded-full bg-surface-sunken px-2.5 py-0.5 text-content"

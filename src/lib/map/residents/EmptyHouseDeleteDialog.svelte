@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
   import { mapDisplayLabel } from '../tiles/mapNameRegistry';
 
@@ -55,22 +55,22 @@
 >
   <div class="border-b border-edge/40 bg-surface-muted/80 px-6 py-4">
     <h2 class="text-lg font-bold text-content-strong">
-      {$_('map.residents.empty_house_delete.title')}
+      {$_('residents.empty_house_delete.title')}
     </h2>
   </div>
 
   <div class="px-6 py-5">
     <p class="text-sm text-content">
-      {$_('map.residents.empty_house_delete.intro', { values: { house: label, id: mapId } })}
+      {$_('residents.empty_house_delete.intro', { values: { house: label, id: mapId } })}
     </p>
   </div>
 
   <div class="flex justify-end gap-2 border-t border-edge/40 bg-surface-muted/40 px-6 py-3">
     <button type="button" class={PILL_BUTTON_CLASS} onclick={cancel}>
-      {$_('map.residents.empty_house_delete.keep')}
+      {$_('residents.empty_house_delete.keep')}
     </button>
     <button type="button" class={PRIMARY_BUTTON_CLASS} onclick={confirm}>
-      {$_('map.residents.empty_house_delete.delete')}
+      {$_('residents.empty_house_delete.delete')}
     </button>
   </div>
 </dialog>

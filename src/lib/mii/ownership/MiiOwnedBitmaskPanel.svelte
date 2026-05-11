@@ -1,5 +1,6 @@
 <script lang="ts" generics="T">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
+  import { locale } from 'svelte-i18n';
   import { SvelteSet } from 'svelte/reactivity';
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import type { BitmaskAccess } from './ownershipBitmask';

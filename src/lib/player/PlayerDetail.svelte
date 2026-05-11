@@ -1,6 +1,6 @@
 <script lang="ts">
   import { arrayCount, hasIndexedElementEditor, isArrayType } from '$lib/sav/codec';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
   import { DataType } from '$lib/sav/dataType';
   import { hexU32 } from '$lib/sav/format';
   import { enumOptionsFor } from '$lib/sav/knownKeys';

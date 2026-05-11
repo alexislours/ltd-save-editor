@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/_shared';
+  import { locale } from 'svelte-i18n';
   import { restoreModal } from '$lib/session/sessionRestoreState.svelte';
   import { PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
 

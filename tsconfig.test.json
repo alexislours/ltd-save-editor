@@ -4,6 +4,6 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.test.tsbuildinfo",
     "types": ["node", "vitest/globals"]
   },
-  "include": ["src/**/*.test.ts", "vitest.config.ts"],
+  "include": ["src/**/*.test.ts", "tools/**/*.test.ts", "vitest.config.ts"],
   "exclude": ["src/lib/ugc/wasm/assembly/**", "node_modules/**", "dist/**"]
 }

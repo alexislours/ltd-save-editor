@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player';
+  import { locale } from 'svelte-i18n';
   import { track } from '$lib/analytics';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { PLAYER_SCHEMA } from '$lib/sav/schema';

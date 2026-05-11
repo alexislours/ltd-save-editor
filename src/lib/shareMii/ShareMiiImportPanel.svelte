@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/sharemii+content_kinds';
   import {
     COMPACT_SELECT_CLASS,
     LABEL_CLASS,

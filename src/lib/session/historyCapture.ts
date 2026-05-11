@@ -1,5 +1,4 @@
-import { format } from 'svelte-i18n';
-import { get } from 'svelte/store';
+import { t } from '$lib/i18n/format';
 import { track } from '$lib/analytics';
 import { populatedMiiIndices } from '$lib/mii/ownership/populated';
 import type { DataType } from '$lib/sav/dataType';
@@ -96,10 +95,9 @@ export async function recordSnapshot(
     return;
   }
 
-  const t = get(format);
   if (result.reason === 'quota') {
-    showToast('error', t('history.toast.quota_exceeded'));
+    showToast('error', t('error.toast.quota_exceeded'));
   } else if (result.reason === 'error') {
-    showToast('warn', t('history.toast.save_failed'));
+    showToast('warn', t('error.toast.save_failed'));
   }
 }

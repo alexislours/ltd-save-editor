@@ -3,8 +3,7 @@ import { emptyFootprintRect } from '$lib/map/actors/actors';
 import { rowFootprintRectInto } from '$lib/map/actors/ugcDimensions.svelte';
 import { liveRows } from '$lib/map/state/mapObjectsEditor.svelte';
 import { showToast } from '$lib/toast/toast.svelte';
-import { format } from 'svelte-i18n';
-import { get } from 'svelte/store';
+import { t } from '$lib/i18n/format';
 import { BRUSH_SIZE_MAX, BRUSH_SIZE_MIN } from '../tools/brushKernel';
 import { deleteAll, duplicate, nudge, rotate as rotateObjects } from '../tools/bulkOps';
 import { close as closeFind, findStore, open as openFind } from '../find/findStore.svelte';
@@ -48,7 +47,7 @@ type ActionDef = {
   altBinding?: string;
 };
 
-const ACTIONS: readonly ActionDef[] = [
+const ACTIONS = [
   { id: 'tool.brush', labelKey: 'map.toolbar.tool_brush', group: 'tools', binding: 'B' },
   { id: 'tool.fill', labelKey: 'map.toolbar.tool_fill', group: 'tools', binding: 'F' },
   {
@@ -154,10 +153,12 @@ const ACTIONS: readonly ActionDef[] = [
     group: 'misc',
     binding: 'Esc',
   },
-];
+] as const satisfies readonly ActionDef[];
 
-const ACTION_INDEX: Record<KeyAction, ActionDef> = (() => {
-  const out = {} as Record<KeyAction, ActionDef>;
+export type Action = (typeof ACTIONS)[number] & Pick<ActionDef, 'altBinding'>;
+
+const ACTION_INDEX: Record<KeyAction, Action> = (() => {
+  const out = {} as Record<KeyAction, Action>;
   for (const a of ACTIONS) out[a.id] = a;
   return out;
 })();
@@ -172,7 +173,7 @@ export const GROUP_ORDER: readonly KeyGroup[] = [
   'misc',
 ];
 
-export function groupLabelKey(group: KeyGroup): string {
+export function groupLabelKey<G extends KeyGroup>(group: G): `map.keymap.groups.${G}` {
   return `map.keymap.groups.${group}`;
 }
 
@@ -192,9 +193,9 @@ export function formatBinding(binding: string): string {
     .replace(/\+/g, isMacPlatform ? '' : '+');
 }
 
-export function getActionsByGroup(): Map<KeyGroup, ActionDef[]> {
+export function getActionsByGroup(): Map<KeyGroup, Action[]> {
   // eslint-disable-next-line svelte/prefer-svelte-reactivity
-  const out = new Map<KeyGroup, ActionDef[]>();
+  const out = new Map<KeyGroup, Action[]>();
   for (const g of GROUP_ORDER) out.set(g, []);
   for (const a of ACTIONS) out.get(a.group)?.push(a);
   return out;
@@ -464,7 +465,7 @@ function dispatch(action: KeyAction, e: KeyboardEvent): boolean {
       if (selection.indices.size === 0) return false;
       const result = duplicate(selection.indices, 1, 1);
       if (result == null) {
-        showToast('error', get(format)('map.objects.save_full'));
+        showToast('error', t('map.objects.save_full'));
         return true;
       }
       pushAction(result.action);

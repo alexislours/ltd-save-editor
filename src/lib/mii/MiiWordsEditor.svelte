@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
+  import { locale } from 'svelte-i18n';
   import { gameLocaleFor, type GameLocale } from '$lib/sav/gameLocale';
   import { enumOptionName } from '$lib/sav/knownKeys';
   import { murmur3_x86_32 } from '$lib/sav/hash';

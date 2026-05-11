@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
   import { bindLeaf } from '$lib/sav/bindLeaf.svelte';
   import { mii, MII_SCHEMA } from '$lib/sav/schema';
   import type { SchemaLeaf } from '$lib/sav/schema/leaf';
@@ -71,11 +71,6 @@
         <h3 class="text-base font-bold text-content-strong">
           {$_(`mii.sections.${sec.titleKey}`)}
         </h3>
-        {#if sec.descriptionKey}
-          <p class="mt-0.5 text-xs text-content-muted">
-            {$_(`mii.sections.${sec.descriptionKey}`)}
-          </p>
-        {/if}
         {#if sec.titleKey === 'personality'}
           {@const leaves = sec.resolved.map((f) => f.leaf)}
           <div class="mt-4">
@@ -100,9 +95,11 @@
                 <span aria-hidden="true" class="leading-5">⚠</span>
                 <span class="flex flex-col gap-0.5">
                   <span class="font-bold">{$_('mii.spoiler.warning')}</span>
-                  <span class="text-xs font-normal"
-                    >{$_(`mii.spoiler.captions.${sec.titleKey}`)}</span
-                  >
+                  {#if sec.spoilerCaptionKey}
+                    <span class="text-xs font-normal"
+                      >{$_(`mii.spoiler.captions.${sec.spoilerCaptionKey}`)}</span
+                    >
+                  {/if}
                 </span>
               </span>
               <span class="shrink-0 text-xs font-normal text-warn">

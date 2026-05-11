@@ -37,7 +37,7 @@ export type TroubleFieldKey = keyof typeof TROUBLE_FIELDS;
 export const ITEM_TYPE_VALUES = [-1, 0, 1, 2, 3, 4, 5, 6, 7] as const;
 export type ItemTypeValue = (typeof ITEM_TYPE_VALUES)[number];
 
-export const ITEM_TYPE_LABEL_KEY: Record<ItemTypeValue, string> = {
+export const ITEM_TYPE_LABEL_KEY = {
   [-1]: 'invalid',
   0: 'food',
   1: 'goods',
@@ -47,7 +47,7 @@ export const ITEM_TYPE_LABEL_KEY: Record<ItemTypeValue, string> = {
   5: 'mapFloor',
   6: 'ugcFood',
   7: 'ugcGoods',
-};
+} as const satisfies Record<ItemTypeValue, string>;
 
 export const TARGET_FIELD_KEYS: TroubleFieldKey[] = [
   'targetMii',

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/ugc_editor+content_kinds';
   import { PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
   import PreviewPair from '$lib/ugc/texture/PreviewPair.svelte';
   import TextureControls from '$lib/ugc/texture/TextureControls.svelte';

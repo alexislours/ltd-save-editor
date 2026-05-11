@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { MAP_TILE_COUNT } from '$lib/map/state/mapEditor.svelte';
   import {
     LAYER_ORDER,
@@ -35,7 +35,7 @@
     return b ? `${title} - ${b}` : title;
   }
 
-  const TOOLS: { id: PaintTool; labelKey: string; titleKey: string; action: KeyAction | null }[] = [
+  const TOOLS = [
     {
       id: 'brush',
       labelKey: 'map.toolbar.tool_brush',
@@ -66,15 +66,20 @@
       titleKey: 'map.toolbar.tool_replace_title',
       action: 'tool.replace',
     },
-  ];
+  ] as const satisfies readonly {
+    id: PaintTool;
+    labelKey: string;
+    titleKey: string;
+    action: KeyAction | null;
+  }[];
 
-  const BRUSH_SHAPES: { id: BrushShape; titleKey: string }[] = [
+  const BRUSH_SHAPES = [
     { id: 'square', titleKey: 'map.toolbar.shape_square_title' },
     { id: 'diamond', titleKey: 'map.toolbar.shape_diamond_title' },
     { id: 'circle', titleKey: 'map.toolbar.shape_circle_title' },
-  ];
+  ] as const satisfies readonly { id: BrushShape; titleKey: string }[];
 
-  const MODES: { id: Mode; labelKey: string; titleKey: string; action: KeyAction | null }[] = [
+  const MODES = [
     {
       id: 'paint',
       labelKey: 'map.toolbar.mode_paint',
@@ -87,9 +92,14 @@
       titleKey: 'map.toolbar.mode_select_title',
       action: 'mode.select',
     },
-  ];
+  ] as const satisfies readonly {
+    id: Mode;
+    labelKey: string;
+    titleKey: string;
+    action: KeyAction | null;
+  }[];
 
-  const LAYER_LABEL_KEYS: Record<LayerKey, string> = {
+  const LAYER_LABEL_KEYS = {
     floor: 'map.toolbar.layer_floor',
     objects: 'map.toolbar.layer_objects',
     fence: 'map.toolbar.layer_fence',
@@ -97,7 +107,7 @@
     diff: 'map.toolbar.layer_diff',
     grid: 'map.toolbar.layer_grid',
     tier: 'map.toolbar.layer_tier',
-  };
+  } as const satisfies Record<LayerKey, string>;
 
   const tierLayerAvailable = $derived.by(() => {
     void playerState.loadId;

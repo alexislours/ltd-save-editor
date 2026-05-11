@@ -1,6 +1,6 @@
 <script lang="ts">
   import { SvelteSet } from 'svelte/reactivity';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/advanced';
   import { track } from '$lib/analytics';
   import EntryEditor from '$lib/ui/fields/EntryEditor.svelte';
   import PlayerDetail from '$lib/player/PlayerDetail.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/_shared';
   import { openLightbox } from '$lib/ui/lightboxState.svelte';
 
   type Size = 'sm' | 'md';

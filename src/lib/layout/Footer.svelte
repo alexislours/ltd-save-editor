@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/_shared';
   import { track } from '$lib/analytics';
 
   const repoUrl = 'https://github.com/alexislours/ltd-save-editor';
@@ -62,6 +62,6 @@
       </a>
     </div>
 
-    <p class="text-content-muted sm:text-right">{$_('about.disclaimer')}</p>
+    <p class="text-content-muted sm:text-right">{$_('footer.disclaimer')}</p>
   </div>
 </footer>

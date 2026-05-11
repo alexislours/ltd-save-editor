@@ -9,6 +9,9 @@ export default {
   kit: {
     version: { name: pkg.version },
     inlineStyleThreshold: 100_000,
+    alias: {
+      $gen: 'src/generated',
+    },
     adapter: adapter({
       pages: 'dist',
       assets: 'dist',

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { mapState } from '$lib/map/state/mapEditor.svelte';
   import { showToast } from '$lib/toast/toast.svelte';
   import { applyMapShare } from './apply';

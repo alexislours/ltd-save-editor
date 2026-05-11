@@ -1,13 +1,8 @@
-import { format } from 'svelte-i18n';
-import { get } from 'svelte/store';
+import { t } from '$lib/i18n/format';
 import { errorMessage } from '$lib/errorMessage';
 import { sidecarFromFolderFiles, sidecarFromZipFile } from '$lib/shareMii';
 import { mergeSidecarFiles } from '$lib/shareMii/sidecar/sidecarStore.svelte';
 import { showToast } from '$lib/toast/toast.svelte';
-
-function t(key: string, values?: Record<string, string | number | boolean>): string {
-  return get(format)(key, { values });
-}
 
 export async function loadFolderToSidecar(files: File[]): Promise<void> {
   if (files.length === 0) return;
@@ -18,7 +13,10 @@ export async function loadFolderToSidecar(files: File[]): Promise<void> {
       return;
     }
     mergeSidecarFiles('folder', src.files);
-    showToast('success', t('ugc_editor.toast.loaded_folder', { count: src.files.size }));
+    showToast(
+      'success',
+      t('ugc_editor.toast.loaded_folder', { values: { count: src.files.size } }),
+    );
   } catch (e) {
     showToast('error', errorMessage(e));
   }
@@ -32,7 +30,7 @@ export async function loadZipToSidecar(file: File): Promise<void> {
       return;
     }
     mergeSidecarFiles('zip', src.files);
-    showToast('success', t('ugc_editor.toast.loaded_zip', { count: src.files.size }));
+    showToast('success', t('ugc_editor.toast.loaded_zip', { values: { count: src.files.size } }));
   } catch (e) {
     showToast('error', errorMessage(e));
   }

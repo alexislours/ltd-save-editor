@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import type { ActorGroup } from '$lib/map/actors/actors';
   import { hexU32 } from '$lib/sav/format';
-  import { tileLabelForHash } from '$lib/map/tiles/tiles';
+  import { tileKeyForHash } from '$lib/map/tiles/tiles';
   import {
     issues,
     objectCounts,
@@ -91,24 +91,21 @@
     closeAssignDialog();
     if (mii == null) return;
     if (target.kind === 'unhoused') {
-      if (removeFromHouse(mii)) showToast('info', $_('map.residents.removed'));
+      if (removeFromHouse(mii)) showToast('info', $_('residents.removed'));
       return;
     }
     if (target.kind === 'mii') {
-      if (swapResidents(mii, target.miiIndex)) showToast('info', $_('map.residents.swapped'));
+      if (swapResidents(mii, target.miiIndex)) showToast('info', $_('residents.swapped'));
       return;
     }
     const occupant = target.kind === 'slot' ? target : null;
     if (!occupant) return;
     const result = moveToHouseRoom(mii, occupant.mapId, occupant.roomIndex);
     if (result.ok) {
-      showToast(
-        'info',
-        result.displaced != null ? $_('map.residents.swapped') : $_('map.residents.moved'),
-      );
+      showToast('info', result.displaced != null ? $_('residents.swapped') : $_('residents.moved'));
     } else {
       if (setHouseAssignment(mii, occupant.mapId, occupant.roomIndex)) {
-        showToast('info', $_('map.residents.added'));
+        showToast('info', $_('residents.added'));
       }
     }
   }
@@ -174,8 +171,9 @@
         {:else}
           <ul class="grid gap-0.5">
             {#each coverage as row (row.hash)}
-              {@const label = row.code
-                ? tileLabelForHash(row.hash, $_)
+              {@const tileKey = tileKeyForHash(row.hash)}
+              {@const label = tileKey
+                ? $_(tileKey)
                 : $_('map.stats.unknown_hex', { values: { hex: hexU32(row.hash) } })}
               <li>
                 <button
@@ -239,7 +237,7 @@
 
       {#if stats}
         <section class="grid gap-2">
-          <span class={SECTION_LABEL_CLASS}>{$_('map.residents.title')}</span>
+          <span class={SECTION_LABEL_CLASS}>{$_('residents.title')}</span>
           <ul class="grid gap-0.5">
             <li class="flex h-6 items-center justify-between rounded px-1.5 text-xs">
               <span class="text-content">{$_('map.stats.residents_total')}</span>
@@ -265,7 +263,7 @@
                   {#if stats.unhoused > 0}
                     <span class="text-amber-500" aria-hidden="true">▲</span>
                   {/if}
-                  <span class="text-content">{$_('map.residents.picker_unhoused_label')}</span>
+                  <span class="text-content">{$_('residents.picker_unhoused_label')}</span>
                 </span>
                 <span
                   class={[
@@ -287,7 +285,7 @@
                         title={$_('map.stats.residents_unhoused_hint')}
                       >
                         <span class="min-w-0 truncate text-xs font-bold text-content">
-                          {m.name || $_('map.residents.unnamed')}
+                          {m.name || $_('residents.unnamed')}
                         </span>
                         <span class="ml-2 shrink-0 font-mono text-[10px] text-content-faint">
                           #{m.miiIndex}
@@ -549,7 +547,7 @@
   bind:open={assignDialogOpen}
   mode="destination"
   title={$_('map.stats.residents_unhoused_assign_title', {
-    values: { name: assignMiiName || $_('map.residents.unnamed') },
+    values: { name: assignMiiName || $_('residents.unnamed') },
   })}
   selfMiiIndex={assignMiiIndex}
   onPick={handleAssignPick}

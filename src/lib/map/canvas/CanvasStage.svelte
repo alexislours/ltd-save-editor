@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { floorTiles, inBounds, indexFromXY, mapState } from '$lib/map/state/mapEditor.svelte';
   import { getUgcAt, ugcIndex, UGC_NONE } from '../state/ugcEditor.svelte';
   import { renderUgc, UGC_TEXTURE_HEIGHT, UGC_TEXTURE_WIDTH, UGC_TILE_PIXELS } from './ugcRenderer';

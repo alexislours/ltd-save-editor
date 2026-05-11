@@ -1,18 +1,19 @@
-import { format } from 'svelte-i18n';
-import { get } from 'svelte/store';
+import { t } from '$lib/i18n/format';
 import { player } from '$lib/sav/schema';
 import type { PlayerAccessor } from '$lib/player/playerEditor.svelte';
 
 export type Swatch = { value: number; color: string; label: string };
 
-export const HAND_COLORS: readonly string[] = [
+export const HAND_COLORS = [
   '#f6d9bd',
   '#ecc19d',
   '#d2a07a',
   '#b07a54',
   '#825533',
   '#5a391c',
-];
+] as const;
+
+export const HAND_TONE_INDICES = [0, 1, 2, 3, 4, 5] as const;
 
 export const ISLAND_SIZE_VALUES = [1, 2, 3, 4] as const;
 
@@ -24,7 +25,7 @@ export function writeNonNegativeInt(
 ): string | null {
   const trimmed = raw.replace(/[,\s]/g, '');
   const n = Number(trimmed);
-  if (!Number.isFinite(n) || n < 0) return get(format)('player.errors.non_negative_integer');
+  if (!Number.isFinite(n) || n < 0) return t('player.errors.non_negative_integer');
   return commit(Math.trunc(n));
 }
 
@@ -35,15 +36,14 @@ export function writeNonNegativeBigInt(
   const trimmed = raw.replace(/[,\s]/g, '');
   try {
     const n = BigInt(trimmed);
-    if (n < 0n) return get(format)('player.errors.non_negative_integer');
+    if (n < 0n) return t('player.errors.non_negative_integer');
     return commit(n);
   } catch {
-    return get(format)('player.errors.invalid_number');
+    return t('player.errors.invalid_number');
   }
 }
 
 export function writeMoney(raw: string, commit: (v: number) => string | null): string | null {
-  const t = get(format);
   const cleaned = raw.replace(/\s/g, '').replace(/,/g, '.');
   const lastDot = cleaned.lastIndexOf('.');
   let intPart: string;
@@ -69,11 +69,11 @@ export function writeMoney(raw: string, commit: (v: number) => string | null): s
 export function writeHexUint32(raw: string, commit: (v: number) => string | null): string | null {
   const trimmed = raw.trim().replace(/^0x/i, '');
   if (trimmed === '' || !/^[0-9a-fA-F]+$/.test(trimmed)) {
-    return get(format)('player.errors.invalid_number');
+    return t('player.errors.invalid_number');
   }
   const n = Number.parseInt(trimmed, 16);
   if (!Number.isFinite(n) || n < 0 || n > 0xffff_ffff) {
-    return get(format)('player.errors.invalid_number');
+    return t('player.errors.invalid_number');
   }
   return commit(n >>> 0);
 }

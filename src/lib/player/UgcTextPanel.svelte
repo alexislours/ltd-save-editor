@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
+  import { locale } from 'svelte-i18n';
   import { murmur3_x86_32 } from '$lib/sav/hash';
   import { enumOptionName, enumOptionsFor } from '$lib/sav/knownKeys';
   import { PLAYER_SCHEMA } from '$lib/sav/schema';
@@ -216,30 +217,53 @@
 
   type Option = { hash: number; label: string };
 
+  const GENRE_NAMES = [
+    'Action',
+    'Image',
+    'Invalid',
+    'Object',
+    'Person',
+    'Phrase',
+    'Topic',
+  ] as const;
+  type GenreName = (typeof GENRE_NAMES)[number];
+  const GENRE_SET: ReadonlySet<string> = new Set(GENRE_NAMES);
+
+  const ATTR_NAMES = ['Negative', 'Neutral', 'Positive'] as const;
+  type AttrName = (typeof ATTR_NAMES)[number];
+  const ATTR_SET: ReadonlySet<string> = new Set(ATTR_NAMES);
+
+  const GRAM_NAMES = ['cFeminine', 'cMasculine', 'cNeuter', 'cNone'] as const;
+  type GramName = (typeof GRAM_NAMES)[number];
+  const GRAM_SET: ReadonlySet<string> = new Set(GRAM_NAMES);
+
   const genreOptions = $derived.by<Option[]>(() => {
     const opts = enumOptionsFor(GENRE_HASH) ?? [];
     return opts.map((o) => {
-      const i18nKey = `player.ugc_text.genre.${o.name}`;
-      const t = $_(i18nKey);
-      return { hash: o.hash >>> 0, label: t === i18nKey ? (o.label ?? o.name) : t };
+      const label = GENRE_SET.has(o.name)
+        ? $_(`player.ugc_text.genre.${o.name as GenreName}`)
+        : (o.label ?? o.name);
+      return { hash: o.hash >>> 0, label };
     });
   });
 
   const attrOptions = $derived.by<Option[]>(() => {
     const opts = enumOptionsFor(ATTR_HASH) ?? [];
     return opts.map((o) => {
-      const i18nKey = `player.ugc_text.attribute.${o.name}`;
-      const t = $_(i18nKey);
-      return { hash: o.hash >>> 0, label: t === i18nKey ? (o.label ?? o.name) : t };
+      const label = ATTR_SET.has(o.name)
+        ? $_(`player.ugc_text.attribute.${o.name as AttrName}`)
+        : (o.label ?? o.name);
+      return { hash: o.hash >>> 0, label };
     });
   });
 
   const gramOptions = $derived.by<Option[]>(() => {
     const opts = enumOptionsFor(GRAM_HASH) ?? [];
     return opts.map((o) => {
-      const i18nKey = `player.ugc_text.grammaticality.${o.name}`;
-      const t = $_(i18nKey);
-      return { hash: o.hash >>> 0, label: t === i18nKey ? (o.label ?? o.name) : t };
+      const label = GRAM_SET.has(o.name)
+        ? $_(`player.ugc_text.grammaticality.${o.name as GramName}`)
+        : (o.label ?? o.name);
+      return { hash: o.hash >>> 0, label };
     });
   });
 

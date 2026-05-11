@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
   import { hexU32 } from '$lib/sav/format';
   import type { EnumOption } from '$lib/sav/knownKeys';
 
@@ -9,16 +8,14 @@
     onChange: (value: number) => void;
     selectClass: string;
     labelFor?: (opt: EnumOption) => string;
-    i18nPrefix?: string;
   };
 
-  let { value, options, onChange, selectClass, labelFor, i18nPrefix }: Props = $props();
+  let { value, options, onChange, selectClass, labelFor }: Props = $props();
 
   const normalized = $derived(value >>> 0);
   const matched = $derived(options.some((o) => o.hash >>> 0 === normalized));
 
   function defaultLabel(opt: EnumOption): string {
-    if (i18nPrefix) return $_(`${i18nPrefix}.${opt.name}`);
     return opt.label ?? opt.name;
   }
 </script>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, untrack } from 'svelte';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/ugc_editor+content_kinds';
   import Card from '$lib/ui/Card.svelte';
   import SaveBar from '$lib/saveFile/SaveBar.svelte';
   import SubTabs from '$lib/ui/SubTabs.svelte';
@@ -105,11 +105,11 @@
       value: 'FacePaint' as TabKind,
       label:
         facepaintCount > 0
-          ? `${$_('sharemii.kind.FacePaint')} (${facepaintCount})`
-          : $_('sharemii.kind.FacePaint'),
+          ? `${$_('content_kinds.FacePaint')} (${facepaintCount})`
+          : $_('content_kinds.FacePaint'),
     },
     ...UGC_KINDS.map((k) => {
-      const base = $_(`sharemii.kind.${k}`);
+      const base = $_(`content_kinds.${k}`);
       const n = kindCounts[k];
       return { value: k as TabKind, label: n > 0 ? `${base} (${n})` : base };
     }),

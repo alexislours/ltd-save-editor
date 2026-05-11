@@ -1,6 +1,6 @@
 <script lang="ts">
   import { untrack } from 'svelte';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { track } from '$lib/analytics';
   import { errorMessage } from '$lib/errorMessage';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';

@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
   import { bindLeaf } from '$lib/sav/bindLeaf.svelte';
   import { player } from '$lib/sav/schema';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { CARD_CLASS, COMPACT_SELECT_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
   import FormFieldWrapper from '$lib/ui/fields/FormFieldWrapper.svelte';
-  import { HAND_COLORS, ISLAND_SIZE_VALUES } from './profileFields';
+  import { HAND_COLORS, HAND_TONE_INDICES, ISLAND_SIZE_VALUES } from './profileFields';
   import SwatchPicker from '$lib/ui/fields/SwatchPicker.svelte';
 
   const NAME = player.Player.Name;
@@ -23,9 +23,9 @@
   const islandSize = bindLeaf(playerAccessor, ISLAND_SIZE);
 
   const handSwatches = $derived(
-    HAND_COLORS.map((color, i) => ({
+    HAND_TONE_INDICES.map((i) => ({
       value: i,
-      color,
+      color: HAND_COLORS[i],
       label: $_(`player.hand_tones.${i}`),
     })),
   );

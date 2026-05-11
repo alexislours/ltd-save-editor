@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/_shared';
   import { overwriteModal } from '$lib/bulk/bulkOverwriteState.svelte';
   import { clearAllModal } from '$lib/bulk/clearAllState.svelte';
   import ConfirmListModal from '$lib/ui/ConfirmListModal.svelte';

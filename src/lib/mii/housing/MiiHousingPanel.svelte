@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
   import { isSaveLoaded } from '$lib/saveFile/saveFile.svelte';
   import HousePicker from '$lib/map/residents/HousePicker.svelte';
   import RoommateFriendshipDialog from '$lib/map/residents/RoommateFriendshipDialog.svelte';
@@ -76,11 +76,11 @@
     const ctx = mut.dialogCtx;
     if (!ctx) return '';
     if (ctx.kind === 'add') {
-      return $_('map.residents.add_title', {
+      return $_('residents.add_title', {
         values: { house: mapDisplayLabel(ctx.toMapId).label, room: ctx.toRoom },
       });
     }
-    return $_('map.residents.move_title');
+    return $_('residents.move_title');
   });
 </script>
 
@@ -96,11 +96,11 @@
     </div>
   {:else if !isSaveLoaded('mii')}
     <div class="rounded-lg bg-surface-muted p-3 text-sm text-content-muted ring-1 ring-edge/40">
-      {$_('map.residents.mii_not_loaded')}
+      {$_('residents.mii_not_loaded')}
     </div>
   {:else if !miiAvailable}
     <div class="rounded-lg bg-surface-muted p-3 text-sm text-content-muted ring-1 ring-edge/40">
-      {$_('map.residents.mii_unavailable')}
+      {$_('residents.mii_unavailable')}
     </div>
   {:else if houses.length === 0}
     <div class="rounded-lg bg-surface-muted p-3 text-sm text-content-muted ring-1 ring-edge/40">
@@ -141,7 +141,7 @@
                       ? 'bg-amber-500/15 text-amber-700 ring-amber-500/40'
                       : 'bg-surface text-content-strong ring-edge/40',
                   ]}
-                  title={$_('map.residents.room_short', { values: { index: slot.room } })}
+                  title={$_('residents.room_short', { values: { index: slot.room } })}
                 >
                   {slot.room}
                 </span>
@@ -149,14 +149,14 @@
                 <div class="flex min-w-0 flex-1 items-center gap-2">
                   {#if slot.resident}
                     <span class="min-w-0 flex-1 truncate text-sm font-bold text-content-strong">
-                      {slot.resident.name || $_('map.residents.unnamed')}
+                      {slot.resident.name || $_('residents.unnamed')}
                     </span>
                     <span class="font-mono text-[10px] text-content-faint">
                       #{slot.resident.miiIndex}
                     </span>
                   {:else}
                     <span class="flex-1 text-xs italic text-content-muted">
-                      {$_('map.residents.empty_room')}
+                      {$_('residents.empty_room')}
                     </span>
                   {/if}
                 </div>
@@ -175,8 +175,8 @@
                           slot.room,
                           -1,
                         )}
-                      title={$_('map.residents.move_up_hint')}
-                      aria-label={$_('map.residents.move_up')}
+                      title={$_('residents.move_up_hint')}
+                      aria-label={$_('residents.move_up')}
                     >
                       ↑
                     </button>
@@ -192,8 +192,8 @@
                           slot.room,
                           1,
                         )}
-                      title={$_('map.residents.move_down_hint')}
-                      aria-label={$_('map.residents.move_down')}
+                      title={$_('residents.move_down_hint')}
+                      aria-label={$_('residents.move_down')}
                     >
                       ↓
                     </button>
@@ -205,36 +205,36 @@
                       class="rounded-full bg-surface px-2 py-0.5 text-[10px] font-bold text-content ring-1 ring-edge/60 hover:bg-surface-sunken"
                       onclick={() =>
                         mut.openMoveDialog(slot.resident!.miiIndex, h.mapId, slot.room)}
-                      title={$_('map.residents.move_hint')}
+                      title={$_('residents.move_hint')}
                     >
-                      {$_('map.residents.move')}
+                      {$_('residents.move')}
                     </button>
                     {#if slot.overflow}
                       <button
                         type="button"
                         class="rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold text-amber-700 ring-1 ring-amber-500/30 hover:bg-amber-500/25"
                         onclick={() => mut.fixOverflowRoom(h.residents, slot.resident!.miiIndex)}
-                        title={$_('map.residents.fix_overflow_hint')}
+                        title={$_('residents.fix_overflow_hint')}
                       >
-                        {$_('map.residents.fix_overflow')}
+                        {$_('residents.fix_overflow')}
                       </button>
                     {/if}
                     <button
                       type="button"
                       class="rounded-full bg-surface px-2 py-0.5 text-[10px] font-bold text-danger ring-1 ring-edge/60 hover:bg-surface-sunken"
                       onclick={() => mut.remove(slot.resident!.miiIndex, h.mapId)}
-                      title={$_('map.residents.remove_hint')}
+                      title={$_('residents.remove_hint')}
                     >
-                      {$_('map.residents.remove')}
+                      {$_('residents.remove')}
                     </button>
                   {:else}
                     <button
                       type="button"
                       class="rounded-full bg-orange-500 px-2.5 py-0.5 text-[10px] font-bold text-white shadow hover:bg-orange-600"
                       onclick={() => mut.openAddDialog(h.mapId, slot.room)}
-                      title={$_('map.residents.add_hint')}
+                      title={$_('residents.add_hint')}
                     >
-                      + {$_('map.residents.add')}
+                      + {$_('residents.add')}
                     </button>
                   {/if}
                 </div>
@@ -263,7 +263,7 @@
             >
               <div class="flex min-w-0 flex-1 items-center gap-2">
                 <span class="min-w-0 flex-1 truncate text-sm font-bold text-content-strong">
-                  {m.name || $_('map.residents.unnamed')}
+                  {m.name || $_('residents.unnamed')}
                 </span>
                 <span class="font-mono text-[10px] text-content-faint">#{m.miiIndex}</span>
               </div>

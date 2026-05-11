@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
   import { MII_SCHEMA } from '$lib/sav/schema';
   import type { SchemaLeaf } from '$lib/sav/schema/leaf';
   import { miiAccessor } from './miiEditor.svelte';
@@ -40,7 +40,7 @@
     Intonation: number;
   };
 
-  const PRESETS: Preset[] = [
+  const PRESETS = [
     {
       type: 589706439,
       name: 'Boy',
@@ -141,7 +141,7 @@
       Tension: 0,
       Intonation: 3,
     },
-  ];
+  ] as const satisfies readonly Preset[];
   const RANDOM_ICON = '/voice-icons/voice_06.png';
 
   const present = $derived(new Set(leaves));

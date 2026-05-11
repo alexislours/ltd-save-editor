@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { CHANGELOG } from '$lib/changelog/changelog';
   import { floorTiles, mapState } from '$lib/map/state/mapEditor.svelte';
   import { liveRows } from '$lib/map/state/mapObjectsEditor.svelte';

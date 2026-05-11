@@ -24,7 +24,8 @@
     miiState,
     syncFromSave,
   } from '$lib/mii/miiEditor.svelte';
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
+  import { locale } from 'svelte-i18n';
   import { untrack } from 'svelte';
   import { browser } from '$app/environment';
   import { track } from '$lib/analytics';

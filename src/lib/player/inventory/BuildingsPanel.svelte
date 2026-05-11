@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
+  import { locale } from 'svelte-i18n';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { murmur3_x86_32 } from '$lib/sav/hash';
   import {
