@@ -2,7 +2,7 @@ import { TILE_DEFS } from '$lib/map/tiles/tiles';
 import { UGC_NONE } from '$lib/map/state/mapEditor.svelte';
 import { clampBrushSize, type BrushRotation, type BrushShape, type BrushSize } from './brushKernel';
 
-export type PaintTool = 'brush' | 'fill' | 'rectangle' | 'picker' | 'replace';
+export type PaintTool = 'brush' | 'fill' | 'rectangle' | 'picker' | 'replace' | 'tile-select';
 export type BrushMode = 'stroke' | 'stamp';
 
 const RECENT_KEY = 'map-v2:recent-tiles';

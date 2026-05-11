@@ -5,6 +5,7 @@
   import { tileKeyForHash } from '$lib/map/tiles/tiles';
   import { hexU32 } from '$lib/sav/format';
   import { selection } from '../tools/selection.svelte';
+  import { tileSelection } from '../tools/tileSelection.svelte';
   import { floorBaseline } from '../state/baseline.svelte';
   import { layers } from '../state/layers.svelte';
 
@@ -91,6 +92,16 @@
   {#if selection.indices.size > 0}
     <span class="ml-auto font-mono text-[11px] text-content-strong">
       · {$_('map.status.selected', { values: { count: selection.indices.size } })}
+    </span>
+  {/if}
+  {#if tileSelection.indices.size > 0}
+    <span
+      class={[
+        'font-mono text-[11px] text-content-strong',
+        selection.indices.size === 0 && 'ml-auto',
+      ]}
+    >
+      · {$_('map.status.tiles_selected', { values: { count: tileSelection.indices.size } })}
     </span>
   {/if}
 </footer>

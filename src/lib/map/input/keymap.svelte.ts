@@ -10,6 +10,24 @@ import { close as closeFind, findStore, open as openFind } from '../find/findSto
 import { modeState, setMode, type Mode } from '../state/layers.svelte';
 import { paintState, selectTileHash, setBrushSize, setPaintTool } from '../tools/paintState.svelte';
 import { clear as clearSelection, selection, set as setSelection } from '../tools/selection.svelte';
+import { clearTileSelection, setTileSelection, tileSelection } from '../tools/tileSelection.svelte';
+import {
+  cancelPaste,
+  hasClipboard,
+  setClipboard,
+  startPaste,
+  tileClipboardState,
+} from '../tools/tileClipboard.svelte';
+import {
+  copyRegion,
+  cutRegion,
+  eraseRegion,
+  mirrorX,
+  mirrorY,
+  rotateCCW,
+  rotateCW,
+} from '../tools/tileRegionOps';
+import { MAP_HEIGHT, MAP_WIDTH, indexFromXY } from '$lib/map/state/mapEditor.svelte';
 import { fit, setZoomTo, view, ZOOM_100 } from '../state/viewTransform.svelte';
 
 export type KeyAction =
@@ -18,6 +36,7 @@ export type KeyAction =
   | 'tool.rectangle'
   | 'tool.replace'
   | 'tool.picker'
+  | 'tool.tileSelect'
   | 'mode.select'
   | 'view.fit'
   | 'view.zoom100'
@@ -30,6 +49,15 @@ export type KeyAction =
   | 'select.rotate'
   | 'select.rotateBack'
   | 'select.nudge'
+  | 'tile.copy'
+  | 'tile.cut'
+  | 'tile.paste'
+  | 'tile.mirrorX'
+  | 'tile.mirrorY'
+  | 'tile.rotate'
+  | 'tile.rotateBack'
+  | 'tile.erase'
+  | 'tile.selectAll'
   | 'history.undo'
   | 'history.redo'
   | 'find.open'
@@ -37,7 +65,15 @@ export type KeyAction =
   | 'overlay.escape'
   | 'pan.hold';
 
-type KeyGroup = 'tools' | 'modes' | 'view' | 'edit' | 'selection' | 'find' | 'misc';
+type KeyGroup =
+  | 'tools'
+  | 'modes'
+  | 'view'
+  | 'edit'
+  | 'selection'
+  | 'tileSelection'
+  | 'find'
+  | 'misc';
 
 type ActionDef = {
   id: KeyAction;
@@ -63,6 +99,12 @@ const ACTIONS = [
     binding: 'E',
   },
   { id: 'tool.picker', labelKey: 'map.keymap.actions.tool.picker', group: 'tools', binding: 'I' },
+  {
+    id: 'tool.tileSelect',
+    labelKey: 'map.keymap.actions.tool.tileSelect',
+    group: 'tools',
+    binding: 'S',
+  },
   {
     id: 'mode.select',
     labelKey: 'map.keymap.actions.mode.select',
@@ -133,6 +175,60 @@ const ACTIONS = [
     altBinding: 'Shift+Arrow ×10',
   },
   {
+    id: 'tile.copy',
+    labelKey: 'map.keymap.actions.tile.copy',
+    group: 'tileSelection',
+    binding: 'Cmd+C',
+  },
+  {
+    id: 'tile.cut',
+    labelKey: 'map.keymap.actions.tile.cut',
+    group: 'tileSelection',
+    binding: 'Cmd+X',
+  },
+  {
+    id: 'tile.paste',
+    labelKey: 'map.keymap.actions.tile.paste',
+    group: 'tileSelection',
+    binding: 'Cmd+V',
+  },
+  {
+    id: 'tile.mirrorX',
+    labelKey: 'map.keymap.actions.tile.mirrorX',
+    group: 'tileSelection',
+    binding: 'H',
+  },
+  {
+    id: 'tile.mirrorY',
+    labelKey: 'map.keymap.actions.tile.mirrorY',
+    group: 'tileSelection',
+    binding: 'V',
+  },
+  {
+    id: 'tile.rotate',
+    labelKey: 'map.keymap.actions.tile.rotate',
+    group: 'tileSelection',
+    binding: 'R',
+  },
+  {
+    id: 'tile.rotateBack',
+    labelKey: 'map.keymap.actions.tile.rotateBack',
+    group: 'tileSelection',
+    binding: 'Shift+R',
+  },
+  {
+    id: 'tile.erase',
+    labelKey: 'map.keymap.actions.tile.erase',
+    group: 'tileSelection',
+    binding: 'Backspace',
+  },
+  {
+    id: 'tile.selectAll',
+    labelKey: 'map.keymap.actions.tile.selectAll',
+    group: 'tileSelection',
+    binding: 'Cmd+A',
+  },
+  {
     id: 'history.undo',
     labelKey: 'map.keymap.actions.history.undo',
     group: 'edit',
@@ -168,6 +264,7 @@ export const GROUP_ORDER: readonly KeyGroup[] = [
   'modes',
   'view',
   'selection',
+  'tileSelection',
   'edit',
   'find',
   'misc',
@@ -233,6 +330,10 @@ type DispatchContext = {
   isMac: boolean;
   mode: Mode;
   selectionSize: number;
+  tileSelectionSize: number;
+  tileSelectActive: boolean;
+  pasting: boolean;
+  hasTileClipboard: boolean;
   inputFocused: boolean;
   modalOpen: boolean;
   findOpen: boolean;
@@ -256,8 +357,6 @@ function resolveAction(input: DispatchInput, ctx: DispatchContext): KeyAction | 
   }
   if (meta && !shiftKey && !altKey && (key === 'y' || key === 'Y')) return 'history.redo';
   if (meta && !shiftKey && !altKey && (key === 'f' || key === 'F')) return 'find.open';
-  if (meta && !shiftKey && !altKey && (key === 'a' || key === 'A')) return 'select.allVisible';
-
   if (key === 'Escape' && !meta && !altKey) return 'overlay.escape';
 
   if (ctx.findOpen) return null;
@@ -265,6 +364,21 @@ function resolveAction(input: DispatchInput, ctx: DispatchContext): KeyAction | 
   if (code === 'Space' && !meta && !altKey && !shiftKey) return 'pan.hold';
 
   if (ctx.inputFocused || ctx.modalOpen) return null;
+
+  if (meta && !shiftKey && !altKey && (key === 'c' || key === 'C')) {
+    if (ctx.tileSelectActive && ctx.tileSelectionSize > 0) return 'tile.copy';
+  }
+  if (meta && !shiftKey && !altKey && (key === 'x' || key === 'X')) {
+    if (ctx.tileSelectActive && ctx.tileSelectionSize > 0) return 'tile.cut';
+  }
+  if (meta && !shiftKey && !altKey && (key === 'v' || key === 'V')) {
+    if (ctx.tileSelectActive && ctx.hasTileClipboard) return 'tile.paste';
+  }
+  if (meta && !shiftKey && !altKey && (key === 'a' || key === 'A')) {
+    if (ctx.tileSelectActive) return 'tile.selectAll';
+    return 'select.allVisible';
+  }
+
   if (meta || altKey) return null;
 
   if (key === '?') return 'help.open';
@@ -275,6 +389,7 @@ function resolveAction(input: DispatchInput, ctx: DispatchContext): KeyAction | 
   }
 
   if (key === 'Backspace' || key === 'Delete') {
+    if (ctx.tileSelectActive && ctx.tileSelectionSize > 0) return 'tile.erase';
     if (ctx.selectionSize > 0) return 'select.delete';
     return null;
   }
@@ -282,11 +397,13 @@ function resolveAction(input: DispatchInput, ctx: DispatchContext): KeyAction | 
   if (!shiftKey) {
     if (key === '0') return 'view.fit';
     if (key === '1') {
-      if (ctx.mode === 'paint' && ctx.recentCount > 0) return 'palette.recent';
+      if (ctx.mode === 'paint' && !ctx.tileSelectActive && ctx.recentCount > 0)
+        return 'palette.recent';
       return 'view.zoom100';
     }
     if (key >= '2' && key <= '9') {
-      if (ctx.mode === 'paint' && ctx.recentCount > 0) return 'palette.recent';
+      if (ctx.mode === 'paint' && !ctx.tileSelectActive && ctx.recentCount > 0)
+        return 'palette.recent';
       return null;
     }
     if (key === '[') return 'brush.smaller';
@@ -294,12 +411,20 @@ function resolveAction(input: DispatchInput, ctx: DispatchContext): KeyAction | 
   }
 
   const lower = key.length === 1 ? key.toLowerCase() : key;
+
+  if (ctx.tileSelectActive && ctx.hasTileClipboard) {
+    if (!shiftKey && lower === 'h') return 'tile.mirrorX';
+    if (!shiftKey && lower === 'v') return 'tile.mirrorY';
+    if (lower === 'r') return shiftKey ? 'tile.rotateBack' : 'tile.rotate';
+  }
+
   if (!shiftKey) {
     if (lower === 'b') return 'tool.brush';
     if (lower === 'f') return 'tool.fill';
     if (lower === 'e') return 'tool.replace';
     if (lower === 'v') return 'mode.select';
     if (lower === 'i') return 'tool.picker';
+    if (lower === 's') return 'tool.tileSelect';
     if (lower === 'd') return 'select.duplicate';
   }
 
@@ -333,6 +458,10 @@ function currentContext(): DispatchContext {
     isMac: isMacPlatform,
     mode: modeState.mode,
     selectionSize: selection.indices.size,
+    tileSelectionSize: tileSelection.indices.size,
+    tileSelectActive: modeState.mode === 'paint' && paintState.tool === 'tile-select',
+    pasting: tileClipboardState.pasting,
+    hasTileClipboard: tileClipboardState.clip != null,
     inputFocused: isInputFocused(),
     modalOpen: isModalOpen() && !keymapState.helpOpen,
     findOpen: findStore.open,
@@ -403,11 +532,30 @@ function escapeOverlay(): boolean {
     closeFind();
     return true;
   }
+  if (tileClipboardState.pasting) {
+    cancelPaste();
+    return true;
+  }
+  if (tileSelection.indices.size > 0) {
+    clearTileSelection();
+    return true;
+  }
   if (selection.indices.size > 0) {
     clearSelection();
     return true;
   }
   return false;
+}
+
+function selectAllTiles(): void {
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  const out = new Set<number>();
+  for (let x = 0; x < MAP_WIDTH; x++) {
+    for (let y = 0; y < MAP_HEIGHT; y++) {
+      out.add(indexFromXY(x, y));
+    }
+  }
+  setTileSelection(out);
 }
 
 function dispatch(action: KeyAction, e: KeyboardEvent): boolean {
@@ -431,6 +579,10 @@ function dispatch(action: KeyAction, e: KeyboardEvent): boolean {
     case 'tool.picker':
       setMode('paint');
       setPaintTool('picker');
+      return true;
+    case 'tool.tileSelect':
+      setMode('paint');
+      setPaintTool('tile-select');
       return true;
     case 'mode.select':
       setMode('select');
@@ -484,6 +636,54 @@ function dispatch(action: KeyAction, e: KeyboardEvent): boolean {
     }
     case 'select.nudge':
       nudgeFromArrow(e.key, e.shiftKey);
+      return true;
+    case 'tile.copy': {
+      const clip = copyRegion(tileSelection.indices);
+      if (clip) {
+        setClipboard(clip);
+        showToast(
+          'success',
+          t('map.toast.tile_copied', { values: { count: tileSelection.indices.size } }),
+        );
+      }
+      return true;
+    }
+    case 'tile.cut': {
+      const count = tileSelection.indices.size;
+      const result = cutRegion(tileSelection.indices);
+      if (result.clip) setClipboard(result.clip);
+      if (result.changes.length > 0) pushAction({ kind: 'tile', changes: result.changes });
+      if (result.clip) showToast('success', t('map.toast.tile_cut', { values: { count } }));
+      return true;
+    }
+    case 'tile.paste': {
+      if (hasClipboard()) startPaste();
+      return true;
+    }
+    case 'tile.mirrorX': {
+      if (tileClipboardState.clip) setClipboard(mirrorX(tileClipboardState.clip));
+      return true;
+    }
+    case 'tile.mirrorY': {
+      if (tileClipboardState.clip) setClipboard(mirrorY(tileClipboardState.clip));
+      return true;
+    }
+    case 'tile.rotate': {
+      if (tileClipboardState.clip) setClipboard(rotateCW(tileClipboardState.clip));
+      return true;
+    }
+    case 'tile.rotateBack': {
+      if (tileClipboardState.clip) setClipboard(rotateCCW(tileClipboardState.clip));
+      return true;
+    }
+    case 'tile.erase': {
+      const changes = eraseRegion(tileSelection.indices);
+      if (changes.length > 0) pushAction({ kind: 'tile', changes });
+      clearTileSelection();
+      return true;
+    }
+    case 'tile.selectAll':
+      selectAllTiles();
       return true;
     case 'history.undo':
       if (canUndo()) undo();

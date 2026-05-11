@@ -401,9 +401,21 @@
           "rotate": "Tourner la sélection +90°",
           "rotateBack": "Tourner la sélection -90°"
         },
+        "tile": {
+          "copy": "Copier la région de tuiles",
+          "cut": "Couper la région de tuiles",
+          "erase": "Effacer la région de tuiles",
+          "mirrorX": "Miroir horizontal du presse-papiers",
+          "mirrorY": "Miroir vertical du presse-papiers",
+          "paste": "Coller la région de tuiles",
+          "rotate": "Tourner le presse-papiers +90°",
+          "rotateBack": "Tourner le presse-papiers -90°",
+          "selectAll": "Sélectionner toutes les tuiles"
+        },
         "tool": {
           "picker": "Pipette à tuiles",
-          "rectangle": "Rectangle"
+          "rectangle": "Rectangle",
+          "tileSelect": "Sélection de région de tuiles"
         },
         "view": {
           "fit": "Ajuster à la fenêtre",
@@ -416,6 +428,7 @@
         "misc": "Divers",
         "modes": "Modes",
         "selection": "Sélection",
+        "tileSelection": "Région de tuiles",
         "tools": "Outils",
         "view": "Vue"
       }
@@ -493,6 +506,7 @@
       "collision": "Collision · {count} objets se superposent ici",
       "modified": "Modifié · était {was}, maintenant {now}",
       "selected": "{count} sélectionné(s)",
+      "tiles_selected": "{count, plural, one {# tuile sélectionnée} other {# tuiles sélectionnées}}",
       "ugc_tier": "UGC #{index} · niveau {tier}"
     },
     "tile": {
@@ -537,6 +551,10 @@
       "Wood_Road": "Chemin en parquet"
     },
     "title": "Carte",
+    "toast": {
+      "tile_copied": "{count, plural, one {# tuile copiée} other {# tuiles copiées}}",
+      "tile_cut": "{count, plural, one {# tuile coupée} other {# tuiles coupées}}"
+    },
     "toolbar": {
       "brush_mode_label": "Mode",
       "brush_mode_stamp": "Tampon",
@@ -576,6 +594,21 @@
       "shape_star5_label": "Étoile à 5 branches",
       "shape_star6_label": "Étoile à 6 branches",
       "shape_triangle_label": "Triangle",
+      "tile_copy": "Copier",
+      "tile_copy_title": "Copier les tuiles sélectionnées dans le presse-papiers (Cmd+C)",
+      "tile_cut": "Couper",
+      "tile_cut_title": "Couper les tuiles sélectionnées vers le presse-papiers (Cmd+X)",
+      "tile_erase": "Effacer",
+      "tile_erase_title": "Effacer les tuiles sélectionnées en herbe",
+      "tile_mirror_x": "Miroir H",
+      "tile_mirror_x_title": "Miroir horizontal du presse-papiers (H)",
+      "tile_mirror_y": "Miroir V",
+      "tile_mirror_y_title": "Miroir vertical du presse-papiers (V)",
+      "tile_paste": "Coller",
+      "tile_paste_cancel_title": "Annuler le collage (Esc)",
+      "tile_paste_title": "Coller au curseur (Cmd+V, clique pour valider)",
+      "tile_rotate": "Tourner",
+      "tile_rotate_title": "Tourner le presse-papiers 90° (R)",
       "tool_brush": "Pinceau",
       "tool_brush_title": "Pinceau (B)",
       "tool_fill": "Remplissage",
@@ -585,7 +618,9 @@
       "tool_rect": "Rect",
       "tool_rect_title": "Rectangle (R)",
       "tool_replace": "Remplacer",
-      "tool_replace_title": "Remplacer (E) - clique sur une tuile pour remplacer toutes les cases avec le même hash"
+      "tool_replace_title": "Remplacer (E) - clique sur une tuile pour remplacer toutes les cases avec le même hash",
+      "tool_tile_select": "Région",
+      "tool_tile_select_title": "Sélection de région (S) - rectangle de sélection, copier, coller, miroir, tourner"
     },
     "workbench": {
       "status_hover_hint": "Survole la toile"

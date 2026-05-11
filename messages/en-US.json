@@ -385,8 +385,18 @@
         "select.nudge": "Nudge selection",
         "select.rotate": "Rotate selection +90°",
         "select.rotateBack": "Rotate selection -90°",
+        "tile.copy": "Copy tile region",
+        "tile.cut": "Cut tile region",
+        "tile.erase": "Erase tile region",
+        "tile.mirrorX": "Mirror clipboard horizontally",
+        "tile.mirrorY": "Mirror clipboard vertically",
+        "tile.paste": "Paste tile region",
+        "tile.rotate": "Rotate clipboard +90°",
+        "tile.rotateBack": "Rotate clipboard -90°",
+        "tile.selectAll": "Select all tiles",
         "tool.picker": "Tile picker",
         "tool.rectangle": "Rectangle",
+        "tool.tileSelect": "Tile region select",
         "view.fit": "Fit to viewport",
         "view.zoom100": "100% zoom"
       },
@@ -396,6 +406,7 @@
         "misc": "Misc",
         "modes": "Modes",
         "selection": "Selection",
+        "tileSelection": "Tile region",
         "tools": "Tools",
         "view": "View"
       }
@@ -473,6 +484,7 @@
       "collision": "Collision · {count} objects overlap here",
       "modified": "Modified · was {was}, now {now}",
       "selected": "{count} selected",
+      "tiles_selected": "{count, plural, one {# tile} other {# tiles}} selected",
       "ugc_tier": "UGC #{index} · tier {tier}"
     },
     "tile": {
@@ -517,6 +529,10 @@
       "Wood_Road": "Wooden-boards path"
     },
     "title": "Map",
+    "toast": {
+      "tile_copied": "{count, plural, one {Copied # tile} other {Copied # tiles}}",
+      "tile_cut": "{count, plural, one {Cut # tile} other {Cut # tiles}}"
+    },
     "toolbar": {
       "brush_mode_label": "Mode",
       "brush_mode_stamp": "Stamp",
@@ -556,6 +572,21 @@
       "shape_star5_label": "5-point star",
       "shape_star6_label": "6-point star",
       "shape_triangle_label": "Triangle",
+      "tile_copy": "Copy",
+      "tile_copy_title": "Copy selected tiles to clipboard (Cmd+C)",
+      "tile_cut": "Cut",
+      "tile_cut_title": "Cut selected tiles to clipboard (Cmd+X)",
+      "tile_erase": "Erase",
+      "tile_erase_title": "Erase selected tiles to grass",
+      "tile_mirror_x": "Flip H",
+      "tile_mirror_x_title": "Mirror clipboard horizontally (H)",
+      "tile_mirror_y": "Flip V",
+      "tile_mirror_y_title": "Mirror clipboard vertically (V)",
+      "tile_paste": "Paste",
+      "tile_paste_cancel_title": "Cancel paste (Esc)",
+      "tile_paste_title": "Paste at cursor (Cmd+V, click to commit)",
+      "tile_rotate": "Rotate",
+      "tile_rotate_title": "Rotate clipboard 90° (R)",
       "tool_brush": "Brush",
       "tool_brush_title": "Brush (B)",
       "tool_fill": "Fill",
@@ -565,7 +596,9 @@
       "tool_rect": "Rect",
       "tool_rect_title": "Rectangle (R)",
       "tool_replace": "Replace",
-      "tool_replace_title": "Replace (E) - click a tile to replace every cell with the same hash"
+      "tool_replace_title": "Replace (E) - click a tile to replace every cell with the same hash",
+      "tool_tile_select": "Region",
+      "tool_tile_select_title": "Tile region select (S) - marquee, copy, paste, mirror, rotate"
     },
     "workbench": {
       "status_hover_hint": "Hover the canvas"

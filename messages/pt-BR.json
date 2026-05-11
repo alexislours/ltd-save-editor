@@ -401,9 +401,21 @@
           "rotate": "Girar seleção +90°",
           "rotateBack": "Girar seleção -90°"
         },
+        "tile": {
+          "copy": "Copiar região de ladrilhos",
+          "cut": "Recortar região de ladrilhos",
+          "erase": "Apagar região de ladrilhos",
+          "mirrorX": "Espelhar área de transferência horizontalmente",
+          "mirrorY": "Espelhar área de transferência verticalmente",
+          "paste": "Colar região de ladrilhos",
+          "rotate": "Girar área de transferência +90°",
+          "rotateBack": "Girar área de transferência -90°",
+          "selectAll": "Selecionar todos os ladrilhos"
+        },
         "tool": {
           "picker": "Conta-gotas de ladrilho",
-          "rectangle": "Retângulo"
+          "rectangle": "Retângulo",
+          "tileSelect": "Selecionar região de ladrilhos"
         },
         "view": {
           "fit": "Ajustar à janela",
@@ -416,6 +428,7 @@
         "misc": "Diversos",
         "modes": "Modos",
         "selection": "Seleção",
+        "tileSelection": "Região de ladrilhos",
         "tools": "Ferramentas",
         "view": "Visão"
       }
@@ -493,6 +506,7 @@
       "collision": "Colisão · {count} objetos se sobrepõem aqui",
       "modified": "Modificado · era {was}, agora {now}",
       "selected": "{count} selecionado(s)",
+      "tiles_selected": "{count, plural, one {# ladrilho selecionado} other {# ladrilhos selecionados}}",
       "ugc_tier": "UGC #{index} · nível {tier}"
     },
     "tile": {
@@ -537,6 +551,10 @@
       "Wood_Road": "Caminho de tábuas de madeira"
     },
     "title": "Mapa",
+    "toast": {
+      "tile_copied": "{count, plural, one {# ladrilho copiado} other {# ladrilhos copiados}}",
+      "tile_cut": "{count, plural, one {# ladrilho recortado} other {# ladrilhos recortados}}"
+    },
     "toolbar": {
       "brush_mode_label": "Modo",
       "brush_mode_stamp": "Carimbo",
@@ -576,6 +594,21 @@
       "shape_star5_label": "Estrela de 5 pontas",
       "shape_star6_label": "Estrela de 6 pontas",
       "shape_triangle_label": "Triângulo",
+      "tile_copy": "Copiar",
+      "tile_copy_title": "Copiar ladrilhos selecionados para a área de transferência (Cmd+C)",
+      "tile_cut": "Recortar",
+      "tile_cut_title": "Recortar ladrilhos selecionados para a área de transferência (Cmd+X)",
+      "tile_erase": "Apagar",
+      "tile_erase_title": "Apagar ladrilhos selecionados para grama",
+      "tile_mirror_x": "Espelhar H",
+      "tile_mirror_x_title": "Espelhar área de transferência horizontalmente (H)",
+      "tile_mirror_y": "Espelhar V",
+      "tile_mirror_y_title": "Espelhar área de transferência verticalmente (V)",
+      "tile_paste": "Colar",
+      "tile_paste_cancel_title": "Cancelar colagem (Esc)",
+      "tile_paste_title": "Colar no cursor (Cmd+V, clique para confirmar)",
+      "tile_rotate": "Girar",
+      "tile_rotate_title": "Girar área de transferência 90° (R)",
       "tool_brush": "Pincel",
       "tool_brush_title": "Pincel (B)",
       "tool_fill": "Preencher",
@@ -585,7 +618,9 @@
       "tool_rect": "Ret",
       "tool_rect_title": "Retângulo (R)",
       "tool_replace": "Substituir",
-      "tool_replace_title": "Substituir (E) - clique em um ladrilho para substituir todas as células com o mesmo hash"
+      "tool_replace_title": "Substituir (E) - clique em um ladrilho para substituir todas as células com o mesmo hash",
+      "tool_tile_select": "Região",
+      "tool_tile_select_title": "Selecionar região (S) - retângulo de seleção, copiar, colar, espelhar, girar"
     },
     "workbench": {
       "status_hover_hint": "Passe o cursor sobre o canvas"

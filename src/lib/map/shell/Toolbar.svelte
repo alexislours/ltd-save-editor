@@ -34,6 +34,24 @@
     type BrushShape,
   } from '../tools/brushKernel';
   import { getBindingFor, openHelp, type KeyAction } from '../input/keymap.svelte';
+  import { pushAction } from '$lib/map/state/history.svelte';
+  import { showToast } from '$lib/toast/toast.svelte';
+  import { t } from '$lib/i18n/format';
+  import { clearTileSelection, tileSelection } from '../tools/tileSelection.svelte';
+  import {
+    cancelPaste,
+    setClipboard,
+    startPaste,
+    tileClipboardState,
+  } from '../tools/tileClipboard.svelte';
+  import {
+    copyRegion,
+    cutRegion,
+    eraseRegion,
+    mirrorX,
+    mirrorY,
+    rotateCW,
+  } from '../tools/tileRegionOps';
   import { modifiedFloorCount } from '../state/baseline.svelte';
   import ExportPngDialog from '../export/ExportPngDialog.svelte';
   import ExportShareDialog from '../share/ExportShareDialog.svelte';
@@ -77,6 +95,12 @@
       labelKey: 'map.toolbar.tool_replace',
       titleKey: 'map.toolbar.tool_replace_title',
       action: 'tool.replace',
+    },
+    {
+      id: 'tile-select',
+      labelKey: 'map.toolbar.tool_tile_select',
+      titleKey: 'map.toolbar.tool_tile_select_title',
+      action: 'tool.tileSelect',
     },
   ] as const satisfies readonly {
     id: PaintTool;
@@ -386,11 +410,230 @@
               <path d="m3 7 3 3 3-3" />
               <path d="M6 10V5a2 2 0 0 1 2-2h2" />
               <rect x="3" y="14" width="7" height="7" rx="1" />
+            {:else if t.id === 'tile-select'}
+              <path d="M3 3h4" />
+              <path d="M9 3h2" />
+              <path d="M13 3h2" />
+              <path d="M17 3h4v4" />
+              <path d="M21 9v2" />
+              <path d="M21 13v2" />
+              <path d="M21 17v4h-4" />
+              <path d="M15 21h-2" />
+              <path d="M11 21H9" />
+              <path d="M7 21H3v-4" />
+              <path d="M3 15v-2" />
+              <path d="M3 11V9" />
             {/if}
           </svg>
         </button>
       {/each}
     </div>
+
+    {#if paintState.tool === 'tile-select'}
+      {@const hasSel = tileSelection.indices.size > 0}
+      {@const hasClip = tileClipboardState.clip != null}
+      {@const pasting = tileClipboardState.pasting}
+      <div class="inline-flex overflow-hidden rounded-full ring-1 ring-edge/60">
+        <button
+          type="button"
+          class="flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center transition-colors bg-surface text-content hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+          disabled={!hasSel}
+          aria-label={$_('map.toolbar.tile_copy')}
+          title={$_('map.toolbar.tile_copy_title')}
+          onclick={() => {
+            const count = tileSelection.indices.size;
+            const clip = copyRegion(tileSelection.indices);
+            if (clip) {
+              setClipboard(clip);
+              showToast('success', t('map.toast.tile_copied', { values: { count } }));
+            }
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center border-l border-edge/60 transition-colors bg-surface text-content hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+          disabled={!hasSel}
+          aria-label={$_('map.toolbar.tile_cut')}
+          title={$_('map.toolbar.tile_cut_title')}
+          onclick={() => {
+            const count = tileSelection.indices.size;
+            const result = cutRegion(tileSelection.indices);
+            if (result.clip) setClipboard(result.clip);
+            if (result.changes.length > 0) pushAction({ kind: 'tile', changes: result.changes });
+            if (result.clip) showToast('success', t('map.toast.tile_cut', { values: { count } }));
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="6" cy="6" r="3" />
+            <path d="M8.12 8.12 12 12" />
+            <path d="M20 4 8.12 15.88" />
+            <circle cx="6" cy="18" r="3" />
+            <path d="M14.8 14.8 20 20" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class={[
+            'flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center border-l border-edge/60 transition-colors disabled:opacity-40 disabled:hover:bg-surface',
+            pasting
+              ? 'bg-orange-500 text-white hover:bg-orange-600'
+              : 'bg-surface text-content hover:bg-surface-muted',
+          ]}
+          disabled={!hasClip}
+          aria-label={$_('map.toolbar.tile_paste')}
+          aria-pressed={pasting}
+          title={pasting
+            ? $_('map.toolbar.tile_paste_cancel_title')
+            : $_('map.toolbar.tile_paste_title')}
+          onclick={() => {
+            if (pasting) cancelPaste();
+            else startPaste();
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+          </svg>
+        </button>
+      </div>
+      <div class="inline-flex overflow-hidden rounded-full ring-1 ring-edge/60">
+        <button
+          type="button"
+          class="flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center transition-colors bg-surface text-content hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+          disabled={!hasClip}
+          aria-label={$_('map.toolbar.tile_mirror_x')}
+          title={$_('map.toolbar.tile_mirror_x_title')}
+          onclick={() => {
+            if (tileClipboardState.clip) setClipboard(mirrorX(tileClipboardState.clip));
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 3v18" stroke-dasharray="2 2" />
+            <path d="M3 7l6 5-6 5V7z" fill="currentColor" />
+            <path d="M21 7l-6 5 6 5V7z" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center border-l border-edge/60 transition-colors bg-surface text-content hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+          disabled={!hasClip}
+          aria-label={$_('map.toolbar.tile_mirror_y')}
+          title={$_('map.toolbar.tile_mirror_y_title')}
+          onclick={() => {
+            if (tileClipboardState.clip) setClipboard(mirrorY(tileClipboardState.clip));
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M3 12h18" stroke-dasharray="2 2" />
+            <path d="M7 3l5 6 5-6H7z" fill="currentColor" />
+            <path d="M7 21l5-6 5 6H7z" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center border-l border-edge/60 transition-colors bg-surface text-content hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+          disabled={!hasClip}
+          aria-label={$_('map.toolbar.tile_rotate')}
+          title={$_('map.toolbar.tile_rotate_title')}
+          onclick={() => {
+            if (tileClipboardState.clip) setClipboard(rotateCW(tileClipboardState.clip));
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+            <path d="M21 3v5h-5" />
+          </svg>
+        </button>
+      </div>
+      <button
+        type="button"
+        class="inline-flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center rounded-full transition-colors ring-1 ring-edge/60 bg-surface text-danger hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+        disabled={!hasSel}
+        aria-label={$_('map.toolbar.tile_erase')}
+        title={$_('map.toolbar.tile_erase_title')}
+        onclick={() => {
+          const changes = eraseRegion(tileSelection.indices);
+          if (changes.length > 0) pushAction({ kind: 'tile', changes });
+          clearTileSelection();
+        }}
+      >
+        <svg
+          class="h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"
+          />
+          <path d="M22 21H7" />
+          <path d="m5 11 9 9" />
+        </svg>
+      </button>
+    {/if}
 
     {#if paintState.tool === 'brush'}
       <div class="relative">
@@ -499,17 +742,39 @@
                   <button
                     type="button"
                     class={[
-                      'flex flex-1 h-9 items-center justify-center text-sm font-medium transition-colors',
+                      'flex flex-1 h-9 items-center justify-center transition-colors',
                       i > 0 && 'border-l border-edge/60',
                       paintState.brushMode === m.id
                         ? 'bg-orange-500 text-white'
                         : 'bg-surface text-content hover:bg-surface-muted',
                     ]}
                     aria-pressed={paintState.brushMode === m.id}
+                    aria-label={$_(m.labelKey)}
                     title={$_(m.titleKey)}
                     onclick={() => setBrushMode(m.id)}
                   >
-                    {$_(m.labelKey)}
+                    <svg
+                      class="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      {#if m.id === 'stroke'}
+                        <path d="M3 17c2.5 0 2.5-4 5-4s2.5 4 5 4 2.5-4 5-4 2.5 4 5 4" />
+                      {:else}
+                        <path d="M5 22h14" />
+                        <path
+                          d="M19.27 13.73A2.5 2.5 0 0 0 17.5 13h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1.5c0-.66-.26-1.3-.73-1.77Z"
+                        />
+                        <path
+                          d="M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-3-3c-1.66 0-3 1-3 3s1 2 1 3.5V13"
+                        />
+                      {/if}
+                    </svg>
                   </button>
                 {/each}
               </div>

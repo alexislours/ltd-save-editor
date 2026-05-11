@@ -48,6 +48,8 @@ const TILE_DEFS_RAW = [
 ] as const satisfies readonly TileDef[];
 
 export const TILE_DEFS: readonly TileDef[] = TILE_DEFS_RAW;
+
+export const GRASS_HASH = 0xff4ae68a >>> 0;
 type TileName = (typeof TILE_DEFS_RAW)[number]['code'];
 export type TileLabelKey = `map.tile.${TileName}`;
 
