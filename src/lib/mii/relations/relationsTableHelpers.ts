@@ -1,3 +1,4 @@
+import type { I18nKey } from '$gen/i18n-keys';
 import type { CoupleBlock, CoupleConstraints, CrushBlock } from './relations';
 
 export const FIXED_METER_TYPES: ReadonlySet<string> = new Set(['Other', 'Invalid']);
@@ -54,7 +55,7 @@ export function detectChips(
   return out;
 }
 
-export type Translator = (key: string) => string;
+export type Translator = (key: Extract<I18nKey, `mii.relations.${string}`>) => string;
 
 type ChipText = { label: string; full: string; note?: string };
 
@@ -62,7 +63,7 @@ export type ChipView = ChipText & { tone: ChipTone };
 
 export type ChipPopup = { title: string; body: string; note?: string };
 
-const CHIP_LABEL_KEYS: Record<ChipKind, string> = {
+const CHIP_LABEL_KEYS = {
   gender: 'mii.relations.chip.gender',
   blood: 'mii.relations.chip.blood',
   self_paired: 'mii.relations.chip.self_paired',
@@ -72,9 +73,9 @@ const CHIP_LABEL_KEYS: Record<ChipKind, string> = {
   crush_gender: 'mii.relations.chip.crush_gender',
   crush_blood: 'mii.relations.chip.crush_blood',
   crush_other: 'mii.relations.chip.crush_other',
-};
+} as const satisfies Record<ChipKind, Extract<I18nKey, `mii.relations.${string}`>>;
 
-const CHIP_FULL_KEYS: Record<ChipKind, string> = {
+const CHIP_FULL_KEYS = {
   gender: 'mii.relations.couple_blocked_gender',
   blood: 'mii.relations.couple_blocked_blood',
   self_paired: 'mii.relations.couple_blocked_self_paired',
@@ -84,7 +85,7 @@ const CHIP_FULL_KEYS: Record<ChipKind, string> = {
   crush_gender: 'mii.relations.crush_blocked_gender',
   crush_blood: 'mii.relations.crush_blocked_blood',
   crush_other: 'mii.relations.crush_locked_existing',
-};
+} as const satisfies Record<ChipKind, Extract<I18nKey, `mii.relations.${string}`>>;
 
 const CHIP_KINDS_WITH_NOTE: ReadonlySet<ChipKind> = new Set(['gender', 'blood']);
 

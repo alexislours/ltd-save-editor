@@ -1,7 +1,14 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { _ } from 'svelte-i18n';
-  import { floorTiles, inBounds, indexFromXY, mapState } from '$lib/map/state/mapEditor.svelte';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
+  import {
+    floorTiles,
+    inBounds,
+    indexFromXY,
+    MAP_HEIGHT,
+    MAP_WIDTH,
+    mapState,
+  } from '$lib/map/state/mapEditor.svelte';
   import { getUgcAt, ugcIndex, UGC_NONE } from '../state/ugcEditor.svelte';
   import { renderUgc, UGC_TEXTURE_HEIGHT, UGC_TEXTURE_WIDTH, UGC_TILE_PIXELS } from './ugcRenderer';
   import { syncUgcFloorTextures, ugcFloorTexturesRev } from '../state/ugcFloorTextures.svelte';
@@ -45,6 +52,8 @@
   import MiniMap from '../shell/MiniMap.svelte';
   import { paintState, selectTileHash, ugcForPaint } from '../tools/paintState.svelte';
   import { BrushStrokeV2 } from '../tools/brushStroke';
+  import { kernelOffsets } from '../tools/brushKernel';
+  import { renderBrushPreview } from './brushPreviewRenderer';
   import { replaceAll } from '../tools/replaceTool';
   import { registerDropTarget } from '../input/dragDrop';
   import {
@@ -54,6 +63,14 @@
     toggle as toggleSelection,
   } from '../tools/selection.svelte';
   import { rectFromCorners, renderMarquee, type MarqueeRect } from './marqueeRenderer';
+  import { renderPastePreview, renderTileSelection } from './tileSelectionRenderer';
+  import {
+    clearTileSelection,
+    setTileSelection,
+    tileSelection,
+  } from '../tools/tileSelection.svelte';
+  import { cancelPaste, setClipboard, tileClipboardState } from '../tools/tileClipboard.svelte';
+  import { pasteRegion } from '../tools/tileRegionOps';
   import {
     COLLISION_GRID_H,
     COLLISION_GRID_W,
@@ -145,9 +162,21 @@
   };
   let marquee = $state<Marquee | null>(null);
 
+  type TileMarquee = {
+    pointerId: number;
+    startCssX: number;
+    startCssY: number;
+    curCssX: number;
+    curCssY: number;
+    mode: MarqueeMode;
+    initial: ReadonlySet<number>;
+  };
+  let tileMarquee = $state<TileMarquee | null>(null);
+
   const collisionMask = new Uint8Array(COLLISION_GRID_W * COLLISION_GRID_H);
   let collisionMaskReady = $state(false);
   let hotCollision = $state<{ x: number; y: number } | null>(null);
+  let cursorTile = $state<{ x: number; y: number } | null>(null);
 
   const unlockMapLevel = $derived.by(() => {
     void playerState.loadId;
@@ -305,6 +334,61 @@
       renderMarquee(ctx, view, r);
     }
 
+    if (paintState.tool === 'tile-select' && tileSelection.indices.size > 0) {
+      renderTileSelection(ctx, view, tileSelection.indices);
+    }
+
+    if (tileMarquee) {
+      const r = rectFromCorners(
+        tileMarquee.startCssX,
+        tileMarquee.startCssY,
+        tileMarquee.curCssX,
+        tileMarquee.curCssY,
+      );
+      renderMarquee(ctx, view, r);
+    }
+
+    if (
+      paintState.tool === 'tile-select' &&
+      layers.preview.visible &&
+      tileClipboardState.pasting &&
+      tileClipboardState.clip &&
+      cursorTile
+    ) {
+      renderPastePreview(
+        ctx,
+        view,
+        tileClipboardState.clip,
+        cursorTile.x - ((tileClipboardState.clip.width - 1) >> 1),
+        cursorTile.y - ((tileClipboardState.clip.height - 1) >> 1),
+        layers.preview.opacity,
+      );
+    }
+
+    if (
+      layers.preview.visible &&
+      modeState.mode === 'paint' &&
+      paintState.tool === 'brush' &&
+      cursorTile &&
+      !brush &&
+      !pickingHeld
+    ) {
+      const kernel = kernelOffsets(
+        paintState.brushSize,
+        paintState.brushShape,
+        paintState.brushRotationDeg,
+      );
+      renderBrushPreview(
+        ctx,
+        view,
+        kernel,
+        cursorTile.x,
+        cursorTile.y,
+        paintState.selectedTileHash,
+        layers.preview.opacity,
+      );
+    }
+
     renderFlash(ctx, view);
   }
 
@@ -456,7 +540,25 @@
   });
 
   $effect(() => {
-    if (marquee) schedulePaint();
+    void tileSelection.rev;
+    schedulePaint();
+  });
+
+  let lastSeenLoadId = mapState.loadId;
+  $effect(() => {
+    if (mapState.loadId === lastSeenLoadId) return;
+    lastSeenLoadId = mapState.loadId;
+    clearTileSelection();
+    setClipboard(null);
+  });
+
+  $effect(() => {
+    void tileClipboardState.rev;
+    schedulePaint();
+  });
+
+  $effect(() => {
+    if (marquee || tileMarquee) schedulePaint();
   });
 
   $effect(() => {
@@ -475,6 +577,16 @@
     schedulePaint();
   });
 
+  $effect(() => {
+    void paintState.tool;
+    void paintState.brushSize;
+    void paintState.brushShape;
+    void paintState.brushRotationDeg;
+    void paintState.selectedTileHash;
+    void modeState.modeRev;
+    schedulePaint();
+  });
+
   function clientToCss(e: PointerEvent | WheelEvent): { x: number; y: number } {
     const rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
@@ -483,6 +595,10 @@
   function emitHover(e: PointerEvent | null): void {
     if (!e) {
       hotCollision = null;
+      if (cursorTile) {
+        cursorTile = null;
+        schedulePaint();
+      }
       onHover?.(null);
       schedulePaint();
       return;
@@ -491,9 +607,17 @@
     const t = tileFromClient(x, y);
     if (!inBounds(t.x, t.y)) {
       hotCollision = null;
+      if (cursorTile) {
+        cursorTile = null;
+        schedulePaint();
+      }
       onHover?.(null);
       schedulePaint();
       return;
+    }
+    if (cursorTile?.x !== t.x || cursorTile?.y !== t.y) {
+      cursorTile = { x: t.x, y: t.y };
+      schedulePaint();
     }
     const collisionCount = collisionMaskReady ? collisionCountAt(collisionMask, t.x, t.y) : 0;
     const nextHot = collisionCount >= 2 ? { x: t.x, y: t.y } : null;
@@ -513,6 +637,42 @@
   function computeMarqueeSelection(m: Marquee): Set<number> {
     const r = rectFromCorners(m.startCssX, m.startCssY, m.curCssX, m.curCssY);
     const inside = indicesInsideCssRect(r);
+    if (m.mode === 'replace') return inside;
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
+    const out = new Set(m.initial);
+    if (m.mode === 'union') {
+      for (const i of inside) out.add(i);
+    } else {
+      for (const i of inside) out.delete(i);
+    }
+    return out;
+  }
+
+  function tileIndicesInsideCssRect(r: MarqueeRect): Set<number> {
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
+    const out = new Set<number>();
+    const tile = view.zoom;
+    if (tile <= 0) return out;
+    const tx0 = (r.x - view.panX) / tile;
+    const ty0 = (r.y - view.panY) / tile;
+    const tx1 = (r.x + r.w - view.panX) / tile;
+    const ty1 = (r.y + r.h - view.panY) / tile;
+    const x0 = Math.max(0, Math.floor(Math.min(tx0, tx1)));
+    const y0 = Math.max(0, Math.floor(Math.min(ty0, ty1)));
+    const x1 = Math.min(MAP_WIDTH - 1, Math.floor(Math.max(tx0, tx1) - 1e-6));
+    const y1 = Math.min(MAP_HEIGHT - 1, Math.floor(Math.max(ty0, ty1) - 1e-6));
+    if (x0 > x1 || y0 > y1) return out;
+    for (let x = x0; x <= x1; x++) {
+      for (let y = y0; y <= y1; y++) {
+        out.add(indexFromXY(x, y));
+      }
+    }
+    return out;
+  }
+
+  function computeTileMarqueeSelection(m: TileMarquee): Set<number> {
+    const r = rectFromCorners(m.startCssX, m.startCssY, m.curCssX, m.curCssY);
+    const inside = tileIndicesInsideCssRect(r);
     if (m.mode === 'replace') return inside;
     // eslint-disable-next-line svelte/prefer-svelte-reactivity
     const out = new Set(m.initial);
@@ -708,6 +868,34 @@
 
     if (modeState.mode !== 'paint') return;
 
+    if (paintState.tool === 'tile-select') {
+      if (e.button !== 0) return;
+      if (tileClipboardState.pasting && tileClipboardState.clip) {
+        const t = tileFromEvent(e);
+        if (!t) return;
+        const clip = tileClipboardState.clip;
+        const atX = t.x - ((clip.width - 1) >> 1);
+        const atY = t.y - ((clip.height - 1) >> 1);
+        const changes = pasteRegion(clip, atX, atY);
+        if (changes.length > 0) pushAction({ kind: 'tile', changes });
+        cancelPaste();
+        return;
+      }
+      const css = clientToCss(e);
+      const mode: MarqueeMode = e.shiftKey ? 'union' : e.altKey ? 'subtract' : 'replace';
+      canvas.setPointerCapture(e.pointerId);
+      tileMarquee = {
+        pointerId: e.pointerId,
+        startCssX: css.x,
+        startCssY: css.y,
+        curCssX: css.x,
+        curCssY: css.y,
+        mode,
+        initial: new Set(tileSelection.indices),
+      };
+      return;
+    }
+
     const c = tileFromEvent(e);
     if (!c) return;
 
@@ -750,15 +938,21 @@
       setPainting(true);
       return;
     }
-    brush = new BrushStrokeV2(
+    const stroke = new BrushStrokeV2(
       paintState.selectedTileHash,
       paintState.brushSize,
       paintState.brushShape,
       c.x,
       c.y,
       ugc,
+      paintState.brushRotationDeg,
     );
-    setPainting(true);
+    if (paintState.brushMode === 'stamp') {
+      stroke.end();
+    } else {
+      brush = stroke;
+      setPainting(true);
+    }
   }
 
   function onSinglePointerMove(e: PointerEvent): void {
@@ -778,6 +972,16 @@
       marquee.curCssY = css.y;
       const previewSet = computeMarqueeSelection(marquee);
       setSelection(previewSet);
+      schedulePaint();
+      return;
+    }
+
+    if (tileMarquee && e.pointerId === tileMarquee.pointerId) {
+      const css = clientToCss(e);
+      tileMarquee.curCssX = css.x;
+      tileMarquee.curCssY = css.y;
+      const previewSet = computeTileMarqueeSelection(tileMarquee);
+      setTileSelection(previewSet);
       schedulePaint();
       return;
     }
@@ -842,6 +1046,26 @@
         } else {
           const finalSet = computeMarqueeSelection(m);
           setSelection(finalSet);
+        }
+      }
+      schedulePaint();
+    }
+    if (tileMarquee && e.pointerId === tileMarquee.pointerId) {
+      const m = tileMarquee;
+      tileMarquee = null;
+      if (canvas.hasPointerCapture(e.pointerId)) {
+        canvas.releasePointerCapture(e.pointerId);
+      }
+      if (canceled) {
+        setTileSelection(m.initial);
+      } else {
+        const dragged =
+          Math.abs(m.curCssX - m.startCssX) > 2 || Math.abs(m.curCssY - m.startCssY) > 2;
+        if (!dragged && m.mode === 'replace') {
+          clearTileSelection();
+        } else {
+          const finalSet = computeTileMarqueeSelection(m);
+          setTileSelection(finalSet);
         }
       }
       schedulePaint();
@@ -1026,6 +1250,12 @@
       marquee = null;
       schedulePaint();
     }
+    if (tileMarquee) {
+      setTileSelection(tileMarquee.initial);
+      tileMarquee = null;
+      schedulePaint();
+    }
+    if (tileClipboardState.pasting) cancelPaste();
     if (objectDrag) objectDrag = null;
     if (groupDrag) groupDrag = null;
 
@@ -1145,6 +1375,14 @@
         canvas.releasePointerCapture(marquee.pointerId);
       }
       marquee = null;
+      schedulePaint();
+    }
+    if (tileMarquee) {
+      if (canvas.hasPointerCapture(tileMarquee.pointerId)) {
+        canvas.releasePointerCapture(tileMarquee.pointerId);
+      }
+      setTileSelection(tileMarquee.initial);
+      tileMarquee = null;
       schedulePaint();
     }
     if (groupDrag) {

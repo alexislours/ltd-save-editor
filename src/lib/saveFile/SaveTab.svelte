@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/_shared';
   import Card from '$lib/ui/Card.svelte';
   import FileDropZone from '$lib/saveFile/FileDropZone.svelte';
   import { clearSave, getSave } from '$lib/saveFile/saveFile.svelte';

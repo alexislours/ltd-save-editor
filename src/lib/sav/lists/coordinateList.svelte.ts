@@ -12,6 +12,8 @@ type CoordinateSlots = {
   All: number;
 };
 
+export type CoordinateSlotKey = keyof CoordinateSlots;
+
 export type Coordinate = {
   name: string;
   keyHash: number;

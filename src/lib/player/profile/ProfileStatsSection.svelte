@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
   import { bindLeaf } from '$lib/sav/bindLeaf.svelte';
   import { enumOptionsFor } from '$lib/sav/knownKeys';
   import { player } from '$lib/sav/schema';

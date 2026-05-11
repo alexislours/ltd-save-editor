@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/_shared';
+  import { locale } from 'svelte-i18n';
+  import { get } from 'svelte/store';
   import { track } from '$lib/analytics';
   import { LOCALES, setAppLocale, type AppLocale } from '$lib/i18n/i18n';
 
@@ -27,8 +29,14 @@
     LOCALES.map((tag) => [tag, describe(tag)]),
   );
 
+  function initialLocale(): AppLocale {
+    const current = get(locale);
+    if (current && LOCALES.includes(current)) return current;
+    return LOCALES[0];
+  }
+
   let open = $state(false);
-  let currentValue = $state<AppLocale>(LOCALES[0]);
+  let currentValue = $state<AppLocale>(initialLocale());
 
   $effect(() => {
     const unsub = locale.subscribe((v) => {

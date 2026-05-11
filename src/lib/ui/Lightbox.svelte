@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/_shared';
   import { closeLightbox, lightbox } from '$lib/ui/lightboxState.svelte';
 
   let dialog: HTMLDialogElement | undefined = $state();

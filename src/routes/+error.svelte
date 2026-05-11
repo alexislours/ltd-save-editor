@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
   import { page } from '$app/state';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/_shared';
 
   const status = $derived(page.status);
   const isNotFound = $derived(status === 404);

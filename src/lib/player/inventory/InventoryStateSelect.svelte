@@ -1,8 +1,10 @@
 <script lang="ts">
   import { untrack } from 'svelte';
+  import { _ } from 'virtual:i18n/player+advanced';
   import { INPUT_CLASS } from '$lib/ui/styles';
   import EnumSelect from '$lib/ui/fields/EnumSelect.svelte';
-  import { OBTAINED_HASH, STATE_OPTIONS } from './stateOptions';
+  import type { EnumOption } from '$lib/sav/knownKeys';
+  import { OBTAINED_HASH, STATE_OPTIONS, type StateName } from './stateOptions';
 
   type Props = {
     value: number;
@@ -10,6 +12,10 @@
   };
 
   let { value, onChange }: Props = $props();
+
+  function stateLabel(opt: EnumOption): string {
+    return $_(`player.inventory.state.${opt.name as StateName}`);
+  }
 
   let pulseToken = $state(0);
   let prev = untrack(() => value >>> 0);
@@ -29,7 +35,7 @@
     {onChange}
     options={STATE_OPTIONS}
     selectClass="{INPUT_CLASS} w-32 text-xs"
-    i18nPrefix="player.inventory.state"
+    labelFor={stateLabel}
   />
   {#key pulseToken}
     {#if pulseToken > 0}

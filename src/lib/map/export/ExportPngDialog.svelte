@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { mapState } from '$lib/map/state/mapEditor.svelte';
   import { downloadBlob } from '$lib/sav/download';
   import { showToast } from '$lib/toast/toast.svelte';
@@ -73,27 +73,27 @@
     return /\.png$/i.test(n) ? n : `${n}.png`;
   }
 
-  const SCALES: { v: 1 | 2 | 4 | 8; key: string }[] = [
+  const SCALES = [
     { v: 1, key: 'map.export.scale_1x' },
     { v: 2, key: 'map.export.scale_2x' },
     { v: 4, key: 'map.export.scale_4x' },
     { v: 8, key: 'map.export.scale_8x' },
-  ];
+  ] as const satisfies readonly { v: 1 | 2 | 4 | 8; key: string }[];
 
-  const BG_OPTIONS: { v: ExportBackground; key: string }[] = [
+  const BG_OPTIONS = [
     { v: 'dark', key: 'map.export.bg_dark' },
     { v: 'light', key: 'map.export.bg_light' },
     { v: 'transparent', key: 'map.export.bg_transparent' },
-  ];
+  ] as const satisfies readonly { v: ExportBackground; key: string }[];
 
-  const LAYER_KEYS: { id: keyof ExportPngLayers; label: string }[] = [
+  const LAYER_KEYS = [
     { id: 'floor', label: 'map.toolbar.layer_floor' },
     { id: 'objects', label: 'map.toolbar.layer_objects' },
     { id: 'fence', label: 'map.toolbar.layer_fence' },
     { id: 'ugc', label: 'map.toolbar.layer_ugc' },
     { id: 'diff', label: 'map.toolbar.layer_diff' },
     { id: 'grid', label: 'map.toolbar.layer_grid' },
-  ];
+  ] as const satisfies readonly { id: keyof ExportPngLayers; label: string }[];
 </script>
 
 <dialog

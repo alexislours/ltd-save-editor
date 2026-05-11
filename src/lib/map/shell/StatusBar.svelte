@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { floorTiles, indexFromXY } from '$lib/map/state/mapEditor.svelte';
   import { mapSave } from '$lib/map/state/mapSave.svelte';
-  import { tileLabelForHash } from '$lib/map/tiles/tiles';
+  import { tileKeyForHash } from '$lib/map/tiles/tiles';
+  import { hexU32 } from '$lib/sav/format';
   import { selection } from '../tools/selection.svelte';
+  import { tileSelection } from '../tools/tileSelection.svelte';
   import { floorBaseline } from '../state/baseline.svelte';
   import { layers } from '../state/layers.svelte';
 
@@ -15,12 +17,17 @@
 
   let { hover }: Props = $props();
 
-  const tileLabel = $derived.by(() => {
+  function tileLabel(hash: number): string {
+    const key = tileKeyForHash(hash);
+    return key ? $_(key) : hexU32(hash);
+  }
+
+  const hoverTileLabel = $derived.by(() => {
     if (!hover) return null;
     const tiles = floorTiles();
     if (!tiles) return null;
     const hash = tiles[indexFromXY(hover.x, hover.y)] >>> 0;
-    return tileLabelForHash(hash, $_);
+    return tileLabel(hash);
   });
 
   const diffInfo = $derived.by(() => {
@@ -34,8 +41,8 @@
     const base = baseline[idx] >>> 0;
     if (cur === base) return null;
     return {
-      was: tileLabelForHash(base, $_),
-      now: tileLabelForHash(cur, $_),
+      was: tileLabel(base),
+      now: tileLabel(cur),
     };
   });
 </script>
@@ -52,8 +59,8 @@
       <span class="text-content-muted">Y</span>
       <span class="text-content-strong">{hover.y}</span>
     </span>
-    {#if tileLabel}
-      <span class="font-mono text-[11px] text-content-strong">{tileLabel}</span>
+    {#if hoverTileLabel}
+      <span class="font-mono text-[11px] text-content-strong">{hoverTileLabel}</span>
     {/if}
     {#if hover.ugcIndex !== undefined}
       <span class="font-mono text-[11px] text-content-strong">
@@ -85,6 +92,16 @@
   {#if selection.indices.size > 0}
     <span class="ml-auto font-mono text-[11px] text-content-strong">
       · {$_('map.status.selected', { values: { count: selection.indices.size } })}
+    </span>
+  {/if}
+  {#if tileSelection.indices.size > 0}
+    <span
+      class={[
+        'font-mono text-[11px] text-content-strong',
+        selection.indices.size === 0 && 'ml-auto',
+      ]}
+    >
+      · {$_('map.status.tiles_selected', { values: { count: tileSelection.indices.size } })}
     </span>
   {/if}
 </footer>

@@ -5,7 +5,7 @@ export type TileDef = {
   internal?: boolean;
 };
 
-export const TILE_DEFS: readonly TileDef[] = [
+const TILE_DEFS_RAW = [
   { hash: 0x5e52f4de, code: 'Archstone', color: '#e0dfdc' },
   { hash: 0x91dfa1ea, code: 'Archstone_Road', color: '#d6d5d2' },
   { hash: 0xd7e5e4e0, code: 'Asphalt', color: '#393c40' },
@@ -45,7 +45,13 @@ export const TILE_DEFS: readonly TileDef[] = [
   { hash: 0xb53f5f3d, code: 'Seaside', color: '#6A9B7A', internal: true },
   { hash: 0x17ee09e8, code: 'RoomInvalid', color: '#FF00FF', internal: true },
   { hash: 0x69fff2f1, code: 'UGC', color: '#ffffff', internal: true },
-];
+] as const satisfies readonly TileDef[];
+
+export const TILE_DEFS: readonly TileDef[] = TILE_DEFS_RAW;
+
+export const GRASS_HASH = 0xff4ae68a >>> 0;
+type TileName = (typeof TILE_DEFS_RAW)[number]['code'];
+export type TileLabelKey = `map.tile.${TileName}`;
 
 const UNKNOWN_TILE_COLOR = '#FF00FF';
 
@@ -59,12 +65,9 @@ export function tileColorForHash(hash: number): string {
   return tileDefForHash(hash)?.color ?? UNKNOWN_TILE_COLOR;
 }
 
-type TileTranslator = (key: string) => string;
-
-export function tileLabelForHash(hash: number, t: TileTranslator): string {
+export function tileKeyForHash(hash: number): TileLabelKey | null {
   const def = tileDefForHash(hash);
-  if (!def) return `0x${(hash >>> 0).toString(16).padStart(8, '0')}`;
-  return t(`map.tile.${def.code}`);
+  return def ? (`map.tile.${def.code}` as TileLabelKey) : null;
 }
 
 export function packColorRGBA(color: string): number {

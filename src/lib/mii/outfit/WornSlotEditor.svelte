@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
   import { FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
 
   export type WornOption = { keyHash: number; label: string };

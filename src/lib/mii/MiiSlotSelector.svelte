@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
   import { safe } from '$lib/sav/format';
   import { MII_SCHEMA } from '$lib/sav/schema';
   import { showToast } from '$lib/toast/toast.svelte';

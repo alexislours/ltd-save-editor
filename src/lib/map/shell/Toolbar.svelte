@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { MAP_TILE_COUNT } from '$lib/map/state/mapEditor.svelte';
   import {
     LAYER_ORDER,
@@ -15,13 +15,43 @@
   } from '../state/layers.svelte';
   import {
     paintState,
+    setBrushMode,
+    setBrushRotation,
     setBrushShape,
     setBrushSize,
     setPaintTool,
+    type BrushMode,
     type PaintTool,
   } from '../tools/paintState.svelte';
-  import { BRUSH_SIZE_MAX, BRUSH_SIZE_MIN, type BrushShape } from '../tools/brushKernel';
+  import {
+    BRUSH_ROTATIONS,
+    BRUSH_SHAPES,
+    BRUSH_SIZE_MAX,
+    BRUSH_SIZE_MIN,
+    SHAPE_GEOMETRY,
+    SHAPE_VIEWBOX,
+    type BrushRotation,
+    type BrushShape,
+  } from '../tools/brushKernel';
   import { getBindingFor, openHelp, type KeyAction } from '../input/keymap.svelte';
+  import { pushAction } from '$lib/map/state/history.svelte';
+  import { showToast } from '$lib/toast/toast.svelte';
+  import { t } from '$lib/i18n/format';
+  import { clearTileSelection, tileSelection } from '../tools/tileSelection.svelte';
+  import {
+    cancelPaste,
+    setClipboard,
+    startPaste,
+    tileClipboardState,
+  } from '../tools/tileClipboard.svelte';
+  import {
+    copyRegion,
+    cutRegion,
+    eraseRegion,
+    mirrorX,
+    mirrorY,
+    rotateCW,
+  } from '../tools/tileRegionOps';
   import { modifiedFloorCount } from '../state/baseline.svelte';
   import ExportPngDialog from '../export/ExportPngDialog.svelte';
   import ExportShareDialog from '../share/ExportShareDialog.svelte';
@@ -35,7 +65,7 @@
     return b ? `${title} - ${b}` : title;
   }
 
-  const TOOLS: { id: PaintTool; labelKey: string; titleKey: string; action: KeyAction | null }[] = [
+  const TOOLS = [
     {
       id: 'brush',
       labelKey: 'map.toolbar.tool_brush',
@@ -66,15 +96,37 @@
       titleKey: 'map.toolbar.tool_replace_title',
       action: 'tool.replace',
     },
-  ];
+    {
+      id: 'tile-select',
+      labelKey: 'map.toolbar.tool_tile_select',
+      titleKey: 'map.toolbar.tool_tile_select_title',
+      action: 'tool.tileSelect',
+    },
+  ] as const satisfies readonly {
+    id: PaintTool;
+    labelKey: string;
+    titleKey: string;
+    action: KeyAction | null;
+  }[];
 
-  const BRUSH_SHAPES: { id: BrushShape; titleKey: string }[] = [
-    { id: 'square', titleKey: 'map.toolbar.shape_square_title' },
-    { id: 'diamond', titleKey: 'map.toolbar.shape_diamond_title' },
-    { id: 'circle', titleKey: 'map.toolbar.shape_circle_title' },
-  ];
+  const BRUSH_MODES = [
+    {
+      id: 'stroke',
+      labelKey: 'map.toolbar.brush_mode_stroke',
+      titleKey: 'map.toolbar.brush_mode_stroke_title',
+    },
+    {
+      id: 'stamp',
+      labelKey: 'map.toolbar.brush_mode_stamp',
+      titleKey: 'map.toolbar.brush_mode_stamp_title',
+    },
+  ] as const satisfies readonly { id: BrushMode; labelKey: string; titleKey: string }[];
 
-  const MODES: { id: Mode; labelKey: string; titleKey: string; action: KeyAction | null }[] = [
+  function polygonPointsAttr(points: readonly (readonly [number, number])[]): string {
+    return points.map(([x, y]) => `${x},${y}`).join(' ');
+  }
+
+  const MODES = [
     {
       id: 'paint',
       labelKey: 'map.toolbar.mode_paint',
@@ -87,9 +139,14 @@
       titleKey: 'map.toolbar.mode_select_title',
       action: 'mode.select',
     },
-  ];
+  ] as const satisfies readonly {
+    id: Mode;
+    labelKey: string;
+    titleKey: string;
+    action: KeyAction | null;
+  }[];
 
-  const LAYER_LABEL_KEYS: Record<LayerKey, string> = {
+  const LAYER_LABEL_KEYS = {
     floor: 'map.toolbar.layer_floor',
     objects: 'map.toolbar.layer_objects',
     fence: 'map.toolbar.layer_fence',
@@ -97,7 +154,8 @@
     diff: 'map.toolbar.layer_diff',
     grid: 'map.toolbar.layer_grid',
     tier: 'map.toolbar.layer_tier',
-  };
+    preview: 'map.toolbar.layer_preview',
+  } as const satisfies Record<LayerKey, string>;
 
   const tierLayerAvailable = $derived.by(() => {
     void playerState.loadId;
@@ -229,6 +287,27 @@
   });
 </script>
 
+{#snippet shapeIcon(shape: BrushShape, rotation: BrushRotation, klass: string)}
+  {@const g = SHAPE_GEOMETRY[shape]}
+  <svg
+    class={klass}
+    viewBox={`0 0 ${SHAPE_VIEWBOX} ${SHAPE_VIEWBOX}`}
+    style:transform={rotation === 0 ? undefined : `rotate(${rotation}deg)`}
+    style:transform-origin="center"
+    aria-hidden="true"
+  >
+    {#if g.kind === 'rect'}
+      <rect x={g.x} y={g.y} width={g.w} height={g.h} fill="currentColor" />
+    {:else if g.kind === 'circle'}
+      <circle cx={g.cx} cy={g.cy} r={g.r} fill="currentColor" />
+    {:else if g.kind === 'polygon'}
+      <polygon points={polygonPointsAttr(g.points)} fill="currentColor" />
+    {:else if g.kind === 'path'}
+      <path d={g.d} fill-rule={g.fillRule ?? 'nonzero'} fill="currentColor" />
+    {/if}
+  </svg>
+{/snippet}
+
 <div
   bind:this={toolbarEl}
   class="row-start-1 col-span-3 relative z-20 flex h-11 pointer-coarse:h-14 items-center gap-3 pointer-coarse:gap-3 px-3 bg-surface/90 ring-1 ring-edge/60 backdrop-blur-sm"
@@ -331,11 +410,230 @@
               <path d="m3 7 3 3 3-3" />
               <path d="M6 10V5a2 2 0 0 1 2-2h2" />
               <rect x="3" y="14" width="7" height="7" rx="1" />
+            {:else if t.id === 'tile-select'}
+              <path d="M3 3h4" />
+              <path d="M9 3h2" />
+              <path d="M13 3h2" />
+              <path d="M17 3h4v4" />
+              <path d="M21 9v2" />
+              <path d="M21 13v2" />
+              <path d="M21 17v4h-4" />
+              <path d="M15 21h-2" />
+              <path d="M11 21H9" />
+              <path d="M7 21H3v-4" />
+              <path d="M3 15v-2" />
+              <path d="M3 11V9" />
             {/if}
           </svg>
         </button>
       {/each}
     </div>
+
+    {#if paintState.tool === 'tile-select'}
+      {@const hasSel = tileSelection.indices.size > 0}
+      {@const hasClip = tileClipboardState.clip != null}
+      {@const pasting = tileClipboardState.pasting}
+      <div class="inline-flex overflow-hidden rounded-full ring-1 ring-edge/60">
+        <button
+          type="button"
+          class="flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center transition-colors bg-surface text-content hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+          disabled={!hasSel}
+          aria-label={$_('map.toolbar.tile_copy')}
+          title={$_('map.toolbar.tile_copy_title')}
+          onclick={() => {
+            const count = tileSelection.indices.size;
+            const clip = copyRegion(tileSelection.indices);
+            if (clip) {
+              setClipboard(clip);
+              showToast('success', t('map.toast.tile_copied', { values: { count } }));
+            }
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center border-l border-edge/60 transition-colors bg-surface text-content hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+          disabled={!hasSel}
+          aria-label={$_('map.toolbar.tile_cut')}
+          title={$_('map.toolbar.tile_cut_title')}
+          onclick={() => {
+            const count = tileSelection.indices.size;
+            const result = cutRegion(tileSelection.indices);
+            if (result.clip) setClipboard(result.clip);
+            if (result.changes.length > 0) pushAction({ kind: 'tile', changes: result.changes });
+            if (result.clip) showToast('success', t('map.toast.tile_cut', { values: { count } }));
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="6" cy="6" r="3" />
+            <path d="M8.12 8.12 12 12" />
+            <path d="M20 4 8.12 15.88" />
+            <circle cx="6" cy="18" r="3" />
+            <path d="M14.8 14.8 20 20" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class={[
+            'flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center border-l border-edge/60 transition-colors disabled:opacity-40 disabled:hover:bg-surface',
+            pasting
+              ? 'bg-orange-500 text-white hover:bg-orange-600'
+              : 'bg-surface text-content hover:bg-surface-muted',
+          ]}
+          disabled={!hasClip}
+          aria-label={$_('map.toolbar.tile_paste')}
+          aria-pressed={pasting}
+          title={pasting
+            ? $_('map.toolbar.tile_paste_cancel_title')
+            : $_('map.toolbar.tile_paste_title')}
+          onclick={() => {
+            if (pasting) cancelPaste();
+            else startPaste();
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+          </svg>
+        </button>
+      </div>
+      <div class="inline-flex overflow-hidden rounded-full ring-1 ring-edge/60">
+        <button
+          type="button"
+          class="flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center transition-colors bg-surface text-content hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+          disabled={!hasClip}
+          aria-label={$_('map.toolbar.tile_mirror_x')}
+          title={$_('map.toolbar.tile_mirror_x_title')}
+          onclick={() => {
+            if (tileClipboardState.clip) setClipboard(mirrorX(tileClipboardState.clip));
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 3v18" stroke-dasharray="2 2" />
+            <path d="M3 7l6 5-6 5V7z" fill="currentColor" />
+            <path d="M21 7l-6 5 6 5V7z" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center border-l border-edge/60 transition-colors bg-surface text-content hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+          disabled={!hasClip}
+          aria-label={$_('map.toolbar.tile_mirror_y')}
+          title={$_('map.toolbar.tile_mirror_y_title')}
+          onclick={() => {
+            if (tileClipboardState.clip) setClipboard(mirrorY(tileClipboardState.clip));
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M3 12h18" stroke-dasharray="2 2" />
+            <path d="M7 3l5 6 5-6H7z" fill="currentColor" />
+            <path d="M7 21l5-6 5 6H7z" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center border-l border-edge/60 transition-colors bg-surface text-content hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+          disabled={!hasClip}
+          aria-label={$_('map.toolbar.tile_rotate')}
+          title={$_('map.toolbar.tile_rotate_title')}
+          onclick={() => {
+            if (tileClipboardState.clip) setClipboard(rotateCW(tileClipboardState.clip));
+          }}
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+            <path d="M21 3v5h-5" />
+          </svg>
+        </button>
+      </div>
+      <button
+        type="button"
+        class="inline-flex h-8 w-9 pointer-coarse:h-12 pointer-coarse:w-12 items-center justify-center rounded-full transition-colors ring-1 ring-edge/60 bg-surface text-danger hover:bg-surface-muted disabled:opacity-40 disabled:hover:bg-surface"
+        disabled={!hasSel}
+        aria-label={$_('map.toolbar.tile_erase')}
+        title={$_('map.toolbar.tile_erase_title')}
+        onclick={() => {
+          const changes = eraseRegion(tileSelection.indices);
+          if (changes.length > 0) pushAction({ kind: 'tile', changes });
+          clearTileSelection();
+        }}
+      >
+        <svg
+          class="h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"
+          />
+          <path d="M22 21H7" />
+          <path d="m5 11 9 9" />
+        </svg>
+      </button>
+    {/if}
 
     {#if paintState.tool === 'brush'}
       <div class="relative">
@@ -349,19 +647,7 @@
           onclick={toggleBrush}
         >
           <span class="flex h-4 w-4 items-center justify-center text-content" aria-hidden="true">
-            {#if paintState.brushShape === 'square'}
-              <svg class="h-3.5 w-3.5" viewBox="0 0 16 16">
-                <rect x="3" y="3" width="10" height="10" fill="currentColor" />
-              </svg>
-            {:else if paintState.brushShape === 'diamond'}
-              <svg class="h-3.5 w-3.5" viewBox="0 0 16 16">
-                <polygon points="8,2 14,8 8,14 2,8" fill="currentColor" />
-              </svg>
-            {:else}
-              <svg class="h-3.5 w-3.5" viewBox="0 0 16 16">
-                <circle cx="8" cy="8" r="5.5" fill="currentColor" />
-              </svg>
-            {/if}
+            {@render shapeIcon(paintState.brushShape, paintState.brushRotationDeg, 'h-3.5 w-3.5')}
           </span>
           <span class="tabular-nums">{paintState.brushSize}px</span>
           <svg
@@ -383,7 +669,7 @@
             bind:this={brushPopoverEl}
             role="dialog"
             aria-label={$_('map.toolbar.brush_picker_title')}
-            class="absolute left-0 top-[calc(100%+6px)] z-30 w-[260px] rounded-2xl bg-surface ring-1 ring-edge/60 shadow-lg p-3 flex flex-col gap-3"
+            class="absolute left-0 top-[calc(100%+6px)] z-30 w-[280px] rounded-2xl bg-surface ring-1 ring-edge/60 shadow-lg p-3 flex flex-col gap-3"
           >
             <div class="flex items-center justify-between gap-3">
               <label
@@ -426,35 +712,94 @@
               <div class="text-xs font-bold uppercase tracking-wide text-content-muted mb-1.5">
                 {$_('map.toolbar.brush_shape_label')}
               </div>
+              <div class="grid grid-cols-5 gap-1">
+                {#each BRUSH_SHAPES as s (s.id)}
+                  <button
+                    type="button"
+                    class={[
+                      'flex aspect-square items-center justify-center rounded-md ring-1 transition-colors',
+                      paintState.brushShape === s.id
+                        ? 'bg-orange-500 text-white ring-orange-500'
+                        : 'bg-surface text-content ring-edge/60 hover:bg-surface-muted',
+                    ]}
+                    aria-pressed={paintState.brushShape === s.id}
+                    aria-label={$_(s.labelKey)}
+                    title={$_(s.labelKey)}
+                    onclick={() => setBrushShape(s.id)}
+                  >
+                    {@render shapeIcon(s.id, 0, 'h-5 w-5')}
+                  </button>
+                {/each}
+              </div>
+            </div>
+
+            <div class="border-t border-edge/60 pt-3">
+              <div class="text-xs font-bold uppercase tracking-wide text-content-muted mb-1.5">
+                {$_('map.toolbar.brush_mode_label')}
+              </div>
               <div class="inline-flex w-full overflow-hidden rounded-md ring-1 ring-edge/60">
-                {#each BRUSH_SHAPES as s, i (s.id)}
+                {#each BRUSH_MODES as m, i (m.id)}
                   <button
                     type="button"
                     class={[
                       'flex flex-1 h-9 items-center justify-center transition-colors',
                       i > 0 && 'border-l border-edge/60',
-                      paintState.brushShape === s.id
+                      paintState.brushMode === m.id
                         ? 'bg-orange-500 text-white'
                         : 'bg-surface text-content hover:bg-surface-muted',
                     ]}
-                    aria-pressed={paintState.brushShape === s.id}
-                    aria-label={$_(s.titleKey)}
-                    title={$_(s.titleKey)}
-                    onclick={() => setBrushShape(s.id)}
+                    aria-pressed={paintState.brushMode === m.id}
+                    aria-label={$_(m.labelKey)}
+                    title={$_(m.titleKey)}
+                    onclick={() => setBrushMode(m.id)}
                   >
-                    {#if s.id === 'square'}
-                      <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" aria-hidden="true">
-                        <rect x="3" y="3" width="10" height="10" fill="currentColor" />
-                      </svg>
-                    {:else if s.id === 'diamond'}
-                      <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" aria-hidden="true">
-                        <polygon points="8,2 14,8 8,14 2,8" fill="currentColor" />
-                      </svg>
-                    {:else}
-                      <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" aria-hidden="true">
-                        <circle cx="8" cy="8" r="5.5" fill="currentColor" />
-                      </svg>
-                    {/if}
+                    <svg
+                      class="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      {#if m.id === 'stroke'}
+                        <path d="M3 17c2.5 0 2.5-4 5-4s2.5 4 5 4 2.5-4 5-4 2.5 4 5 4" />
+                      {:else}
+                        <path d="M5 22h14" />
+                        <path
+                          d="M19.27 13.73A2.5 2.5 0 0 0 17.5 13h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1.5c0-.66-.26-1.3-.73-1.77Z"
+                        />
+                        <path
+                          d="M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-3-3c-1.66 0-3 1-3 3s1 2 1 3.5V13"
+                        />
+                      {/if}
+                    </svg>
+                  </button>
+                {/each}
+              </div>
+            </div>
+
+            <div class="border-t border-edge/60 pt-3">
+              <div class="text-xs font-bold uppercase tracking-wide text-content-muted mb-1.5">
+                {$_('map.toolbar.brush_rotation_label')}
+              </div>
+              <div class="inline-flex w-full overflow-hidden rounded-md ring-1 ring-edge/60">
+                {#each BRUSH_ROTATIONS as deg, i (deg)}
+                  <button
+                    type="button"
+                    class={[
+                      'flex flex-1 h-9 items-center justify-center text-sm font-bold tabular-nums transition-colors',
+                      i > 0 && 'border-l border-edge/60',
+                      paintState.brushRotationDeg === deg
+                        ? 'bg-orange-500 text-white'
+                        : 'bg-surface text-content hover:bg-surface-muted',
+                    ]}
+                    aria-pressed={paintState.brushRotationDeg === deg}
+                    title={`${deg}°`}
+                    onclick={() => setBrushRotation(deg)}
+                  >
+                    {deg}°
                   </button>
                 {/each}
               </div>

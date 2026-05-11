@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/_shared';
   import { track } from '$lib/analytics';
   import { exportAllSaves, loadedKinds } from '$lib/bulk/bulkExport';
   import { bulkLoadFiles } from '$lib/bulk/bulkLoader.svelte';

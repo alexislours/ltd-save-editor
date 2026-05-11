@@ -1,6 +1,6 @@
 <script lang="ts">
   import { untrack } from 'svelte';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
   import { browser } from '$app/environment';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
   import { track } from '$lib/analytics';

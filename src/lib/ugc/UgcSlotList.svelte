@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/ugc_editor+content_kinds';
   import type { SidecarSource, UgcKind } from '$lib/shareMii';
   import { isSlotEdited, type UgcRow } from './ugcEditorPage';
   import UgcSlotRow from './UgcSlotRow.svelte';

@@ -22,6 +22,8 @@ Translations live in `messages/<locale>.json`. `en-US` is the source of truth; l
 3. **Translate.** Edit the values.
 4. **Verify.** Run `npm run i18n:check`, then `npm run dev` and pick the new language from the switcher.
 
+If a language ships in multiple regional editions of the game (e.g. Spanish exists as both `USes` and `EUes`), you can offer both without duplicating the translation file. Add an alias to `aliases` in `tools/i18n-config.ts` (e.g. `'es-US': 'es-EU'`) and a UI-to-game mapping in `src/lib/sav/gameLocale.ts` (`'es-US': 'USes'`). Both tags then appear in the switcher, share the same UI strings, but pull region-specific game content.
+
 ## Credits
 
 - [tlmodding/living-the-dream-save-editor](https://github.com/tlmodding/living-the-dream-save-editor) - For the base structure of the save file

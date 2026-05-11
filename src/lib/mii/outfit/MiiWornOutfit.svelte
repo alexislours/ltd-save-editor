@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
+  import { locale } from 'svelte-i18n';
   import {
     allCloths,
     type Cloth,
@@ -9,6 +10,7 @@
   import {
     allCoordinates,
     type Coordinate,
+    type CoordinateSlotKey,
     coordinateByKey,
     coordinateImageUrl,
     coordinateLabel,
@@ -272,12 +274,15 @@
     };
   }
 
-  type CoordPiece = { slotKey: string; cloth: Cloth | null; keyHash: number };
+  type CoordPiece = { slotKey: CoordinateSlotKey; cloth: Cloth | null; keyHash: number };
 
   const coordPieces = $derived.by<CoordPiece[]>(() => {
     if (!currentCoordinate) return [];
     const out: CoordPiece[] = [];
-    for (const [slotKey, keyHash] of Object.entries(currentCoordinate.pieces)) {
+    for (const [slotKey, keyHash] of Object.entries(currentCoordinate.pieces) as [
+      CoordinateSlotKey,
+      number,
+    ][]) {
       const h = (keyHash >>> 0) | 0;
       if (h === 0) continue;
       out.push({
@@ -387,9 +392,7 @@
               {#each coordPieces as piece (piece.slotKey)}
                 <li class="flex items-center gap-2 rounded bg-surface-muted px-2 py-1 text-xs">
                   <span class="font-bold text-content-faint">
-                    {$_(`mii.belongings.worn_slot.${piece.slotKey}`, {
-                      default: piece.slotKey,
-                    })}
+                    {$_(`mii.belongings.worn_slot.${piece.slotKey}`)}
                   </span>
                   {#if piece.cloth}
                     <img

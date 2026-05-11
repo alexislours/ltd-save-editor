@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/faq';
   import Card from '$lib/ui/Card.svelte';
   import RouteMeta from '$lib/layout/RouteMeta.svelte';
 

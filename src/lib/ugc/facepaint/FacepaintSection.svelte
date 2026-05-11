@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, untrack } from 'svelte';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/ugc_editor+content_kinds';
   import { downloadBytes } from '$lib/sav/download';
   import { errorMessage } from '$lib/errorMessage';
   import { buildSidecarZip, type SidecarFile } from '$lib/shareMii';

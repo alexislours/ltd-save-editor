@@ -6,7 +6,7 @@
   import { page } from '$app/state';
   import { PUBLIC_SITE_URL } from '$env/static/public';
   import type { Snippet } from 'svelte';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/_shared';
   import { track } from '$lib/analytics';
   import BulkModals from '$lib/bulk/BulkModals.svelte';
   import { CHANGELOG } from '$lib/changelog/changelog';

@@ -1,4 +1,5 @@
 import { DataType } from '$lib/sav/dataType';
+import type { I18nKey } from '$gen/i18n-keys';
 import { MII_SCHEMA } from '$lib/sav/schema';
 import type { SchemaLeaf } from '$lib/sav/schema/leaf';
 
@@ -6,11 +7,31 @@ type MiiFieldKind = 'string' | 'uint' | 'int' | 'enum' | 'binary';
 
 type MiiFieldPresentation = 'input' | 'slider';
 
+type MiiFieldsLeaf = I18nKey extends infer K
+  ? K extends `mii.fields.${infer Leaf}`
+    ? Leaf
+    : never
+  : never;
+
+type MiiFieldLabel = Exclude<MiiFieldsLeaf, `${string}_hint`>;
+type MiiHintKey = Extract<MiiFieldsLeaf, `${string}_hint`>;
+
+type MiiSectionTitle =
+  | 'level'
+  | 'identity'
+  | 'wallet'
+  | 'birthday'
+  | 'personality'
+  | 'mood'
+  | 'food';
+
+type MiiSpoilerCaption = 'food';
+
 export type MiiField = {
-  labelKey: string;
+  labelKey: MiiFieldLabel;
   leaf: SchemaLeaf;
   kind: MiiFieldKind;
-  hintKey?: string;
+  hintKey?: MiiHintKey;
   min?: number;
   max?: number;
   displayOffset?: number;
@@ -18,11 +39,11 @@ export type MiiField = {
 };
 
 type MiiSection = {
-  titleKey: string;
-  descriptionKey?: string;
+  titleKey: MiiSectionTitle;
   fields: MiiField[];
   spoilerFields?: MiiField[];
   postSpoilerFields?: MiiField[];
+  spoilerCaptionKey?: MiiSpoilerCaption;
 };
 
 const STRING_ARRAY_TYPES: ReadonlySet<DataType> = new Set([
@@ -58,7 +79,7 @@ function validateKind(kind: MiiFieldKind, type: DataType): void {
 }
 
 function f(
-  labelKey: string,
+  labelKey: MiiFieldLabel,
   leaf: SchemaLeaf,
   kind: MiiFieldKind,
   extras: Partial<
@@ -157,6 +178,7 @@ export const MII_SECTIONS: MiiSection[] = [
   },
   {
     titleKey: 'food',
+    spoilerCaptionKey: 'food',
     fields: [
       f('eat_fullness', MII_SCHEMA.Mii.MiiMisc.EatInfo.EatFullness, 'int', {
         min: 0,

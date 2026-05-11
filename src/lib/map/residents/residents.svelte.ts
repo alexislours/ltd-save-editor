@@ -1,6 +1,12 @@
-import { isHouseActor, roomCountForActor } from '$lib/map/actors/actors';
+import { HOUSE_DOLL_HOUSE_ACTOR, isHouseActor, roomCountForActor } from '$lib/map/actors/actors';
 import { mapSave } from '$lib/map/state/mapSave.svelte';
-import { clearSlot, liveRows, snapshot } from '$lib/map/state/mapObjectsEditor.svelte';
+import {
+  clearSlot,
+  getRow,
+  liveRows,
+  setActor,
+  snapshot,
+} from '$lib/map/state/mapObjectsEditor.svelte';
 import { pushAction } from '$lib/map/state/history.svelte';
 import { miiAccessor, miiState, syncFromSave as syncMiiSave } from '$lib/mii/miiEditor.svelte';
 import { populatedMiiIndices } from '$lib/mii/ownership/populated';
@@ -303,6 +309,25 @@ export function emptyHouses(): EmptyHouse[] {
   return out;
 }
 
+export type UnderfilledDollHouse = {
+  index: number;
+  mapId: number;
+  residents: number;
+};
+
+export function underfilledDollHouses(): UnderfilledDollHouse[] {
+  void state.rev;
+  const out: UnderfilledDollHouse[] = [];
+  for (const r of liveRows()) {
+    if (r.actor >>> 0 !== HOUSE_DOLL_HOUSE_ACTOR) continue;
+    if (r.link < 0) continue;
+    const count = residentsForHouse(r.link).length;
+    if (count === 0 || count >= 2) continue;
+    out.push({ index: r.index, mapId: r.link, residents: count });
+  }
+  return out;
+}
+
 export type HouseSummary = {
   mapId: number;
   roomCount: number;
@@ -327,6 +352,61 @@ export function allHouses(): HouseSummary[] {
   }
   out.sort((a, b) => a.mapId - b.mapId);
   return out;
+}
+
+export type HouseConvertResult = {
+  ok: boolean;
+  reseated: number;
+  evicted: number;
+};
+
+export function convertHouseActor(rowIndex: number, targetActorHash: number): HouseConvertResult {
+  const fail: HouseConvertResult = { ok: false, reseated: 0, evicted: 0 };
+  const row = getRow(rowIndex);
+  if (!row) return fail;
+  const target = targetActorHash >>> 0;
+  if (row.actor >>> 0 === target) return fail;
+  if (!isHouseActor(target)) return fail;
+  const newCount = roomCountForActor(target);
+  if (newCount <= 0) return fail;
+
+  const before = snapshot(rowIndex);
+  if (!before) return fail;
+
+  let reseated = 0;
+  let evicted = 0;
+  let miiChanged = false;
+  if (row.link >= 0) {
+    const list = residentsForHouse(row.link);
+    for (let i = 0; i < list.length; i++) {
+      const r = list[i];
+      if (i < newCount) {
+        if (r.roomIndex !== i) {
+          if (writeLocation(r.miiIndex, row.link, i)) {
+            miiChanged = true;
+            reseated++;
+          }
+        }
+      } else {
+        if (writeLocation(r.miiIndex, -1, -1)) {
+          miiChanged = true;
+          evicted++;
+        }
+      }
+    }
+  }
+
+  if (!setActor(rowIndex, target)) {
+    if (miiChanged) bump();
+    return { ok: miiChanged, reseated, evicted };
+  }
+
+  const after = snapshot(rowIndex);
+  if (after) {
+    pushAction({ kind: 'object', changes: [{ index: rowIndex, before, after }] });
+  }
+  if (miiChanged) bump();
+  return { ok: true, reseated, evicted };
 }
 
 export function findHouseRowByMapId(mapId: number): { index: number; actor: number } | null {

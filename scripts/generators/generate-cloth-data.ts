@@ -56,7 +56,7 @@ for (const c of cloths) {
     if (text) localized[code] = text;
   }
 
-  let colorCount = 0;
+  let colorCount: number;
   if (existsSync(`${ICON_DIR}/${rowKey}_00.png`)) {
     colorCount = 1;
     for (let i = 1; i < 32; i++) {

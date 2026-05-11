@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [sveltekit()],
   test: {
     environment: 'node',
-    include: ['src/**/*.test.ts'],
+    include: ['src/**/*.test.ts', 'tools/**/*.test.ts'],
   },
   resolve: {
     conditions: ['browser'],

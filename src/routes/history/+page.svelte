@@ -1,6 +1,8 @@
 <script lang="ts">
   import { zipSync } from 'fflate';
-  import { _, locale } from 'svelte-i18n';
+  import { locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/history';
+  import type { SaveKind } from '$lib/saveFile/types';
   import { track } from '$lib/analytics';
   import {
     clearHistory,
@@ -140,7 +142,7 @@
     if (event.target === dialog) cancelPending();
   }
 
-  function kindLabel(kind: string): string {
+  function kindLabel(kind: SaveKind): string {
     return $_(`tab.${kind}`);
   }
 

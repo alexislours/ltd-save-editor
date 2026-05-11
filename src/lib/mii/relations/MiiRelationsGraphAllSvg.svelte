@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
+  import { locale } from 'svelte-i18n';
   import { isHiddenType, type Pair } from './relationsModel';
   import { arrowGeometry, NODE_RADIUS, pairTooltip } from './relationsGraphHelpers';
 

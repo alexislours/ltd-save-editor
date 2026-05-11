@@ -1,8 +1,9 @@
 import { TILE_DEFS } from '$lib/map/tiles/tiles';
 import { UGC_NONE } from '$lib/map/state/mapEditor.svelte';
-import { clampBrushSize, type BrushShape, type BrushSize } from './brushKernel';
+import { clampBrushSize, type BrushRotation, type BrushShape, type BrushSize } from './brushKernel';
 
-export type PaintTool = 'brush' | 'fill' | 'rectangle' | 'picker' | 'replace';
+export type PaintTool = 'brush' | 'fill' | 'rectangle' | 'picker' | 'replace' | 'tile-select';
+export type BrushMode = 'stroke' | 'stamp';
 
 const RECENT_KEY = 'map-v2:recent-tiles';
 const RECENT_MAX = 8;
@@ -11,6 +12,8 @@ type PaintState = {
   tool: PaintTool;
   brushSize: BrushSize;
   brushShape: BrushShape;
+  brushMode: BrushMode;
+  brushRotationDeg: BrushRotation;
   selectedTileHash: number;
   recent: number[];
 };
@@ -59,6 +62,8 @@ export const paintState = $state<PaintState>({
   tool: 'brush',
   brushSize: 1,
   brushShape: 'square',
+  brushMode: 'stroke',
+  brushRotationDeg: 0,
   selectedTileHash: TILE_DEFS[0].hash >>> 0,
   recent: loadRecent(),
 });
@@ -73,6 +78,14 @@ export function setBrushSize(size: BrushSize): void {
 
 export function setBrushShape(shape: BrushShape): void {
   paintState.brushShape = shape;
+}
+
+export function setBrushMode(mode: BrushMode): void {
+  paintState.brushMode = mode;
+}
+
+export function setBrushRotation(deg: BrushRotation): void {
+  paintState.brushRotationDeg = deg;
 }
 
 export function ugcForPaint(altKey: boolean): number | undefined {

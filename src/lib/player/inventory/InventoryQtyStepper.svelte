@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
   import { INPUT_CLASS } from '$lib/ui/styles';
 
   type Size = 'sm' | 'md';

@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/mii+residents+advanced';
+  import { locale } from 'svelte-i18n';
   import { safe } from '$lib/sav/format';
   import { MII_SCHEMA } from '$lib/sav/schema';
   import {

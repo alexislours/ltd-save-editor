@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { CARD_CLASS } from '$lib/ui/styles';
   import ProfileIdentitySection from './ProfileIdentitySection.svelte';

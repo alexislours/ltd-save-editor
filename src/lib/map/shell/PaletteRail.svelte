@@ -1,17 +1,23 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/map+residents+advanced';
   import { SvelteMap, SvelteSet } from 'svelte/reactivity';
   import { floorTiles } from '$lib/map/state/mapEditor.svelte';
   import {
     TILE_DEFS,
     tileColorForHash,
     tileDefForHash,
-    tileLabelForHash,
+    tileKeyForHash,
     type TileDef,
   } from '$lib/map/tiles/tiles';
+  import { hexU32 } from '$lib/sav/format';
   import { INPUT_CLASS } from '$lib/ui/styles';
   import { paintState, selectTileHash } from '../tools/paintState.svelte';
   import TilePatternSwatch from '../tiles/TilePatternSwatch.svelte';
+
+  function tileLabel(hash: number): string {
+    const key = tileKeyForHash(hash);
+    return key ? $_(key) : hexU32(hash);
+  }
 
   type Pair = {
     base: TileDef;
@@ -41,8 +47,8 @@
       out.push({
         base,
         road,
-        baseLabel: tileLabelForHash(base.hash, $_),
-        roadLabel: road ? tileLabelForHash(road.hash, $_) : null,
+        baseLabel: tileLabel(base.hash),
+        roadLabel: road ? tileLabel(road.hash) : null,
       });
     }
     out.sort((a, b) => a.baseLabel.localeCompare(b.baseLabel, undefined, { sensitivity: 'base' }));
@@ -61,7 +67,9 @@
     );
   });
 
-  const extraTiles = $derived.by((): TileDef[] => {
+  type UnknownTileEntry = { hash: number; code: string; color: string };
+
+  const extraTiles = $derived.by((): UnknownTileEntry[] => {
     const tiles = floorTiles();
     if (!tiles) return [];
     const unknown = new SvelteSet<number>();
@@ -92,7 +100,7 @@
         style="scroll-snap-type: x proximity;"
       >
         {#each recentTiles as hash (hash)}
-          {@const label = tileLabelForHash(hash, $_)}
+          {@const label = tileLabel(hash)}
           {@const active = paintState.selectedTileHash === hash}
           <button
             type="button"

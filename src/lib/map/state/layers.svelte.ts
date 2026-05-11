@@ -1,4 +1,4 @@
-export type LayerKey = 'floor' | 'objects' | 'fence' | 'ugc' | 'diff' | 'grid' | 'tier';
+export type LayerKey = 'floor' | 'objects' | 'fence' | 'ugc' | 'diff' | 'grid' | 'tier' | 'preview';
 
 type LayerState = {
   visible: boolean;
@@ -15,6 +15,7 @@ type LayersState = {
   diff: LayerState;
   grid: LayerState;
   tier: LayerState;
+  preview: LayerState;
   rev: number;
 };
 
@@ -26,6 +27,7 @@ export const layers = $state<LayersState>({
   diff: { visible: false, opacity: 0.7 },
   grid: { visible: false, opacity: 0.4 },
   tier: { visible: false, opacity: 0.8 },
+  preview: { visible: true, opacity: 0.5 },
   rev: 0,
 });
 
@@ -37,6 +39,7 @@ export const LAYER_ORDER: readonly LayerKey[] = [
   'diff',
   'grid',
   'tier',
+  'preview',
 ] as const;
 
 export function setLayerVisible(key: LayerKey, visible: boolean): void {

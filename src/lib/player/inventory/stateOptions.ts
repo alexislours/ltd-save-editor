@@ -2,7 +2,7 @@ import { murmur3_x86_32 } from '$lib/sav/hash';
 
 const STATE_NAMES = ['Lock', 'New', 'Arrived', 'Opened', 'Obtained'] as const;
 
-type StateName = (typeof STATE_NAMES)[number];
+export type StateName = (typeof STATE_NAMES)[number];
 
 type StateOption = { name: StateName; hash: number };
 

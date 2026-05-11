@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/ugc_editor+content_kinds';
   import {
     clearSidecar,
     sidecarFileCount,

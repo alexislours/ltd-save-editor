@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
+  import type { I18nKey } from '$gen/i18n-keys';
   import { bindLeaf } from '$lib/sav/bindLeaf.svelte';
   import { enumOptionsFor, type EnumOption } from '$lib/sav/knownKeys';
   import { player } from '$lib/sav/schema';
@@ -40,10 +41,29 @@
     islandLang: null,
   });
 
+  type RegionKey = Extract<I18nKey, `player.regions.${string}`>;
+
+  const REGION_KEYS = [
+    'player.regions.Asia',
+    'player.regions.Australia',
+    'player.regions.Europe',
+    'player.regions.Japan',
+    'player.regions.NorthAmerica',
+    'player.regions.OthersN',
+    'player.regions.OthersS',
+    'player.regions.SouthAmericaN',
+    'player.regions.SouthAmericaS',
+  ] as const satisfies readonly RegionKey[];
+
+  const REGION_KEY_SET: ReadonlySet<string> = new Set(REGION_KEYS);
+
+  function isRegionKey(key: string): key is RegionKey {
+    return REGION_KEY_SET.has(key);
+  }
+
   function localizeRegion(opt: EnumOption): string {
     const key = `player.regions.${opt.name}`;
-    const t = $_(key);
-    return t === key ? (opt.label ?? opt.name) : t;
+    return isRegionKey(key) ? $_(key) : (opt.label ?? opt.name);
   }
 
   function hexValue(v: number): string {

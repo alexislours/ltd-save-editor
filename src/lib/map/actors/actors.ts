@@ -193,9 +193,12 @@ export function footprintRect(hash: number, rotDeg: number): FootprintRect {
   return rotateActorFootprint(rawFootprint(hash), rotDeg);
 }
 
+export const HOUSE_DOLL_HOUSE_ACTOR = 0xe3ec5c38;
+export const HOUSE_ONE_ROOM_ACTOR = 0xef367ada;
+
 const HOUSE_ROOM_COUNT = new Map<number, number>([
-  [0xe3ec5c38, 8], // HouseDollHouse
-  [0xef367ada, 1], // HouseOneRoom
+  [HOUSE_DOLL_HOUSE_ACTOR, 8],
+  [HOUSE_ONE_ROOM_ACTOR, 1],
 ]);
 
 export function isHouseActor(hash: number): boolean {

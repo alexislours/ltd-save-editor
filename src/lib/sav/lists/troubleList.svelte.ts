@@ -1,6 +1,28 @@
 import { SvelteMap } from 'svelte/reactivity';
 import { type GameLocale, pickLocalized } from '$lib/sav/gameLocale';
 
+const TROUBLE_CATEGORIES = [
+  'Cloth',
+  'Depress',
+  'Fight',
+  'Food',
+  'Goods',
+  'Introduction',
+  'IslandEdit',
+  'Other',
+  'Question',
+  'Relation',
+  'RoomStyle',
+] as const;
+
+export type TroubleCategory = (typeof TROUBLE_CATEGORIES)[number];
+
+const TROUBLE_CATEGORY_SET: ReadonlySet<string> = new Set(TROUBLE_CATEGORIES);
+
+export function isTroubleCategory(s: string): s is TroubleCategory {
+  return TROUBLE_CATEGORY_SET.has(s);
+}
+
 export type TroubleTargetKey =
   | 'targetMii'
   | 'targetItemType'

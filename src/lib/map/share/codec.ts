@@ -6,7 +6,7 @@ import {
 
 import { actorDisplay, type ActorGroup } from '$lib/map/actors/actors';
 import type { MapObjectRow } from '$lib/map/state/mapObjectsEditor.svelte';
-import { TILE_DEFS, tileDefForHash } from '$lib/map/tiles/tiles';
+import { GRASS_HASH, TILE_DEFS, tileDefForHash } from '$lib/map/tiles/tiles';
 
 const MAP_SHARE_MAGIC = 'LTDMAP';
 const MAP_SHARE_VERSION = 1;
@@ -17,7 +17,6 @@ const SHARE_WIDTH = 120;
 const SHARE_HEIGHT = 80;
 const SHARE_TILE_COUNT = SHARE_WIDTH * SHARE_HEIGHT;
 
-const GRASS_HASH = 0xff4ae68a;
 const UGC_TILE_HASH = 0x69fff2f1;
 
 const KEEP_GROUPS: ReadonlySet<ActorGroup> = new Set<ActorGroup>(['deco', 'room', 'step']);

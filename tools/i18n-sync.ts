@@ -19,9 +19,18 @@ function loadLocale(code: string): LocaleObject {
   return parsed as LocaleObject;
 }
 
+function sortDeep(value: LocaleValue): LocaleValue {
+  if (value === null || typeof value !== 'object' || Array.isArray(value)) return value;
+  const out: LocaleObject = {};
+  for (const key of Object.keys(value).sort()) {
+    out[key] = sortDeep((value as LocaleObject)[key]);
+  }
+  return out;
+}
+
 function saveLocale(code: string, data: LocaleObject): void {
   const path = join(MESSAGES_DIR, `${code}.json`);
-  writeFileSync(path, JSON.stringify(data, null, 2) + '\n', 'utf8');
+  writeFileSync(path, JSON.stringify(sortDeep(data), null, 2) + '\n', 'utf8');
 }
 
 function flatten(
@@ -129,20 +138,18 @@ function cmdCheck(): void {
 }
 
 function cmdSync(): void {
-  const source = flatten(loadLocale(SOURCE_LOCALE));
-  const locales = listTargetLocales();
-  for (const code of locales) {
+  const sourceData = loadLocale(SOURCE_LOCALE);
+  const source = flatten(sourceData);
+  saveLocale(SOURCE_LOCALE, sourceData);
+  console.log(`[${SOURCE_LOCALE}] sorted`);
+  for (const code of listTargetLocales()) {
     const data = loadLocale(code);
     const target = flatten(data);
     const { missing, obsolete } = diff(source, target);
-    if (missing.length === 0 && obsolete.length === 0) {
-      console.log(`[${code}] no changes`);
-      continue;
-    }
     for (const key of missing) setDeep(data, key, source[key]);
     for (const key of obsolete) deleteDeep(data, key);
     saveLocale(code, data);
-    console.log(`[${code}] +${missing.length} -${obsolete.length}`);
+    console.log(`[${code}] +${missing.length} -${obsolete.length} (sorted)`);
   }
 }
 

@@ -1,5 +1,5 @@
-import { get } from 'svelte/store';
-import { _ } from 'svelte-i18n';
+import { get, type Readable } from 'svelte/store';
+import { _ } from 'virtual:i18n/map+residents+advanced';
 import { showToast } from '$lib/toast/toast.svelte';
 import type { PickResult } from './HousePicker.svelte';
 import { applyImpactBump, computeMoveImpact, type MoveImpact } from './housingFriendship';
@@ -23,7 +23,10 @@ export type DialogContext =
 
 type FormatValues = Record<string, string | number | boolean | Date | null>;
 
-function t(key: string, opts?: { values?: FormatValues }): string {
+type Translate = typeof _ extends Readable<infer T> ? T : never;
+type TranslateKey = Parameters<Translate>[0];
+
+function t(key: TranslateKey, opts?: { values?: FormatValues }): string {
   return get(_)(key, opts);
 }
 
@@ -93,7 +96,7 @@ export class ResidentMutations {
     const mapId = this.emptyHouseDialogMapId;
     this.emptyHouseDialogMapId = -1;
     if (mapId >= 0 && deleteHouseByMapId(mapId)) {
-      showToast('info', t('map.residents.empty_house_delete.deleted'));
+      showToast('info', t('residents.empty_house_delete.deleted'));
     }
     this.#dequeueEmptyHousePrompt();
   }
@@ -132,7 +135,7 @@ export class ResidentMutations {
     if (!impact || !action) return;
     const bumped = applyImpactBump(impact);
     if (bumped > 0) {
-      showToast('info', t('map.residents.friendship.bumped', { values: { count: bumped } }));
+      showToast('info', t('residents.friendship.bumped', { values: { count: bumped } }));
     }
     action();
   }
@@ -153,7 +156,7 @@ export class ResidentMutations {
 
       if (target.kind === 'unhoused') {
         if (removeFromHouse(movingIndex)) {
-          showToast('info', t('map.residents.removed'));
+          showToast('info', t('residents.removed'));
           this.#maybePromptForEmpty([fromMapId]);
         }
         return;
@@ -162,7 +165,7 @@ export class ResidentMutations {
         const otherHouse = getResident(target.miiIndex)?.houseMapId ?? -1;
         this.#runWithFriendshipGate(target.miiIndex, fromMapId, movingIndex, otherHouse, () => {
           if (swapResidents(movingIndex, target.miiIndex)) {
-            showToast('info', t('map.residents.swapped'));
+            showToast('info', t('residents.swapped'));
             this.#maybePromptForEmpty([fromMapId, otherHouse]);
           }
         });
@@ -179,7 +182,7 @@ export class ResidentMutations {
           if (result.ok) {
             showToast(
               'info',
-              result.displaced != null ? t('map.residents.swapped') : t('map.residents.moved'),
+              result.displaced != null ? t('residents.swapped') : t('residents.moved'),
             );
             this.#maybePromptForEmpty([fromMapId]);
           }
@@ -192,7 +195,7 @@ export class ResidentMutations {
       const oldHouse = getResident(target.miiIndex)?.houseMapId ?? -1;
       this.#runWithFriendshipGate(target.miiIndex, ctx.toMapId, null, null, () => {
         if (setHouseAssignment(target.miiIndex, ctx.toMapId, ctx.toRoom)) {
-          showToast('info', t('map.residents.added'));
+          showToast('info', t('residents.added'));
           if (oldHouse !== ctx.toMapId) this.#maybePromptForEmpty([oldHouse]);
         }
       });
@@ -201,7 +204,7 @@ export class ResidentMutations {
 
   remove(miiIndex: number, fromMapId: number): void {
     if (removeFromHouse(miiIndex)) {
-      showToast('info', t('map.residents.removed'));
+      showToast('info', t('residents.removed'));
       this.#maybePromptForEmpty([fromMapId]);
     }
   }
@@ -218,10 +221,10 @@ export class ResidentMutations {
     const occupant = residents.find((r) => r.roomIndex === target);
     if (occupant) {
       if (swapResidents(miiIndex, occupant.miiIndex)) {
-        showToast('info', t('map.residents.reordered'));
+        showToast('info', t('residents.reordered'));
       }
     } else if (setRoomIndex(miiIndex, target)) {
-      showToast('info', t('map.residents.reordered'));
+      showToast('info', t('residents.reordered'));
     }
   }
 
@@ -231,7 +234,7 @@ export class ResidentMutations {
     const used = new Set(residents.filter((r) => r.miiIndex !== miiIndex).map((r) => r.roomIndex));
     while (used.has(target)) target++;
     if (setRoomIndex(miiIndex, target)) {
-      showToast('info', t('map.residents.reordered'));
+      showToast('info', t('residents.reordered'));
     }
   }
 }

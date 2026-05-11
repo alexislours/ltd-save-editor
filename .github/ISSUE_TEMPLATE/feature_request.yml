@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before opening, please check the **Advanced** tab, many fields are already editable there by raw hash key, just not yet surfaced in a structured tab. A good feature request often boils down to "promote hash `0x…` from Advanced into a proper UI."
+        Before opening, please check the **Advanced** sub-tab inside Player, Mii, or Map. Many fields are already editable there by raw hash key, just not yet surfaced in a structured UI. A good feature request often boils down to "promote hash `0x…` from Advanced into a proper control."
 
   - type: textarea
     id: problem
@@ -23,8 +23,12 @@ body:
         - New field in an existing tab (Player / Mii / Map)
         - New tab or major editor section
         - Map / placement / WalkingGrid handling
+        - ShareMii tab
+        - UGC editor (textures, facepaint, slots)
         - Bulk load / export workflow
+        - Session restore / autosave
         - Localization (new locale or i18n improvement)
+        - Theme / appearance
         - UX / accessibility / quality-of-life
         - Other
     validations:
@@ -39,6 +43,8 @@ body:
         - Mii.sav
         - Player.sav
         - Map.sav
+        - Ugc/ folder (textures, facepaint, etc.)
+        - ShareMii file
         - None / editor-only
     validations:
       required: true

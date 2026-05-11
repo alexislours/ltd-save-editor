@@ -1,6 +1,6 @@
 <script lang="ts">
   import { arrayCount, hasIndexedElementEditor, isArrayType } from '$lib/sav/codec';
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
   import { DataType } from '$lib/sav/dataType';
   import { hexU32 } from '$lib/sav/format';
   import { enumOptionsFor } from '$lib/sav/knownKeys';
@@ -23,6 +23,9 @@
   const isArray = $derived(isArrayType(entry.type));
   const count = $derived(isArray ? arrayCount(entry) : 0);
   const canEditElements = $derived(hasIndexedElementEditor(entry.type));
+  const isBinaryLike = $derived(
+    entry.type === DataType.Binary || entry.type === DataType.BinaryArray,
+  );
 
   const PAGE_SIZE = 100;
   let page = $state(0);
@@ -113,8 +116,8 @@
     </span>
   </header>
 
-  {#if !isArray}
-    <div class="max-w-xl">
+  {#if !isArray || isBinaryLike}
+    <div class={isBinaryLike ? 'w-full' : 'max-w-xl'}>
       <EntryEditor {entry} {onCommit} />
     </div>
   {:else if !canEditElements}

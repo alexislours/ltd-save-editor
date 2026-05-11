@@ -20,10 +20,19 @@ body:
         - Player tab
         - Mii tab
         - Map tab
-        - Advanced (raw entry browser)
+        - ShareMii tab
+        - UGC editor tab
+        - History tab
+        - FAQ tab
+        - About tab
+        - Advanced sub-tab (raw entry browser inside Player/Mii/Map)
         - File loading / drag-and-drop
+        - Bulk load / bulk export
+        - Session restore / autosave
         - Patched file download
         - Localization / language switcher
+        - Theme switcher
+        - Changelog dialog
         - Other / not sure
     validations:
       required: true
@@ -37,6 +46,9 @@ body:
         - Mii.sav
         - Player.sav
         - Map.sav
+        - Ugc/ folder (textures, facepaint, etc.)
+        - ShareMii files
+        - Save folder / zip drop
         - None / not file-specific
     validations:
       required: true
@@ -64,8 +76,20 @@ body:
     id: version
     attributes:
       label: Editor version
-      description: At the top right of the editor, e.g. "1.4.0".
-      placeholder: 1.4.0
+      description: At the top right of the editor, e.g. "2.4.2".
+      placeholder: 2.4.2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: channel
+    attributes:
+      label: Which channel?
+      description: Stable is ltdsave.app; beta is beta.ltdsave.app and ships ahead.
+      options:
+        - Stable (ltdsave.app)
+        - Beta (beta.ltdsave.app)
+        - Self-hosted / local build
     validations:
       required: true
 

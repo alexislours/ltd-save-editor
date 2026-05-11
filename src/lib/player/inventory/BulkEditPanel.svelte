@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/player+advanced';
   import { track } from '$lib/analytics';
   import { INPUT_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import { STATE_OPTIONS } from './stateOptions';

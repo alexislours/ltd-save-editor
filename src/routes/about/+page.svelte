@@ -1,12 +1,16 @@
 <script lang="ts">
-  import { _, locale } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/about';
+  import { locale } from 'svelte-i18n';
+  import type { I18nKey } from '$gen/i18n-keys';
   import Card from '$lib/ui/Card.svelte';
   import RouteMeta from '$lib/layout/RouteMeta.svelte';
+
+  type CreditNoteKey = Extract<I18nKey, `about.credits.${string}`>;
 
   const repoUrl = 'https://github.com/alexislours/ltd-save-editor';
   const discordUrl = 'https://discord.gg/YHFNTvXrdE';
 
-  const credits: Array<{ href?: string; label: string; noteKey: string }> = [
+  const credits: Array<{ href?: string; label: string; noteKey: CreditNoteKey }> = [
     {
       href: 'https://github.com/tlmodding/living-the-dream-save-editor',
       label: 'tlmodding/living-the-dream-save-editor',

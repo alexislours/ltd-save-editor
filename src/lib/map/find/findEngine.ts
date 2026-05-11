@@ -1,7 +1,7 @@
 import { actorDisplay, type ActorGroup } from '$lib/map/actors/actors';
 import { rowFootprintRect } from '$lib/map/actors/ugcDimensions.svelte';
 import { MAP_HEIGHT, MAP_WIDTH, UGC_NONE } from '$lib/map/state/mapEditor.svelte';
-import { tileDefForHash, tileLabelForHash } from '$lib/map/tiles/tiles';
+import { tileDefForHash, tileKeyForHash, type TileLabelKey } from '$lib/map/tiles/tiles';
 import { hexU32 } from '$lib/sav/format';
 import { score as fuzzyScore } from './fuzzy';
 
@@ -61,7 +61,12 @@ export type ParsedQuery =
   | { kind: 'link'; mapId: number }
   | { kind: 'ugc'; index: number | null };
 
-export type Translator = (key: string) => string;
+export type Translator = (key: TileLabelKey) => string;
+
+function tileLabel(hash: number, t: Translator): string {
+  const key = tileKeyForHash(hash);
+  return key ? t(key) : hexU32(hash);
+}
 
 export type FindInput = {
   rows: ReadonlyArray<FindObject>;
@@ -168,7 +173,7 @@ function tileResults(
     if (known && !includeKnown) continue;
     if (!known && !includeUnknown) continue;
     if (known) {
-      const label = tileLabelForHash(hash, t);
+      const label = tileLabel(hash, t);
       const code = b.def?.code ?? '';
       if (frag !== '') {
         const hit = label.toLowerCase().includes(frag) || code.toLowerCase().includes(frag);
@@ -312,7 +317,7 @@ function runText(frag: string, input: FindInput): FindResult[] {
   const tileScored: Array<{ row: TileRow; s: number }> = [];
   for (const [hash, b] of tileBuckets) {
     if (b.def == null) continue;
-    const label = tileLabelForHash(hash, input.translator);
+    const label = tileLabel(hash, input.translator);
     const code = b.def.code;
     const s = Math.max(fuzzyScore(frag, { text: label }), fuzzyScore(frag, { text: code }));
     if (s <= 0) continue;

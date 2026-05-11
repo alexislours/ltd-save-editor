@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/sharemii+content_kinds';
   import { errorMessage } from '$lib/errorMessage';
   import { CARD_CLASS, PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
   import type { UgcKind } from './index';
@@ -50,7 +50,7 @@
   <header class="mb-3 flex flex-wrap items-center justify-between gap-2">
     <div>
       <h3 class="text-base font-bold text-content-strong">
-        {isMii ? $_('sharemii.kind.Mii') : $_(`sharemii.kind.${activeKind}`)}
+        {isMii ? $_('content_kinds.Mii') : $_(`content_kinds.${activeKind}`)}
       </h3>
       <p class="mt-0.5 text-xs text-content-muted">
         {$_('sharemii.list.header_count', { values: { count: populatedRows.length } })}

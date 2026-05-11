@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { _ } from 'svelte-i18n';
+  import { _ } from 'virtual:i18n/ugc_editor+content_kinds';
   import { filesFromDragSnapshot } from '$lib/bulk/bulkLoad';
   import DropZone from '$lib/ui/DropZone.svelte';
   import type { DragSnapshot } from '$lib/ui/dragSnapshot';
