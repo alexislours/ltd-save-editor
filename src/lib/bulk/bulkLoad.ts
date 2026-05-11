@@ -8,6 +8,7 @@ import {
 import { SAVE_KINDS, type SaveKind } from '$lib/saveFile/types';
 import { isJunkArchiveEntry, isSidecarFileName } from '$lib/shareMii/sidecar/sidecar';
 import { collectSidecarFromNamedBytes } from '$lib/shareMii/sidecar/sidecarStore.svelte';
+import type { DragSnapshot } from '$lib/ui/dragSnapshot';
 
 type Candidate = {
   name: string;
@@ -157,21 +158,10 @@ export function planFromZip(plan: BulkPlan): boolean {
   return false;
 }
 
-export async function filesFromDataTransfer(dt: DataTransfer): Promise<File[]> {
-  const items = dt.items;
-  if (!items || items.length === 0) return Array.from(dt.files);
-
-  const entries: FileSystemEntry[] = [];
-  for (const item of Array.from(items)) {
-    if (item.kind !== 'file') continue;
-    const entry = item.webkitGetAsEntry?.();
-    if (entry) entries.push(entry);
-  }
-
-  if (entries.length === 0) return Array.from(dt.files);
-
+export async function filesFromDragSnapshot(snapshot: DragSnapshot): Promise<File[]> {
+  if (snapshot.entries.length === 0) return snapshot.files;
   const out: File[] = [];
-  for (const entry of entries) await walkEntry(entry, out);
+  for (const entry of snapshot.entries) await walkEntry(entry, out);
   return out;
 }
 

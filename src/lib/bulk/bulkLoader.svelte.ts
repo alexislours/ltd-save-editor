@@ -2,11 +2,12 @@ import { track } from '$lib/analytics';
 import { overwriteModal } from '$lib/bulk/bulkOverwriteState.svelte';
 import {
   applyBulkPlan,
-  filesFromDataTransfer,
+  filesFromDragSnapshot,
   planBulkLoad,
   planFromZip,
   type BulkPlan,
 } from '$lib/bulk/bulkLoad';
+import type { DragSnapshot } from '$lib/ui/dragSnapshot';
 import { goto } from '$app/navigation';
 import { resolve } from '$app/paths';
 import { page } from '$app/state';
@@ -88,8 +89,8 @@ export async function bulkLoadFiles(files: File[]): Promise<BulkOutcome> {
   return await runPlan(plan);
 }
 
-export async function bulkLoadFromDataTransfer(dt: DataTransfer): Promise<BulkOutcome> {
-  const files = await filesFromDataTransfer(dt);
+export async function bulkLoadFromDragSnapshot(snapshot: DragSnapshot): Promise<BulkOutcome> {
+  const files = await filesFromDragSnapshot(snapshot);
   return await bulkLoadFiles(files);
 }
 

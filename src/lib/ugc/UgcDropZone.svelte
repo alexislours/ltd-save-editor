@@ -1,7 +1,8 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import { filesFromDataTransfer } from '$lib/bulk/bulkLoad';
+  import { filesFromDragSnapshot } from '$lib/bulk/bulkLoad';
   import DropZone from '$lib/ui/DropZone.svelte';
+  import type { DragSnapshot } from '$lib/ui/dragSnapshot';
   import UploadArrowIcon from '$lib/ui/UploadArrowIcon.svelte';
   import { loadFolderToSidecar, loadZipToSidecar } from './sidecarLoaders';
 
@@ -32,13 +33,13 @@
     }
   }
 
-  async function onDataTransfer(dt: DataTransfer): Promise<void> {
-    const direct = Array.from(dt.files);
+  async function onDataTransfer(snapshot: DragSnapshot): Promise<void> {
+    const direct = snapshot.files;
     if (direct.length === 1 && direct[0].name.toLowerCase().endsWith('.zip')) {
       await pickZip(direct[0]);
       return;
     }
-    const files = await filesFromDataTransfer(dt);
+    const files = await filesFromDragSnapshot(snapshot);
     await pickFolder(files);
   }
 

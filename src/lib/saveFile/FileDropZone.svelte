@@ -2,6 +2,7 @@
   import { _ } from 'svelte-i18n';
   import { expectedFileName, type SaveKind } from '$lib/saveFile/types';
   import DropZone from '$lib/ui/DropZone.svelte';
+  import type { DragSnapshot } from '$lib/ui/dragSnapshot';
   import UploadArrowIcon from '$lib/ui/UploadArrowIcon.svelte';
 
   type Props = { kind?: SaveKind };
@@ -33,10 +34,10 @@
     reportOutcome(outcome.loaded, outcome.skipped.length, files.length);
   }
 
-  async function onDataTransfer(dt: DataTransfer): Promise<void> {
+  async function onDataTransfer(snapshot: DragSnapshot): Promise<void> {
     reset();
-    const { bulkLoadFromDataTransfer } = await import('$lib/bulk/bulkLoader.svelte');
-    const outcome = await bulkLoadFromDataTransfer(dt);
+    const { bulkLoadFromDragSnapshot } = await import('$lib/bulk/bulkLoader.svelte');
+    const outcome = await bulkLoadFromDragSnapshot(snapshot);
     if (outcome.cancelled) return;
     const seen = outcome.loaded.length + outcome.skipped.length;
     reportOutcome(outcome.loaded, outcome.skipped.length, seen);
