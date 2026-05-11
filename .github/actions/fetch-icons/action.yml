@@ -1,0 +1,21 @@
+name: Fetch icons from R2
+description: Downloads icons-<hash>.tar.zst from R2 and extracts into static/
+inputs:
+  cloudflare-api-token:
+    description: Cloudflare API token with R2 read access
+    required: true
+  cloudflare-account-id:
+    description: Cloudflare account ID
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare-api-token }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare-account-id }}
+      run: |
+        HASH=$(cat scripts/icons.sha256)
+        KEY="icons-${HASH}.tar.zst"
+        npx wrangler r2 object get "ltd-save-editor-assets/${KEY}" --file=icons.tar.zst --remote
+        tar --zstd -xf icons.tar.zst -C static
