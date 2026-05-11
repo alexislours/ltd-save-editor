@@ -23,7 +23,7 @@
     "sav:diff": "node scripts/sav-diff.ts",
     "data:generate": "node scripts/generate-all.ts && npm run format",
     "assets:upload": "node scripts/upload-assets.ts",
-    "deploy": "npm run build && wrangler pages deploy dist --project-name=ltd-save-editor",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=ltd-save-editor --branch=main",
     "deploy:beta": "npm run build -- --mode beta && wrangler pages deploy dist --project-name=ltd-save-editor --branch=beta",
     "wasm:build": "asc src/lib/ugc/wasm/assembly/index.ts --config src/lib/ugc/wasm/asconfig.json --target release",
     "wasm:build:debug": "asc src/lib/ugc/wasm/assembly/index.ts --config src/lib/ugc/wasm/asconfig.json --target debug"
