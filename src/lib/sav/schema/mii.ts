@@ -1230,7 +1230,7 @@ const _MII_SCHEMA = {
         IsFacePaintFront: { hash: 0xde73cee6, type: DataType.BoolArray },
         IsLoveGender: { hash: 0xdfc82223, type: DataType.BoolArray },
         IsSelectedGoodHairChangeTalk: { hash: 0x9959aeea, type: DataType.BoolArray },
-        PrevHairChangeCharInfo: { hash: 0xf13124bd, type: DataType.BinaryArray },
+        PrevHairChangeCharInfo: { hash: 0xcab805e6, type: DataType.BinaryArray },
         ReadyHairChangeGameTime: { hash: 0x819d8134, type: DataType.UInt64Array },
         RejectHairChangeGameTime: { hash: 0x4d27e120, type: DataType.UInt64Array },
       },
