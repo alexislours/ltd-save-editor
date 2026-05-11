@@ -15,12 +15,24 @@
   } from '../state/layers.svelte';
   import {
     paintState,
+    setBrushMode,
+    setBrushRotation,
     setBrushShape,
     setBrushSize,
     setPaintTool,
+    type BrushMode,
     type PaintTool,
   } from '../tools/paintState.svelte';
-  import { BRUSH_SIZE_MAX, BRUSH_SIZE_MIN, type BrushShape } from '../tools/brushKernel';
+  import {
+    BRUSH_ROTATIONS,
+    BRUSH_SHAPES,
+    BRUSH_SIZE_MAX,
+    BRUSH_SIZE_MIN,
+    SHAPE_GEOMETRY,
+    SHAPE_VIEWBOX,
+    type BrushRotation,
+    type BrushShape,
+  } from '../tools/brushKernel';
   import { getBindingFor, openHelp, type KeyAction } from '../input/keymap.svelte';
   import { modifiedFloorCount } from '../state/baseline.svelte';
   import ExportPngDialog from '../export/ExportPngDialog.svelte';
@@ -73,11 +85,22 @@
     action: KeyAction | null;
   }[];
 
-  const BRUSH_SHAPES = [
-    { id: 'square', titleKey: 'map.toolbar.shape_square_title' },
-    { id: 'diamond', titleKey: 'map.toolbar.shape_diamond_title' },
-    { id: 'circle', titleKey: 'map.toolbar.shape_circle_title' },
-  ] as const satisfies readonly { id: BrushShape; titleKey: string }[];
+  const BRUSH_MODES = [
+    {
+      id: 'stroke',
+      labelKey: 'map.toolbar.brush_mode_stroke',
+      titleKey: 'map.toolbar.brush_mode_stroke_title',
+    },
+    {
+      id: 'stamp',
+      labelKey: 'map.toolbar.brush_mode_stamp',
+      titleKey: 'map.toolbar.brush_mode_stamp_title',
+    },
+  ] as const satisfies readonly { id: BrushMode; labelKey: string; titleKey: string }[];
+
+  function polygonPointsAttr(points: readonly (readonly [number, number])[]): string {
+    return points.map(([x, y]) => `${x},${y}`).join(' ');
+  }
 
   const MODES = [
     {
@@ -107,6 +130,7 @@
     diff: 'map.toolbar.layer_diff',
     grid: 'map.toolbar.layer_grid',
     tier: 'map.toolbar.layer_tier',
+    preview: 'map.toolbar.layer_preview',
   } as const satisfies Record<LayerKey, string>;
 
   const tierLayerAvailable = $derived.by(() => {
@@ -239,6 +263,27 @@
   });
 </script>
 
+{#snippet shapeIcon(shape: BrushShape, rotation: BrushRotation, klass: string)}
+  {@const g = SHAPE_GEOMETRY[shape]}
+  <svg
+    class={klass}
+    viewBox={`0 0 ${SHAPE_VIEWBOX} ${SHAPE_VIEWBOX}`}
+    style:transform={rotation === 0 ? undefined : `rotate(${rotation}deg)`}
+    style:transform-origin="center"
+    aria-hidden="true"
+  >
+    {#if g.kind === 'rect'}
+      <rect x={g.x} y={g.y} width={g.w} height={g.h} fill="currentColor" />
+    {:else if g.kind === 'circle'}
+      <circle cx={g.cx} cy={g.cy} r={g.r} fill="currentColor" />
+    {:else if g.kind === 'polygon'}
+      <polygon points={polygonPointsAttr(g.points)} fill="currentColor" />
+    {:else if g.kind === 'path'}
+      <path d={g.d} fill-rule={g.fillRule ?? 'nonzero'} fill="currentColor" />
+    {/if}
+  </svg>
+{/snippet}
+
 <div
   bind:this={toolbarEl}
   class="row-start-1 col-span-3 relative z-20 flex h-11 pointer-coarse:h-14 items-center gap-3 pointer-coarse:gap-3 px-3 bg-surface/90 ring-1 ring-edge/60 backdrop-blur-sm"
@@ -359,19 +404,7 @@
           onclick={toggleBrush}
         >
           <span class="flex h-4 w-4 items-center justify-center text-content" aria-hidden="true">
-            {#if paintState.brushShape === 'square'}
-              <svg class="h-3.5 w-3.5" viewBox="0 0 16 16">
-                <rect x="3" y="3" width="10" height="10" fill="currentColor" />
-              </svg>
-            {:else if paintState.brushShape === 'diamond'}
-              <svg class="h-3.5 w-3.5" viewBox="0 0 16 16">
-                <polygon points="8,2 14,8 8,14 2,8" fill="currentColor" />
-              </svg>
-            {:else}
-              <svg class="h-3.5 w-3.5" viewBox="0 0 16 16">
-                <circle cx="8" cy="8" r="5.5" fill="currentColor" />
-              </svg>
-            {/if}
+            {@render shapeIcon(paintState.brushShape, paintState.brushRotationDeg, 'h-3.5 w-3.5')}
           </span>
           <span class="tabular-nums">{paintState.brushSize}px</span>
           <svg
@@ -393,7 +426,7 @@
             bind:this={brushPopoverEl}
             role="dialog"
             aria-label={$_('map.toolbar.brush_picker_title')}
-            class="absolute left-0 top-[calc(100%+6px)] z-30 w-[260px] rounded-2xl bg-surface ring-1 ring-edge/60 shadow-lg p-3 flex flex-col gap-3"
+            class="absolute left-0 top-[calc(100%+6px)] z-30 w-[280px] rounded-2xl bg-surface ring-1 ring-edge/60 shadow-lg p-3 flex flex-col gap-3"
           >
             <div class="flex items-center justify-between gap-3">
               <label
@@ -436,35 +469,72 @@
               <div class="text-xs font-bold uppercase tracking-wide text-content-muted mb-1.5">
                 {$_('map.toolbar.brush_shape_label')}
               </div>
-              <div class="inline-flex w-full overflow-hidden rounded-md ring-1 ring-edge/60">
-                {#each BRUSH_SHAPES as s, i (s.id)}
+              <div class="grid grid-cols-5 gap-1">
+                {#each BRUSH_SHAPES as s (s.id)}
                   <button
                     type="button"
                     class={[
-                      'flex flex-1 h-9 items-center justify-center transition-colors',
-                      i > 0 && 'border-l border-edge/60',
+                      'flex aspect-square items-center justify-center rounded-md ring-1 transition-colors',
                       paintState.brushShape === s.id
+                        ? 'bg-orange-500 text-white ring-orange-500'
+                        : 'bg-surface text-content ring-edge/60 hover:bg-surface-muted',
+                    ]}
+                    aria-pressed={paintState.brushShape === s.id}
+                    aria-label={$_(s.labelKey)}
+                    title={$_(s.labelKey)}
+                    onclick={() => setBrushShape(s.id)}
+                  >
+                    {@render shapeIcon(s.id, 0, 'h-5 w-5')}
+                  </button>
+                {/each}
+              </div>
+            </div>
+
+            <div class="border-t border-edge/60 pt-3">
+              <div class="text-xs font-bold uppercase tracking-wide text-content-muted mb-1.5">
+                {$_('map.toolbar.brush_mode_label')}
+              </div>
+              <div class="inline-flex w-full overflow-hidden rounded-md ring-1 ring-edge/60">
+                {#each BRUSH_MODES as m, i (m.id)}
+                  <button
+                    type="button"
+                    class={[
+                      'flex flex-1 h-9 items-center justify-center text-sm font-medium transition-colors',
+                      i > 0 && 'border-l border-edge/60',
+                      paintState.brushMode === m.id
                         ? 'bg-orange-500 text-white'
                         : 'bg-surface text-content hover:bg-surface-muted',
                     ]}
-                    aria-pressed={paintState.brushShape === s.id}
-                    aria-label={$_(s.titleKey)}
-                    title={$_(s.titleKey)}
-                    onclick={() => setBrushShape(s.id)}
+                    aria-pressed={paintState.brushMode === m.id}
+                    title={$_(m.titleKey)}
+                    onclick={() => setBrushMode(m.id)}
                   >
-                    {#if s.id === 'square'}
-                      <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" aria-hidden="true">
-                        <rect x="3" y="3" width="10" height="10" fill="currentColor" />
-                      </svg>
-                    {:else if s.id === 'diamond'}
-                      <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" aria-hidden="true">
-                        <polygon points="8,2 14,8 8,14 2,8" fill="currentColor" />
-                      </svg>
-                    {:else}
-                      <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" aria-hidden="true">
-                        <circle cx="8" cy="8" r="5.5" fill="currentColor" />
-                      </svg>
-                    {/if}
+                    {$_(m.labelKey)}
+                  </button>
+                {/each}
+              </div>
+            </div>
+
+            <div class="border-t border-edge/60 pt-3">
+              <div class="text-xs font-bold uppercase tracking-wide text-content-muted mb-1.5">
+                {$_('map.toolbar.brush_rotation_label')}
+              </div>
+              <div class="inline-flex w-full overflow-hidden rounded-md ring-1 ring-edge/60">
+                {#each BRUSH_ROTATIONS as deg, i (deg)}
+                  <button
+                    type="button"
+                    class={[
+                      'flex flex-1 h-9 items-center justify-center text-sm font-bold tabular-nums transition-colors',
+                      i > 0 && 'border-l border-edge/60',
+                      paintState.brushRotationDeg === deg
+                        ? 'bg-orange-500 text-white'
+                        : 'bg-surface text-content hover:bg-surface-muted',
+                    ]}
+                    aria-pressed={paintState.brushRotationDeg === deg}
+                    title={`${deg}°`}
+                    onclick={() => setBrushRotation(deg)}
+                  >
+                    {deg}°
                   </button>
                 {/each}
               </div>

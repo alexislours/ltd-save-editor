@@ -6,7 +6,7 @@ import {
   setTileIndex,
   setUgcIndex,
 } from '$lib/map/state/mapEditor.svelte';
-import { kernelOffsets, type BrushShape, type BrushSize } from './brushKernel';
+import { kernelOffsets, type BrushRotation, type BrushShape, type BrushSize } from './brushKernel';
 
 export class BrushStrokeV2 {
   private readonly builder = new StrokeBuilder();
@@ -22,10 +22,11 @@ export class BrushStrokeV2 {
     startX: number,
     startY: number,
     ugcOverride?: number,
+    rotation: BrushRotation = 0,
   ) {
     this.tileHash = tileHash >>> 0;
     this.ugcOverride = ugcOverride;
-    this.kernel = kernelOffsets(size, shape);
+    this.kernel = kernelOffsets(size, shape, rotation);
     if (!inBounds(startX, startY)) return;
     this.last = { x: startX, y: startY };
     const changed = this.stampLine(startX, startY, startX, startY);

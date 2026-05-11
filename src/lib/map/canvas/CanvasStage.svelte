@@ -45,6 +45,8 @@
   import MiniMap from '../shell/MiniMap.svelte';
   import { paintState, selectTileHash, ugcForPaint } from '../tools/paintState.svelte';
   import { BrushStrokeV2 } from '../tools/brushStroke';
+  import { kernelOffsets } from '../tools/brushKernel';
+  import { renderBrushPreview } from './brushPreviewRenderer';
   import { replaceAll } from '../tools/replaceTool';
   import { registerDropTarget } from '../input/dragDrop';
   import {
@@ -148,6 +150,7 @@
   const collisionMask = new Uint8Array(COLLISION_GRID_W * COLLISION_GRID_H);
   let collisionMaskReady = $state(false);
   let hotCollision = $state<{ x: number; y: number } | null>(null);
+  let cursorTile = $state<{ x: number; y: number } | null>(null);
 
   const unlockMapLevel = $derived.by(() => {
     void playerState.loadId;
@@ -303,6 +306,30 @@
         marquee.curCssY,
       );
       renderMarquee(ctx, view, r);
+    }
+
+    if (
+      layers.preview.visible &&
+      modeState.mode === 'paint' &&
+      paintState.tool === 'brush' &&
+      cursorTile &&
+      !brush &&
+      !pickingHeld
+    ) {
+      const kernel = kernelOffsets(
+        paintState.brushSize,
+        paintState.brushShape,
+        paintState.brushRotationDeg,
+      );
+      renderBrushPreview(
+        ctx,
+        view,
+        kernel,
+        cursorTile.x,
+        cursorTile.y,
+        paintState.selectedTileHash,
+        layers.preview.opacity,
+      );
     }
 
     renderFlash(ctx, view);
@@ -475,6 +502,16 @@
     schedulePaint();
   });
 
+  $effect(() => {
+    void paintState.tool;
+    void paintState.brushSize;
+    void paintState.brushShape;
+    void paintState.brushRotationDeg;
+    void paintState.selectedTileHash;
+    void modeState.modeRev;
+    schedulePaint();
+  });
+
   function clientToCss(e: PointerEvent | WheelEvent): { x: number; y: number } {
     const rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
@@ -483,6 +520,10 @@
   function emitHover(e: PointerEvent | null): void {
     if (!e) {
       hotCollision = null;
+      if (cursorTile) {
+        cursorTile = null;
+        schedulePaint();
+      }
       onHover?.(null);
       schedulePaint();
       return;
@@ -491,9 +532,17 @@
     const t = tileFromClient(x, y);
     if (!inBounds(t.x, t.y)) {
       hotCollision = null;
+      if (cursorTile) {
+        cursorTile = null;
+        schedulePaint();
+      }
       onHover?.(null);
       schedulePaint();
       return;
+    }
+    if (cursorTile?.x !== t.x || cursorTile?.y !== t.y) {
+      cursorTile = { x: t.x, y: t.y };
+      schedulePaint();
     }
     const collisionCount = collisionMaskReady ? collisionCountAt(collisionMask, t.x, t.y) : 0;
     const nextHot = collisionCount >= 2 ? { x: t.x, y: t.y } : null;
@@ -750,15 +799,21 @@
       setPainting(true);
       return;
     }
-    brush = new BrushStrokeV2(
+    const stroke = new BrushStrokeV2(
       paintState.selectedTileHash,
       paintState.brushSize,
       paintState.brushShape,
       c.x,
       c.y,
       ugc,
+      paintState.brushRotationDeg,
     );
-    setPainting(true);
+    if (paintState.brushMode === 'stamp') {
+      stroke.end();
+    } else {
+      brush = stroke;
+      setPainting(true);
+    }
   }
 
   function onSinglePointerMove(e: PointerEvent): void {
