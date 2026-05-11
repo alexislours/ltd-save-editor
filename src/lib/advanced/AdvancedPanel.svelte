@@ -287,7 +287,7 @@
 
       {#if advView === 'tree'}
         <div class="grid gap-4 md:grid-cols-[320px_1px_1fr] md:gap-0">
-          <div class="flex flex-col md:min-h-120">
+          <div class="flex min-w-0 flex-col md:min-h-120">
             <input
               type="search"
               class="mb-2 {INPUT_CLASS}"
@@ -311,7 +311,7 @@
 
           <div class="hidden bg-edge/40 md:block"></div>
 
-          <div class="md:min-h-120 md:pl-6">
+          <div class="min-w-0 md:min-h-120 md:pl-6">
             {#if selectedEntry}
               <PlayerDetail entry={selectedEntry} path={selectedPath} {onCommit} />
             {:else}
@@ -527,6 +527,12 @@
     }
     .adv-cell-value {
       grid-column: 4;
+    }
+    .adv-grid-row:has(:global([data-binary][data-open])) {
+      grid-template-columns: 9rem 7rem minmax(8rem, 1fr);
+    }
+    .adv-grid-row:has(:global([data-binary][data-open])) .adv-cell-value {
+      grid-column: 1 / -1;
     }
   }
 </style>
