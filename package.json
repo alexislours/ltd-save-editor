@@ -20,7 +20,6 @@
     "i18n:sync": "node tools/i18n-sync.ts sync",
     "i18n:types": "node tools/generate-i18n-types.ts",
     "knip": "knip",
-    "sav:diff": "node scripts/sav-diff.ts",
     "data:generate": "node scripts/generate-all.ts && npm run format",
     "assets:upload": "node scripts/upload-assets.ts",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=ltd-save-editor --branch=main",
