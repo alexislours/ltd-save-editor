@@ -4962,6 +4962,7 @@ const _PLAYER_SCHEMA = {
       PlayerName: { hash: 0x5b4e1c21, type: DataType.WString32Array },
       PlayerNameRegionLanguageID: { hash: 0x11eaa1bd, type: DataType.EnumArray, options: LANGUAGE },
       Price: { hash: 0x4c9819e4, type: DataType.IntArray },
+      SaveTextureFileSize: { hash: 0xffc750b6, type: DataType.UIntArray },
       State: { hash: 0x23135bc5, type: DataType.EnumArray, options: OBTAIN_STATE },
       TextureSourceType: { hash: 0xdecc8954, type: DataType.EnumArray, options: TEXTURE_SOURCE },
     },
@@ -5206,7 +5207,6 @@ const _PLAYER_SCHEMA = {
   },
   Unknown: {
     '0x84A85193': { hash: 0x84a85193, type: DataType.UInt },
-    '0xFFC750B6': { hash: 0xffc750b6, type: DataType.UIntArray },
   },
   Unlock: {
     AddUgcItemCount: { hash: 0xfdccb10e, type: DataType.UInt },
