@@ -16,6 +16,7 @@
     "credits_title": "Créditos",
     "disclaimer": "Esta é uma ferramenta não oficial, feita por fãs. Tomodachi Life: Living the Dream é © Nintendo.",
     "disclaimer_title": "Aviso legal",
+    "docs_label": "Documentação:",
     "intro": "Um editor de save feito para o navegador para Tomodachi Life: Living the Dream (Nintendo Switch). Solte seus arquivos Mii.sav, Player.sav e Map.sav, edite e baixe uma cópia corrigida. Tudo roda localmente. os arquivos nunca saem da sua máquina.",
     "source_label": "Código-fonte:",
     "title": "Sobre",
@@ -124,82 +125,6 @@
       "quota_exceeded": "O histórico de envios está cheio e seu navegador ficou sem espaço de armazenamento. Abra Histórico e exclua envios antigos para liberar espaço.",
       "save_failed": "Não foi possível salvar este envio no histórico."
     }
-  },
-  "faq": {
-    "items": {
-      "advanced": {
-        "a1": "As abas estruturadas (Jogador, Mii, Mapa) cobrem os campos que o editor sabe renderizar com rótulos e seletores apropriados. A seção Avançado, no final de cada aba, é um navegador de entradas brutas que lista todas as chaves encontradas no save, incluindo as que ainda não têm uma interface amigável. Use-a se precisar inspecionar ou editar algo que as abas estruturadas não expõem.",
-        "a2": "Trate como território de usuário avançado. Alguns campos são crípticos, e editá-los às cegas é uma boa forma de corromper um save: faça backup antes. Qualquer coisa feita aqui é por sua conta e risco.",
-        "q": "Para que serve a aba Avançado?"
-      },
-      "backup": {
-        "a": "Sim, sempre. Faça uma cópia dos seus arquivos Mii.sav, Player.sav e Map.sav em algum lugar seguro antes de carregá-los aqui. Uma edição ruim pode corromper seu save sem recuperação dentro do jogo, e a única forma de voltar é o backup que você fez.",
-        "q": "Devo fazer backup do meu save antes?"
-      },
-      "brick": {
-        "a1": "O editor toma algumas precauções para reduzir o risco:",
-        "a2": "Ele nunca sobrescreve o arquivo original, ele cria um novo para você baixar, então se algo der errado o original continua intacto.",
-        "a3": "O editor bloqueia algumas edições conhecidas por causarem corrupção, e avisa sobre as que são arriscadas.",
-        "intro": "Sim, uma edição ruim pode corromper seu save e não há recuperação dentro do jogo, então a única forma de voltar é o backup que você fez antes de editar.",
-        "q": "Isso pode corromper meu save?"
-      },
-      "bug": {
-        "discord_link": "Discord",
-        "discord_prefix": "Se preferir não abrir uma issue, o ",
-        "discord_suffix": " também serve.",
-        "intro_link": "este link",
-        "intro_prefix": "Por favor, abra uma issue no GitHub: o link \"Report an issue\" no rodapé leva direto ao formulário, ou você pode usar ",
-        "intro_suffix": ". Coisas úteis para incluir:",
-        "item_actual": "O que aconteceu no lugar.",
-        "item_save": "O arquivo de save em si, se você se sentir à vontade para compartilhá-lo. Saves ajudam a reproduzir um bug muito mais rápido do que descrições.",
-        "item_screenshot": "Um screenshot, se for um problema de interface.",
-        "item_version": "Se você estava na Stable ou na Beta, e o número da versão no cabeçalho.",
-        "item_what": "O que você estava tentando fazer.",
-        "q": "Encontrei um bug"
-      },
-      "cant_do_x": {
-        "intro": "Se algo que você quer editar não está nas abas estruturadas, é quase sempre por uma destas duas razões:",
-        "item_unmapped": "Ninguém ainda mapeou esse campo para o editor: o dado está no save, mas nenhuma interface foi construída para ele.",
-        "item_unsafe": "O campo não pode ser editado sozinho com segurança: ele pode ser derivado de outros valores, ou fazer parte de uma estrutura em que mudar uma peça sem o resto corromperia o save.",
-        "outro": "Em qualquer caso, o caminho certo é abrir uma issue ou perguntar no Discord descrevendo o que você quer mudar. Funcionalidades novas são priorizadas com base no que as pessoas realmente pedem.",
-        "q": "Não consigo fazer X"
-      },
-      "hashes": {
-        "a": "Os arquivos de save referenciam o conteúdo (roupas, comidas, tesouros, estilos de cômodo, etc.) por hash, não por nome legível. O editor traz uma lista de hashes que traduz o máximo possível desses hashes de volta para nomes. Quando uma entrada aparece como número hexadecimal ou como \"Unknown\", é porque é um hash que ainda não está na lista. Se você identificar um, por favor abra uma issue ou compartilhe no Discord para que ele seja adicionado para todo mundo.",
-        "q": "Por que algumas entradas aparecem como números ou nomes desconhecidos?"
-      },
-      "sav_files": {
-        "intro": "O jogo divide seus dados em três arquivos, e o editor tem uma aba para cada um:",
-        "map": "- o layout da sua ilha: onde cada prédio está, o que tem em cada bloco do chão…",
-        "mii": "- dados de cada Mii que mora na sua ilha: personalidades, vozes, relações…",
-        "outro": "Os três arquivos são independentes, você pode editar um sem encostar nos outros, e só precisa carregar os que realmente quer alterar.",
-        "player": "- seus dados de jogador: seu nome, o nome da ilha, dinheiro, tempo de jogo, tudo que você desbloqueou…",
-        "q": "Qual a diferença entre Player.sav, Mii.sav e Map.sav?"
-      },
-      "stable_beta": {
-        "beta_body": "a versão experimental, em que as funcionalidades novas chegam primeiro. Espere mais bugs e comportamentos quebrados ocasionais. Útil se você quer testar algo que ainda não está na Stable, ou se uma correção que você reportou acabou de ser mesclada.",
-        "beta_label": "Beta",
-        "q": "Stable ou Beta, qual devo usar?",
-        "stable_body": "a versão que você provavelmente deve usar. É a versão testada e polida do editor, em que as funcionalidades têm menos chance de estar quebradas e os bugs têm menos chance de causar corrupção. Boa para a maioria das pessoas, especialmente se você está começando a editar saves.",
-        "stable_label": "Stable",
-        "switch_hint": "Você pode alternar entre as duas pelo link ao lado do selo de versão no cabeçalho. Independente da escolha, sempre faça backup dos seus saves antes."
-      },
-      "translation": {
-        "a_link": "seção \"Adding a Localization\" no README do repositório",
-        "a_prefix": "Veja a ",
-        "a_suffix": ", ela tem todos os passos.",
-        "q": "Como adiciono uma tradução?"
-      },
-      "upload": {
-        "a1": "Não. O editor roda inteiramente no seu navegador, os arquivos são lidos e reescritos localmente, e os dados do seu save não são enviados a nenhum servidor.",
-        "a2_link": "GitHub",
-        "a2_prefix": "O site também é open source, então você pode ler o código por conta própria no ",
-        "a2_suffix": ".",
-        "q": "Meu save é enviado para algum lugar?"
-      }
-    },
-    "subtitle": "Perguntas comuns sobre o editor. Clique em uma pergunta para expandir.",
-    "title": "Perguntas frequentes"
   },
   "footer": {
     "disclaimer": "Esta é uma ferramenta não oficial, feita por fãs. Tomodachi Life: Living the Dream é © Nintendo.",
@@ -1517,7 +1442,7 @@
   "tab": {
     "about": "Sobre",
     "advanced": "Avançado",
-    "faq": "FAQ",
+    "docs": "Docs",
     "history": "Histórico",
     "map": "Mapa",
     "mii": "Mii",

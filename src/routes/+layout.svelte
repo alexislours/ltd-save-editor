@@ -33,6 +33,7 @@
   let changelogOpen = $state(false);
 
   const LAST_SEEN_KEY = 'ltd-save-editor:last-seen-changelog-version';
+  const docsUrl = 'https://docs.ltdsave.app/using/overview/';
   const latestVersion = CHANGELOG[0]?.version ?? '';
   let hasNewChangelog = $state(false);
 
@@ -76,14 +77,14 @@
   }
 
   const tabs = $derived([
-    { route: '/player', label: $_('tab.player'), wip: false },
-    { route: '/mii', label: $_('tab.mii'), wip: false },
-    { route: '/map', label: $_('tab.map'), wip: false },
-    { route: '/sharemii', label: $_('tab.sharemii'), wip: false },
-    { route: '/ugc', label: $_('tab.ugc_editor'), wip: false },
-    { route: '/history', label: $_('tab.history'), wip: false },
-    { route: '/faq', label: $_('tab.faq'), wip: false },
-    { route: '/about', label: $_('tab.about'), wip: false },
+    { route: '/player', label: $_('tab.player'), wip: false, external: false },
+    { route: '/mii', label: $_('tab.mii'), wip: false, external: false },
+    { route: '/map', label: $_('tab.map'), wip: false, external: false },
+    { route: '/sharemii', label: $_('tab.sharemii'), wip: false, external: false },
+    { route: '/ugc', label: $_('tab.ugc_editor'), wip: false, external: false },
+    { route: '/history', label: $_('tab.history'), wip: false, external: false },
+    { route: '/about', label: $_('tab.about'), wip: false, external: false },
+    { route: docsUrl, label: $_('tab.docs'), wip: false, external: true },
   ] as const);
 </script>
 
@@ -181,29 +182,53 @@
       >
         <div class="flex flex-nowrap gap-1.5 sm:flex-wrap sm:gap-2">
           {#each tabs as tab (tab.route)}
-            {@const active = path === tab.route}
-            <a
-              href={resolve(tab.route)}
-              class={[
-                TAB_PILL_CLASS,
-                active
-                  ? 'bg-orange-700 text-white shadow'
-                  : 'bg-surface-muted text-content hover:text-content-strong',
-              ]}
-              aria-current={active ? 'page' : undefined}
-            >
-              {tab.label}
-              {#if tab.wip}
-                <span
-                  class={[
-                    'rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider',
-                    active ? 'bg-white/25 text-white' : 'bg-surface-sunken text-warn',
-                  ]}
+            {#if tab.external}
+              <a
+                href={docsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onclick={() => track('external_link', { target: 'docs' })}
+                class={[TAB_PILL_CLASS, 'bg-surface-muted text-content hover:text-content-strong']}
+              >
+                {tab.label}
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 12 12"
+                  class="h-2.5 w-2.5 fill-none stroke-current opacity-70"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 >
-                  WIP
-                </span>
-              {/if}
-            </a>
+                  <path d="M4.5 2.5h-2a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2" />
+                  <path d="M7 1.5h3.5V5" />
+                  <path d="M5.5 6.5 10.5 1.5" />
+                </svg>
+              </a>
+            {:else}
+              {@const active = path === tab.route}
+              <a
+                href={resolve(tab.route)}
+                class={[
+                  TAB_PILL_CLASS,
+                  active
+                    ? 'bg-orange-700 text-white shadow'
+                    : 'bg-surface-muted text-content hover:text-content-strong',
+                ]}
+                aria-current={active ? 'page' : undefined}
+              >
+                {tab.label}
+                {#if tab.wip}
+                  <span
+                    class={[
+                      'rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider',
+                      active ? 'bg-white/25 text-white' : 'bg-surface-sunken text-warn',
+                    ]}
+                  >
+                    WIP
+                  </span>
+                {/if}
+              </a>
+            {/if}
           {/each}
         </div>
       </nav>

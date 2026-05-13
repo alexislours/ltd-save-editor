@@ -2,6 +2,7 @@
   import { _ } from 'virtual:i18n/about';
   import { locale } from 'svelte-i18n';
   import type { I18nKey } from '$gen/i18n-keys';
+  import { track } from '$lib/analytics';
   import Card from '$lib/ui/Card.svelte';
   import RouteMeta from '$lib/layout/RouteMeta.svelte';
 
@@ -9,6 +10,7 @@
 
   const repoUrl = 'https://github.com/alexislours/ltd-save-editor';
   const discordUrl = 'https://discord.gg/YHFNTvXrdE';
+  const docsUrl = 'https://docs.ltdsave.app/using/overview/';
 
   const credits: Array<{ href?: string; label: string; noteKey: CreditNoteKey }> = [
     {
@@ -77,6 +79,18 @@
 
   <Card title={$_('about.title')}>
     <p class="text-sm text-content">{$_('about.intro')}</p>
+    <p class="mt-3 text-sm text-content">
+      {$_('about.docs_label')}
+      <a
+        href={docsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        onclick={() => track('external_link', { target: 'docs' })}
+        class="font-medium text-brand underline-offset-2 hover:underline"
+      >
+        docs.ltdsave.app
+      </a>
+    </p>
     <p class="mt-3 text-sm text-content">
       {$_('about.community_label')}
       <a
