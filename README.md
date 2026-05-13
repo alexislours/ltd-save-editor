@@ -15,12 +15,13 @@ A browser-based save editor for _Tomodachi Life: Living the Dream_ (Nintendo Swi
 
 ## Adding a Localization
 
-Translations live in `messages/<locale>.json`. `en-US` is the source of truth; locales are auto-discovered at build time.
+Translations live in `messages/<locale>.json`. `en-US` is the source of truth; locales are auto-discovered at build time. Base PRs against the `dev` branch.
 
 1. **Create the file.** Copy `messages/en-US.json` to `messages/<locale>.json` (e.g. `de-DE.json`, `ja-JP.json`).
 2. **Backfill keys.** Run `npm run i18n:sync` to mirror the `en-US` structure into your new file.
 3. **Translate.** Edit the values.
 4. **Verify.** Run `npm run i18n:check`, then `npm run dev` and pick the new language from the switcher.
+5. **Pre-flight.** Run `npm run precommit` before opening a PR to the `dev` branch.
 
 If a language ships in multiple regional editions of the game (e.g. Spanish exists as both `USes` and `EUes`), you can offer both without duplicating the translation file. Add an alias to `aliases` in `tools/i18n-config.ts` (e.g. `'es-US': 'es-EU'`) and a UI-to-game mapping in `src/lib/sav/gameLocale.ts` (`'es-US': 'USes'`). Both tags then appear in the switcher, share the same UI strings, but pull region-specific game content.
 
