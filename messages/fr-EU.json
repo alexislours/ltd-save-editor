@@ -16,6 +16,7 @@
     "credits_title": "Remerciements",
     "disclaimer": "Cet outil non officiel a été créé par des fans. Tomodachi Life : Une vie de rêve est © Nintendo.",
     "disclaimer_title": "Avertissement",
+    "docs_label": "Documentation :",
     "intro": "Un éditeur de sauvegarde dans le navigateur pour Tomodachi Life : Une vie de rêve (Nintendo Switch). Dépose tes fichiers Mii.sav, Player.sav et Map.sav, modifie-les, puis télécharge une copie corrigée. Tout se passe en local : tes fichiers ne quittent jamais ta machine.",
     "source_label": "Code source :",
     "title": "À propos",
@@ -124,82 +125,6 @@
       "quota_exceeded": "L'historique des dépôts est plein et ton navigateur n'a plus d'espace de stockage. Ouvre Historique et supprime d'anciens dépôts pour faire de la place.",
       "save_failed": "Impossible d'enregistrer ce dépôt dans l'historique."
     }
-  },
-  "faq": {
-    "items": {
-      "advanced": {
-        "a1": "Les onglets structurés (Joueur, Mii, Carte) couvrent les champs que l'éditeur sait afficher avec des libellés clairs et des champs adaptés. La section Avancée, en bas de chaque onglet, est une vue brute qui liste toutes les clés trouvées dans la sauvegarde, y compris celles qui n'ont pas encore leur propre interface. Utilise-la si tu as besoin d'inspecter ou de modifier quelque chose qui n'apparaît pas dans les onglets structurés.",
-        "a2": "C'est un onglet réservé aux utilisateurs avertis. Certains champs sont obscurs, et les modifier à l'aveugle est un bon moyen de corrompre ta sauvegarde : fais une copie avant. Tout ce qui s'y fait est à tes risques et périls.",
-        "q": "L'onglet Avancé, c'est quoi ?"
-      },
-      "backup": {
-        "a": "Oui, toujours. Fais une copie de tes fichiers Mii.sav, Player.sav et Map.sav dans un endroit sûr avant de les charger ici. Une mauvaise modification peut corrompre ta sauvegarde sans qu'il soit possible de revenir en arrière dans le jeu : ta seule porte de sortie, c'est cette copie.",
-        "q": "Dois-je faire une copie de mes fichiers avant ?"
-      },
-      "brick": {
-        "a1": "L'éditeur prend quand même quelques précautions :",
-        "a2": "Il n'écrase jamais ton fichier d'origine. Il te génère une nouvelle copie à télécharger, comme ça si quelque chose tourne mal, l'original est toujours là.",
-        "a3": "Il bloque les modifications connues pour corrompre les sauvegardes, et t'avertit pour celles qui sont juste risquées.",
-        "intro": "Oui. Une mauvaise modification peut corrompre ta sauvegarde, et il n'y a aucun moyen de revenir en arrière dans le jeu : ta seule porte de sortie, c'est la copie que tu as faite avant de modifier.",
-        "q": "Est-ce que ça peut corrompre ma sauvegarde ?"
-      },
-      "bug": {
-        "discord_link": "Discord",
-        "discord_prefix": "Si tu préfères ne pas ouvrir d'issue, le ",
-        "discord_suffix": " marche aussi.",
-        "intro_link": "ce lien",
-        "intro_prefix": "Ouvre une issue sur GitHub : le lien « Report an issue » dans le pied de page mène directement au formulaire, ou tu peux utiliser ",
-        "intro_suffix": ". Éléments utiles à fournir :",
-        "item_actual": "Ce qui s'est passé à la place.",
-        "item_save": "Le fichier de sauvegarde lui-même si tu es à l'aise pour le partager. Une sauvegarde aide à reproduire un bug bien plus vite qu'une simple description.",
-        "item_screenshot": "Une capture d'écran s'il s'agit d'un problème d'interface.",
-        "item_version": "Si tu étais sur Stable ou Bêta, et le numéro de version affiché dans l'en-tête.",
-        "item_what": "Ce que tu essayais de faire.",
-        "q": "J'ai trouvé un bug"
-      },
-      "cant_do_x": {
-        "intro": "Si quelque chose que tu veux modifier n'est pas dans les onglets structurés, c'est presque toujours pour l'une de ces deux raisons :",
-        "item_unmapped": "Personne n'a encore relié ce champ à l'éditeur : la donnée est dans la sauvegarde, mais aucune interface n'a été construite pour elle.",
-        "item_unsafe": "Le champ ne peut pas être modifié seul de manière sûre : il peut être dérivé d'autres valeurs, ou faire partie d'une structure où changer un élément sans le reste corromprait la sauvegarde.",
-        "outro": "Dans les deux cas, la bonne démarche est d'ouvrir une issue ou de demander sur Discord en décrivant ce que tu veux changer. Les nouvelles fonctionnalités sont priorisées en fonction de ce que les gens demandent vraiment.",
-        "q": "Je n'arrive pas à faire X"
-      },
-      "hashes": {
-        "a": "Les fichiers de sauvegarde référencent leur contenu (vêtements, plats, trésors, styles de pièce, etc.) par hash, pas par nom lisible. L'éditeur embarque une liste de hashs qui retraduit autant que possible ces hashs en noms. Quand une entrée s'affiche sous forme de nombre hexadécimal ou comme « Unknown », c'est qu'il s'agit d'un hash qui n'est pas encore dans la liste. Si tu en identifies un, ouvre une issue ou partage-le sur Discord pour qu'il soit ajouté pour tout le monde.",
-        "q": "Pourquoi certaines entrées s'affichent-elles avec des numéros ou des noms inconnus ?"
-      },
-      "sav_files": {
-        "intro": "Le jeu répartit ses données entre trois fichiers, et l'éditeur propose un onglet pour chacun :",
-        "map": "- la disposition de ton île : l'emplacement de chaque bâtiment, ce qu'il y a sur chaque case du sol…",
-        "mii": "- les données par Mii pour chaque habitant de ton île : personnalités, voix, relations…",
-        "outro": "Les trois fichiers sont indépendants, tu peux modifier l'un sans toucher aux autres, et tu n'as besoin de charger que ceux que tu veux réellement modifier.",
-        "player": "- tes données de joueur : ton nom, le nom de ton île, ton argent, ton temps de jeu, tout ce que tu as débloqué…",
-        "q": "Quelle est la différence entre Player.sav, Mii.sav et Map.sav ?"
-      },
-      "stable_beta": {
-        "beta_body": "la version expérimentale, où les nouvelles fonctionnalités atterrissent en premier. Attends-toi à plus de bugs et à des comportements parfois cassés. Utile si tu veux essayer quelque chose qui n'est pas encore dans la Stable, ou si un correctif que tu as signalé vient juste d'être intégré.",
-        "beta_label": "Bêta",
-        "q": "Stable ou Bêta, laquelle utiliser ?",
-        "stable_body": "la version qu'il vaut mieux utiliser. C'est la version testée et peaufinée de l'éditeur, où les fonctionnalités ont moins de risques d'être cassées et où les bugs ont moins de risques de causer une corruption. Adaptée à la plupart des gens, surtout si tu débutes avec l'édition de sauvegardes.",
-        "stable_label": "Stable",
-        "switch_hint": "Tu peux passer de l'une à l'autre via le lien à côté du badge de version dans l'en-tête. Quel que soit ton choix, fais d'abord une copie de tes sauvegardes."
-      },
-      "translation": {
-        "a_link": "section « Adding a Localization » du README du dépôt",
-        "a_prefix": "Consulte la ",
-        "a_suffix": ", elle contient toutes les étapes.",
-        "q": "Comment ajouter une traduction ?"
-      },
-      "upload": {
-        "a1": "Non. L'éditeur fonctionne entièrement dans ton navigateur, les fichiers sont lus et réécrits en local, et tes données de sauvegarde ne sont envoyées à aucun serveur.",
-        "a2_link": "GitHub",
-        "a2_prefix": "Le site est aussi open source, tu peux donc consulter le code toi-même sur ",
-        "a2_suffix": ".",
-        "q": "Mes fichiers sont-ils envoyés quelque part ?"
-      }
-    },
-    "subtitle": "Questions fréquentes sur l'éditeur. Clique sur une question pour la déplier.",
-    "title": "Foire aux questions"
   },
   "footer": {
     "disclaimer": "Ceci est un outil non officiel, créé par des fans. Tomodachi Life : Une vie de rêve est © Nintendo.",
@@ -1517,7 +1442,7 @@
   "tab": {
     "about": "À propos",
     "advanced": "Avancé",
-    "faq": "FAQ",
+    "docs": "Docs",
     "history": "Historique",
     "map": "Carte",
     "mii": "Mii",

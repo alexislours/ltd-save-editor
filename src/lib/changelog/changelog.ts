@@ -6,6 +6,14 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.5.1',
+    date: '2026-05-13',
+    changes: [
+      'Replaced the FAQ tab with a link to the external documentation site.',
+      'Fixed the Advanced tab detail view going stale after committing changes.',
+    ],
+  },
+  {
     version: '2.5.0',
     date: '2026-05-12',
     changes: [

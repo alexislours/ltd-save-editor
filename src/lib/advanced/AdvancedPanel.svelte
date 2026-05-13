@@ -50,12 +50,16 @@
   const tree = $derived(buildTree(entries));
   const expanded = new SvelteSet<string>();
   let selectedPath = $state<string | null>(null);
-  let selectedEntry = $state<Entry | null>(null);
+  let selectedHash = $state<number | null>(null);
+  const selectedEntry = $derived.by<Entry | null>(() => {
+    if (selectedHash == null) return null;
+    return entries.find((e) => e.hash === selectedHash) ?? null;
+  });
 
   function selectNode(node: TreeNode) {
     if (!node.entry) return;
     selectedPath = node.path;
-    selectedEntry = node.entry;
+    selectedHash = node.entry.hash;
   }
 
   function toggleNode(path: string) {
@@ -66,7 +70,7 @@
   $effect(() => {
     void parseSignal;
     selectedPath = null;
-    selectedEntry = null;
+    selectedHash = null;
     expanded.clear();
   });
 

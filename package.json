@@ -1,7 +1,7 @@
 {
   "name": "ltd-save-editor",
   "private": true,
-  "version": "2.5.0",
+  "version": "2.5.1",
   "type": "module",
   "license": "AGPL-3.0-or-later",
   "scripts": {
@@ -20,10 +20,9 @@
     "i18n:sync": "node tools/i18n-sync.ts sync",
     "i18n:types": "node tools/generate-i18n-types.ts",
     "knip": "knip",
-    "sav:diff": "node scripts/sav-diff.ts",
     "data:generate": "node scripts/generate-all.ts && npm run format",
     "assets:upload": "node scripts/upload-assets.ts",
-    "deploy": "npm run build && wrangler pages deploy dist --project-name=ltd-save-editor",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=ltd-save-editor --branch=main",
     "deploy:beta": "npm run build -- --mode beta && wrangler pages deploy dist --project-name=ltd-save-editor --branch=beta",
     "wasm:build": "asc src/lib/ugc/wasm/assembly/index.ts --config src/lib/ugc/wasm/asconfig.json --target release",
     "wasm:build:debug": "asc src/lib/ugc/wasm/assembly/index.ts --config src/lib/ugc/wasm/asconfig.json --target debug"
