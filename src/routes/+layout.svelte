@@ -186,7 +186,7 @@
               <a
                 href={docsUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener"
                 onclick={() => track('external_link', { target: 'docs' })}
                 class={[TAB_PILL_CLASS, 'bg-surface-muted text-content hover:text-content-strong']}
               >

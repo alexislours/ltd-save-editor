@@ -47,6 +47,7 @@
 
   const TRANSLATORS: Record<string, string[]> = {
     'pt-BR': ['Rafa'],
+    'zh-CN': ['Chara-0x'],
   };
 
   const listFormatter = $derived(

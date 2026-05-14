@@ -304,6 +304,7 @@ const _MAP_SCHEMA = {
     WordAttrCount: { hash: 0x0534fa39, type: DataType.EnumArray, options: GRAMMAR_NUMBER },
     WordAttrGrammaticality: { hash: 0xa2f92241, type: DataType.EnumArray, options: GRAMMAR_GENDER },
   },
+  Map: { hash: 0x441c30df, type: DataType.Bool64bitKey },
   MapGrid: {
     GridX: {
       GridZ: {
@@ -330,9 +331,6 @@ const _MAP_SCHEMA = {
       UgcExteriorId: { hash: 0x091956db, type: DataType.UIntArray },
       UgcId: { hash: 0x3c00db6c, type: DataType.UIntArray },
     },
-  },
-  Unknown: {
-    '0x441C30DF': { hash: 0x441c30df, type: DataType.Bool64bitKey },
   },
 } as const;
 
