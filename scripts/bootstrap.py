@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT       = Path(__file__).resolve().parent.parent
 NSP_BASE   = ROOT / "game-data/tomodachi_life_base.nsp"
-NSP_UPDATE = ROOT / "game-data/tomodachi_life_1.0.1.nsp"
+NSP_UPDATE = ROOT / "game-data/tomodachi_life_1.0.2.nsp"
 NSTOOL     = ROOT / "game-data/nstool"
 KEYS       = ROOT / "game-data/prod.keys"
 OUT        = ROOT / "game-data/romfs"
