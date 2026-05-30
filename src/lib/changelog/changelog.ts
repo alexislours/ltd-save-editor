@@ -6,6 +6,14 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.6.0',
+    date: '2026-05-30',
+    changes: [
+      'Added a randomize button for food preferences in the Mii editor.',
+      'Fixed missing voice icons in the Mii voice editor.',
+    ],
+  },
+  {
     version: '2.5.3',
     date: '2026-05-15',
     changes: ['Updated game data for v1.0.2.'],
