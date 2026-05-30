@@ -676,6 +676,8 @@
       "given_count": "{tried} / {total} tasted",
       "no_image": "No image",
       "no_results": "No matching foods.",
+      "random": "Randomize",
+      "random_title": "Pick random favourite and least favourite foods",
       "rank_marker": "#{rank}",
       "search_placeholder": "Search foods…",
       "unknown": "Unknown food (hash {hash})"

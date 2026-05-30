@@ -698,6 +698,8 @@
       "given_count": "{tried} / {total} goûtés",
       "no_image": "Pas d'image",
       "no_results": "Aucun plat trouvé.",
+      "random": "Aléatoire",
+      "random_title": "Tire au sort les plats préférés et détestés",
       "rank_marker": "n°{rank}",
       "search_placeholder": "Rechercher un plat…",
       "unknown": "Plat inconnu (hash {hash})"
