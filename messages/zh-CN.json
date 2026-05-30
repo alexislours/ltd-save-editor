@@ -698,6 +698,8 @@
       "given_count": "{tried} / {total} 已尝",
       "no_image": "无图",
       "no_results": "没有匹配的食物。",
+      "random": "随机化",
+      "random_title": "随机选择喜欢和讨厌的食物",
       "rank_marker": "#{rank}",
       "search_placeholder": "搜索食物…",
       "unknown": "未知食物（哈希 {hash}）"

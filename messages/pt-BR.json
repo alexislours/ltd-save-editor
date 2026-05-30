@@ -698,6 +698,8 @@
       "given_count": "{tried} / {total} provadas",
       "no_image": "Sem imagem",
       "no_results": "Nenhuma comida encontrada.",
+      "random": "Aleatorizar",
+      "random_title": "Sortear comidas favoritas e menos favoritas",
       "rank_marker": "nº{rank}",
       "search_placeholder": "Buscar comidas…",
       "unknown": "Comida desconhecida (hash {hash})"

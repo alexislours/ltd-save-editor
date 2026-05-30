@@ -6,6 +6,7 @@
   import { CARD_CLASS } from '$lib/ui/styles';
   import MiiElementEditor from './MiiElementEditor.svelte';
   import MiiFoodPicker from './MiiFoodPicker.svelte';
+  import MiiFoodRandomizeButton from './MiiFoodRandomizeButton.svelte';
   import MiiGivenFlagPicker from './MiiGivenFlagPicker.svelte';
   import MiiLoveGenderEditor from './MiiLoveGenderEditor.svelte';
   import MiiPersonalityEditor from './MiiPersonalityEditor.svelte';
@@ -107,6 +108,11 @@
                 <span class="hidden group-open:inline">{$_('mii.spoiler.hide')}</span>
               </span>
             </summary>
+            {#if sec.titleKey === 'food'}
+              <div class="mt-4 flex justify-end">
+                <MiiFoodRandomizeButton index={selectedIndex} />
+              </div>
+            {/if}
             <div class="mt-4 grid gap-4 sm:grid-cols-2">
               {#each sec.resolvedSpoiler as field (field.leaf.hash)}
                 {#if sec.titleKey === 'food'}
