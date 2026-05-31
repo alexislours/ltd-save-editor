@@ -32,8 +32,9 @@
     left: 0 !important;
     width: 100vw !important;
     height: 100svh !important;
+    --tw-translate-x: 0 !important;
+    --tw-translate-y: 0 !important;
     transform: none !important;
-    translate: none !important;
     background: var(--color-surface-sunken, #000);
   }
 </style>
