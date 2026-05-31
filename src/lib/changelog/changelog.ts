@@ -6,6 +6,11 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.6.1',
+    date: '2026-05-31',
+    changes: ['Fixed the map covering only half the screen in fullscreen mode.'],
+  },
+  {
     version: '2.6.0',
     date: '2026-05-30',
     changes: [
