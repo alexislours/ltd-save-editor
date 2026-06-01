@@ -22,6 +22,7 @@ import {
   FIXED_METER_TYPES,
   type Translator,
 } from './relationsTableHelpers';
+import { clearFightTroubleBetween, setFightTroubleBetween } from '$lib/mii/trouble/fightTrouble';
 
 type CommitResult = { ok: true; applied: boolean } | { ok: false; error: string };
 
@@ -102,9 +103,13 @@ export function commitType(args: CommitTypeArgs): CommitResult {
     }
   }
 
-  if (re.isFight && !hasFightVariant(newName) && !hasFightVariant(finalOtherName)) {
-    const slotIdx = changedIndex >>> 1;
-    setFight(mii, slotIdx, false);
+  if (re.isFight && mii.get(MII_SCHEMA.Relation.Info.IsFight)[slot]) {
+    if (!hasFightVariant(newName) && !hasFightVariant(finalOtherName)) {
+      setFight(mii, slot, false);
+      clearFightTroubleBetween(mii, miiIndex, otherMiiIndex);
+    } else {
+      setFightTroubleBetween(mii, miiIndex, otherMiiIndex, newName, finalOtherName);
+    }
   }
 
   return { ok: true, applied: true };
@@ -162,11 +167,44 @@ export function commitCrush(args: CommitCrushArgs): CommitResult {
   if (!setCrush(mii, dirIndex, value)) return { ok: true, applied: false };
 
   if (value) {
-    if (re.isFight) setFight(mii, slot, false);
+    if (re.isFight && setFight(mii, slot, false)) {
+      clearFightTroubleBetween(mii, miiIndex, otherIndex);
+    }
   } else {
     maybeClearFightForSlot(mii, re, slot);
   }
   for (const s of prevCrushSlots) maybeClearFightForSlot(mii, re, s);
+  return { ok: true, applied: true };
+}
+
+type CommitFightArgs = {
+  mii: MiiAccessor;
+  re: RelationAvailability;
+  slot: number;
+  miiIndex: number;
+  otherIndex: number;
+  outTypeName: string;
+  inTypeName: string;
+  value: boolean;
+  t: Translator;
+};
+
+export function commitFight(args: CommitFightArgs): CommitResult {
+  const { mii, re, slot, miiIndex, otherIndex, outTypeName, inTypeName, value, t } = args;
+  if (!re.isFight) return { ok: true, applied: false };
+  if (value && !hasFightVariant(outTypeName) && !hasFightVariant(inTypeName)) {
+    return { ok: false, error: t('mii.relations.fight_requires_type') };
+  }
+  if (!setFight(mii, slot, value)) return { ok: true, applied: false };
+  if (value) {
+    if (re.bitFlag) {
+      setCrush(mii, 2 * slot, false);
+      setCrush(mii, 2 * slot + 1, false);
+    }
+    setFightTroubleBetween(mii, miiIndex, otherIndex, outTypeName, inTypeName);
+  } else {
+    clearFightTroubleBetween(mii, miiIndex, otherIndex);
+  }
   return { ok: true, applied: true };
 }
 
@@ -178,6 +216,7 @@ function maybeClearFightForSlot(mii: MiiAccessor, re: RelationAvailability, slot
   const inName = baseRelationTypeLabel(r.typeBtoA);
   if (hasFightVariant(outName) || hasFightVariant(inName)) return;
   setFight(mii, slot, false);
+  clearFightTroubleBetween(mii, r.a, r.b);
 }
 
 type AcquaintArgs = {

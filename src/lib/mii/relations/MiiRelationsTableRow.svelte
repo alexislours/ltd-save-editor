@@ -7,6 +7,7 @@
   } from '$lib/mii/miiLabelList.svelte';
   import {
     blockForCandidate,
+    hasFightVariant,
     subRelationKey,
     subRelationLevels,
     type CoupleConstraints,
@@ -24,6 +25,8 @@
     crushBlocked: boolean;
     chips: ChipView[];
     reBitFlag: boolean;
+    reIsFight: boolean;
+    fightLocked: boolean;
     reTypeSetTime: boolean;
     typeSetTimeValue: string;
     onCommitType: (
@@ -37,6 +40,14 @@
     onCommitMeter: (directionalIndex: number, raw: string) => void;
     onCommitTypeSetTime: (slot: number, raw: string) => void;
     onCommitCrush: (dirIndex: number, otherIndex: number, value: boolean, slot: number) => void;
+    onRequestFight: (
+      slot: number,
+      value: boolean,
+      outTypeName: string,
+      inTypeName: string,
+      otherIndex: number,
+      otherName: string,
+    ) => void;
     onChipClick: (chip: ChipView) => void;
   };
 
@@ -48,12 +59,15 @@
     crushBlocked,
     chips,
     reBitFlag,
+    reIsFight,
+    fightLocked,
     reTypeSetTime,
     typeSetTimeValue,
     onCommitType,
     onCommitMeter,
     onCommitTypeSetTime,
     onCommitCrush,
+    onRequestFight,
     onChipClick,
   }: Props = $props();
 
@@ -63,6 +77,26 @@
   const inLevels = $derived(subRelationLevels(r.inTypeName, r.isFight));
   const outActive = $derived(subRelationKey(r.outTypeName, r.outMeter, r.isFight));
   const inActive = $derived(subRelationKey(r.inTypeName, r.inMeter, r.isFight));
+
+  const fightTypeAllowed = $derived(
+    hasFightVariant(r.outTypeName) || hasFightVariant(r.inTypeName),
+  );
+  const fightBlockedByCrush = $derived(r.crushOut || r.crushIn);
+  const fightBlockedByExisting = $derived(fightLocked && !r.isFight);
+  const fightDisabled = $derived(
+    !reIsFight || !fightTypeAllowed || fightBlockedByCrush || fightBlockedByExisting,
+  );
+  const fightTitle = $derived(
+    !reIsFight
+      ? undefined
+      : !fightTypeAllowed
+        ? $_('mii.relations.fight_requires_type')
+        : fightBlockedByCrush
+          ? $_('mii.relations.fight_blocked_by_crush')
+          : fightBlockedByExisting
+            ? $_('mii.relations.fight_blocked_existing')
+            : undefined,
+  );
 
   const localizeRelationType = $derived((name: string) => localizeRelationTypeFor(name, $locale));
 </script>
@@ -205,15 +239,23 @@
     </label>
   </td>
   <td class="px-3 pb-2 pt-0">
-    {#if r.isFight}
-      <span
-        class="inline-flex items-center gap-1.5 text-xs text-content"
-        aria-label={$_('mii.relations.fight_marker_aria')}
-      >
-        <span class="text-red-600" aria-hidden="true">⚔︎</span>
-        <span>{$_('mii.relations.header_fight_label')}</span>
-      </span>
-    {/if}
+    <label class="inline-flex items-center gap-1.5 text-xs text-content">
+      <input
+        type="checkbox"
+        class="h-3.5 w-3.5 accent-red-600"
+        checked={r.isFight}
+        disabled={fightDisabled}
+        aria-label={$_('mii.relations.fight_label_aria')}
+        title={fightTitle}
+        onchange={(e) => {
+          const next = e.currentTarget.checked;
+          e.currentTarget.checked = r.isFight;
+          onRequestFight(r.slot, next, r.outTypeName, r.inTypeName, r.otherIndex, r.otherName);
+        }}
+      />
+      <span class="text-red-600" aria-hidden="true">⚔︎</span>
+      <span>{$_('mii.relations.header_fight_label')}</span>
+    </label>
   </td>
   <td class="px-3 pb-2 pt-0"></td>
   <td class="px-3 pb-2 pt-0">

@@ -9,6 +9,7 @@
     evaluateCoupleConstraints,
     findCrushTarget,
     findRelations,
+    listRelationships,
     type CoupleConstraints,
     type CrushBlock,
     checkCrushAllowed,
@@ -25,6 +26,7 @@
   import {
     applyAcquaintAllStrangers,
     commitCrush,
+    commitFight,
     commitMeter,
     commitType,
     commitTypeSetTime,
@@ -54,6 +56,25 @@
     return findCrushTarget(mii, re, miiIndex);
   });
 
+  const fightSlotByMii = $derived.by(() => {
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
+    const m = new Map<number, number>();
+    if (!mii || !re || !re.isFight) return m;
+    for (const r of listRelationships(mii, re)) {
+      if (!r.isFight) continue;
+      m.set(r.a, r.slot);
+      m.set(r.b, r.slot);
+    }
+    return m;
+  });
+
+  function fightLockedFor(slot: number, otherIndex: number): boolean {
+    const selfSlot = fightSlotByMii.get(miiIndex);
+    if (selfSlot !== undefined && selfSlot !== slot) return true;
+    const otherSlot = fightSlotByMii.get(otherIndex);
+    return otherSlot !== undefined && otherSlot !== slot;
+  }
+
   const nameToHash = $derived.by(() => {
     // eslint-disable-next-line svelte/prefer-svelte-reactivity
     const m = new Map<string, number>();
@@ -75,9 +96,19 @@
     return descriptors.map((d) => ({ ...chipText(d, $_), tone: d.tone }));
   }
 
+  type PendingFight = {
+    slot: number;
+    value: boolean;
+    outTypeName: string;
+    inTypeName: string;
+    otherIndex: number;
+    otherName: string;
+  };
+
   let typeError = $state<string | null>(null);
   let popup = $state<ChipPopup | null>(null);
   let confirmAcquaint = $state(false);
+  let confirmFight = $state<PendingFight | null>(null);
 
   const strangerCount = $derived(myRelationships.filter((r) => r.outTypeName === 'Other').length);
 
@@ -132,6 +163,36 @@
     });
     if (!result.ok) typeError = result.error;
     else if (result.applied && value) typeError = null;
+  }
+
+  function onRequestFight(
+    slot: number,
+    value: boolean,
+    outTypeName: string,
+    inTypeName: string,
+    otherIndex: number,
+    otherName: string,
+  ): void {
+    confirmFight = { slot, value, outTypeName, inTypeName, otherIndex, otherName };
+  }
+
+  function onApplyFight(): void {
+    const f = confirmFight;
+    confirmFight = null;
+    if (!f || !mii || !re) return;
+    const result = commitFight({
+      mii,
+      re,
+      slot: f.slot,
+      miiIndex,
+      otherIndex: f.otherIndex,
+      outTypeName: f.outTypeName,
+      inTypeName: f.inTypeName,
+      value: f.value,
+      t: $_,
+    });
+    if (!result.ok) typeError = result.error;
+    else if (result.applied) typeError = null;
   }
 
   function onApplyAcquaint(): void {
@@ -249,12 +310,15 @@
               {crushBlocked}
               {chips}
               reBitFlag={!!re?.bitFlag}
+              reIsFight={!!re?.isFight}
+              fightLocked={fightLockedFor(r.slot, r.otherIndex)}
               reTypeSetTime={!!re?.typeSetTime}
               typeSetTimeValue={unixSecsToDateTimeLocal(r.typeSetSec)}
               {onCommitType}
               {onCommitMeter}
               {onCommitTypeSetTime}
               {onCommitCrush}
+              {onRequestFight}
               onChipClick={openChipPopup}
             />
           {/each}
@@ -266,9 +330,12 @@
   <MiiRelationsTableDialogs
     {confirmAcquaint}
     {strangerCount}
+    {confirmFight}
     {popup}
     onConfirmAcquaintApply={onApplyAcquaint}
     onConfirmAcquaintClose={() => (confirmAcquaint = false)}
+    onConfirmFightApply={onApplyFight}
+    onConfirmFightClose={() => (confirmFight = null)}
     onChipPopupClose={closeChipPopup}
   />
 </section>
@@ -277,6 +344,7 @@
   onkeydown={(e) => {
     if (e.key !== 'Escape') return;
     if (popup) closeChipPopup();
+    else if (confirmFight) confirmFight = null;
     else if (confirmAcquaint) confirmAcquaint = false;
   }}
 />
