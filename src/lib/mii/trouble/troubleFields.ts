@@ -1,6 +1,7 @@
 import { MII_SCHEMA } from '$lib/sav/schema';
 import type { SchemaLeaf } from '$lib/sav/schema/leaf';
 import type { TroubleTargetKey } from '$lib/sav/lists/troubleList.svelte';
+import type { MiiAccessor } from '$lib/mii/miiEditor.svelte';
 
 type TroubleField = {
   leaf: SchemaLeaf;
@@ -64,6 +65,28 @@ export const TARGET_FIELD_KEYS: TroubleFieldKey[] = [
   'mapObjX',
   'mapObjY',
 ];
+
+const NEG_ONE_TARGET_KEYS: ReadonlySet<TroubleFieldKey> = new Set([
+  'targetMii',
+  'targetItemType',
+  'targetUgcFood',
+  'targetUgcGoods',
+  'targetUgcText',
+  'targetPreset',
+]);
+
+export function clearTroubleField(mii: MiiAccessor, index: number, key: TroubleFieldKey): void {
+  const f = TROUBLE_FIELDS[key];
+  if (!mii.has(f.leaf)) return;
+  const fill = NEG_ONE_TARGET_KEYS.has(key) ? -1 : 0;
+  for (let s = 0; s < f.perMii; s++) {
+    try {
+      mii.setElement(f.leaf, index * f.perMii + s, fill as never);
+    } catch {
+      /* skip */
+    }
+  }
+}
 
 export const TROUBLE_TARGET_FIELDS: Record<TroubleTargetKey, TroubleFieldKey[]> = {
   targetMii: ['targetMii'],

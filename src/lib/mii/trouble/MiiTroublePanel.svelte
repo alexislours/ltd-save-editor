@@ -14,6 +14,7 @@
   import MiiTroubleSelector from './MiiTroubleSelector.svelte';
   import MiiTroubleTargetEditor from './MiiTroubleTargetEditor.svelte';
   import {
+    clearTroubleField,
     TARGET_FIELD_KEYS,
     TROUBLE_FIELDS,
     TROUBLE_TARGET_FIELDS,
@@ -67,23 +68,7 @@
 
   function clearField(key: TroubleFieldKey): void {
     if (!mii || selectedIndex == null) return;
-    const f = TROUBLE_FIELDS[key];
-    if (!mii.has(f.leaf)) return;
-    const isNegOne =
-      key === 'targetMii' ||
-      key === 'targetItemType' ||
-      key === 'targetUgcFood' ||
-      key === 'targetUgcGoods' ||
-      key === 'targetUgcText' ||
-      key === 'targetPreset';
-    for (let s = 0; s < f.perMii; s++) {
-      const i = selectedIndex * f.perMii + s;
-      try {
-        mii.setElement(f.leaf, i, isNegOne ? -1 : (0 as never));
-      } catch {
-        /* skip */
-      }
-    }
+    clearTroubleField(mii, selectedIndex, key);
   }
 
   function commitTroubleId(rawHash: string): void {
