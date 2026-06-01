@@ -1107,6 +1107,7 @@
       "4": "Teint 5",
       "5": "Teint 6"
     },
+    "hemisphere_label": "Hémisphère",
     "interiors": {
       "caption": "{count, plural, one {# groupe de styles} other {# groupes de styles}} affichés. Passe à Obtenu pour débloquer le décor ; OwnNum est la quantité possédée.",
       "heading": "Intérieurs",

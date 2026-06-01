@@ -1085,6 +1085,7 @@
       "4": "Hand tone 5",
       "5": "Hand tone 6"
     },
+    "hemisphere_label": "Hemisphere",
     "interiors": {
       "caption": "{count, plural, one {# style group} other {# style groups}} shown. Mark as Obtained to unlock the interior set; OwnNum is the inventory count.",
       "heading": "Interiors",

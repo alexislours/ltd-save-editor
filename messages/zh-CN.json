@@ -1107,6 +1107,7 @@
       "4": "手部肤色 5",
       "5": "手部肤色 6"
     },
+    "hemisphere_label": "半球",
     "interiors": {
       "caption": "显示 {count, plural, one {# 个风格组} other {# 个风格组}}。标记为「已获得」即可解锁室内套装；OwnNum 是库存数量。",
       "heading": "室内装潢",

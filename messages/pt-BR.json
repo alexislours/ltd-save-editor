@@ -1107,6 +1107,7 @@
       "4": "Tom da mão 5",
       "5": "Tom da mão 6"
     },
+    "hemisphere_label": "Hemisfério",
     "interiors": {
       "caption": "{count, plural, one {# grupo de estilos} other {# grupos de estilos}} exibido(s). Marque como Obtido para desbloquear o conjunto; OwnNum é a quantidade no inventário.",
       "heading": "Interiores",
