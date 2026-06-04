@@ -4,6 +4,7 @@
   import { CARD_CLASS } from '$lib/ui/styles';
   import ProfileIdentitySection from './ProfileIdentitySection.svelte';
   import ProfileLiberationSection from './ProfileLiberationSection.svelte';
+  import ProfilePenaltySection from './ProfilePenaltySection.svelte';
   import ProfileRegionSection from './ProfileRegionSection.svelte';
   import ProfileStatsSection from './ProfileStatsSection.svelte';
   import { profileHasAnyContent } from './profileFields';
@@ -17,6 +18,7 @@
   </section>
 {:else}
   <div class="grid gap-4">
+    <ProfilePenaltySection />
     <ProfileIdentitySection />
     <ProfileStatsSection />
     <ProfileLiberationSection />
