@@ -1107,6 +1107,7 @@
       "4": "手部肤色 5",
       "5": "手部肤色 6"
     },
+    "hemisphere_label": "半球",
     "interiors": {
       "caption": "显示 {count, plural, one {# 个风格组} other {# 个风格组}}。标记为「已获得」即可解锁室内套装；OwnNum 是库存数量。",
       "heading": "室内装潢",
@@ -1154,6 +1155,11 @@
     "name_label": "玩家姓名",
     "name_language_label": "姓名语言",
     "name_pronounced_label": "读音",
+    "penalty_clear_button": "清除时间旅行惩罚",
+    "penalty_confirm_body": "这会将惩罚计时器清零，使受时间限制的功能立即解锁。除非重新打开存档，否则此操作无法撤销。",
+    "penalty_confirm_title": "清除时间旅行惩罚？",
+    "penalty_description": "此存档存在生效中的时间旅行惩罚。若不清除，部分进度将被锁定，直到 {unlock}。",
+    "penalty_section": "时间旅行",
     "play_time_label": "游戏时长",
     "play_time_unit": "秒",
     "region_code_label": "地区代码",

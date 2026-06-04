@@ -14,31 +14,40 @@
   const ISLAND_LANG = player.Player.IslandNameRegionLanguageID;
   const REGION = player.Player.Region;
   const REGION_CODE = player.Player.RegionCode;
+  const HEMISPHERE = player.Player.Hemisphere;
 
   const nameLang = bindLeaf(playerAccessor, NAME_LANG);
   const islandLang = bindLeaf(playerAccessor, ISLAND_LANG);
   const region = bindLeaf(playerAccessor, REGION);
   const regionCode = bindLeaf(playerAccessor, REGION_CODE);
+  const hemisphere = bindLeaf(playerAccessor, HEMISPHERE);
 
   const visible = $derived(
-    region.present || regionCode.present || nameLang.present || islandLang.present,
+    region.present ||
+      regionCode.present ||
+      nameLang.present ||
+      islandLang.present ||
+      hemisphere.present,
   );
 
   const regionOptions = $derived(region.present ? enumOptionsFor(REGION.hash) : null);
   const regionCodeOptions = $derived(regionCode.present ? enumOptionsFor(REGION_CODE.hash) : null);
   const nameLangOptions = $derived(nameLang.present ? enumOptionsFor(NAME_LANG.hash) : null);
   const islandLangOptions = $derived(islandLang.present ? enumOptionsFor(ISLAND_LANG.hash) : null);
+  const hemisphereOptions = $derived(hemisphere.present ? enumOptionsFor(HEMISPHERE.hash) : null);
 
   const errors = $state<{
     region: string | null;
     regionCode: string | null;
     nameLang: string | null;
     islandLang: string | null;
+    hemisphere: string | null;
   }>({
     region: null,
     regionCode: null,
     nameLang: null,
     islandLang: null,
+    hemisphere: null,
   });
 
   type RegionKey = Extract<I18nKey, `player.regions.${string}`>;
@@ -170,6 +179,31 @@
                 onchange={(e) =>
                   (errors.islandLang = writeHexUint32(e.currentTarget.value, (v) =>
                     islandLang.commit(v),
+                  ))}
+              />
+            {/if}
+          </div>
+        </FormFieldWrapper>
+      {/if}
+      {#if hemisphere.present}
+        {@const hemisphereValue = hemisphere.value ?? 0}
+        <FormFieldWrapper label={$_('player.hemisphere_label')} error={errors.hemisphere}>
+          <div class="max-w-xs">
+            {#if hemisphereOptions && hemisphereOptions.length > 0}
+              <EnumSelect
+                value={hemisphereValue}
+                options={hemisphereOptions}
+                onChange={(n) => hemisphere.commit(n)}
+                selectClass={COMPACT_SELECT_CLASS}
+              />
+            {:else}
+              <input
+                type="text"
+                class={FORM_INPUT_MONO_CLASS}
+                value={hexValue(hemisphereValue)}
+                onchange={(e) =>
+                  (errors.hemisphere = writeHexUint32(e.currentTarget.value, (v) =>
+                    hemisphere.commit(v),
                   ))}
               />
             {/if}

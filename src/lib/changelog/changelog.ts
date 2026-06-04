@@ -6,6 +6,14 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.8.0',
+    date: '2026-06-04',
+    changes: [
+      'Added a button to clear the time-travel penalty in the profile.',
+      'Made the hemisphere editable in the profile region section.',
+    ],
+  },
+  {
     version: '2.7.0',
     date: '2026-06-01',
     changes: ['Made the fight status editable in the Mii relationships table.'],

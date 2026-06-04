@@ -1107,6 +1107,7 @@
       "4": "Tom da mão 5",
       "5": "Tom da mão 6"
     },
+    "hemisphere_label": "Hemisfério",
     "interiors": {
       "caption": "{count, plural, one {# grupo de estilos} other {# grupos de estilos}} exibido(s). Marque como Obtido para desbloquear o conjunto; OwnNum é a quantidade no inventário.",
       "heading": "Interiores",
@@ -1154,6 +1155,11 @@
     "name_label": "Nome do jogador",
     "name_language_label": "Idioma do nome",
     "name_pronounced_label": "Pronúncia",
+    "penalty_clear_button": "Remover penalidade de viagem no tempo",
+    "penalty_confirm_body": "Isso zera o cronômetro da penalidade para que os recursos com restrição de tempo sejam desbloqueados imediatamente. Esta ação não pode ser desfeita, exceto reabrindo o save.",
+    "penalty_confirm_title": "Remover penalidade de viagem no tempo?",
+    "penalty_description": "Este save tem uma penalidade de viagem no tempo ativa. Sem removê-la, parte do progresso ficará bloqueada até {unlock}.",
+    "penalty_section": "Viagem no tempo",
     "play_time_label": "Tempo de jogo",
     "play_time_unit": "segundos",
     "region_code_label": "Código da região",
