@@ -9,10 +9,21 @@ export type FieldType =
   | { kind: 'struct'; def: StructDef }
   | { kind: 'bitfield'; def: BitfieldDef };
 
+export type CodecValue = number | bigint;
+
+export type Codec = {
+  id: string;
+  label: string;
+  input: 'text' | 'datetime-local' | 'readonly';
+  display: (value: CodecValue) => string;
+  parse?: (text: string, prev: CodecValue) => CodecValue | null;
+};
+
 type Field = {
   name: string;
   type: FieldType;
   format?: (node: DecodedNode) => string;
+  codec?: Codec;
 };
 
 export type StructDef = {
@@ -50,6 +61,7 @@ export type DecodedNode = {
   type: FieldType;
   value: DecodedValue;
   summary?: string;
+  codec?: Codec;
   children?: DecodedNode[];
   bits?: BitSpan;
 };

@@ -4,7 +4,7 @@
   import { binaryArrayElements } from '$lib/sav/codec';
   import { DataType, isInline } from '$lib/sav/dataType';
   import { hexU32 } from '$lib/sav/format';
-  import { structForHash } from '$lib/sav/struct/registry';
+  import { codecForHash, structForHash } from '$lib/sav/struct/registry';
   import type { StructDef } from '$lib/sav/struct/types';
   import type { Entry } from '$lib/sav/types';
   import { PILL_BUTTON_CLASS } from '$lib/ui/styles';
@@ -17,6 +17,7 @@
   let { entry, onCommit }: Props = $props();
 
   const access = $derived(entryScalarAccess(entry));
+  const scalarCodec = $derived(codecForHash(entry.hash));
 
   const binaryBytes = $derived.by(() => {
     if (entry.type !== DataType.Binary) return null;
@@ -114,6 +115,7 @@
   <ScalarFieldEditor
     {access}
     enumHash={entry.hash}
+    codec={scalarCodec}
     sizing={SCALAR_SIZING_PRESETS.entry}
     onCommit={() => onCommit(entry)}
   />

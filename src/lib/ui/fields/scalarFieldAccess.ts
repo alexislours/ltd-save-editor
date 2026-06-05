@@ -186,6 +186,7 @@ export function arrayElementScalarAccess(entry: Entry, index: number): ScalarAcc
 export type ScalarSizing = {
   numClass: string;
   longNumClass: string;
+  codecClass: string;
   vecClass: string;
   enumHexClass: string;
   enumSelectClass: string;
@@ -196,6 +197,7 @@ export const SCALAR_SIZING_PRESETS: { array: ScalarSizing; entry: ScalarSizing }
   array: {
     numClass: `w-full max-w-32 ${MONO_INPUT_CLASS}`,
     longNumClass: `w-full max-w-48 ${MONO_INPUT_CLASS}`,
+    codecClass: `w-full min-w-56 max-w-64 ${INPUT_CLASS}`,
     vecClass: `min-w-0 flex-1 ${MONO_INPUT_CLASS}`,
     enumHexClass: `w-full max-w-40 ${MONO_INPUT_CLASS}`,
     enumSelectClass: `w-full max-w-56 ${INPUT_CLASS}`,
@@ -204,6 +206,7 @@ export const SCALAR_SIZING_PRESETS: { array: ScalarSizing; entry: ScalarSizing }
   entry: {
     numClass: `w-full max-w-40 ${MONO_INPUT_CLASS}`,
     longNumClass: `w-full max-w-56 ${MONO_INPUT_CLASS}`,
+    codecClass: `w-full min-w-56 max-w-64 ${INPUT_CLASS}`,
     vecClass: `min-w-0 flex-1 ${MONO_INPUT_CLASS}`,
     enumHexClass: `w-full max-w-44 ${MONO_INPUT_CLASS}`,
     enumSelectClass: `w-full max-w-56 ${INPUT_CLASS}`,

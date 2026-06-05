@@ -268,7 +268,14 @@ function decodeStructAt(
   for (const field of def.fields) {
     const childPath = path ? `${path}.${field.name}` : field.name;
     const node = decodeType(field.type, dv, cursor, field.name, childPath);
-    if (field.format) node.summary = field.format(node);
+    if (field.codec) {
+      node.codec = field.codec;
+      const v = node.value;
+      node.summary =
+        v.kind === 'bigint' ? v.value.toString() : v.kind === 'number' ? String(v.value) : '';
+    } else if (field.format) {
+      node.summary = field.format(node);
+    }
     children.push(node);
     cursor += node.size;
   }

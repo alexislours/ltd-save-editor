@@ -126,6 +126,20 @@
     writeBits(dv, containerOffset, containerBytes, bitOffset, bitWidth, value);
     bump();
   }
+
+  function commitCodec(node: DecodedNode, raw: string): void {
+    if (node.type.kind !== 'prim' || !node.codec?.parse) return;
+    const prev =
+      node.value.kind === 'bigint'
+        ? node.value.value
+        : node.value.kind === 'number'
+          ? node.value.value
+          : 0;
+    const next = node.codec.parse(raw, prev);
+    if (next === null) return revert();
+    writePrim(dv, node.offset, node.type.prim, next);
+    bump();
+  }
 </script>
 
 <div class="struct">
@@ -190,6 +204,26 @@
                     onchange={(e) => commitBits(node, Number.parseInt(e.currentTarget.value, 10))}
                   />
                 {/if}
+              {:else if node.codec}
+                {@const raw =
+                  node.value.kind === 'bigint'
+                    ? node.value.value
+                    : node.value.kind === 'number'
+                      ? node.value.value
+                      : 0}
+                {#if node.codec.input === 'readonly'}
+                  <span class="summary mono">{node.codec.display(raw)}</span>
+                {:else}
+                  <input
+                    type={node.codec.input}
+                    step={node.codec.input === 'datetime-local' ? 1 : undefined}
+                    spellcheck="false"
+                    class="input"
+                    value={node.codec.display(raw)}
+                    onchange={(e) => commitCodec(node, e.currentTarget.value)}
+                  />
+                {/if}
+                {#if node.summary}<span class="summary mono">{node.summary}</span>{/if}
               {:else if node.type.kind === 'prim' && node.type.enumOptions}
                 {@const opts = node.type.enumOptions}
                 <select

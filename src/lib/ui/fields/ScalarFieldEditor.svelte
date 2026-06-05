@@ -1,25 +1,63 @@
 <script lang="ts">
   import { hexU32, parseMaybeHex } from '$lib/sav/format';
   import { enumOptionName, enumOptionsFor } from '$lib/sav/knownKeys';
+  import type { Codec } from '$lib/sav/struct/types';
   import EnumSelect from './EnumSelect.svelte';
   import { fieldWriteError, type ScalarAccess, type ScalarSizing } from './scalarFieldAccess';
 
   type Props = {
     access: ScalarAccess;
     enumHash: number;
+    codec?: Codec | null;
     showUIntEnumHint?: boolean;
     sizing: ScalarSizing;
     onCommit: () => void;
   };
-  let { access, enumHash, showUIntEnumHint = false, sizing, onCommit }: Props = $props();
+  let {
+    access,
+    enumHash,
+    codec = null,
+    showUIntEnumHint = false,
+    sizing,
+    onCommit,
+  }: Props = $props();
 
   let error = $state<string | null>(null);
+  let version = $state(0);
 
   function commit(fn: () => void): void {
     error = fieldWriteError(fn);
-    if (error == null) onCommit();
+    if (error == null) {
+      version++;
+      onCommit();
+    }
+  }
+
+  function tracked<T>(read: () => T): T {
+    void version;
+    return read();
   }
 </script>
+
+{#snippet codecField(current: bigint, write: (n: bigint) => void)}
+  {#if codec}
+    {#if codec.input === 'readonly'}
+      <span class="text-xs text-content-faint">{codec.display(current)}</span>
+    {:else}
+      <input
+        type={codec.input}
+        step={codec.input === 'datetime-local' ? 1 : undefined}
+        class="{sizing.codecClass} {codec.input === 'datetime-local' ? 'pr-9' : ''}"
+        value={codec.display(current)}
+        onchange={(e) => {
+          const next = codec.parse?.(e.currentTarget.value, current) ?? null;
+          if (next === null) error = 'Enter a valid value';
+          else commit(() => write(BigInt(next)));
+        }}
+      />
+    {/if}
+  {/if}
+{/snippet}
 
 {#if access.kind === 'bool'}
   {@const a = access}
@@ -105,37 +143,45 @@
   {/if}
 {:else if access.kind === 'int64'}
   {@const a = access}
-  <input
-    type="text"
-    inputmode="numeric"
-    class={sizing.longNumClass}
-    value={a.read().toString()}
-    onchange={(e) => {
-      try {
-        const n = BigInt(e.currentTarget.value.trim());
-        commit(() => a.write(n));
-      } catch {
-        error = 'Enter a valid integer';
-      }
-    }}
-  />
+  {@const current = tracked(() => a.read())}
+  <div class="flex flex-col gap-1">
+    <input
+      type="text"
+      inputmode="numeric"
+      class={sizing.longNumClass}
+      value={current.toString()}
+      onchange={(e) => {
+        try {
+          const n = BigInt(e.currentTarget.value.trim());
+          commit(() => a.write(n));
+        } catch {
+          error = 'Enter a valid integer';
+        }
+      }}
+    />
+    {@render codecField(current, (n) => a.write(n))}
+  </div>
 {:else if access.kind === 'uint64'}
   {@const a = access}
-  <input
-    type="text"
-    inputmode="numeric"
-    class={sizing.longNumClass}
-    value={a.read().toString()}
-    onchange={(e) => {
-      try {
-        const n = BigInt(e.currentTarget.value.trim());
-        if (n < 0n) throw new Error('negative');
-        commit(() => a.write(n));
-      } catch {
-        error = 'Enter a non-negative integer';
-      }
-    }}
-  />
+  {@const current = tracked(() => a.read())}
+  <div class="flex flex-col gap-1">
+    <input
+      type="text"
+      inputmode="numeric"
+      class={sizing.longNumClass}
+      value={current.toString()}
+      onchange={(e) => {
+        try {
+          const n = BigInt(e.currentTarget.value.trim());
+          if (n < 0n) throw new Error('negative');
+          commit(() => a.write(n));
+        } catch {
+          error = 'Enter a non-negative integer';
+        }
+      }}
+    />
+    {@render codecField(current, (n) => a.write(n))}
+  </div>
 {:else if access.kind === 'vector2'}
   {@const a = access}
   {@const v = a.read()}

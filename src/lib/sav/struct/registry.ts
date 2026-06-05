@@ -3,8 +3,10 @@ import { CLOCK_SNAPSHOT } from './defs/clockSnapshot';
 import { GIVEN_FLAG } from './defs/givenFlag';
 import { GIVEN_UGC_FLAG } from './defs/givenUgcFlag';
 import { NAME_SET_BIN } from './defs/nameSetBin';
+import { durationSeconds, epochSeconds } from './codecs';
 import { sizeOf } from './decode';
-import type { StructDef } from './types';
+import { DURATION_LEAF_HASHES, TIME_LEAF_HASHES } from './timeLeaves';
+import type { Codec, StructDef } from './types';
 
 const BY_HASH = new Map<number, StructDef>([
   [0xa279320c, CLOCK_SNAPSHOT],
@@ -22,4 +24,13 @@ export function structForHash(hash: number, byteLength: number): StructDef | nul
   if (!def) return null;
   if (sizeOf({ kind: 'struct', def }) > byteLength) return null;
   return def;
+}
+
+const CODEC_BY_HASH = new Map<number, Codec>([
+  ...TIME_LEAF_HASHES.map((h): [number, Codec] => [h, epochSeconds]),
+  ...DURATION_LEAF_HASHES.map((h): [number, Codec] => [h, durationSeconds]),
+]);
+
+export function codecForHash(hash: number): Codec | null {
+  return CODEC_BY_HASH.get(hash >>> 0) ?? null;
 }

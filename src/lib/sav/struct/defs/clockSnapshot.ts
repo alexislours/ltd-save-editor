@@ -1,3 +1,4 @@
+import { epochSeconds } from '../codecs';
 import { array, bytes, char, prim, struct, type DecodedNode, type StructDef } from '../types';
 
 function childNumber(node: DecodedNode, name: string): number {
@@ -33,15 +34,6 @@ function formatCalendar(node: DecodedNode): string {
   const minute = childNumber(node, 'minute');
   const second = childNumber(node, 'second');
   return `${pad(year, 4)}-${pad(month, 2)}-${pad(day, 2)} ${pad(hour, 2)}:${pad(minute, 2)}:${pad(second, 2)}`;
-}
-
-function formatEpoch(node: DecodedNode): string {
-  if (node.value.kind !== 'bigint') return '';
-  const seconds = node.value.value;
-  if (seconds === 0n) return '(unset)';
-  const ms = Number(seconds) * 1000;
-  if (!Number.isFinite(ms)) return '(out of range)';
-  return new Date(ms).toISOString().replace('T', ' ').replace('.000Z', ' UTC');
 }
 
 const UUID: StructDef = {
@@ -96,8 +88,8 @@ export const CLOCK_SNAPSHOT: StructDef = {
   fields: [
     { name: 'user_context', type: struct(SYSTEM_CLOCK_CONTEXT) },
     { name: 'network_context', type: struct(SYSTEM_CLOCK_CONTEXT) },
-    { name: 'user_posix_time', type: prim('s64'), format: formatEpoch },
-    { name: 'network_posix_time', type: prim('s64'), format: formatEpoch },
+    { name: 'user_posix_time', type: prim('s64'), codec: epochSeconds },
+    { name: 'network_posix_time', type: prim('s64'), codec: epochSeconds },
     { name: 'user_calendar_time', type: struct(CALENDAR_TIME) },
     { name: 'network_calendar_time', type: struct(CALENDAR_TIME) },
     { name: 'user_calendar_additional_info', type: struct(CALENDAR_ADDITIONAL_INFO) },
