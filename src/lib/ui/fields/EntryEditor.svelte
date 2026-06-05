@@ -4,10 +4,13 @@
   import { binaryArrayElements } from '$lib/sav/codec';
   import { DataType, isInline } from '$lib/sav/dataType';
   import { hexU32 } from '$lib/sav/format';
+  import { structForHash } from '$lib/sav/struct/registry';
+  import type { StructDef } from '$lib/sav/struct/types';
   import type { Entry } from '$lib/sav/types';
   import { PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import HexViewer from './HexViewer.svelte';
   import ScalarFieldEditor from './ScalarFieldEditor.svelte';
+  import StructView from './StructView.svelte';
   import { entryScalarAccess, SCALAR_SIZING_PRESETS } from './scalarFieldAccess';
 
   type Props = { entry: Entry; onCommit: (e: Entry) => void };
@@ -19,6 +22,10 @@
     if (entry.type !== DataType.Binary) return null;
     return entry.payload ? entry.payload.subarray(4) : new Uint8Array(0);
   });
+
+  const binaryStruct = $derived(
+    binaryBytes ? structForHash(entry.hash, binaryBytes.byteLength) : null,
+  );
 
   const binaryArrayItems = $derived.by(() => {
     if (entry.type !== DataType.BinaryArray) return null;
@@ -33,17 +40,26 @@
   });
 
   let open = $state(false);
+  let binaryMode = $state<'parsed' | 'hex'>('parsed');
   const openItems = new SvelteSet<number>();
+  const itemHex = new SvelteSet<number>();
 
   $effect(() => {
     void entry;
     open = false;
+    binaryMode = 'parsed';
     openItems.clear();
+    itemHex.clear();
   });
 
   function toggleItem(i: number): void {
     if (openItems.has(i)) openItems.delete(i);
     else openItems.add(i);
+  }
+
+  function setItemMode(i: number, mode: 'parsed' | 'hex'): void {
+    if (mode === 'hex') itemHex.add(i);
+    else itemHex.delete(i);
   }
 
   function hashName(): string {
@@ -56,6 +72,43 @@
 
   const buttonClass = `${PILL_BUTTON_CLASS} text-xs`;
 </script>
+
+{#snippet binaryBlock(
+  b: Uint8Array,
+  name: string,
+  sdef: StructDef | null,
+  mode: 'parsed' | 'hex',
+  setMode: (m: 'parsed' | 'hex') => void,
+)}
+  {#if sdef}
+    <div class="flex flex-wrap items-center gap-1.5 text-xs">
+      <span class="text-content-muted">{$_('advanced.view_label')}</span>
+      <button
+        type="button"
+        class="{buttonClass} {mode === 'parsed' ? 'ring-2 ring-orange-500' : ''}"
+        aria-pressed={mode === 'parsed'}
+        onclick={() => setMode('parsed')}
+      >
+        {$_('advanced.view_parsed')}
+      </button>
+      <button
+        type="button"
+        class="{buttonClass} {mode === 'hex' ? 'ring-2 ring-orange-500' : ''}"
+        aria-pressed={mode === 'hex'}
+        onclick={() => setMode('hex')}
+      >
+        {$_('advanced.view_hex')}
+      </button>
+    </div>
+    {#if mode === 'parsed'}
+      <StructView bytes={b} def={sdef} onByteChange={commit} />
+    {:else}
+      <HexViewer bytes={b} editable downloadName={name} onByteChange={commit} />
+    {/if}
+  {:else}
+    <HexViewer bytes={b} editable downloadName={name} onByteChange={commit} />
+  {/if}
+{/snippet}
 
 {#if access}
   <ScalarFieldEditor
@@ -74,13 +127,14 @@
         : $_('advanced.hex_view_action', { values: { bytes: binaryBytes.byteLength } })}
     </button>
     {#if open}
-      <div class="mt-2 w-full">
-        <HexViewer
-          bytes={binaryBytes}
-          editable
-          downloadName={`${hashName()}.bin`}
-          onByteChange={commit}
-        />
+      <div class="mt-2 w-full space-y-2">
+        {@render binaryBlock(
+          binaryBytes,
+          `${hashName()}.bin`,
+          binaryStruct,
+          binaryMode,
+          (m) => (binaryMode = m),
+        )}
       </div>
     {/if}
   </div>
@@ -117,13 +171,14 @@
                 </span>
               </button>
               {#if openItems.has(i)}
-                <div class="px-3 pb-3">
-                  <HexViewer
-                    bytes={item.bytes}
-                    editable
-                    downloadName={`${hashName()}-${i}.bin`}
-                    onByteChange={commit}
-                  />
+                <div class="space-y-2 px-3 pb-3">
+                  {@render binaryBlock(
+                    item.bytes,
+                    `${hashName()}-${i}.bin`,
+                    structForHash(entry.hash, item.size),
+                    itemHex.has(i) ? 'hex' : 'parsed',
+                    (m) => setItemMode(i, m),
+                  )}
                 </div>
               {/if}
             </div>
