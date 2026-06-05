@@ -1473,7 +1473,7 @@
         "rgbcx_hint": "Richard Geldreich's reference BC1 encoder. Higher overall quality, weaker on shadow detail."
       },
       "export_png": "Export as PNG",
-      "export_canvas_png": "Export raw canvas",
+      "export_canvas_png": "Export canvas as PNG",
       "export_ugc": "Export UGC files",
       "fit_mode": {
         "contain": "Contain",

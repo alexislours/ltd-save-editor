@@ -1495,7 +1495,7 @@
         "rgbcx_hint": "Codificador BC1 de referência de Richard Geldreich. Maior qualidade geral, mais fraco em detalhes de sombra."
       },
       "export_png": "Exportar como PNG",
-      "export_canvas_png": "Exportar canvas bruto",
+      "export_canvas_png": "Exportar canvas como PNG",
       "export_ugc": "Exportar arquivos UGC",
       "fit_mode": {
         "contain": "Conter",

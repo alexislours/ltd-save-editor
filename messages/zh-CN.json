@@ -1495,7 +1495,7 @@
         "rgbcx_hint": "Richard Geldreich 的参考 BC1 编码器。整体质量更高，但阴影细节较弱。"
       },
       "export_png": "导出为 PNG",
-      "export_canvas_png": "导出原始画布",
+      "export_canvas_png": "将画布导出为 PNG",
       "export_ugc": "导出 UGC 文件",
       "fit_mode": {
         "contain": "适应",
