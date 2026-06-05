@@ -88,6 +88,21 @@ export function getSaveBytes(kind: SaveKind): Uint8Array | null {
   return save.loadedBytes;
 }
 
+export function schemaForKind(kind: SaveKind) {
+  return SCHEMAS[kind];
+}
+
+export function decodeSaveBytes(
+  kind: SaveKind,
+  bytes: Uint8Array,
+): { decoded: DecodedSave | null; error: string | null } {
+  try {
+    return { decoded: decode(SCHEMAS[kind], parseSav(bytes)), error: null };
+  } catch (e) {
+    return { decoded: null, error: e instanceof Error ? e.message : String(e) };
+  }
+}
+
 export function getEntriesForAdvanced(kind: SaveKind): Entry[] {
   const bytes = getSaveBytes(kind);
   if (!bytes) return [];
@@ -106,14 +121,7 @@ export function setSaveFromBytes(
   options: SetSaveOptions = {},
 ): void {
   const lastModified = input.lastModified ?? Date.now();
-  let decoded: DecodedSave | null = null;
-  let parseError: string | null = null;
-  try {
-    const parsed = parseSav(input.bytes);
-    decoded = decode(SCHEMAS[kind], parsed);
-  } catch (e) {
-    parseError = e instanceof Error ? e.message : String(e);
-  }
+  const { decoded, error: parseError } = decodeSaveBytes(kind, input.bytes);
   saves[kind] = {
     name: input.name,
     size: input.bytes.byteLength,

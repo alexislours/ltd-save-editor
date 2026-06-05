@@ -86,6 +86,7 @@ type Events = {
   external_link: { target: string };
   map_tool_selected: { tool: 'brush' | 'fill' | 'rectangle' | 'picker' };
   map_history: { direction: 'undo' | 'redo'; source: 'keyboard' | 'button' };
+  diff_compared: { mode: 'edits' | 'files' };
 };
 
 type Umami = {
