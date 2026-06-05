@@ -6,6 +6,16 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.9.0',
+    date: '2026-06-05',
+    changes: [
+      'Added a struct parser and tree editor for binary entries in the advanced editor.',
+      'Added a save diff tool for comparing edits and files.',
+      'Added raw canvas PNG export to the UGC and facepaint editors.',
+      'Made time and duration fields editable as dates in the advanced editor.',
+    ],
+  },
+  {
     version: '2.8.0',
     date: '2026-06-04',
     changes: [

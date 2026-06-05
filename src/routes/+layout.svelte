@@ -82,6 +82,7 @@
     { route: '/map', label: $_('tab.map'), wip: false, external: false },
     { route: '/sharemii', label: $_('tab.sharemii'), wip: false, external: false },
     { route: '/ugc', label: $_('tab.ugc_editor'), wip: false, external: false },
+    { route: '/tools', label: $_('tab.tools'), wip: false, external: false },
     { route: '/history', label: $_('tab.history'), wip: false, external: false },
     { route: '/about', label: $_('tab.about'), wip: false, external: false },
     { route: docsUrl, label: $_('tab.docs'), wip: false, external: true },

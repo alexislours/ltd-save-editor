@@ -200,6 +200,32 @@
     }
   }
 
+  async function exportSelectedCanvasAsPng(): Promise<void> {
+    if (busy || selectedId === null) return;
+    busy = true;
+    try {
+      const id = selectedId;
+      const canvasName = facepaintCanvasFileName(id);
+      const bytes = sidecar.files.get(canvasName);
+      if (!bytes) {
+        showToast('warn', $_('ugc_editor.toast.no_canvas'));
+        return;
+      }
+      const { decodeZsFile, rgbaToPngBlob } = await import('$lib/ugc/codec');
+      const decoded = await decodeZsFile(canvasName, bytes);
+      const blob = await rgbaToPngBlob(decoded);
+      const ab = await blob.arrayBuffer();
+      const fileName = `Facepaint${String(id).padStart(3, '0')}_canvas.png`;
+      downloadBytes(new Uint8Array(ab), fileName);
+      track('facepaint_editor_export_canvas', { id });
+      showToast('success', $_('ugc_editor.toast.exported', { values: { fileName } }));
+    } catch (e) {
+      showToast('error', errorMessage(e));
+    } finally {
+      busy = false;
+    }
+  }
+
   function exportSelectedAsUgc(): void {
     if (busy || selectedId === null) return;
     const id = selectedId;
@@ -301,6 +327,14 @@
           disabled={busy || sidecarOrigin() === 'none'}
         >
           {$_('ugc_editor.editor.export_png')}
+        </button>
+        <button
+          type="button"
+          class={PILL_BUTTON_CLASS}
+          onclick={exportSelectedCanvasAsPng}
+          disabled={busy || sidecarOrigin() === 'none'}
+        >
+          {$_('ugc_editor.editor.export_canvas_png')}
         </button>
         <button
           type="button"

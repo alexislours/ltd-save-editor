@@ -235,6 +235,23 @@ export function exportSlotZsFiles(
   return { fileName, bytes: buildSidecarZip(files), count: files.length };
 }
 
+export async function decodeSlotCanvasToPng(
+  sidecar: SidecarSource,
+  kind: UgcKind,
+  slot: number,
+): Promise<{ fileName: string; bytes: Uint8Array } | null> {
+  const slotIdx = slot - 1;
+  const canvasName = ugcCanvasFileName(kind, slotIdx);
+  const bytes = sidecar.files.get(canvasName);
+  if (!bytes) return null;
+  const { decodeZsFile, rgbaToPngBlob } = await import('./codec');
+  const decoded = await decodeZsFile(canvasName, bytes);
+  const blob = await rgbaToPngBlob(decoded);
+  const ab = await blob.arrayBuffer();
+  const fileName = `${kind}${String(slotIdx).padStart(3, '0')}_canvas.png`;
+  return { fileName, bytes: new Uint8Array(ab) };
+}
+
 export async function decodeSlotToPng(
   sidecar: SidecarSource,
   kind: UgcKind,

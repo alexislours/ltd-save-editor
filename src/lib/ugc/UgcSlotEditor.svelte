@@ -22,6 +22,7 @@
     onLoadFile: (file: File) => void;
     onApplyReplace: () => void;
     onExportPng: () => void;
+    onExportCanvasPng: () => void;
     onExportUgc: () => void;
     onRevertSelected: () => void;
     onClearLanRestriction: () => void;
@@ -44,6 +45,7 @@
     onLoadFile,
     onApplyReplace,
     onExportPng,
+    onExportCanvasPng,
     onExportUgc,
     onRevertSelected,
     onClearLanRestriction,
@@ -139,6 +141,14 @@
     disabled={busy || sidecarMissing}
   >
     {$_('ugc_editor.editor.export_png')}
+  </button>
+  <button
+    type="button"
+    class={PILL_BUTTON_CLASS}
+    onclick={onExportCanvasPng}
+    disabled={busy || sidecarMissing}
+  >
+    {$_('ugc_editor.editor.export_canvas_png')}
   </button>
   <button
     type="button"
