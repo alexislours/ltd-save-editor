@@ -30,6 +30,7 @@
     buildUgcRows,
     clearLanRestriction,
     decodeSidecarToPngUrl,
+    decodeSlotCanvasToPng,
     decodeSlotToPng,
     exportSlotZsFiles,
     getSlotOriginalUgctex,
@@ -292,6 +293,28 @@
     }
   }
 
+  async function exportSelectedCanvasAsPng(): Promise<void> {
+    if (busy || selectedSlot === null || !ugcKind) return;
+    busy = true;
+    try {
+      const result = await decodeSlotCanvasToPng(sidecar, ugcKind, selectedSlot);
+      if (!result) {
+        showToast('warn', $_('ugc_editor.toast.no_canvas'));
+        return;
+      }
+      downloadBytes(result.bytes, result.fileName);
+      track('ugc_editor_export_canvas', { kind: ugcKind, slot: selectedSlot });
+      showToast(
+        'success',
+        $_('ugc_editor.toast.exported', { values: { fileName: result.fileName } }),
+      );
+    } catch (e) {
+      showToast('error', errorMessage(e));
+    } finally {
+      busy = false;
+    }
+  }
+
   function exportSelectedAsUgc(): void {
     if (busy || selectedSlot === null || !ugcKind) return;
     const result = exportSlotZsFiles(sidecar, ugcKind, selectedSlot);
@@ -446,6 +469,7 @@
                 onLoadFile={(file) => void tx.loadFile(file)}
                 onApplyReplace={applyReplace}
                 onExportPng={exportSelectedAsPng}
+                onExportCanvasPng={exportSelectedCanvasAsPng}
                 onExportUgc={exportSelectedAsUgc}
                 onRevertSelected={revertSelected}
                 onClearLanRestriction={clearLan}

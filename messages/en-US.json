@@ -1473,6 +1473,7 @@
         "rgbcx_hint": "Richard Geldreich's reference BC1 encoder. Higher overall quality, weaker on shadow detail."
       },
       "export_png": "Export as PNG",
+      "export_canvas_png": "Export raw canvas",
       "export_ugc": "Export UGC files",
       "fit_mode": {
         "contain": "Contain",
@@ -1549,6 +1550,7 @@
       "lan_restriction_cleared": "Cleared LAN restriction on slot {slot}.",
       "loaded_folder": "Loaded {count} .zs file(s) from folder.",
       "loaded_zip": "Loaded {count} .zs file(s) from zip.",
+      "no_canvas": "No raw canvas file for this item yet.",
       "no_texture": "No texture file for this item yet.",
       "no_zs_in_folder": "No .canvas.zs / .ugctex.zs files in that folder.",
       "no_zs_in_zip": "No .canvas.zs / .ugctex.zs files in that zip.",

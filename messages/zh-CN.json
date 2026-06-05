@@ -1495,6 +1495,7 @@
         "rgbcx_hint": "Richard Geldreich 的参考 BC1 编码器。整体质量更高，但阴影细节较弱。"
       },
       "export_png": "导出为 PNG",
+      "export_canvas_png": "导出原始画布",
       "export_ugc": "导出 UGC 文件",
       "fit_mode": {
         "contain": "适应",
@@ -1571,6 +1572,7 @@
       "lan_restriction_cleared": "已清除槽位 {slot} 的本地无线限制。",
       "loaded_folder": "从文件夹加载了 {count} 个 .zs 文件。",
       "loaded_zip": "从 zip 加载了 {count} 个 .zs 文件。",
+      "no_canvas": "此物品还没有原始画布文件。",
       "no_texture": "此物品还没有贴图文件。",
       "no_zs_in_folder": "该文件夹里没有 .canvas.zs / .ugctex.zs 文件。",
       "no_zs_in_zip": "该 zip 里没有 .canvas.zs / .ugctex.zs 文件。",

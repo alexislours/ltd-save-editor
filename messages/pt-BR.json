@@ -1495,6 +1495,7 @@
         "rgbcx_hint": "Codificador BC1 de referência de Richard Geldreich. Maior qualidade geral, mais fraco em detalhes de sombra."
       },
       "export_png": "Exportar como PNG",
+      "export_canvas_png": "Exportar canvas bruto",
       "export_ugc": "Exportar arquivos UGC",
       "fit_mode": {
         "contain": "Conter",
@@ -1571,6 +1572,7 @@
       "lan_restriction_cleared": "Restrição de comunicação local removida do slot {slot}.",
       "loaded_folder": "{count, plural, one {# arquivo .zs carregado} other {# arquivos .zs carregados}} da pasta.",
       "loaded_zip": "{count, plural, one {# arquivo .zs carregado} other {# arquivos .zs carregados}} do zip.",
+      "no_canvas": "Ainda não há arquivo de canvas bruto para este item.",
       "no_texture": "Ainda não há arquivo de textura para este item.",
       "no_zs_in_folder": "Nenhum arquivo .canvas.zs / .ugctex.zs nessa pasta.",
       "no_zs_in_zip": "Nenhum arquivo .canvas.zs / .ugctex.zs nesse zip.",
