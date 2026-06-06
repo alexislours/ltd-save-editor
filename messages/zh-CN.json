@@ -703,7 +703,20 @@
       "random": "随机化",
       "random_title": "随机选择喜欢和讨厌的食物",
       "rank_marker": "#{rank}",
+      "rating_title": "根据这位 Mii 隐藏的口味类型，TA 有多喜欢这道食物。",
       "search_placeholder": "搜索食物…",
+      "show_rating": "显示评分",
+      "tier": {
+        "bad": "难吃",
+        "best": "喜爱",
+        "good": "好吃",
+        "normal": "一般",
+        "ultra_best": "最爱",
+        "ultra_worst": "最讨厌",
+        "very_bad": "很难吃",
+        "very_good": "很好吃",
+        "worst": "讨厌"
+      },
       "unknown": "未知食物（哈希 {hash}）"
     },
     "habits": {

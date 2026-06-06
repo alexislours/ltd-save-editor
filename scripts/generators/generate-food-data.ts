@@ -9,11 +9,29 @@ const FOOD_PARAM = rsdb('FoodParam');
 const OUT = staticOut('foods.json');
 const ICON_DIR_DST = staticOut('food-icons');
 
+const TASTE_TIERS: [string, number][] = [
+  ['VeryBad', 3],
+  ['Bad', 3],
+  ['Normal', 4],
+  ['Good', 3],
+  ['VeryGood', 3],
+];
+const TASTE_HASH_TO_ORDINAL = new Map<number, number>();
+let _ord = 0;
+for (const [tier, variants] of TASTE_TIERS) {
+  for (let v = 0; v < variants; v++) {
+    TASTE_HASH_TO_ORDINAL.set(murmur3(`${tier}${String(v).padStart(2, '0')}`), _ord++);
+  }
+}
+
+const TASTE_COLUMNS = ['TasteA', 'TasteB', 'TasteC', 'TasteD'] as const;
+
 type Food = {
   h: number;
   n: string;
   t: number;
   i: number;
+  s: number[];
   l: Partial<Record<GameLocale, string>>;
 };
 
@@ -35,11 +53,17 @@ for (const p of params) {
     const text = names[code]?.get(name);
     if (text) localized[code] = text;
   }
+  const taste = TASTE_COLUMNS.map((col) => {
+    const ordinal = TASTE_HASH_TO_ORDINAL.get(p.uint(col));
+    if (ordinal == null) console.warn(`[food] ${name}: unresolved ${col} hash ${p.uint(col)}`);
+    return ordinal ?? 6;
+  });
   result.push({
     h: murmur3(name),
     n: name,
     t: textureId,
     i: temporaryId ?? -1,
+    s: taste,
     l: localized,
   });
 }

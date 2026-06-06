@@ -681,7 +681,20 @@
       "random": "Randomize",
       "random_title": "Pick random favourite and least favourite foods",
       "rank_marker": "#{rank}",
+      "rating_title": "How much this Mii likes this food, based on its hidden taste type.",
       "search_placeholder": "Search foods…",
+      "show_rating": "Show rating",
+      "tier": {
+        "bad": "Bad",
+        "best": "Favourite",
+        "good": "Good",
+        "normal": "Normal",
+        "ultra_best": "All-time fav",
+        "ultra_worst": "All-time worst",
+        "very_bad": "Very bad",
+        "very_good": "Very good",
+        "worst": "Hated"
+      },
       "unknown": "Unknown food (hash {hash})"
     },
     "habits": {
