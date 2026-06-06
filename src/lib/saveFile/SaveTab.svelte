@@ -3,6 +3,7 @@
   import { _ } from 'virtual:i18n/_shared';
   import Card from '$lib/ui/Card.svelte';
   import FileDropZone from '$lib/saveFile/FileDropZone.svelte';
+  import SaveBar from '$lib/saveFile/SaveBar.svelte';
   import { clearSave, getSave } from '$lib/saveFile/saveFile.svelte';
   import { expectedFileName, type SaveKind } from '$lib/saveFile/types';
 
@@ -14,12 +15,33 @@
     error?: string | null;
     /** Whether the parsed save is ready to display; falsy shows a "waiting" Card. */
     ready?: boolean;
+    /** Whether the save has unsaved edits; drives the status chip in the command bar. */
+    dirty?: boolean;
+    /** Primary action label (e.g. download); only shown once the save is ready. */
+    actionLabel?: string;
+    onAction?: () => void;
     children: Snippet;
   };
-  let { kind, title, description, error = null, ready = true, children }: Props = $props();
+  let {
+    kind,
+    title,
+    description,
+    error = null,
+    ready = true,
+    dirty = false,
+    actionLabel,
+    onAction,
+    children,
+  }: Props = $props();
 
   const save = $derived(getSave(kind));
   const fileName = $derived(expectedFileName[kind]);
+  const fileMeta = $derived(
+    save
+      ? `${save.size.toLocaleString()} ${$_('save.bytes_unit')} · ${new Date(save.lastModified).toLocaleString()}`
+      : '',
+  );
+  const showAction = $derived(ready && !error);
 </script>
 
 <div class="grid grid-cols-1 gap-6">
@@ -33,26 +55,15 @@
   </header>
 
   {#if save}
-    <div
-      class="flex items-center justify-between gap-3 rounded-2xl bg-header/90 px-4 py-2.5 shadow-sm ring-1 ring-edge/60 sm:gap-4 sm:rounded-full sm:px-5"
-    >
-      <div class="min-w-0 flex-1">
-        <p class="truncate font-mono text-sm font-bold text-content-strong">
-          {save.name}
-        </p>
-        <p class="mt-0.5 truncate text-xs text-content">
-          {save.size.toLocaleString()}
-          {$_('save.bytes_unit')} · {new Date(save.lastModified).toLocaleString()}
-        </p>
-      </div>
-      <button
-        type="button"
-        class="shrink-0 rounded-full bg-surface px-4 py-1.5 text-xs font-bold text-content-strong shadow ring-1 ring-edge/60 transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 active:scale-95"
-        onclick={() => clearSave(kind)}
-      >
-        {$_('save.replace_action')}
-      </button>
-    </div>
+    <SaveBar
+      {dirty}
+      actionLabel={showAction ? actionLabel : undefined}
+      onAction={showAction ? onAction : undefined}
+      fileName={save.name}
+      {fileMeta}
+      onReplace={() => clearSave(kind)}
+      replaceLabel={$_('save.replace_action')}
+    />
 
     {#if error}
       <Card>

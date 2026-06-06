@@ -22,7 +22,6 @@
     playerState,
     syncFromSave,
   } from '$lib/player/playerEditor.svelte';
-  import SaveBar from '$lib/saveFile/SaveBar.svelte';
   import SaveTab from '$lib/saveFile/SaveTab.svelte';
   import { getEntriesForAdvanced, getSave } from '$lib/saveFile/saveFile.svelte';
   import SubTabs from '$lib/ui/SubTabs.svelte';
@@ -85,40 +84,35 @@
   description={$_('player.description')}
   error={playerState.error}
   ready={playerState.decoded != null}
+  dirty={playerState.dirty}
+  actionLabel={$_('player.download_action')}
+  onAction={download}
 >
-  {#if playerState.decoded}
-    <SaveBar
-      dirty={playerState.dirty}
-      actionLabel={$_('player.download_action')}
-      onAction={download}
+  <SubTabs tabs={SUB_TABS} bind:value={subTab} label={$_('player.sections_label')} />
+
+  {#if subTab === 'profile'}
+    <Profile />
+  {:else if subTab === 'foods'}
+    <FoodsPanel />
+  {:else if subTab === 'clothes'}
+    <ClothesPanel />
+  {:else if subTab === 'clothing_sets'}
+    <ClothingSetsPanel />
+  {:else if subTab === 'treasures'}
+    <TreasuresPanel />
+  {:else if subTab === 'interiors'}
+    <InteriorsPanel />
+  {:else if subTab === 'buildings'}
+    <BuildingsPanel />
+  {:else if subTab === 'wishes'}
+    <WishesPanel />
+  {:else if subTab === 'ugc'}
+    <UgcTextPanel />
+  {:else}
+    <AdvancedPanel
+      entries={advancedEntries}
+      onCommit={commitEntryEdit}
+      parseSignal={playerState.loadId}
     />
-
-    <SubTabs tabs={SUB_TABS} bind:value={subTab} label={$_('player.sections_label')} />
-
-    {#if subTab === 'profile'}
-      <Profile />
-    {:else if subTab === 'foods'}
-      <FoodsPanel />
-    {:else if subTab === 'clothes'}
-      <ClothesPanel />
-    {:else if subTab === 'clothing_sets'}
-      <ClothingSetsPanel />
-    {:else if subTab === 'treasures'}
-      <TreasuresPanel />
-    {:else if subTab === 'interiors'}
-      <InteriorsPanel />
-    {:else if subTab === 'buildings'}
-      <BuildingsPanel />
-    {:else if subTab === 'wishes'}
-      <WishesPanel />
-    {:else if subTab === 'ugc'}
-      <UgcTextPanel />
-    {:else}
-      <AdvancedPanel
-        entries={advancedEntries}
-        onCommit={commitEntryEdit}
-        parseSignal={playerState.loadId}
-      />
-    {/if}
   {/if}
 </SaveTab>

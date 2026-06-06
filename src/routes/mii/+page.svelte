@@ -2,7 +2,6 @@
   import { version } from '$app/environment';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
   import RouteMeta from '$lib/layout/RouteMeta.svelte';
-  import SaveBar from '$lib/saveFile/SaveBar.svelte';
   import SaveTab from '$lib/saveFile/SaveTab.svelte';
   import SubTabs from '$lib/ui/SubTabs.svelte';
   import MiiBelongingsPanel from '$lib/mii/ownership/MiiBelongingsPanel.svelte';
@@ -108,56 +107,55 @@
   description={$_('mii.description')}
   error={miiState.error}
   ready={miiState.decoded != null}
+  dirty={miiState.dirty}
+  actionLabel={$_('mii.download_action')}
+  onAction={download}
 >
-  {#if miiState.decoded}
-    <SaveBar dirty={miiState.dirty} actionLabel={$_('mii.download_action')} onAction={download} />
+  <SubTabs tabs={SUB_TABS} bind:value={subTab} label={$_('mii.sections_label')} />
 
-    <SubTabs tabs={SUB_TABS} bind:value={subTab} label={$_('mii.sections_label')} />
-
-    {#if subTab === 'profile'}
-      <MiiPanel bind:selectedIndex />
-    {:else if subTab === 'relationships'}
-      <MiiRelationsGraph {selectedIndex} onSelect={(i) => (selectedIndex = i)} />
-    {:else if subTab === 'housing'}
-      <MiiHousingPanel />
-    {:else if subTab === 'belongings'}
-      <MiiBelongingsPanel bind:selectedIndex />
-    {:else if subTab === 'troubles'}
-      <MiiTroublePanel bind:selectedIndex />
-    {:else if subTab === 'habits'}
-      <MiiHabitPanel bind:selectedIndex />
-    {:else}
-      <AdvancedPanel
-        entries={advancedEntries}
-        onCommit={commitEntryEdit}
-        parseSignal={miiState.loadId}
-      />
-    {/if}
-
-    <details class="group rounded-md border border-edge/60 bg-surface-muted px-3 py-2.5">
-      <summary class="flex cursor-pointer list-none items-center justify-between gap-3 select-none">
-        <span class="text-sm font-bold text-content">{$_('mii.export.summary')}</span>
-        <span class="shrink-0 text-xs font-normal text-content-muted">
-          <span class="group-open:hidden">{$_('mii.export.show')}</span>
-          <span class="hidden group-open:inline">{$_('mii.export.hide')}</span>
-        </span>
-      </summary>
-      <p class="mt-2 text-xs text-content-muted">{$_('mii.export.description')}</p>
-      <div class="mt-3 flex flex-wrap gap-2">
-        <button type="button" class={PILL_BUTTON_CLASS} onclick={() => exportData('json')}>
-          {$_('mii.export.json')}
-        </button>
-        <button type="button" class={PILL_BUTTON_CLASS} onclick={() => exportData('miis-csv')}>
-          {$_('mii.export.miis_csv')}
-        </button>
-        <button
-          type="button"
-          class={PILL_BUTTON_CLASS}
-          onclick={() => exportData('relationships-csv')}
-        >
-          {$_('mii.export.relationships_csv')}
-        </button>
-      </div>
-    </details>
+  {#if subTab === 'profile'}
+    <MiiPanel bind:selectedIndex />
+  {:else if subTab === 'relationships'}
+    <MiiRelationsGraph {selectedIndex} onSelect={(i) => (selectedIndex = i)} />
+  {:else if subTab === 'housing'}
+    <MiiHousingPanel />
+  {:else if subTab === 'belongings'}
+    <MiiBelongingsPanel bind:selectedIndex />
+  {:else if subTab === 'troubles'}
+    <MiiTroublePanel bind:selectedIndex />
+  {:else if subTab === 'habits'}
+    <MiiHabitPanel bind:selectedIndex />
+  {:else}
+    <AdvancedPanel
+      entries={advancedEntries}
+      onCommit={commitEntryEdit}
+      parseSignal={miiState.loadId}
+    />
   {/if}
+
+  <details class="group rounded-md border border-edge/60 bg-surface-muted px-3 py-2.5">
+    <summary class="flex cursor-pointer list-none items-center justify-between gap-3 select-none">
+      <span class="text-sm font-bold text-content">{$_('mii.export.summary')}</span>
+      <span class="shrink-0 text-xs font-normal text-content-muted">
+        <span class="group-open:hidden">{$_('mii.export.show')}</span>
+        <span class="hidden group-open:inline">{$_('mii.export.hide')}</span>
+      </span>
+    </summary>
+    <p class="mt-2 text-xs text-content-muted">{$_('mii.export.description')}</p>
+    <div class="mt-3 flex flex-wrap gap-2">
+      <button type="button" class={PILL_BUTTON_CLASS} onclick={() => exportData('json')}>
+        {$_('mii.export.json')}
+      </button>
+      <button type="button" class={PILL_BUTTON_CLASS} onclick={() => exportData('miis-csv')}>
+        {$_('mii.export.miis_csv')}
+      </button>
+      <button
+        type="button"
+        class={PILL_BUTTON_CLASS}
+        onclick={() => exportData('relationships-csv')}
+      >
+        {$_('mii.export.relationships_csv')}
+      </button>
+    </div>
+  </details>
 </SaveTab>
