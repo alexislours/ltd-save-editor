@@ -2,9 +2,23 @@
   import { _ } from 'virtual:i18n/mii+residents+advanced';
   import { locale } from 'svelte-i18n';
   import { allFoods, foodImageUrl, foodLabel, type Food } from '$lib/sav/lists/foodList.svelte';
+  import { safe } from '$lib/sav/format';
+  import { MII_SCHEMA } from '$lib/sav/schema';
+  import type { SchemaLeaf } from '$lib/sav/schema/leaf';
   import { FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
+  import {
+    foodReactionValue,
+    miiTasteSeed,
+    RATING_TIERS,
+    REACTION_MAX,
+    TIER_TABLE,
+    type FoodOverrides,
+  } from './foodTaste';
+  import { getFoodRatingShown, setFoodRatingShown } from './foodRatingPref.svelte';
   import { miiAccessor } from './miiEditor.svelte';
   import type { MiiField } from './miiFields';
+
+  const EAT = MII_SCHEMA.Mii.MiiMisc.EatInfo;
 
   type Props = {
     index: number;
@@ -13,6 +27,7 @@
   let { index, field }: Props = $props();
 
   const ui = $derived($locale);
+  const showRating = $derived(getFoodRatingShown());
 
   let search = $state('');
   let filter = $state<'all' | 'tried' | 'untried'>('all');
@@ -22,6 +37,34 @@
     if (!mii) return null;
     const arr = mii.get(field.leaf) as Uint8Array[] | undefined;
     return arr?.[index] ?? null;
+  });
+
+  const tasteType = $derived.by(() => {
+    const mii = miiAccessor();
+    if (!mii) return 0;
+    return safe(() => mii.getElement(EAT.TasteType, index) as number, 0);
+  });
+
+  const miiSeed = $derived.by(() => {
+    const mii = miiAccessor();
+    if (!mii) return 0;
+    const arr = safe(
+      () => mii.get(MII_SCHEMA.Mii.CharInfoEx) as Uint8Array[] | undefined,
+      undefined,
+    );
+    return miiTasteSeed(arr?.[index]);
+  });
+
+  const overrides = $derived.by<FoodOverrides>(() => {
+    const mii = miiAccessor();
+    const read = (leaf: SchemaLeaf) =>
+      mii ? safe(() => mii.getElement(leaf, index) as number, 0) >>> 0 : 0;
+    return {
+      ultraBest: read(EAT.UltraBestId),
+      best: read(EAT.BestId),
+      worst: read(EAT.WorstId),
+      ultraWorst: read(EAT.UltraWorstId),
+    };
   });
 
   function readBit(bytes: Uint8Array, id: number): boolean {
@@ -46,7 +89,10 @@
   const rows = $derived.by<Row[]>(() => {
     const bytes = slotBytes;
     if (!bytes) return [];
-    return sortedFoods.map((food) => ({ food, tried: readBit(bytes, food.id) }));
+    return sortedFoods.map((food) => ({
+      food,
+      tried: readBit(bytes, food.id),
+    }));
   });
 
   const triedCount = $derived(rows.filter((r) => r.tried).length);
@@ -105,6 +151,15 @@
       <option value="tried">{$_('mii.food.filter_tried')}</option>
       <option value="untried">{$_('mii.food.filter_untried')}</option>
     </select>
+    <label class="mt-1.5 flex cursor-pointer items-center gap-1.5 text-xs text-content-muted">
+      <input
+        type="checkbox"
+        class="h-4 w-4 shrink-0 accent-orange-500"
+        checked={showRating}
+        onchange={(e) => setFoodRatingShown(e.currentTarget.checked)}
+      />
+      {$_('mii.food.show_rating')}
+    </label>
   </div>
 
   <div class="mt-2 max-h-72 overflow-y-auto rounded-md border border-edge/40 bg-surface-muted p-2">
@@ -137,9 +192,22 @@
                   />
                 {/if}
               </span>
-              <span class="truncate text-xs" class:text-content-muted={!row.tried}>
+              <span class="min-w-0 flex-1 truncate text-xs" class:text-content-muted={!row.tried}>
                 {foodLabel(row.food, ui)}
               </span>
+              {#if showRating}
+                {@const value = foodReactionValue(row.food, tasteType, miiSeed, overrides)}
+                {@const tier = RATING_TIERS[TIER_TABLE[value]]}
+                <span
+                  class="shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap {tier.badgeClass}"
+                  class:opacity-50={!row.tried}
+                  title={$_('mii.food.rating_title')}
+                >
+                  {#if tier.marker}<span aria-hidden="true">{tier.marker}</span>{/if}
+                  <span class="tabular-nums opacity-80">{value}/{REACTION_MAX}</span>
+                  {$_(`mii.food.tier.${tier.key}`)}
+                </span>
+              {/if}
             </label>
           </li>
         {/each}

@@ -6,6 +6,13 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.10.0',
+    date: '2026-06-07',
+    changes: [
+      'Added a taste rating to the Foods-tasted list showing how each Mii reacts to a food.',
+    ],
+  },
+  {
     version: '2.9.0',
     date: '2026-06-05',
     changes: [

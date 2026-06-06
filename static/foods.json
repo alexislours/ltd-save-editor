@@ -4,6 +4,7 @@
     "n": "Anpan",
     "t": 4,
     "i": 4,
+    "s": [8, 13, 5, 5],
     "l": {
       "CNzh": "红豆面包",
       "EUde": "Anpan",
@@ -25,6 +26,7 @@
     "n": "Apple",
     "t": 123,
     "i": 126,
+    "s": [9, 12, 12, 10],
     "l": {
       "CNzh": "苹果",
       "EUde": "Apfel",
@@ -46,6 +48,7 @@
     "n": "AppleCrumble",
     "t": 448,
     "i": 428,
+    "s": [8, 13, 5, 6],
     "l": {
       "CNzh": "烤苹果奶酥",
       "EUde": "Apfel-Crumble",
@@ -67,6 +70,7 @@
     "n": "AppleJuice",
     "t": 184,
     "i": 187,
+    "s": [12, 13, 10, 9],
     "l": {
       "CNzh": "苹果汁",
       "EUde": "Apfelsaft",
@@ -88,6 +92,7 @@
     "n": "ApplePie",
     "t": 2,
     "i": 2,
+    "s": [13, 14, 12, 10],
     "l": {
       "CNzh": "苹果派",
       "EUde": "Apfelkuchen",
@@ -109,6 +114,7 @@
     "n": "Abokado",
     "t": 133,
     "i": 136,
+    "s": [7, 5, 5, 12],
     "l": {
       "CNzh": "牛油果",
       "EUde": "Avocado",
@@ -130,6 +136,7 @@
     "n": "Bacalhau",
     "t": 315,
     "i": 310,
+    "s": [6, 4, 12, 12],
     "l": {
       "CNzh": "炸鳕鱼土豆球",
       "EUde": "Kabeljau-Potpourri",
@@ -151,6 +158,7 @@
     "n": "Bacon",
     "t": 134,
     "i": 137,
+    "s": [12, 6, 13, 11],
     "l": {
       "CNzh": "培根",
       "EUde": "Bacon",
@@ -172,6 +180,7 @@
     "n": "Baguette",
     "t": 326,
     "i": 321,
+    "s": [8, 8, 9, 8],
     "l": {
       "CNzh": "法式长棍面包",
       "EUde": "Baguette",
@@ -193,6 +202,7 @@
     "n": "BakedBeans",
     "t": 271,
     "i": 269,
+    "s": [5, 8, 8, 5],
     "l": {
       "CNzh": "茄汁焗豆",
       "EUde": "Baked Beans",
@@ -214,6 +224,7 @@
     "n": "BakedPotato",
     "t": 272,
     "i": 270,
+    "s": [10, 5, 9, 2],
     "l": {
       "CNzh": "焗烤土豆",
       "EUde": "Backkartoffel",
@@ -235,6 +246,7 @@
     "n": "Yakiimo",
     "t": 117,
     "i": 120,
+    "s": [8, 11, 10, 11],
     "l": {
       "CNzh": "烤红薯",
       "EUde": "Backsüßkartoffel",
@@ -256,6 +268,7 @@
     "n": "Banana",
     "t": 94,
     "i": 96,
+    "s": [6, 12, 8, 6],
     "l": {
       "CNzh": "香蕉",
       "EUde": "Banane",
@@ -277,6 +290,7 @@
     "n": "BananaKawa",
     "t": 179,
     "i": 97,
+    "s": [0, 0, 0, 0],
     "l": {
       "CNzh": "香蕉皮",
       "EUde": "Bananenschale",
@@ -298,6 +312,7 @@
     "n": "BananaSplit",
     "t": 273,
     "i": 271,
+    "s": [10, 14, 5, 14],
     "l": {
       "CNzh": "香蕉船",
       "EUde": "Bananensplit",
@@ -319,6 +334,7 @@
     "n": "BanhMi",
     "t": 433,
     "i": 414,
+    "s": [9, 6, 6, 9],
     "l": {
       "CNzh": "越南法式面包",
       "EUde": "Bánh-mì-Brötchen",
@@ -340,6 +356,7 @@
     "n": "Barbeque",
     "t": 379,
     "i": 371,
+    "s": [12, 5, 10, 8],
     "l": {
       "CNzh": "烧烤组合",
       "EUde": "Grillplatte",
@@ -361,6 +378,7 @@
     "n": "BeansOnToast",
     "t": 312,
     "i": 308,
+    "s": [8, 7, 10, 12],
     "l": {
       "CNzh": "茄汁豆烤吐司",
       "EUde": "Beans on Toast",
@@ -382,6 +400,7 @@
     "n": "BeefBourguignon",
     "t": 340,
     "i": 333,
+    "s": [12, 12, 13, 13],
     "l": {
       "CNzh": "红酒炖牛肉",
       "EUde": "Bœuf Bourguignon",
@@ -403,6 +422,7 @@
     "n": "BeefJerky",
     "t": 254,
     "i": 253,
+    "s": [9, 3, 13, 8],
     "l": {
       "CNzh": "牛肉干",
       "EUde": "Trockenfleisch",
@@ -424,6 +444,7 @@
     "n": "IshiyakiBibinba",
     "t": 181,
     "i": 184,
+    "s": [11, 8, 13, 11],
     "l": {
       "CNzh": "石锅拌饭",
       "EUde": "Bibimbap",
@@ -445,6 +466,7 @@
     "n": "BirthdayCake",
     "t": 143,
     "i": 146,
+    "s": [15, 15, 15, 15],
     "l": {
       "CNzh": "生日蛋糕",
       "EUde": "Geburtstagstorte",
@@ -466,6 +488,7 @@
     "n": "Scone",
     "t": 240,
     "i": 239,
+    "s": [11, 12, 9, 8],
     "l": {
       "CNzh": "司康饼",
       "EUde": "Scone",
@@ -487,6 +510,7 @@
     "n": "Goya",
     "t": 131,
     "i": 134,
+    "s": [5, 2, 7, 13],
     "l": {
       "CNzh": "苦瓜",
       "EUde": "Bittermelone",
@@ -508,6 +532,7 @@
     "n": "BlackForestGateau",
     "t": 245,
     "i": 244,
+    "s": [13, 14, 5, 9],
     "l": {
       "CNzh": "黑森林蛋糕",
       "EUde": "Schwarzwäldertorte",
@@ -529,6 +554,7 @@
     "n": "BlueCheese",
     "t": 103,
     "i": 106,
+    "s": [2, 1, 13, 14],
     "l": {
       "CNzh": "蓝纹奶酪",
       "EUde": "Blauschimmelkäse",
@@ -550,6 +576,7 @@
     "n": "BoiledGyoza",
     "t": 471,
     "i": 450,
+    "s": [9, 9, 9, 9],
     "l": {
       "CNzh": "水饺",
       "EUde": "Koch-Gyoza-Teigtasche",
@@ -571,6 +598,7 @@
     "n": "Octopus",
     "t": 194,
     "i": 197,
+    "s": [9, 7, 7, 12],
     "l": {
       "CNzh": "白灼章鱼",
       "EUde": "Oktopus",
@@ -592,6 +620,7 @@
     "n": "NekoManma",
     "t": 222,
     "i": 225,
+    "s": [10, 9, 12, 10],
     "l": {
       "CNzh": "猫饭",
       "EUde": "Reis mit Bonitoflocken",
@@ -613,6 +642,7 @@
     "n": "Borscht",
     "t": 327,
     "i": 322,
+    "s": [7, 7, 12, 13],
     "l": {
       "CNzh": "罗宋汤",
       "EUde": "Borschtsch",
@@ -634,6 +664,7 @@
     "n": "Broccoli",
     "t": 135,
     "i": 138,
+    "s": [7, 5, 9, 10],
     "l": {
       "CNzh": "西兰花",
       "EUde": "Brokkoli",
@@ -655,6 +686,7 @@
     "n": "Brownie",
     "t": 255,
     "i": 254,
+    "s": [13, 14, 4, 5],
     "l": {
       "CNzh": "布朗尼",
       "EUde": "Brownie",
@@ -676,6 +708,7 @@
     "n": "BrusselSprouts",
     "t": 297,
     "i": 294,
+    "s": [4, 3, 4, 10],
     "l": {
       "CNzh": "抱子甘蓝",
       "EUde": "Rosenkohl",
@@ -697,6 +730,7 @@
     "n": "BubbleTea",
     "t": 274,
     "i": 272,
+    "s": [5, 13, 4, 15],
     "l": {
       "CNzh": "珍珠奶茶",
       "EUde": "Bubble Tea",
@@ -718,6 +752,7 @@
     "n": "BubbleWaffle",
     "t": 483,
     "i": 462,
+    "s": [7, 10, 5, 6],
     "l": {
       "CNzh": "雪糕鸡蛋仔",
       "EUde": "Bubble-Waffel",
@@ -739,6 +774,7 @@
     "n": "Chidimi",
     "t": 214,
     "i": 217,
+    "s": [10, 10, 13, 10],
     "l": {
       "CNzh": "韩式煎饼",
       "EUde": "Buchimgae-Pfannkuchen",
@@ -760,6 +796,7 @@
     "n": "Pudetige",
     "t": 423,
     "i": 405,
+    "s": [10, 8, 13, 10],
     "l": {
       "CNzh": "部队锅",
       "EUde": "Budae-Jjigae-Suppe",
@@ -781,6 +818,7 @@
     "n": "BuffaloWings",
     "t": 275,
     "i": 273,
+    "s": [9, 9, 9, 9],
     "l": {
       "CNzh": "水牛城辣鸡翅",
       "EUde": "Buffalo Wings",
@@ -802,6 +840,7 @@
     "n": "Bugne",
     "t": 457,
     "i": 436,
+    "s": [8, 12, 4, 6],
     "l": {
       "CNzh": "法式甜甜圈",
       "EUde": "Bugnes",
@@ -823,6 +862,7 @@
     "n": "Bulgogi",
     "t": 481,
     "i": 460,
+    "s": [7, 7, 8, 8],
     "l": {
       "CNzh": "韩式烤牛肉",
       "EUde": "Bulgogi",
@@ -844,6 +884,7 @@
     "n": "Gugelhupf",
     "t": 319,
     "i": 314,
+    "s": [12, 12, 8, 10],
     "l": {
       "CNzh": "奶油圆蛋糕",
       "EUde": "Gugelhupf",
@@ -865,6 +906,7 @@
     "n": "Cookie",
     "t": 41,
     "i": 43,
+    "s": [11, 14, 9, 9],
     "l": {
       "CNzh": "曲奇",
       "EUde": "Keks",
@@ -886,6 +928,7 @@
     "n": "ZyagaBata",
     "t": 61,
     "i": 63,
+    "s": [9, 10, 5, 6],
     "l": {
       "CNzh": "黄油土豆",
       "EUde": "Ofenkartoffel",
@@ -907,6 +950,7 @@
     "n": "IkaRing",
     "t": 136,
     "i": 139,
+    "s": [10, 8, 13, 12],
     "l": {
       "CNzh": "鱿鱼圈",
       "EUde": "Tintenfischringe",
@@ -928,6 +972,7 @@
     "n": "RingoAme",
     "t": 165,
     "i": 168,
+    "s": [11, 12, 6, 5],
     "l": {
       "CNzh": "苹果糖",
       "EUde": "Paradiesapfel",
@@ -949,6 +994,7 @@
     "n": "CandyCorn",
     "t": 380,
     "i": 372,
+    "s": [5, 13, 5, 15],
     "l": {
       "CNzh": "粟米糖",
       "EUde": "Candy Corn",
@@ -970,6 +1016,7 @@
     "n": "Cannele",
     "t": 432,
     "i": 413,
+    "s": [10, 13, 5, 6],
     "l": {
       "CNzh": "可露丽",
       "EUde": "Canelé",
@@ -991,6 +1038,7 @@
     "n": "Cannoli",
     "t": 328,
     "i": 323,
+    "s": [12, 14, 5, 12],
     "l": {
       "CNzh": "奶油甜馅煎饼卷",
       "EUde": "Cannolo",
@@ -1012,6 +1060,7 @@
     "n": "Cappuccino",
     "t": 139,
     "i": 142,
+    "s": [9, 12, 5, 13],
     "l": {
       "CNzh": "卡布奇诺",
       "EUde": "Cappuccino",
@@ -1033,6 +1082,7 @@
     "n": "CapreseSalad",
     "t": 443,
     "i": 423,
+    "s": [6, 6, 6, 6],
     "l": {
       "CNzh": "卡布里沙拉",
       "EUde": "Caprese-Salat",
@@ -1054,6 +1104,7 @@
     "n": "CaramelNuts",
     "t": 438,
     "i": 418,
+    "s": [9, 11, 5, 6],
     "l": {
       "CNzh": "焦糖坚果",
       "EUde": "Karamellnüsse",
@@ -1075,6 +1126,7 @@
     "n": "Karubonara",
     "t": 31,
     "i": 32,
+    "s": [11, 12, 5, 12],
     "l": {
       "CNzh": "培根蛋酱意大利面",
       "EUde": "Spaghetti Carbonara",
@@ -1096,6 +1148,7 @@
     "n": "CarrotCake",
     "t": 256,
     "i": 255,
+    "s": [5, 10, 3, 12],
     "l": {
       "CNzh": "胡萝卜蛋糕",
       "EUde": "Karottentörtchen",
@@ -1117,6 +1170,7 @@
     "n": "Kasutera",
     "t": 26,
     "i": 26,
+    "s": [10, 13, 4, 8],
     "l": {
       "CNzh": "蜂蜜蛋糕",
       "EUde": "Biskuitkuchen",
@@ -1138,6 +1192,7 @@
     "n": "Kyabia",
     "t": 37,
     "i": 38,
+    "s": [11, 5, 14, 15],
     "l": {
       "CNzh": "鱼子酱",
       "EUde": "Kaviar",
@@ -1159,6 +1214,7 @@
     "n": "Celery",
     "t": 215,
     "i": 218,
+    "s": [3, 2, 3, 12],
     "l": {
       "CNzh": "芹菜",
       "EUde": "Sellerie",
@@ -1180,6 +1236,7 @@
     "n": "Ceviche",
     "t": 445,
     "i": 425,
+    "s": [6, 6, 6, 10],
     "l": {
       "CNzh": "柠汁腌鱼生",
       "EUde": "Ceviche",
@@ -1201,6 +1258,7 @@
     "n": "ChamomileTea",
     "t": 243,
     "i": 242,
+    "s": [6, 4, 6, 7],
     "l": {
       "CNzh": "洋甘菊茶",
       "EUde": "Kamillentee",
@@ -1222,6 +1280,7 @@
     "n": "ChankoNabe",
     "t": 83,
     "i": 85,
+    "s": [5, 9, 7, 7],
     "l": {
       "CNzh": "相扑火锅",
       "EUde": "Chankonabe",
@@ -1243,6 +1302,7 @@
     "n": "Yakiniku",
     "t": 202,
     "i": 205,
+    "s": [14, 12, 15, 10],
     "l": {
       "CNzh": "烤肉",
       "EUde": "Grill-Rindfleisch",
@@ -1264,6 +1324,7 @@
     "n": "Chawanmushi",
     "t": 200,
     "i": 203,
+    "s": [10, 12, 11, 11],
     "l": {
       "CNzh": "茶碗蒸",
       "EUde": "Chawanmushi",
@@ -1285,6 +1346,7 @@
     "n": "Cheese",
     "t": 187,
     "i": 190,
+    "s": [11, 10, 12, 14],
     "l": {
       "CNzh": "奶酪",
       "EUde": "Käse",
@@ -1306,6 +1368,7 @@
     "n": "CheeseBoard",
     "t": 488,
     "i": 228,
+    "s": [11, 10, 12, 14],
     "l": {
       "CNzh": "奶酪拼盘",
       "EUde": "Käseplatte",
@@ -1327,6 +1390,7 @@
     "n": "Hamburger",
     "t": 96,
     "i": 99,
+    "s": [11, 13, 12, 3],
     "l": {
       "CNzh": "汉堡",
       "EUde": "Cheeseburger",
@@ -1348,6 +1412,7 @@
     "n": "Cheesacake",
     "t": 144,
     "i": 147,
+    "s": [12, 14, 4, 9],
     "l": {
       "CNzh": "奶酪蛋糕",
       "EUde": "Käsekuchen",
@@ -1369,6 +1434,7 @@
     "n": "Cherimoya",
     "t": 314,
     "i": 309,
+    "s": [6, 12, 8, 8],
     "l": {
       "CNzh": "番荔枝",
       "EUde": "Cherimoya",
@@ -1390,6 +1456,7 @@
     "n": "Cherry",
     "t": 54,
     "i": 56,
+    "s": [10, 10, 11, 12],
     "l": {
       "CNzh": "樱桃",
       "EUde": "Kirschen",
@@ -1411,6 +1478,7 @@
     "n": "CherryPie",
     "t": 277,
     "i": 275,
+    "s": [10, 13, 3, 9],
     "l": {
       "CNzh": "樱桃派",
       "EUde": "Kirschkuchen",
@@ -1432,6 +1500,7 @@
     "n": "Gum",
     "t": 29,
     "i": 30,
+    "s": [6, 2, 7, 7],
     "l": {
       "CNzh": "口香糖",
       "EUde": "Kaugummi",
@@ -1453,6 +1522,7 @@
     "n": "ChickenNoodleSoup",
     "t": 257,
     "i": 256,
+    "s": [11, 5, 11, 2],
     "l": {
       "CNzh": "鸡汤面",
       "EUde": "Hühnersuppe mit Nudeln",
@@ -1474,6 +1544,7 @@
     "n": "ChickenPho",
     "t": 434,
     "i": 415,
+    "s": [6, 6, 9, 11],
     "l": {
       "CNzh": "鸡肉河粉",
       "EUde": "Hühnchen-Pho",
@@ -1495,6 +1566,7 @@
     "n": "ChickenPotPie",
     "t": 278,
     "i": 276,
+    "s": [9, 3, 10, 9],
     "l": {
       "CNzh": "鸡肉酥皮派",
       "EUde": "Hühnerpastete",
@@ -1516,6 +1588,7 @@
     "n": "ChickenTikkaMasala",
     "t": 330,
     "i": 325,
+    "s": [11, 6, 12, 12],
     "l": {
       "CNzh": "香料烤鸡咖喱",
       "EUde": "Hühnchen Tikka Masala",
@@ -1537,6 +1610,7 @@
     "n": "Chikuwa",
     "t": 81,
     "i": 83,
+    "s": [8, 7, 9, 6],
     "l": {
       "CNzh": "竹轮",
       "EUde": "Chikuwa-Fischstäbchen",
@@ -1558,6 +1632,7 @@
     "n": "EbiChili",
     "t": 191,
     "i": 194,
+    "s": [12, 12, 14, 9],
     "l": {
       "CNzh": "干烧明虾",
       "EUde": "Chili-Garnelen",
@@ -1579,6 +1654,7 @@
     "n": "ChiliConCarne",
     "t": 329,
     "i": 324,
+    "s": [10, 4, 13, 8],
     "l": {
       "CNzh": "素辣肉酱",
       "EUde": "Chili sin Carne",
@@ -1600,6 +1676,7 @@
     "n": "ShanghaiCrab",
     "t": 475,
     "i": 454,
+    "s": [7, 7, 7, 10],
     "l": {
       "CNzh": "大闸蟹",
       "EUde": "Wollhandkrabben",
@@ -1621,6 +1698,7 @@
     "n": "ChirashiSushi",
     "t": 209,
     "i": 212,
+    "s": [10, 9, 11, 10],
     "l": {
       "CNzh": "散寿司",
       "EUde": "Chirashizushi",
@@ -1642,6 +1720,7 @@
     "n": "Chocolate",
     "t": 84,
     "i": 86,
+    "s": [9, 15, 2, 2],
     "l": {
       "CNzh": "巧克力",
       "EUde": "Schokolade",
@@ -1663,6 +1742,7 @@
     "n": "ChocolateEasterEgg",
     "t": 454,
     "i": 433,
+    "s": [8, 10, 5, 6],
     "l": {
       "CNzh": "巧克力彩蛋",
       "EUde": "Schoko-Osterei",
@@ -1684,6 +1764,7 @@
     "n": "GatoSyokora",
     "t": 27,
     "i": 27,
+    "s": [13, 15, 5, 5],
     "l": {
       "CNzh": "古典巧克力蛋糕",
       "EUde": "Schokoladenkuchen",
@@ -1705,6 +1786,7 @@
     "n": "ChocoParfait",
     "t": 85,
     "i": 87,
+    "s": [13, 15, 6, 5],
     "l": {
       "CNzh": "巧克力圣代",
       "EUde": "Schokoladen-Eisbecher",
@@ -1726,6 +1808,7 @@
     "n": "BreadChocolateCream",
     "t": 367,
     "i": 359,
+    "s": [11, 15, 4, 2],
     "l": {
       "CNzh": "巧克力烤吐司",
       "EUde": "Brot mit Nougatcreme",
@@ -1747,6 +1830,7 @@
     "n": "Churros",
     "t": 355,
     "i": 347,
+    "s": [11, 12, 2, 9],
     "l": {
       "CNzh": "吉事果",
       "EUde": "Churros",
@@ -1768,6 +1852,7 @@
     "n": "CinnamonRoll",
     "t": 258,
     "i": 257,
+    "s": [8, 14, 5, 10],
     "l": {
       "CNzh": "肉桂卷",
       "EUde": "Zimtschnecke",
@@ -1789,6 +1874,7 @@
     "n": "ClamChowder",
     "t": 259,
     "i": 258,
+    "s": [7, 6, 9, 8],
     "l": {
       "CNzh": "蛤蜊巧达汤",
       "EUde": "Muschelsuppe",
@@ -1810,6 +1896,7 @@
     "n": "Cream",
     "t": 298,
     "i": 295,
+    "s": [7, 10, 6, 6],
     "l": {
       "CNzh": "凝脂奶油",
       "EUde": "Streichrahm",
@@ -1831,6 +1918,7 @@
     "n": "Coconut",
     "t": 140,
     "i": 143,
+    "s": [10, 12, 4, 14],
     "l": {
       "CNzh": "椰子",
       "EUde": "Kokosnuss",
@@ -1852,6 +1940,7 @@
     "n": "Coffee",
     "t": 49,
     "i": 51,
+    "s": [10, 3, 12, 13],
     "l": {
       "CNzh": "咖啡",
       "EUde": "Kaffee",
@@ -1873,6 +1962,7 @@
     "n": "Zarusoba",
     "t": 57,
     "i": 59,
+    "s": [10, 7, 11, 12],
     "l": {
       "CNzh": "荞麦面",
       "EUde": "Soba-Nudeln",
@@ -1894,6 +1984,7 @@
     "n": "Soumen",
     "t": 173,
     "i": 176,
+    "s": [12, 10, 13, 7],
     "l": {
       "CNzh": "素面",
       "EUde": "Somen-Nudeln",
@@ -1915,6 +2006,7 @@
     "n": "Coleslaw",
     "t": 260,
     "i": 259,
+    "s": [4, 3, 6, 5],
     "l": {
       "CNzh": "包菜沙拉",
       "EUde": "Krautsalat",
@@ -1936,6 +2028,7 @@
     "n": "ColombaPasquale",
     "t": 458,
     "i": 437,
+    "s": [6, 10, 5, 6],
     "l": {
       "CNzh": "复活节鸽子蛋糕",
       "EUde": "Ostertaube",
@@ -1957,6 +2050,7 @@
     "n": "CornDog",
     "t": 261,
     "i": 260,
+    "s": [10, 3, 12, 12],
     "l": {
       "CNzh": "炸热狗",
       "EUde": "Corn Dog",
@@ -1978,6 +2072,7 @@
     "n": "Corn",
     "t": 89,
     "i": 91,
+    "s": [7, 9, 8, 7],
     "l": {
       "CNzh": "玉米",
       "EUde": "Maiskolben",
@@ -1999,6 +2094,7 @@
     "n": "Cornflakes",
     "t": 141,
     "i": 144,
+    "s": [8, 9, 5, 3],
     "l": {
       "CNzh": "玉米片",
       "EUde": "Cornflakes",
@@ -2020,6 +2116,7 @@
     "n": "CornishPasty",
     "t": 316,
     "i": 311,
+    "s": [7, 7, 11, 12],
     "l": {
       "CNzh": "康沃尔馅饼",
       "EUde": "Cornish Pasty",
@@ -2041,6 +2138,7 @@
     "n": "Wataame",
     "t": 138,
     "i": 141,
+    "s": [12, 14, 3, 5],
     "l": {
       "CNzh": "棉花糖",
       "EUde": "Zuckerwatte",
@@ -2062,6 +2160,7 @@
     "n": "Couscous",
     "t": 331,
     "i": 326,
+    "s": [11, 5, 12, 13],
     "l": {
       "CNzh": "古斯米",
       "EUde": "Couscous",
@@ -2083,6 +2182,7 @@
     "n": "Crab",
     "t": 28,
     "i": 28,
+    "s": [12, 10, 13, 13],
     "l": {
       "CNzh": "螃蟹",
       "EUde": "Krebs",
@@ -2104,6 +2204,7 @@
     "n": "Biscuit",
     "t": 99,
     "i": 102,
+    "s": [8, 11, 4, 9],
     "l": {
       "CNzh": "饼干",
       "EUde": "Cracker",
@@ -2125,6 +2226,7 @@
     "n": "ShuCream",
     "t": 62,
     "i": 64,
+    "s": [10, 14, 6, 5],
     "l": {
       "CNzh": "泡芙",
       "EUde": "Windbeutel",
@@ -2146,6 +2248,7 @@
     "n": "CornSoup",
     "t": 50,
     "i": 52,
+    "s": [11, 13, 9, 5],
     "l": {
       "CNzh": "玉米浓汤",
       "EUde": "Maissuppe",
@@ -2167,6 +2270,7 @@
     "n": "Stew",
     "t": 44,
     "i": 46,
+    "s": [12, 12, 9, 8],
     "l": {
       "CNzh": "奶油炖菜",
       "EUde": "Creme-Eintopf",
@@ -2188,6 +2292,7 @@
     "n": "Crepe",
     "t": 45,
     "i": 47,
+    "s": [9, 14, 2, 4],
     "l": {
       "CNzh": "可丽饼",
       "EUde": "Crêpe",
@@ -2209,6 +2314,7 @@
     "n": "Croissant",
     "t": 47,
     "i": 49,
+    "s": [11, 12, 7, 10],
     "l": {
       "CNzh": "牛角面包",
       "EUde": "Croissant",
@@ -2230,6 +2336,7 @@
     "n": "Korokke",
     "t": 52,
     "i": 54,
+    "s": [11, 12, 10, 6],
     "l": {
       "CNzh": "可乐饼",
       "EUde": "Kroketten",
@@ -2251,6 +2358,7 @@
     "n": "CremeBrulee",
     "t": 332,
     "i": 327,
+    "s": [12, 13, 3, 9],
     "l": {
       "CNzh": "奶油烤布蕾",
       "EUde": "Crème brulée",
@@ -2272,6 +2380,7 @@
     "n": "Currypan",
     "t": 193,
     "i": 196,
+    "s": [10, 10, 12, 7],
     "l": {
       "CNzh": "咖喱面包",
       "EUde": "Currybrötchen",
@@ -2293,6 +2402,7 @@
     "n": "CurryRice",
     "t": 32,
     "i": 33,
+    "s": [12, 2, 15, 8],
     "l": {
       "CNzh": "咖喱饭",
       "EUde": "Curryreis",
@@ -2314,6 +2424,7 @@
     "n": "KrNatumeCha",
     "t": 417,
     "i": 401,
+    "s": [5, 5, 5, 13],
     "l": {
       "CNzh": "红枣茶",
       "EUde": "Daechu-Cha",
@@ -2335,6 +2446,7 @@
     "n": "Dalgona",
     "t": 469,
     "i": 448,
+    "s": [8, 10, 5, 7],
     "l": {
       "CNzh": "椪糖",
       "EUde": "Dalgona-Kekse",
@@ -2356,6 +2468,7 @@
     "n": "Tanping",
     "t": 470,
     "i": 449,
+    "s": [8, 8, 8, 8],
     "l": {
       "CNzh": "蛋饼",
       "EUde": "Dan-Bing-Rolle",
@@ -2377,6 +2490,7 @@
     "n": "Dates",
     "t": 357,
     "i": 349,
+    "s": [9, 9, 8, 14],
     "l": {
       "CNzh": "椰枣",
       "EUde": "Datteln",
@@ -2398,6 +2512,7 @@
     "n": "DeviledEggs",
     "t": 437,
     "i": 417,
+    "s": [6, 6, 6, 6],
     "l": {
       "CNzh": "魔鬼蛋",
       "EUde": "Russisch‑Ei",
@@ -2419,6 +2534,7 @@
     "n": "DimSum",
     "t": 482,
     "i": 461,
+    "s": [6, 6, 6, 6],
     "l": {
       "CNzh": "港式点心",
       "EUde": "Dim-Sum-Bällchen",
@@ -2440,6 +2556,7 @@
     "n": "KrMisoTige",
     "t": 406,
     "i": 392,
+    "s": [10, 7, 13, 7],
     "l": {
       "CNzh": "韩式大酱汤",
       "EUde": "Doenjang-Jjigae-Suppe",
@@ -2461,6 +2578,7 @@
     "n": "DonerKebap",
     "t": 232,
     "i": 232,
+    "s": [10, 7, 11, 12],
     "l": {
       "CNzh": "土耳其烤肉",
       "EUde": "Döner",
@@ -2482,6 +2600,7 @@
     "n": "Dorayaki",
     "t": 91,
     "i": 93,
+    "s": [6, 13, 1, 14],
     "l": {
       "CNzh": "铜锣烧",
       "EUde": "Dorayaki-Küchlein",
@@ -2503,6 +2622,7 @@
     "n": "Doughnuts",
     "t": 90,
     "i": 92,
+    "s": [12, 12, 7, 8],
     "l": {
       "CNzh": "甜甜圈",
       "EUde": "Donut",
@@ -2524,6 +2644,7 @@
     "n": "Surume",
     "t": 127,
     "i": 130,
+    "s": [7, 3, 9, 15],
     "l": {
       "CNzh": "干鱿鱼",
       "EUde": "Trockentintenfisch",
@@ -2545,6 +2666,7 @@
     "n": "BoneMeat",
     "t": 107,
     "i": 110,
+    "s": [11, 10, 13, 14],
     "l": {
       "CNzh": "带骨鸡腿",
       "EUde": "Hähnchenschenkel",
@@ -2566,6 +2688,7 @@
     "n": "ToufuKimuti",
     "t": 402,
     "i": 389,
+    "s": [10, 7, 10, 10],
     "l": {
       "CNzh": "豆腐泡菜",
       "EUde": "Dubu-Kimchi",
@@ -2587,6 +2710,7 @@
     "n": "Durian",
     "t": 224,
     "i": 181,
+    "s": [2, 5, 0, 15],
     "l": {
       "CNzh": "榴莲",
       "EUde": "Durianfrucht",
@@ -2608,6 +2732,7 @@
     "n": "Edamame",
     "t": 125,
     "i": 128,
+    "s": [9, 5, 12, 10],
     "l": {
       "CNzh": "毛豆",
       "EUde": "Sojabohnen",
@@ -2629,6 +2754,7 @@
     "n": "MelanzaneAllaParmigiana",
     "t": 346,
     "i": 338,
+    "s": [10, 9, 12, 10],
     "l": {
       "CNzh": "意式烤茄子",
       "EUde": "Auberginenauflauf",
@@ -2650,6 +2776,7 @@
     "n": "EhouMaki",
     "t": 216,
     "i": 219,
+    "s": [10, 10, 12, 12],
     "l": {
       "CNzh": "惠方卷",
       "EUde": "Ehomaki-Sushi",
@@ -2671,6 +2798,7 @@
     "n": "ElephantEar",
     "t": 279,
     "i": 277,
+    "s": [9, 12, 6, 12],
     "l": {
       "CNzh": "象耳面包",
       "EUde": "Blätterteiggebäck",
@@ -2692,6 +2820,7 @@
     "n": "Empanadas",
     "t": 446,
     "i": 426,
+    "s": [12, 6, 12, 10],
     "l": {
       "CNzh": "恩潘纳达馅饼",
       "EUde": "Empanadas",
@@ -2713,6 +2842,7 @@
     "n": "Enchilada",
     "t": 450,
     "i": 429,
+    "s": [8, 2, 13, 9],
     "l": {
       "CNzh": "安吉拉卷",
       "EUde": "Enchiladas",
@@ -2734,6 +2864,7 @@
     "n": "EiyouDrink",
     "t": 9,
     "i": 9,
+    "s": [7, 10, 5, 13],
     "l": {
       "CNzh": "能量饮料",
       "EUde": "Energy-Drink",
@@ -2755,6 +2886,7 @@
     "n": "EnglishBreakfast",
     "t": 308,
     "i": 305,
+    "s": [9, 6, 13, 9],
     "l": {
       "CNzh": "英式早餐",
       "EUde": "English Breakfast",
@@ -2776,6 +2908,7 @@
     "n": "Escargot",
     "t": 161,
     "i": 164,
+    "s": [5, 2, 6, 15],
     "l": {
       "CNzh": "法式焗蜗牛",
       "EUde": "Schnecken",
@@ -2797,6 +2930,7 @@
     "n": "Espresso",
     "t": 230,
     "i": 230,
+    "s": [10, 2, 13, 11],
     "l": {
       "CNzh": "意式浓缩咖啡",
       "EUde": "Espresso",
@@ -2818,6 +2952,7 @@
     "n": "Falafel",
     "t": 447,
     "i": 427,
+    "s": [6, 6, 6, 6],
     "l": {
       "CNzh": "炸鹰嘴豆丸子",
       "EUde": "Falafel-Bällchen",
@@ -2839,6 +2974,7 @@
     "n": "FancyCupcake",
     "t": 378,
     "i": 370,
+    "s": [15, 15, 10, 15],
     "l": {
       "CNzh": "可爱纸杯蛋糕",
       "EUde": "Confiserie-Muffin",
@@ -2860,6 +2996,7 @@
     "n": "FiletMignon",
     "t": 377,
     "i": 369,
+    "s": [13, 3, 11, 10],
     "l": {
       "CNzh": "菲力牛排",
       "EUde": "Filet Mignon",
@@ -2881,6 +3018,7 @@
     "n": "Fishcake",
     "t": 302,
     "i": 299,
+    "s": [7, 5, 9, 8],
     "l": {
       "CNzh": "炸鱼饼",
       "EUde": "Fischfrikadellen",
@@ -2902,6 +3040,7 @@
     "n": "Pudding",
     "t": 102,
     "i": 105,
+    "s": [12, 15, 3, 5],
     "l": {
       "CNzh": "布丁",
       "EUde": "Flan-Pudding",
@@ -2923,6 +3062,7 @@
     "n": "FriedPotato",
     "t": 101,
     "i": 104,
+    "s": [9, 10, 14, 7],
     "l": {
       "CNzh": "薯条",
       "EUde": "Pommes frites",
@@ -2944,6 +3084,7 @@
     "n": "OnionGratinSoup",
     "t": 213,
     "i": 216,
+    "s": [9, 9, 12, 11],
     "l": {
       "CNzh": "焗烤洋葱汤",
       "EUde": "Gratin-Zwiebelsuppe",
@@ -2965,6 +3106,7 @@
     "n": "FrenchToast",
     "t": 104,
     "i": 107,
+    "s": [8, 10, 10, 10],
     "l": {
       "CNzh": "法式吐司",
       "EUde": "French Toasts",
@@ -2986,6 +3128,7 @@
     "n": "Namaharumaki",
     "t": 211,
     "i": 214,
+    "s": [11, 8, 12, 13],
     "l": {
       "CNzh": "生春卷",
       "EUde": "Sommerröllchen",
@@ -3007,6 +3150,7 @@
     "n": "Karaage",
     "t": 30,
     "i": 31,
+    "s": [11, 9, 10, 11],
     "l": {
       "CNzh": "炸鸡块",
       "EUde": "Knusperhähnchen",
@@ -3028,6 +3172,7 @@
     "n": "MedamaYaki",
     "t": 114,
     "i": 117,
+    "s": [9, 9, 11, 10],
     "l": {
       "CNzh": "荷包蛋",
       "EUde": "Spiegelei",
@@ -3049,6 +3194,7 @@
     "n": "FriedPlantains",
     "t": 452,
     "i": 431,
+    "s": [8, 10, 6, 6],
     "l": {
       "CNzh": "炸大蕉",
       "EUde": "Kochbananen",
@@ -3070,6 +3216,7 @@
     "n": "ChaHan",
     "t": 82,
     "i": 84,
+    "s": [10, 7, 10, 8],
     "l": {
       "CNzh": "炒饭",
       "EUde": "Bratreis",
@@ -3091,6 +3238,7 @@
     "n": "FriedSardines",
     "t": 318,
     "i": 313,
+    "s": [5, 4, 8, 11],
     "l": {
       "CNzh": "炸沙丁鱼",
       "EUde": "Frittiersardinen",
@@ -3112,6 +3260,7 @@
     "n": "Ebifurai",
     "t": 11,
     "i": 11,
+    "s": [12, 12, 8, 9],
     "l": {
       "CNzh": "炸虾",
       "EUde": "Frittiergarnele",
@@ -3133,6 +3282,7 @@
     "n": "Harumaki",
     "t": 95,
     "i": 98,
+    "s": [11, 8, 12, 12],
     "l": {
       "CNzh": "春卷",
       "EUde": "Frühlingsröllchen",
@@ -3154,6 +3304,7 @@
     "n": "FriedTofu",
     "t": 375,
     "i": 367,
+    "s": [7, 6, 10, 12],
     "l": {
       "CNzh": "油炸豆腐",
       "EUde": "Frittiertofu",
@@ -3175,6 +3326,7 @@
     "n": "IcyPop",
     "t": 374,
     "i": 366,
+    "s": [13, 13, 5, 8],
     "l": {
       "CNzh": "冰棒",
       "EUde": "Wassereis am Stiel",
@@ -3196,6 +3348,7 @@
     "n": "FrozenYogurt",
     "t": 280,
     "i": 278,
+    "s": [7, 9, 4, 11],
     "l": {
       "CNzh": "冻酸奶",
       "EUde": "Frozen Yoghurt",
@@ -3217,6 +3370,7 @@
     "n": "Oatmeal",
     "t": 266,
     "i": 264,
+    "s": [6, 9, 6, 0],
     "l": {
       "CNzh": "水果格兰诺拉麦片",
       "EUde": "Haferflocken",
@@ -3238,6 +3392,7 @@
     "n": "Fudge",
     "t": 301,
     "i": 298,
+    "s": [10, 14, 5, 8],
     "l": {
       "CNzh": "乳脂软糖",
       "EUde": "Karamellhappen",
@@ -3259,6 +3414,7 @@
     "n": "Hugusashi",
     "t": 204,
     "i": 207,
+    "s": [14, 13, 15, 15],
     "l": {
       "CNzh": "河豚生鱼片",
       "EUde": "Kugelfisch-Sashimi",
@@ -3280,6 +3436,7 @@
     "n": "Hukumame",
     "t": 217,
     "i": 220,
+    "s": [12, 12, 12, 12],
     "l": {
       "CNzh": "福豆",
       "EUde": "Röstsojabohnen",
@@ -3301,6 +3458,7 @@
     "n": "Kamujyatan",
     "t": 430,
     "i": 412,
+    "s": [10, 7, 13, 10],
     "l": {
       "CNzh": "土豆脊骨汤",
       "EUde": "Gamja-Tang-Suppe",
@@ -3322,6 +3480,7 @@
     "n": "Kanjyankejyan",
     "t": 412,
     "i": 397,
+    "s": [10, 4, 13, 15],
     "l": {
       "CNzh": "酱油蟹",
       "EUde": "Ganjang-Gejang-Krebse",
@@ -3343,6 +3502,7 @@
     "n": "Garlic",
     "t": 225,
     "i": 182,
+    "s": [3, 3, 10, 12],
     "l": {
       "CNzh": "大蒜",
       "EUde": "Knoblauch",
@@ -3364,6 +3524,7 @@
     "n": "Gazpacho",
     "t": 334,
     "i": 328,
+    "s": [9, 9, 11, 8],
     "l": {
       "CNzh": "西班牙冻汤",
       "EUde": "Gazpacho",
@@ -3385,6 +3546,7 @@
     "n": "Jelly",
     "t": 170,
     "i": 173,
+    "s": [11, 13, 6, 7],
     "l": {
       "CNzh": "果冻",
       "EUde": "Götterspeise",
@@ -3406,6 +3568,7 @@
     "n": "KrNori",
     "t": 388,
     "i": 380,
+    "s": [10, 5, 10, 7],
     "l": {
       "CNzh": "韩国海苔",
       "EUde": "Gim-Seetang",
@@ -3427,6 +3590,7 @@
     "n": "Gingerbread",
     "t": 299,
     "i": 296,
+    "s": [12, 13, 9, 13],
     "l": {
       "CNzh": "姜糖面包",
       "EUde": "Ingwerkuchen",
@@ -3448,6 +3612,7 @@
     "n": "GingerCookies",
     "t": 465,
     "i": 444,
+    "s": [8, 10, 5, 6],
     "l": {
       "CNzh": "姜糖饼干",
       "EUde": "Ingwerkeks",
@@ -3469,6 +3634,7 @@
     "n": "KouraiNinjin",
     "t": 384,
     "i": 376,
+    "s": [10, 3, 6, 15],
     "l": {
       "CNzh": "高丽参",
       "EUde": "Ginseng",
@@ -3490,6 +3656,7 @@
     "n": "Gnocchi",
     "t": 343,
     "i": 335,
+    "s": [10, 9, 11, 6],
     "l": {
       "CNzh": "意式土豆团子",
       "EUde": "Gnocchi",
@@ -3511,6 +3678,7 @@
     "n": "Kotyujyan",
     "t": 405,
     "i": 391,
+    "s": [2, 2, 5, 2],
     "l": {
       "CNzh": "苦椒酱",
       "EUde": "Gochujang",
@@ -3532,6 +3700,7 @@
     "n": "GranolaParfait",
     "t": 281,
     "i": 279,
+    "s": [9, 10, 5, 4],
     "l": {
       "CNzh": "酸奶燕麦圣代",
       "EUde": "Müsli-Parfait",
@@ -3553,6 +3722,7 @@
     "n": "Grapefruits",
     "t": 46,
     "i": 48,
+    "s": [10, 5, 12, 11],
     "l": {
       "CNzh": "葡萄柚",
       "EUde": "Grapefruit",
@@ -3574,6 +3744,7 @@
     "n": "Grape",
     "t": 100,
     "i": 103,
+    "s": [11, 7, 9, 8],
     "l": {
       "CNzh": "葡萄",
       "EUde": "Trauben",
@@ -3595,6 +3766,7 @@
     "n": "Carrot",
     "t": 362,
     "i": 354,
+    "s": [3, 2, 9, 6],
     "l": {
       "CNzh": "胡萝卜沙拉",
       "EUde": "Karottensalat",
@@ -3616,6 +3788,7 @@
     "n": "Guratan",
     "t": 43,
     "i": 45,
+    "s": [10, 12, 8, 8],
     "l": {
       "CNzh": "奶汁烤通心粉",
       "EUde": "Nudel-Gratin",
@@ -3637,6 +3810,7 @@
     "n": "GreekStyleSalad",
     "t": 344,
     "i": 336,
+    "s": [6, 5, 12, 12],
     "l": {
       "CNzh": "希腊风味沙拉",
       "EUde": "Fetasalat",
@@ -3658,6 +3832,7 @@
     "n": "GreenCurry",
     "t": 439,
     "i": 419,
+    "s": [8, 1, 13, 11],
     "l": {
       "CNzh": "绿咖喱",
       "EUde": "Thai-Curry",
@@ -3679,6 +3854,7 @@
     "n": "Aoziru",
     "t": 1,
     "i": 1,
+    "s": [6, 8, 5, 13],
     "l": {
       "CNzh": "青汁",
       "EUde": "Spinat-Miso-Saft",
@@ -3700,6 +3876,7 @@
     "n": "Piman",
     "t": 195,
     "i": 198,
+    "s": [6, 4, 5, 10],
     "l": {
       "CNzh": "青椒",
       "EUde": "Paprika",
@@ -3721,6 +3898,7 @@
     "n": "JapaneseTea",
     "t": 16,
     "i": 16,
+    "s": [7, 6, 6, 5],
     "l": {
       "CNzh": "茶",
       "EUde": "Grüntee",
@@ -3742,6 +3920,7 @@
     "n": "GrilledCheese",
     "t": 282,
     "i": 280,
+    "s": [15, 7, 13, 9],
     "l": {
       "CNzh": "烤奶酪三明治",
       "EUde": "Käsesandwich",
@@ -3763,6 +3942,7 @@
     "n": "TatiuoYaki",
     "t": 398,
     "i": 387,
+    "s": [10, 7, 13, 10],
     "l": {
       "CNzh": "烤带鱼",
       "EUde": "Grill-Degenfisch",
@@ -3784,6 +3964,7 @@
     "n": "Sanma",
     "t": 60,
     "i": 62,
+    "s": [7, 5, 12, 9],
     "l": {
       "CNzh": "盐烤秋刀鱼",
       "EUde": "Grill-Makrelenhecht",
@@ -3805,6 +3986,7 @@
     "n": "AyuSioyaki",
     "t": 3,
     "i": 3,
+    "s": [4, 6, 12, 13],
     "l": {
       "CNzh": "盐烤香鱼",
       "EUde": "Fischspieß",
@@ -3826,6 +4008,7 @@
     "n": "Sazae",
     "t": 55,
     "i": 57,
+    "s": [9, 4, 12, 14],
     "l": {
       "CNzh": "炭烤蝾螺",
       "EUde": "Grill-Turbanschnecke",
@@ -3847,6 +4030,7 @@
     "n": "UnaZyu",
     "t": 7,
     "i": 7,
+    "s": [13, 8, 12, 13],
     "l": {
       "CNzh": "鳗鱼饭",
       "EUde": "Grill-Aal",
@@ -3868,6 +4052,7 @@
     "n": "Grits",
     "t": 263,
     "i": 261,
+    "s": [6, 4, 8, 5],
     "l": {
       "CNzh": "玉米糁粥",
       "EUde": "Maisgrütze",
@@ -3889,6 +4074,7 @@
     "n": "Gumi",
     "t": 42,
     "i": 44,
+    "s": [6, 12, 2, 5],
     "l": {
       "CNzh": "软糖",
       "EUde": "Fruchtgummis",
@@ -3910,6 +4096,7 @@
     "n": "Tyawanmushi",
     "t": 392,
     "i": 384,
+    "s": [7, 7, 10, 7],
     "l": {
       "CNzh": "鸡蛋羹",
       "EUde": "Gyeran-Jjim-Ei",
@@ -3931,6 +4118,7 @@
     "n": "GyuDon",
     "t": 38,
     "i": 39,
+    "s": [10, 10, 12, 7],
     "l": {
       "CNzh": "牛肉盖饭",
       "EUde": "Gyudon",
@@ -3952,6 +4140,7 @@
     "n": "Habanero",
     "t": 352,
     "i": 344,
+    "s": [5, 2, 2, 12],
     "l": {
       "CNzh": "哈瓦那辣椒",
       "EUde": "Habanero-Schote",
@@ -3973,6 +4162,7 @@
     "n": "Haggis",
     "t": 455,
     "i": 434,
+    "s": [6, 6, 7, 8],
     "l": {
       "CNzh": "肉馅羊肚",
       "EUde": "Haggis",
@@ -3994,6 +4184,7 @@
     "n": "HakeFillets",
     "t": 321,
     "i": 316,
+    "s": [5, 2, 8, 8],
     "l": {
       "CNzh": "香煎无须鳕鱼",
       "EUde": "Hechtfilet",
@@ -4015,6 +4206,7 @@
     "n": "AsparagusBoiledHamSauce",
     "t": 325,
     "i": 320,
+    "s": [10, 6, 13, 9],
     "l": {
       "CNzh": "芦笋火腿配荷兰酱",
       "EUde": "Spargel mit Schinken",
@@ -4036,6 +4228,7 @@
     "n": "HandmadeChoco",
     "t": 197,
     "i": 200,
+    "s": [15, 15, 9, 13],
     "l": {
       "CNzh": "手工巧克力",
       "EUde": "Confiserie-Pralinen",
@@ -4057,6 +4250,7 @@
     "n": "HardCandy",
     "t": 283,
     "i": 281,
+    "s": [10, 13, 2, 2],
     "l": {
       "CNzh": "糖果",
       "EUde": "Himbeerbonbon",
@@ -4078,6 +4272,7 @@
     "n": "BoiledEgg",
     "t": 120,
     "i": 123,
+    "s": [7, 8, 9, 5],
     "l": {
       "CNzh": "水煮蛋",
       "EUde": "Frühstücksei",
@@ -4099,6 +4294,7 @@
     "n": "HashBrowns",
     "t": 264,
     "i": 262,
+    "s": [14, 10, 13, 5],
     "l": {
       "CNzh": "薯饼",
       "EUde": "Kartoffelpuffer",
@@ -4120,6 +4316,7 @@
     "n": "HayashiRice",
     "t": 176,
     "i": 179,
+    "s": [12, 13, 9, 9],
     "l": {
       "CNzh": "牛肉烩饭",
       "EUde": "Hayashi-Reis",
@@ -4141,6 +4338,7 @@
     "n": "Herring",
     "t": 248,
     "i": 247,
+    "s": [9, 5, 11, 9],
     "l": {
       "CNzh": "鲱鱼",
       "EUde": "Hering",
@@ -4162,6 +4360,7 @@
     "n": "HiyashiTyuka",
     "t": 205,
     "i": 208,
+    "s": [10, 10, 13, 6],
     "l": {
       "CNzh": "中式凉面",
       "EUde": "Hiyashi-Chuka-Nudeln",
@@ -4183,6 +4382,7 @@
     "n": "ZukkiniNoTijimi",
     "t": 404,
     "i": 390,
+    "s": [10, 7, 10, 10],
     "l": {
       "CNzh": "韩式煎西葫芦",
       "EUde": "Hobak-Buchimgae-Happen",
@@ -4204,6 +4404,7 @@
     "n": "Honey",
     "t": 231,
     "i": 231,
+    "s": [5, 13, 4, 3],
     "l": {
       "CNzh": "蜂蜜",
       "EUde": "Honig",
@@ -4225,6 +4426,7 @@
     "n": "Sanratan",
     "t": 486,
     "i": 145,
+    "s": [6, 4, 13, 10],
     "l": {
       "CNzh": "酸辣汤",
       "EUde": "Sauer-Scharf-Suppe",
@@ -4246,6 +4448,7 @@
     "n": "HotChocolate",
     "t": 244,
     "i": 243,
+    "s": [12, 15, 3, 5],
     "l": {
       "CNzh": "热巧克力",
       "EUde": "Trinkschokolade",
@@ -4267,6 +4470,7 @@
     "n": "HotDog",
     "t": 186,
     "i": 189,
+    "s": [10, 9, 13, 6],
     "l": {
       "CNzh": "热狗",
       "EUde": "Hotdog",
@@ -4288,6 +4492,7 @@
     "n": "HotPot",
     "t": 472,
     "i": 451,
+    "s": [7, 5, 10, 9],
     "l": {
       "CNzh": "火锅",
       "EUde": "Hotpot",
@@ -4309,6 +4514,7 @@
     "n": "Hummus",
     "t": 345,
     "i": 337,
+    "s": [8, 3, 14, 14],
     "l": {
       "CNzh": "鹰嘴豆泥",
       "EUde": "Hummus",
@@ -4330,6 +4536,7 @@
     "n": "JamonIberico",
     "t": 356,
     "i": 348,
+    "s": [13, 10, 15, 14],
     "l": {
       "CNzh": "伊比利亚火腿",
       "EUde": "Serrano-Schinken",
@@ -4351,6 +4558,7 @@
     "n": "Icecream",
     "t": 0,
     "i": 0,
+    "s": [12, 14, 5, 8],
     "l": {
       "CNzh": "冰淇淋",
       "EUde": "Eiswaffel",
@@ -4372,6 +4580,7 @@
     "n": "IceCreamSandwich",
     "t": 284,
     "i": 282,
+    "s": [11, 11, 5, 12],
     "l": {
       "CNzh": "冰淇淋夹心饼干",
       "EUde": "Eiscremesandwich",
@@ -4393,6 +4602,7 @@
     "n": "AisuKaferate",
     "t": 418,
     "i": 402,
+    "s": [10, 13, 10, 10],
     "l": {
       "CNzh": "冰拿铁咖啡",
       "EUde": "Eis-Macchiato",
@@ -4414,6 +4624,7 @@
     "n": "Inarizushi",
     "t": 6,
     "i": 6,
+    "s": [12, 13, 6, 7],
     "l": {
       "CNzh": "豆皮寿司",
       "EUde": "Inarizushi",
@@ -4435,6 +4646,7 @@
     "n": "CupNudle",
     "t": 175,
     "i": 178,
+    "s": [12, 8, 13, 5],
     "l": {
       "CNzh": "杯面",
       "EUde": "Instantnudeln",
@@ -4456,6 +4668,7 @@
     "n": "Jyajyamen",
     "t": 393,
     "i": 385,
+    "s": [13, 13, 13, 10],
     "l": {
       "CNzh": "炸酱面",
       "EUde": "Jajangmyeon-Nudeln",
@@ -4477,6 +4690,7 @@
     "n": "KrSoumen",
     "t": 390,
     "i": 382,
+    "s": [9, 7, 7, 7],
     "l": {
       "CNzh": "韩式温面",
       "EUde": "Janchi-Guksu-Nudelbrühe",
@@ -4498,6 +4712,7 @@
     "n": "Chapuche",
     "t": 422,
     "i": 404,
+    "s": [10, 9, 10, 10],
     "l": {
       "CNzh": "韩式什锦炒粉条",
       "EUde": "Japchae-Nudeln",
@@ -4519,6 +4734,7 @@
     "n": "AwabiGayu",
     "t": 401,
     "i": 388,
+    "s": [10, 10, 10, 13],
     "l": {
       "CNzh": "鲍鱼粥",
       "EUde": "Jeonbokjuk-Reisbrei",
@@ -4540,6 +4756,7 @@
     "n": "Kasuziru",
     "t": 220,
     "i": 223,
+    "s": [9, 7, 11, 14],
     "l": {
       "CNzh": "酒糟汤",
       "EUde": "Kasujiru-Suppe",
@@ -4561,6 +4778,7 @@
     "n": "Katudon",
     "t": 206,
     "i": 209,
+    "s": [13, 13, 14, 9],
     "l": {
       "CNzh": "炸猪排盖饭",
       "EUde": "Katsudon",
@@ -4582,6 +4800,7 @@
     "n": "KeyLimePie",
     "t": 285,
     "i": 283,
+    "s": [8, 13, 4, 12],
     "l": {
       "CNzh": "佛罗里达酸橙派",
       "EUde": "Limettenkuchen",
@@ -4603,6 +4822,7 @@
     "n": "KhaoManGai",
     "t": 485,
     "i": 464,
+    "s": [8, 7, 11, 13],
     "l": {
       "CNzh": "海南鸡饭",
       "EUde": "Khao Man Gai",
@@ -4624,6 +4844,7 @@
     "n": "ChildLunch",
     "t": 12,
     "i": 12,
+    "s": [10, 12, 5, 8],
     "l": {
       "CNzh": "儿童套餐",
       "EUde": "Kinderteller",
@@ -4645,6 +4866,7 @@
     "n": "Kimuchi",
     "t": 36,
     "i": 37,
+    "s": [8, 1, 15, 15],
     "l": {
       "CNzh": "泡菜",
       "EUde": "Kimchi",
@@ -4666,6 +4888,7 @@
     "n": "KimutiChahan",
     "t": 413,
     "i": 398,
+    "s": [10, 8, 13, 10],
     "l": {
       "CNzh": "泡菜炒饭",
       "EUde": "Bratreis mit Kimchi",
@@ -4687,6 +4910,7 @@
     "n": "KimutiTige",
     "t": 429,
     "i": 411,
+    "s": [10, 2, 13, 12],
     "l": {
       "CNzh": "泡菜汤",
       "EUde": "Kimchi-Jjigae-Suppe",
@@ -4708,6 +4932,7 @@
     "n": "KimutiTijimi",
     "t": 391,
     "i": 383,
+    "s": [10, 7, 10, 7],
     "l": {
       "CNzh": "韩式泡菜煎饼",
       "EUde": "Kimchijeon-Pfannkuchen",
@@ -4729,6 +4954,7 @@
     "n": "GaletteDesRois",
     "t": 464,
     "i": 443,
+    "s": [6, 10, 5, 6],
     "l": {
       "CNzh": "国王饼",
       "EUde": "Galette des Rois",
@@ -4750,6 +4976,7 @@
     "n": "KitsuneUdon",
     "t": 34,
     "i": 35,
+    "s": [7, 9, 9, 5],
     "l": {
       "CNzh": "豆皮乌冬面",
       "EUde": "Nudelbrühe mit Tofu",
@@ -4771,6 +4998,7 @@
     "n": "Kiwi",
     "t": 145,
     "i": 148,
+    "s": [10, 6, 10, 12],
     "l": {
       "CNzh": "奇异果",
       "EUde": "Kiwi",
@@ -4792,6 +5020,7 @@
     "n": "Kakuteki",
     "t": 427,
     "i": 409,
+    "s": [7, 5, 7, 2],
     "l": {
       "CNzh": "萝卜泡菜",
       "EUde": "Rettich-Kimchi",
@@ -4813,6 +5042,7 @@
     "n": "Konnyaku",
     "t": 201,
     "i": 204,
+    "s": [8, 6, 7, 6],
     "l": {
       "CNzh": "蒟蒻",
       "EUde": "Konjak",
@@ -4834,6 +5064,7 @@
     "n": "KrTougarashi",
     "t": 383,
     "i": 375,
+    "s": [1, 2, 4, 4],
     "l": {
       "CNzh": "青辣椒",
       "EUde": "Korea-Chilischote",
@@ -4855,6 +5086,7 @@
     "n": "Sundepokku",
     "t": 386,
     "i": 378,
+    "s": [6, 6, 7, 4],
     "l": {
       "CNzh": "糯米血肠",
       "EUde": "Sundae-Wurst",
@@ -4876,6 +5108,7 @@
     "n": "Lasagna",
     "t": 146,
     "i": 149,
+    "s": [13, 9, 14, 11],
     "l": {
       "CNzh": "千层面",
       "EUde": "Lasagne",
@@ -4897,6 +5130,7 @@
     "n": "Lemonade",
     "t": 233,
     "i": 233,
+    "s": [11, 11, 8, 7],
     "l": {
       "CNzh": "柠檬水",
       "EUde": "Limonade",
@@ -4918,6 +5152,7 @@
     "n": "Licorice",
     "t": 249,
     "i": 248,
+    "s": [4, 2, 8, 13],
     "l": {
       "CNzh": "甘草糖",
       "EUde": "Lakritze",
@@ -4939,6 +5174,7 @@
     "n": "Reba",
     "t": 124,
     "i": 127,
+    "s": [5, 2, 8, 13],
     "l": {
       "CNzh": "鸡肝",
       "EUde": "Leberspießchen",
@@ -4960,6 +5196,7 @@
     "n": "Lobster",
     "t": 353,
     "i": 345,
+    "s": [13, 12, 12, 14],
     "l": {
       "CNzh": "龙虾",
       "EUde": "Hummer",
@@ -4981,6 +5218,7 @@
     "n": "LobsterRoll",
     "t": 451,
     "i": 430,
+    "s": [7, 6, 8, 10],
     "l": {
       "CNzh": "龙虾卷",
       "EUde": "Hummer-Sandwich",
@@ -5002,6 +5240,7 @@
     "n": "LocoMoco",
     "t": 351,
     "i": 343,
+    "s": [9, 8, 10, 15],
     "l": {
       "CNzh": "夏威夷汉堡排盖饭",
       "EUde": "Loco Moco",
@@ -5023,6 +5262,7 @@
     "n": "Candy",
     "t": 105,
     "i": 108,
+    "s": [7, 13, 4, 2],
     "l": {
       "CNzh": "棒棒糖",
       "EUde": "Lolli",
@@ -5044,6 +5284,7 @@
     "n": "MakadamiaNuts",
     "t": 109,
     "i": 112,
+    "s": [8, 5, 9, 12],
     "l": {
       "CNzh": "夏威夷果",
       "EUde": "Macadamianüsse",
@@ -5065,6 +5306,7 @@
     "n": "Macaron",
     "t": 147,
     "i": 150,
+    "s": [12, 14, 5, 11],
     "l": {
       "CNzh": "马卡龙",
       "EUde": "Macaron",
@@ -5086,6 +5328,7 @@
     "n": "MacaroniAndCheese",
     "t": 286,
     "i": 284,
+    "s": [15, 10, 14, 10],
     "l": {
       "CNzh": "奶酪通心粉",
       "EUde": "Käse-Makkaroni",
@@ -5107,6 +5350,7 @@
     "n": "Mango",
     "t": 185,
     "i": 188,
+    "s": [13, 14, 10, 10],
     "l": {
       "CNzh": "芒果",
       "EUde": "Mango",
@@ -5128,6 +5372,7 @@
     "n": "MapleTaffy",
     "t": 441,
     "i": 421,
+    "s": [8, 10, 5, 9],
     "l": {
       "CNzh": "枫叶太妃糖",
       "EUde": "Ahorn-Toffee",
@@ -5149,6 +5394,7 @@
     "n": "MaboTofu",
     "t": 108,
     "i": 111,
+    "s": [9, 3, 14, 9],
     "l": {
       "CNzh": "麻婆豆腐",
       "EUde": "Mapo-Tofu",
@@ -5170,6 +5416,7 @@
     "n": "MarzipanFruit",
     "t": 342,
     "i": 334,
+    "s": [9, 14, 8, 8],
     "l": {
       "CNzh": "水果扁桃仁糖",
       "EUde": "Marzipanstücke",
@@ -5191,6 +5438,7 @@
     "n": "MashedPotato",
     "t": 250,
     "i": 249,
+    "s": [8, 6, 9, 5],
     "l": {
       "CNzh": "土豆泥",
       "EUde": "Kartoffelpüree",
@@ -5212,6 +5460,7 @@
     "n": "Matcha",
     "t": 487,
     "i": 222,
+    "s": [7, 6, 6, 13],
     "l": {
       "CNzh": "抹茶",
       "EUde": "Matcha",
@@ -5233,6 +5482,7 @@
     "n": "Matsutake",
     "t": 110,
     "i": 113,
+    "s": [5, 13, 13, 14],
     "l": {
       "CNzh": "松茸",
       "EUde": "Matsutake-Pilz",
@@ -5254,6 +5504,7 @@
     "n": "Nikujaga",
     "t": 129,
     "i": 132,
+    "s": [10, 12, 8, 7],
     "l": {
       "CNzh": "土豆炖肉",
       "EUde": "Fleisch-Kartoffel-Topf",
@@ -5275,6 +5526,7 @@
     "n": "Meatball",
     "t": 148,
     "i": 151,
+    "s": [12, 12, 12, 4],
     "l": {
       "CNzh": "肉丸",
       "EUde": "Fleischbällchen",
@@ -5296,6 +5548,7 @@
     "n": "Melon",
     "t": 149,
     "i": 152,
+    "s": [13, 13, 10, 11],
     "l": {
       "CNzh": "哈密瓜",
       "EUde": "Honigmelone",
@@ -5317,6 +5570,7 @@
     "n": "Milk",
     "t": 39,
     "i": 40,
+    "s": [8, 10, 4, 7],
     "l": {
       "CNzh": "牛奶",
       "EUde": "Milch",
@@ -5338,6 +5592,7 @@
     "n": "Milkshake",
     "t": 287,
     "i": 285,
+    "s": [13, 13, 10, 8],
     "l": {
       "CNzh": "奶昔",
       "EUde": "Milchshake",
@@ -5359,6 +5614,7 @@
     "n": "MincePie",
     "t": 347,
     "i": 339,
+    "s": [11, 12, 7, 14],
     "l": {
       "CNzh": "百果馅饼",
       "EUde": "Mince Pie",
@@ -5380,6 +5636,7 @@
     "n": "Minestrone",
     "t": 337,
     "i": 331,
+    "s": [9, 9, 10, 8],
     "l": {
       "CNzh": "意大利杂菜汤",
       "EUde": "Minestrone",
@@ -5401,6 +5658,7 @@
     "n": "MintCandy",
     "t": 381,
     "i": 373,
+    "s": [6, 2, 5, 9],
     "l": {
       "CNzh": "薄荷糖",
       "EUde": "Pfefferminzbonbon",
@@ -5422,6 +5680,7 @@
     "n": "MisoSoup",
     "t": 113,
     "i": 116,
+    "s": [7, 6, 11, 7],
     "l": {
       "CNzh": "味噌汤",
       "EUde": "Miso-Suppe",
@@ -5443,6 +5702,7 @@
     "n": "Mithai",
     "t": 489,
     "i": 329,
+    "s": [12, 14, 5, 11],
     "l": {
       "CNzh": "印度甜点",
       "EUde": "Mithai-Konfekt",
@@ -5464,6 +5724,7 @@
     "n": "WakameSuupu",
     "t": 409,
     "i": 394,
+    "s": [9, 10, 13, 13],
     "l": {
       "CNzh": "海带芽汤",
       "EUde": "Miyeok-Guk-Suppe",
@@ -5485,6 +5746,7 @@
     "n": "Mochi",
     "t": 21,
     "i": 21,
+    "s": [11, 8, 13, 9],
     "l": {
       "CNzh": "年糕",
       "EUde": "Grill-Mochi-Reis",
@@ -5506,6 +5768,7 @@
     "n": "KabiPan",
     "t": 177,
     "i": 29,
+    "s": [0, 0, 0, 0],
     "l": {
       "CNzh": "发霉的面包",
       "EUde": "Schimmelbrot",
@@ -5527,6 +5790,7 @@
     "n": "MonzyaYaki",
     "t": 208,
     "i": 211,
+    "s": [10, 6, 12, 13],
     "l": {
       "CNzh": "文字烧",
       "EUde": "Monjayaki",
@@ -5548,6 +5812,7 @@
     "n": "Geppei",
     "t": 476,
     "i": 455,
+    "s": [7, 6, 7, 10],
     "l": {
       "CNzh": "月饼",
       "EUde": "Mondkuchen",
@@ -5569,6 +5834,7 @@
     "n": "Mozzarella",
     "t": 358,
     "i": 350,
+    "s": [7, 6, 10, 8],
     "l": {
       "CNzh": "马苏里拉奶酪",
       "EUde": "Mozzarella",
@@ -5590,6 +5856,7 @@
     "n": "Muffin",
     "t": 151,
     "i": 154,
+    "s": [11, 13, 6, 5],
     "l": {
       "CNzh": "麦芬蛋糕",
       "EUde": "Muffin",
@@ -5611,6 +5878,7 @@
     "n": "KankokuReimen",
     "t": 221,
     "i": 224,
+    "s": [10, 7, 12, 11],
     "l": {
       "CNzh": "冷面",
       "EUde": "Mul-Naengmyeon-Suppe",
@@ -5632,6 +5900,7 @@
     "n": "Mushroom",
     "t": 35,
     "i": 36,
+    "s": [7, 5, 7, 12],
     "l": {
       "CNzh": "蘑菇",
       "EUde": "Pilz",
@@ -5653,6 +5922,7 @@
     "n": "Moule",
     "t": 336,
     "i": 330,
+    "s": [9, 4, 12, 14],
     "l": {
       "CNzh": "贻贝",
       "EUde": "Miesmuscheln",
@@ -5674,6 +5944,7 @@
     "n": "Myouga",
     "t": 126,
     "i": 129,
+    "s": [6, 2, 8, 10],
     "l": {
       "CNzh": "阳荷姜",
       "EUde": "Myoga-Ingwer",
@@ -5695,6 +5966,7 @@
     "n": "Nachos",
     "t": 265,
     "i": 263,
+    "s": [15, 9, 12, 10],
     "l": {
       "CNzh": "烤奶酪辣味玉米片",
       "EUde": "Nacho-Auflauf",
@@ -5716,6 +5988,7 @@
     "n": "Namuru",
     "t": 421,
     "i": 403,
+    "s": [7, 2, 7, 5],
     "l": {
       "CNzh": "韩式凉拌菜",
       "EUde": "Namul",
@@ -5737,6 +6010,7 @@
     "n": "ShinsenNaHakusai",
     "t": 415,
     "i": 399,
+    "s": [5, 5, 5, 5],
     "l": {
       "CNzh": "大白菜",
       "EUde": "Chinakohl",
@@ -5758,6 +6032,7 @@
     "n": "Millefeuille",
     "t": 150,
     "i": 153,
+    "s": [13, 14, 5, 6],
     "l": {
       "CNzh": "法式千层酥",
       "EUde": "Millefeuille",
@@ -5779,6 +6054,7 @@
     "n": "Natillas",
     "t": 322,
     "i": 317,
+    "s": [12, 13, 3, 9],
     "l": {
       "CNzh": "西班牙奶黄酱",
       "EUde": "Cremedessert",
@@ -5800,6 +6076,7 @@
     "n": "Natto",
     "t": 92,
     "i": 94,
+    "s": [7, 1, 5, 14],
     "l": {
       "CNzh": "纳豆",
       "EUde": "Natto",
@@ -5821,6 +6098,7 @@
     "n": "OatmealCookies",
     "t": 288,
     "i": 286,
+    "s": [9, 11, 4, 7],
     "l": {
       "CNzh": "燕麦曲奇",
       "EUde": "Haferkeks",
@@ -5842,6 +6120,7 @@
     "n": "OchaDuke",
     "t": 17,
     "i": 17,
+    "s": [7, 7, 12, 13],
     "l": {
       "CNzh": "茶泡饭",
       "EUde": "Ochazuke",
@@ -5863,6 +6142,7 @@
     "n": "Oden",
     "t": 18,
     "i": 18,
+    "s": [12, 12, 9, 11],
     "l": {
       "CNzh": "关东煮",
       "EUde": "Oden",
@@ -5884,6 +6164,7 @@
     "n": "KyuriNoKimuti",
     "t": 407,
     "i": 393,
+    "s": [7, 7, 10, 7],
     "l": {
       "CNzh": "小黄瓜泡菜",
       "EUde": "Gurken-Kimchi",
@@ -5905,6 +6186,7 @@
     "n": "OkonomiYaki",
     "t": 13,
     "i": 13,
+    "s": [9, 9, 12, 6],
     "l": {
       "CNzh": "大阪烧",
       "EUde": "Okonomiyaki",
@@ -5926,6 +6208,7 @@
     "n": "Olive",
     "t": 234,
     "i": 234,
+    "s": [8, 3, 10, 9],
     "l": {
       "CNzh": "橄榄",
       "EUde": "Oliven",
@@ -5947,6 +6230,7 @@
     "n": "SaladOlivier",
     "t": 304,
     "i": 301,
+    "s": [5, 4, 10, 12],
     "l": {
       "CNzh": "奥利维耶沙拉",
       "EUde": "Oliviersalat",
@@ -5968,6 +6252,7 @@
     "n": "Omelet",
     "t": 20,
     "i": 20,
+    "s": [10, 11, 7, 8],
     "l": {
       "CNzh": "欧姆蛋",
       "EUde": "Omelett",
@@ -5989,6 +6274,7 @@
     "n": "OmijyaCha",
     "t": 416,
     "i": 400,
+    "s": [10, 7, 7, 13],
     "l": {
       "CNzh": "五味子茶",
       "EUde": "Omija-Cha",
@@ -6010,6 +6296,7 @@
     "n": "Omurice",
     "t": 212,
     "i": 215,
+    "s": [13, 13, 10, 6],
     "l": {
       "CNzh": "蛋包饭",
       "EUde": "Reis-Omelette",
@@ -6031,6 +6318,7 @@
     "n": "OnionRings",
     "t": 267,
     "i": 265,
+    "s": [10, 5, 14, 11],
     "l": {
       "CNzh": "洋葱圈",
       "EUde": "Zwiebelringe",
@@ -6052,6 +6340,7 @@
     "n": "Mikan",
     "t": 112,
     "i": 115,
+    "s": [10, 8, 12, 8],
     "l": {
       "CNzh": "橘子",
       "EUde": "Orange",
@@ -6073,6 +6362,7 @@
     "n": "OrangeJuice",
     "t": 23,
     "i": 23,
+    "s": [10, 7, 12, 8],
     "l": {
       "CNzh": "柳橙汁",
       "EUde": "Orangensaft",
@@ -6094,6 +6384,7 @@
     "n": "Makuwauri",
     "t": 382,
     "i": 374,
+    "s": [7, 10, 6, 5],
     "l": {
       "CNzh": "香瓜",
       "EUde": "Makuwa",
@@ -6115,6 +6406,7 @@
     "n": "Osechi",
     "t": 15,
     "i": 15,
+    "s": [10, 6, 10, 12],
     "l": {
       "CNzh": "御节料理",
       "EUde": "Osechi",
@@ -6136,6 +6428,7 @@
     "n": "OyakoDon",
     "t": 22,
     "i": 22,
+    "s": [11, 9, 8, 8],
     "l": {
       "CNzh": "亲子盖饭",
       "EUde": "Oyakodon",
@@ -6157,6 +6450,7 @@
     "n": "Oyster",
     "t": 152,
     "i": 155,
+    "s": [10, 4, 11, 15],
     "l": {
       "CNzh": "生蚝",
       "EUde": "Auster",
@@ -6178,6 +6472,7 @@
     "n": "Zouni",
     "t": 210,
     "i": 213,
+    "s": [10, 10, 11, 12],
     "l": {
       "CNzh": "年糕汤",
       "EUde": "Zoni-Suppe",
@@ -6199,6 +6494,7 @@
     "n": "GapaoRice",
     "t": 435,
     "i": 416,
+    "s": [15, 5, 13, 8],
     "l": {
       "CNzh": "打抛肉丁饭",
       "EUde": "Phat Kaphrao",
@@ -6220,6 +6516,7 @@
     "n": "Paella",
     "t": 153,
     "i": 156,
+    "s": [11, 10, 13, 12],
     "l": {
       "CNzh": "西班牙海鲜饭",
       "EUde": "Paella",
@@ -6241,6 +6538,7 @@
     "n": "ChocolateBread",
     "t": 305,
     "i": 302,
+    "s": [10, 14, 5, 5],
     "l": {
       "CNzh": "法式巧克力面包",
       "EUde": "Schokocroissant",
@@ -6262,6 +6560,7 @@
     "n": "PainAuxRaisins",
     "t": 252,
     "i": 251,
+    "s": [10, 11, 9, 7],
     "l": {
       "CNzh": "法式葡萄干面包",
       "EUde": "Rosinenschnecke",
@@ -6283,6 +6582,7 @@
     "n": "Pancake",
     "t": 172,
     "i": 175,
+    "s": [11, 14, 6, 6],
     "l": {
       "CNzh": "松饼",
       "EUde": "Pfannkuchenturm",
@@ -6304,6 +6604,7 @@
     "n": "Pandoro",
     "t": 310,
     "i": 306,
+    "s": [12, 12, 8, 10],
     "l": {
       "CNzh": "潘多洛面包",
       "EUde": "Pandoro",
@@ -6325,6 +6626,7 @@
     "n": "Panettone",
     "t": 311,
     "i": 307,
+    "s": [13, 12, 5, 11],
     "l": {
       "CNzh": "意大利圣诞面包",
       "EUde": "Panettone",
@@ -6346,6 +6648,7 @@
     "n": "Panini",
     "t": 300,
     "i": 297,
+    "s": [9, 8, 12, 6],
     "l": {
       "CNzh": "意大利三明治",
       "EUde": "Panino",
@@ -6367,6 +6670,7 @@
     "n": "Pannacotta",
     "t": 338,
     "i": 332,
+    "s": [12, 13, 5, 9],
     "l": {
       "CNzh": "意式奶冻",
       "EUde": "Panna Cotta",
@@ -6388,6 +6692,7 @@
     "n": "CustardPastry",
     "t": 323,
     "i": 318,
+    "s": [12, 14, 5, 10],
     "l": {
       "CNzh": "葡式蛋挞",
       "EUde": "Pastel de Nata",
@@ -6409,6 +6714,7 @@
     "n": "Tapa",
     "t": 366,
     "i": 358,
+    "s": [9, 4, 11, 11],
     "l": {
       "CNzh": "西班牙小菜",
       "EUde": "Patatas Bravas",
@@ -6430,6 +6736,7 @@
     "n": "PeanutButterJellySandwich",
     "t": 268,
     "i": 266,
+    "s": [10, 12, 2, 9],
     "l": {
       "CNzh": "花生酱三明治",
       "EUde": "Erdnussbutter-Sandwiches",
@@ -6451,6 +6758,7 @@
     "n": "Peach",
     "t": 116,
     "i": 119,
+    "s": [13, 12, 9, 13],
     "l": {
       "CNzh": "桃子",
       "EUde": "Pfirsich",
@@ -6472,6 +6780,7 @@
     "n": "Peanut",
     "t": 155,
     "i": 158,
+    "s": [8, 7, 12, 12],
     "l": {
       "CNzh": "花生",
       "EUde": "Erdnüsse",
@@ -6493,6 +6802,7 @@
     "n": "Pear",
     "t": 156,
     "i": 159,
+    "s": [11, 12, 10, 9],
     "l": {
       "CNzh": "梨子",
       "EUde": "Birne",
@@ -6514,6 +6824,7 @@
     "n": "PekinDuck",
     "t": 192,
     "i": 195,
+    "s": [14, 13, 15, 15],
     "l": {
       "CNzh": "北京烤鸭",
       "EUde": "Pekingente",
@@ -6535,6 +6846,7 @@
     "n": "Kaki",
     "t": 24,
     "i": 24,
+    "s": [9, 9, 12, 8],
     "l": {
       "CNzh": "柿子",
       "EUde": "Kaki",
@@ -6556,6 +6868,7 @@
     "n": "PestoPasta",
     "t": 251,
     "i": 250,
+    "s": [9, 8, 12, 8],
     "l": {
       "CNzh": "罗勒意大利面",
       "EUde": "Nudeln mit Pesto",
@@ -6577,6 +6890,7 @@
     "n": "Umeboshi",
     "t": 8,
     "i": 8,
+    "s": [6, 1, 13, 14],
     "l": {
       "CNzh": "腌梅干",
       "EUde": "Salzpflaume",
@@ -6598,6 +6912,7 @@
     "n": "Pickles",
     "t": 369,
     "i": 361,
+    "s": [7, 5, 10, 13],
     "l": {
       "CNzh": "腌黄瓜",
       "EUde": "Gewürzgurken",
@@ -6619,6 +6934,7 @@
     "n": "Pineapple",
     "t": 189,
     "i": 192,
+    "s": [12, 13, 9, 11],
     "l": {
       "CNzh": "菠萝",
       "EUde": "Ananas",
@@ -6640,6 +6956,7 @@
     "n": "PineappleCake",
     "t": 484,
     "i": 463,
+    "s": [8, 10, 5, 6],
     "l": {
       "CNzh": "凤梨酥",
       "EUde": "Ananasküchlein",
@@ -6661,6 +6978,7 @@
     "n": "Pistachio",
     "t": 359,
     "i": 351,
+    "s": [8, 7, 13, 12],
     "l": {
       "CNzh": "开心果",
       "EUde": "Pistazien",
@@ -6682,6 +7000,7 @@
     "n": "Pizza",
     "t": 98,
     "i": 101,
+    "s": [10, 12, 9, 5],
     "l": {
       "CNzh": "披萨",
       "EUde": "Pizza",
@@ -6703,6 +7022,7 @@
     "n": "PlumPudding",
     "t": 350,
     "i": 342,
+    "s": [11, 11, 9, 14],
     "l": {
       "CNzh": "圣诞布丁",
       "EUde": "Christmas Pudding",
@@ -6724,6 +7044,7 @@
     "n": "Poke",
     "t": 444,
     "i": 424,
+    "s": [6, 6, 6, 10],
     "l": {
       "CNzh": "夏威夷盖饭",
       "EUde": "Poke-Bowl",
@@ -6745,6 +7066,7 @@
     "n": "Polenta",
     "t": 235,
     "i": 235,
+    "s": [8, 6, 9, 10],
     "l": {
       "CNzh": "意大利玉米糊",
       "EUde": "Polenta",
@@ -6766,6 +7088,7 @@
     "n": "PopCorn",
     "t": 223,
     "i": 180,
+    "s": [10, 6, 13, 6],
     "l": {
       "CNzh": "爆米花",
       "EUde": "Popcorn",
@@ -6787,6 +7110,7 @@
     "n": "PopcornShrimp",
     "t": 373,
     "i": 365,
+    "s": [8, 5, 13, 12],
     "l": {
       "CNzh": "香酥炸虾",
       "EUde": "Knusper-Shrimps",
@@ -6808,6 +7132,7 @@
     "n": "Nikuman",
     "t": 93,
     "i": 95,
+    "s": [9, 12, 8, 4],
     "l": {
       "CNzh": "肉包",
       "EUde": "Manju",
@@ -6829,6 +7154,7 @@
     "n": "Cutlet",
     "t": 247,
     "i": 246,
+    "s": [11, 9, 13, 8],
     "l": {
       "CNzh": "香煎带骨牛排",
       "EUde": "Lammkotelett",
@@ -6850,6 +7176,7 @@
     "n": "PorkPie",
     "t": 360,
     "i": 352,
+    "s": [7, 9, 12, 8],
     "l": {
       "CNzh": "猪肉派",
       "EUde": "Fleischpastete",
@@ -6871,6 +7198,7 @@
     "n": "Porridge",
     "t": 253,
     "i": 252,
+    "s": [8, 6, 9, 13],
     "l": {
       "CNzh": "燕麦粥",
       "EUde": "Haferbrei",
@@ -6892,6 +7220,7 @@
     "n": "Gyoza",
     "t": 40,
     "i": 41,
+    "s": [11, 10, 13, 12],
     "l": {
       "CNzh": "煎饺",
       "EUde": "Gyoza",
@@ -6913,6 +7242,7 @@
     "n": "Potof",
     "t": 198,
     "i": 201,
+    "s": [12, 11, 13, 11],
     "l": {
       "CNzh": "炖菜",
       "EUde": "Feuertopf",
@@ -6934,6 +7264,7 @@
     "n": "PotatoChips",
     "t": 106,
     "i": 109,
+    "s": [9, 8, 13, 2],
     "l": {
       "CNzh": "薯片",
       "EUde": "Kartoffelchips",
@@ -6955,6 +7286,7 @@
     "n": "PrawnSalad",
     "t": 246,
     "i": 245,
+    "s": [5, 3, 10, 8],
     "l": {
       "CNzh": "虾仁沙拉",
       "EUde": "Garnelensalat",
@@ -6976,6 +7308,7 @@
     "n": "Pretzel",
     "t": 157,
     "i": 160,
+    "s": [10, 12, 12, 6],
     "l": {
       "CNzh": "碱水扭结包",
       "EUde": "Brezel",
@@ -6997,6 +7330,7 @@
     "n": "Profiteroles",
     "t": 371,
     "i": 363,
+    "s": [9, 15, 8, 12],
     "l": {
       "CNzh": "冰淇淋泡芙",
       "EUde": "Profiteroles",
@@ -7018,6 +7352,7 @@
     "n": "Namahamu",
     "t": 188,
     "i": 191,
+    "s": [13, 8, 15, 14],
     "l": {
       "CNzh": "生火腿",
       "EUde": "Rohschinken",
@@ -7039,6 +7374,7 @@
     "n": "Protein",
     "t": 182,
     "i": 185,
+    "s": [3, 2, 4, 14],
     "l": {
       "CNzh": "蛋白质饮料",
       "EUde": "Proteinshake",
@@ -7060,6 +7396,7 @@
     "n": "PumpkinPie",
     "t": 269,
     "i": 267,
+    "s": [12, 14, 9, 9],
     "l": {
       "CNzh": "南瓜派",
       "EUde": "Kürbiskuchen",
@@ -7081,6 +7418,7 @@
     "n": "CheeseBread",
     "t": 453,
     "i": 432,
+    "s": [6, 6, 6, 6],
     "l": {
       "CNzh": "奶酪面包",
       "EUde": "Pão de Queijo",
@@ -7102,6 +7440,7 @@
     "n": "Kissyu",
     "t": 33,
     "i": 34,
+    "s": [9, 10, 7, 12],
     "l": {
       "CNzh": "法式咸派",
       "EUde": "Quiche",
@@ -7123,6 +7462,7 @@
     "n": "Raclette",
     "t": 462,
     "i": 441,
+    "s": [6, 6, 9, 10],
     "l": {
       "CNzh": "瑞士特色烤奶酪",
       "EUde": "Raclette",
@@ -7144,6 +7484,7 @@
     "n": "Nudle",
     "t": 122,
     "i": 125,
+    "s": [13, 7, 13, 11],
     "l": {
       "CNzh": "拉面",
       "EUde": "Ramen",
@@ -7165,6 +7506,7 @@
     "n": "KrRamen",
     "t": 387,
     "i": 379,
+    "s": [10, 8, 13, 5],
     "l": {
       "CNzh": "韩式拉面",
       "EUde": "Ramyeon-Nudeln",
@@ -7186,6 +7528,7 @@
     "n": "Ratatouille",
     "t": 363,
     "i": 355,
+    "s": [9, 9, 11, 8],
     "l": {
       "CNzh": "普罗旺斯杂烩",
       "EUde": "Ratatouille",
@@ -7207,6 +7550,7 @@
     "n": "Ravioli",
     "t": 236,
     "i": 236,
+    "s": [11, 11, 13, 9],
     "l": {
       "CNzh": "意大利饺子",
       "EUde": "Ravioli",
@@ -7228,6 +7572,7 @@
     "n": "Togarashi",
     "t": 87,
     "i": 89,
+    "s": [0, 0, 0, 0],
     "l": {
       "CNzh": "辣椒",
       "EUde": "Chilischote",
@@ -7249,6 +7594,7 @@
     "n": "RedVelvetCake",
     "t": 289,
     "i": 287,
+    "s": [9, 11, 4, 12],
     "l": {
       "CNzh": "红丝绒蛋糕",
       "EUde": "Red Velvet Cake",
@@ -7270,6 +7616,7 @@
     "n": "Rice",
     "t": 51,
     "i": 53,
+    "s": [9, 9, 9, 9],
     "l": {
       "CNzh": "米饭",
       "EUde": "Reis",
@@ -7291,6 +7638,7 @@
     "n": "Onigiri",
     "t": 19,
     "i": 19,
+    "s": [10, 9, 12, 9],
     "l": {
       "CNzh": "饭团",
       "EUde": "Reisbällchen",
@@ -7312,6 +7660,7 @@
     "n": "Senbei",
     "t": 128,
     "i": 131,
+    "s": [8, 5, 9, 8],
     "l": {
       "CNzh": "仙贝",
       "EUde": "Reiscracker",
@@ -7333,6 +7682,7 @@
     "n": "Okayu",
     "t": 227,
     "i": 227,
+    "s": [7, 7, 10, 9],
     "l": {
       "CNzh": "稀饭",
       "EUde": "Reisbrei",
@@ -7354,6 +7704,7 @@
     "n": "RicePudding",
     "t": 348,
     "i": 340,
+    "s": [9, 13, 6, 8],
     "l": {
       "CNzh": "米布丁",
       "EUde": "Milchreis",
@@ -7375,6 +7726,7 @@
     "n": "Risotto",
     "t": 158,
     "i": 161,
+    "s": [12, 10, 13, 7],
     "l": {
       "CNzh": "意大利炖饭",
       "EUde": "Risotto",
@@ -7396,6 +7748,7 @@
     "n": "RoastBeef",
     "t": 159,
     "i": 162,
+    "s": [13, 12, 15, 15],
     "l": {
       "CNzh": "烤牛肉",
       "EUde": "Roastbeef",
@@ -7417,6 +7770,7 @@
     "n": "RoastChicken",
     "t": 238,
     "i": 238,
+    "s": [10, 11, 10, 7],
     "l": {
       "CNzh": "烤鸡",
       "EUde": "Brathähnchen",
@@ -7438,6 +7792,7 @@
     "n": "MagretDeCanard",
     "t": 320,
     "i": 315,
+    "s": [13, 12, 15, 15],
     "l": {
       "CNzh": "法式鸭胸拼盘",
       "EUde": "Entenbrust",
@@ -7459,6 +7814,7 @@
     "n": "RoastedGoose",
     "t": 461,
     "i": 440,
+    "s": [8, 7, 9, 10],
     "l": {
       "CNzh": "烤全鹅",
       "EUde": "Gänsebraten",
@@ -7480,6 +7836,7 @@
     "n": "CorderoAsado",
     "t": 307,
     "i": 304,
+    "s": [8, 2, 10, 12],
     "l": {
       "CNzh": "烤羊小排",
       "EUde": "Bratlamm",
@@ -7501,6 +7858,7 @@
     "n": "Turkey",
     "t": 167,
     "i": 170,
+    "s": [13, 12, 14, 12],
     "l": {
       "CNzh": "烤火鸡",
       "EUde": "Truthahn",
@@ -7522,6 +7880,7 @@
     "n": "YakiGuri",
     "t": 137,
     "i": 140,
+    "s": [11, 11, 5, 13],
     "l": {
       "CNzh": "烤栗子",
       "EUde": "Röstkastanien",
@@ -7543,6 +7902,7 @@
     "n": "LambLeg",
     "t": 456,
     "i": 435,
+    "s": [8, 6, 7, 7],
     "l": {
       "CNzh": "烤嫩羊腿",
       "EUde": "Lammkeule",
@@ -7564,6 +7924,7 @@
     "n": "Rollmop",
     "t": 324,
     "i": 319,
+    "s": [8, 3, 9, 11],
     "l": {
       "CNzh": "鲱鱼卷",
       "EUde": "Rollmops",
@@ -7585,6 +7946,7 @@
     "n": "RootbeerFloat",
     "t": 295,
     "i": 292,
+    "s": [7, 14, 4, 14],
     "l": {
       "CNzh": "雪顶根汁汽水",
       "EUde": "Rootbeer mit Eis",
@@ -7606,6 +7968,7 @@
     "n": "SippaiRyouri",
     "t": 199,
     "i": 202,
+    "s": [0, 0, 0, 0],
     "l": {
       "CNzh": "失败料理",
       "EUde": "Ekelpott",
@@ -7627,6 +7990,7 @@
     "n": "Smores",
     "t": 290,
     "i": 288,
+    "s": [10, 13, 5, 15],
     "l": {
       "CNzh": "棉花糖巧克力夹心饼",
       "EUde": "S’More",
@@ -7648,6 +8012,7 @@
     "n": "Salad",
     "t": 56,
     "i": 58,
+    "s": [4, 4, 10, 9],
     "l": {
       "CNzh": "沙拉",
       "EUde": "Salat",
@@ -7669,6 +8034,7 @@
     "n": "Salami",
     "t": 160,
     "i": 163,
+    "s": [12, 7, 14, 14],
     "l": {
       "CNzh": "莎乐美肠",
       "EUde": "Salami",
@@ -7690,6 +8056,7 @@
     "n": "Hamburg",
     "t": 97,
     "i": 100,
+    "s": [13, 13, 13, 8],
     "l": {
       "CNzh": "汉堡排",
       "EUde": "Frikadelle",
@@ -7711,6 +8078,7 @@
     "n": "SalmonMunieru",
     "t": 190,
     "i": 193,
+    "s": [9, 10, 10, 11],
     "l": {
       "CNzh": "香煎三文鱼排",
       "EUde": "Lachssteak",
@@ -7732,6 +8100,7 @@
     "n": "Ikura",
     "t": 203,
     "i": 206,
+    "s": [13, 9, 15, 15],
     "l": {
       "CNzh": "三文鱼籽",
       "EUde": "Lachsrogen",
@@ -7753,6 +8122,7 @@
     "n": "Saltimbocca",
     "t": 370,
     "i": 362,
+    "s": [10, 6, 15, 14],
     "l": {
       "CNzh": "意式煎小牛肉火腿卷",
       "EUde": "Saltimbocca alla romana",
@@ -7774,6 +8144,7 @@
     "n": "SaltineCrackers",
     "t": 376,
     "i": 368,
+    "s": [6, 3, 13, 2],
     "l": {
       "CNzh": "苏打饼干",
       "EUde": "Salzcracker",
@@ -7795,6 +8166,7 @@
     "n": "Samugetan",
     "t": 411,
     "i": 396,
+    "s": [10, 10, 13, 13],
     "l": {
       "CNzh": "参鸡汤",
       "EUde": "Samgye-Tang-Brühe",
@@ -7816,6 +8188,7 @@
     "n": "Samugyopusaru",
     "t": 424,
     "i": 406,
+    "s": [13, 13, 13, 13],
     "l": {
       "CNzh": "韩式烤五花肉",
       "EUde": "Samgyeopsal-Schweinebauch",
@@ -7837,6 +8210,7 @@
     "n": "Sandwich",
     "t": 59,
     "i": 61,
+    "s": [9, 8, 12, 9],
     "l": {
       "CNzh": "三明治",
       "EUde": "Sandwich",
@@ -7858,6 +8232,7 @@
     "n": "CannedSardines",
     "t": 276,
     "i": 274,
+    "s": [1, 0, 9, 13],
     "l": {
       "CNzh": "沙丁鱼罐头",
       "EUde": "Dosensardinen",
@@ -7879,6 +8254,7 @@
     "n": "Sashimi",
     "t": 14,
     "i": 14,
+    "s": [12, 5, 12, 14],
     "l": {
       "CNzh": "生鱼片",
       "EUde": "Sashimi",
@@ -7900,6 +8276,7 @@
     "n": "Sauerkraut",
     "t": 349,
     "i": 341,
+    "s": [6, 4, 14, 14],
     "l": {
       "CNzh": "德式酸菜",
       "EUde": "Sauerkraut",
@@ -7921,6 +8298,7 @@
     "n": "Sousage",
     "t": 74,
     "i": 76,
+    "s": [12, 10, 13, 13],
     "l": {
       "CNzh": "香肠",
       "EUde": "Wurst",
@@ -7942,6 +8320,7 @@
     "n": "YakiNasu",
     "t": 119,
     "i": 122,
+    "s": [2, 4, 11, 12],
     "l": {
       "CNzh": "烤西葫芦",
       "EUde": "Grill-Zucchini",
@@ -7963,6 +8342,7 @@
     "n": "Schnitzel",
     "t": 237,
     "i": 237,
+    "s": [13, 10, 14, 10],
     "l": {
       "CNzh": "维也纳炸肉排",
       "EUde": "Schnitzel",
@@ -7984,6 +8364,7 @@
     "n": "TamagoYaki",
     "t": 80,
     "i": 82,
+    "s": [7, 11, 8, 12],
     "l": {
       "CNzh": "炒蛋",
       "EUde": "Rührei",
@@ -8005,6 +8386,7 @@
     "n": "Uni",
     "t": 226,
     "i": 226,
+    "s": [12, 6, 13, 15],
     "l": {
       "CNzh": "海胆",
       "EUde": "Seeigel",
@@ -8026,6 +8408,7 @@
     "n": "FriedSeafoodMix",
     "t": 303,
     "i": 300,
+    "s": [9, 6, 10, 8],
     "l": {
       "CNzh": "海鲜拼盘",
       "EUde": "Meeresfrüchtemix",
@@ -8047,6 +8430,7 @@
     "n": "Sekihan",
     "t": 174,
     "i": 177,
+    "s": [13, 11, 13, 13],
     "l": {
       "CNzh": "红豆饭",
       "EUde": "Bohnenreis",
@@ -8068,6 +8452,7 @@
     "n": "Sorurontan",
     "t": 425,
     "i": 407,
+    "s": [10, 10, 10, 10],
     "l": {
       "CNzh": "先农汤",
       "EUde": "Seolleongtang-Suppe",
@@ -8089,6 +8474,7 @@
     "n": "Kakigori",
     "t": 25,
     "i": 25,
+    "s": [11, 12, 8, 5],
     "l": {
       "CNzh": "刨冰",
       "EUde": "Granita",
@@ -8110,6 +8496,7 @@
     "n": "EbiPirafu",
     "t": 10,
     "i": 10,
+    "s": [9, 8, 9, 7],
     "l": {
       "CNzh": "虾仁烩饭",
       "EUde": "Garnelen-Reis",
@@ -8131,6 +8518,7 @@
     "n": "Syumai",
     "t": 63,
     "i": 65,
+    "s": [9, 12, 8, 10],
     "l": {
       "CNzh": "烧卖",
       "EUde": "Shumai-Bällchen",
@@ -8152,6 +8540,7 @@
     "n": "TaiIkedukuri",
     "t": 76,
     "i": 78,
+    "s": [12, 11, 13, 14],
     "l": {
       "CNzh": "鲷鱼拼盘",
       "EUde": "Brassen-Sashimi",
@@ -8173,6 +8562,7 @@
     "n": "SmokedSalmon",
     "t": 241,
     "i": 240,
+    "s": [12, 6, 12, 13],
     "l": {
       "CNzh": "烟熏三文鱼",
       "EUde": "Räucherlachs",
@@ -8194,6 +8584,7 @@
     "n": "MixJuice",
     "t": 229,
     "i": 229,
+    "s": [10, 12, 10, 10],
     "l": {
       "CNzh": "综合果汁",
       "EUde": "Smoothie",
@@ -8215,6 +8606,7 @@
     "n": "Cola",
     "t": 171,
     "i": 174,
+    "s": [13, 13, 11, 7],
     "l": {
       "CNzh": "可乐",
       "EUde": "Cola",
@@ -8236,6 +8628,7 @@
     "n": "Softcream",
     "t": 75,
     "i": 77,
+    "s": [12, 14, 5, 9],
     "l": {
       "CNzh": "软冰淇淋",
       "EUde": "Softeis",
@@ -8257,6 +8650,7 @@
     "n": "Songpyeon",
     "t": 473,
     "i": 452,
+    "s": [7, 10, 5, 9],
     "l": {
       "CNzh": "韩国传统松饼",
       "EUde": "Songpyeon-Reiskuchen",
@@ -8278,6 +8672,7 @@
     "n": "SotteokSotteok",
     "t": 480,
     "i": 459,
+    "s": [7, 7, 8, 9],
     "l": {
       "CNzh": "韩式热狗年糕串",
       "EUde": "Sotteok-Sotteok-Spieß",
@@ -8299,6 +8694,7 @@
     "n": "Souffle",
     "t": 354,
     "i": 346,
+    "s": [7, 8, 11, 8],
     "l": {
       "CNzh": "舒芙蕾",
       "EUde": "Soufflé",
@@ -8320,6 +8716,7 @@
     "n": "SpaceFood",
     "t": 154,
     "i": 157,
+    "s": [4, 4, 4, 14],
     "l": {
       "CNzh": "太空食品",
       "EUde": "Weltraumnahrung",
@@ -8341,6 +8738,7 @@
     "n": "Meatsource",
     "t": 111,
     "i": 114,
+    "s": [10, 7, 12, 6],
     "l": {
       "CNzh": "肉酱意大利面",
       "EUde": "Spaghetti",
@@ -8362,6 +8760,7 @@
     "n": "Peperoncino",
     "t": 162,
     "i": 165,
+    "s": [12, 7, 14, 11],
     "l": {
       "CNzh": "蒜油意大利面",
       "EUde": "Spaghetti Peperoncino",
@@ -8383,6 +8782,7 @@
     "n": "SparklingWater",
     "t": 364,
     "i": 356,
+    "s": [5, 3, 8, 9],
     "l": {
       "CNzh": "气泡水",
       "EUde": "Sprudelwasser",
@@ -8404,6 +8804,7 @@
     "n": "Mentaiko",
     "t": 115,
     "i": 118,
+    "s": [10, 4, 14, 15],
     "l": {
       "CNzh": "明太子",
       "EUde": "Pollack-Rogen",
@@ -8425,6 +8826,7 @@
     "n": "Spinach",
     "t": 365,
     "i": 357,
+    "s": [3, 1, 4, 6],
     "l": {
       "CNzh": "凉拌菠菜",
       "EUde": "Spinat",
@@ -8446,6 +8848,7 @@
     "n": "SplitPeaSoup",
     "t": 270,
     "i": 268,
+    "s": [4, 2, 6, 4],
     "l": {
       "CNzh": "青豆汤",
       "EUde": "Erbsensuppe",
@@ -8467,6 +8870,7 @@
     "n": "OldMilk",
     "t": 178,
     "i": 42,
+    "s": [0, 0, 0, 0],
     "l": {
       "CNzh": "变质的牛奶",
       "EUde": "Gammelmilch",
@@ -8488,6 +8892,7 @@
     "n": "SportsDrink",
     "t": 372,
     "i": 364,
+    "s": [8, 11, 5, 6],
     "l": {
       "CNzh": "运动饮料",
       "EUde": "Fitnessgetränk",
@@ -8509,6 +8914,7 @@
     "n": "IkasumiPasta",
     "t": 163,
     "i": 166,
+    "s": [10, 11, 13, 13],
     "l": {
       "CNzh": "墨鱼汁意大利面",
       "EUde": "Sepia-Spaghetti",
@@ -8530,6 +8936,7 @@
     "n": "Steak",
     "t": 71,
     "i": 73,
+    "s": [14, 12, 12, 12],
     "l": {
       "CNzh": "牛排",
       "EUde": "Steak",
@@ -8551,6 +8958,7 @@
     "n": "BeefStew",
     "t": 196,
     "i": 199,
+    "s": [12, 12, 13, 12],
     "l": {
       "CNzh": "牛肉炖菜",
       "EUde": "Schmorrindfleisch",
@@ -8572,6 +8980,7 @@
     "n": "EggsAndTomatoes",
     "t": 477,
     "i": 456,
+    "s": [9, 9, 9, 9],
     "l": {
       "CNzh": "番茄炒蛋",
       "EUde": "Wok-Tomatenrührei",
@@ -8593,6 +9002,7 @@
     "n": "Stollen",
     "t": 460,
     "i": 439,
+    "s": [8, 10, 5, 6],
     "l": {
       "CNzh": "德式圣诞面包",
       "EUde": "Christstollen",
@@ -8614,6 +9024,7 @@
     "n": "ConbiniBento",
     "t": 53,
     "i": 55,
+    "s": [5, 8, 12, 1],
     "l": {
       "CNzh": "超市便当",
       "EUde": "Fertigmenü",
@@ -8635,6 +9046,7 @@
     "n": "Strawberry",
     "t": 5,
     "i": 5,
+    "s": [12, 8, 13, 6],
     "l": {
       "CNzh": "草莓",
       "EUde": "Erdbeere",
@@ -8656,6 +9068,7 @@
     "n": "Cake",
     "t": 64,
     "i": 66,
+    "s": [12, 14, 6, 6],
     "l": {
       "CNzh": "奶油蛋糕",
       "EUde": "Erdbeertorte",
@@ -8677,6 +9090,7 @@
     "n": "StringCheese",
     "t": 296,
     "i": 293,
+    "s": [8, 2, 8, 5],
     "l": {
       "CNzh": "手撕奶酪条",
       "EUde": "Snack-Käse",
@@ -8698,6 +9112,7 @@
     "n": "RollCabbage",
     "t": 180,
     "i": 183,
+    "s": [11, 10, 10, 9],
     "l": {
       "CNzh": "包菜卷",
       "EUde": "Kohlroulade",
@@ -8719,6 +9134,7 @@
     "n": "PaprikaWithMeat",
     "t": 440,
     "i": 420,
+    "s": [8, 8, 8, 8],
     "l": {
       "CNzh": "青椒酿肉",
       "EUde": "Paprikas mit Füllung",
@@ -8740,6 +9156,7 @@
     "n": "Stuffing",
     "t": 292,
     "i": 289,
+    "s": [11, 5, 13, 5],
     "l": {
       "CNzh": "内馅填料",
       "EUde": "Bratenfüllung",
@@ -8761,6 +9178,7 @@
     "n": "Sukiyaki",
     "t": 69,
     "i": 71,
+    "s": [13, 13, 11, 9],
     "l": {
       "CNzh": "寿喜烧",
       "EUde": "Sukiyaki",
@@ -8782,6 +9200,7 @@
     "n": "SundobuTige",
     "t": 426,
     "i": 408,
+    "s": [10, 5, 14, 12],
     "l": {
       "CNzh": "韩式豆腐汤",
       "EUde": "Sundubu-Jjigae-Suppe",
@@ -8803,6 +9222,7 @@
     "n": "SunflowerSeeds",
     "t": 242,
     "i": 241,
+    "s": [6, 6, 7, 9],
     "l": {
       "CNzh": "葵花籽",
       "EUde": "Sonnenblumenkerne",
@@ -8824,6 +9244,7 @@
     "n": "Sushi",
     "t": 70,
     "i": 72,
+    "s": [13, 12, 14, 14],
     "l": {
       "CNzh": "寿司",
       "EUde": "Sushi",
@@ -8845,6 +9266,7 @@
     "n": "Suyuku",
     "t": 397,
     "i": 386,
+    "s": [13, 10, 10, 13],
     "l": {
       "CNzh": "白切肉",
       "EUde": "Suyuk-Schweinebauch",
@@ -8866,6 +9288,7 @@
     "n": "SweetPotato",
     "t": 66,
     "i": 68,
+    "s": [9, 11, 3, 11],
     "l": {
       "CNzh": "奶香烤红薯",
       "EUde": "Süßkartoffelkuchen",
@@ -8887,6 +9310,7 @@
     "n": "Subuta",
     "t": 72,
     "i": 74,
+    "s": [10, 6, 13, 12],
     "l": {
       "CNzh": "咕咾肉",
       "EUde": "Süß-Sauer-Schweinefleisch",
@@ -8908,6 +9332,7 @@
     "n": "Tacos",
     "t": 78,
     "i": 80,
+    "s": [6, 3, 14, 6],
     "l": {
       "CNzh": "墨西哥卷饼",
       "EUde": "Tacos",
@@ -8929,6 +9354,7 @@
     "n": "Taiyaki",
     "t": 77,
     "i": 79,
+    "s": [11, 14, 3, 3],
     "l": {
       "CNzh": "鲷鱼烧",
       "EUde": "Taiyaki-Gebäck",
@@ -8950,6 +9376,7 @@
     "n": "Takoyaki",
     "t": 79,
     "i": 81,
+    "s": [12, 11, 13, 12],
     "l": {
       "CNzh": "章鱼烧",
       "EUde": "Takoyaki",
@@ -8971,6 +9398,7 @@
     "n": "Tamale",
     "t": 442,
     "i": 422,
+    "s": [8, 8, 8, 6],
     "l": {
       "CNzh": "墨西哥粽",
       "EUde": "Tamale",
@@ -8992,6 +9420,7 @@
     "n": "Tangyuan",
     "t": 478,
     "i": 457,
+    "s": [8, 10, 6, 9],
     "l": {
       "CNzh": "汤圆",
       "EUde": "Tang-Yuan-Bällchen",
@@ -9013,6 +9442,7 @@
     "n": "Water",
     "t": 68,
     "i": 70,
+    "s": [5, 4, 4, 6],
     "l": {
       "CNzh": "白开水",
       "EUde": "Leitungswasser",
@@ -9034,6 +9464,7 @@
     "n": "Tea",
     "t": 48,
     "i": 50,
+    "s": [8, 10, 6, 14],
     "l": {
       "CNzh": "红茶",
       "EUde": "Schwarztee",
@@ -9055,6 +9486,7 @@
     "n": "Tenpura",
     "t": 86,
     "i": 88,
+    "s": [10, 9, 10, 11],
     "l": {
       "CNzh": "天妇罗",
       "EUde": "Tempura",
@@ -9076,6 +9508,7 @@
     "n": "Tendon",
     "t": 218,
     "i": 221,
+    "s": [13, 12, 13, 6],
     "l": {
       "CNzh": "天妇罗盖饭",
       "EUde": "Tempura-Reis",
@@ -9097,6 +9530,7 @@
     "n": "Tiramisu",
     "t": 164,
     "i": 167,
+    "s": [12, 14, 5, 8],
     "l": {
       "CNzh": "提拉米苏",
       "EUde": "Tiramisu",
@@ -9118,6 +9552,7 @@
     "n": "Tofu",
     "t": 88,
     "i": 90,
+    "s": [5, 6, 10, 12],
     "l": {
       "CNzh": "豆腐",
       "EUde": "Tofu",
@@ -9139,6 +9574,7 @@
     "n": "Tomato",
     "t": 183,
     "i": 186,
+    "s": [9, 10, 9, 12],
     "l": {
       "CNzh": "番茄",
       "EUde": "Tomate",
@@ -9160,6 +9596,7 @@
     "n": "TomatoJuice",
     "t": 132,
     "i": 135,
+    "s": [5, 3, 7, 9],
     "l": {
       "CNzh": "番茄汁",
       "EUde": "Tomatensaft",
@@ -9181,6 +9618,7 @@
     "n": "Tompoes",
     "t": 466,
     "i": 445,
+    "s": [7, 10, 6, 6],
     "l": {
       "CNzh": "荷兰千层酥",
       "EUde": "Tompouce-Kuchen",
@@ -9202,6 +9640,7 @@
     "n": "Tonkatsu",
     "t": 130,
     "i": 133,
+    "s": [13, 10, 10, 7],
     "l": {
       "CNzh": "炸猪排",
       "EUde": "Tonkatsu",
@@ -9223,6 +9662,7 @@
     "n": "Torrijas",
     "t": 463,
     "i": 442,
+    "s": [7, 10, 5, 7],
     "l": {
       "CNzh": "西班牙脆皮吐司",
       "EUde": "Torrijas",
@@ -9244,6 +9684,7 @@
     "n": "Dango",
     "t": 58,
     "i": 60,
+    "s": [11, 14, 2, 13],
     "l": {
       "CNzh": "三色团子",
       "EUde": "Reis-Süßklößchen",
@@ -9265,6 +9706,7 @@
     "n": "Truffle",
     "t": 166,
     "i": 169,
+    "s": [14, 11, 13, 15],
     "l": {
       "CNzh": "松露",
       "EUde": "Trüffel",
@@ -9286,6 +9728,7 @@
     "n": "Toppogi",
     "t": 385,
     "i": 377,
+    "s": [9, 10, 7, 5],
     "l": {
       "CNzh": "辣炒年糕",
       "EUde": "Tteokbokki-Reiskuchen",
@@ -9307,6 +9750,7 @@
     "n": "Tokku",
     "t": 389,
     "i": 381,
+    "s": [8, 7, 7, 7],
     "l": {
       "CNzh": "韩式打糕汤",
       "EUde": "Tteokguk-Suppe",
@@ -9328,6 +9772,7 @@
     "n": "Turron",
     "t": 317,
     "i": 312,
+    "s": [10, 14, 2, 10],
     "l": {
       "CNzh": "杜隆糖",
       "EUde": "Turrón",
@@ -9349,6 +9794,7 @@
     "n": "VeggieBurger",
     "t": 293,
     "i": 290,
+    "s": [9, 7, 9, 12],
     "l": {
       "CNzh": "素汉堡",
       "EUde": "Gemüseburger",
@@ -9370,6 +9816,7 @@
     "n": "Waffle",
     "t": 168,
     "i": 171,
+    "s": [12, 13, 7, 9],
     "l": {
       "CNzh": "华夫饼",
       "EUde": "Waffel",
@@ -9391,6 +9838,7 @@
     "n": "Walnut",
     "t": 361,
     "i": 353,
+    "s": [6, 8, 6, 12],
     "l": {
       "CNzh": "核桃",
       "EUde": "Walnüsse",
@@ -9412,6 +9860,7 @@
     "n": "Suika",
     "t": 67,
     "i": 69,
+    "s": [7, 8, 12, 12],
     "l": {
       "CNzh": "西瓜",
       "EUde": "Wassermelone",
@@ -9433,6 +9882,7 @@
     "n": "Syokupan",
     "t": 65,
     "i": 67,
+    "s": [9, 9, 9, 10],
     "l": {
       "CNzh": "吐司",
       "EUde": "Toastscheibe",
@@ -9454,6 +9904,7 @@
     "n": "XiaoLongBao",
     "t": 474,
     "i": 453,
+    "s": [8, 7, 8, 9],
     "l": {
       "CNzh": "小笼包",
       "EUde": "Xiaolongbao-Teigtasche",
@@ -9475,6 +9926,7 @@
     "n": "Yakisoba",
     "t": 118,
     "i": 121,
+    "s": [10, 9, 10, 5],
     "l": {
       "CNzh": "炒面",
       "EUde": "Yakisoba-Nudeln",
@@ -9496,6 +9948,7 @@
     "n": "Yakitori",
     "t": 207,
     "i": 210,
+    "s": [11, 11, 13, 12],
     "l": {
       "CNzh": "烤鸡肉串",
       "EUde": "Yakitori-Spieß",
@@ -9517,6 +9970,7 @@
     "n": "YangnyeomChicken",
     "t": 468,
     "i": 447,
+    "s": [8, 7, 9, 8],
     "l": {
       "CNzh": "韩式炸鸡",
       "EUde": "Yangnyeom-Hühnchen",
@@ -9538,6 +9992,7 @@
     "n": "Yongebessuku",
     "t": 410,
     "i": 395,
+    "s": [10, 10, 13, 13],
     "l": {
       "CNzh": "清炖鸡",
       "EUde": "Yeonggye-Baeksuk-Brühe",
@@ -9559,6 +10014,7 @@
     "n": "YerbaMate",
     "t": 294,
     "i": 291,
+    "s": [6, 11, 3, 15],
     "l": {
       "CNzh": "马黛茶",
       "EUde": "Mate-Tee",
@@ -9580,6 +10036,7 @@
     "n": "Yoghourt",
     "t": 169,
     "i": 172,
+    "s": [10, 11, 10, 9],
     "l": {
       "CNzh": "酸奶",
       "EUde": "Joghurt",
@@ -9601,6 +10058,7 @@
     "n": "Youkan",
     "t": 121,
     "i": 124,
+    "s": [7, 11, 3, 14],
     "l": {
       "CNzh": "羊羹",
       "EUde": "Bohnen-Süßgelee",
@@ -9622,6 +10080,7 @@
     "n": "Youtiao",
     "t": 479,
     "i": 458,
+    "s": [9, 9, 9, 9],
     "l": {
       "CNzh": "油条",
       "EUde": "Youtiao-Stäbchen",
@@ -9643,6 +10102,7 @@
     "n": "Yukke",
     "t": 428,
     "i": 410,
+    "s": [10, 10, 10, 13],
     "l": {
       "CNzh": "生拌牛肉",
       "EUde": "Yukhoe",
@@ -9664,6 +10124,7 @@
     "n": "BucheDeNoel",
     "t": 306,
     "i": 303,
+    "s": [13, 15, 5, 10],
     "l": {
       "CNzh": "圣诞树干蛋糕",
       "EUde": "Weihnachtskuchen",
@@ -9685,6 +10146,7 @@
     "n": "Zampone",
     "t": 459,
     "i": 438,
+    "s": [7, 6, 7, 9],
     "l": {
       "CNzh": "意大利香肠",
       "EUde": "Zampone",
@@ -9706,6 +10168,7 @@
     "n": "Zenzai",
     "t": 73,
     "i": 75,
+    "s": [9, 14, 1, 14],
     "l": {
       "CNzh": "红豆小圆子汤",
       "EUde": "Adzukibohnensuppe",
@@ -9727,6 +10190,7 @@
     "n": "Chimaki",
     "t": 467,
     "i": 446,
+    "s": [6, 6, 6, 6],
     "l": {
       "CNzh": "粽子",
       "EUde": "Zongzi",
@@ -9748,6 +10212,7 @@
     "n": "Zucchini",
     "t": 368,
     "i": 360,
+    "s": [4, 5, 9, 10],
     "l": {
       "CNzh": "西葫芦",
       "EUde": "Zucchini",

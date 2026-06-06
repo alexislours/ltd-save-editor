@@ -6,6 +6,7 @@ export type Food = {
   name: string;
   textureId: number;
   id: number;
+  taste: number[];
   localized: Partial<Record<GameLocale, string>>;
 };
 
@@ -18,6 +19,7 @@ type RawFood = {
   n: string;
   t: number;
   i?: number;
+  s?: number[];
   l: Partial<Record<GameLocale, string>>;
 };
 
@@ -36,6 +38,7 @@ export function loadFoodList(): void {
           name: r.n,
           textureId: r.t,
           id: typeof r.i === 'number' ? r.i : -1,
+          taste: Array.isArray(r.s) && r.s.length === 4 ? r.s : [2, 2, 2, 2],
           localized: r.l ?? {},
         };
         BY_HASH.set(food.hash, food);

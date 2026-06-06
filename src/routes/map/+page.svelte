@@ -5,7 +5,6 @@
   import { errorMessage } from '$lib/errorMessage';
   import AdvancedPanel from '$lib/advanced/AdvancedPanel.svelte';
   import RouteMeta from '$lib/layout/RouteMeta.svelte';
-  import SaveBar from '$lib/saveFile/SaveBar.svelte';
   import SaveTab from '$lib/saveFile/SaveTab.svelte';
   import SubTabs from '$lib/ui/SubTabs.svelte';
   import { mapState, syncFromSave as syncFloorFromSave } from '$lib/map/state/mapEditor.svelte';
@@ -64,20 +63,19 @@
   description={$_('map.description')}
   error={mapState.error || objectsState.error}
   ready={mapState.ready}
+  {dirty}
+  actionLabel={$_('map.download_action')}
+  onAction={download}
 >
-  {#if mapState.ready}
-    <SaveBar {dirty} actionLabel={$_('map.download_action')} onAction={download} />
+  <SubTabs tabs={SUB_TABS} bind:value={subTab} label={$_('map.sections_label')} />
 
-    <SubTabs tabs={SUB_TABS} bind:value={subTab} label={$_('map.sections_label')} />
-
-    {#if subTab === 'map'}
-      <Workbench />
-    {:else}
-      <AdvancedPanel
-        entries={advancedEntries}
-        onCommit={commitEntryEdit}
-        parseSignal={mapSave.loadId}
-      />
-    {/if}
+  {#if subTab === 'map'}
+    <Workbench />
+  {:else}
+    <AdvancedPanel
+      entries={advancedEntries}
+      onCommit={commitEntryEdit}
+      parseSignal={mapSave.loadId}
+    />
   {/if}
 </SaveTab>

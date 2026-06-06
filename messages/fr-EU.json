@@ -703,7 +703,20 @@
       "random": "Aléatoire",
       "random_title": "Tire au sort les plats préférés et détestés",
       "rank_marker": "n°{rank}",
+      "rating_title": "À quel point ce Mii aime ce plat, selon son type de goût caché.",
       "search_placeholder": "Rechercher un plat…",
+      "show_rating": "Afficher la note",
+      "tier": {
+        "bad": "Mauvais",
+        "best": "Préféré",
+        "good": "Bon",
+        "normal": "Neutre",
+        "ultra_best": "Préféré absolu",
+        "ultra_worst": "Détesté absolu",
+        "very_bad": "Très mauvais",
+        "very_good": "Très bon",
+        "worst": "Détesté"
+      },
       "unknown": "Plat inconnu (hash {hash})"
     },
     "habits": {
