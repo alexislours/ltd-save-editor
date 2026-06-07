@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   publish:
-    name: Publish to npm
+    name: Publish to npm + JSR
     runs-on: ubuntu-latest
     environment: npm
     permissions:
@@ -50,3 +50,7 @@ jobs:
       - run: npm run test --workspace @alexislours/${{ steps.pkg.outputs.name }} --if-present
 
       - run: npm publish --workspace @alexislours/${{ steps.pkg.outputs.name }} --provenance --access public --ignore-scripts
+
+      - name: Publish to JSR
+        working-directory: ${{ inputs.path }}
+        run: npx --yes jsr@latest publish --allow-dirty

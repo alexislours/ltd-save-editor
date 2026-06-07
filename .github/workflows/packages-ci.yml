@@ -41,3 +41,7 @@ jobs:
       - run: npm run check --workspace @alexislours/${{ matrix.package }}
       - run: npm run lint:pkg --workspace @alexislours/${{ matrix.package }}
       - run: npm run test --workspace @alexislours/${{ matrix.package }} --if-present
+
+      - name: JSR publish dry-run
+        working-directory: packages/${{ matrix.package }}
+        run: npx --yes jsr@latest publish --dry-run --allow-dirty
