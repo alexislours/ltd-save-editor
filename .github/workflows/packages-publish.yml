@@ -1,0 +1,76 @@
+name: Publish package
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: Package directory to publish (e.g. packages/ltd-savedata)
+        required: true
+        type: string
+  push:
+    tags:
+      - 'ltd-savedata-v*'
+      - 'ltd-sharemii-v*'
+      - 'ltd-textures-v*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.path || github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - run: npm ci
+
+      - name: Resolve package
+        id: pkg
+        run: |
+          if [ -n "${{ inputs.path }}" ]; then
+            name="$(basename "${{ inputs.path }}")"
+            version="$(node -p "require('./${{ inputs.path }}/package.json').version")"
+          else
+            tag="${GITHUB_REF_NAME}"
+            name="${tag%-v*}"
+            version="${tag##*-v}"
+          fi
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Verify tag matches package.json version
+        if: github.event_name == 'push'
+        run: |
+          pkgver=$(node -p "require('./packages/${{ steps.pkg.outputs.name }}/package.json').version")
+          if [ "$pkgver" != "${{ steps.pkg.outputs.version }}" ]; then
+            echo "::error::Tag version ${{ steps.pkg.outputs.version }} does not match package.json version $pkgver"
+            exit 1
+          fi
+
+      - name: Build workspace dependencies
+        if: steps.pkg.outputs.name == 'ltd-sharemii'
+        run: npm run build --workspace @alexislours/ltd-savedata
+
+      - run: npm run build --workspace @alexislours/${{ steps.pkg.outputs.name }}
+      - run: npm run check --workspace @alexislours/${{ steps.pkg.outputs.name }}
+      - run: npm run lint:pkg --workspace @alexislours/${{ steps.pkg.outputs.name }}
+      - run: npm run test --workspace @alexislours/${{ steps.pkg.outputs.name }} --if-present
+
+      - run: npm publish --workspace @alexislours/${{ steps.pkg.outputs.name }} --provenance --access public --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

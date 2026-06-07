@@ -1,7 +1,11 @@
 <script lang="ts">
-  import { hexU32, parseMaybeHex } from '$lib/sav/format';
-  import { enumOptionName, enumOptionsFor } from '$lib/sav/knownKeys';
-  import type { Codec } from '$lib/sav/struct/types';
+  import {
+    hexU32,
+    parseMaybeHex,
+    enumOptionName,
+    enumOptionsFor,
+    type Codec,
+  } from '@alexislours/ltd-savedata';
   import EnumSelect from './EnumSelect.svelte';
   import { fieldWriteError, type ScalarAccess, type ScalarSizing } from './scalarFieldAccess';
 

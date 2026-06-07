@@ -4,6 +4,9 @@
   "version": "2.10.0",
   "type": "module",
   "license": "AGPL-3.0-or-later",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "vite dev",
     "prebuild": "npm run wasm:build",
@@ -24,18 +27,16 @@
     "assets:upload": "node scripts/upload-assets.ts",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=ltd-save-editor --branch=main",
     "deploy:beta": "npm run build -- --mode beta && wrangler pages deploy dist --project-name=ltd-save-editor --branch=beta",
-    "wasm:build": "asc src/lib/ugc/wasm/assembly/index.ts --config src/lib/ugc/wasm/asconfig.json --target release",
-    "wasm:build:debug": "asc src/lib/ugc/wasm/assembly/index.ts --config src/lib/ugc/wasm/asconfig.json --target debug"
+    "wasm:build": "npm run build:wasm --workspace @alexislours/ltd-textures",
+    "wasm:build:debug": "npm run build:wasm:debug --workspace @alexislours/ltd-textures"
   },
   "devDependencies": {
-    "@assemblyscript/loader": "^0.28.17",
     "@eslint/js": "^10.0.1",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.59.1",
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@tailwindcss/vite": "^4.3.0",
     "@types/node": "^24.12.3",
-    "assemblyscript": "^0.28.17",
     "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.17.1",
@@ -54,6 +55,9 @@
     "yaml": "^2.8.4"
   },
   "dependencies": {
+    "@alexislours/ltd-savedata": "*",
+    "@alexislours/ltd-sharemii": "*",
+    "@alexislours/ltd-textures": "*",
     "@bokuweb/zstd-wasm": "^0.0.27",
     "fflate": "^0.8.2",
     "svelte-i18n": "^4.0.1"

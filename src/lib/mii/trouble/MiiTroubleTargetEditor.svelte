@@ -3,8 +3,8 @@
   import { locale } from 'svelte-i18n';
   import { actorDisplay, allActors } from '$lib/map/actors/actors';
   import { foodByHash, foodImageUrl, foodLabel } from '$lib/sav/lists/foodList.svelte';
-  import { safe } from '$lib/sav/format';
-  import { MII_SCHEMA } from '$lib/sav/schema';
+  import { safe } from '@alexislours/ltd-savedata';
+  import { MII_SCHEMA } from '@alexislours/ltd-savedata/schema';
   import type { Trouble, TroubleTargetKey } from '$lib/sav/lists/troubleList.svelte';
   import { CARD_BASE_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from '$lib/mii/miiEditor.svelte';

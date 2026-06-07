@@ -1,9 +1,11 @@
-import { DataType } from '$lib/sav/dataType';
-import { hexU32 } from '$lib/sav/format';
-import { enumOptionName } from '$lib/sav/knownKeys';
-import { decodeStruct } from '$lib/sav/struct/decode';
-import { structForHash } from '$lib/sav/struct/registry';
-import type { DecodedNode } from '$lib/sav/struct/types';
+import {
+  DataType,
+  hexU32,
+  enumOptionName,
+  decodeStruct,
+  structForHash,
+  type DecodedNode,
+} from '@alexislours/ltd-savedata';
 
 const MAX_ARRAY_PREVIEW = 16;
 const MAX_BYTES_PREVIEW = 8;

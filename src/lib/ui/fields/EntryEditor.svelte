@@ -1,12 +1,16 @@
 <script lang="ts">
   import { SvelteSet } from 'svelte/reactivity';
   import { _ } from 'virtual:i18n/advanced';
-  import { binaryArrayElements } from '$lib/sav/codec';
-  import { DataType, isInline } from '$lib/sav/dataType';
-  import { hexU32 } from '$lib/sav/format';
-  import { codecForHash, structForHash } from '$lib/sav/struct/registry';
-  import type { StructDef } from '$lib/sav/struct/types';
-  import type { Entry } from '$lib/sav/types';
+  import {
+    binaryArrayElements,
+    DataType,
+    isInline,
+    hexU32,
+    codecForHash,
+    structForHash,
+    type StructDef,
+    type Entry,
+  } from '@alexislours/ltd-savedata';
   import { PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import HexViewer from './HexViewer.svelte';
   import ScalarFieldEditor from './ScalarFieldEditor.svelte';

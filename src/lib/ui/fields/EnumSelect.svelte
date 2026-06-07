@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { hexU32 } from '$lib/sav/format';
-  import type { EnumOption } from '$lib/sav/knownKeys';
+  import { hexU32, type EnumOption } from '@alexislours/ltd-savedata';
 
   type Props = {
     value: number;

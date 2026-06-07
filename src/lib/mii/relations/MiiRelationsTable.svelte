@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/mii+residents+advanced';
-  import { enumOptionsFor } from '$lib/sav/knownKeys';
-  import { MII_SCHEMA } from '$lib/sav/schema';
+  import { enumOptionsFor } from '@alexislours/ltd-savedata';
+  import { MII_SCHEMA } from '@alexislours/ltd-savedata/schema';
   import { CARD_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from '$lib/mii/miiEditor.svelte';
   import {

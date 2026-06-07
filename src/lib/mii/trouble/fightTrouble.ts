@@ -1,4 +1,4 @@
-import { murmur3_x86_32 } from '$lib/sav/hash';
+import { murmur3_x86_32 } from '@alexislours/ltd-savedata';
 import type { MiiAccessor } from '$lib/mii/miiEditor.svelte';
 import {
   clearTroubleField,

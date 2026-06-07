@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/mii+residents+advanced';
-  import { safe } from '$lib/sav/format';
+  import { safe } from '@alexislours/ltd-savedata';
   import {
     troubleByHash,
     type Trouble,

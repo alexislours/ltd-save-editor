@@ -1,5 +1,5 @@
 import { mapSave } from '$lib/map/state/mapSave.svelte';
-import { MAP_SCHEMA } from '$lib/sav/schema';
+import { MAP_SCHEMA } from '@alexislours/ltd-savedata/schema';
 
 const MAP_ID_HASH = MAP_SCHEMA.House.MapId.hash >>> 0;
 const ROOMMATE_GROUP_NAME_HASH = MAP_SCHEMA.House.RoommateGroupName.hash >>> 0;

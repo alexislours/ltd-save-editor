@@ -11,13 +11,18 @@ import {
   syncFromSave as syncPlayer,
 } from '$lib/player/playerEditor.svelte';
 import { clearSave, getSaveBytes, setSaveFromBytes } from '$lib/saveFile/saveFile.svelte';
-import { setFloat, setInt64, setUInt } from './codec';
-import { DataType } from './dataType';
-import { decode } from './materialized/decode';
-import { parseSav } from './parse';
-import { PLAYER_SCHEMA } from './schema';
-import type { Entry, SavFile } from './types';
-import { writeSav } from './write';
+import {
+  setFloat,
+  setInt64,
+  setUInt,
+  DataType,
+  decode,
+  parseSav,
+  type Entry,
+  type SavFile,
+  writeSav,
+} from '@alexislours/ltd-savedata';
+import { PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
 
 const MONEY_LEAF = PLAYER_SCHEMA.Player.Money;
 const MONEY_HASH = MONEY_LEAF.hash >>> 0;

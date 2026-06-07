@@ -5,5 +5,5 @@
     "types": ["node", "vitest/globals"]
   },
   "include": ["src/**/*.test.ts", "tools/**/*.test.ts", "vitest.config.ts"],
-  "exclude": ["src/lib/ugc/wasm/assembly/**", "node_modules/**", "dist/**"]
+  "exclude": ["packages/**", "node_modules/**", "dist/**"]
 }

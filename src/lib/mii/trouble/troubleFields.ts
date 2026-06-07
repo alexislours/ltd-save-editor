@@ -1,5 +1,4 @@
-import { MII_SCHEMA } from '$lib/sav/schema';
-import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+import { MII_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
 import type { TroubleTargetKey } from '$lib/sav/lists/troubleList.svelte';
 import type { MiiAccessor } from '$lib/mii/miiEditor.svelte';
 

@@ -1,0 +1,51 @@
+{
+  "name": "@alexislours/ltd-savedata",
+  "version": "1.0.0",
+  "description": "Reader, writer, and reverse-engineered field schema for the game's binary .sav save format. Zero runtime dependencies.",
+  "license": "AGPL-3.0-or-later",
+  "author": "Alexis Lours",
+  "type": "module",
+  "sideEffects": false,
+  "keywords": [
+    "savefile",
+    "save-editor",
+    "binary",
+    "codec",
+    "schema",
+    "nintendo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexislours/ltd-save-editor.git",
+    "directory": "packages/ltd-savedata"
+  },
+  "homepage": "https://github.com/alexislours/ltd-save-editor/tree/dev/packages/ltd-savedata#readme",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema": {
+      "types": "./dist/schema/index.d.ts",
+      "import": "./dist/schema/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "check": "tsc -p tsconfig.json",
+    "lint:pkg": "publint --strict && attw --pack --profile esm-only",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.3",
+    "publint": "^0.3.21",
+    "tsup": "^8.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

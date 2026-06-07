@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { binaryArrayElements } from '$lib/sav/codec';
-  import { DataType } from '$lib/sav/dataType';
-  import { codecForHash } from '$lib/sav/struct/registry';
-  import type { Entry } from '$lib/sav/types';
+  import {
+    binaryArrayElements,
+    DataType,
+    codecForHash,
+    type Entry,
+  } from '@alexislours/ltd-savedata';
   import ScalarFieldEditor from './ScalarFieldEditor.svelte';
   import { arrayElementScalarAccess, SCALAR_SIZING_PRESETS } from './scalarFieldAccess';
 

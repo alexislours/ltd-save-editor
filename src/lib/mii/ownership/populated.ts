@@ -1,4 +1,4 @@
-import { MII_SCHEMA } from '$lib/sav/schema';
+import { MII_SCHEMA } from '@alexislours/ltd-savedata/schema';
 import type { MiiAccessor } from '$lib/mii/miiEditor.svelte';
 
 export function populatedMiiIndices(mii: MiiAccessor): number[] {

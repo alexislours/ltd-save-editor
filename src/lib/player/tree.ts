@@ -1,7 +1,10 @@
-import { arrayCount, isArrayType } from '$lib/sav/codec';
-import { DataType } from '$lib/sav/dataType';
-import { nameForHash } from '$lib/sav/knownKeys';
-import type { Entry } from '$lib/sav/types';
+import {
+  arrayCount,
+  isArrayType,
+  DataType,
+  nameForHash,
+  type Entry,
+} from '@alexislours/ltd-savedata';
 
 export type TreeNode = {
   segment: string;

@@ -2,8 +2,8 @@
   import { _ } from 'virtual:i18n/player+advanced';
   import type { I18nKey } from '$gen/i18n-keys';
   import { bindLeaf } from '$lib/sav/bindLeaf.svelte';
-  import { enumOptionsFor, type EnumOption } from '$lib/sav/knownKeys';
-  import { player } from '$lib/sav/schema';
+  import { enumOptionsFor, type EnumOption } from '@alexislours/ltd-savedata';
+  import { player } from '@alexislours/ltd-savedata/schema';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { CARD_CLASS, COMPACT_SELECT_CLASS, FORM_INPUT_MONO_CLASS } from '$lib/ui/styles';
   import EnumSelect from '$lib/ui/fields/EnumSelect.svelte';

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/map+residents+advanced';
-  import { hexU32 } from '$lib/sav/format';
+  import { hexU32 } from '@alexislours/ltd-savedata';
   import { FORM_INPUT_CLASS } from '$lib/ui/styles';
   import {
     actorDisplay,

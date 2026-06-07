@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/mii+residents+advanced';
-  import { safe } from '$lib/sav/format';
-  import { MII_SCHEMA } from '$lib/sav/schema';
+  import { safe } from '@alexislours/ltd-savedata';
+  import { MII_SCHEMA } from '@alexislours/ltd-savedata/schema';
   import { showToast } from '$lib/toast/toast.svelte';
   import { syncResidents } from '$lib/map/residents/residents.svelte';
   import { syncFromSave as syncMapObjects } from '$lib/map/state/mapObjectsEditor.svelte';

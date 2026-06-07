@@ -1,5 +1,4 @@
-import { type GameLocale, pickLocalized } from '$lib/sav/gameLocale';
-import { murmur3_x86_32 } from '$lib/sav/hash';
+import { type GameLocale, pickLocalized, murmur3_x86_32 } from '@alexislours/ltd-savedata';
 
 export type HabitCategory =
   | 'EatType'

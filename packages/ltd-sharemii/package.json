@@ -1,0 +1,51 @@
+{
+  "name": "@alexislours/ltd-sharemii",
+  "version": "1.0.0",
+  "description": "Codec for the game's Mii and UGC share format: extract a Mii or user-generated content item from a save into a portable share file and apply it back. Depends only on @alexislours/ltd-savedata.",
+  "license": "AGPL-3.0-or-later",
+  "author": "Alexis Lours",
+  "type": "module",
+  "sideEffects": false,
+  "keywords": [
+    "savefile",
+    "save-editor",
+    "mii",
+    "ugc",
+    "share",
+    "codec",
+    "nintendo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexislours/ltd-save-editor.git",
+    "directory": "packages/ltd-sharemii"
+  },
+  "homepage": "https://github.com/alexislours/ltd-save-editor/tree/dev/packages/ltd-sharemii#readme",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "check": "tsc -p tsconfig.json",
+    "lint:pkg": "publint --strict && attw --pack --profile esm-only",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@alexislours/ltd-savedata": "^1.0.0"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.3",
+    "publint": "^0.3.21",
+    "tsup": "^8.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

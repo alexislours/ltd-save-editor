@@ -8,9 +8,8 @@ import {
   playerState,
   syncFromSave as syncPlayer,
 } from '$lib/player/playerEditor.svelte';
-import { decode } from '$lib/sav/materialized/decode';
-import { parseSav } from '$lib/sav/parse';
-import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from '$lib/sav/schema';
+import { decode, parseSav } from '@alexislours/ltd-savedata';
+import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
 import { getSaveBytes, setSaveFromBytes } from '$lib/saveFile/saveFile.svelte';
 
 const SLOT_DIR = resolve('sample/saves/1');

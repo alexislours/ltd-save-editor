@@ -1,7 +1,5 @@
-import { DataType } from '$lib/sav/dataType';
-import { buildHashMap } from '$lib/sav/materialized/schemaIndex';
-import { PLAYER_SCHEMA } from '$lib/sav/schema';
-import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+import { DataType, buildHashMap } from '@alexislours/ltd-savedata';
+import { PLAYER_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
 import type { PlayerAccessor } from '$lib/player/playerEditor.svelte';
 import { OBTAINED_HASH } from './stateOptions';
 

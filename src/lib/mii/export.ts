@@ -1,5 +1,5 @@
-import { enumOptionName, enumOptionsFor } from '$lib/sav/knownKeys';
-import { MII_SCHEMA } from '$lib/sav/schema';
+import { enumOptionName, enumOptionsFor } from '@alexislours/ltd-savedata';
+import { MII_SCHEMA } from '@alexislours/ltd-savedata/schema';
 import {
   genderLabel,
   pronounLabel,

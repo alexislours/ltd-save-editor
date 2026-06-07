@@ -1,7 +1,6 @@
-import { DataType } from '$lib/sav/dataType';
+import { DataType } from '@alexislours/ltd-savedata';
 import type { I18nKey } from '$gen/i18n-keys';
-import { MII_SCHEMA } from '$lib/sav/schema';
-import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+import { MII_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
 
 type MiiFieldKind = 'string' | 'uint' | 'int' | 'enum' | 'binary';
 

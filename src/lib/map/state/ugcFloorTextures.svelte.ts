@@ -1,5 +1,5 @@
 import { decodeZsFile } from '$lib/ugc/codec';
-import { ugcCanvasFileName, ugcTexFileName } from '$lib/shareMii/codec/ugcKinds';
+import { ugcCanvasFileName, ugcTexFileName } from '@alexislours/ltd-sharemii';
 import { getSidecarStore } from '$lib/shareMii/sidecar/sidecarStore.svelte';
 
 type CacheEntry = {

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/player+advanced';
   import { bindLeaf } from '$lib/sav/bindLeaf.svelte';
-  import { player } from '$lib/sav/schema';
+  import { player } from '@alexislours/ltd-savedata/schema';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { CARD_CLASS, COMPACT_SELECT_CLASS, FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
   import FormFieldWrapper from '$lib/ui/fields/FormFieldWrapper.svelte';
