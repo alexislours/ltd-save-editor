@@ -1,6 +1,6 @@
 {
   "name": "@alexislours/ltd-savedata",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Reader, writer, and reverse-engineered field schema for the game's binary .sav save format. Zero runtime dependencies.",
   "license": "AGPL-3.0-or-later",
   "author": "Alexis Lours",
