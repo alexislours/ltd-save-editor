@@ -107,6 +107,8 @@ export type FootprintRect = {
   y0: number;
   w: number;
   h: number;
+  goalX: number | null;
+  goalY: number | null;
   reserved: [number, number][];
 };
 
@@ -130,7 +132,7 @@ function rotateOffset(dx: number, dy: number, t: number): [number, number] {
 }
 
 export function emptyFootprintRect(): FootprintRect {
-  return { x0: 0, y0: 0, w: 0, h: 0, reserved: [] };
+  return { x0: 0, y0: 0, w: 0, h: 0, goalX: null, goalY: null, reserved: [] };
 }
 
 export function rotateActorFootprintInto(
@@ -144,6 +146,8 @@ export function rotateActorFootprintInto(
     out.y0 = fp.y0;
     out.w = fp.w;
     out.h = fp.h;
+    out.goalX = fp.goalX;
+    out.goalY = fp.goalY;
     out.reserved = fp.reserved.map(([rx, ry]) => [rx, ry]);
     return out;
   }
@@ -164,10 +168,18 @@ export function rotateActorFootprintInto(
     if (ry > maxY) maxY = ry;
   }
 
+  let goalX: number | null = null,
+    goalY: number | null = null;
+  if (fp.goalX != null && fp.goalY != null) {
+    [goalX, goalY] = rotateOffset(fp.goalX, fp.goalY, t);
+  }
+
   out.x0 = minX;
   out.y0 = minY;
   out.w = maxX - minX + 1;
   out.h = maxY - minY + 1;
+  out.goalX = goalX;
+  out.goalY = goalY;
   out.reserved = fp.reserved.map(([rx, ry]) => rotateOffset(rx, ry, t));
   return out;
 }

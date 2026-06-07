@@ -62,6 +62,71 @@ function drawReservedTile(
   ctx.strokeRect(tx + 0.5, ty + 0.5, tileSize - 1, tileSize - 1);
 }
 
+function drawDoorLine(
+  ctx: CanvasRenderingContext2D,
+  view: ViewLike,
+  row: MapObjectRow,
+  fp: FootprintRect,
+  tileSize: number,
+): void {
+  if (!(fp.w > 1 || fp.h > 1) || fp.goalX == null || fp.goalY == null) return;
+  const gx = row.x + fp.goalX;
+  const gy = row.y + fp.goalY;
+  const gcx = view.panX + gx * tileSize;
+  const gcy = view.panY + gy * tileSize;
+  const onLeft = fp.goalX === fp.x0;
+  const onRight = fp.goalX === fp.x0 + fp.w - 1;
+  const onTop = fp.goalY === fp.y0;
+  const onBottom = fp.goalY === fp.y0 + fp.h - 1;
+  const cxRect = row.x + fp.x0 + fp.w / 2;
+  const cyRect = row.y + fp.y0 + fp.h / 2;
+  const dx = gx + 0.5 - cxRect;
+  const dy = gy + 0.5 - cyRect;
+  let vertical: boolean;
+  if (onLeft || onRight) vertical = !(onTop || onBottom) || Math.abs(dx) >= Math.abs(dy);
+  else if (onTop || onBottom) vertical = false;
+  else vertical = Math.abs(dx) >= Math.abs(dy);
+  ctx.lineWidth = Math.max(2, tileSize * 0.25);
+  ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+  ctx.beginPath();
+  if (vertical) {
+    const edgeX = onRight ? gcx + tileSize : onLeft ? gcx : dx >= 0 ? gcx + tileSize : gcx;
+    ctx.moveTo(edgeX, gcy + tileSize * 0.15);
+    ctx.lineTo(edgeX, gcy + tileSize * 0.85);
+  } else {
+    const edgeY = onBottom ? gcy + tileSize : onTop ? gcy : dy >= 0 ? gcy + tileSize : gcy;
+    ctx.moveTo(gcx + tileSize * 0.15, edgeY);
+    ctx.lineTo(gcx + tileSize * 0.85, edgeY);
+  }
+  ctx.stroke();
+}
+
+function drawStairArrow(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  tileSize: number,
+  t: number,
+): void {
+  const half = tileSize * 0.26;
+  const tip = tileSize * 0.42;
+  const base = tip - half;
+  ctx.save();
+  ctx.translate(cx, cy);
+  if (t !== 0) ctx.rotate((-t * Math.PI) / 2);
+  ctx.beginPath();
+  ctx.moveTo(0, tip);
+  ctx.lineTo(-half, base);
+  ctx.lineTo(half, base);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(255,255,255,0.9)';
+  ctx.fill();
+  ctx.lineWidth = Math.max(1, tileSize * 0.04);
+  ctx.strokeStyle = 'rgba(0,0,0,0.6)';
+  ctx.stroke();
+  ctx.restore();
+}
+
 export function renderObjects(
   ctx: CanvasRenderingContext2D,
   view: ViewLike,
@@ -148,7 +213,13 @@ export function renderObjects(
 
     const isBuilding =
       category.startsWith('MapObject_Facility_') || category.startsWith('MapObject_House_');
-    if (!isBuilding) {
+    if (isBuilding) {
+      drawDoorLine(ctx, view, row, fp, tileSize);
+    } else if (category === 'MapObject_IslandStep') {
+      const scx = view.panX + (row.x + fp.x0 + fp.w / 2) * tileSize;
+      const scy = view.panY + (row.y + fp.y0 + fp.h / 2) * tileSize;
+      drawStairArrow(ctx, scx, scy, tileSize, quarterTurns(row.rot));
+    } else {
       for (const [resX, resY] of fp.reserved) {
         const tx = view.panX + (row.x + resX) * tileSize;
         const ty = view.panY + (row.y + resY) * tileSize;

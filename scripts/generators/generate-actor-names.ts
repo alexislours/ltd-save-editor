@@ -51,6 +51,8 @@ type Footprint = {
   y0: number;
   w: number;
   h: number;
+  goalX: number | null;
+  goalY: number | null;
   reserved: [number, number][];
 };
 
@@ -92,6 +94,8 @@ const FOOTPRINT_OVERRIDES: Record<string, Footprint> = {
     y0: -4,
     w: 6,
     h: 10,
+    goalX: null,
+    goalY: null,
     reserved: [],
   },
 };
@@ -109,6 +113,8 @@ function parseWalkingGrid(name: string): Footprint | null {
   const xe = m.num('XEnd');
   const zs = m.num('ZStart');
   const ze = m.num('ZEnd');
+  const xg = m.num('XGoal');
+  const zg = m.num('ZGoal');
   if (xs == null || xe == null || zs == null || ze == null) return null;
   const wRaw = xe - xs + 1;
   const hRaw = ze - zs + 1;
@@ -150,6 +156,9 @@ function parseWalkingGrid(name: string): Footprint | null {
     }
   }
 
+  const goalX = xg == null ? 0 : Math.max(x0, Math.min(x0 + w - 1, xg));
+  const goalY = zg == null ? 0 : Math.max(y0, Math.min(y0 + h - 1, zg));
+
   const reserved: [number, number][] = [];
   if (vals.length === wRaw * hRaw) {
     for (let dz = 0; dz < hRaw; dz++) {
@@ -159,7 +168,7 @@ function parseWalkingGrid(name: string): Footprint | null {
     }
   }
 
-  return { x0, y0, w, h, reserved };
+  return { x0, y0, w, h, goalX, goalY, reserved };
 }
 
 function footprintFromOverride(ov: OverrideEntry): Footprint | null {
@@ -207,7 +216,7 @@ function footprintFromOverride(ov: OverrideEntry): Footprint | null {
     }
   }
 
-  return { x0, y0, w, h, reserved };
+  return { x0, y0, w, h, goalX: null, goalY: null, reserved };
 }
 
 const { wgMap: actorToWalkingGrid, overrideMap: actorToOverride } = parseActorPassableCost();
@@ -252,6 +261,7 @@ lines.push('type ActorInfo = { key: string; category: string }');
 lines.push('');
 lines.push('export type ActorFootprint = {');
 lines.push('  x0: number; y0: number; w: number; h: number');
+lines.push('  goalX: number | null; goalY: number | null');
 lines.push('  reserved: readonly (readonly [number, number])[]');
 lines.push('}');
 lines.push('');
@@ -265,7 +275,7 @@ for (const [h, info] of sorted) {
 lines.push('])');
 lines.push('');
 lines.push(
-  'export const DEFAULT_FOOTPRINT: ActorFootprint = { x0: 0, y0: 0, w: 1, h: 1, reserved: [] }',
+  'export const DEFAULT_FOOTPRINT: ActorFootprint = { x0: 0, y0: 0, w: 1, h: 1, goalX: 0, goalY: 0, reserved: [] }',
 );
 lines.push('');
 lines.push('export const ACTOR_FOOTPRINT: ReadonlyMap<number, ActorFootprint> = new Map([');
@@ -274,7 +284,7 @@ for (const [h, k, fp] of footprintEntries) {
   const reserved = `[${fp.reserved.map(([rx, ry]) => `[${rx}, ${ry}]`).join(', ')}]`;
   lines.push(
     `  [${hex}, { x0: ${fp.x0}, y0: ${fp.y0}, w: ${fp.w}, h: ${fp.h},` +
-      ` reserved: ${reserved} }], // ${k} (${fp.w}×${fp.h})`,
+      ` goalX: ${fp.goalX}, goalY: ${fp.goalY}, reserved: ${reserved} }], // ${k} (${fp.w}×${fp.h})`,
   );
 }
 lines.push('])');
