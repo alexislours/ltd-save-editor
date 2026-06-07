@@ -3,7 +3,7 @@
   import { showToast } from '$lib/toast/toast.svelte';
   import { TAB_PILL_CLASS } from '$lib/ui/styles';
   import type { DiffEntry, DiffResult, DiffStatus } from './diffEngine';
-  import { elementChanges, formatValue, typeLabel } from './valueFormat';
+  import { elementChanges, formatValue, typeLabel, visibleChanges } from './valueFormat';
   import type { ArrayDiff } from './valueFormat';
 
   const MAX_ELEMENT_ROWS = 24;
@@ -75,6 +75,27 @@
     collapsed = { ...collapsed, [name]: !collapsed[name] };
   }
 
+  function appendElementLines(lines: string[], diff: ArrayDiff, indent: string): void {
+    const { rows, hidden } = visibleChanges(diff, MAX_MARKDOWN_ELEMENTS);
+    for (const ch of rows) {
+      if ('children' in ch) {
+        lines.push(
+          `${indent}- ${ch.label}: ${ch.children.changes.length} of ${ch.children.total} changed`,
+        );
+        appendElementLines(lines, ch.children, `${indent}  `);
+      } else if (ch.status === 'changed') {
+        lines.push(`${indent}- ${ch.label} ${ch.before} -> ${ch.after}`);
+      } else if (ch.status === 'added') {
+        lines.push(`${indent}- ${ch.label} +${ch.after}`);
+      } else {
+        lines.push(`${indent}- ${ch.label} -${ch.before}`);
+      }
+    }
+    if (hidden > 0) {
+      lines.push(`${indent}- … +${hidden} more`);
+    }
+  }
+
   async function copyMarkdown(): Promise<void> {
     const sections = filtered;
     const counts = { changed: 0, added: 0, removed: 0 };
@@ -96,15 +117,7 @@
             lines.push(
               `- [changed] ${e.path}: ${elems.changes.length} of ${elems.total} fields changed`,
             );
-            for (const ch of elems.changes.slice(0, MAX_MARKDOWN_ELEMENTS)) {
-              if (ch.status === 'changed')
-                lines.push(`  - ${ch.label} ${ch.before} -> ${ch.after}`);
-              else if (ch.status === 'added') lines.push(`  - ${ch.label} +${ch.after}`);
-              else lines.push(`  - ${ch.label} -${ch.before}`);
-            }
-            if (elems.changes.length > MAX_MARKDOWN_ELEMENTS) {
-              lines.push(`  - … +${elems.changes.length - MAX_MARKDOWN_ELEMENTS} more`);
-            }
+            appendElementLines(lines, elems, '  ');
           } else {
             lines.push(
               `- [changed] ${e.path}: ${formatValue(e.type, e.before)} -> ${formatValue(e.type, e.after)}`,
@@ -126,6 +139,55 @@
     }
   }
 </script>
+
+{#snippet diffRows(diff: ArrayDiff)}
+  {@const visible = visibleChanges(diff, MAX_ELEMENT_ROWS)}
+  <span class="text-[11px] text-content-faint">
+    {$_('tools.diff.elements_changed', {
+      values: { n: diff.changes.length, total: diff.total },
+    })}
+  </span>
+  <ul class="flex flex-col gap-0.5">
+    {#each visible.rows as ch, i (i)}
+      {#if 'children' in ch}
+        <li class="flex flex-col gap-0.5">
+          <span class="text-content-faint">{ch.label}</span>
+          <div class="flex flex-col gap-0.5 border-l border-edge/40 pl-2">
+            {@render diffRows(ch.children)}
+          </div>
+        </li>
+      {:else}
+        <li class="flex flex-wrap items-baseline gap-x-1.5">
+          <span class="shrink-0 text-content-faint">{ch.label}</span>
+          {#if ch.status === 'changed'}
+            <span class="break-all text-danger line-through decoration-danger/50">
+              {ch.before}
+            </span>
+            <span aria-hidden="true" class="text-content-faint">-&gt;</span>
+            <span class="break-all text-emerald-700 dark:text-emerald-400">
+              {ch.after}
+            </span>
+          {:else if ch.status === 'added'}
+            <span class="break-all text-emerald-700 dark:text-emerald-400">
+              {ch.after}
+            </span>
+          {:else}
+            <span class="break-all text-danger line-through decoration-danger/50">
+              {ch.before}
+            </span>
+          {/if}
+        </li>
+      {/if}
+    {/each}
+  </ul>
+  {#if visible.hidden > 0}
+    <span class="text-[11px] text-content-faint">
+      {$_('tools.diff.elements_more', {
+        values: { n: visible.hidden },
+      })}
+    </span>
+  {/if}
+{/snippet}
 
 {#if result.total === 0}
   <p
@@ -228,46 +290,7 @@
                         {@const elems = elementsFor(entry)}
                         {#if elems}
                           <div class="flex flex-col gap-1">
-                            <span class="text-[11px] text-content-faint">
-                              {$_('tools.diff.elements_changed', {
-                                values: { n: elems.changes.length, total: elems.total },
-                              })}
-                            </span>
-                            <ul class="flex flex-col gap-0.5">
-                              {#each elems.changes.slice(0, MAX_ELEMENT_ROWS) as ch, i (i)}
-                                <li class="flex flex-wrap items-baseline gap-x-1.5">
-                                  <span class="shrink-0 text-content-faint">{ch.label}</span>
-                                  {#if ch.status === 'changed'}
-                                    <span
-                                      class="break-all text-danger line-through decoration-danger/50"
-                                    >
-                                      {ch.before}
-                                    </span>
-                                    <span aria-hidden="true" class="text-content-faint">-&gt;</span>
-                                    <span class="break-all text-emerald-700 dark:text-emerald-400">
-                                      {ch.after}
-                                    </span>
-                                  {:else if ch.status === 'added'}
-                                    <span class="break-all text-emerald-700 dark:text-emerald-400">
-                                      {ch.after}
-                                    </span>
-                                  {:else}
-                                    <span
-                                      class="break-all text-danger line-through decoration-danger/50"
-                                    >
-                                      {ch.before}
-                                    </span>
-                                  {/if}
-                                </li>
-                              {/each}
-                            </ul>
-                            {#if elems.changes.length > MAX_ELEMENT_ROWS}
-                              <span class="text-[11px] text-content-faint">
-                                {$_('tools.diff.elements_more', {
-                                  values: { n: elems.changes.length - MAX_ELEMENT_ROWS },
-                                })}
-                              </span>
-                            {/if}
+                            {@render diffRows(elems)}
                           </div>
                         {:else}
                           <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
