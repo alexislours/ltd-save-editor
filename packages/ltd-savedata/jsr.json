@@ -1,0 +1,11 @@
+{
+  "name": "@alexislours/ltd-savedata",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema/index.ts"
+  },
+  "publish": {
+    "exclude": ["**/*.test.ts", "dist", "tsup.config.ts", "vitest.config.ts"]
+  }
+}

@@ -6,8 +6,17 @@
   "group-pull-request-title-pattern": "chore: release packages",
   "plugins": ["node-workspace"],
   "packages": {
-    "packages/ltd-savedata": { "component": "ltd-savedata" },
-    "packages/ltd-sharemii": { "component": "ltd-sharemii" },
-    "packages/ltd-textures": { "component": "ltd-textures" }
+    "packages/ltd-savedata": {
+      "component": "ltd-savedata",
+      "extra-files": [{ "type": "json", "path": "jsr.json", "jsonpath": "$.version" }]
+    },
+    "packages/ltd-sharemii": {
+      "component": "ltd-sharemii",
+      "extra-files": [{ "type": "json", "path": "jsr.json", "jsonpath": "$.version" }]
+    },
+    "packages/ltd-textures": {
+      "component": "ltd-textures",
+      "extra-files": [{ "type": "json", "path": "jsr.json", "jsonpath": "$.version" }]
+    }
   }
 }
