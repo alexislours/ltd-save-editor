@@ -2,7 +2,7 @@ import { actorDisplay, type ActorGroup } from '$lib/map/actors/actors';
 import { rowFootprintRect } from '$lib/map/actors/ugcDimensions.svelte';
 import { MAP_HEIGHT, MAP_WIDTH, UGC_NONE } from '$lib/map/state/mapEditor.svelte';
 import { tileDefForHash, tileKeyForHash, type TileLabelKey } from '$lib/map/tiles/tiles';
-import { hexU32 } from '$lib/sav/format';
+import { hexU32 } from '@alexislours/ltd-savedata';
 import { score as fuzzyScore } from './fuzzy';
 
 type Cell = { x: number; y: number };

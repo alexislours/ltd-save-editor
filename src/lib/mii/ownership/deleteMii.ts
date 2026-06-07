@@ -1,6 +1,5 @@
-import { murmur3_x86_32 } from '$lib/sav/hash';
-import { MII_SCHEMA, PLAYER_SCHEMA } from '$lib/sav/schema';
-import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+import { murmur3_x86_32 } from '@alexislours/ltd-savedata';
+import { MII_SCHEMA, PLAYER_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
 import { miiAccessor, type MiiAccessor } from '$lib/mii/miiEditor.svelte';
 import { playerAccessor, type PlayerAccessor } from '$lib/player/playerEditor.svelte';
 import { evictForDeletion, recoverableRoomStyles } from '$lib/map/residents/residents.svelte';

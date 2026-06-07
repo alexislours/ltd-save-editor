@@ -4,7 +4,7 @@
   import { downloadBytes } from '$lib/sav/download';
   import { errorMessage } from '$lib/errorMessage';
   import { buildSidecarZip, type SidecarFile } from '$lib/shareMii';
-  import { facepaintCanvasFileName, facepaintTexFileName } from '$lib/shareMii/codec/ugcKinds';
+  import { facepaintCanvasFileName, facepaintTexFileName } from '@alexislours/ltd-sharemii';
   import {
     getSidecarStore,
     hasOriginal,
@@ -15,7 +15,7 @@
   import { PILL_BUTTON_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
   import { track } from '$lib/analytics';
   import { showToast } from '$lib/toast/toast.svelte';
-  import type { Accessor } from '$lib/sav/materialized/accessor';
+  import type { Accessor } from '@alexislours/ltd-savedata';
   import { TextureReplaceState } from '$lib/ugc/texture/textureReplaceState.svelte';
   import PreviewPair from '$lib/ugc/texture/PreviewPair.svelte';
   import TextureControls from '$lib/ugc/texture/TextureControls.svelte';

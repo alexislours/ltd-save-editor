@@ -3,7 +3,7 @@
   import { _ } from 'virtual:i18n/player+advanced';
   import { INPUT_CLASS } from '$lib/ui/styles';
   import EnumSelect from '$lib/ui/fields/EnumSelect.svelte';
-  import type { EnumOption } from '$lib/sav/knownKeys';
+  import type { EnumOption } from '@alexislours/ltd-savedata';
   import { OBTAINED_HASH, STATE_OPTIONS, type StateName } from './stateOptions';
 
   type Props = {

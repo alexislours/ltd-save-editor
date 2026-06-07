@@ -1,4 +1,4 @@
-import type { DecodedSave } from '$lib/sav/materialized/types';
+import type { DecodedSave } from '@alexislours/ltd-savedata';
 import type { SaveKind } from '$lib/saveFile/types';
 
 const DB_NAME = 'ltd-save-editor';

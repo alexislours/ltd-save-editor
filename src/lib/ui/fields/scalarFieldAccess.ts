@@ -41,10 +41,10 @@ import {
   setVector2,
   setVector3,
   stringEncodedSize,
-} from '$lib/sav/codec';
-import { DataType } from '$lib/sav/dataType';
-import { parseMaybeHex } from '$lib/sav/format';
-import type { Entry } from '$lib/sav/types';
+  DataType,
+  parseMaybeHex,
+  type Entry,
+} from '@alexislours/ltd-savedata';
 import { INPUT_CLASS, MONO_INPUT_CLASS } from '$lib/ui/styles';
 
 type Vec2 = { x: number; y: number };

@@ -1,4 +1,4 @@
-import { PLAYER_SCHEMA } from '$lib/sav/schema';
+import { PLAYER_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
 import {
   playerAccessor,
   playerState,
@@ -14,9 +14,7 @@ import {
   type FootprintRect,
 } from './actors';
 import type { ActorFootprint } from './generatedActorNames';
-import { enumOptionName } from '$lib/sav/knownKeys';
-import { DataType } from '$lib/sav/dataType';
-import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+import { DataType, enumOptionName } from '@alexislours/ltd-savedata';
 
 type UgcSlotInfo = {
   slot: number;

@@ -1,5 +1,5 @@
 import { t } from '$lib/i18n/format';
-import { player } from '$lib/sav/schema';
+import { player } from '@alexislours/ltd-savedata/schema';
 import type { PlayerAccessor } from '$lib/player/playerEditor.svelte';
 
 export type Swatch = { value: number; color: string; label: string };

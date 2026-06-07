@@ -3,8 +3,12 @@ import {
   decompress as zstdDecompress,
   init as zstdInit,
 } from '@bokuweb/zstd-wasm';
-import { ensureUgcWasm, type UgcWasm } from './wasm/bridge';
-import { Bc1Mode as Bc1ModeEnum, FitMode as FitModeEnum } from './wasm/types';
+import {
+  Bc1Mode as Bc1ModeEnum,
+  FitMode as FitModeEnum,
+  type UgcWasm,
+} from '@alexislours/ltd-textures';
+import { ensureUgcWasm } from './ugcWasm';
 
 function detectThreadCount(): number {
   if (typeof navigator !== 'undefined' && navigator.hardwareConcurrency) {
@@ -39,8 +43,7 @@ async function bcEncodeWithFallback(
       threadingDisabled = true;
       console.warn('Threaded BC encode failed, falling back to single-threaded', e);
       try {
-        const { terminateBcThreadPool } = await import('./wasm/threadPool');
-        await terminateBcThreadPool();
+        await wasm.terminateThreadPool();
       } catch {
         // ignore
       }

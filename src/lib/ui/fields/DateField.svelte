@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { DataType } from '$lib/sav/dataType';
-  import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+  import type { DataType } from '@alexislours/ltd-savedata';
+  import type { SchemaLeaf } from '@alexislours/ltd-savedata/schema';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { INPUT_CLASS } from '$lib/ui/styles';
 

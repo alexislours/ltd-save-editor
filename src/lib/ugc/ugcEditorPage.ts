@@ -1,5 +1,5 @@
-import type { Accessor } from '$lib/sav/materialized/accessor';
-import { PLAYER_SCHEMA } from '$lib/sav/schema';
+import type { Accessor } from '@alexislours/ltd-savedata';
+import { PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
 import type { DecodedRgba, FitMode } from '$lib/ugc/texture/textureReplaceState.svelte';
 import {
   UGC_KINDS,
@@ -10,7 +10,7 @@ import {
   type UgcKind,
 } from '$lib/shareMii';
 import { hasOriginal } from '$lib/shareMii/sidecar/sidecarStore.svelte';
-import { ugcCanvasFileName, ugcTexFileName, ugcThumbFileName } from '$lib/shareMii/codec/ugcKinds';
+import { ugcCanvasFileName, ugcTexFileName, ugcThumbFileName } from '@alexislours/ltd-sharemii';
 import type { Bc1Mode, Encoder, Matte } from './codec';
 import { parseSidecarIds } from './sidecarParse';
 

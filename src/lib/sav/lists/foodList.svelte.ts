@@ -1,5 +1,5 @@
 import { SvelteMap } from 'svelte/reactivity';
-import { type GameLocale, pickLocalized } from '$lib/sav/gameLocale';
+import { type GameLocale, pickLocalized } from '@alexislours/ltd-savedata';
 
 export type Food = {
   hash: number;

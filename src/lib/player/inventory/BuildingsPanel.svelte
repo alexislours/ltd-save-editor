@@ -2,7 +2,7 @@
   import { _ } from 'virtual:i18n/player+advanced';
   import { locale } from 'svelte-i18n';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
-  import { murmur3_x86_32 } from '$lib/sav/hash';
+  import { murmur3_x86_32 } from '@alexislours/ltd-savedata';
   import {
     allItems,
     type Item,
@@ -10,7 +10,7 @@
     itemLabel,
     itemVariantImageUrl,
   } from '$lib/sav/lists/itemList.svelte';
-  import { PLAYER_SCHEMA } from '$lib/sav/schema';
+  import { PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
   import InventoryExpandableRow, { type SubItem } from './InventoryExpandableRow.svelte';
   import { filterBySearch, sortByLabel } from './inventoryHelpers';
   import InventoryPanel from './InventoryPanel.svelte';

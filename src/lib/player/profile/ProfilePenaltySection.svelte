@@ -2,7 +2,7 @@
   import { _ } from 'virtual:i18n/player+advanced';
   import { locale } from 'svelte-i18n';
   import { bindLeaf } from '$lib/sav/bindLeaf.svelte';
-  import { player } from '$lib/sav/schema';
+  import { player } from '@alexislours/ltd-savedata/schema';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { CARD_CLASS, PRIMARY_BUTTON_CLASS } from '$lib/ui/styles';
   import ConfirmDialog from '$lib/ui/ConfirmDialog.svelte';

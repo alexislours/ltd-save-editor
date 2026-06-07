@@ -1,8 +1,8 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/player+advanced';
   import { bindLeaf } from '$lib/sav/bindLeaf.svelte';
-  import { enumOptionsFor } from '$lib/sav/knownKeys';
-  import { player } from '$lib/sav/schema';
+  import { enumOptionsFor } from '@alexislours/ltd-savedata';
+  import { player } from '@alexislours/ltd-savedata/schema';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { CARD_CLASS, COMPACT_SELECT_CLASS, FORM_INPUT_MONO_CLASS } from '$lib/ui/styles';
   import DateField from '$lib/ui/fields/DateField.svelte';

@@ -1,5 +1,5 @@
 import type { SaveKind } from '$lib/saveFile/types';
-import type { UgcKind } from './shareMii/codec/ugcKinds';
+import type { UgcKind } from '@alexislours/ltd-sharemii';
 
 type ShareMiiKind = 'Mii' | UgcKind;
 

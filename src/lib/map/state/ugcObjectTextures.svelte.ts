@@ -1,5 +1,5 @@
 import { decodeZsFile } from '$lib/ugc/codec';
-import { ugcCanvasFileName, ugcTexFileName, type UgcKind } from '$lib/shareMii/codec/ugcKinds';
+import { ugcCanvasFileName, ugcTexFileName, type UgcKind } from '@alexislours/ltd-sharemii';
 import { getSidecarStore } from '$lib/shareMii/sidecar/sidecarStore.svelte';
 
 type Kind = Extract<UgcKind, 'MapObject' | 'Exterior'>;

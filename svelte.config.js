@@ -11,6 +11,10 @@ export default {
     inlineStyleThreshold: 100_000,
     alias: {
       $gen: 'src/generated',
+      '@alexislours/ltd-savedata/schema': 'packages/ltd-savedata/src/schema',
+      '@alexislours/ltd-savedata': 'packages/ltd-savedata/src',
+      '@alexislours/ltd-textures/build': 'packages/ltd-textures/build',
+      '@alexislours/ltd-textures': 'packages/ltd-textures/src',
     },
     adapter: adapter({
       pages: 'dist',

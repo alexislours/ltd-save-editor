@@ -8,6 +8,5 @@
     "src/lib/session/sessionRestore.svelte.ts",
     "scripts/generators/*.ts"
   ],
-  "ignore": ["src/**/*.test-d.ts", "src/lib/ugc/wasm/assembly/**"],
-  "ignoreDependencies": ["@assemblyscript/loader"]
+  "ignore": ["src/**/*.test-d.ts", "packages/ltd-textures/assembly/**"]
 }

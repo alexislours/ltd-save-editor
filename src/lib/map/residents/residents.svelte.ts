@@ -15,7 +15,7 @@ import {
 import { pushAction } from '$lib/map/state/history.svelte';
 import { miiAccessor, miiState, syncFromSave as syncMiiSave } from '$lib/mii/miiEditor.svelte';
 import { populatedMiiIndices } from '$lib/mii/ownership/populated';
-import { MAP_SCHEMA, MII_SCHEMA } from '$lib/sav/schema';
+import { MAP_SCHEMA, MII_SCHEMA } from '@alexislours/ltd-savedata/schema';
 
 const HOUSE_LEAF = MII_SCHEMA.Mii.Location.HouseMapId;
 const ROOM_LEAF = MII_SCHEMA.Mii.Location.RoomIndex;

@@ -36,7 +36,7 @@
 </script>
 
 <script lang="ts">
-  import { facepaintCanvasFileName } from '$lib/shareMii/codec/ugcKinds';
+  import { facepaintCanvasFileName } from '@alexislours/ltd-sharemii';
   import type { SidecarSource } from '$lib/shareMii/sidecar/sidecar';
 
   type Props = {

@@ -1,5 +1,5 @@
-import type { DataType } from '$lib/sav/dataType';
-import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+import type { DataType } from '@alexislours/ltd-savedata';
+import type { SchemaLeaf } from '@alexislours/ltd-savedata/schema';
 import type { MiiAccessor } from '$lib/mii/miiEditor.svelte';
 
 export type BitmaskAccess = {

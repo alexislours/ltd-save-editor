@@ -1,6 +1,5 @@
-import type { DataType } from './dataType';
-import type { Accessor } from './materialized/accessor';
-import type { Leaf, ValueOf } from './schema/leaf';
+import type { DataType, Accessor } from '@alexislours/ltd-savedata';
+import type { Leaf, ValueOf } from '@alexislours/ltd-savedata/schema';
 
 type LeafBinding<T extends DataType> = {
   readonly present: boolean;

@@ -9,4 +9,9 @@ export default defineConfig({
   worker: {
     format: 'es',
   },
+  server: {
+    fs: {
+      allow: ['packages/ltd-textures/build'],
+    },
+  },
 });
