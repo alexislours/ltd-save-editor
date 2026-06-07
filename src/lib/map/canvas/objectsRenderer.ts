@@ -35,6 +35,33 @@ function quarterTurns(rotDeg: number): number {
   return ((Math.round(rotDeg / 90) % 4) + 4) % 4;
 }
 
+function drawReservedTile(
+  ctx: CanvasRenderingContext2D,
+  tx: number,
+  ty: number,
+  tileSize: number,
+): void {
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(tx, ty, tileSize, tileSize);
+  ctx.clip();
+  ctx.fillStyle = 'rgba(250, 204, 21, 0.16)';
+  ctx.fillRect(tx, ty, tileSize, tileSize);
+  ctx.strokeStyle = 'rgba(250, 204, 21, 0.75)';
+  ctx.lineWidth = Math.max(1, tileSize * 0.06);
+  const step = Math.max(4, tileSize * 0.3);
+  ctx.beginPath();
+  for (let o = -tileSize; o < tileSize; o += step) {
+    ctx.moveTo(tx + o, ty);
+    ctx.lineTo(tx + o + tileSize, ty + tileSize);
+  }
+  ctx.stroke();
+  ctx.restore();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = 'rgba(202, 138, 4, 0.85)';
+  ctx.strokeRect(tx + 0.5, ty + 0.5, tileSize - 1, tileSize - 1);
+}
+
 export function renderObjects(
   ctx: CanvasRenderingContext2D,
   view: ViewLike,
@@ -119,36 +146,14 @@ export function renderObjects(
     ctx.strokeStyle = 'rgba(0,0,0,0.55)';
     ctx.strokeRect(rx + 0.5, ry + 0.5, rw - 1, rh - 1);
 
-    if ((fp.w > 1 || fp.h > 1) && fp.goalX != null && fp.goalY != null) {
-      const gx = row.x + fp.goalX;
-      const gy = row.y + fp.goalY;
-      const gcx = view.panX + gx * tileSize;
-      const gcy = view.panY + gy * tileSize;
-      const onLeft = fp.goalX === fp.x0;
-      const onRight = fp.goalX === fp.x0 + fp.w - 1;
-      const onTop = fp.goalY === fp.y0;
-      const onBottom = fp.goalY === fp.y0 + fp.h - 1;
-      const cxRect = row.x + fp.x0 + fp.w / 2;
-      const cyRect = row.y + fp.y0 + fp.h / 2;
-      const dx = gx + 0.5 - cxRect;
-      const dy = gy + 0.5 - cyRect;
-      let vertical: boolean;
-      if (onLeft || onRight) vertical = !(onTop || onBottom) || Math.abs(dx) >= Math.abs(dy);
-      else if (onTop || onBottom) vertical = false;
-      else vertical = Math.abs(dx) >= Math.abs(dy);
-      ctx.lineWidth = Math.max(2, tileSize * 0.25);
-      ctx.strokeStyle = 'rgba(255,255,255,0.85)';
-      ctx.beginPath();
-      if (vertical) {
-        const edgeX = onRight ? gcx + tileSize : onLeft ? gcx : dx >= 0 ? gcx + tileSize : gcx;
-        ctx.moveTo(edgeX, gcy + tileSize * 0.15);
-        ctx.lineTo(edgeX, gcy + tileSize * 0.85);
-      } else {
-        const edgeY = onBottom ? gcy + tileSize : onTop ? gcy : dy >= 0 ? gcy + tileSize : gcy;
-        ctx.moveTo(gcx + tileSize * 0.15, edgeY);
-        ctx.lineTo(gcx + tileSize * 0.85, edgeY);
+    const isBuilding =
+      category.startsWith('MapObject_Facility_') || category.startsWith('MapObject_House_');
+    if (!isBuilding) {
+      for (const [resX, resY] of fp.reserved) {
+        const tx = view.panX + (row.x + resX) * tileSize;
+        const ty = view.panY + (row.y + resY) * tileSize;
+        drawReservedTile(ctx, tx, ty, tileSize);
       }
-      ctx.stroke();
     }
 
     const ax = view.panX + row.x * tileSize + tileSize / 2;

@@ -152,8 +152,7 @@ export function ugcBaseFootprint(slot: UgcSlotInfo): ActorFootprint {
     y0: -Math.floor((h - 1) / 2),
     w,
     h,
-    goalX: null,
-    goalY: null,
+    reserved: [],
   };
 }
 
