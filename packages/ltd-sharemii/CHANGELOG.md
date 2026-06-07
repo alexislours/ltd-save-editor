@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.0.2](https://github.com/alexislours/ltd-save-editor/compare/ltd-sharemii-v1.0.1...ltd-sharemii-v1.0.2) (2026-06-07)
+
 ## [1.0.1](https://github.com/alexislours/ltd-save-editor/compare/ltd-sharemii-v1.0.0...ltd-sharemii-v1.0.1) (2026-06-07)
 
 
