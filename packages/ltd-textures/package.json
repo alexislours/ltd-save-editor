@@ -49,6 +49,7 @@
     "build": "npm run build:wasm && tsup && tsc -p tsconfig.build.json",
     "check": "tsc -p tsconfig.json",
     "lint:pkg": "publint --strict && attw --pack --profile esm-only --exclude-entrypoints ugc.wasm",
+    "test": "vitest run",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
