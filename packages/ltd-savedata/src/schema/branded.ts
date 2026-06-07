@@ -26,5 +26,5 @@ const wrap = <T extends object, K extends string>(root: T, _kind: K): BrandTree<
   return proxy as BrandTree<T, K>;
 };
 
-export const player = wrap(PLAYER_SCHEMA, 'player');
-export const mii = wrap(MII_SCHEMA, 'mii');
+export const player: BrandTree<typeof PLAYER_SCHEMA, 'player'> = wrap(PLAYER_SCHEMA, 'player');
+export const mii: BrandTree<typeof MII_SCHEMA, 'mii'> = wrap(MII_SCHEMA, 'mii');
