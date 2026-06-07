@@ -13,6 +13,14 @@ A browser-based save editor for _Tomodachi Life: Living the Dream_ (Nintendo Swi
 - **ShareMii** - import and export Miis and UGC items between save files, compatible with the [ShareMii](https://github.com/Star-F0rce/ShareMii) file format created by Star-F0rce.
 - **Advanced** - raw hash-keyed entry browser for fields the structured tabs don't cover yet.
 
+## Packages
+
+The save-format core lives in standalone, published packages under [`packages/`](./packages). The editor consumes them as workspace dependencies, and they are reusable on their own:
+
+- [`@alexislours/ltd-savedata`](./packages/ltd-savedata) - reader, writer, and reverse-engineered field schema for the game's binary `.sav` save format. Zero runtime dependencies.
+- [`@alexislours/ltd-sharemii`](./packages/ltd-sharemii) - codec for the game's Mii and UGC share format: extract a Mii or UGC item from a save into a portable share file and apply it back. Depends only on `@alexislours/ltd-savedata`.
+- [`@alexislours/ltd-textures`](./packages/ltd-textures) - Tegra/Switch block-linear (de)swizzle, BC1/BC3 transcode, sRGB/linear conversion, and image resize, in WebAssembly.
+
 ## Adding a Localization
 
 Translations live in `messages/<locale>.json`. `en-US` is the source of truth; locales are auto-discovered at build time. Base PRs against the `dev` branch.
