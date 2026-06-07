@@ -1,5 +1,7 @@
 # @alexislours/ltd-textures
 
+[![npm](https://img.shields.io/npm/v/@alexislours/ltd-textures)](https://www.npmjs.com/package/@alexislours/ltd-textures) [![ci](https://img.shields.io/github/actions/workflow/status/alexislours/ltd-save-editor/packages-ci.yml?branch=dev&label=ci)](https://github.com/alexislours/ltd-save-editor/actions/workflows/packages-ci.yml) [![license](https://img.shields.io/npm/l/@alexislours/ltd-textures)](./LICENSE)
+
 Tegra/Switch GPU texture toolkit in WebAssembly: block-linear (de)swizzle, BC1/BC3 transcode, sRGB/linear conversion, and image resize. No bundler assumptions, no Vite magic; you bring the wasm bytes and (optionally) a worker factory.
 
 ## Install

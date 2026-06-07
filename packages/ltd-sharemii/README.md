@@ -1,5 +1,7 @@
 # @alexislours/ltd-sharemii
 
+[![npm](https://img.shields.io/npm/v/@alexislours/ltd-sharemii)](https://www.npmjs.com/package/@alexislours/ltd-sharemii) [![ci](https://img.shields.io/github/actions/workflow/status/alexislours/ltd-save-editor/packages-ci.yml?branch=dev&label=ci)](https://github.com/alexislours/ltd-save-editor/actions/workflows/packages-ci.yml) [![license](https://img.shields.io/npm/l/@alexislours/ltd-sharemii)](./LICENSE)
+
 Codec for the game's Mii and UGC (user-generated content) share format. Extracts a Mii or a UGC item (clothing, food, goods, painting, ...) out of a parsed save into a portable share file, and applies a share file back into a save. Depends only on [`@alexislours/ltd-savedata`](../ltd-savedata).
 
 A share file is a small binary blob carved out of the save's typed fields. Textures and canvases that don't fit inline travel alongside it as named "sidecar" files. This package owns the binary codec and the apply/extract logic; how sidecars are packed for transport (a zip, a folder of files) is left to the caller.

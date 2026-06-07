@@ -1,5 +1,7 @@
 # @alexislours/ltd-savedata
 
+[![npm](https://img.shields.io/npm/v/@alexislours/ltd-savedata)](https://www.npmjs.com/package/@alexislours/ltd-savedata) [![ci](https://img.shields.io/github/actions/workflow/status/alexislours/ltd-save-editor/packages-ci.yml?branch=dev&label=ci)](https://github.com/alexislours/ltd-save-editor/actions/workflows/packages-ci.yml) [![license](https://img.shields.io/npm/l/@alexislours/ltd-savedata)](./LICENSE)
+
 Reader, writer, and reverse-engineered field schema for the game's binary `.sav` save format. Zero runtime dependencies.
 
 The save container is a flat list of entries keyed by murmur3 (x86, 32-bit) hashes of their field paths, each holding a typed value. This package parses that container into typed entries, exposes a schema for every known field, and re-encodes byte-for-byte.

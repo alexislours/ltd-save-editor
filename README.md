@@ -1,5 +1,15 @@
 # Tomodachi Life: Living the Dream - Save Editor
 
+<div align="center">
+  <a href="https://ltdsave.app"><img alt="app" src="https://img.shields.io/github/package-json/v/alexislours/ltd-save-editor?label=app&style=for-the-badge&logo=svelte"></a>
+  <a href="./LICENSE"><img alt="license" src="https://img.shields.io/github/license/alexislours/ltd-save-editor?style=for-the-badge&logo=gnu"></a>
+  <a href="https://github.com/alexislours/ltd-save-editor/actions/workflows/ci.yml"><img alt="ci" src="https://img.shields.io/github/actions/workflow/status/alexislours/ltd-save-editor/ci.yml?branch=dev&label=ci&style=for-the-badge&logo=githubactions"></a>
+  <br>
+  <a href="https://www.npmjs.com/package/@alexislours/ltd-savedata"><img alt="ltd-savedata" src="https://img.shields.io/npm/v/@alexislours/ltd-savedata?label=ltd-savedata&style=for-the-badge&logo=npm"></a>
+  <a href="https://www.npmjs.com/package/@alexislours/ltd-sharemii"><img alt="ltd-sharemii" src="https://img.shields.io/npm/v/@alexislours/ltd-sharemii?label=ltd-sharemii&style=for-the-badge&logo=npm"></a>
+  <a href="https://www.npmjs.com/package/@alexislours/ltd-textures"><img alt="ltd-textures" src="https://img.shields.io/npm/v/@alexislours/ltd-textures?label=ltd-textures&style=for-the-badge&logo=npm"></a>
+</div>
+
 ![Tomodachi Life: Living the Dream - Save Editor](./static/og.png)
 
 A browser-based save editor for _Tomodachi Life: Living the Dream_ (Nintendo Switch). Drop your `Mii.sav`, `Player.sav`, and `Map.sav` files in, edit, and download a patched copy. Everything runs locally - files never leave your machine.
