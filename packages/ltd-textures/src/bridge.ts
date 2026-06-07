@@ -64,9 +64,24 @@ interface UgcWasmExports {
   ): void;
 }
 
+/**
+ * The instantiated texture toolkit returned by {@link createUgcWasm}.
+ *
+ * Every method copies its inputs into WASM memory and returns freshly allocated
+ * typed arrays, so callers never hold pointers into the module's heap. RGBA
+ * pixel buffers are 8-bit straight-alpha; linear buffers are `Float32Array` with
+ * four channels per pixel. The BC encode and decode methods operate on 4x4
+ * blocks, so `w` and `h` must both be multiples of 4.
+ */
 export interface UgcWasm {
+  /** Decode BC1 (DXT1) blocks to a `width * height * 4` sRGB RGBA8 buffer. */
   bc1Decode(blocks: Uint8Array, w: number, h: number): Uint8Array;
+  /** Decode BC3 (DXT5) blocks to a `width * height * 4` sRGB RGBA8 buffer. */
   bc3Decode(blocks: Uint8Array, w: number, h: number): Uint8Array;
+  /**
+   * Encode linear-light RGBA to BC1 blocks, using `srgbRgba` for perceptual
+   * error weighting. `mode` selects the endpoint strategy; see {@link Bc1Mode}.
+   */
   bc1Encode(
     linRgba: Float32Array,
     srgbRgba: Uint8Array,
@@ -74,8 +89,14 @@ export interface UgcWasm {
     h: number,
     mode: Bc1Mode,
   ): Uint8Array;
+  /** Encode linear-light RGBA to BC1 blocks via the rgbcx reference path (no sRGB weighting). */
   bc1EncodeRgbcx(linRgba: Float32Array, w: number, h: number): Uint8Array;
+  /** Encode linear-light RGBA to BC3 blocks, using `srgbRgba` for perceptual error weighting. */
   bc3Encode(linRgba: Float32Array, srgbRgba: Uint8Array, w: number, h: number): Uint8Array;
+  /**
+   * {@link UgcWasm.bc1Encode} spread across `threads` workers. Requires a
+   * {@link CreateWorker} factory; falls back to the synchronous path otherwise.
+   */
   bc1EncodeThreaded(
     linRgba: Float32Array,
     srgbRgba: Uint8Array,
@@ -84,6 +105,10 @@ export interface UgcWasm {
     mode: Bc1Mode,
     threads: number,
   ): Promise<Uint8Array>;
+  /**
+   * {@link UgcWasm.bc3Encode} spread across `threads` workers. Requires a
+   * {@link CreateWorker} factory; falls back to the synchronous path otherwise.
+   */
   bc3EncodeThreaded(
     linRgba: Float32Array,
     srgbRgba: Uint8Array,
@@ -91,6 +116,12 @@ export interface UgcWasm {
     h: number,
     threads: number,
   ): Promise<Uint8Array>;
+  /**
+   * Convert a Tegra block-linear (swizzled) surface to row-linear pixels.
+   *
+   * @param bpe Bytes per element (per pixel or per compressed block).
+   * @param blockHeight GOB block height in GOBs (1, 2, 4, 8, or 16).
+   */
   deswizzle(
     swizzled: Uint8Array,
     width: number,
@@ -98,6 +129,14 @@ export interface UgcWasm {
     bpe: number,
     blockHeight: number,
   ): Uint8Array;
+  /**
+   * Convert row-linear pixels back to a Tegra block-linear surface. When `base`
+   * matches the padded output size it is used as the starting buffer so padding
+   * bytes are preserved; pass `null` to start from zero.
+   *
+   * @param bpe Bytes per element (per pixel or per compressed block).
+   * @param blockHeight GOB block height in GOBs (1, 2, 4, 8, or 16).
+   */
   swizzle(
     linear: Uint8Array,
     width: number,
@@ -106,9 +145,17 @@ export interface UgcWasm {
     blockHeight: number,
     base: Uint8Array | null,
   ): Uint8Array;
+  /** Convert sRGB RGBA8 to linear-light `Float32Array` RGBA (four channels per pixel). */
   srgbToLinearF32(rgba: Uint8Array): Float32Array;
+  /** Quantize linear-light `Float32Array` channels to linear RGBA8. */
   linearF32ToU8(linear: Float32Array): Uint8Array;
+  /** Apply the linear-to-sRGB transfer curve to an RGBA8 buffer in place. */
   linearU8ToSrgbU8InPlace(rgba: Uint8Array): void;
+  /**
+   * Resize an sRGB RGBA8 image to `dstW * dstH`, honoring `fit` ({@link FitMode})
+   * and padding any letterboxed area with `matte` ({@link Matte}), or transparent
+   * black when `matte` is `null`.
+   */
   resize(
     rgba: Uint8Array,
     srcW: number,
@@ -118,17 +165,22 @@ export interface UgcWasm {
     fit: FitMode,
     matte: Matte | null,
   ): Uint8Array;
+  /** Terminate any spawned encode workers and release the thread pool. Safe to call when no pool exists. */
   terminateThreadPool(): Promise<void>;
 }
 
+/** Any form of compiled WASM bytes accepted by {@link createUgcWasm}, including a `fetch` `Response` and promises thereof. */
 export type WasmSource =
   | ArrayBuffer
   | Uint8Array
   | Response
   | Promise<ArrayBuffer | Uint8Array | Response>;
 
+/** Options for {@link createUgcWasm}. */
 export interface CreateUgcWasmOptions {
+  /** The compiled `ugc.wasm` module bytes, in any {@link WasmSource} form. */
   wasm: WasmSource;
+  /** Worker factory enabling the `*Threaded` encode methods; omit for single-threaded use. */
   createWorker?: CreateWorker;
 }
 
@@ -408,6 +460,21 @@ function makeWasm(instance: WebAssembly.Instance, pool: ThreadPool | null): UgcW
   };
 }
 
+/**
+ * Compile and instantiate `ugc.wasm`, returning a {@link UgcWasm} toolkit.
+ *
+ * Pass a {@link CreateWorker} via {@link CreateUgcWasmOptions.createWorker} to
+ * enable the multi-threaded encode paths; without it those methods run inline.
+ *
+ * @example
+ * ```ts
+ * import { createUgcWasm } from '@alexislours/ltd-textures';
+ * import { readFile } from 'node:fs/promises';
+ *
+ * const ugc = await createUgcWasm({ wasm: await readFile('ugc.wasm') });
+ * const rgba = ugc.bc1Decode(blocks, 256, 256);
+ * ```
+ */
 export async function createUgcWasm(options: CreateUgcWasmOptions): Promise<UgcWasm> {
   const bytes = await toBytes(options.wasm);
   const { instance } = await WebAssembly.instantiate(bytes, importObject);
