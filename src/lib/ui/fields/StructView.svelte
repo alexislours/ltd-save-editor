@@ -8,8 +8,10 @@
     writeChars,
     writeChars16,
     writePrim,
-  } from '$lib/sav/struct/decode';
-  import type { DecodedNode, FieldType, StructDef } from '$lib/sav/struct/types';
+    type DecodedNode,
+    type FieldType,
+    type StructDef,
+  } from '@alexislours/ltd-savedata';
 
   type Props = {
     bytes: Uint8Array;

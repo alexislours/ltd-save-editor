@@ -36,7 +36,7 @@
 </script>
 
 <script lang="ts">
-  import { ugcThumbFileName } from '$lib/shareMii/codec/ugcKinds';
+  import { ugcThumbFileName } from '@alexislours/ltd-sharemii';
   import type { UgcKind } from '$lib/shareMii';
   import type { SidecarSource } from '$lib/shareMii/sidecar/sidecar';
 

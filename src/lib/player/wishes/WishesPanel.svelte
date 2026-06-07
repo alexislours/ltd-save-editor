@@ -3,8 +3,8 @@
   import { locale } from 'svelte-i18n';
   import { track } from '$lib/analytics';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
-  import { PLAYER_SCHEMA } from '$lib/sav/schema';
-  import { enumOptionName } from '$lib/sav/knownKeys';
+  import { PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
+  import { enumOptionName } from '@alexislours/ltd-savedata';
   import { allWishes, wishLabel, type Wish } from '$lib/sav/lists/wishList.svelte';
   import ConfirmDialog from '$lib/ui/ConfirmDialog.svelte';
   import { CARD_CLASS, INPUT_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';

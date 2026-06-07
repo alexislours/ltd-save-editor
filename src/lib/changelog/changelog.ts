@@ -6,6 +6,15 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.11.0',
+    date: '2026-06-07',
+    changes: [
+      'Added a button to delete Miis.',
+      'Expanded the save diff to break changed entries down into their individual field changes.',
+      'Added map markers for the tiles each object reserves around it, plus a stairs direction arrow.',
+    ],
+  },
+  {
     version: '2.10.0',
     date: '2026-06-07',
     changes: [

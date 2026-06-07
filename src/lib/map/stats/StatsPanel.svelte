@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/map+residents+advanced';
   import type { ActorGroup } from '$lib/map/actors/actors';
-  import { hexU32 } from '$lib/sav/format';
+  import { hexU32 } from '@alexislours/ltd-savedata';
   import { tileKeyForHash } from '$lib/map/tiles/tiles';
   import {
     issues,

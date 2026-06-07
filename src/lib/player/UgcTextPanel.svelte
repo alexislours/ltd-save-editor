@@ -1,9 +1,8 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/player+advanced';
   import { locale } from 'svelte-i18n';
-  import { murmur3_x86_32 } from '$lib/sav/hash';
-  import { enumOptionName, enumOptionsFor } from '$lib/sav/knownKeys';
-  import { PLAYER_SCHEMA } from '$lib/sav/schema';
+  import { murmur3_x86_32, enumOptionName, enumOptionsFor } from '@alexislours/ltd-savedata';
+  import { PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
 

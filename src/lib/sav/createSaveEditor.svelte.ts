@@ -3,11 +3,14 @@ import { getSave, getSaveBytes, type SchemaForKind } from '$lib/saveFile/saveFil
 import { expectedFileName, type SaveKind } from '$lib/saveFile/types';
 import { schedulePersist } from '$lib/session/sessionPersist';
 import { downloadBytes } from './download';
-import { createMaterializedAccessor, type Accessor } from './materialized/accessor';
-import { decodeValue } from './materialized/decode';
-import { buildHashMap } from './materialized/schemaIndex';
-import type { DecodedSave } from './materialized/types';
-import type { Entry } from './types';
+import {
+  createMaterializedAccessor,
+  type Accessor,
+  decodeValue,
+  buildHashMap,
+  type DecodedSave,
+  type Entry,
+} from '@alexislours/ltd-savedata';
 
 class EditorState {
   decoded = $state<DecodedSave | null>(null);

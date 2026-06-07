@@ -9,7 +9,7 @@ import {
   type SidecarSource,
   type UgcKind,
 } from './index';
-import type { MiiSaves, PlayerOnlySaves } from './codec/savAccess';
+import type { MiiSaves, PlayerOnlySaves } from '@alexislours/ltd-sharemii';
 import {
   markPendingSidecars,
   mergeSidecarFiles,

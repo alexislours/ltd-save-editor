@@ -2,9 +2,8 @@
   import { _ } from 'virtual:i18n/mii+residents+advanced';
   import { locale } from 'svelte-i18n';
   import { allFoods, foodImageUrl, foodLabel, type Food } from '$lib/sav/lists/foodList.svelte';
-  import { safe } from '$lib/sav/format';
-  import { MII_SCHEMA } from '$lib/sav/schema';
-  import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+  import { safe } from '@alexislours/ltd-savedata';
+  import { MII_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
   import { FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
   import {
     foodReactionValue,

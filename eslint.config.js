@@ -9,10 +9,12 @@ export default ts.config(
   {
     ignores: [
       'dist/',
+      '**/dist/',
+      '**/.tsup/',
       'node_modules/',
       '.svelte-kit/',
-      'src/lib/ugc/wasm/assembly/',
-      'src/lib/ugc/wasm/build/',
+      'packages/ltd-textures/assembly/',
+      'packages/ltd-textures/build/',
     ],
   },
   js.configs.recommended,

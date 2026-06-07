@@ -56,7 +56,7 @@
   import ExportPngDialog from '../export/ExportPngDialog.svelte';
   import ExportShareDialog from '../share/ExportShareDialog.svelte';
   import ImportShareDialog from '../share/ImportShareDialog.svelte';
-  import { player } from '$lib/sav/schema';
+  import { player } from '@alexislours/ltd-savedata/schema';
   import { playerAccessor, playerState } from '$lib/player/playerEditor.svelte';
 
   function withBinding(title: string, action: KeyAction | null): string {

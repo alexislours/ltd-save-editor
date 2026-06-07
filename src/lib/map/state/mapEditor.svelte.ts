@@ -1,4 +1,4 @@
-import { MAP_SCHEMA } from '$lib/sav/schema';
+import { MAP_SCHEMA } from '@alexislours/ltd-savedata/schema';
 import { syncBaselineFromSave } from './baseline.svelte';
 import { mapAccessor, mapSave, syncFromSave as syncMapSave } from './mapSave.svelte';
 

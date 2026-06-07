@@ -9,7 +9,7 @@
     tileKeyForHash,
     type TileDef,
   } from '$lib/map/tiles/tiles';
-  import { hexU32 } from '$lib/sav/format';
+  import { hexU32 } from '@alexislours/ltd-savedata';
   import { INPUT_CLASS } from '$lib/ui/styles';
   import { paintState, selectTileHash } from '../tools/paintState.svelte';
   import TilePatternSwatch from '../tiles/TilePatternSwatch.svelte';

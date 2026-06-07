@@ -15,10 +15,8 @@
     coordinateImageUrl,
     coordinateLabel,
   } from '$lib/sav/lists/coordinateList.svelte';
-  import { safe } from '$lib/sav/format';
-  import { murmur3_x86_32 } from '$lib/sav/hash';
-  import { MII_SCHEMA } from '$lib/sav/schema';
-  import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+  import { safe, murmur3_x86_32 } from '@alexislours/ltd-savedata';
+  import { MII_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
   import { CARD_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from '$lib/mii/miiEditor.svelte';
   import type { BitmaskAccess } from '$lib/mii/ownership/ownershipBitmask';

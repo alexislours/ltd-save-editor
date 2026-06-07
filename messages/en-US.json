@@ -730,6 +730,11 @@
       "unhoused_section": "Unhoused ({count})"
     },
     "panel": {
+      "delete_button": "Delete Mii",
+      "delete_confirm_body": "{name} will be permanently removed from this save, along with every relationship, family tie, and ongoing event involving them. This can't be undone (other than reloading the original save).",
+      "delete_confirm_title": "Delete this Mii?",
+      "delete_done": "Deleted {name}.",
+      "delete_needs_map": "Load Map.sav and Player.sav as well before deleting, so houses, rooms, news and history stay in sync.",
       "fix_zero_charinfoex": "Your save appears to be corrupt, all entries in Mii.CharInfoEx (the Mii's design) are empty. The save editor can replace them with the default Mii design if you are trying to recover a save.",
       "fix_zero_charinfoex_button": "Proceed",
       "fix_zero_charinfoex_done": "{count, plural, one {Replaced # Mii's design} other {Replaced # Miis' designs}}.",

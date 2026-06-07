@@ -1,8 +1,7 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/mii+residents+advanced';
   import { allFoods } from '$lib/sav/lists/foodList.svelte';
-  import { MII_SCHEMA } from '$lib/sav/schema';
-  import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+  import { MII_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
   import { miiAccessor } from './miiEditor.svelte';
 
   type Props = {

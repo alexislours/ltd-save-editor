@@ -1,13 +1,15 @@
 import { t } from '$lib/i18n/format';
 import { track } from '$lib/analytics';
 import { populatedMiiIndices } from '$lib/mii/ownership/populated';
-import type { DataType } from '$lib/sav/dataType';
-import { murmur3_x86_32_bytes } from '$lib/sav/hash';
-import { type Accessor, createMaterializedAccessor } from '$lib/sav/materialized/accessor';
-import { decode } from '$lib/sav/materialized/decode';
-import { parseSav } from '$lib/sav/parse';
-import { MII_SCHEMA, PLAYER_SCHEMA } from '$lib/sav/schema';
-import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+import {
+  type DataType,
+  murmur3_x86_32_bytes,
+  type Accessor,
+  createMaterializedAccessor,
+  decode,
+  parseSav,
+} from '@alexislours/ltd-savedata';
+import { MII_SCHEMA, PLAYER_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
 import { type HistorySaveFile, type HistoryUgcFile, saveSnapshot } from '$lib/session/historyStore';
 import type { SaveKind } from '$lib/saveFile/types';
 import { showToast } from '$lib/toast/toast.svelte';

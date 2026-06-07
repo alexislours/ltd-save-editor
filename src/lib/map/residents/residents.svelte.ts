@@ -1,5 +1,10 @@
-import { HOUSE_DOLL_HOUSE_ACTOR, isHouseActor, roomCountForActor } from '$lib/map/actors/actors';
-import { mapSave } from '$lib/map/state/mapSave.svelte';
+import {
+  HOUSE_DOLL_HOUSE_ACTOR,
+  HOUSE_ONE_ROOM_ACTOR,
+  isHouseActor,
+  roomCountForActor,
+} from '$lib/map/actors/actors';
+import { mapAccessor, mapSave } from '$lib/map/state/mapSave.svelte';
 import {
   clearSlot,
   getRow,
@@ -10,11 +15,12 @@ import {
 import { pushAction } from '$lib/map/state/history.svelte';
 import { miiAccessor, miiState, syncFromSave as syncMiiSave } from '$lib/mii/miiEditor.svelte';
 import { populatedMiiIndices } from '$lib/mii/ownership/populated';
-import { MAP_SCHEMA, MII_SCHEMA } from '$lib/sav/schema';
+import { MAP_SCHEMA, MII_SCHEMA } from '@alexislours/ltd-savedata/schema';
 
 const HOUSE_LEAF = MII_SCHEMA.Mii.Location.HouseMapId;
 const ROOM_LEAF = MII_SCHEMA.Mii.Location.RoomIndex;
 const NAME_LEAF = MII_SCHEMA.Mii.Name.Name;
+const OWNER_NUM_LEAF = MII_SCHEMA.Mii.HomeLiveTime.CacheOwnerNum;
 
 export type Resident = {
   miiIndex: number;
@@ -360,7 +366,11 @@ export type HouseConvertResult = {
   evicted: number;
 };
 
-export function convertHouseActor(rowIndex: number, targetActorHash: number): HouseConvertResult {
+export function convertHouseActor(
+  rowIndex: number,
+  targetActorHash: number,
+  recordHistory = true,
+): HouseConvertResult {
   const fail: HouseConvertResult = { ok: false, reseated: 0, evicted: 0 };
   const row = getRow(rowIndex);
   if (!row) return fail;
@@ -370,8 +380,8 @@ export function convertHouseActor(rowIndex: number, targetActorHash: number): Ho
   const newCount = roomCountForActor(target);
   if (newCount <= 0) return fail;
 
-  const before = snapshot(rowIndex);
-  if (!before) return fail;
+  const before = recordHistory ? snapshot(rowIndex) : null;
+  if (recordHistory && !before) return fail;
 
   let reseated = 0;
   let evicted = 0;
@@ -401,9 +411,11 @@ export function convertHouseActor(rowIndex: number, targetActorHash: number): Ho
     return { ok: miiChanged, reseated, evicted };
   }
 
-  const after = snapshot(rowIndex);
-  if (after) {
-    pushAction({ kind: 'object', changes: [{ index: rowIndex, before, after }] });
+  if (before) {
+    const after = snapshot(rowIndex);
+    if (after) {
+      pushAction({ kind: 'object', changes: [{ index: rowIndex, before, after }] });
+    }
   }
   if (miiChanged) bump();
   return { ok: true, reseated, evicted };
@@ -418,18 +430,110 @@ export function findHouseRowByMapId(mapId: number): { index: number; actor: numb
   return null;
 }
 
-export function deleteHouseByMapId(mapId: number): boolean {
+function refreshHouseOwnerCount(residents: Resident[]): void {
+  const acc = miiAccessor();
+  if (!acc || !acc.has(OWNER_NUM_LEAF)) return;
+  const count = residents.length;
+  for (const r of residents) {
+    if (acc.getElement(OWNER_NUM_LEAF, r.miiIndex) !== count) {
+      acc.setElement(OWNER_NUM_LEAF, r.miiIndex, count);
+    }
+  }
+}
+
+export function evictForDeletion(miiIndex: number): void {
+  const acc = miiAccessor();
+  if (!acc || !acc.has(HOUSE_LEAF) || !acc.has(ROOM_LEAF)) return;
+  const resident = readResident(miiIndex);
+  if (!resident || resident.houseMapId < 0) return;
+  const mapId = resident.houseMapId;
+  const removedRoom = resident.roomIndex;
+  const house = findHouseRowByMapId(mapId);
+  removeFromHouse(miiIndex);
+  const remaining = residentsForHouse(mapId);
+  if (remaining.length === 0) {
+    if (house) deleteHouseByMapId(mapId, false);
+  } else if (house) {
+    removeRoomStyle(mapId, removedRoom);
+    if (remaining.length === 1 && house.actor >>> 0 === HOUSE_DOLL_HOUSE_ACTOR) {
+      convertHouseActor(house.index, HOUSE_ONE_ROOM_ACTOR, false);
+    } else {
+      for (let i = 0; i < remaining.length; i++) {
+        if (remaining[i].roomIndex !== i) setRoomIndex(remaining[i].miiIndex, i);
+      }
+    }
+    refreshHouseOwnerCount(remaining);
+  }
+  writeLocation(miiIndex, mapId, removedRoom);
+  bump();
+}
+
+const HOUSE_MAPID_LEAF = MAP_SCHEMA.House.MapId;
+const ROOM_STYLE_LEAF = MAP_SCHEMA.House.RoomSettings.BaseStyleId;
+
+function roomStyleHash(
+  mapIds: number[],
+  styles: number[],
+  houseMapId: number,
+  room: number,
+): number {
+  if (houseMapId < 0 || room < 0 || mapIds.length === 0) return 0;
+  const houseIdx = mapIds.indexOf(houseMapId);
+  if (houseIdx < 0) return 0;
+  const blockSize = (styles.length / mapIds.length) | 0;
+  if (room >= blockSize - 1) return 0;
+  return styles[houseIdx * blockSize + 1 + room] >>> 0;
+}
+
+function removeRoomStyle(mapId: number, removedRoom: number): void {
+  if (removedRoom < 0) return;
+  const map = mapAccessor();
+  if (!map || !map.has(HOUSE_MAPID_LEAF) || !map.has(ROOM_STYLE_LEAF)) return;
+  const mapIds = map.get(HOUSE_MAPID_LEAF) as number[];
+  const styles = map.get(ROOM_STYLE_LEAF) as number[];
+  if (mapIds.length === 0) return;
+  const houseIdx = mapIds.indexOf(mapId);
+  if (houseIdx < 0) return;
+  const blockSize = (styles.length / mapIds.length) | 0;
+  const roomCount = blockSize - 1;
+  if (removedRoom >= roomCount) return;
+  const base = houseIdx * blockSize + 1;
+  for (let r = removedRoom; r < roomCount - 1; r++) {
+    map.setElement(ROOM_STYLE_LEAF, base + r, styles[base + r + 1]);
+  }
+  map.setElement(ROOM_STYLE_LEAF, base + roomCount - 1, 0);
+}
+
+export function recoverableRoomStyles(miiIndex: number): number[] {
+  const mii = miiAccessor();
+  const map = mapAccessor();
+  if (!mii || !map) return [];
+  if (!mii.has(HOUSE_LEAF) || !mii.has(ROOM_LEAF)) return [];
+  if (!map.has(HOUSE_MAPID_LEAF) || !map.has(ROOM_STYLE_LEAF)) return [];
+  const styleHash = roomStyleHash(
+    map.get(HOUSE_MAPID_LEAF) as number[],
+    map.get(ROOM_STYLE_LEAF) as number[],
+    mii.getElement(HOUSE_LEAF, miiIndex) | 0,
+    mii.getElement(ROOM_LEAF, miiIndex) | 0,
+  );
+  return styleHash !== 0 ? [styleHash] : [];
+}
+
+export function deleteHouseByMapId(mapId: number, recordHistory = true): boolean {
   const found = findHouseRowByMapId(mapId);
   if (!found) return false;
-  const before = snapshot(found.index);
-  if (!before) return false;
+  const before = recordHistory ? snapshot(found.index) : null;
+  if (recordHistory && !before) return false;
   if (!clearSlot(found.index)) return false;
-  const after = snapshot(found.index);
-  if (!after) return false;
-  pushAction({
-    kind: 'object',
-    changes: [{ index: found.index, before, after }],
-  });
+  if (before) {
+    const after = snapshot(found.index);
+    if (after) {
+      pushAction({
+        kind: 'object',
+        changes: [{ index: found.index, before, after }],
+      });
+    }
+  }
   bump();
   return true;
 }

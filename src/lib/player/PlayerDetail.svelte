@@ -1,10 +1,14 @@
 <script lang="ts">
-  import { arrayCount, hasIndexedElementEditor, isArrayType } from '$lib/sav/codec';
+  import {
+    arrayCount,
+    hasIndexedElementEditor,
+    isArrayType,
+    DataType,
+    hexU32,
+    enumOptionsFor,
+    type Entry,
+  } from '@alexislours/ltd-savedata';
   import { _ } from 'virtual:i18n/player+advanced';
-  import { DataType } from '$lib/sav/dataType';
-  import { hexU32 } from '$lib/sav/format';
-  import { enumOptionsFor } from '$lib/sav/knownKeys';
-  import type { Entry } from '$lib/sav/types';
   import { INPUT_CLASS, MONO_INPUT_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import ArrayElementEditor from '$lib/ui/fields/ArrayElementEditor.svelte';
   import EntryEditor from '$lib/ui/fields/EntryEditor.svelte';

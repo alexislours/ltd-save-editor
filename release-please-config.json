@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "node",
+  "include-component-in-tag": true,
+  "separate-pull-requests": false,
+  "group-pull-request-title-pattern": "chore: release packages",
+  "plugins": ["node-workspace"],
+  "packages": {
+    "packages/ltd-savedata": { "component": "ltd-savedata" },
+    "packages/ltd-sharemii": { "component": "ltd-sharemii" },
+    "packages/ltd-textures": { "component": "ltd-textures" }
+  }
+}

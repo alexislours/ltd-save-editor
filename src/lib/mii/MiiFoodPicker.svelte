@@ -2,7 +2,7 @@
   import { _ } from 'virtual:i18n/mii+residents+advanced';
   import { locale } from 'svelte-i18n';
   import { allFoods, foodByHash, foodImageUrl, foodLabel } from '$lib/sav/lists/foodList.svelte';
-  import { safe } from '$lib/sav/format';
+  import { safe } from '@alexislours/ltd-savedata';
   import { FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from './miiEditor.svelte';
   import type { MiiField } from './miiFields';

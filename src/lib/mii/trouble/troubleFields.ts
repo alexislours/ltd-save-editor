@@ -1,5 +1,4 @@
-import { MII_SCHEMA } from '$lib/sav/schema';
-import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+import { MII_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
 import type { TroubleTargetKey } from '$lib/sav/lists/troubleList.svelte';
 import type { MiiAccessor } from '$lib/mii/miiEditor.svelte';
 
@@ -85,6 +84,20 @@ export function clearTroubleField(mii: MiiAccessor, index: number, key: TroubleF
     } catch {
       /* skip */
     }
+  }
+}
+
+export function clearTroubleSlot(mii: MiiAccessor, host: number): void {
+  if (mii.has(TROUBLE_FIELDS.id.leaf)) mii.setElement(TROUBLE_FIELDS.id.leaf, host, 0);
+  for (const fk of TARGET_FIELD_KEYS) clearTroubleField(mii, host, fk);
+  if (mii.has(TROUBLE_FIELDS.nextGameTime.leaf)) {
+    mii.setElement(TROUBLE_FIELDS.nextGameTime.leaf, host, 0n);
+  }
+  if (mii.has(TROUBLE_FIELDS.endGameTime.leaf)) {
+    mii.setElement(TROUBLE_FIELDS.endGameTime.leaf, host, 0n);
+  }
+  if (mii.has(TROUBLE_FIELDS.isFirstDemoDone.leaf)) {
+    mii.setElement(TROUBLE_FIELDS.isFirstDemoDone.leaf, host, false);
   }
 }
 

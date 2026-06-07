@@ -1,6 +1,6 @@
-import type { Accessor } from '$lib/sav/materialized/accessor';
+import type { Accessor } from '@alexislours/ltd-savedata';
 import { createSaveEditor } from '$lib/sav/createSaveEditor.svelte';
-import { MII_SCHEMA } from '$lib/sav/schema';
+import { MII_SCHEMA } from '@alexislours/ltd-savedata/schema';
 
 const editor = createSaveEditor<'mii'>('mii', MII_SCHEMA);
 

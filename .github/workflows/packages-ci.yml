@@ -1,0 +1,43 @@
+name: Packages CI
+
+on:
+  pull_request:
+    branches: [dev]
+    paths: ['packages/**', 'package-lock.json', '.github/workflows/packages-ci.yml']
+  push:
+    branches: [dev]
+    paths: ['packages/**', 'package-lock.json', '.github/workflows/packages-ci.yml']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Build, typecheck, test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [ltd-savedata, ltd-sharemii, ltd-textures]
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build workspace dependencies
+        if: matrix.package == 'ltd-sharemii'
+        run: npm run build --workspace @alexislours/ltd-savedata
+
+      - run: npm run build --workspace @alexislours/${{ matrix.package }}
+      - run: npm run check --workspace @alexislours/${{ matrix.package }}
+      - run: npm run lint:pkg --workspace @alexislours/${{ matrix.package }}
+      - run: npm run test --workspace @alexislours/${{ matrix.package }} --if-present

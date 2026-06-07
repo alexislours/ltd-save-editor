@@ -7,7 +7,7 @@
     coordinateImageUrl,
     coordinateLabel,
   } from '$lib/sav/lists/coordinateList.svelte';
-  import { PLAYER_SCHEMA } from '$lib/sav/schema';
+  import { PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import InventoryExpandableRow, { type SubItem } from './InventoryExpandableRow.svelte';
   import {

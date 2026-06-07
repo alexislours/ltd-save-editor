@@ -1,4 +1,4 @@
-import { type GameLocale, pickLocalized } from '$lib/sav/gameLocale';
+import { type GameLocale, pickLocalized } from '@alexislours/ltd-savedata';
 
 type ItemCategory = 'f' | 'm';
 

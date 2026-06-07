@@ -1,0 +1,64 @@
+{
+  "name": "@alexislours/ltd-textures",
+  "version": "1.0.0",
+  "description": "Tegra/Switch block-linear (de)swizzle, BC1/BC3 transcode, sRGB/linear conversion, and image resize, in WebAssembly.",
+  "license": "AGPL-3.0-or-later",
+  "author": "Alexis Lours",
+  "type": "module",
+  "sideEffects": false,
+  "keywords": [
+    "wasm",
+    "tegra",
+    "switch",
+    "texture",
+    "bcn",
+    "bc1",
+    "bc3",
+    "dxt",
+    "swizzle",
+    "block-linear"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexislours/ltd-save-editor.git",
+    "directory": "packages/ltd-textures"
+  },
+  "homepage": "https://github.com/alexislours/ltd-save-editor/tree/dev/packages/ltd-textures#readme",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "import": "./dist/browser.js"
+    },
+    "./worker": {
+      "types": "./dist/worker.d.ts",
+      "import": "./dist/worker.js"
+    },
+    "./ugc.wasm": "./build/ugc.wasm"
+  },
+  "files": [
+    "dist",
+    "build/ugc.wasm"
+  ],
+  "scripts": {
+    "build:wasm": "asc assembly/index.ts --config asconfig.json --target release",
+    "build:wasm:debug": "asc assembly/index.ts --config asconfig.json --target debug",
+    "build": "npm run build:wasm && tsup && tsc -p tsconfig.build.json",
+    "check": "tsc -p tsconfig.json",
+    "lint:pkg": "publint --strict && attw --pack --profile esm-only --exclude-entrypoints ugc.wasm",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.3",
+    "@types/node": "^24.12.3",
+    "assemblyscript": "^0.28.17",
+    "publint": "^0.3.21",
+    "tsup": "^8.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

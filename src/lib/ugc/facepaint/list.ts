@@ -1,9 +1,11 @@
-import { DataType } from '$lib/sav/dataType';
-import type { Accessor } from '$lib/sav/materialized/accessor';
-import { MII_SCHEMA, PLAYER_SCHEMA } from '$lib/sav/schema';
-import { FP_STATE_UNUSED } from '$lib/shareMii/codec/applyMii';
-import { leafByHashOrThrow } from '$lib/shareMii/codec/savAccess';
-import { FACEPAINT_HASHES, MII_HASHES } from '$lib/shareMii/codec/ugcKinds';
+import { DataType, type Accessor } from '@alexislours/ltd-savedata';
+import { MII_SCHEMA, PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
+import {
+  FACEPAINT_HASHES,
+  FP_STATE_UNUSED,
+  MII_HASHES,
+  leafByHashOrThrow,
+} from '@alexislours/ltd-sharemii';
 import type { SidecarSource } from '$lib/shareMii';
 import { parseSidecarIds } from '../sidecarParse';
 

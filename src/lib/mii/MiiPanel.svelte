@@ -1,8 +1,7 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/mii+residents+advanced';
   import { bindLeaf } from '$lib/sav/bindLeaf.svelte';
-  import { mii, MII_SCHEMA } from '$lib/sav/schema';
-  import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+  import { mii, MII_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
   import { CARD_CLASS } from '$lib/ui/styles';
   import MiiElementEditor from './MiiElementEditor.svelte';
   import MiiFoodPicker from './MiiFoodPicker.svelte';

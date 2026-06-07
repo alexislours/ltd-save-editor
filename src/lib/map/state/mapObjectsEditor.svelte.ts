@@ -1,5 +1,5 @@
 import { mapAccessor, mapSave, syncFromSave as syncMapSave } from './mapSave.svelte';
-import { MAP_SCHEMA } from '$lib/sav/schema';
+import { MAP_SCHEMA } from '@alexislours/ltd-savedata/schema';
 
 export const GRID_WIDTH = 120;
 export const GRID_HEIGHT = 80;

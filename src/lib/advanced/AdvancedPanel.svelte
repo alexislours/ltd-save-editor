@@ -6,11 +6,14 @@
   import PlayerDetail from '$lib/player/PlayerDetail.svelte';
   import PlayerTree from '$lib/player/PlayerTree.svelte';
   import { buildTree, type TreeNode } from '$lib/player/tree';
-  import { DATA_TYPE_COUNT, DataType } from '$lib/sav/dataType';
-  import { hexU32 } from '$lib/sav/format';
-  import { murmur3_x86_32 } from '$lib/sav/hash';
-  import { nameForHash } from '$lib/sav/knownKeys';
-  import type { Entry } from '$lib/sav/types';
+  import {
+    DATA_TYPE_COUNT,
+    DataType,
+    hexU32,
+    murmur3_x86_32,
+    nameForHash,
+    type Entry,
+  } from '@alexislours/ltd-savedata';
   import {
     CARD_BASE_CLASS,
     INPUT_CLASS,

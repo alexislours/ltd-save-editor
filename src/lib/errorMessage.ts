@@ -1,5 +1,5 @@
 import { t } from '$lib/i18n/format';
-import { ShareMiiError } from './shareMii/codec/errors';
+import { ShareMiiError } from '@alexislours/ltd-sharemii';
 
 export function errorMessage(e: unknown): string {
   if (e instanceof ShareMiiError) {

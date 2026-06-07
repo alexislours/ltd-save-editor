@@ -1,6 +1,6 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/mii+residents+advanced';
-  import { safe } from '$lib/sav/format';
+  import { safe } from '@alexislours/ltd-savedata';
   import type { Trouble } from '$lib/sav/lists/troubleList.svelte';
   import { FORM_INPUT_CLASS, LABEL_CLASS, CARD_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from '$lib/mii/miiEditor.svelte';

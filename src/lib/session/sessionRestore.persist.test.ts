@@ -8,10 +8,8 @@ vi.mock('$lib/session/sessionPersist', () => ({
 }));
 
 import { commitEntryEdit, syncFromSave as syncPlayer } from '$lib/player/playerEditor.svelte';
-import { PLAYER_SCHEMA } from '$lib/sav/schema';
-import { setUInt } from '$lib/sav/codec';
-import { DataType } from '$lib/sav/dataType';
-import type { Entry } from '$lib/sav/types';
+import { setUInt, DataType, type Entry } from '@alexislours/ltd-savedata';
+import { PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
 import {
   clearSave,
   getSave,

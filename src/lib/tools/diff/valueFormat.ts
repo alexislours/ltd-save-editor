@@ -1,9 +1,11 @@
-import { DataType } from '$lib/sav/dataType';
-import { hexU32 } from '$lib/sav/format';
-import { enumOptionName } from '$lib/sav/knownKeys';
-import { decodeStruct } from '$lib/sav/struct/decode';
-import { structForHash } from '$lib/sav/struct/registry';
-import type { DecodedNode } from '$lib/sav/struct/types';
+import {
+  DataType,
+  hexU32,
+  enumOptionName,
+  decodeStruct,
+  structForHash,
+  type DecodedNode,
+} from '@alexislours/ltd-savedata';
 
 const MAX_ARRAY_PREVIEW = 16;
 const MAX_BYTES_PREVIEW = 8;
@@ -103,17 +105,24 @@ export function typeLabel(type: DataType | null): string {
   return DataType[type] ?? String(type);
 }
 
-type ElementChange = {
-  label: string;
-  status: 'changed' | 'added' | 'removed';
-  before: string;
-  after: string;
-};
+type ElementChange =
+  | { label: string; children: ArrayDiff }
+  | { label: string; status: 'changed'; before: string; after: string }
+  | { label: string; status: 'added'; after: string }
+  | { label: string; status: 'removed'; before: string };
 
 export type ArrayDiff = { changes: ElementChange[]; total: number };
 
+export function visibleChanges(
+  diff: ArrayDiff,
+  max: number,
+): { rows: ElementChange[]; hidden: number } {
+  return { rows: diff.changes.slice(0, max), hidden: Math.max(0, diff.changes.length - max) };
+}
+
 function arrayElementChanges(
   type: DataType | null,
+  hash: number,
   before: unknown,
   after: unknown,
 ): ArrayDiff | null {
@@ -126,16 +135,21 @@ function arrayElementChanges(
     const label = `[${i}]`;
     if (inBefore && inAfter) {
       if (valuesEqual(before[i], after[i])) continue;
-      out.push({
-        label,
-        status: 'changed',
-        before: formatValue(type, before[i]),
-        after: formatValue(type, after[i]),
-      });
+      const children = structFieldChanges(hash, before[i], after[i]);
+      if (children) {
+        out.push({ label, children });
+      } else {
+        out.push({
+          label,
+          status: 'changed',
+          before: formatValue(type, before[i]),
+          after: formatValue(type, after[i]),
+        });
+      }
     } else if (inAfter) {
-      out.push({ label, status: 'added', before: '', after: formatValue(type, after[i]) });
+      out.push({ label, status: 'added', after: formatValue(type, after[i]) });
     } else {
-      out.push({ label, status: 'removed', before: formatValue(type, before[i]), after: '' });
+      out.push({ label, status: 'removed', before: formatValue(type, before[i]) });
     }
   }
   if (out.length === 0) return null;
@@ -154,9 +168,9 @@ function byteElementChanges(before: unknown, after: unknown): ArrayDiff | null {
       if (before[i] === after[i]) continue;
       out.push({ label, status: 'changed', before: hexByte(before[i]), after: hexByte(after[i]) });
     } else if (inAfter) {
-      out.push({ label, status: 'added', before: '', after: hexByte(after[i]) });
+      out.push({ label, status: 'added', after: hexByte(after[i]) });
     } else {
-      out.push({ label, status: 'removed', before: hexByte(before[i]), after: '' });
+      out.push({ label, status: 'removed', before: hexByte(before[i]) });
     }
   }
   if (out.length === 0) return null;
@@ -256,7 +270,7 @@ function structFieldChanges(hash: number, before: unknown, after: unknown): Arra
   for (const la of leavesA) {
     const lb = byPathB.get(la.path);
     if (!lb) {
-      changes.push({ label: la.path, status: 'removed', before: formatNode(la), after: '' });
+      changes.push({ label: la.path, status: 'removed', before: formatNode(la) });
       continue;
     }
     if (terminalEqual(la, lb)) continue;
@@ -269,7 +283,7 @@ function structFieldChanges(hash: number, before: unknown, after: unknown): Arra
   }
   for (const lb of leavesB) {
     if (pathsA.has(lb.path)) continue;
-    changes.push({ label: lb.path, status: 'added', before: '', after: formatNode(lb) });
+    changes.push({ label: lb.path, status: 'added', after: formatNode(lb) });
   }
   let total = allPaths.size;
   if (a.length > rootA.size || b.length > rootB.size) {
@@ -296,7 +310,7 @@ export function elementChanges(
   after: unknown,
 ): ArrayDiff | null {
   return (
-    arrayElementChanges(type, before, after) ??
+    arrayElementChanges(type, hash, before, after) ??
     structFieldChanges(hash, before, after) ??
     byteElementChanges(before, after)
   );

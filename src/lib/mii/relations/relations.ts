@@ -1,6 +1,5 @@
-import { murmur3_x86_32 } from '$lib/sav/hash';
-import { enumOptionsFor } from '$lib/sav/knownKeys';
-import { MII_SCHEMA } from '$lib/sav/schema';
+import { murmur3_x86_32, enumOptionsFor } from '@alexislours/ltd-savedata';
+import { MII_SCHEMA } from '@alexislours/ltd-savedata/schema';
 import type { MiiAccessor } from '$lib/mii/miiEditor.svelte';
 
 const FRIEND_HASH = murmur3_x86_32('Friend');

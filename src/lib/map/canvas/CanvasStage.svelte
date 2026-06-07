@@ -46,7 +46,7 @@
   import { renderFences, renderObjects } from './objectsRenderer';
   import { renderGridOverlay } from './gridRenderer';
   import { renderTierBorder } from './tierRenderer';
-  import { player } from '$lib/sav/schema';
+  import { player } from '@alexislours/ltd-savedata/schema';
   import { playerAccessor, playerState } from '$lib/player/playerEditor.svelte';
   import { layers, modeState, setPainting } from '../state/layers.svelte';
   import MiniMap from '../shell/MiniMap.svelte';

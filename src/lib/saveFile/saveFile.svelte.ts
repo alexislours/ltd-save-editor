@@ -1,10 +1,12 @@
-import { decode } from '$lib/sav/materialized/decode';
-import { encode } from '$lib/sav/materialized/encode';
-import type { DecodedSave } from '$lib/sav/materialized/types';
-import { parseSav } from '$lib/sav/parse';
-import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from '$lib/sav/schema';
-import { writeSav } from '$lib/sav/write';
-import type { Entry } from '$lib/sav/types';
+import {
+  decode,
+  encode,
+  type DecodedSave,
+  parseSav,
+  writeSav,
+  type Entry,
+} from '@alexislours/ltd-savedata';
+import { MAP_SCHEMA, MII_SCHEMA, PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
 import { clearAllSlotSummaries, setSlotSummary } from '$lib/saveFile/slotSummary.svelte';
 import { expectedFileName, SAVE_KINDS, type SaveKind } from '$lib/saveFile/types';
 import { clearAllSessions, deleteSession, putSession } from '$lib/session/sessionStore';

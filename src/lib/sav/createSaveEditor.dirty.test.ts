@@ -12,12 +12,12 @@ import {
   playerState,
   syncFromSave as syncPlayer,
 } from '$lib/player/playerEditor.svelte';
-import { PLAYER_SCHEMA } from './schema';
-import { DataType } from './dataType';
+import { PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
+import { DataType } from '@alexislours/ltd-savedata';
 import { setSaveFromBytes, clearSave } from '$lib/saveFile/saveFile.svelte';
 import { schedulePersist } from '$lib/session/sessionPersist';
-import * as encodeModule from './materialized/encode';
-import * as writeModule from './write';
+import * as encodeModule from '@alexislours/ltd-savedata';
+import * as writeModule from '@alexislours/ltd-savedata';
 
 const PLAYER_PATH = resolve('sample/saves/1/Player.sav');
 

@@ -3,7 +3,7 @@
   import { untrack } from 'svelte';
   import { track } from '$lib/analytics';
   import { errorMessage } from '$lib/errorMessage';
-  import type { DecodedSave } from '$lib/sav/materialized/types';
+  import type { DecodedSave } from '@alexislours/ltd-savedata';
   import {
     decodeSaveBytes,
     detectSaveKindFromBytes,

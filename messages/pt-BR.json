@@ -752,6 +752,11 @@
       "unhoused_section": "Sem moradia ({count})"
     },
     "panel": {
+      "delete_button": "Excluir Mii",
+      "delete_confirm_body": "{name} será removido permanentemente deste save, junto com todos os relacionamentos, laços familiares e eventos em andamento que o envolvem. Isso não pode ser desfeito (a não ser recarregando o save original).",
+      "delete_confirm_title": "Excluir este Mii?",
+      "delete_done": "{name} excluído.",
+      "delete_needs_map": "Carregue também o Map.sav e o Player.sav antes de excluir, para que casas, quartos, notícias e histórico fiquem sincronizados.",
       "fix_zero_charinfoex": "Seu save parece estar corrompido: todas as entradas de Mii.CharInfoEx (o design dos Miis) estão vazias. O editor pode substituí-las pelo design de Mii padrão caso você esteja tentando recuperar um save.",
       "fix_zero_charinfoex_button": "Continuar",
       "fix_zero_charinfoex_done": "{count, plural, one {Design substituído para # Mii.} other {Designs substituídos para # Miis.}}",

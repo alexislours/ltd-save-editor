@@ -1,7 +1,7 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/player+advanced';
   import { allFoods, type Food, foodImageUrl, foodLabel } from '$lib/sav/lists/foodList.svelte';
-  import { PLAYER_SCHEMA } from '$lib/sav/schema';
+  import { PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
   import { playerAccessor } from '$lib/player/playerEditor.svelte';
   import {
     readSlotQty,

@@ -1,6 +1,8 @@
 dist
+.tsup
 node_modules
 package-lock.json
 *.svg
-src/lib/ugc/wasm/assembly
-src/lib/ugc/wasm/build
+packages/*/CHANGELOG.md
+packages/ltd-textures/assembly
+packages/ltd-textures/build

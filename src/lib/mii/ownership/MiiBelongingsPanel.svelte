@@ -15,7 +15,7 @@
     coordinateLabel,
   } from '$lib/sav/lists/coordinateList.svelte';
   import { bindLeaf } from '$lib/sav/bindLeaf.svelte';
-  import { mii, MII_SCHEMA } from '$lib/sav/schema';
+  import { mii, MII_SCHEMA } from '@alexislours/ltd-savedata/schema';
   import { CARD_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from '$lib/mii/miiEditor.svelte';
   import MiiGoodsPocketPanel from './MiiGoodsPocketPanel.svelte';

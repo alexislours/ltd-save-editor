@@ -1,9 +1,8 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/mii+residents+advanced';
   import { locale } from 'svelte-i18n';
-  import { safe } from '$lib/sav/format';
-  import { enumOptionName, enumOptionsFor } from '$lib/sav/knownKeys';
-  import { MII_SCHEMA } from '$lib/sav/schema';
+  import { safe, enumOptionName, enumOptionsFor } from '@alexislours/ltd-savedata';
+  import { MII_SCHEMA } from '@alexislours/ltd-savedata/schema';
   import { FORM_INPUT_CLASS, LABEL_CLASS } from '$lib/ui/styles';
   import { miiAccessor } from './miiEditor.svelte';
   import { genderLabel, pronounLabel } from './miiLabelList.svelte';

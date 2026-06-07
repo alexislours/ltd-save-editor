@@ -7,6 +7,7 @@ export type ActorFootprint = {
   h: number;
   goalX: number | null;
   goalY: number | null;
+  reserved: readonly (readonly [number, number])[];
 };
 
 export const ACTOR_NAMES: ReadonlyMap<number, ActorInfo> = new Map([
@@ -451,375 +452,1400 @@ export const ACTOR_NAMES: ReadonlyMap<number, ActorInfo> = new Map([
   [0xffbee148, { key: 'ObjSeesaw_01', category: 'MapObject_Obje_Island' }],
 ]);
 
-export const DEFAULT_FOOTPRINT: ActorFootprint = { x0: 0, y0: 0, w: 1, h: 1, goalX: 0, goalY: 0 };
+export const DEFAULT_FOOTPRINT: ActorFootprint = {
+  x0: 0,
+  y0: 0,
+  w: 1,
+  h: 1,
+  goalX: 0,
+  goalY: 0,
+  reserved: [],
+};
 
 export const ACTOR_FOOTPRINT: ReadonlyMap<number, ActorFootprint> = new Map([
-  [0x00783c5e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceIron_07 (1×1)
-  [0x00f79623, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeBroadleaf (1×1)
-  [0x020defc1, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjGuardrail_04 (2×1)
-  [0x02783fd0, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjVendingMachine (1×1)
-  [0x02a4af54, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null }], // ObjArchAir_01 (3×1)
-  [0x02b59bf9, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLamp_05 (1×1)
-  [0x0335b0a7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBell_05 (1×1)
-  [0x03554f30, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBonfire_06 (1×1)
-  [0x04c959f5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjThrone_05 (1×1)
-  [0x06019f97, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBeachParasol_01 (1×1)
-  [0x074ffde1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceLattice_01 (1×1)
-  [0x075960d2, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjDrinkingFountain_05 (1×1)
-  [0x099363e3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBonfire_01 (1×1)
-  [0x0a29f456, { x0: 0, y0: 0, w: 4, h: 5, goalX: null, goalY: null }], // ObjSignboardTutorial_04 (4×5)
-  [0x0a9f39df, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrashCan_02 (1×1)
-  [0x0ace805a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjGrandlight_04 (1×1)
-  [0x0b113fde, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjGuardrail_01 (2×1)
-  [0x0bc3ad96, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSprinkler_03 (1×1)
-  [0x0da9f2cc, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeGinkgo (1×1)
-  [0x0daa36aa, { x0: 0, y0: 0, w: 4, h: 5, goalX: null, goalY: null }], // ObjSignboardTutorial_03 (4×5)
-  [0x0e62f2f4, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceIron_05 (1×1)
-  [0x0ed12c63, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjHedge_05 (2×1)
-  [0x0f012cb7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeBroadleaf_01 (1×1)
-  [0x0fc4dae6, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjHedge_01 (2×1)
-  [0x1078d5b8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceLattice_04 (1×1)
-  [0x10a05086, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceChain_07 (1×1)
-  [0x1116f5d8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFireworksAerial_01 (1×1)
-  [0x118d621c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjThrone_01 (1×1)
-  [0x11964275, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceStake_07 (1×1)
-  [0x1384d84b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjLanternSakura_02 (1×1)
-  [0x143f32d9, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjJackOLantern_02 (2×1)
-  [0x16503a9e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjLanternSakura_03 (1×1)
-  [0x1680e2f4, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjHedge_03 (2×1)
-  [0x16a115fc, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFencePipe_06 (1×1)
-  [0x17133c16, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjGuardrail_02 (2×1)
-  [0x179104ed, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrafficLight_04 (1×1)
-  [0x1835fdab, { x0: 0, y0: 1, w: 2, h: 2, goalX: null, goalY: null }], // ObjTableBench_05 (2×2)
-  [0x18bc0888, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjFenceGuardpipe_07 (2×1)
-  [0x18c416de, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLamp_04 (1×1)
-  [0x19a39056, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBonfire_05 (1×1)
-  [0x1a1f3c2e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSnowman (1×1)
-  [0x1ad1b47d, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchTerrace_05 (2×1)
-  [0x1b2ff9ef, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjJackOLantern_03 (2×1)
-  [0x1b96fc41, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLamp (1×1)
-  [0x1c2eceb3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjShowerOutdoor_06 (1×1)
-  [0x1cc3f3b5, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjFenceGuardpipe_04 (2×1)
-  [0x1d43382b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjRoadSign (1×1)
-  [0x1d880003, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjThrone_03 (1×1)
-  [0x1db7b2ec, { x0: 0, y0: 1, w: 2, h: 2, goalX: null, goalY: null }], // ObjTableBench_03 (2×2)
-  [0x1dd946b9, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null }], // ObjLighthouse_02 (2×2)
-  [0x1e702ae2, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjDrinkingFountain_02 (1×1)
-  [0x1eb0ff5c, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjJackOLantern (2×1)
-  [0x1f1eb32d, { x0: -2, y0: -2, w: 6, h: 5, goalX: 0, goalY: 2 }], // FacilityFamilyRestaurant (6×5)
-  [0x20e67c30, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceBarbed_02 (1×1)
-  [0x22f85aa9, { x0: -1, y0: -1, w: 4, h: 4, goalX: 0, goalY: 2 }], // FacilityItemShop (4×4)
-  [0x241cba0a, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBeachBed_04 (2×1)
-  [0x256ae934, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeConiferous_01 (1×1)
-  [0x2664f7d1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreePalm (1×1)
-  [0x26b0b518, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjVendingMachine_04 (1×1)
-  [0x2720d857, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerTulip_02 (1×1)
-  [0x27d7affa, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjJackOLantern_05 (2×1)
-  [0x28895d61, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerPampasGrass (1×1)
-  [0x28898600, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceBarbed_06 (1×1)
-  [0x28c866e4, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null }], // ObjArchAir_04 (3×1)
-  [0x28f121a9, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null }], // ObjLighthouse_05 (2×2)
-  [0x2cd639c2, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchTerrace_01 (2×1)
-  [0x2d70949a, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchHome (2×1)
-  [0x2e02fe97, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBell_01 (1×1)
-  [0x30ebfc39, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSafetyCone (1×1)
-  [0x31e8d694, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeElectric_06 (1×1)
-  [0x35042895, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null }], // ObjTreeChristmas (2×2)
-  [0x3527b759, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjGuardrail_03 (2×1)
-  [0x35bc3a6c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBonfire_03 (1×1)
-  [0x35ef1762, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeElectric_05 (1×1)
-  [0x36147dc4, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBeachBed (2×1)
-  [0x3634f451, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjGrandlight_02 (1×1)
-  [0x37457636, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSnowman_01 (1×1)
-  [0x38c47000, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjFenceGuardpipe_06 (2×1)
-  [0x39a31074, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerpot_01 (1×1)
-  [0x39bb7d36, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjFenceGuardpipe (2×1)
-  [0x3a19045b, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjHedge_02 (2×1)
-  [0x3a379430, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchPark (2×1)
-  [0x3b21e48e, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchTerrace_07 (2×1)
-  [0x3c01c777, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLampRetro_02 (1×1)
-  [0x3c040ef5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStandingTorch (1×1)
-  [0x3c266f7e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjClockTower_07 (1×1)
-  [0x3c97c599, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSwingRider_05 (1×1)
-  [0x3cac27b7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerpot_03 (1×1)
-  [0x3cdfa786, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSwingRider_07 (1×1)
-  [0x3de81df5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBeachParasol_07 (1×1)
-  [0x3dfc546b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjPinwheel_07 (1×1)
-  [0x3e2ae3d8, { x0: 0, y0: 1, w: 2, h: 2, goalX: null, goalY: null }], // ObjTableBench_04 (2×2)
-  [0x3e7dc6f9, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBell_04 (1×1)
-  [0x3f360d90, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjGuardrail_05 (2×1)
-  [0x3f612d44, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null }], // ObjArchAir_07 (3×1)
-  [0x408ec56c, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjSeesaw_04 (2×1)
-  [0x41436cba, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFireworksErupting (1×1)
-  [0x41953204, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFencePipe_01 (1×1)
-  [0x4209ab17, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjAerogenerator_05 (1×1)
-  [0x434533c8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjLanternSakura_01 (1×1)
-  [0x43f76680, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjFenceGuardpipe_03 (2×1)
-  [0x4499cc8c, { x0: -1, y0: -1, w: 4, h: 4, goalX: 1, goalY: 2 }], // FacilityPhotoStudio (4×4)
-  [0x45720afc, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceStake_01 (1×1)
-  [0x4691b9df, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceWood_03 (1×1)
-  [0x48870a72, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjSeesaw_02 (2×1)
-  [0x48e1e211, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjHedge (2×1)
-  [0x49893c7b, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null }], // ObjArchAir_03 (3×1)
-  [0x4999d24f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBell_07 (1×1)
-  [0x4ad50099, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerpot_05 (1×1)
-  [0x4cdf13e3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeCactus (1×1)
-  [0x4d590b0f, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjGuardrail_06 (2×1)
-  [0x4e992963, { x0: -1, y0: -1, w: 4, h: 4, goalX: 1, goalY: 2 }], // FacilityTower (4×4)
-  [0x4ebe5dff, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBonfire_02 (1×1)
-  [0x4f214c75, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceChain_05 (1×1)
-  [0x4f2a4a2c, { x0: -1, y0: -1, w: 3, h: 3, goalX: 0, goalY: 1 }], // FacilityMarket (3×3)
-  [0x4f31ecab, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerNarcissus_01 (1×1)
-  [0x51456fc7, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchTerrace_02 (2×1)
-  [0x51f9ebe6, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFencePipe_03 (1×1)
-  [0x52249c2d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSprinkler_04 (1×1)
-  [0x536c8eeb, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLampRetro_01 (1×1)
-  [0x53a5e5b4, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBeachBed_01 (2×1)
-  [0x53cdc538, { x0: 0, y0: 1, w: 2, h: 2, goalX: null, goalY: null }], // ObjTableBench_07 (2×2)
-  [0x5462e40d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjVendingMachine_01 (1×1)
-  [0x5468ea41, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchTerrace (2×1)
-  [0x54b486c1, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchHome_04 (2×1)
-  [0x555e4971, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLamp_07 (1×1)
-  [0x5bc17e5a, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjHedge_06 (2×1)
-  [0x5c44bb14, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrashCan_05 (1×1)
-  [0x5c80d8f9, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjJackOLantern_04 (2×1)
-  [0x5e545d46, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null }], // ObjLighthouse_06 (2×2)
-  [0x5e8fc05f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrashCan (1×1)
-  [0x5ea082c6, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjHedge_04 (2×1)
-  [0x5fd51925, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeBroadleaf_02 (1×1)
-  [0x60974f1d, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchPark_03 (2×1)
-  [0x613e1748, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerTulip_01 (1×1)
-  [0x623f9384, { x0: 0, y0: 0, w: 4, h: 5, goalX: null, goalY: null }], // ObjSignboardTutorial (4×5)
-  [0x631a5edd, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBeachBed_07 (2×1)
-  [0x637d975d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjVendingMachine_02 (1×1)
-  [0x639739e4, { x0: -1, y0: -1, w: 4, h: 4, goalX: 1, goalY: 2 }], // FacilitySupermarket (4×4)
-  [0x6400ef93, { x0: -1, y0: -1, w: 4, h: 4, goalX: 0, goalY: 2 }], // FacilityInteriorShop (4×4)
-  [0x644e5834, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrafficLight (1×1)
-  [0x6450a5b6, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLamp_06 (1×1)
-  [0x655d2cf0, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLamp_03 (1×1)
-  [0x66f4bae5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceChain_03 (1×1)
-  [0x67b54869, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLampRetro_04 (1×1)
-  [0x67ddf3cc, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFireworksErupting_01 (1×1)
-  [0x68b0500a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjPinwheel_05 (1×1)
-  [0x69c96e86, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSprinkler_02 (1×1)
-  [0x69f07ec5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjRock (1×1)
-  [0x6be3ab9c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceChain_06 (1×1)
-  [0x6d001ab7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrafficLight_07 (1×1)
-  [0x6dfa5726, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchPark_07 (2×1)
-  [0x6e0f5ddc, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjFenceGuardpipe_02 (2×1)
-  [0x6e5e424c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerpot_04 (1×1)
-  [0x6eb4472b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjDrinkingFountain_04 (1×1)
-  [0x6f96359e, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null }], // ObjLighthouse_07 (2×2)
-  [0x6fe08db1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSprinkler_05 (1×1)
-  [0x708aefeb, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjRock_02 (1×1)
-  [0x70ccf14b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeCherry (1×1)
-  [0x70f1acbe, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceStake_05 (1×1)
-  [0x7137a07c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLampRetro_07 (1×1)
-  [0x720fc83f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSwingRider_04 (1×1)
-  [0x7277d140, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceStake_02 (1×1)
-  [0x72cc4f28, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceChain_04 (1×1)
-  [0x72ce0895, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjClockTower_06 (1×1)
-  [0x72eb0d7a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFireworksAerial (1×1)
-  [0x7312af8b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceIron_04 (1×1)
-  [0x738bd7a2, { x0: -4, y0: -2, w: 9, h: 5, goalX: -1, goalY: 2 }], // FacilityFerrisWheel (9×5)
-  [0x739bb804, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchPark_01 (2×1)
-  [0x74118a38, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBell (1×1)
-  [0x7591362f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceIron_03 (1×1)
-  [0x779b5f66, { x0: -2, y0: -4, w: 6, h: 10, goalX: null, goalY: null }], // FacilityFountainPark (6×10)
-  [0x77b633dd, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjWeed (1×1)
-  [0x793bf08f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceLattice_05 (1×1)
-  [0x798cc61e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBell_03 (1×1)
-  [0x79aad069, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjShowerOutdoor_05 (1×1)
-  [0x7a3313bd, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null }], // ObjLighthouse_04 (2×2)
-  [0x7ab365bb, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerLavender (1×1)
-  [0x7b28f8c4, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSwingRider_03 (1×1)
-  [0x7bd6ecbe, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjSeesaw_05 (2×1)
-  [0x7bf30ad7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceChain_02 (1×1)
-  [0x7c83a53c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFencePipe_04 (1×1)
-  [0x7cb5537a, { x0: 0, y0: 0, w: 4, h: 3, goalX: null, goalY: null }], // FacilityFountain (4×3)
-  [0x7cc23163, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSwingRider_01 (1×1)
-  [0x7cf73c42, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceBarbed_04 (1×1)
-  [0x7f4b7639, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjWeed_01 (1×1)
-  [0x7ff35b85, { x0: -1, y0: -1, w: 4, h: 4, goalX: 1, goalY: 2 }], // FacilityClothShop (4×4)
-  [0x80273dca, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeElectric (1×1)
-  [0x80c4e173, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerTulip (1×1)
-  [0x81d8840d, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjSeesaw_06 (2×1)
-  [0x821c5664, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSwingRider (1×1)
-  [0x8260ac6d, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchHome_02 (2×1)
-  [0x8479278d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSafetyCone_05 (1×1)
-  [0x852b143a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjThrone_04 (1×1)
-  [0x8653643d, { x0: 0, y0: 0, w: 4, h: 5, goalX: null, goalY: null }], // ObjSignboardTutorial_02 (4×5)
-  [0x86adc47d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjAerogenerator_03 (1×1)
-  [0x86bf727c, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBeachBed_06 (2×1)
-  [0x86e54ef3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLampRetro_05 (1×1)
-  [0x88ad18c8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceBarbed_03 (1×1)
-  [0x893aa4bd, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSwingRider_02 (1×1)
-  [0x8959f121, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceWood_01 (1×1)
-  [0x89706ab5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjGrandlight_01 (1×1)
-  [0x8c677620, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFencePipe_05 (1×1)
-  [0x8ca1ca2a, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjFenceGuardpipe_05 (2×1)
-  [0x8ceb9861, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeElectric_04 (1×1)
-  [0x8d1d2c86, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjDrinkingFountain (1×1)
-  [0x8d42df09, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjShowerOutdoor (1×1)
-  [0x8d7ac9e4, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrashCan_01 (1×1)
-  [0x8d8ab2f2, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrashCan_03 (1×1)
-  [0x8e5b647c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeElectric_02 (1×1)
-  [0x8ed43524, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceBarbed_01 (1×1)
-  [0x90bd04f1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceStake_03 (1×1)
-  [0x9296757d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceBarbed (1×1)
-  [0x92f03864, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjThrone_02 (1×1)
-  [0x93acc870, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null }], // ObjArchAir_05 (3×1)
-  [0x93bfa683, { x0: 0, y0: 1, w: 2, h: 2, goalX: null, goalY: null }], // ObjTableBench_01 (2×2)
-  [0x94046edf, { x0: 0, y0: 1, w: 2, h: 2, goalX: null, goalY: null }], // ObjTableBench (2×2)
-  [0x94a2b14c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjLanternSakura (1×1)
-  [0x95fa4f31, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjClockTower_03 (1×1)
-  [0x96b750d7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceWood_02 (1×1)
-  [0x96c0e15a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjGrandlight_03 (1×1)
-  [0x97303927, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjDrinkingFountain_01 (1×1)
-  [0x9737f2ae, { x0: 0, y0: 1, w: 2, h: 2, goalX: null, goalY: null }], // ObjTableBench_02 (2×2)
-  [0x9818108c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeConiferous (1×1)
-  [0x99c0dea5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjAerogenerator_04 (1×1)
-  [0x9a993894, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjGrandlight_05 (1×1)
-  [0x9bd11dd8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFireworksErupting_02 (1×1)
-  [0x9cb9f35b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerCosmos_01 (1×1)
-  [0x9e3fdc71, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBeachParasol_02 (1×1)
-  [0xa02d2f2e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSafetyCone_01 (1×1)
-  [0xa14c1b16, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null }], // ObjArchAir_02 (3×1)
-  [0xa4552121, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerAnemone_01 (1×1)
-  [0xa5584e67, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null }], // ObjLighthouse_01 (2×2)
-  [0xa5e069e0, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null }], // ObjArchAir (3×1)
-  [0xa8278419, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBeachParasol_03 (1×1)
-  [0xa86f3787, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjPinwheel_01 (1×1)
-  [0xa96ee849, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSwingRider_06 (1×1)
-  [0xa986b812, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjDrinkingFountain_07 (1×1)
-  [0xaa80eaf3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrafficLight_05 (1×1)
-  [0xaad82ed0, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBeachParasol_06 (1×1)
-  [0xab25e6df, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSprinkler_01 (1×1)
-  [0xab8d53d0, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null }], // ObjLighthouse (2×2)
-  [0xacbce196, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBeachBed_05 (2×1)
-  [0xaf35c3de, { x0: 0, y0: 1, w: 2, h: 2, goalX: null, goalY: null }], // ObjTableBench_06 (2×2)
-  [0xb06856c3, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchHome_01 (2×1)
-  [0xb0a5e205, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFencePipe_02 (1×1)
-  [0xb15b02a5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjShowerOutdoor_01 (1×1)
-  [0xb3266b3d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrafficLight_06 (1×1)
-  [0xb33cd644, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLamp_02 (1×1)
-  [0xb3ede11b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrafficLight_02 (1×1)
-  [0xb3f08ea7, { x0: -1, y0: -1, w: 4, h: 4, goalX: 0, goalY: 2 }], // FacilityAtelier (4×4)
-  [0xb4d25280, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchPark_05 (2×1)
-  [0xb50c8415, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceBarbed_05 (1×1)
-  [0xb536af1d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceWood_05 (1×1)
-  [0xb5d0afa9, { x0: 0, y0: 0, w: 6, h: 10, goalX: null, goalY: null }], // FacilityPark (6×10)
-  [0xb6a77a82, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerAnemone_02 (1×1)
-  [0xb731114a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjDrinkingFountain_06 (1×1)
-  [0xb7387ec4, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjJackOLantern_01 (2×1)
-  [0xb8c7b758, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeElectric_01 (1×1)
-  [0xbbee69f3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjShowerOutdoor_04 (1×1)
-  [0xbc586477, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerpot (1×1)
-  [0xbcf0a82b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBell_02 (1×1)
-  [0xbd2acdc2, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceIron_02 (1×1)
-  [0xbdd66db4, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjPinwheel_04 (1×1)
-  [0xbf54b785, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjGrandlight_07 (1×1)
-  [0xbf72663f, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchTerrace_03 (2×1)
-  [0xc28ce29d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerNarcissus (1×1)
-  [0xc2f3081d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBeachParasol_04 (1×1)
-  [0xc3e9117a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBonfire_04 (1×1)
-  [0xc41c1083, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjShowerOutdoor_03 (1×1)
-  [0xc4e7518f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBeachParasol_05 (1×1)
-  [0xc4fb9bfa, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchHome_03 (2×1)
-  [0xc55689ab, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrashCan_04 (1×1)
-  [0xc5a68179, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLamp_01 (1×1)
-  [0xc61fdd20, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjGrandlight_06 (1×1)
-  [0xc6221de3, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null }], // ObjArchAir_06 (3×1)
-  [0xc6cfb515, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFencePipe (1×1)
-  [0xc76824c1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrafficLight_01 (1×1)
-  [0xc76a3d56, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjAerogenerator_01 (1×1)
-  [0xc8d08275, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBeachBed_02 (2×1)
-  [0xc8eca18d, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchTerrace_06 (2×1)
-  [0xc90cc3ab, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjAerogenerator (1×1)
-  [0xc919deb8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFencePipe_07 (1×1)
-  [0xc9213dbd, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBonfire (1×1)
-  [0xc95cdab5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceStake_04 (1×1)
-  [0xc9e023ef, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjSeesaw (2×1)
-  [0xca408743, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSnowman_02 (1×1)
-  [0xca719626, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeElectric_03 (1×1)
-  [0xcb3caa21, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjPinwheel_02 (1×1)
-  [0xcb816485, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceWood_07 (1×1)
-  [0xcb84668f, { x0: -1, y0: -1, w: 4, h: 4, goalX: 0, goalY: 2 }], // FacilityBuildingShop (4×4)
-  [0xce15d990, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchHome_06 (2×1)
-  [0xce1dd518, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerpot_06 (1×1)
-  [0xcedb3d13, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjVendingMachine_03 (1×1)
-  [0xd0db48b1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjLanternSakura_04 (1×1)
-  [0xd13c8ef0, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjShowerOutdoor_07 (1×1)
-  [0xd1808061, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSafetyCone_04 (1×1)
-  [0xd2dfb97b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrafficLight_03 (1×1)
-  [0xd3442cf3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSprinkler (1×1)
-  [0xd352f0b1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjRoadSign_01 (1×1)
-  [0xd59d888c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSnowman_03 (1×1)
-  [0xd6710462, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceLattice_06 (1×1)
-  [0xd8067590, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerpot_02 (1×1)
-  [0xd8d4c1dc, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBeachBed_03 (2×1)
-  [0xd97c8cd9, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTreeElectric_07 (1×1)
-  [0xd9d34019, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjSeesaw_03 (2×1)
-  [0xda9ced52, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceStake (1×1)
-  [0xdb31941c, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchHome_07 (2×1)
-  [0xdc6fbb0e, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjJackOLantern_06 (2×1)
-  [0xdcad823f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSafetyCone_03 (1×1)
-  [0xdd0b050b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjThrone (1×1)
-  [0xdf57e997, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLampRetro_06 (1×1)
-  [0xdfebbd3a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSafetyCone_02 (1×1)
-  [0xe03e892e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceWood_06 (1×1)
-  [0xe04f9b72, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjClockTower_01 (1×1)
-  [0xe2123ede, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchPark_02 (2×1)
-  [0xe21c58eb, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerNemophila (1×1)
-  [0xe3e5250b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceChain (1×1)
-  [0xe3ec5c38, { x0: -2, y0: -1, w: 6, h: 4, goalX: 2, goalY: 2 }], // HouseDollHouse (6×4)
-  [0xe40c3e1a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjAerogenerator_02 (1×1)
-  [0xe4402dca, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjPinwheel_03 (1×1)
-  [0xe4678701, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchHome_05 (2×1)
-  [0xe4a0cabd, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceLattice_07 (1×1)
-  [0xe55fb97c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceIron_06 (1×1)
-  [0xe5c37f30, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjGrandlight (1×1)
-  [0xe5da8d17, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjRock_01 (1×1)
-  [0xe64b9aa7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjClockTower_05 (1×1)
-  [0xe788268d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceLattice_03 (1×1)
-  [0xe828641c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerSunflowers (1×1)
-  [0xe8366039, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchPark_06 (2×1)
-  [0xe8c2afb9, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchTerrace_04 (2×1)
-  [0xe9edbef6, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjShowerOutdoor_02 (1×1)
-  [0xea143e9d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjVendingMachine_05 (1×1)
-  [0xeab6c014, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjPinwheel (1×1)
-  [0xeaddf790, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceStake_06 (1×1)
-  [0xeb7b494e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBell_06 (1×1)
-  [0xebace20b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjLanternSakura_05 (1×1)
-  [0xec6ad06f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjPinwheel_06 (1×1)
-  [0xed687f1e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceLattice_02 (1×1)
-  [0xee79f224, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFireworksAerial_02 (1×1)
-  [0xef367ada, { x0: -1, y0: -1, w: 3, h: 4, goalX: 0, goalY: 2 }], // HouseOneRoom (3×4)
-  [0xef56842d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLampRetro_03 (1×1)
-  [0xef9a1dc1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceLattice (1×1)
-  [0xefa370e9, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerCosmos (1×1)
-  [0xf003e9c0, { x0: -1, y0: -1, w: 4, h: 4, goalX: 1, goalY: 2 }], // FacilityPawnShop (4×4)
-  [0xf045992a, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjJackOLantern_07 (2×1)
-  [0xf082e4ca, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjBeachParasol (1×1)
-  [0xf27eda3f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceWood (1×1)
-  [0xf4b09c49, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjClockTower (1×1)
-  [0xf4fac611, { x0: 0, y0: 0, w: 4, h: 5, goalX: null, goalY: null }], // ObjSignboardTutorial_01 (4×5)
-  [0xf57069ca, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjStreetLampRetro (1×1)
-  [0xf57fa3a5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjClockTower_04 (1×1)
-  [0xf5a8c105, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceIron (1×1)
-  [0xf603348e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjTrashCan_06 (1×1)
-  [0xf698e38b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFlowerAnemone (1×1)
-  [0xf6ec924d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceChain_01 (1×1)
-  [0xf767c92e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceIron_01 (1×1)
-  [0xf8ace4c7, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjBenchPark_04 (2×1)
-  [0xf9e9dd00, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjThrone_06 (1×1)
-  [0xfb12ee2f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjClockTower_02 (1×1)
-  [0xfcc93164, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjFenceGuardpipe_01 (2×1)
-  [0xfd0ccb79, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null }], // ObjLighthouse_03 (2×2)
-  [0xfd670658, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjSafetyCone_06 (1×1)
-  [0xfd7240b3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceWood_04 (1×1)
-  [0xfe462c1f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjDrinkingFountain_03 (1×1)
-  [0xfeb03bcb, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjGuardrail (2×1)
-  [0xfeccbdce, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null }], // ObjFenceBarbed_07 (1×1)
-  [0xffbee148, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null }], // ObjSeesaw_01 (2×1)
+  [0x00783c5e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceIron_07 (1×1)
+  [0x00f79623, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeBroadleaf (1×1)
+  [0x020defc1, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGuardrail_04 (2×1)
+  [0x02783fd0, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjVendingMachine (1×1)
+  [0x02a4af54, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjArchAir_01 (3×1)
+  [0x02b59bf9, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLamp_05 (1×1)
+  [0x0335b0a7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBell_05 (1×1)
+  [0x03554f30, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBonfire_06 (1×1)
+  [0x04c959f5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjThrone_05 (1×1)
+  [0x06019f97, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBeachParasol_01 (1×1)
+  [0x074ffde1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceLattice_01 (1×1)
+  [0x075960d2, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjDrinkingFountain_05 (1×1)
+  [0x099363e3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBonfire_01 (1×1)
+  [0x0a29f456, { x0: 0, y0: 0, w: 4, h: 5, goalX: null, goalY: null, reserved: [] }], // ObjSignboardTutorial_04 (4×5)
+  [0x0a9f39df, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTrashCan_02 (1×1)
+  [0x0ace805a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGrandlight_04 (1×1)
+  [0x0b113fde, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGuardrail_01 (2×1)
+  [0x0bc3ad96, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSprinkler_03 (1×1)
+  [0x0da9f2cc, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeGinkgo (1×1)
+  [0x0daa36aa, { x0: 0, y0: 0, w: 4, h: 5, goalX: null, goalY: null, reserved: [] }], // ObjSignboardTutorial_03 (4×5)
+  [0x0e62f2f4, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceIron_05 (1×1)
+  [0x0ed12c63, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjHedge_05 (2×1)
+  [0x0f012cb7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeBroadleaf_01 (1×1)
+  [0x0fc4dae6, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjHedge_01 (2×1)
+  [0x1078d5b8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceLattice_04 (1×1)
+  [0x10a05086, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceChain_07 (1×1)
+  [0x1116f5d8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFireworksAerial_01 (1×1)
+  [0x118d621c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjThrone_01 (1×1)
+  [0x11964275, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceStake_07 (1×1)
+  [0x1384d84b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjLanternSakura_02 (1×1)
+  [
+    0x143f32d9,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjJackOLantern_02 (2×1)
+  [0x16503a9e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjLanternSakura_03 (1×1)
+  [0x1680e2f4, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjHedge_03 (2×1)
+  [0x16a115fc, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFencePipe_06 (1×1)
+  [0x17133c16, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGuardrail_02 (2×1)
+  [0x179104ed, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjTrafficLight_04 (1×1)
+  [
+    0x1835fdab,
+    {
+      x0: 0,
+      y0: 1,
+      w: 2,
+      h: 2,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 0],
+        [1, 0],
+        [0, 3],
+        [1, 3],
+      ],
+    },
+  ], // ObjTableBench_05 (2×2)
+  [0x18bc0888, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceGuardpipe_07 (2×1)
+  [0x18c416de, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLamp_04 (1×1)
+  [0x19a39056, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBonfire_05 (1×1)
+  [0x1a1f3c2e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSnowman (1×1)
+  [
+    0x1ad1b47d,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchTerrace_05 (2×1)
+  [
+    0x1b2ff9ef,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjJackOLantern_03 (2×1)
+  [0x1b96fc41, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLamp (1×1)
+  [0x1c2eceb3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjShowerOutdoor_06 (1×1)
+  [0x1cc3f3b5, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceGuardpipe_04 (2×1)
+  [0x1d43382b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjRoadSign (1×1)
+  [0x1d880003, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjThrone_03 (1×1)
+  [
+    0x1db7b2ec,
+    {
+      x0: 0,
+      y0: 1,
+      w: 2,
+      h: 2,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 0],
+        [1, 0],
+        [0, 3],
+        [1, 3],
+      ],
+    },
+  ], // ObjTableBench_03 (2×2)
+  [0x1dd946b9, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null, reserved: [] }], // ObjLighthouse_02 (2×2)
+  [0x1e702ae2, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjDrinkingFountain_02 (1×1)
+  [
+    0x1eb0ff5c,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjJackOLantern (2×1)
+  [
+    0x1f1eb32d,
+    {
+      x0: -2,
+      y0: -2,
+      w: 6,
+      h: 5,
+      goalX: 0,
+      goalY: 2,
+      reserved: [
+        [-2, 3],
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+        [3, 3],
+      ],
+    },
+  ], // FacilityFamilyRestaurant (6×5)
+  [0x20e67c30, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceBarbed_02 (1×1)
+  [
+    0x22f85aa9,
+    {
+      x0: -1,
+      y0: -1,
+      w: 4,
+      h: 4,
+      goalX: 0,
+      goalY: 2,
+      reserved: [
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+      ],
+    },
+  ], // FacilityItemShop (4×4)
+  [
+    0x241cba0a,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBeachBed_04 (2×1)
+  [0x256ae934, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeConiferous_01 (1×1)
+  [0x2664f7d1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreePalm (1×1)
+  [0x26b0b518, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjVendingMachine_04 (1×1)
+  [0x2720d857, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerTulip_02 (1×1)
+  [
+    0x27d7affa,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjJackOLantern_05 (2×1)
+  [0x28895d61, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerPampasGrass (1×1)
+  [0x28898600, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceBarbed_06 (1×1)
+  [0x28c866e4, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjArchAir_04 (3×1)
+  [0x28f121a9, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null, reserved: [] }], // ObjLighthouse_05 (2×2)
+  [
+    0x2cd639c2,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchTerrace_01 (2×1)
+  [
+    0x2d70949a,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchHome (2×1)
+  [0x2e02fe97, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBell_01 (1×1)
+  [0x30ebfc39, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSafetyCone (1×1)
+  [0x31e8d694, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeElectric_06 (1×1)
+  [0x35042895, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null, reserved: [] }], // ObjTreeChristmas (2×2)
+  [0x3527b759, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGuardrail_03 (2×1)
+  [0x35bc3a6c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBonfire_03 (1×1)
+  [0x35ef1762, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeElectric_05 (1×1)
+  [
+    0x36147dc4,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBeachBed (2×1)
+  [0x3634f451, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGrandlight_02 (1×1)
+  [0x37457636, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSnowman_01 (1×1)
+  [0x38c47000, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceGuardpipe_06 (2×1)
+  [0x39a31074, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerpot_01 (1×1)
+  [0x39bb7d36, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceGuardpipe (2×1)
+  [0x3a19045b, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjHedge_02 (2×1)
+  [
+    0x3a379430,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchPark (2×1)
+  [
+    0x3b21e48e,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchTerrace_07 (2×1)
+  [0x3c01c777, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLampRetro_02 (1×1)
+  [0x3c040ef5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStandingTorch (1×1)
+  [0x3c266f7e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjClockTower_07 (1×1)
+  [0x3c97c599, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSwingRider_05 (1×1)
+  [0x3cac27b7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerpot_03 (1×1)
+  [0x3cdfa786, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSwingRider_07 (1×1)
+  [0x3de81df5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBeachParasol_07 (1×1)
+  [0x3dfc546b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjPinwheel_07 (1×1)
+  [
+    0x3e2ae3d8,
+    {
+      x0: 0,
+      y0: 1,
+      w: 2,
+      h: 2,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 0],
+        [1, 0],
+        [0, 3],
+        [1, 3],
+      ],
+    },
+  ], // ObjTableBench_04 (2×2)
+  [0x3e7dc6f9, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBell_04 (1×1)
+  [0x3f360d90, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGuardrail_05 (2×1)
+  [0x3f612d44, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjArchAir_07 (3×1)
+  [
+    0x408ec56c,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjSeesaw_04 (2×1)
+  [0x41436cba, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFireworksErupting (1×1)
+  [0x41953204, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFencePipe_01 (1×1)
+  [0x4209ab17, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjAerogenerator_05 (1×1)
+  [0x434533c8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjLanternSakura_01 (1×1)
+  [0x43f76680, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceGuardpipe_03 (2×1)
+  [
+    0x4499cc8c,
+    {
+      x0: -1,
+      y0: -1,
+      w: 4,
+      h: 4,
+      goalX: 1,
+      goalY: 2,
+      reserved: [
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+      ],
+    },
+  ], // FacilityPhotoStudio (4×4)
+  [0x45720afc, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceStake_01 (1×1)
+  [0x4691b9df, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceWood_03 (1×1)
+  [
+    0x48870a72,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjSeesaw_02 (2×1)
+  [0x48e1e211, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjHedge (2×1)
+  [0x49893c7b, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjArchAir_03 (3×1)
+  [0x4999d24f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBell_07 (1×1)
+  [0x4ad50099, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerpot_05 (1×1)
+  [0x4cdf13e3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeCactus (1×1)
+  [0x4d590b0f, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGuardrail_06 (2×1)
+  [
+    0x4e992963,
+    {
+      x0: -1,
+      y0: -1,
+      w: 4,
+      h: 4,
+      goalX: 1,
+      goalY: 2,
+      reserved: [
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+      ],
+    },
+  ], // FacilityTower (4×4)
+  [0x4ebe5dff, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBonfire_02 (1×1)
+  [0x4f214c75, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceChain_05 (1×1)
+  [
+    0x4f2a4a2c,
+    {
+      x0: -1,
+      y0: -1,
+      w: 3,
+      h: 3,
+      goalX: 0,
+      goalY: 1,
+      reserved: [
+        [-1, 2],
+        [0, 2],
+        [1, 2],
+      ],
+    },
+  ], // FacilityMarket (3×3)
+  [0x4f31ecab, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerNarcissus_01 (1×1)
+  [
+    0x51456fc7,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchTerrace_02 (2×1)
+  [0x51f9ebe6, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFencePipe_03 (1×1)
+  [0x52249c2d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSprinkler_04 (1×1)
+  [0x536c8eeb, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLampRetro_01 (1×1)
+  [
+    0x53a5e5b4,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBeachBed_01 (2×1)
+  [
+    0x53cdc538,
+    {
+      x0: 0,
+      y0: 1,
+      w: 2,
+      h: 2,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 0],
+        [1, 0],
+        [0, 3],
+        [1, 3],
+      ],
+    },
+  ], // ObjTableBench_07 (2×2)
+  [0x5462e40d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjVendingMachine_01 (1×1)
+  [
+    0x5468ea41,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchTerrace (2×1)
+  [
+    0x54b486c1,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchHome_04 (2×1)
+  [0x555e4971, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLamp_07 (1×1)
+  [0x5bc17e5a, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjHedge_06 (2×1)
+  [0x5c44bb14, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTrashCan_05 (1×1)
+  [
+    0x5c80d8f9,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjJackOLantern_04 (2×1)
+  [0x5e545d46, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null, reserved: [] }], // ObjLighthouse_06 (2×2)
+  [0x5e8fc05f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTrashCan (1×1)
+  [0x5ea082c6, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjHedge_04 (2×1)
+  [0x5fd51925, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeBroadleaf_02 (1×1)
+  [
+    0x60974f1d,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchPark_03 (2×1)
+  [0x613e1748, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerTulip_01 (1×1)
+  [0x623f9384, { x0: 0, y0: 0, w: 4, h: 5, goalX: null, goalY: null, reserved: [] }], // ObjSignboardTutorial (4×5)
+  [
+    0x631a5edd,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBeachBed_07 (2×1)
+  [0x637d975d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjVendingMachine_02 (1×1)
+  [
+    0x639739e4,
+    {
+      x0: -1,
+      y0: -1,
+      w: 4,
+      h: 4,
+      goalX: 1,
+      goalY: 2,
+      reserved: [
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+      ],
+    },
+  ], // FacilitySupermarket (4×4)
+  [
+    0x6400ef93,
+    {
+      x0: -1,
+      y0: -1,
+      w: 4,
+      h: 4,
+      goalX: 0,
+      goalY: 2,
+      reserved: [
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+      ],
+    },
+  ], // FacilityInteriorShop (4×4)
+  [0x644e5834, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjTrafficLight (1×1)
+  [0x6450a5b6, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLamp_06 (1×1)
+  [0x655d2cf0, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLamp_03 (1×1)
+  [0x66f4bae5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceChain_03 (1×1)
+  [0x67b54869, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLampRetro_04 (1×1)
+  [0x67ddf3cc, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFireworksErupting_01 (1×1)
+  [0x68b0500a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjPinwheel_05 (1×1)
+  [0x69c96e86, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSprinkler_02 (1×1)
+  [0x69f07ec5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjRock (1×1)
+  [0x6be3ab9c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceChain_06 (1×1)
+  [0x6d001ab7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjTrafficLight_07 (1×1)
+  [
+    0x6dfa5726,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchPark_07 (2×1)
+  [0x6e0f5ddc, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceGuardpipe_02 (2×1)
+  [0x6e5e424c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerpot_04 (1×1)
+  [0x6eb4472b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjDrinkingFountain_04 (1×1)
+  [0x6f96359e, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null, reserved: [] }], // ObjLighthouse_07 (2×2)
+  [0x6fe08db1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSprinkler_05 (1×1)
+  [0x708aefeb, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjRock_02 (1×1)
+  [0x70ccf14b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeCherry (1×1)
+  [0x70f1acbe, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceStake_05 (1×1)
+  [0x7137a07c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLampRetro_07 (1×1)
+  [0x720fc83f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSwingRider_04 (1×1)
+  [0x7277d140, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceStake_02 (1×1)
+  [0x72cc4f28, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceChain_04 (1×1)
+  [0x72ce0895, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjClockTower_06 (1×1)
+  [0x72eb0d7a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFireworksAerial (1×1)
+  [0x7312af8b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceIron_04 (1×1)
+  [
+    0x738bd7a2,
+    {
+      x0: -4,
+      y0: -2,
+      w: 9,
+      h: 5,
+      goalX: -1,
+      goalY: 2,
+      reserved: [
+        [-4, 3],
+        [-3, 3],
+        [-2, 3],
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+      ],
+    },
+  ], // FacilityFerrisWheel (9×5)
+  [
+    0x739bb804,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchPark_01 (2×1)
+  [0x74118a38, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBell (1×1)
+  [0x7591362f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceIron_03 (1×1)
+  [0x779b5f66, { x0: -2, y0: -4, w: 6, h: 10, goalX: null, goalY: null, reserved: [] }], // FacilityFountainPark (6×10)
+  [0x77b633dd, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjWeed (1×1)
+  [0x793bf08f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceLattice_05 (1×1)
+  [0x798cc61e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBell_03 (1×1)
+  [0x79aad069, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjShowerOutdoor_05 (1×1)
+  [0x7a3313bd, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null, reserved: [] }], // ObjLighthouse_04 (2×2)
+  [0x7ab365bb, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerLavender (1×1)
+  [0x7b28f8c4, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSwingRider_03 (1×1)
+  [
+    0x7bd6ecbe,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjSeesaw_05 (2×1)
+  [0x7bf30ad7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceChain_02 (1×1)
+  [0x7c83a53c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFencePipe_04 (1×1)
+  [0x7cb5537a, { x0: 0, y0: 0, w: 4, h: 3, goalX: null, goalY: null, reserved: [] }], // FacilityFountain (4×3)
+  [0x7cc23163, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSwingRider_01 (1×1)
+  [0x7cf73c42, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceBarbed_04 (1×1)
+  [0x7f4b7639, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjWeed_01 (1×1)
+  [
+    0x7ff35b85,
+    {
+      x0: -1,
+      y0: -1,
+      w: 4,
+      h: 4,
+      goalX: 1,
+      goalY: 2,
+      reserved: [
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+      ],
+    },
+  ], // FacilityClothShop (4×4)
+  [0x80273dca, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeElectric (1×1)
+  [0x80c4e173, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerTulip (1×1)
+  [
+    0x81d8840d,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjSeesaw_06 (2×1)
+  [0x821c5664, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSwingRider (1×1)
+  [
+    0x8260ac6d,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchHome_02 (2×1)
+  [0x8479278d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSafetyCone_05 (1×1)
+  [0x852b143a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjThrone_04 (1×1)
+  [0x8653643d, { x0: 0, y0: 0, w: 4, h: 5, goalX: null, goalY: null, reserved: [] }], // ObjSignboardTutorial_02 (4×5)
+  [0x86adc47d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjAerogenerator_03 (1×1)
+  [
+    0x86bf727c,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBeachBed_06 (2×1)
+  [0x86e54ef3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLampRetro_05 (1×1)
+  [0x88ad18c8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceBarbed_03 (1×1)
+  [0x893aa4bd, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSwingRider_02 (1×1)
+  [0x8959f121, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceWood_01 (1×1)
+  [0x89706ab5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGrandlight_01 (1×1)
+  [0x8c677620, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFencePipe_05 (1×1)
+  [0x8ca1ca2a, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceGuardpipe_05 (2×1)
+  [0x8ceb9861, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeElectric_04 (1×1)
+  [0x8d1d2c86, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjDrinkingFountain (1×1)
+  [0x8d42df09, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjShowerOutdoor (1×1)
+  [0x8d7ac9e4, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTrashCan_01 (1×1)
+  [0x8d8ab2f2, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTrashCan_03 (1×1)
+  [0x8e5b647c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeElectric_02 (1×1)
+  [0x8ed43524, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceBarbed_01 (1×1)
+  [0x90bd04f1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceStake_03 (1×1)
+  [0x9296757d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceBarbed (1×1)
+  [0x92f03864, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjThrone_02 (1×1)
+  [0x93acc870, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjArchAir_05 (3×1)
+  [
+    0x93bfa683,
+    {
+      x0: 0,
+      y0: 1,
+      w: 2,
+      h: 2,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 0],
+        [1, 0],
+        [0, 3],
+        [1, 3],
+      ],
+    },
+  ], // ObjTableBench_01 (2×2)
+  [
+    0x94046edf,
+    {
+      x0: 0,
+      y0: 1,
+      w: 2,
+      h: 2,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 0],
+        [1, 0],
+        [0, 3],
+        [1, 3],
+      ],
+    },
+  ], // ObjTableBench (2×2)
+  [0x94a2b14c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjLanternSakura (1×1)
+  [0x95fa4f31, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjClockTower_03 (1×1)
+  [0x96b750d7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceWood_02 (1×1)
+  [0x96c0e15a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGrandlight_03 (1×1)
+  [0x97303927, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjDrinkingFountain_01 (1×1)
+  [
+    0x9737f2ae,
+    {
+      x0: 0,
+      y0: 1,
+      w: 2,
+      h: 2,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 0],
+        [1, 0],
+        [0, 3],
+        [1, 3],
+      ],
+    },
+  ], // ObjTableBench_02 (2×2)
+  [0x9818108c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeConiferous (1×1)
+  [0x99c0dea5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjAerogenerator_04 (1×1)
+  [0x9a993894, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGrandlight_05 (1×1)
+  [0x9bd11dd8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFireworksErupting_02 (1×1)
+  [0x9cb9f35b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerCosmos_01 (1×1)
+  [0x9e3fdc71, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBeachParasol_02 (1×1)
+  [0xa02d2f2e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSafetyCone_01 (1×1)
+  [0xa14c1b16, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjArchAir_02 (3×1)
+  [0xa4552121, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerAnemone_01 (1×1)
+  [0xa5584e67, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null, reserved: [] }], // ObjLighthouse_01 (2×2)
+  [0xa5e069e0, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjArchAir (3×1)
+  [0xa8278419, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBeachParasol_03 (1×1)
+  [0xa86f3787, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjPinwheel_01 (1×1)
+  [0xa96ee849, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSwingRider_06 (1×1)
+  [0xa986b812, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjDrinkingFountain_07 (1×1)
+  [0xaa80eaf3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjTrafficLight_05 (1×1)
+  [0xaad82ed0, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBeachParasol_06 (1×1)
+  [0xab25e6df, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSprinkler_01 (1×1)
+  [0xab8d53d0, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null, reserved: [] }], // ObjLighthouse (2×2)
+  [
+    0xacbce196,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBeachBed_05 (2×1)
+  [
+    0xaf35c3de,
+    {
+      x0: 0,
+      y0: 1,
+      w: 2,
+      h: 2,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 0],
+        [1, 0],
+        [0, 3],
+        [1, 3],
+      ],
+    },
+  ], // ObjTableBench_06 (2×2)
+  [
+    0xb06856c3,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchHome_01 (2×1)
+  [0xb0a5e205, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFencePipe_02 (1×1)
+  [0xb15b02a5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjShowerOutdoor_01 (1×1)
+  [0xb3266b3d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjTrafficLight_06 (1×1)
+  [0xb33cd644, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLamp_02 (1×1)
+  [0xb3ede11b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjTrafficLight_02 (1×1)
+  [
+    0xb3f08ea7,
+    {
+      x0: -1,
+      y0: -1,
+      w: 4,
+      h: 4,
+      goalX: 0,
+      goalY: 2,
+      reserved: [
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+      ],
+    },
+  ], // FacilityAtelier (4×4)
+  [
+    0xb4d25280,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchPark_05 (2×1)
+  [0xb50c8415, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceBarbed_05 (1×1)
+  [0xb536af1d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceWood_05 (1×1)
+  [0xb5d0afa9, { x0: 0, y0: 0, w: 6, h: 10, goalX: null, goalY: null, reserved: [] }], // FacilityPark (6×10)
+  [0xb6a77a82, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerAnemone_02 (1×1)
+  [0xb731114a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjDrinkingFountain_06 (1×1)
+  [
+    0xb7387ec4,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjJackOLantern_01 (2×1)
+  [0xb8c7b758, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeElectric_01 (1×1)
+  [0xbbee69f3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjShowerOutdoor_04 (1×1)
+  [0xbc586477, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerpot (1×1)
+  [0xbcf0a82b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBell_02 (1×1)
+  [0xbd2acdc2, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceIron_02 (1×1)
+  [0xbdd66db4, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjPinwheel_04 (1×1)
+  [0xbf54b785, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGrandlight_07 (1×1)
+  [
+    0xbf72663f,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchTerrace_03 (2×1)
+  [0xc28ce29d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerNarcissus (1×1)
+  [0xc2f3081d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBeachParasol_04 (1×1)
+  [0xc3e9117a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBonfire_04 (1×1)
+  [0xc41c1083, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjShowerOutdoor_03 (1×1)
+  [0xc4e7518f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBeachParasol_05 (1×1)
+  [
+    0xc4fb9bfa,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchHome_03 (2×1)
+  [0xc55689ab, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTrashCan_04 (1×1)
+  [0xc5a68179, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLamp_01 (1×1)
+  [0xc61fdd20, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGrandlight_06 (1×1)
+  [0xc6221de3, { x0: 0, y0: 0, w: 3, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjArchAir_06 (3×1)
+  [0xc6cfb515, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFencePipe (1×1)
+  [0xc76824c1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjTrafficLight_01 (1×1)
+  [0xc76a3d56, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjAerogenerator_01 (1×1)
+  [
+    0xc8d08275,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBeachBed_02 (2×1)
+  [
+    0xc8eca18d,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchTerrace_06 (2×1)
+  [0xc90cc3ab, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjAerogenerator (1×1)
+  [0xc919deb8, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFencePipe_07 (1×1)
+  [0xc9213dbd, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBonfire (1×1)
+  [0xc95cdab5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceStake_04 (1×1)
+  [
+    0xc9e023ef,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjSeesaw (2×1)
+  [0xca408743, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSnowman_02 (1×1)
+  [0xca719626, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeElectric_03 (1×1)
+  [0xcb3caa21, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjPinwheel_02 (1×1)
+  [0xcb816485, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceWood_07 (1×1)
+  [
+    0xcb84668f,
+    {
+      x0: -1,
+      y0: -1,
+      w: 4,
+      h: 4,
+      goalX: 0,
+      goalY: 2,
+      reserved: [
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+      ],
+    },
+  ], // FacilityBuildingShop (4×4)
+  [
+    0xce15d990,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchHome_06 (2×1)
+  [0xce1dd518, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerpot_06 (1×1)
+  [0xcedb3d13, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjVendingMachine_03 (1×1)
+  [0xd0db48b1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjLanternSakura_04 (1×1)
+  [0xd13c8ef0, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjShowerOutdoor_07 (1×1)
+  [0xd1808061, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSafetyCone_04 (1×1)
+  [0xd2dfb97b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjTrafficLight_03 (1×1)
+  [0xd3442cf3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSprinkler (1×1)
+  [0xd352f0b1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjRoadSign_01 (1×1)
+  [0xd59d888c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjSnowman_03 (1×1)
+  [0xd6710462, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceLattice_06 (1×1)
+  [0xd8067590, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerpot_02 (1×1)
+  [
+    0xd8d4c1dc,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBeachBed_03 (2×1)
+  [0xd97c8cd9, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTreeElectric_07 (1×1)
+  [
+    0xd9d34019,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjSeesaw_03 (2×1)
+  [0xda9ced52, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceStake (1×1)
+  [
+    0xdb31941c,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchHome_07 (2×1)
+  [
+    0xdc6fbb0e,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjJackOLantern_06 (2×1)
+  [0xdcad823f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSafetyCone_03 (1×1)
+  [0xdd0b050b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjThrone (1×1)
+  [0xdf57e997, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLampRetro_06 (1×1)
+  [0xdfebbd3a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSafetyCone_02 (1×1)
+  [0xe03e892e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceWood_06 (1×1)
+  [0xe04f9b72, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjClockTower_01 (1×1)
+  [
+    0xe2123ede,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchPark_02 (2×1)
+  [0xe21c58eb, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerNemophila (1×1)
+  [0xe3e5250b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceChain (1×1)
+  [
+    0xe3ec5c38,
+    {
+      x0: -2,
+      y0: -1,
+      w: 6,
+      h: 4,
+      goalX: 2,
+      goalY: 2,
+      reserved: [
+        [-2, 3],
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+        [3, 3],
+      ],
+    },
+  ], // HouseDollHouse (6×4)
+  [0xe40c3e1a, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjAerogenerator_02 (1×1)
+  [0xe4402dca, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjPinwheel_03 (1×1)
+  [
+    0xe4678701,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchHome_05 (2×1)
+  [0xe4a0cabd, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceLattice_07 (1×1)
+  [0xe55fb97c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceIron_06 (1×1)
+  [0xe5c37f30, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGrandlight (1×1)
+  [0xe5da8d17, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjRock_01 (1×1)
+  [0xe64b9aa7, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjClockTower_05 (1×1)
+  [0xe788268d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceLattice_03 (1×1)
+  [0xe828641c, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerSunflowers (1×1)
+  [
+    0xe8366039,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchPark_06 (2×1)
+  [
+    0xe8c2afb9,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchTerrace_04 (2×1)
+  [0xe9edbef6, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjShowerOutdoor_02 (1×1)
+  [0xea143e9d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjVendingMachine_05 (1×1)
+  [0xeab6c014, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjPinwheel (1×1)
+  [0xeaddf790, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceStake_06 (1×1)
+  [0xeb7b494e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBell_06 (1×1)
+  [0xebace20b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjLanternSakura_05 (1×1)
+  [0xec6ad06f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjPinwheel_06 (1×1)
+  [0xed687f1e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceLattice_02 (1×1)
+  [0xee79f224, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFireworksAerial_02 (1×1)
+  [
+    0xef367ada,
+    {
+      x0: -1,
+      y0: -1,
+      w: 3,
+      h: 4,
+      goalX: 0,
+      goalY: 2,
+      reserved: [
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+      ],
+    },
+  ], // HouseOneRoom (3×4)
+  [0xef56842d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLampRetro_03 (1×1)
+  [0xef9a1dc1, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceLattice (1×1)
+  [0xefa370e9, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerCosmos (1×1)
+  [
+    0xf003e9c0,
+    {
+      x0: -1,
+      y0: -1,
+      w: 4,
+      h: 4,
+      goalX: 1,
+      goalY: 2,
+      reserved: [
+        [-1, 3],
+        [0, 3],
+        [1, 3],
+        [2, 3],
+      ],
+    },
+  ], // FacilityPawnShop (4×4)
+  [
+    0xf045992a,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjJackOLantern_07 (2×1)
+  [0xf082e4ca, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjBeachParasol (1×1)
+  [0xf27eda3f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceWood (1×1)
+  [0xf4b09c49, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjClockTower (1×1)
+  [0xf4fac611, { x0: 0, y0: 0, w: 4, h: 5, goalX: null, goalY: null, reserved: [] }], // ObjSignboardTutorial_01 (4×5)
+  [0xf57069ca, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjStreetLampRetro (1×1)
+  [0xf57fa3a5, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjClockTower_04 (1×1)
+  [0xf5a8c105, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceIron (1×1)
+  [0xf603348e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjTrashCan_06 (1×1)
+  [0xf698e38b, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFlowerAnemone (1×1)
+  [0xf6ec924d, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceChain_01 (1×1)
+  [0xf767c92e, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceIron_01 (1×1)
+  [
+    0xf8ace4c7,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjBenchPark_04 (2×1)
+  [0xf9e9dd00, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [[0, 1]] }], // ObjThrone_06 (1×1)
+  [0xfb12ee2f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjClockTower_02 (1×1)
+  [0xfcc93164, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceGuardpipe_01 (2×1)
+  [0xfd0ccb79, { x0: 0, y0: 0, w: 2, h: 2, goalX: null, goalY: null, reserved: [] }], // ObjLighthouse_03 (2×2)
+  [0xfd670658, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjSafetyCone_06 (1×1)
+  [0xfd7240b3, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceWood_04 (1×1)
+  [0xfe462c1f, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjDrinkingFountain_03 (1×1)
+  [0xfeb03bcb, { x0: 0, y0: 0, w: 2, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjGuardrail (2×1)
+  [0xfeccbdce, { x0: 0, y0: 0, w: 1, h: 1, goalX: null, goalY: null, reserved: [] }], // ObjFenceBarbed_07 (1×1)
+  [
+    0xffbee148,
+    {
+      x0: 0,
+      y0: 0,
+      w: 2,
+      h: 1,
+      goalX: null,
+      goalY: null,
+      reserved: [
+        [0, 1],
+        [1, 1],
+      ],
+    },
+  ], // ObjSeesaw_01 (2×1)
 ]);

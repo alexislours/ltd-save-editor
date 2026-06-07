@@ -3,7 +3,7 @@
   import { floorTiles, indexFromXY } from '$lib/map/state/mapEditor.svelte';
   import { mapSave } from '$lib/map/state/mapSave.svelte';
   import { tileKeyForHash } from '$lib/map/tiles/tiles';
-  import { hexU32 } from '$lib/sav/format';
+  import { hexU32 } from '@alexislours/ltd-savedata';
   import { selection } from '../tools/selection.svelte';
   import { tileSelection } from '../tools/tileSelection.svelte';
   import { floorBaseline } from '../state/baseline.svelte';

@@ -1,9 +1,12 @@
-import { DataType } from '$lib/sav/dataType';
-import { hexU32 } from '$lib/sav/format';
-import { decodeValue } from '$lib/sav/materialized/decode';
-import { buildHashMap, buildPathMap } from '$lib/sav/materialized/schemaIndex';
-import type { DecodedSave } from '$lib/sav/materialized/types';
-import type { SchemaLeaf } from '$lib/sav/schema/leaf';
+import {
+  DataType,
+  hexU32,
+  decodeValue,
+  buildHashMap,
+  buildPathMap,
+  type DecodedSave,
+} from '@alexislours/ltd-savedata';
+import type { SchemaLeaf } from '@alexislours/ltd-savedata/schema';
 import { valuesEqual } from './valueFormat';
 
 export type DiffStatus = 'changed' | 'added' | 'removed';

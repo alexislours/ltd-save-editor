@@ -1,6 +1,6 @@
 import { allCloths, clothLabel } from '$lib/sav/lists/clothList.svelte';
 import { allFoods, foodLabel } from '$lib/sav/lists/foodList.svelte';
-import { murmur3_x86_32 } from '$lib/sav/hash';
+import { murmur3_x86_32 } from '@alexislours/ltd-savedata';
 import { allTreasures, treasureLabel } from '$lib/sav/lists/treasureList.svelte';
 
 type ClothEntry = { hash: number; index: number; label: string };

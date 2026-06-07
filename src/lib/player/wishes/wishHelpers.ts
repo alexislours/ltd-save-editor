@@ -1,5 +1,5 @@
 import type { PlayerAccessor } from '$lib/player/playerEditor.svelte';
-import { PLAYER_SCHEMA } from '$lib/sav/schema';
+import { PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
 
 const ID_LEAF = PLAYER_SCHEMA.Liberation.WishInfo.WishIdValue;
 const LIB_LEAF = PLAYER_SCHEMA.Liberation.WishInfo.IsLiberated;
