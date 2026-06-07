@@ -1,6 +1,6 @@
 {
   "name": "@alexislours/ltd-sharemii",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "exports": {
     ".": "./src/index.ts"
   },
@@ -8,11 +8,6 @@
     "@alexislours/ltd-savedata": "npm:@alexislours/ltd-savedata@^1.0.0"
   },
   "publish": {
-    "exclude": [
-      "**/*.test.ts",
-      "dist",
-      "tsup.config.ts",
-      "vitest.config.ts"
-    ]
+    "exclude": ["**/*.test.ts", "dist", "tsup.config.ts", "vitest.config.ts"]
   }
 }
