@@ -1,6 +1,10 @@
 # @alexislours/ltd-sharemii
 
-[![npm](https://img.shields.io/npm/v/@alexislours/ltd-sharemii)](https://www.npmjs.com/package/@alexislours/ltd-sharemii) [![ci](https://img.shields.io/github/actions/workflow/status/alexislours/ltd-save-editor/packages-ci.yml?branch=dev&label=ci)](https://github.com/alexislours/ltd-save-editor/actions/workflows/packages-ci.yml) [![license](https://img.shields.io/npm/l/@alexislours/ltd-sharemii)](./LICENSE)
+<div align="center">
+  <a href="https://www.npmjs.com/package/@alexislours/ltd-sharemii"><img alt="npm" src="https://img.shields.io/npm/v/@alexislours/ltd-sharemii?style=for-the-badge&logo=npm"></a>
+  <a href="https://github.com/alexislours/ltd-save-editor/actions/workflows/packages-ci.yml"><img alt="ci" src="https://img.shields.io/github/actions/workflow/status/alexislours/ltd-save-editor/packages-ci.yml?branch=dev&label=ci&style=for-the-badge&logo=githubactions"></a>
+  <a href="./LICENSE"><img alt="license" src="https://img.shields.io/npm/l/@alexislours/ltd-sharemii?style=for-the-badge&logo=gnu"></a>
+</div>
 
 Codec for the game's Mii and UGC (user-generated content) share format. Extracts a Mii or a UGC item (clothing, food, goods, painting, ...) out of a parsed save into a portable share file, and applies a share file back into a save. Depends only on [`@alexislours/ltd-savedata`](../ltd-savedata).
 

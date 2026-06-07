@@ -1,6 +1,10 @@
 # @alexislours/ltd-savedata
 
-[![npm](https://img.shields.io/npm/v/@alexislours/ltd-savedata)](https://www.npmjs.com/package/@alexislours/ltd-savedata) [![ci](https://img.shields.io/github/actions/workflow/status/alexislours/ltd-save-editor/packages-ci.yml?branch=dev&label=ci)](https://github.com/alexislours/ltd-save-editor/actions/workflows/packages-ci.yml) [![license](https://img.shields.io/npm/l/@alexislours/ltd-savedata)](./LICENSE)
+<div align="center">
+  <a href="https://www.npmjs.com/package/@alexislours/ltd-savedata"><img alt="npm" src="https://img.shields.io/npm/v/@alexislours/ltd-savedata?style=for-the-badge&logo=npm"></a>
+  <a href="https://github.com/alexislours/ltd-save-editor/actions/workflows/packages-ci.yml"><img alt="ci" src="https://img.shields.io/github/actions/workflow/status/alexislours/ltd-save-editor/packages-ci.yml?branch=dev&label=ci&style=for-the-badge&logo=githubactions"></a>
+  <a href="./LICENSE"><img alt="license" src="https://img.shields.io/npm/l/@alexislours/ltd-savedata?style=for-the-badge&logo=gnu"></a>
+</div>
 
 Reader, writer, and reverse-engineered field schema for the game's binary `.sav` save format. Zero runtime dependencies.
 
