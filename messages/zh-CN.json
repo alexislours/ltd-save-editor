@@ -752,6 +752,11 @@
       "unhoused_section": "无家可归（{count}）"
     },
     "panel": {
+      "delete_button": "删除 Mii",
+      "delete_confirm_body": "{name} 将从此存档中被永久移除，与其相关的所有关系、亲属关系和进行中的事件也会一并删除。此操作无法撤销（除非重新加载原始存档）。",
+      "delete_confirm_title": "删除此 Mii？",
+      "delete_done": "已删除 {name}。",
+      "delete_needs_map": "删除前请同时加载 Map.sav 和 Player.sav，以保持房屋、房间、新闻和历史记录同步。",
       "fix_zero_charinfoex": "你的存档似乎已损坏——Mii.CharInfoEx（Mii 的形象设计）中的所有条目都为空。如果你想抢救存档，存档编辑器可以用默认的 Mii 设计替换它们。",
       "fix_zero_charinfoex_button": "继续",
       "fix_zero_charinfoex_done": "{count, plural, one {已替换 # 位 Mii 的形象设计} other {已替换 # 位 Mii 的形象设计}}。",

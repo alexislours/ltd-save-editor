@@ -1,6 +1,11 @@
 import { murmur3_x86_32 } from '$lib/sav/hash';
 import type { MiiAccessor } from '$lib/mii/miiEditor.svelte';
-import { clearTroubleField, TARGET_FIELD_KEYS, TROUBLE_FIELDS } from './troubleFields';
+import {
+  clearTroubleField,
+  clearTroubleSlot,
+  TARGET_FIELD_KEYS,
+  TROUBLE_FIELDS,
+} from './troubleFields';
 import { nowSeconds } from './troubleTime';
 
 type FightSpec = { hash: number; endMinute: number };
@@ -49,20 +54,6 @@ function targetMiiOf(mii: MiiAccessor, miiIndex: number): number {
     return mii.getElement(f.leaf, miiIndex * f.perMii) as number;
   } catch {
     return -1;
-  }
-}
-
-function clearTroubleSlot(mii: MiiAccessor, host: number): void {
-  if (mii.has(TROUBLE_FIELDS.id.leaf)) mii.setElement(TROUBLE_FIELDS.id.leaf, host, 0);
-  for (const fk of TARGET_FIELD_KEYS) clearTroubleField(mii, host, fk);
-  if (mii.has(TROUBLE_FIELDS.nextGameTime.leaf)) {
-    mii.setElement(TROUBLE_FIELDS.nextGameTime.leaf, host, 0n);
-  }
-  if (mii.has(TROUBLE_FIELDS.endGameTime.leaf)) {
-    mii.setElement(TROUBLE_FIELDS.endGameTime.leaf, host, 0n);
-  }
-  if (mii.has(TROUBLE_FIELDS.isFirstDemoDone.leaf)) {
-    mii.setElement(TROUBLE_FIELDS.isFirstDemoDone.leaf, host, false);
   }
 }
 

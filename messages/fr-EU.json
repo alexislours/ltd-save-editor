@@ -752,6 +752,11 @@
       "unhoused_section": "Sans logement ({count})"
     },
     "panel": {
+      "delete_button": "Supprimer le Mii",
+      "delete_confirm_body": "{name} sera définitivement retiré de cette sauvegarde, ainsi que toutes ses relations, ses liens familiaux et les évènements en cours le concernant. Cette action est irréversible (sauf en rechargeant la sauvegarde d'origine).",
+      "delete_confirm_title": "Supprimer ce Mii ?",
+      "delete_done": "{name} supprimé.",
+      "delete_needs_map": "Charge aussi Map.sav et Player.sav avant de supprimer, pour que les maisons, les pièces, les actus et l'historique restent synchronisés.",
       "fix_zero_charinfoex": "Ta sauvegarde semble corrompue : toutes les entrées de Mii.CharInfoEx (le design des Miis) sont vides. L'éditeur peut les remplacer par un design de Mii par défaut si tu essaies de récupérer une sauvegarde.",
       "fix_zero_charinfoex_button": "Continuer",
       "fix_zero_charinfoex_done": "{count, plural, one {Design remplacé pour # Mii.} other {Designs remplacés pour # Miis.}}",
