@@ -16,7 +16,7 @@ Portable core. Supply the wasm bytes however your environment loads them:
 import { createUgcWasm } from '@alexislours/ltd-textures';
 
 const wasm = await createUgcWasm({
-  wasm: fetch(new URL('@alexislours/ltd-textures/ugc.wasm', import.meta.url)),
+  wasm: fetch(import.meta.resolve('@alexislours/ltd-textures/ugc.wasm')),
 });
 const rgba = wasm.bc3Decode(blocks, width, height);
 ```
