@@ -266,13 +266,23 @@ function writeVector2(
   });
 }
 
+/** Summary of one UGC slot for slot-picker UIs. */
 export type UgcSlotInfo = {
+  /** One-based slot number. */
   slot: number;
+  /** Whether the slot holds no item. */
   empty: boolean;
+  /** The item's display name, or `''` when empty. */
   name: string;
+  /** Whether this is the single trailing "add new" placeholder rather than an existing item. */
   isAddNew: boolean;
 };
 
+/**
+ * List the UGC slots of `kind` that hold an item, plus one trailing "add new"
+ * placeholder. Occupancy is judged from `sidecar` files when present, otherwise
+ * from filled name fields in the save.
+ */
 export function listUgcSlots(
   saves: PlayerOnlySaves,
   kind: UgcKind,
@@ -306,13 +316,23 @@ export function listUgcSlots(
   return out;
 }
 
+/** Result of {@link extractUgc}: the share file plus the three texture files that belong with it. */
 export type ExtractUgcResult = {
+  /** The encoded `.ltd*` UGC share file. */
   bytes: Uint8Array;
+  /** Suggested download file name, derived from the item's name and its {@link UgcKind} extension. */
   fileName: string;
+  /** The item's display name. */
   itemName: string;
+  /** Canvas, UGC, and thumbnail sidecar files for the item. */
   textures: SidecarFile[];
 };
 
+/**
+ * Read the UGC item at `slot` of `kind` and encode it as a `.ltd*` share file,
+ * bundling its canvas, UGC, and thumbnail textures from `sidecar`. Throws
+ * `ugc_missing_textures` when any of the three textures is absent.
+ */
 export function extractUgc(
   saves: PlayerOnlySaves,
   slot: number,
@@ -379,10 +399,19 @@ export function extractUgc(
   };
 }
 
+/** Result of {@link applyUgc}: the texture files the caller must persist alongside the save. */
 export type ApplyUgcResult = {
+  /** Canvas, UGC, and thumbnail files to write; already merged into a writable `sidecar`. */
   textureWrites: SidecarFile[];
 };
 
+/**
+ * Decode a `.ltd*` UGC share file and write it into `slot` of `kind`. When
+ * `isAdding` is true the slot is initialized (enable flag, texture source, and
+ * content id) rather than overwritten in place. Throws on a kind mismatch, an
+ * out-of-range slot, a subtype mismatch (Cloth/Goods replacement), or attempting
+ * to replace an Exterior/MapObject.
+ */
 export function applyUgc(
   saves: PlayerOnlySaves,
   slot: number,
