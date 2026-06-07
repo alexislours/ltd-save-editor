@@ -3,5 +3,6 @@ dist
 node_modules
 package-lock.json
 *.svg
+packages/*/CHANGELOG.md
 packages/ltd-textures/assembly
 packages/ltd-textures/build
