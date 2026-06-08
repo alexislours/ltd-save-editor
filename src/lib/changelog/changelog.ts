@@ -6,6 +6,13 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.11.1',
+    date: '2026-06-08',
+    changes: [
+      'Noted in the Mii delete confirmation that deleting requires replacing Player.sav, Mii.sav, and Map.sav.',
+    ],
+  },
+  {
     version: '2.11.0',
     date: '2026-06-07',
     changes: [
