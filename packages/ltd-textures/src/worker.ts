@@ -1,3 +1,12 @@
+/**
+ * Worker entrypoint for the BC1/BC3 encode thread pool. Load this module as a
+ * web `Worker` or `node:worker_threads` worker and feed it to a
+ * {@link createUgcWasm} `createWorker` factory; it instantiates `ugc.wasm` on an
+ * `init` message and replies to `encode` messages with packed blocks. It exposes
+ * no importable symbols and is not meant to be called directly.
+ *
+ * @module
+ */
 export {};
 
 interface WasmEncodeExports {

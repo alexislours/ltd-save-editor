@@ -12,6 +12,7 @@ import {
 import { decodeUtf16Name, encodeUtf16Name, sanitizeFileName } from './utf16.js';
 import { EMPTY_SIDECAR, type SidecarFile, type SidecarSource } from './sidecar.js';
 
+/** Number of regular Mii slots in a save, not counting the in-progress (temp) Mii exposed as slot 0. */
 export const MII_SLOTS = 70;
 const MII_BLOCK_LEN = 156;
 const MII_DATA_LEN = 152;
@@ -30,6 +31,7 @@ function unwrapMiiBlock(block: Uint8Array): Uint8Array {
 const FP_TEX_SRC_USED = 0x56934941 | 0;
 const FP_TEX_SRC_UNUSED = 0xb6eede09 | 0;
 const FP_STATE_USED = 0x1d7fadf4 | 0;
+/** Facepaint `state` enum value marking a slot as unused; an in-progress Mii's facepaint exists only when its state differs from this. */
 export const FP_STATE_UNUSED = 0xafff8aa5 | 0;
 const FP_UNKNOWN_USED = 0x00008000 | 0;
 const FP_UNKNOWN_UNUSED = 0x00000000 | 0;
@@ -136,12 +138,17 @@ function setPersonalityElement(
   else mii.setElement(leaf, i, v >>> 0);
 }
 
+/** Summary of one Mii slot for slot-picker UIs. */
 export type MiiSlotInfo = {
+  /** Slot number; `0` is the in-progress (temp) Mii, `1` through {@link MII_SLOTS} are the saved Miis. */
   slot: number;
+  /** Whether the slot holds no Mii. */
   empty: boolean;
+  /** The Mii's display name, or `''` when the slot is empty. */
   name: string;
 };
 
+/** List all Mii slots, including the in-progress Mii at slot 0, with their occupancy and names. */
 export function listMiiSlots(saves: MiiSaves): MiiSlotInfo[] {
   const out: MiiSlotInfo[] = [];
   out.push({ slot: 0, empty: false, name: 'In-Progress Mii' });
@@ -191,13 +198,23 @@ function writeMiiBlock(saves: MiiSaves, isTemp: boolean, slotIdx: number, block:
   }
 }
 
+/** Result of {@link extractMii}: the share file plus any facepaint textures to save next to it. */
 export type ExtractMiiResult = {
+  /** The encoded `.ltd` Mii share file. */
   bytes: Uint8Array;
+  /** Suggested download file name, derived from the Mii's name. */
   fileName: string;
+  /** The Mii's display name (`'Mii'` for the in-progress Mii). */
   miiName: string;
+  /** Facepaint canvas and texture sidecar files, empty when the Mii has no facepaint or its textures were not provided. */
   facepaint: SidecarFile[];
 };
 
+/**
+ * Read the Mii at `slot` (0 for the in-progress Mii) and encode it as a `.ltd`
+ * share file, pulling any facepaint textures from `sidecar`. Throws
+ * `mii_not_initialized` for an empty slot.
+ */
 export function extractMii(
   saves: MiiSaves,
   slot: number,
@@ -291,10 +308,18 @@ export function extractMii(
   };
 }
 
+/** Result of {@link applyMii}: facepaint texture files the caller must persist alongside the save. */
 export type ApplyMiiResult = {
+  /** Facepaint canvas and texture files to write; already merged into a writable `sidecar`, empty when the Mii has no facepaint. */
   facepaintWrites: SidecarFile[];
 };
 
+/**
+ * Decode a `.ltd` Mii share file and write it into `slot` (0 for the in-progress
+ * Mii), allocating or releasing a facepaint slot as needed and restoring name,
+ * personality, and sexuality for v2+ files. Throws `mii_not_initialized` when
+ * targeting an empty saved slot, or `no_free_facepaint_slot` when none is free.
+ */
 export function applyMii(
   saves: MiiSaves,
   slot: number,

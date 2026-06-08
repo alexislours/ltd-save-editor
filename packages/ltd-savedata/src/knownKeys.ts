@@ -62,11 +62,15 @@ function schemaEnumValueNames(): ReadonlyMap<number, string> {
   return merged;
 }
 
-// Public API: hash → name, for labelling entries.
+/**
+ * Resolve an {@link Entry} hash to a human-readable field path, using the curated
+ * key list and the bundled schemas. Returns `null` for unrecognised hashes.
+ */
 export function nameForHash(hash: number): string | null {
   return KNOWN_BY_HASH.get(hash)?.name ?? schemaPaths().get(hash) ?? null;
 }
 
+/** A selectable value for an enum leaf: its name hash, raw name, and optional display label. */
 export type EnumOption = { hash: number; name: string; label?: string };
 
 const ENUM_OPTION_LABELS: ReadonlyMap<number, ReadonlyMap<string, string>> = new Map(
@@ -96,6 +100,7 @@ const ENUM_OPTION_LABELS: ReadonlyMap<number, ReadonlyMap<string, string>> = new
   ).map(([key, m]) => [murmur3_x86_32(key) >>> 0, new Map(Object.entries(m))]),
 );
 
+/** List the {@link EnumOption}s a given enum key accepts, or `null` if the key has no known options. */
 export function enumOptionsFor(keyHash: number): EnumOption[] | null {
   const names = schemaEnumOptions().get(keyHash);
   if (!names) return null;
@@ -108,6 +113,7 @@ export function enumOptionsFor(keyHash: number): EnumOption[] | null {
   });
 }
 
+/** Resolve an enum value hash back to its raw name, or `null` if unknown. */
 export function enumOptionName(valueHash: number): string | null {
   return schemaEnumValueNames().get(valueHash) ?? null;
 }

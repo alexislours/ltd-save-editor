@@ -25,6 +25,11 @@ import type { Entry, SavFile } from '../types.js';
 import { buildHashMap } from './schemaIndex.js';
 import type { DecodedSave } from './types.js';
 
+/**
+ * Re-encode a {@link DecodedSave} into a {@link SavFile}, following its `plan` to
+ * restore entry order: known values are rebuilt from the schema and unknown
+ * entries are passed through unchanged. The inverse of {@link decode}.
+ */
 export function encode(schema: object, decoded: DecodedSave): SavFile {
   const plan = decoded.plan;
   const hashMap = buildHashMap(schema);

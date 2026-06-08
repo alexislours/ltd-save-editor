@@ -13,6 +13,7 @@ const PRIM_SIZE: Record<PrimKind, number> = {
   f64: 8,
 };
 
+/** Total byte size of a {@link FieldType}, recursing through arrays, structs, and bitfields. */
 export function sizeOf(type: FieldType): number {
   switch (type.kind) {
     case 'prim':
@@ -51,6 +52,11 @@ function writeUintN(dv: DataView, offset: number, byteLen: number, value: number
   }
 }
 
+/**
+ * Write a `bitWidth`-bit field into a little-endian container of `containerBytes`
+ * starting at `containerOffset`, leaving the surrounding bits untouched. `value`
+ * is masked to the field width.
+ */
 export function writeBits(
   dv: DataView,
   containerOffset: number,
@@ -93,6 +99,7 @@ function readPrim(dv: DataView, offset: number, prim: PrimKind): number | bigint
   }
 }
 
+/** Write a primitive value of kind `prim` at `offset` (little-endian), coercing `value` to the right width. */
 export function writePrim(
   dv: DataView,
   offset: number,
@@ -123,10 +130,12 @@ export function writePrim(
   }
 }
 
+/** Whether `prim` is a floating-point kind (`f32` or `f64`). */
 export function isFloatPrim(prim: PrimKind): boolean {
   return prim === 'f32' || prim === 'f64';
 }
 
+/** Inclusive value range of an integer primitive, or `null` for 64-bit and float kinds. */
 export function primRange(prim: PrimKind): { min: number; max: number } | null {
   switch (prim) {
     case 'u8':
@@ -153,6 +162,7 @@ function readChars(dv: DataView, offset: number, len: number): string {
   return new TextDecoder('utf-8').decode(view.subarray(0, end));
 }
 
+/** Write `text` as UTF-8 into a fixed `len`-byte field at `offset`, NUL-padding and truncating on a character boundary. */
 export function writeChars(dv: DataView, offset: number, len: number, text: string): void {
   const out = new Uint8Array(dv.buffer, dv.byteOffset + offset, len);
   out.fill(0);
@@ -179,6 +189,7 @@ function readChars16(dv: DataView, offset: number, units: number): string {
   return out;
 }
 
+/** Write `text` as UTF-16LE into a fixed `units`-code-unit field at `offset`, NUL-padding the remainder. */
 export function writeChars16(dv: DataView, offset: number, units: number, text: string): void {
   for (let i = 0; i < units; i++) {
     dv.setUint16(offset + i * 2, i < text.length ? text.charCodeAt(i) : 0, true);
@@ -341,6 +352,7 @@ function decodeBitfieldAt(
   return node;
 }
 
+/** Decode `bytes` according to a {@link StructDef} into a {@link DecodedNode} tree, applying any field codecs and formatters. */
 export function decodeStruct(def: StructDef, bytes: Uint8Array): DecodedNode {
   const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
   return decodeStructAt(def, dv, 0, def.name, '');

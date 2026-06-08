@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.0.2](https://github.com/alexislours/ltd-save-editor/compare/ltd-sharemii-v1.0.1...ltd-sharemii-v1.0.2) (2026-06-08)
+
+
+### Bug Fixes
+
+* **ltd-savedata:** document public API surface for JSR doc coverage ([f4e5cc2](https://github.com/alexislours/ltd-save-editor/commit/f4e5cc24b6c518510ddc07f97d266b1f665e982e))
+* **ltd-sharemii:** document public API surface for JSR doc coverage ([2d7f214](https://github.com/alexislours/ltd-save-editor/commit/2d7f21497230015d617393b62a794ecad3d28c2c))
+
+## [1.0.1](https://github.com/alexislours/ltd-save-editor/compare/ltd-sharemii-v1.0.0...ltd-sharemii-v1.0.1) (2026-06-07)
+
+
+### Bug Fixes
+
+* add explicit public API types for JSR slow-type compliance ([cc9d8a0](https://github.com/alexislours/ltd-save-editor/commit/cc9d8a0bd83c87d506f9ed4ac2087e18154be3d6))
+
 ## [1.0.0](https://github.com/alexislours/ltd-save-editor/compare/ltd-sharemii-v1.0.0...ltd-sharemii-v1.0.0) (2026-06-07)
 
 

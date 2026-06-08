@@ -19,6 +19,11 @@ const BY_HASH = new Map<number, StructDef>([
   [0xafa5024a, NAME_SET_BIN],
 ]);
 
+/**
+ * Look up the {@link StructDef} for a binary entry by its leaf hash, returning
+ * `null` when there is no known layout or when `byteLength` is too small to hold
+ * the struct.
+ */
 export function structForHash(hash: number, byteLength: number): StructDef | null {
   const def = BY_HASH.get(hash >>> 0);
   if (!def) return null;
@@ -31,6 +36,7 @@ const CODEC_BY_HASH = new Map<number, Codec>([
   ...DURATION_LEAF_HASHES.map((h): [number, Codec] => [h, durationSeconds]),
 ]);
 
+/** Look up the value {@link Codec} for a leaf hash (e.g. epoch or duration formatting), or `null` if none applies. */
 export function codecForHash(hash: number): Codec | null {
   return CODEC_BY_HASH.get(hash >>> 0) ?? null;
 }

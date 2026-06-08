@@ -1,0 +1,23 @@
+{
+  "name": "@alexislours/ltd-textures",
+  "version": "1.0.1",
+  "exports": {
+    ".": "./src/index.ts",
+    "./browser": "./src/browser.ts",
+    "./worker": "./src/worker.ts"
+  },
+  "publish": {
+    "include": [
+      "src",
+      "build/ugc.wasm",
+      "README.md",
+      "LICENSE",
+      "CHANGELOG.md",
+      "jsr.json",
+      "package.json"
+    ],
+    "exclude": [
+      "**/*.test.ts"
+    ]
+  }
+}

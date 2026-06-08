@@ -68,7 +68,7 @@
   </div>
 
   <div class="px-6 py-5">
-    <p class="text-sm text-content">{body}</p>
+    <p class="whitespace-pre-line text-sm text-content">{body}</p>
   </div>
 
   <div class="flex justify-end gap-2 border-t border-edge/40 bg-surface-muted/40 px-6 py-3">

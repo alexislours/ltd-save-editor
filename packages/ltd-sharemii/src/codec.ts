@@ -11,7 +11,13 @@ const MARK_UGC = new Uint8Array([0xa4, 0xa4, 0xa4, 0xa4]);
 const MARK_NAME = new Uint8Array([0xa2, 0xa2, 0xa2, 0xa2]);
 const MARK_THUMB = new Uint8Array([0xa5, 0xa5, 0xa5, 0xa5]);
 
+/**
+ * Decoded contents of a `.ltd` Mii share file: the raw Mii block plus the
+ * personality, name, pronunciation, and sexuality payloads, and the optional
+ * facepaint canvas/UGC textures. Always normalized to the v3 layout when decoded.
+ */
 export type LtdMii = {
+  /** File format version of this in-memory record (always 3 after decode). */
   version: number;
   /** Original version from the file before upgradeToV3; v1 has no personality data. */
   originalVersion: number;
@@ -26,6 +32,11 @@ export type LtdMii = {
   ugcTex: Uint8Array;
 };
 
+/**
+ * Serialize a {@link LtdMii} into the v3 `.ltd` byte layout. Throws a plain
+ * `Error` if any fixed-width payload (Mii block, personality, name, pronunciation,
+ * sexuality) is the wrong length.
+ */
 export function encodeLtdMii(m: LtdMii): Uint8Array {
   if (m.miiBlock.byteLength !== MII_BLOCK) throw new Error('miiBlock must be 156 bytes');
   if (m.personality.byteLength !== PERSONALITY_LEN) throw new Error('personality must be 72 bytes');
@@ -70,6 +81,11 @@ export function encodeLtdMii(m: LtdMii): Uint8Array {
   return out;
 }
 
+/**
+ * Parse a `.ltd` Mii share file, upgrading v1/v2 payloads to the v3 layout in the
+ * process. Throws a {@link ShareMiiError} for truncated data, an unsupported
+ * version, or a missing section marker.
+ */
 export function decodeLtdMii(bytes: Uint8Array): LtdMii {
   if (bytes.byteLength < 4) throw new ShareMiiError('invalid_ltd_file');
   let buf: Uint8Array = new Uint8Array(bytes);
@@ -172,7 +188,13 @@ function lastFindMarkerArr(buf: number[], marker: number[]): number {
   return -1;
 }
 
+/**
+ * Fully-structured source for encoding a `.ltd*` UGC share file, with each field
+ * group separated out. Used to build a share file from save data; decoding instead
+ * yields the coarser {@link LtdUgcSection}.
+ */
 export type LtdUgc = {
+  /** Index of the {@link UgcKind} this item belongs to, written into the file header. */
   kindIndex: number;
   fields: Uint8Array;
   vector: Uint8Array;
@@ -186,6 +208,11 @@ export type LtdUgc = {
   thumbTex: Uint8Array;
 };
 
+/**
+ * Serialize a {@link LtdUgc} into the `.ltd*` UGC byte layout, concatenating the
+ * header, scalar fields, vectors, name block, and the three texture sections
+ * behind their respective markers. Goods carry two extra name strings.
+ */
 export function encodeLtdUgc(u: LtdUgc): Uint8Array {
   const ltdHeader = new Uint8Array([u.kindIndex & 0xff, 0, 0, 0]);
   const namesBlock = u.goodsText
@@ -208,7 +235,13 @@ export function encodeLtdUgc(u: LtdUgc): Uint8Array {
   );
 }
 
+/**
+ * Decoded `.ltd*` UGC share file split at its section markers. The scalar fields,
+ * vectors, and name strings are left as opaque byte runs ({@link LtdUgcSection.fieldsAndVectors},
+ * {@link LtdUgcSection.namesBlock}) for the applier to slice per {@link UgcKind}.
+ */
 export type LtdUgcSection = {
+  /** Index of the {@link UgcKind} read from the file header. */
   kindIndex: number;
   fieldsAndVectors: Uint8Array;
   namesBlock: Uint8Array;
@@ -217,6 +250,11 @@ export type LtdUgcSection = {
   thumbTex: Uint8Array;
 };
 
+/**
+ * Parse a `.ltd*` UGC share file into its {@link LtdUgcSection} parts by locating
+ * the name, canvas, UGC, and thumbnail markers. Throws a {@link ShareMiiError} on
+ * truncated data or any missing marker.
+ */
 export function decodeLtdUgc(bytes: Uint8Array): LtdUgcSection {
   if (bytes.byteLength < 4) throw new ShareMiiError('invalid_ltd_file');
   const kindIndex = bytes[0];

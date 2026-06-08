@@ -1,5 +1,10 @@
 import { Bc1Mode } from './types.js';
 
+/**
+ * The minimal subset of the DOM/Node `Worker` surface the thread pool relies on.
+ *
+ * Both the browser `Worker` and a `node:worker_threads` adapter satisfy this shape.
+ */
 export type WorkerLike = {
   postMessage(msg: unknown, transfer?: Transferable[]): void;
   onmessage: ((e: MessageEvent) => void) | null;
@@ -8,6 +13,11 @@ export type WorkerLike = {
   terminate(): void;
 };
 
+/**
+ * Factory that spawns a fresh worker running the package's `worker` entrypoint.
+ *
+ * Supplying this to {@link createUgcWasm} enables the multi-threaded encode paths.
+ */
 export type CreateWorker = () => WorkerLike;
 
 type WorkerHandle = {
@@ -22,6 +32,11 @@ type WorkerMessage =
   | { type: 'done'; id: number; blocks: ArrayBuffer }
   | { type: 'error'; id?: number; error: string };
 
+/**
+ * A pool of encode workers that splits a texture into horizontal stripes and
+ * encodes them in parallel. Created internally by {@link createUgcWasm} when a
+ * {@link CreateWorker} factory is provided.
+ */
 export type ThreadPool = {
   bc1Encode(
     linRgba: Float32Array,

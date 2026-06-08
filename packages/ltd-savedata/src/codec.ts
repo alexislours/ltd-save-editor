@@ -1,39 +1,47 @@
 import { DataType, isInline, stringCapacity } from './dataType.js';
 import type { Entry } from './types.js';
 
+/** Read a {@link DataType.Bool} entry's value. Throws if `e` is not that type. */
 export function getBool(e: Entry): boolean {
   assertType(e, DataType.Bool);
   return ((e.inlineRaw ?? 0) & 0xff) !== 0;
 }
+/** Write a {@link DataType.Bool} entry's value. Throws if `e` is not that type. */
 export function setBool(e: Entry, v: boolean): void {
   assertType(e, DataType.Bool);
   e.inlineRaw = v ? 1 : 0;
 }
 
+/** Read a {@link DataType.Int} entry's signed 32-bit value. Throws on type mismatch. */
 export function getInt(e: Entry): number {
   assertType(e, DataType.Int);
   return (e.inlineRaw ?? 0) | 0;
 }
+/** Write a {@link DataType.Int} entry's signed 32-bit value. Throws on type mismatch. */
 export function setInt(e: Entry, v: number): void {
   assertType(e, DataType.Int);
   e.inlineRaw = (v | 0) >>> 0;
 }
 
+/** Read a {@link DataType.UInt} entry's unsigned 32-bit value. Throws on type mismatch. */
 export function getUInt(e: Entry): number {
   assertType(e, DataType.UInt);
   return (e.inlineRaw ?? 0) >>> 0;
 }
+/** Write a {@link DataType.UInt} entry's unsigned 32-bit value. Throws on type mismatch. */
 export function setUInt(e: Entry, v: number): void {
   assertType(e, DataType.UInt);
   e.inlineRaw = v >>> 0;
 }
 
+/** Read a {@link DataType.Float} entry's 32-bit float value. Throws on type mismatch. */
 export function getFloat(e: Entry): number {
   assertType(e, DataType.Float);
   const u32 = new Uint32Array(1);
   u32[0] = e.inlineRaw ?? 0;
   return new Float32Array(u32.buffer)[0];
 }
+/** Write a {@link DataType.Float} entry's 32-bit float value. Throws on type mismatch. */
 export function setFloat(e: Entry, v: number): void {
   assertType(e, DataType.Float);
   const f = new Float32Array(1);
@@ -41,38 +49,46 @@ export function setFloat(e: Entry, v: number): void {
   e.inlineRaw = new Uint32Array(f.buffer)[0];
 }
 
+/** Read a {@link DataType.Enum} entry's value as the stored name hash. Throws on type mismatch. */
 export function getEnum(e: Entry): number {
   assertType(e, DataType.Enum);
   return (e.inlineRaw ?? 0) >>> 0;
 }
+/** Write a {@link DataType.Enum} entry's value as a name hash. Throws on type mismatch. */
 export function setEnum(e: Entry, hash: number): void {
   assertType(e, DataType.Enum);
   e.inlineRaw = hash >>> 0;
 }
 
+/** Read a {@link DataType.Int64} entry's signed 64-bit value. Throws on type mismatch. */
 export function getInt64(e: Entry): bigint {
   assertType(e, DataType.Int64);
   return payloadView(e).getBigInt64(0, true);
 }
+/** Write a {@link DataType.Int64} entry's signed 64-bit value. Throws on type mismatch. */
 export function setInt64(e: Entry, v: bigint): void {
   assertType(e, DataType.Int64);
   payloadView(e).setBigInt64(0, v, true);
 }
 
+/** Read a {@link DataType.UInt64} entry's unsigned 64-bit value. Throws on type mismatch. */
 export function getUInt64(e: Entry): bigint {
   assertType(e, DataType.UInt64);
   return payloadView(e).getBigUint64(0, true);
 }
+/** Write a {@link DataType.UInt64} entry's unsigned 64-bit value. Throws on type mismatch. */
 export function setUInt64(e: Entry, v: bigint): void {
   assertType(e, DataType.UInt64);
   payloadView(e).setBigUint64(0, v, true);
 }
 
+/** Read a {@link DataType.Vector2} entry's `{ x, y }` floats. Throws on type mismatch. */
 export function getVector2(e: Entry): { x: number; y: number } {
   assertType(e, DataType.Vector2);
   const v = payloadView(e);
   return { x: v.getFloat32(0, true), y: v.getFloat32(4, true) };
 }
+/** Write a {@link DataType.Vector2} entry's `{ x, y }` floats. Throws on type mismatch. */
 export function setVector2(e: Entry, v: { x: number; y: number }): void {
   assertType(e, DataType.Vector2);
   const dv = payloadView(e);
@@ -80,6 +96,7 @@ export function setVector2(e: Entry, v: { x: number; y: number }): void {
   dv.setFloat32(4, v.y, true);
 }
 
+/** Read a {@link DataType.Vector3} entry's `{ x, y, z }` floats. Throws on type mismatch. */
 export function getVector3(e: Entry): { x: number; y: number; z: number } {
   assertType(e, DataType.Vector3);
   const v = payloadView(e);
@@ -89,6 +106,7 @@ export function getVector3(e: Entry): { x: number; y: number; z: number } {
     z: v.getFloat32(8, true),
   };
 }
+/** Write a {@link DataType.Vector3} entry's `{ x, y, z }` floats. Throws on type mismatch. */
 export function setVector3(e: Entry, v: { x: number; y: number; z: number }): void {
   assertType(e, DataType.Vector3);
   const dv = payloadView(e);
@@ -100,6 +118,7 @@ export function setVector3(e: Entry, v: { x: number; y: number; z: number }): vo
 const NARROW_STRINGS = new Set([DataType.String16, DataType.String32, DataType.String64]);
 const WIDE_STRINGS = new Set([DataType.WString16, DataType.WString32, DataType.WString64]);
 
+/** Read a scalar string entry (UTF-8 `String*` or UTF-16 `WString*`), trimmed at the first NUL. Throws if not a string type. */
 export function getString(e: Entry): string {
   const cap = stringCapacity(e.type);
   if (cap == null) {
@@ -125,12 +144,14 @@ export function getString(e: Entry): string {
   throw new Error(`Not a string type: ${e.type}`);
 }
 
+/** Encoded byte length of `s` for string type `t`. Throws if `t` is not a string type. */
 export function stringEncodedSize(t: DataType, s: string): number {
   if (NARROW_STRINGS.has(t)) return new TextEncoder().encode(s).byteLength;
   if (WIDE_STRINGS.has(t)) return s.length * 2;
   throw new Error(`Not a string type: ${t}`);
 }
 
+/** Write a scalar string entry, encoding into its fixed capacity. Throws if not a string type or `s` exceeds capacity. */
 export function setString(e: Entry, s: string): void {
   const cap = stringCapacity(e.type);
   if (cap == null) {
@@ -168,11 +189,13 @@ function encodeStringFixed(t: DataType, s: string, capacity: number): Uint8Array
   throw new Error(`Not a string type: ${t}`);
 }
 
+/** Number of elements in an array entry, read from its length prefix (0 if empty). */
 export function arrayCount(e: Entry): number {
   if (!e.payload || e.payload.byteLength < 4) return 0;
   return payloadView(e).getUint32(0, true);
 }
 
+/** Byte size of one element of a fixed-stride array type, or `null` for variable or non-array types. */
 export function arrayElementSize(t: DataType): number | null {
   switch (t) {
     case DataType.IntArray:
@@ -203,6 +226,7 @@ export function arrayElementSize(t: DataType): number | null {
   }
 }
 
+/** Whether `t` is any array type. */
 export function isArrayType(t: DataType): boolean {
   return (
     t === DataType.BoolArray ||
@@ -224,6 +248,7 @@ export function isArrayType(t: DataType): boolean {
   );
 }
 
+/** Whether array type `t` supports per-index get/set (true for all except `BinaryArray`). */
 export function hasIndexedElementEditor(t: DataType): boolean {
   if (t === DataType.BoolArray) return true;
   if (t === DataType.BinaryArray) return false;
@@ -241,12 +266,14 @@ function elementView(e: Entry, i: number, sz: number): DataView {
   return new DataView(e.payload.buffer, e.payload.byteOffset + offset, sz);
 }
 
+/** Read element `i` of a {@link DataType.BoolArray}. Throws on type mismatch. */
 export function arrGetBool(e: Entry, i: number): boolean {
   assertType(e, DataType.BoolArray);
   const byte = e.payload![4 + (i >>> 3)];
   return ((byte >>> (i & 7)) & 1) === 1;
 }
 
+/** Write element `i` of a {@link DataType.BoolArray}. Throws on type mismatch. */
 export function arrSetBool(e: Entry, i: number, v: boolean): void {
   assertType(e, DataType.BoolArray);
   const byteIdx = 4 + (i >>> 3);
@@ -255,65 +282,79 @@ export function arrSetBool(e: Entry, i: number, v: boolean): void {
   else e.payload![byteIdx] &= ~bitMask;
 }
 
+/** Read element `i` of a {@link DataType.IntArray}. Throws on type mismatch or out-of-range index. */
 export function arrGetInt(e: Entry, i: number): number {
   assertType(e, DataType.IntArray);
   return elementView(e, i, 4).getInt32(0, true);
 }
+/** Write element `i` of a {@link DataType.IntArray}. Throws on type mismatch or out-of-range index. */
 export function arrSetInt(e: Entry, i: number, v: number): void {
   assertType(e, DataType.IntArray);
   elementView(e, i, 4).setInt32(0, v | 0, true);
 }
 
+/** Read element `i` of a {@link DataType.UIntArray}. Throws on type mismatch or out-of-range index. */
 export function arrGetUInt(e: Entry, i: number): number {
   assertType(e, DataType.UIntArray);
   return elementView(e, i, 4).getUint32(0, true);
 }
+/** Write element `i` of a {@link DataType.UIntArray}. Throws on type mismatch or out-of-range index. */
 export function arrSetUInt(e: Entry, i: number, v: number): void {
   assertType(e, DataType.UIntArray);
   elementView(e, i, 4).setUint32(0, v >>> 0, true);
 }
 
+/** Read element `i` of a {@link DataType.FloatArray}. Throws on type mismatch or out-of-range index. */
 export function arrGetFloat(e: Entry, i: number): number {
   assertType(e, DataType.FloatArray);
   return elementView(e, i, 4).getFloat32(0, true);
 }
+/** Write element `i` of a {@link DataType.FloatArray}. Throws on type mismatch or out-of-range index. */
 export function arrSetFloat(e: Entry, i: number, v: number): void {
   assertType(e, DataType.FloatArray);
   elementView(e, i, 4).setFloat32(0, v, true);
 }
 
+/** Read element `i` of a {@link DataType.EnumArray} as a name hash. Throws on type mismatch or out-of-range index. */
 export function arrGetEnum(e: Entry, i: number): number {
   assertType(e, DataType.EnumArray);
   return elementView(e, i, 4).getUint32(0, true);
 }
+/** Write element `i` of a {@link DataType.EnumArray} as a name hash. Throws on type mismatch or out-of-range index. */
 export function arrSetEnum(e: Entry, i: number, v: number): void {
   assertType(e, DataType.EnumArray);
   elementView(e, i, 4).setUint32(0, v >>> 0, true);
 }
 
+/** Read element `i` of a {@link DataType.Int64Array}. Throws on type mismatch or out-of-range index. */
 export function arrGetInt64(e: Entry, i: number): bigint {
   assertType(e, DataType.Int64Array);
   return elementView(e, i, 8).getBigInt64(0, true);
 }
+/** Write element `i` of a {@link DataType.Int64Array}. Throws on type mismatch or out-of-range index. */
 export function arrSetInt64(e: Entry, i: number, v: bigint): void {
   assertType(e, DataType.Int64Array);
   elementView(e, i, 8).setBigInt64(0, v, true);
 }
 
+/** Read element `i` of a {@link DataType.UInt64Array}. Throws on type mismatch or out-of-range index. */
 export function arrGetUInt64(e: Entry, i: number): bigint {
   assertType(e, DataType.UInt64Array);
   return elementView(e, i, 8).getBigUint64(0, true);
 }
+/** Write element `i` of a {@link DataType.UInt64Array}. Throws on type mismatch or out-of-range index. */
 export function arrSetUInt64(e: Entry, i: number, v: bigint): void {
   assertType(e, DataType.UInt64Array);
   elementView(e, i, 8).setBigUint64(0, v, true);
 }
 
+/** Read element `i` of a {@link DataType.Vector2Array}. Throws on type mismatch or out-of-range index. */
 export function arrGetVector2(e: Entry, i: number): { x: number; y: number } {
   assertType(e, DataType.Vector2Array);
   const v = elementView(e, i, 8);
   return { x: v.getFloat32(0, true), y: v.getFloat32(4, true) };
 }
+/** Write element `i` of a {@link DataType.Vector2Array}. Throws on type mismatch or out-of-range index. */
 export function arrSetVector2(e: Entry, i: number, v: { x: number; y: number }): void {
   assertType(e, DataType.Vector2Array);
   const dv = elementView(e, i, 8);
@@ -321,6 +362,7 @@ export function arrSetVector2(e: Entry, i: number, v: { x: number; y: number }):
   dv.setFloat32(4, v.y, true);
 }
 
+/** Read element `i` of a {@link DataType.Vector3Array}. Throws on type mismatch or out-of-range index. */
 export function arrGetVector3(e: Entry, i: number): { x: number; y: number; z: number } {
   assertType(e, DataType.Vector3Array);
   const v = elementView(e, i, 12);
@@ -330,6 +372,7 @@ export function arrGetVector3(e: Entry, i: number): { x: number; y: number; z: n
     z: v.getFloat32(8, true),
   };
 }
+/** Write element `i` of a {@link DataType.Vector3Array}. Throws on type mismatch or out-of-range index. */
 export function arrSetVector3(e: Entry, i: number, v: { x: number; y: number; z: number }): void {
   assertType(e, DataType.Vector3Array);
   const dv = elementView(e, i, 12);
@@ -349,6 +392,7 @@ const WIDE_ARRAY_TYPES = new Set([
   DataType.WString64Array,
 ]);
 
+/** Read element `i` of a string array (UTF-8 or UTF-16), trimmed at the first NUL. Throws if not a string array. */
 export function arrGetString(e: Entry, i: number): string {
   const sz = arrayElementSize(e.type);
   if (sz == null) throw new Error(`Not a string array: ${e.type}`);
@@ -373,6 +417,7 @@ export function arrGetString(e: Entry, i: number): string {
   throw new Error(`Not a string array: ${e.type}`);
 }
 
+/** Write element `i` of a string array into its fixed per-element capacity. Throws if not a string array or `s` is too long. */
 export function arrSetString(e: Entry, i: number, s: string): void {
   const sz = arrayElementSize(e.type);
   if (sz == null) throw new Error(`Not a string array: ${e.type}`);
@@ -405,6 +450,7 @@ export function arrSetString(e: Entry, i: number, s: string): void {
 
 type BinaryArrayElement = { size: number; bytes: Uint8Array };
 
+/** Split a {@link DataType.BinaryArray} entry into its length-prefixed elements (each a view into the payload). Throws on type mismatch. */
 export function binaryArrayElements(e: Entry): BinaryArrayElement[] {
   assertType(e, DataType.BinaryArray);
   if (!e.payload) return [];
@@ -421,6 +467,7 @@ export function binaryArrayElements(e: Entry): BinaryArrayElement[] {
   return out;
 }
 
+/** Whether an entry holds a scalar value this codec can edit in place (inline types plus fixed-size scalars). */
 export function isEditable(e: Entry): boolean {
   if (isInline(e.type)) return true;
   switch (e.type) {

@@ -27,6 +27,12 @@ import type { Entry, SavFile } from '../types.js';
 import { buildHashMap } from './schemaIndex.js';
 import type { DecodedSave, PlanItem } from './types.js';
 
+/**
+ * Decode a parsed {@link SavFile} against a schema into a {@link DecodedSave}:
+ * recognised entries become JS values keyed by hash, unrecognised entries are
+ * kept verbatim, and a `plan` records the original order so {@link encode} can
+ * round-trip the file.
+ */
 export function decode(schema: object, file: SavFile): DecodedSave {
   const hashMap = buildHashMap(schema);
   const values: Record<number, unknown> = {};
@@ -55,6 +61,7 @@ export function decode(schema: object, file: SavFile): DecodedSave {
   return result;
 }
 
+/** Decode a single {@link Entry} into its JS value according to its {@link DataType}. Throws on unsupported types. */
 export function decodeValue(entry: Entry): unknown {
   switch (entry.type) {
     case DataType.Bool:

@@ -1,3 +1,7 @@
+/**
+ * Decode a fixed-width little-endian UTF-16 name buffer into a string, stopping
+ * at the first NUL code unit (the in-save string terminator).
+ */
 export function decodeUtf16Name(buf: Uint8Array): string {
   let end = 0;
   while (end + 1 < buf.byteLength) {
@@ -11,11 +15,19 @@ export function decodeUtf16Name(buf: Uint8Array): string {
   return String.fromCharCode(...code);
 }
 
+/**
+ * Reduce a display name to a safe file-name stem by replacing every character
+ * outside `[A-Za-z0-9_.-]` with `_`, falling back to `'mii'` when nothing remains.
+ */
 export function sanitizeFileName(name: string): string {
   const cleaned = name.replace(/[^\w.-]/g, '_');
   return cleaned.length > 0 ? cleaned : 'mii';
 }
 
+/**
+ * Encode `text` as little-endian UTF-16 into a fresh `byteLen`-byte buffer,
+ * truncating to fit while always leaving room for the trailing NUL terminator.
+ */
 export function encodeUtf16Name(text: string, byteLen: number): Uint8Array {
   const out = new Uint8Array(byteLen);
   const maxChars = Math.floor((byteLen - 2) / 2);

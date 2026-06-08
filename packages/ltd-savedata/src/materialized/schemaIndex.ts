@@ -4,6 +4,7 @@ const HASH_CACHE = new WeakMap<object, Map<number, SchemaLeaf>>();
 const PATH_CACHE = new WeakMap<object, Map<number, string>>();
 const OPTIONS_CACHE = new WeakMap<object, Map<number, readonly string[]>>();
 
+/** Index a schema tree by leaf hash, returning a `hash -> {@link SchemaLeaf}` map. Cached per schema object. */
 export function buildHashMap(schema: object): Map<number, SchemaLeaf> {
   const cached = HASH_CACHE.get(schema);
   if (cached) return cached;
@@ -13,6 +14,7 @@ export function buildHashMap(schema: object): Map<number, SchemaLeaf> {
   return map;
 }
 
+/** Index a schema tree by leaf hash, returning a `hash -> dotted path` map. Cached per schema object. */
 export function buildPathMap(schema: object): Map<number, string> {
   const cached = PATH_CACHE.get(schema);
   if (cached) return cached;
@@ -22,6 +24,7 @@ export function buildPathMap(schema: object): Map<number, string> {
   return map;
 }
 
+/** Index the enum leaves of a schema, returning a `hash -> option names` map. Cached per schema object. */
 export function buildOptionsMap(schema: object): Map<number, readonly string[]> {
   const cached = OPTIONS_CACHE.get(schema);
   if (cached) return cached;

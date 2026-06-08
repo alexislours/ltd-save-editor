@@ -1,7 +1,7 @@
 {
   "name": "ltd-save-editor",
   "private": true,
-  "version": "2.11.0",
+  "version": "2.11.1",
   "type": "module",
   "license": "AGPL-3.0-or-later",
   "workspaces": [
@@ -15,6 +15,7 @@
     "precheck": "npm run i18n:types",
     "precommit": "npm run format && npm run lint && npm run check && npm run knip && npm run test && npm run build",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json && tsc -p tsconfig.test.json",
+    "pretest": "npm run wasm:build",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint . && prettier --check .",

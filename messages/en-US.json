@@ -731,7 +731,7 @@
     },
     "panel": {
       "delete_button": "Delete Mii",
-      "delete_confirm_body": "{name} will be permanently removed from this save, along with every relationship, family tie, and ongoing event involving them. This can't be undone (other than reloading the original save).",
+      "delete_confirm_body": "{name} will be permanently removed from this save, along with every relationship, family tie, and ongoing event involving them. This can't be undone (other than reloading the original save).\nDeleting a Mii requires replacing Player.sav, Mii.sav, and Map.sav.",
       "delete_confirm_title": "Delete this Mii?",
       "delete_done": "Deleted {name}.",
       "delete_needs_map": "Load Map.sav and Player.sav as well before deleting, so houses, rooms, news and history stay in sync.",

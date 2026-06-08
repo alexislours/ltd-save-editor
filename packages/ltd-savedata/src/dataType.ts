@@ -1,3 +1,7 @@
+/**
+ * Wire type tag stored per {@link Entry}, matching the game's serializer. The
+ * numeric values are the on-disk section identifiers and must not be reordered.
+ */
 export enum DataType {
   Bool = 0,
   BoolArray = 1,
@@ -34,8 +38,10 @@ export enum DataType {
   Bool64bitKey = 32,
 }
 
+/** Number of distinct {@link DataType} values; the file groups entries into this many sections. */
 export const DATA_TYPE_COUNT = 33;
 
+/** Whether a type stores its value inline in `Entry.inlineRaw` rather than on the heap. */
 export function isInline(t: DataType): boolean {
   return (
     t === DataType.Bool ||
@@ -46,6 +52,7 @@ export function isInline(t: DataType): boolean {
   );
 }
 
+/** Fixed byte capacity of a scalar string type, or `null` if `t` is not a scalar string. */
 export function stringCapacity(t: DataType): number | null {
   switch (t) {
     case DataType.String16:
@@ -65,10 +72,12 @@ export function stringCapacity(t: DataType): number | null {
   }
 }
 
+/** Whether `t` is a scalar UTF-16 (`WString*`) type. */
 export function isWideString(t: DataType): boolean {
   return t === DataType.WString16 || t === DataType.WString32 || t === DataType.WString64;
 }
 
+/** Whether `t` is a scalar UTF-8 (`String*`) type. */
 export function isNarrowString(t: DataType): boolean {
   return t === DataType.String16 || t === DataType.String32 || t === DataType.String64;
 }

@@ -1,3 +1,4 @@
+/** The seven categories of user-generated content the game stores and this codec can share. */
 export type UgcKind =
   | 'Food'
   | 'Cloth'
@@ -7,6 +8,7 @@ export type UgcKind =
   | 'MapObject'
   | 'MapFloor';
 
+/** Every {@link UgcKind} in canonical order; the array index is the kind's on-disk index (see {@link ugcKindIndex}). */
 export const UGC_KINDS: readonly UgcKind[] = [
   'Food',
   'Cloth',
@@ -17,6 +19,7 @@ export const UGC_KINDS: readonly UgcKind[] = [
   'MapFloor',
 ];
 
+/** Human-facing label for each {@link UgcKind}, which differs from the internal name (for example `Goods` is shown as "Treasure"). */
 export const UGC_DISPLAY_LABELS: Record<UgcKind, string> = {
   Food: 'Food',
   Cloth: 'Clothing',
@@ -27,6 +30,7 @@ export const UGC_DISPLAY_LABELS: Record<UgcKind, string> = {
   MapFloor: 'Landscaping',
 };
 
+/** Share-file extension for each {@link UgcKind} (for example `Food` exports as `.ltdf`). */
 export const UGC_FILE_EXTENSIONS: Record<UgcKind, string> = {
   Food: '.ltdf',
   Cloth: '.ltdc',
@@ -37,10 +41,12 @@ export const UGC_FILE_EXTENSIONS: Record<UgcKind, string> = {
   MapFloor: '.ltdl',
 };
 
+/** The on-disk index of `kind`, that is, its position in {@link UGC_KINDS}. */
 export function ugcKindIndex(kind: UgcKind): number {
   return UGC_KINDS.indexOf(kind);
 }
 
+/** Maximum number of slots the game allocates per {@link UgcKind}; the actual capacity may be lower and is clamped against the save's array lengths. */
 export const UGC_MAX_SLOTS: Record<UgcKind, number> = {
   Food: 99,
   Cloth: 299,
@@ -55,14 +61,17 @@ function ugcFileBase(kind: UgcKind, slot: number): string {
   return `Ugc${kind}${String(slot).padStart(3, '0')}`;
 }
 
+/** In-save file name of the editable canvas texture for a UGC `slot` of `kind` (for example `UgcFood003.canvas.zs`). */
 export function ugcCanvasFileName(kind: UgcKind, slot: number): string {
   return `${ugcFileBase(kind, slot)}.canvas.zs`;
 }
 
+/** In-save file name of the rendered UGC texture for a `slot` of `kind` (for example `UgcFood003.ugctex.zs`). */
 export function ugcTexFileName(kind: UgcKind, slot: number): string {
   return `${ugcFileBase(kind, slot)}.ugctex.zs`;
 }
 
+/** In-save file name of the thumbnail texture for a `slot` of `kind` (for example `UgcFood003_Thumb.ugctex.zs`). */
 export function ugcThumbFileName(kind: UgcKind, slot: number): string {
   return `${ugcFileBase(kind, slot)}_Thumb.ugctex.zs`;
 }
@@ -71,21 +80,29 @@ function facepaintFileBase(id: number): string {
   return `UgcFacePaint${String(id).padStart(3, '0')}`;
 }
 
+/** In-save file name of the canvas texture for facepaint `id` (for example `UgcFacePaint012.canvas.zs`). */
 export function facepaintCanvasFileName(id: number): string {
   return `${facepaintFileBase(id)}.canvas.zs`;
 }
 
+/** In-save file name of the rendered texture for facepaint `id` (for example `UgcFacePaint012.ugctex.zs`). */
 export function facepaintTexFileName(id: number): string {
   return `${facepaintFileBase(id)}.ugctex.zs`;
 }
 
+/** The set of save-field hashes that make up one {@link UgcKind}: its scalar fields, name strings, and optional position vectors. */
 export type UgcFieldHashes = {
+  /** Hashes of the scalar (int/uint/enum/float/bool) fields, in serialization order. */
   fields: readonly number[];
+  /** Hashes of the name string fields (name, pronunciation, and for Goods two extra strings). */
   names: readonly number[];
+  /** Hash of the optional `Vector3` field, when the kind has one. */
   vector?: number;
+  /** Hash of the optional `Vector2` field, when the kind has one. */
   vector2?: number;
 };
 
+/** Per-{@link UgcKind} map of the save-field hashes ({@link UgcFieldHashes}) the codec reads and writes for that kind. */
 export const UGC_HASHES: Record<UgcKind, UgcFieldHashes> = {
   Food: {
     fields: [
@@ -144,6 +161,7 @@ export const UGC_HASHES: Record<UgcKind, UgcFieldHashes> = {
   },
 };
 
+/** Hash of the per-{@link UgcKind} "slot enabled" enum field, set when a newly added item should be marked as in use. */
 export const UGC_ENABLE_HASHES: Record<UgcKind, number> = {
   Food: 0xf4a39965,
   Cloth: 0xaf129c33,
@@ -154,6 +172,7 @@ export const UGC_ENABLE_HASHES: Record<UgcKind, number> = {
   MapFloor: 0xa1126d32,
 };
 
+/** Hash of the per-{@link UgcKind} texture-source enum field, set to the value derived from {@link UGC_TEX_DATA} when adding an item. */
 export const UGC_TEXTURE_HASHES: Record<UgcKind, number> = {
   Food: 0x3558b77f,
   Cloth: 0x59bfa9d3,
@@ -164,6 +183,7 @@ export const UGC_TEXTURE_HASHES: Record<UgcKind, number> = {
   MapFloor: 0x06a7a14c,
 };
 
+/** Hash of the per-{@link UgcKind} content-id field, set to a value combining the slot index and {@link UGC_HASH_INDICES} when adding an item. */
 export const UGC_HASH_ID_HASHES: Record<UgcKind, number> = {
   Food: 0x6d48f8e2,
   Cloth: 0x89f25cac,
@@ -174,11 +194,13 @@ export const UGC_HASH_ID_HASHES: Record<UgcKind, number> = {
   MapFloor: 0x816d50a3,
 };
 
-export const UGC_TEX_DATA = new Uint8Array([
+/** Packed little-endian table of texture-source enum values, indexed by {@link ugcKindIndex} times 4, applied to {@link UGC_TEXTURE_HASHES} when adding an item. */
+export const UGC_TEX_DATA: Uint8Array = new Uint8Array([
   0x41, 0x49, 0x93, 0x56, 0xe3, 0xc2, 0x2f, 0xb4, 0x41, 0x49, 0x93, 0x56, 0xe3, 0xc2, 0x2f, 0xb4,
   0xe3, 0xc2, 0x2f, 0xb4, 0xe3, 0xc2, 0x2f, 0xb4, 0xe3, 0xc2, 0x2f, 0xb4,
 ]);
 
+/** Per-{@link UgcKind} tag packed into the high byte of the content-id field (see {@link UGC_HASH_ID_HASHES}) when adding an item. */
 export const UGC_HASH_INDICES: Record<UgcKind, number> = {
   Food: 1,
   Cloth: 3,
@@ -189,6 +211,7 @@ export const UGC_HASH_INDICES: Record<UgcKind, number> = {
   MapFloor: 5,
 };
 
+/** Save-field hashes for the facepaint slot arrays in the `player` save: price, texture source, state, and bookkeeping fields toggled when a Mii's facepaint is added or cleared. */
 export const FACEPAINT_HASHES = {
   price: 0x4c9819e4,
   textureSourceType: 0xdecc8954,
@@ -197,6 +220,7 @@ export const FACEPAINT_HASHES = {
   hash: 0xa56e42ec,
 };
 
+/** Save-field hashes for the Mii data this codec reads and writes: facepaint index, the temp slot, name/pronunciation, raw Mii block, love-gender flags, satisfaction level, and the eighteen personality fields. */
 export const MII_HASHES = {
   facePaintIndex: 0x5e32adf4,
   tempSlotMii: 0x114eff89,
@@ -212,6 +236,7 @@ export const MII_HASHES = {
   ] as const,
 };
 
+/** Hash of the primary display-name field for each {@link UgcKind}, used to detect filled slots when listing items. */
 export const UGC_NAME_HASHES: Record<UgcKind, number> = {
   Food: 0x408494f5,
   Cloth: 0x40710642,
