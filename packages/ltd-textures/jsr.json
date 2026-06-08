@@ -1,6 +1,6 @@
 {
   "name": "@alexislours/ltd-textures",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "exports": {
     ".": "./src/index.ts",
     "./browser": "./src/browser.ts",
@@ -16,6 +16,8 @@
       "jsr.json",
       "package.json"
     ],
-    "exclude": ["**/*.test.ts"]
+    "exclude": [
+      "**/*.test.ts"
+    ]
   }
 }

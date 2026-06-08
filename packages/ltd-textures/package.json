@@ -1,6 +1,6 @@
 {
   "name": "@alexislours/ltd-textures",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tegra/Switch block-linear (de)swizzle, BC1/BC3 transcode, sRGB/linear conversion, and image resize, in WebAssembly.",
   "license": "AGPL-3.0-or-later",
   "author": "Alexis Lours",
