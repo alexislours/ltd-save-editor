@@ -753,7 +753,7 @@
     },
     "panel": {
       "delete_button": "Excluir Mii",
-      "delete_confirm_body": "{name} será removido permanentemente deste save, junto com todos os relacionamentos, laços familiares e eventos em andamento que o envolvem. Isso não pode ser desfeito (a não ser recarregando o save original).",
+      "delete_confirm_body": "{name} será removido permanentemente deste save, junto com todos os relacionamentos, laços familiares e eventos em andamento que o envolvem. Isso não pode ser desfeito (a não ser recarregando o save original).\nExcluir um Mii requer a substituição de Player.sav, Mii.sav e Map.sav.",
       "delete_confirm_title": "Excluir este Mii?",
       "delete_done": "{name} excluído.",
       "delete_needs_map": "Carregue também o Map.sav e o Player.sav antes de excluir, para que casas, quartos, notícias e histórico fiquem sincronizados.",
