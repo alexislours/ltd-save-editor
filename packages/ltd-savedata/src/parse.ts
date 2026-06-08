@@ -3,6 +3,12 @@ import type { Entry, SavFile } from './types.js';
 
 const MAGIC = [0x04, 0x03, 0x02, 0x01] as const;
 
+/**
+ * Parse a `.sav` file into a {@link SavFile}, validating the magic and header and
+ * reading every entry's inline value or heap payload.
+ *
+ * @throws if the magic is wrong, the file is truncated, or a heap read overruns.
+ */
 export function parseSav(bytes: Uint8Array): SavFile {
   if (bytes.byteLength < 0x20) {
     throw new Error('File is too small to be a .sav');

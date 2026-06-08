@@ -5253,4 +5253,5 @@ const _PLAYER_SCHEMA = {
   },
 } as const;
 
+/** Reverse-engineered schema tree of player and island fields, keyed by their path names down to {@link SchemaLeaf} entries. */
 export const PLAYER_SCHEMA = _PLAYER_SCHEMA;

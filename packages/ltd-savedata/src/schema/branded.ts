@@ -26,5 +26,15 @@ const wrap = <T extends object, K extends string>(root: T, _kind: K): BrandTree<
   return proxy as BrandTree<T, K>;
 };
 
+/**
+ * {@link PLAYER_SCHEMA} wrapped so each leaf is typed as a `'player'`-branded
+ * {@link Leaf}. Navigate by field path (e.g. `player.Player.Region`) to get a leaf
+ * reference for use with an {@link Accessor}.
+ */
 export const player: BrandTree<typeof PLAYER_SCHEMA, 'player'> = wrap(PLAYER_SCHEMA, 'player');
+/**
+ * {@link MII_SCHEMA} wrapped so each leaf is typed as a `'mii'`-branded
+ * {@link Leaf}. Navigate by field path to get a leaf reference for use with an
+ * {@link Accessor}.
+ */
 export const mii: BrandTree<typeof MII_SCHEMA, 'mii'> = wrap(MII_SCHEMA, 'mii');

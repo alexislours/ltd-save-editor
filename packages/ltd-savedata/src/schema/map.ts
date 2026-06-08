@@ -334,4 +334,5 @@ const _MAP_SCHEMA = {
   },
 } as const;
 
+/** Reverse-engineered schema tree of map and housing fields, keyed by their path names down to {@link SchemaLeaf} entries. */
 export const MAP_SCHEMA = _MAP_SCHEMA;

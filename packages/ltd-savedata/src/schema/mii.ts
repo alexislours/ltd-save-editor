@@ -1358,4 +1358,5 @@ const _MII_SCHEMA = {
   },
 } as const;
 
+/** Reverse-engineered schema tree of Mii-related fields, keyed by their path names down to {@link SchemaLeaf} entries. */
 export const MII_SCHEMA = _MII_SCHEMA;

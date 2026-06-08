@@ -46,7 +46,7 @@ export function ugcKindIndex(kind: UgcKind): number {
   return UGC_KINDS.indexOf(kind);
 }
 
-/** Highest slot index the game allocates per {@link UgcKind}; the actual capacity may be lower and is clamped against the save's array lengths. */
+/** Maximum number of slots the game allocates per {@link UgcKind}; the actual capacity may be lower and is clamped against the save's array lengths. */
 export const UGC_MAX_SLOTS: Record<UgcKind, number> = {
   Food: 99,
   Cloth: 299,

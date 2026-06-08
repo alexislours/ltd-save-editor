@@ -1,6 +1,13 @@
 import { DATA_TYPE_COUNT, DataType, isInline } from './dataType.js';
 import type { Entry, SavFile } from './types.js';
 
+/**
+ * Serialize a {@link SavFile} back into `.sav` bytes, grouping entries into their
+ * {@link DataType} sections and laying out heap payloads after the table. The
+ * output round-trips with {@link parseSav}.
+ *
+ * @throws if an entry has an invalid type or a non-inline entry is missing its payload.
+ */
 export function writeSav(save: SavFile): Uint8Array {
   const bySection: Entry[][] = Array.from({ length: DATA_TYPE_COUNT }, () => []);
   for (const e of save.entries) {

@@ -14,6 +14,7 @@ const GAME_LOCALES = [
   'USfr',
 ] as const;
 
+/** One of the game's internal locale codes (region prefix plus language, e.g. `'USen'`, `'JPja'`). */
 export type GameLocale = (typeof GAME_LOCALES)[number];
 
 const DEFAULT_GAME_LOCALE: GameLocale = 'USen';
@@ -34,11 +35,16 @@ const UI_TO_GAME_LOCALE: Record<string, GameLocale> = {
   'zh-TW': 'TWzh',
 };
 
+/** Map a BCP-47-style UI locale (e.g. `'fr-EU'`) to its {@link GameLocale}, defaulting to `'USen'`. */
 export function gameLocaleFor(uiLocale: string | null | undefined): GameLocale {
   if (!uiLocale) return DEFAULT_GAME_LOCALE;
   return UI_TO_GAME_LOCALE[uiLocale] ?? DEFAULT_GAME_LOCALE;
 }
 
+/**
+ * Pick the value for a UI locale from a per-{@link GameLocale} map, falling back
+ * to the `'USen'` entry and then to any present entry.
+ */
 export function pickLocalized<T>(
   map: Partial<Record<GameLocale, T>> | null | undefined,
   uiLocale: string | null | undefined,

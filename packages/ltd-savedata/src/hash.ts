@@ -1,11 +1,16 @@
 const C1 = 0xcc9e2d51;
 const C2 = 0x1b873593;
 
+/**
+ * murmur3 (x86, 32-bit) hash of a UTF-8 string. This is the function the game
+ * uses to derive every {@link Entry} hash from its field path.
+ */
 export function murmur3_x86_32(input: string, seed = 0): number {
   const bytes = new TextEncoder().encode(input);
   return murmur3_x86_32_bytes(bytes, seed);
 }
 
+/** murmur3 (x86, 32-bit) hash over raw bytes; the byte-oriented core of {@link murmur3_x86_32}. */
 export function murmur3_x86_32_bytes(bytes: Uint8Array, seed = 0): number {
   const len = bytes.length;
   const nBlocks = (len / 4) | 0;
