@@ -6,6 +6,11 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.12.0',
+    date: '2026-06-09',
+    changes: ['Added a button to create a blank Mii.', 'Added a button to create a blank UGC.'],
+  },
+  {
     version: '2.11.1',
     date: '2026-06-08',
     changes: [
