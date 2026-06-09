@@ -11,8 +11,9 @@
   import { CARD_CLASS, FORM_INPUT_CLASS, LABEL_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import { miiAccessor, miiState } from './miiEditor.svelte';
   import { DEFAULT_CHAR_INFO_EX } from './ownership/defaultCharInfoEx';
+  import { addMii, firstEmptyMiiSlot } from './ownership/addMii';
   import { deleteMii } from './ownership/deleteMii';
-  import { populatedMiiIndices } from './ownership/populated';
+  import { isAllZero, populatedMiiIndices } from './ownership/populated';
 
   type Props = {
     selectedIndex: number | null;
@@ -35,11 +36,7 @@
     mii != null &&
       mii.has(MII_SCHEMA.Mii.CharInfoEx) &&
       namedIndices.length > 0 &&
-      namedIndices.every((i) => {
-        const bytes = mii.getElement(MII_SCHEMA.Mii.CharInfoEx, i);
-        for (let b = 0; b < bytes.length; b++) if (bytes[b] !== 0) return false;
-        return true;
-      }),
+      namedIndices.every((i) => isAllZero(mii.getElement(MII_SCHEMA.Mii.CharInfoEx, i))),
   );
 
   function stampDefaultCharInfoEx(): void {
@@ -108,6 +105,23 @@
     });
   }
 
+  const canAddMii = $derived.by(() => {
+    void miiState.rev;
+    if (!mii || !hasName) return false;
+    return firstEmptyMiiSlot(mii) >= 0;
+  });
+
+  function addNew(): void {
+    if (!mii || !canAddMii) return;
+    const index = addMii(mii);
+    if (index < 0) {
+      showToast('warn', $_('mii.panel.add_full'));
+      return;
+    }
+    selectedIndex = index;
+    showToast('success', $_('mii.panel.add_done', { values: { slot: index + 1 } }));
+  }
+
   let confirmingDelete = $state(false);
   const canDelete = $derived(isSaveLoaded('mii') && isSaveLoaded('map') && isSaveLoaded('player'));
 
@@ -157,6 +171,12 @@
         {$_('mii.panel.slot_count', { values: { count: slots.length } })}
       </span>
     </label>
+
+    {#if canAddMii}
+      <button type="button" class="{PILL_BUTTON_CLASS} mt-3" onclick={addNew}>
+        {$_('mii.panel.add_button')}
+      </button>
+    {/if}
 
     {#if selectedSlot}
       <div class="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">

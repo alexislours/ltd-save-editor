@@ -3,7 +3,9 @@ import { PLAYER_SCHEMA } from '@alexislours/ltd-savedata/schema';
 import type { DecodedRgba, FitMode } from '$lib/ugc/texture/textureReplaceState.svelte';
 import {
   UGC_KINDS,
+  addBlankUgc,
   buildSidecarZip,
+  firstEmptyUgcSlot,
   listUgcSlots,
   type SidecarFile,
   type SidecarSource,
@@ -183,6 +185,39 @@ export async function buildReplaceWrites(args: ReplaceArgs): Promise<Map<string,
   writes.set(ugctexName, out.ugctex);
   if (out.thumb) writes.set(thumbName, out.thumb);
   return writes;
+}
+
+export function nextBlankUgcSlot(
+  player: Accessor<'player'> | null,
+  kind: UgcKind,
+  sidecar: SidecarSource,
+): number {
+  if (!player) return -1;
+  try {
+    return firstEmptyUgcSlot({ player }, kind, sidecar);
+  } catch {
+    return -1;
+  }
+}
+
+export async function buildBlankUgcAdd(
+  player: Accessor<'player'>,
+  kind: UgcKind,
+  sidecar: SidecarSource,
+  name: (slot: number) => string,
+): Promise<{ slot: number; writes: Map<string, Uint8Array> } | null> {
+  const slot = firstEmptyUgcSlot({ player }, kind, sidecar);
+  if (slot < 0) return null;
+  const { encodeWhiteUgc } = await import('./codec');
+  const tex = await encodeWhiteUgc();
+  const result = addBlankUgc({ player }, slot, kind, name(slot), {
+    canvas: tex.canvas,
+    ugcTex: tex.ugctex,
+    thumb: tex.thumb,
+  });
+  const writes = new Map<string, Uint8Array>();
+  for (const f of result.textureWrites) writes.set(f.name, f.bytes);
+  return { slot, writes };
 }
 
 export function setUgcSlotName(

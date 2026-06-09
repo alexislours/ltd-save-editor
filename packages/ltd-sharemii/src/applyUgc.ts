@@ -266,6 +266,21 @@ function writeVector2(
   });
 }
 
+function initAddedSlotMeta(
+  player: Accessor<'player'>,
+  leaves: UgcLeaves,
+  slotIdx: number,
+  kind: UgcKind,
+  kindIndex: number,
+): void {
+  player.setElement(leaves.enable, slotIdx, ENABLE_USED);
+  const texDv = new DataView(UGC_TEX_DATA.buffer, UGC_TEX_DATA.byteOffset, UGC_TEX_DATA.byteLength);
+  const texVal = texDv.getUint32(kindIndex * 4, true) >>> 0;
+  player.setElement(leaves.texture, slotIdx, texVal);
+  const hashIdVal = ((slotIdx & 0xff) | ((UGC_HASH_INDICES[kind] & 0xff) << 16)) >>> 0;
+  player.setElement(leaves.hashId, slotIdx, hashIdVal);
+}
+
 /** Summary of one UGC slot for slot-picker UIs. */
 export type UgcSlotInfo = {
   /** One-based slot number. */
@@ -450,18 +465,7 @@ export function applyUgc(
     writeField4(player, leaves.fields[i], slotIdx, src);
   }
 
-  if (isAdding) {
-    player.setElement(leaves.enable, slotIdx, ENABLE_USED);
-    const texDv = new DataView(
-      UGC_TEX_DATA.buffer,
-      UGC_TEX_DATA.byteOffset,
-      UGC_TEX_DATA.byteLength,
-    );
-    const texVal = texDv.getUint32(expected * 4, true) >>> 0;
-    player.setElement(leaves.texture, slotIdx, texVal);
-    const hashIdVal = ((slotIdx & 0xff) | ((UGC_HASH_INDICES[kind] & 0xff) << 16)) >>> 0;
-    player.setElement(leaves.hashId, slotIdx, hashIdVal);
-  }
+  if (isAdding) initAddedSlotMeta(player, leaves, slotIdx, kind, expected);
 
   const namesBlock = decoded.namesBlock;
   writeNameBlock(player, leaves.names[0], slotIdx, namesBlock.subarray(0, 128));
@@ -490,6 +494,63 @@ export function applyUgc(
     for (const f of writes) sidecar.files.set(f.name, f.bytes);
   }
 
+  return { textureWrites: writes };
+}
+
+/**
+ * Find the first unused slot of `kind`: one whose name is empty and that has no
+ * canvas texture in `sidecar`. Returns the one-based slot number, or `-1` when
+ * every slot up to the kind's capacity is occupied.
+ */
+export function firstEmptyUgcSlot(
+  saves: PlayerOnlySaves,
+  kind: UgcKind,
+  sidecar: SidecarSource = EMPTY_SIDECAR,
+): number {
+  const leaves = resolveUgcLeaves(kind);
+  const nameLeaf = resolveNameLeaf(UGC_NAME_HASHES[kind], `${kind}.names`);
+  const capacity = ugcSlotCapacity(saves, leaves, kind);
+  for (let i = 0; i < capacity; i++) {
+    const hasCanvas = sidecar.files.has(ugcCanvasFileName(kind, i));
+    const name = saves.player.getElement(nameLeaf, i);
+    if (!hasCanvas && name.length === 0) return i + 1;
+  }
+  return -1;
+}
+
+/**
+ * Initialize an empty `slot` of `kind` as a fresh blank item: sets the slot
+ * metadata (enable flag, texture source, content id) and `name`, and returns the
+ * canvas, UGC, and thumbnail `textures` as files to write. Throws on an
+ * out-of-range slot.
+ */
+export function addBlankUgc(
+  saves: PlayerOnlySaves,
+  slot: number,
+  kind: UgcKind,
+  name: string,
+  textures: { canvas: Uint8Array; ugcTex: Uint8Array; thumb: Uint8Array },
+  sidecar: SidecarSource = EMPTY_SIDECAR,
+): ApplyUgcResult {
+  const leaves = resolveUgcLeaves(kind);
+  const player = saves.player;
+  const slotIdx = slot - 1;
+  const capacity = ugcSlotCapacity(saves, leaves, kind);
+  if (slotIdx < 0 || slotIdx >= capacity) {
+    throw new ShareMiiError('slot_out_of_range', { slot, kind, capacity });
+  }
+
+  initAddedSlotMeta(player, leaves, slotIdx, kind, ugcKindIndex(kind));
+  player.setElement(leaves.names[0], slotIdx, name);
+
+  const writes: SidecarFile[] = [
+    { name: ugcCanvasFileName(kind, slotIdx), bytes: textures.canvas },
+    { name: ugcTexFileName(kind, slotIdx), bytes: textures.ugcTex },
+    { name: ugcThumbFileName(kind, slotIdx), bytes: textures.thumb },
+  ];
+  if (sidecar.origin !== 'none') {
+    for (const f of writes) sidecar.files.set(f.name, f.bytes);
+  }
   return { textureWrites: writes };
 }
 

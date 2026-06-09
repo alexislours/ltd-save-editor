@@ -312,6 +312,18 @@ export async function encodeFromRgba(
   return { canvas, ugctex, thumb };
 }
 
+export async function encodeWhiteUgc(): Promise<{
+  canvas: Uint8Array;
+  ugctex: Uint8Array;
+  thumb: Uint8Array;
+}> {
+  const size = 256;
+  const rgba = new Uint8Array(size * size * 4).fill(255);
+  const out = await encodeFromRgba({ width: size, height: size, rgba }, { encodeThumb: true });
+  if (!out.thumb) throw new Error('thumb encode failed');
+  return { canvas: out.canvas, ugctex: out.ugctex, thumb: out.thumb };
+}
+
 function cloneToArrayBuffer(view: ArrayBufferView): ArrayBuffer {
   const ab = new ArrayBuffer(view.byteLength);
   new Uint8Array(ab).set(new Uint8Array(view.buffer, view.byteOffset, view.byteLength));
