@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/alexislours/ltd-save-editor/compare/ltd-sharemii-v1.0.2...ltd-sharemii-v1.1.0) (2026-06-09)
+
+
+### Features
+
+* add blank UGC item from the UGC editor ([f8cdf30](https://github.com/alexislours/ltd-save-editor/commit/f8cdf302d4f30c2f92a1632ac73a6ed78468b5a2))
+
 ## [1.0.2](https://github.com/alexislours/ltd-save-editor/compare/ltd-sharemii-v1.0.1...ltd-sharemii-v1.0.2) (2026-06-08)
 
 

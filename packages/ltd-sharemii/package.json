@@ -1,6 +1,6 @@
 {
   "name": "@alexislours/ltd-sharemii",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Codec for the game's Mii and UGC share format: extract a Mii or user-generated content item from a save into a portable share file and apply it back. Depends only on @alexislours/ltd-savedata.",
   "license": "AGPL-3.0-or-later",
   "author": "Alexis Lours",
