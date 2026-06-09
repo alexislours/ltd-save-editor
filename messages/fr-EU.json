@@ -752,6 +752,9 @@
       "unhoused_section": "Sans logement ({count})"
     },
     "panel": {
+      "add_button": "Ajouter un Mii",
+      "add_done": "Mii ajouté à l'emplacement {slot}.",
+      "add_full": "Tous les emplacements Mii sont pleins.",
       "delete_button": "Supprimer le Mii",
       "delete_confirm_body": "{name} sera définitivement retiré de cette sauvegarde, ainsi que toutes ses relations, ses liens familiaux et les évènements en cours le concernant. Cette action est irréversible (sauf en rechargeant la sauvegarde d'origine).\nSupprimer un Mii nécessite de remplacer Player.sav, Mii.sav et Map.sav.",
       "delete_confirm_title": "Supprimer ce Mii ?",

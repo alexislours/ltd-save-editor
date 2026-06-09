@@ -752,6 +752,9 @@
       "unhoused_section": "无家可归（{count}）"
     },
     "panel": {
+      "add_button": "添加 Mii",
+      "add_done": "已在槽位 {slot} 添加 Mii。",
+      "add_full": "所有 Mii 槽位已满。",
       "delete_button": "删除 Mii",
       "delete_confirm_body": "{name} 将从此存档中被永久移除，与其相关的所有关系、亲属关系和进行中的事件也会一并删除。此操作无法撤销（除非重新加载原始存档）。\n删除 Mii 需要替换 Player.sav、Mii.sav 和 Map.sav。",
       "delete_confirm_title": "删除此 Mii？",

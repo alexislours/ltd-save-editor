@@ -752,6 +752,9 @@
       "unhoused_section": "Sem moradia ({count})"
     },
     "panel": {
+      "add_button": "Adicionar Mii",
+      "add_done": "Mii adicionado no slot {slot}.",
+      "add_full": "Todos os slots de Mii estão cheios.",
       "delete_button": "Excluir Mii",
       "delete_confirm_body": "{name} será removido permanentemente deste save, junto com todos os relacionamentos, laços familiares e eventos em andamento que o envolvem. Isso não pode ser desfeito (a não ser recarregando o save original).\nExcluir um Mii requer a substituição de Player.sav, Mii.sav e Map.sav.",
       "delete_confirm_title": "Excluir este Mii?",

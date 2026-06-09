@@ -6,15 +6,11 @@ import { evictForDeletion, recoverableRoomStyles } from '$lib/map/residents/resi
 import { nowSeconds } from '$lib/mii/trouble/troubleTime';
 import { clearTroubleSlot, TROUBLE_FIELDS } from '$lib/mii/trouble/troubleFields';
 import { populatedMiiIndices } from './populated';
+import { writeRelationDirection } from './relations';
 
-const OTHER_HASH = murmur3_x86_32('Other') >>> 0;
-const SECOND_PERSON_HASH = murmur3_x86_32('SecondPerson') >>> 0;
-const JPJA_HASH = murmur3_x86_32('JPja') >>> 0;
 const INVALID_CLOTH = murmur3_x86_32('Invalid') >>> 0;
 
 const REL = MII_SCHEMA.Relation.Info;
-const DIR = REL.DirectionalInfo;
-const UNKNOWN_DIR = MII_SCHEMA.Unknown['0xFA21F70E'];
 
 const MII_INDEX_REF_LEAVES = [
   MII_SCHEMA.Mii.MiiMisc.EntryInfo.BloodMiiIndex,
@@ -66,27 +62,7 @@ function clearRelations(mii: MiiAccessor, miiIndex: number): void {
 function resetRelationSlot(mii: MiiAccessor, slot: number): void {
   mii.setElement(REL.RelationId.Id_a, slot, -1);
   mii.setElement(REL.RelationId.Id_b, slot, -1);
-  for (const dir of [2 * slot, 2 * slot + 1]) {
-    if (mii.has(DIR.BaseRelationType)) mii.setElement(DIR.BaseRelationType, dir, OTHER_HASH);
-    if (mii.has(DIR.BloodType)) mii.setElement(DIR.BloodType, dir, OTHER_HASH);
-    if (mii.has(DIR.Meter)) mii.setElement(DIR.Meter, dir, 0);
-    if (mii.has(DIR.BitFlag)) mii.setElement(DIR.BitFlag, dir, 0);
-    if (mii.has(DIR.NickNameToOtherType)) {
-      mii.setElement(DIR.NickNameToOtherType, dir, SECOND_PERSON_HASH);
-    }
-    if (mii.has(DIR.SecondPersonRegionLanguageID)) {
-      mii.setElement(DIR.SecondPersonRegionLanguageID, dir, JPJA_HASH);
-    }
-    if (mii.has(DIR.ThirdPersonRegionLanguageID)) {
-      mii.setElement(DIR.ThirdPersonRegionLanguageID, dir, JPJA_HASH);
-    }
-    if (mii.has(DIR.UpdateTimeRanking)) mii.setElement(DIR.UpdateTimeRanking, dir, 0n);
-    if (mii.has(DIR.NameSetBin)) {
-      const bytes = mii.getElement(DIR.NameSetBin, dir);
-      if (bytes) mii.setElement(DIR.NameSetBin, dir, new Uint8Array(bytes.length));
-    }
-    if (mii.has(UNKNOWN_DIR)) mii.setElement(UNKNOWN_DIR, dir, false);
-  }
+  for (const dir of [2 * slot, 2 * slot + 1]) writeRelationDirection(mii, dir, 0);
   if (mii.has(REL.IsFight)) mii.setElement(REL.IsFight, slot, false);
   if (mii.has(REL.TypeSetTime)) mii.setElement(REL.TypeSetTime, slot, 0n);
   if (mii.has(REL.IsNotifiedBloodTypeCouple)) {
