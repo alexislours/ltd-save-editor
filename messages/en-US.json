@@ -1582,6 +1582,7 @@
     },
     "kind_tabs_label": "UGC kind",
     "list": {
+      "add_blank": "Add blank item",
       "empty": "No items found in this category.",
       "facepaint_owned": "Worn by {name}",
       "facepaint_unassigned": "Unassigned",
@@ -1604,6 +1605,8 @@
     "sidecar_only_notice": "Editing without {playerSav}: some features may not be available.",
     "title": "UGC editor",
     "toast": {
+      "add_full": "This category is full.",
+      "added": "Added a blank item in slot {slot}.",
       "downloaded_pending": "Downloaded {count} edited file(s) as zip.",
       "exported": "Exported {fileName}",
       "exported_ugc": "Exported {fileName} ({count} file(s))",

@@ -1604,6 +1604,7 @@
     },
     "kind_tabs_label": "Tipo de item UGC",
     "list": {
+      "add_blank": "Adicionar item em branco",
       "empty": "Nenhum item nesta categoria.",
       "facepaint_owned": "Usada por {name}",
       "facepaint_unassigned": "Sem dono",
@@ -1626,6 +1627,8 @@
     "sidecar_only_notice": "Edição sem {playerSav}: alguns recursos podem não estar disponíveis.",
     "title": "Editor UGC",
     "toast": {
+      "add_full": "Esta categoria está cheia.",
+      "added": "Item em branco adicionado no slot {slot}.",
       "downloaded_pending": "{count, plural, one {# arquivo editado baixado} other {# arquivos editados baixados}} como zip.",
       "exported": "{fileName} exportado",
       "exported_ugc": "{fileName} exportado ({count, plural, one {# arquivo} other {# arquivos}})",

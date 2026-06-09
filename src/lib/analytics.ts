@@ -50,6 +50,7 @@ type Events = {
   ugc_editor_export_canvas: { kind: UgcKind; slot: number };
   ugc_editor_export_ugc: { kind: UgcKind; slot: number; count: number };
   ugc_editor_rename: { kind: UgcKind; slot: number };
+  ugc_editor_add_blank: { kind: UgcKind; slot: number };
   ugc_editor_transform: { transform: 'rotateCw' | 'rotateCcw' | 'flipH' | 'flipV' };
   ugc_editor_pending_downloaded: { count: number };
   facepaint_editor_replace: {

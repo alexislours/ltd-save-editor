@@ -19,12 +19,13 @@
     revertSidecarFiles,
     sidecarOrigin,
   } from '$lib/shareMii/sidecar/sidecarStore.svelte';
-  import { CARD_CLASS } from '$lib/ui/styles';
+  import { CARD_CLASS, PILL_BUTTON_CLASS } from '$lib/ui/styles';
   import { track } from '$lib/analytics';
   import { showToast } from '$lib/toast/toast.svelte';
   import FacepaintSection from '$lib/ugc/facepaint/FacepaintSection.svelte';
   import { listFacepaints, listFacepaintsFromSidecar } from '$lib/ugc/facepaint/list';
   import {
+    buildBlankUgcAdd,
     buildKindCounts,
     buildReplaceWrites,
     buildUgcRows,
@@ -37,6 +38,7 @@
     getUgcSlotName,
     hasLanRestriction,
     isSlotEdited,
+    nextBlankUgcSlot,
     setUgcSlotName,
     slotFileNames,
     slotPreviewCandidates,
@@ -140,6 +142,15 @@
     return isSlotEdited(ugcKind, selectedSlot);
   });
 
+  const addSlot = $derived.by(() => {
+    void playerState.dirty;
+    void sidecar.files.size;
+    if (!ugcKind) return -1;
+    return nextBlankUgcSlot(playerAccessor(), ugcKind, sidecar);
+  });
+
+  const canAddBlank = $derived(!playerless && sidecarLoaded && addSlot > 0);
+
   const selectedHasLanRestriction = $derived.by(() => {
     void playerState.dirty;
     if (selectedSlot === null || !ugcKind) return false;
@@ -233,6 +244,30 @@
       );
     } catch (e) {
       showToast('error', errorMessage(e));
+    }
+  }
+
+  async function addBlank(): Promise<void> {
+    if (busy || !ugcKind || !canAddBlank) return;
+    const acc = playerAccessor();
+    if (!acc) return;
+    busy = true;
+    try {
+      const result = await buildBlankUgcAdd(acc, ugcKind, sidecar, (slot) =>
+        $_('ugc_editor.list.unnamed', { values: { slot } }),
+      );
+      if (!result) {
+        showToast('warn', $_('ugc_editor.toast.add_full'));
+        return;
+      }
+      replaceSidecarFiles(result.writes);
+      track('ugc_editor_add_blank', { kind: ugcKind, slot: result.slot });
+      showToast('success', $_('ugc_editor.toast.added', { values: { slot: result.slot } }));
+      selectedSlot = result.slot;
+    } catch (e) {
+      showToast('error', errorMessage(e));
+    } finally {
+      busy = false;
     }
   }
 
@@ -446,6 +481,16 @@
         <div class="grid gap-4 md:grid-cols-[280px_1fr]">
           <div>
             <UgcSlotList {rows} kind={ugcKind} {sidecar} {selectedSlot} onSelect={selectRow} />
+            {#if !playerless && sidecarLoaded}
+              <button
+                type="button"
+                class="{PILL_BUTTON_CLASS} mt-3 w-full disabled:cursor-not-allowed disabled:opacity-50"
+                onclick={addBlank}
+                disabled={busy || !canAddBlank}
+              >
+                {$_('ugc_editor.list.add_blank')}
+              </button>
+            {/if}
           </div>
 
           <div>
