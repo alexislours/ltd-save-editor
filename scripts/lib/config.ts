@@ -5,7 +5,7 @@ export const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..
 
 const ROMFS = resolve(PROJECT_ROOT, 'game-data/romfs');
 
-export const ICON_DIR = `${ROMFS}/Icon`;
+const ICON_DIR = `${ROMFS}/Icon`;
 export const RSDB_DIR = `${ROMFS}/RSDB`;
 const MALS_DIR = `${ROMFS}/Mals`;
 export const WALKING_GRID_DIR = `${ROMFS}/WalkingGrid`;
@@ -49,15 +49,19 @@ export function rsdb(name: string): string {
 }
 
 export function localeReplaceMsg(code: GameLocale, file: string): string {
-  return `${MALS_DIR}/${code}.Product.100.sarc.d/ReplaceMsg/${file}.msbt.json`;
+  return `${MALS_DIR}/${code}.Product.100/ReplaceMsg/${file}.msbt.yml`;
 }
 
 export function localeProgramMsg(code: GameLocale, file: string): string {
-  return `${MALS_DIR}/${code}.Product.100.sarc.d/ProgramMsg/${file}.msbt.json`;
+  return `${MALS_DIR}/${code}.Product.100/ProgramMsg/${file}.msbt.yml`;
 }
 
 export function localeLayoutMsg(code: GameLocale, file: string): string {
-  return `${MALS_DIR}/${code}.Product.100.sarc.d/LayoutMsg/${file}.msbt.json`;
+  return `${MALS_DIR}/${code}.Product.100/LayoutMsg/${file}.msbt.yml`;
+}
+
+export function iconPath(name: string): string {
+  return `${ICON_DIR}/${name}.bntx.d/${name}.png`;
 }
 
 export function staticOut(name: string): string {

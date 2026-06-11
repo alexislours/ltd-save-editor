@@ -1,4 +1,4 @@
-import { GAME_LOCALES, ICON_DIR, rsdb, staticOut, type GameLocale } from '../lib/config.ts';
+import { GAME_LOCALES, iconPath, rsdb, staticOut, type GameLocale } from '../lib/config.ts';
 import { convertWebp, ensureDir, reportConversion, type IconJob } from '../lib/icons.ts';
 import { loadLocaleMaps } from '../lib/msbt.ts';
 import { compareCaseInsensitive, writeMinifiedJson } from '../lib/output.ts';
@@ -55,7 +55,7 @@ for (const t of result) {
   if (seenIcon.has(t.icon)) continue;
   seenIcon.add(t.icon);
   jobs.push({
-    src: `${ICON_DIR}/${t.icon}.png`,
+    src: iconPath(t.icon),
     dst: `${ICON_DIR_DST}/${t.icon}.webp`,
     label: t.n,
   });

@@ -1,5 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 
+import { parse } from 'yaml';
+
 import { GAME_LOCALES, localeReplaceMsg, type GameLocale } from './config.ts';
 
 type MsbtEntry = { text?: unknown };
@@ -21,7 +23,14 @@ export function readMsbtRaw(path: string, required = false): MsbtFile | null {
     if (required) throw new Error(`msbt file missing: ${path}`);
     return null;
   }
-  return JSON.parse(readFileSync(path, 'utf8')) as MsbtFile;
+  const raw = parse(readFileSync(path, 'utf8')) as {
+    messages?: Array<{ label?: string; text?: string }>;
+  };
+  const out: MsbtFile = {};
+  for (const msg of raw.messages ?? []) {
+    if (typeof msg.label === 'string') out[msg.label] = { text: msg.text };
+  }
+  return out;
 }
 
 export function loadMsbt(path: string, options: MsbtOptions = {}): Map<string, string> {

@@ -15,6 +15,7 @@ export default ts.config(
       '.svelte-kit/',
       'packages/ltd-textures/assembly/',
       'packages/ltd-textures/build/',
+      'game-data/',
     ],
   },
   js.configs.recommended,

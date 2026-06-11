@@ -1,4 +1,4 @@
-import { GAME_LOCALES, ICON_DIR, rsdb, staticOut, type GameLocale } from '../lib/config.ts';
+import { GAME_LOCALES, iconPath, rsdb, staticOut, type GameLocale } from '../lib/config.ts';
 import { murmur3 } from '../lib/hash.ts';
 import { convertWebp, ensureDir, reportConversion, type IconJob } from '../lib/icons.ts';
 import { loadLocaleMaps } from '../lib/msbt.ts';
@@ -80,7 +80,7 @@ for (const food of result) {
   if (seenTexture.has(food.t)) continue;
   seenTexture.add(food.t);
   jobs.push({
-    src: `${ICON_DIR}/Food${String(food.t).padStart(3, '0')}.png`,
+    src: iconPath(`Food${String(food.t).padStart(3, '0')}`),
     dst: `${ICON_DIR_DST}/Food${food.t}.webp`,
     label: food.n,
   });

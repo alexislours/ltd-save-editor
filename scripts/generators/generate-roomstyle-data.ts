@@ -1,17 +1,20 @@
 import { readFileSync } from 'node:fs';
 
+import { parse } from 'yaml';
+
 import {
   GAME_DATA_LIST,
   GAME_LOCALES,
-  ICON_DIR,
+  iconPath,
   rsdb,
   staticOut,
   type GameLocale,
 } from '../lib/config.ts';
+import { murmur3 } from '../lib/hash.ts';
 import { convertWebp, ensureDir, reportConversion, type IconJob } from '../lib/icons.ts';
 import { loadLocaleMaps } from '../lib/msbt.ts';
 import { compareCaseInsensitive, writeMinifiedJson } from '../lib/output.ts';
-import { loadSequence } from '../lib/yaml.ts';
+import { BYML_CUSTOM_TAGS, bymlHashToName, loadSequence } from '../lib/yaml.ts';
 
 const ROOM_STYLE_PARAM = rsdb('RoomStyleParam');
 const OUT = staticOut('roomstyles.json');
@@ -43,13 +46,31 @@ function splitStyleName(styleName: string): { group: string; suffix: number } {
 }
 
 function loadMysteryHashes(path: string): Map<string, number> {
-  const txt = readFileSync(path, 'utf8');
+  const INFORMED_NEW_RELEASE = murmur3('InformedNewRelease');
+
+  type InnerEntry = { Hash?: number; Value?: number };
+  type StructEntry = { Hash?: number; DefaultValue?: InnerEntry[] };
+  const parsed = parse(readFileSync(path, 'utf8'), { customTags: BYML_CUSTOM_TAGS }) as {
+    root?: { Data?: { Struct?: StructEntry[] } };
+  };
+
+  const structs = parsed?.root?.Data?.Struct ?? [];
   const out = new Map<string, number>();
-  const re =
-    /# Hash=UInt32 0x73adc433 => InformedNewRelease, Value=UInt32 0x([0-9a-f]+) => Player\.InteriorRoomStyleInfo\.([A-Z][A-Za-z0-9]+)\b/g;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(txt)) !== null) {
-    out.set(m[2], Number.parseInt(m[1], 16) >>> 0);
+  for (const entry of structs) {
+    const outerHash = typeof entry.Hash === 'number' ? entry.Hash >>> 0 : null;
+    if (!outerHash) continue;
+    const fullName = bymlHashToName.get(outerHash);
+    if (!fullName) continue;
+    const name = fullName.split('.').pop()!;
+    for (const inner of entry.DefaultValue ?? []) {
+      const innerHash = typeof inner.Hash === 'number' ? inner.Hash >>> 0 : null;
+      if (innerHash !== INFORMED_NEW_RELEASE) continue;
+      const val = typeof inner.Value === 'number' ? inner.Value >>> 0 : null;
+      if (val != null) {
+        out.set(name, val);
+        break;
+      }
+    }
   }
   return out;
 }
@@ -105,7 +126,7 @@ for (const group of result) {
     if (seenIcon.has(variant.n)) continue;
     seenIcon.add(variant.n);
     jobs.push({
-      src: `${ICON_DIR}/Room_Style_${variant.n}.png`,
+      src: iconPath(`Room_Style_${variant.n}`),
       dst: `${ICON_DIR_DST}/${variant.n}.webp`,
     });
   }

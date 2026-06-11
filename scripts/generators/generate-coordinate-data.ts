@@ -1,4 +1,4 @@
-import { GAME_LOCALES, ICON_DIR, rsdb, staticOut, type GameLocale } from '../lib/config.ts';
+import { GAME_LOCALES, iconPath, rsdb, staticOut, type GameLocale } from '../lib/config.ts';
 import { murmur3 } from '../lib/hash.ts';
 import { convertWebp, ensureDir, reportConversion, type IconJob } from '../lib/icons.ts';
 import { loadLocaleMaps } from '../lib/msbt.ts';
@@ -121,7 +121,7 @@ for (const coord of result) {
   for (let i = 0; i < coord.cc; i++) {
     const suffix = `_${String(i).padStart(2, '0')}`;
     jobs.push({
-      src: `${ICON_DIR}/${coord.n}${suffix}.png`,
+      src: iconPath(`${coord.n}${suffix}`),
       dst: `${ICON_DIR_DST}/${coord.n}${suffix}.webp`,
       skipIfExists: true,
     });
