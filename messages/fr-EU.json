@@ -932,6 +932,7 @@
     "subtab_profile": "Profil",
     "subtab_relationships": "Graphe des relations",
     "subtab_troubles": "Soucis",
+    "subtab_vibe": "Atmosphère de l'île",
     "title": "Mii",
     "troubles": {
       "active_label": "Souci",
@@ -1030,6 +1031,18 @@
       "target_ugc_text": "Index UGC texte",
       "targets_heading": "Cibles",
       "unknown": "Souci inconnu ({hash})"
+    },
+    "vibe": {
+      "chart_aria": "Graphique de l'atmosphère de l'île. Atmosphère actuelle : {name}",
+      "graph_title": "Atmosphère de l'île",
+      "intro": "L'atmosphère affichée sur l'écran des personnalités des habitants n'est jamais stockée dans la sauvegarde : le jeu la recalcule à partir des curseurs de personnalité de chaque habitant. Ce graphique applique la même formule à la sauvegarde chargée.",
+      "legend_dots": "Chaque point est la contribution exacte (cx, cy) d'un habitant. Les habitants superposés partagent un point qui affiche leur nombre.",
+      "no_data": "Cette sauvegarde ne contient pas les champs de personnalité nécessaires au calcul de l'atmosphère de l'île.",
+      "no_populated": "Aucun habitant trouvé dans cette sauvegarde.",
+      "resident_count": "{count, plural, one {# habitant} other {# habitants}}",
+      "th_direction": "Direction",
+      "th_strong": "Tendance forte",
+      "th_weak": "Tendance légère"
     },
     "voice": {
       "mode_custom": "Perso.",

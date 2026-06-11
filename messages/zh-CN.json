@@ -932,6 +932,7 @@
     "subtab_profile": "资料",
     "subtab_relationships": "关系图",
     "subtab_troubles": "烦恼",
+    "subtab_vibe": "岛屿类型",
     "title": "Mii",
     "troubles": {
       "active_label": "烦恼",
@@ -1030,6 +1031,18 @@
       "target_ugc_text": "UGC 文本索引",
       "targets_heading": "目标",
       "unknown": "未知烦恼（{hash}）"
+    },
+    "vibe": {
+      "chart_aria": "岛屿类型图表。当前类型:{name}",
+      "graph_title": "岛屿类型",
+      "intro": "居民个性页面显示的岛屿类型不会存进存档,游戏会根据每位居民的个性滑块即时重新计算。此图表对当前加载的存档应用相同的公式。",
+      "legend_dots": "每个圆点是一位居民的精确贡献 (cx, cy)。重叠的居民会合并为一个圆点并显示人数。",
+      "no_data": "此存档缺少计算岛屿类型所需的个性数据。",
+      "no_populated": "此存档中没有找到居民。",
+      "resident_count": "{count, plural, other {# 位居民}}",
+      "th_direction": "方向",
+      "th_strong": "强烈倾向",
+      "th_weak": "轻微倾向"
     },
     "voice": {
       "mode_custom": "自定义",

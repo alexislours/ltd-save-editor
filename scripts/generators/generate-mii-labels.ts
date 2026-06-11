@@ -47,6 +47,14 @@ const RELATION_TYPE_KEYS = [
   'Relative',
 ] as const;
 
+const ISLAND_VIBE_KEYS = [
+  'Normal',
+  ...Array.from({ length: 8 }, (_, i) => `Strong_0${i}`),
+  ...Array.from({ length: 8 }, (_, i) => `Weak_0${i}`),
+] as const;
+
+const CATEGORY4_KEYS = ['Nori', 'Nagomi', 'Cool', 'Dry'] as const;
+
 const SUB_PREFIXES = [
   'Couple',
   'Divorce',
@@ -147,6 +155,26 @@ function collectSubRelations(code: GameLocale): Record<string, string> {
   return out;
 }
 
+function collectIslandVibes(code: GameLocale): Record<string, string> {
+  const msbt = loadFiltered(localeReplaceMsg(code, 'IslandType'));
+  const out: Record<string, string> = {};
+  for (const key of ISLAND_VIBE_KEYS) {
+    const t = msbt.get(`IslandType_${key}`);
+    if (t) out[key] = capitalizeFirst(t);
+  }
+  return out;
+}
+
+function collectPersonalityCategories(code: GameLocale): Record<string, string> {
+  const msbt = loadFiltered(localeReplaceMsg(code, 'Character'));
+  const out: Record<string, string> = {};
+  for (const key of CATEGORY4_KEYS) {
+    const t = msbt.get(`Category4_${key}`);
+    if (t) out[key] = capitalizeFirst(t);
+  }
+  return out;
+}
+
 const allSubKeys: string[] = (() => {
   const keys: string[] = [];
   for (const prefix of SUB_PREFIXES) {
@@ -163,6 +191,8 @@ const result = {
   genders: transposeByValue([...GENDER_VALUES, 'Invalid'], collectGenders),
   relationTypes: transposeByValue(RELATION_TYPE_KEYS, collectRelationTypes),
   subRelations: transposeByValue(allSubKeys, collectSubRelations),
+  islandVibes: transposeByValue(ISLAND_VIBE_KEYS, collectIslandVibes),
+  personalityCategories: transposeByValue(CATEGORY4_KEYS, collectPersonalityCategories),
 };
 
 writeMinifiedJson(OUT, result);
@@ -171,5 +201,7 @@ console.log(
     Object.keys(result.pronouns).length
   } pronouns, ${Object.keys(result.genders).length} genders, ${
     Object.keys(result.relationTypes).length
-  } relation types, ${Object.keys(result.subRelations).length} sub-relations)`,
+  } relation types, ${Object.keys(result.subRelations).length} sub-relations, ${
+    Object.keys(result.islandVibes).length
+  } island vibes, ${Object.keys(result.personalityCategories).length} personality categories)`,
 );

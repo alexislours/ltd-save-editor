@@ -910,6 +910,7 @@
     "subtab_profile": "Profile",
     "subtab_relationships": "Relationships graph",
     "subtab_troubles": "Troubles",
+    "subtab_vibe": "Island vibe",
     "title": "Mii",
     "troubles": {
       "active_label": "Trouble",
@@ -1008,6 +1009,18 @@
       "target_ugc_text": "UGC text index",
       "targets_heading": "Targets",
       "unknown": "Unknown trouble ({hash})"
+    },
+    "vibe": {
+      "chart_aria": "Island vibe chart. Current vibe: {name}",
+      "graph_title": "Island vibe",
+      "intro": "The vibe shown on the Resident personalities screen is never stored in the save: the game recomputes it from every resident's personality sliders. This chart applies the same formula to the loaded save.",
+      "legend_dots": "Each dot is one resident's exact contribution (cx, cy). Overlapping residents share one dot showing their count.",
+      "no_data": "This save is missing the personality fields needed to compute the island vibe.",
+      "no_populated": "No residents found in this save.",
+      "resident_count": "{count, plural, one {# resident} other {# residents}}",
+      "th_direction": "Direction",
+      "th_strong": "Strong lean",
+      "th_weak": "Mild lean"
     },
     "voice": {
       "mode_custom": "Custom",

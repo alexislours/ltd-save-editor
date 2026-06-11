@@ -7,6 +7,7 @@
   import MiiBelongingsPanel from '$lib/mii/ownership/MiiBelongingsPanel.svelte';
   import MiiHabitPanel from '$lib/mii/MiiHabitPanel.svelte';
   import MiiHousingPanel from '$lib/mii/housing/MiiHousingPanel.svelte';
+  import MiiIslandVibePanel from '$lib/mii/vibe/MiiIslandVibePanel.svelte';
   import MiiPanel from '$lib/mii/MiiPanel.svelte';
   import MiiRelationsGraph from '$lib/mii/relations/MiiRelationsGraph.svelte';
   import MiiTroublePanel from '$lib/mii/trouble/MiiTroublePanel.svelte';
@@ -52,6 +53,7 @@
   type SubTab =
     | 'profile'
     | 'relationships'
+    | 'vibe'
     | 'housing'
     | 'belongings'
     | 'troubles'
@@ -64,6 +66,7 @@
   const SUB_TABS: { value: SubTab; label: string }[] = $derived([
     { value: 'profile', label: $_('mii.subtab_profile') },
     { value: 'relationships', label: $_('mii.subtab_relationships') },
+    { value: 'vibe', label: $_('mii.subtab_vibe') },
     { value: 'housing', label: $_('mii.subtab_housing') },
     { value: 'belongings', label: $_('mii.subtab_belongings') },
     { value: 'troubles', label: $_('mii.subtab_troubles') },
@@ -117,6 +120,8 @@
     <MiiPanel bind:selectedIndex />
   {:else if subTab === 'relationships'}
     <MiiRelationsGraph {selectedIndex} onSelect={(i) => (selectedIndex = i)} />
+  {:else if subTab === 'vibe'}
+    <MiiIslandVibePanel />
   {:else if subTab === 'housing'}
     <MiiHousingPanel />
   {:else if subTab === 'belongings'}
