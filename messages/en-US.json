@@ -745,6 +745,12 @@
       "level_pill": "Level {level}",
       "no_name_spine": "This save doesn't expose the Mii.Name.Name spine - there's nothing to enumerate. Use the Player tab's advanced panel to inspect raw entries.",
       "no_slots": "No populated Mii slots were found. Slots are detected by checking Mii.Name.Name for a non-empty string.",
+      "reset_button": "Reset to new",
+      "reset_confirm_body": "{name} will be reset to a fresh islander: experience, relationships, wallet, quirks, belongings, clothing, interiors, housing and eaten foods are all cleared, food tastes are randomised, and the starting outfit is restored. They also move out of their house, freeing the room. Their look, name, birthday, gender, sexuality, voice and personality stay the same. This replaces Mii.sav, Map.sav and Player.sav and can't be undone (other than reloading the original save).",
+      "reset_confirm_title": "Reset this Mii?",
+      "reset_done": "Reset {name} to a new islander.",
+      "reset_needs": "Reset this Mii's progress back to a fresh islander",
+      "reset_needs_map": "Load Map.sav and Player.sav as well before resetting, so houses, rooms and interiors stay in sync.",
       "selector_label": "Mii",
       "slot_count": "{count, plural, one {# populated slot} other {# populated slots}}",
       "slot_label": "#{index} · {name}",
@@ -910,6 +916,7 @@
     "subtab_profile": "Profile",
     "subtab_relationships": "Relationships graph",
     "subtab_troubles": "Troubles",
+    "subtab_vibe": "Island vibe",
     "title": "Mii",
     "troubles": {
       "active_label": "Trouble",
@@ -1008,6 +1015,18 @@
       "target_ugc_text": "UGC text index",
       "targets_heading": "Targets",
       "unknown": "Unknown trouble ({hash})"
+    },
+    "vibe": {
+      "chart_aria": "Island vibe chart. Current vibe: {name}",
+      "graph_title": "Island vibe",
+      "intro": "The vibe shown on the Resident personalities screen is never stored in the save: the game recomputes it from every resident's personality sliders. This chart applies the same formula to the loaded save.",
+      "legend_dots": "Each dot is one resident's exact contribution (cx, cy). Overlapping residents share one dot showing their count.",
+      "no_data": "This save is missing the personality fields needed to compute the island vibe.",
+      "no_populated": "No residents found in this save.",
+      "resident_count": "{count, plural, one {# resident} other {# residents}}",
+      "th_direction": "Direction",
+      "th_strong": "Strong lean",
+      "th_weak": "Mild lean"
     },
     "voice": {
       "mode_custom": "Custom",

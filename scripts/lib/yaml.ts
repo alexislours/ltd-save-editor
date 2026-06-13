@@ -1,4 +1,6 @@
 import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import {
   isMap,
@@ -10,21 +12,34 @@ import {
   type YAMLMap,
 } from 'yaml';
 
-const customTags = [
-  {
-    tag: '!u',
-    resolve: (str: string) => Number.parseInt(str, 10) >>> 0,
-  },
+export const bymlHashToName = new Map<number, string>();
+for (const line of readFileSync(
+  resolve(dirname(fileURLToPath(import.meta.url)), 'byml-hashes.tsv'),
+  'utf8',
+).split('\n')) {
+  const tab = line.indexOf('\t');
+  if (tab < 0) continue;
+  bymlHashToName.set(Number.parseInt(line.slice(0, tab), 16) >>> 0, line.slice(tab + 1).trim());
+}
+
+export const BYML_CUSTOM_TAGS = [
+  { tag: '!u', resolve: (str: string) => Number.parseInt(str, 10) >>> 0 },
+  { tag: '!str', resolve: (str: string) => str },
+  { tag: '!u32', resolve: (str: string) => Number.parseInt(str, 10) >>> 0 },
+  { tag: '!i32', resolve: (str: string) => Number.parseInt(str, 10) | 0 },
+  { tag: '!f32', resolve: (str: string) => Number.parseFloat(str) },
+  { tag: '!bool', resolve: (str: string) => str === 'true' },
+  { tag: '!hash32', resolve: () => null },
+  { tag: '!u64', resolve: (str: string) => Number.parseInt(str, 10) },
+  { tag: '!i64', resolve: (str: string) => Number.parseInt(str, 10) },
 ];
 
 export class YamlEntry {
   readonly data: Record<string, unknown>;
   private readonly trailingComments: Record<string, string>;
   private readonly leadingComments: string[];
-  private readonly node: YAMLMap;
 
   constructor(doc: Document, node: YAMLMap, leadingComments: string[] = []) {
-    this.node = node;
     this.data = node.toJS(doc) as Record<string, unknown>;
     this.trailingComments = {};
     this.leadingComments = leadingComments;
@@ -92,9 +107,13 @@ export class YamlEntry {
 
   enumLabel(key: string): string | null {
     const c = this.trailingComments[key];
-    if (!c) return null;
-    const m = c.match(/=>\s*(\w+)/);
-    return m ? m[1] : null;
+    if (c) {
+      const m = c.match(/=>\s*(\w+)/);
+      if (m) return m[1];
+    }
+    const v = this.data[key];
+    if (typeof v === 'number') return bymlHashToName.get(v >>> 0) ?? null;
+    return null;
   }
 
   rowKey(key = '__RowId'): string | null {
@@ -116,25 +135,23 @@ export class YamlEntry {
   comments(): readonly string[] {
     return this.leadingComments;
   }
-
-  arrayItemComments(key: string): (string | null)[] {
-    for (const pair of this.node.items as Pair[]) {
-      if (!isScalar(pair.key) || pair.key.value !== key) continue;
-      if (!isSeq(pair.value)) return [];
-      return pair.value.items.map((item) =>
-        isScalar(item) && item.value == null ? (item.comment ?? null) : null,
-      );
-    }
-    return [];
-  }
 }
 
 export function loadSequence(path: string): YamlEntry[] {
-  const doc = parseDocument(readFileSync(path, 'utf8'), { customTags });
-  if (!isSeq(doc.contents)) return [];
+  const doc = parseDocument(readFileSync(path, 'utf8'), { customTags: BYML_CUSTOM_TAGS });
+  let seq = doc.contents;
+  if (isMap(seq)) {
+    for (const pair of seq.items as Pair[]) {
+      if (isScalar(pair.key) && pair.key.value === 'root' && isSeq(pair.value)) {
+        seq = pair.value as typeof seq;
+        break;
+      }
+    }
+  }
+  if (!isSeq(seq)) return [];
   const out: YamlEntry[] = [];
   let pendingComments: string[] = [];
-  for (const item of doc.contents.items) {
+  for (const item of seq.items) {
     if (isMap(item)) {
       const before = item.commentBefore ? item.commentBefore.split('\n') : [];
       const lead = pendingComments.concat(before);
@@ -151,7 +168,16 @@ export function loadSequence(path: string): YamlEntry[] {
 }
 
 export function loadMapping(path: string): YamlEntry | null {
-  const doc = parseDocument(readFileSync(path, 'utf8'), { customTags });
-  if (!isMap(doc.contents)) return null;
-  return new YamlEntry(doc, doc.contents);
+  const doc = parseDocument(readFileSync(path, 'utf8'), { customTags: BYML_CUSTOM_TAGS });
+  let node = doc.contents;
+  if (isMap(node)) {
+    for (const pair of node.items as Pair[]) {
+      if (isScalar(pair.key) && pair.key.value === 'root' && isMap(pair.value)) {
+        node = pair.value as typeof node;
+        break;
+      }
+    }
+  }
+  if (!isMap(node)) return null;
+  return new YamlEntry(doc, node);
 }

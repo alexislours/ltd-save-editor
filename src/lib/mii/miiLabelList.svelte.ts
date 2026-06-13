@@ -7,9 +7,18 @@ type MiiLabels = {
   genders: Record<string, LocalizedString>;
   relationTypes: Record<string, LocalizedString>;
   subRelations: Record<string, LocalizedString>;
+  islandVibes: Record<string, LocalizedString>;
+  personalityCategories: Record<string, LocalizedString>;
 };
 
-const EMPTY: MiiLabels = { pronouns: {}, genders: {}, relationTypes: {}, subRelations: {} };
+const EMPTY: MiiLabels = {
+  pronouns: {},
+  genders: {},
+  relationTypes: {},
+  subRelations: {},
+  islandVibes: {},
+  personalityCategories: {},
+};
 
 const STATE = $state<{ labels: MiiLabels }>({ labels: EMPTY });
 let started = false;
@@ -21,7 +30,7 @@ export function loadMiiLabels(): void {
     try {
       const res = await fetch(`${import.meta.env.BASE_URL}mii-labels.json`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      STATE.labels = (await res.json()) as MiiLabels;
+      STATE.labels = { ...EMPTY, ...((await res.json()) as Partial<MiiLabels>) };
     } catch (err) {
       console.warn('[miiLabelList] failed to load /mii-labels.json:', err);
     }
@@ -61,4 +70,15 @@ export function subRelationLabel(
   uiLocale: string | null | undefined,
 ): string | null {
   return lookup(STATE.labels.subRelations, value, uiLocale);
+}
+
+export function islandVibeLabel(value: string, uiLocale: string | null | undefined): string | null {
+  return lookup(STATE.labels.islandVibes, value, uiLocale);
+}
+
+export function personalityCategoryLabel(
+  value: string,
+  uiLocale: string | null | undefined,
+): string | null {
+  return lookup(STATE.labels.personalityCategories, value, uiLocale);
 }

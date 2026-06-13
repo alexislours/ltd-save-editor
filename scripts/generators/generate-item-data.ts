@@ -1,11 +1,11 @@
 import { existsSync } from 'node:fs';
 
-import { GAME_LOCALES, ICON_DIR, rsdb, staticOut, type GameLocale } from '../lib/config.ts';
+import { GAME_LOCALES, iconPath, rsdb, staticOut, type GameLocale } from '../lib/config.ts';
 import { murmur3 } from '../lib/hash.ts';
 import { convertWebp, ensureDir, reportConversion, type IconJob } from '../lib/icons.ts';
 import { loadLocaleMaps } from '../lib/msbt.ts';
 import { compareCaseInsensitive, writeMinifiedJson } from '../lib/output.ts';
-import { loadSequence } from '../lib/yaml.ts';
+import { bymlHashToName, loadSequence } from '../lib/yaml.ts';
 
 const ENCYCLOPEDIA = rsdb('MapObjectEncyclopedia');
 const COLOR_GROUP_DATA = rsdb('MapObjeColorVariationGroupData');
@@ -35,16 +35,16 @@ function loadEncyclopedia(path: string): string[] {
 
 function loadColorGroups(path: string): Map<string, { name: string; color: string }[]> {
   const out = new Map<string, { name: string; color: string }[]>();
-  const re =
-    /ActorHash=UInt32\s+0x[0-9a-fA-F]+\s+=>\s+(\w+),\s+Color=UInt32\s+0x[0-9a-fA-F]+\s+=>\s+(\w+)/;
   for (const e of loadSequence(path)) {
     const groupKey = e.rowKey();
     if (!groupKey) continue;
+    const colorVariations = e.array<Record<string, number>>('ColorVariation');
+    if (!colorVariations) continue;
     const variants: { name: string; color: string }[] = [];
-    for (const c of e.arrayItemComments('ColorVariation')) {
-      if (!c) continue;
-      const m = c.match(re);
-      if (m) variants.push({ name: m[1], color: m[2] });
+    for (const cv of colorVariations) {
+      const actorName = bymlHashToName.get((cv['ActorHash'] ?? 0) >>> 0);
+      const colorName = bymlHashToName.get((cv['Color'] ?? 0) >>> 0);
+      if (actorName && colorName != null) variants.push({ name: actorName, color: colorName });
     }
     if (variants.length > 0) out.set(groupKey, variants);
   }
@@ -103,7 +103,7 @@ for (const baseName of encyclopedia) {
     c: v.color,
   }));
 
-  const hasAnyIcon = variants.some((v) => existsSync(`${ICON_DIR}/${v.n}.png`));
+  const hasAnyIcon = variants.some((v) => existsSync(iconPath(v.n)));
   if (!hasAnyIcon) {
     skipped.push({ name: baseName, reason: 'no-icon' });
     continue;
@@ -142,7 +142,7 @@ for (const item of result) {
     if (seenIcon.has(variant.n)) continue;
     seenIcon.add(variant.n);
     jobs.push({
-      src: `${ICON_DIR}/${variant.n}.png`,
+      src: iconPath(variant.n),
       dst: `${ICON_DIR_DST}/${variant.n}.webp`,
       label: variant.n,
     });

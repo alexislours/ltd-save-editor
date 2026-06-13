@@ -8,23 +8,23 @@ const TROUBLE_PARAM = rsdb('TroubleParam');
 const OUT = staticOut('troubles.json');
 
 const SUBSTITUTION_TAGS = new Map<string, string>([
-  ['Mii.Nickname', 'MiiName'],
-  ['Mii.ThirdPersonPronoun', 'PronounSubj'],
-  ['Mii.ThirdPersonWord', 'PronounAttr'],
-  ['Mii.FirstPerson', 'I'],
-  ['Player.PlayerNicknameByMii', 'PlayerName'],
-  ['Replace.Island', 'IslandName'],
-  ['Replace.MapObject', 'MapObjectName'],
-  ['Replace.Goods', 'TreasureName'],
-  ['Replace.WordAttrMessage', 'AttrName'],
+  ['Nickname', 'MiiName'],
+  ['ThirdPersonPronoun', 'PronounSubj'],
+  ['ThirdPersonWord', 'PronounAttr'],
+  ['FirstPerson', 'I'],
+  ['PlayerNicknameByMii', 'PlayerName'],
+  ['Island', 'IslandName'],
+  ['MapObject', 'MapObjectName'],
+  ['Goods', 'TreasureName'],
+  ['WordAttrMessage', 'AttrName'],
 ]);
 
 function cleanPreview(raw: string): string {
-  let s = raw.split('<System.PageBreak>')[0];
+  let s = raw.split(/<PageBreak\/>|<System\.PageBreak>/)[0];
   for (const [tag, placeholder] of SUBSTITUTION_TAGS) {
     s = s.replaceAll(new RegExp(`<${tag}\\b[^>]*>`, 'g'), `<${placeholder}>`);
   }
-  s = s.replace(/<(?!\/?[A-Z][A-Za-z]*>)[^>]*>/g, '');
+  s = s.replace(/<(?![A-Z][A-Za-z]*>)[^>]*>/g, '');
   return s.replace(/\s+/g, ' ').trim();
 }
 
@@ -148,6 +148,7 @@ for (const code of GAME_LOCALES) {
 }
 
 const UNSET = new Set(['None', 'Invalid']);
+
 function readEnum(p: YamlEntry, key: string): string | null {
   const label = p.enumLabel(key);
   if (!label || UNSET.has(label)) return null;

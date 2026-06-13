@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 
-import { GAME_LOCALES, ICON_DIR, rsdb, staticOut, type GameLocale } from '../lib/config.ts';
+import { GAME_LOCALES, iconPath, rsdb, staticOut, type GameLocale } from '../lib/config.ts';
 import { convertWebp, ensureDir, reportConversion, type IconJob } from '../lib/icons.ts';
 import { loadLocaleMaps } from '../lib/msbt.ts';
 import { compareCaseInsensitive, writeMinifiedJson } from '../lib/output.ts';
@@ -57,10 +57,10 @@ for (const c of cloths) {
   }
 
   let colorCount: number;
-  if (existsSync(`${ICON_DIR}/${rowKey}_00.png`)) {
+  if (existsSync(iconPath(`${rowKey}_00`))) {
     colorCount = 1;
     for (let i = 1; i < 32; i++) {
-      if (!existsSync(`${ICON_DIR}/${rowKey}_${String(i).padStart(2, '0')}.png`)) break;
+      if (!existsSync(iconPath(`${rowKey}_${String(i).padStart(2, '0')}`))) break;
       colorCount = i + 1;
     }
   } else {
@@ -86,7 +86,7 @@ for (const cloth of result) {
   for (let i = 0; i < cloth.c; i++) {
     const suffix = `_${String(i).padStart(2, '0')}`;
     jobs.push({
-      src: `${ICON_DIR}/${cloth.n}${suffix}.png`,
+      src: iconPath(`${cloth.n}${suffix}`),
       dst: `${ICON_DIR_DST}/${cloth.n}${suffix}.webp`,
     });
   }

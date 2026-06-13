@@ -13,6 +13,7 @@
   import { DEFAULT_CHAR_INFO_EX } from './ownership/defaultCharInfoEx';
   import { addMii, firstEmptyMiiSlot } from './ownership/addMii';
   import { deleteMii } from './ownership/deleteMii';
+  import { resetMii } from './ownership/resetMii';
   import { isAllZero, populatedMiiIndices } from './ownership/populated';
 
   type Props = {
@@ -134,6 +135,18 @@
     deleteMii(selectedSlot.index);
     showToast('success', $_('mii.panel.delete_done', { values: { name } }));
   }
+
+  let confirmingReset = $state(false);
+
+  function resetSelected(): void {
+    if (!mii || selectedSlot == null || !canDelete) return;
+    const name = selectedSlot.name;
+    syncMapObjects();
+    syncResidents();
+    syncPlayer();
+    resetMii(mii, selectedSlot.index);
+    showToast('success', $_('mii.panel.reset_done', { values: { name } }));
+  }
 </script>
 
 {#if !hasName}
@@ -194,15 +207,26 @@
         <span class="text-xs text-content-muted">
           {$_('mii.panel.slot_short', { values: { index: selectedSlot.index + 1 } })}
         </span>
-        <button
-          type="button"
-          class="ml-auto self-center inline-flex items-center gap-1.5 rounded-full bg-danger-bg px-3 py-1.5 text-xs font-bold text-danger ring-1 ring-danger-edge/70 transition-colors hover:bg-red-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600/40 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-danger-bg disabled:hover:text-danger"
-          disabled={!canDelete}
-          title={canDelete ? undefined : $_('mii.panel.delete_needs_map')}
-          onclick={() => (confirmingDelete = true)}
-        >
-          {$_('mii.panel.delete_button')}
-        </button>
+        <div class="ml-auto flex items-center gap-2 self-center">
+          <button
+            type="button"
+            class="inline-flex items-center gap-1.5 rounded-full bg-surface-sunken px-3 py-1.5 text-xs font-bold text-content-strong ring-1 ring-edge/60 transition-colors hover:bg-amber-500 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/40 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-surface-sunken disabled:hover:text-content-strong"
+            disabled={!canDelete}
+            title={canDelete ? $_('mii.panel.reset_needs') : $_('mii.panel.reset_needs_map')}
+            onclick={() => (confirmingReset = true)}
+          >
+            {$_('mii.panel.reset_button')}
+          </button>
+          <button
+            type="button"
+            class="inline-flex items-center gap-1.5 rounded-full bg-danger-bg px-3 py-1.5 text-xs font-bold text-danger ring-1 ring-danger-edge/70 transition-colors hover:bg-red-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600/40 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-danger-bg disabled:hover:text-danger"
+            disabled={!canDelete}
+            title={canDelete ? undefined : $_('mii.panel.delete_needs_map')}
+            onclick={() => (confirmingDelete = true)}
+          >
+            {$_('mii.panel.delete_button')}
+          </button>
+        </div>
       </div>
       {#if selectedSlot.xpPercent != null}
         <div class="mt-3 max-w-md" title="Mii.MiiMisc.SatisfyInfo.Meter">
@@ -237,5 +261,13 @@
     body={$_('mii.panel.delete_confirm_body', { values: { name: selectedSlot?.name ?? '' } })}
     confirmLabel={$_('mii.panel.delete_button')}
     onConfirm={deleteSelected}
+  />
+
+  <ConfirmDialog
+    bind:open={confirmingReset}
+    title={$_('mii.panel.reset_confirm_title')}
+    body={$_('mii.panel.reset_confirm_body', { values: { name: selectedSlot?.name ?? '' } })}
+    confirmLabel={$_('mii.panel.reset_button')}
+    onConfirm={resetSelected}
   />
 {/if}

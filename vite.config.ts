@@ -13,5 +13,8 @@ export default defineConfig({
     fs: {
       allow: ['packages/ltd-textures/build'],
     },
+    watch: {
+      ignored: ['**/game-data/**'],
+    },
   },
 });

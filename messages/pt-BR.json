@@ -767,6 +767,12 @@
       "level_pill": "Nível {level}",
       "no_name_spine": "Este save não contém Mii.Name.Name. não há nada para enumerar. Use o painel avançado da aba Jogador para inspecionar entradas brutas.",
       "no_slots": "Nenhum slot de Mii preenchido foi encontrado. Os slots são detectados verificando Mii.Name.Name por uma string não vazia.",
+      "reset_button": "Redefinir",
+      "reset_confirm_body": "{name} será redefinido como um novo morador: experiência, relacionamentos, carteira, manias, pertences, roupas, interiores, moradia e comidas ingeridas são todos apagados, os gostos por comida são sorteados, e a roupa inicial é restaurada. Ele também sai de casa, liberando o quarto. A aparência, o nome, o aniversário, o gênero, a sexualidade, a voz e a personalidade permanecem iguais. Isso substitui Mii.sav, Map.sav e Player.sav e não pode ser desfeito (a não ser recarregando o save original).",
+      "reset_confirm_title": "Redefinir este Mii?",
+      "reset_done": "{name} foi redefinido como um novo morador.",
+      "reset_needs": "Redefine o progresso deste Mii de volta a um novo morador",
+      "reset_needs_map": "Carregue também Map.sav e Player.sav antes de redefinir, para que casas, quartos e interiores fiquem sincronizados.",
       "selector_label": "Mii",
       "slot_count": "{count, plural, one {# slot preenchido} other {# slots preenchidos}}",
       "slot_label": "#{index} · {name}",
@@ -932,6 +938,7 @@
     "subtab_profile": "Perfil",
     "subtab_relationships": "Grafo de relacionamentos",
     "subtab_troubles": "Problemas",
+    "subtab_vibe": "Clima da ilha",
     "title": "Mii",
     "troubles": {
       "active_label": "Problema",
@@ -1030,6 +1037,18 @@
       "target_ugc_text": "Índice de texto UGC",
       "targets_heading": "Alvos",
       "unknown": "Problema desconhecido ({hash})"
+    },
+    "vibe": {
+      "chart_aria": "Gráfico do clima da ilha. Clima atual: {name}",
+      "graph_title": "Clima da ilha",
+      "intro": "O clima mostrado na tela de personalidades dos moradores nunca é gravado no save: o jogo o recalcula a partir dos controles de personalidade de cada morador. Este gráfico aplica a mesma fórmula ao save carregado.",
+      "legend_dots": "Cada ponto é a contribuição exata (cx, cy) de um morador. Moradores sobrepostos compartilham um ponto que mostra a contagem.",
+      "no_data": "Este save não tem os campos de personalidade necessários para calcular o clima da ilha.",
+      "no_populated": "Nenhum morador encontrado neste save.",
+      "resident_count": "{count, plural, one {# morador} other {# moradores}}",
+      "th_direction": "Direção",
+      "th_strong": "Tendência forte",
+      "th_weak": "Tendência leve"
     },
     "voice": {
       "mode_custom": "Personalizado",
