@@ -6,6 +6,15 @@ type ChangelogEntry = {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '2.13.0',
+    date: '2026-06-13',
+    changes: [
+      'Added an Island Vibe tab.',
+      'Added a button to reset a Mii.',
+      'Fixed relationship rank labels showing the wrong tier for some sub-relationships.',
+    ],
+  },
+  {
     version: '2.12.0',
     date: '2026-06-09',
     changes: ['Added a button to create a blank Mii.', 'Added a button to create a blank UGC.'],
