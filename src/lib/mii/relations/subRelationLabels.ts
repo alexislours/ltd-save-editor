@@ -1,64 +1,28 @@
-// Maps a relation's internal name + meter (+ fight flag) to a sub-relation
-// key understood by miiLabelList.subRelationLabel (e.g. "Couple_Fight_3").
-
 type SubGroup = {
-  thresholds: readonly number[];
   prefix: string;
   fightPrefix?: string;
 };
 
-const FAMILY_THRESHOLDS = [40, 60, 80, 120, 140, 160] as const;
+const RANK_THRESHOLDS = [11, 41, 81, 120, 160, 190] as const;
 
 const SUB_RELATIONS: Record<string, SubGroup> = {
-  Couple: {
-    thresholds: [50, 80, 90, 110, 120, 150],
-    prefix: 'Couple',
-    fightPrefix: 'Couple_Fight',
-  },
-  Divorce: {
-    thresholds: [80, 90, 90, 110, 120, 160],
-    prefix: 'Divorce',
-  },
-  ExFriend: {
-    thresholds: [80, 90, 90, 110, 120, 160],
-    prefix: 'ExFriend',
-  },
-  ExLover: {
-    thresholds: [80, 90, 90, 110, 120, 160],
-    prefix: 'ExLover',
-  },
-  Family: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
-  Relative: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
-  Parent: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
-  Child: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
-  BrotherSisterOlder: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
-  BrotherSisterYounger: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
-  GrandParent: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
-  GrandChild: { thresholds: FAMILY_THRESHOLDS, prefix: 'Family' },
-  Friend: {
-    thresholds: [40, 60, 80, 120, 140, 160],
-    prefix: 'Friend',
-    fightPrefix: 'Friend_Fight',
-  },
-  FriendOneSideLove: {
-    thresholds: [40, 60, 80, 120, 140, 160],
-    prefix: 'OnesideLove',
-    fightPrefix: 'OnesideLove_Fight',
-  },
-  Know: {
-    thresholds: [40, 60, 80, 120, 160, 200],
-    prefix: 'Know',
-  },
-  KnowOneSideLove: {
-    thresholds: [40, 60, 80, 120, 160, 200],
-    prefix: 'OnesideLove',
-    fightPrefix: 'OnesideLove_Fight',
-  },
-  Lover: {
-    thresholds: [50, 70, 80, 120, 130, 150],
-    prefix: 'Lover',
-    fightPrefix: 'Lover_Fight',
-  },
+  Couple: { prefix: 'Couple', fightPrefix: 'Couple_Fight' },
+  Divorce: { prefix: 'Divorce' },
+  ExFriend: { prefix: 'ExFriend' },
+  ExLover: { prefix: 'ExLover' },
+  Family: { prefix: 'Family' },
+  Relative: { prefix: 'Family' },
+  Parent: { prefix: 'Family' },
+  Child: { prefix: 'Family' },
+  BrotherSisterOlder: { prefix: 'Family' },
+  BrotherSisterYounger: { prefix: 'Family' },
+  GrandParent: { prefix: 'Family' },
+  GrandChild: { prefix: 'Family' },
+  Friend: { prefix: 'Friend', fightPrefix: 'Friend_Fight' },
+  FriendOneSideLove: { prefix: 'OnesideLove', fightPrefix: 'OnesideLove_Fight' },
+  Know: { prefix: 'Know' },
+  KnowOneSideLove: { prefix: 'OnesideLove', fightPrefix: 'OnesideLove_Fight' },
+  Lover: { prefix: 'Lover', fightPrefix: 'Lover_Fight' },
 };
 
 type SubRelationKey = {
@@ -88,10 +52,10 @@ export function subRelationKey(
   const def = SUB_RELATIONS[internalName];
   if (!def) return null;
   const prefix = activePrefix(def, isFight);
-  for (let i = 0; i < def.thresholds.length; i++) {
-    if (meter < def.thresholds[i]) return { key: `${prefix}_${i}`, index: i };
+  for (let i = 0; i < RANK_THRESHOLDS.length; i++) {
+    if (meter < RANK_THRESHOLDS[i]) return { key: `${prefix}_${i}`, index: i };
   }
-  const last = def.thresholds.length;
+  const last = RANK_THRESHOLDS.length;
   return { key: `${prefix}_${last}`, index: last };
 }
 
@@ -102,10 +66,10 @@ export function subRelationLevels(
   const def = SUB_RELATIONS[internalName];
   if (!def) return null;
   const prefix = activePrefix(def, isFight);
-  const total = def.thresholds.length + 1;
+  const total = RANK_THRESHOLDS.length + 1;
   const out: SubRelationLevel[] = [];
   for (let i = 0; i < total; i++) {
-    const meter = i === 0 ? 0 : def.thresholds[i - 1];
+    const meter = i === 0 ? 0 : RANK_THRESHOLDS[i - 1];
     out.push({ index: i, meter, key: `${prefix}_${i}` });
   }
   return out;
