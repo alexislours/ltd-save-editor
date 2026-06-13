@@ -1,7 +1,6 @@
 <script lang="ts">
   import { _ } from 'virtual:i18n/mii+residents+advanced';
-  import { allFoods } from '$lib/sav/lists/foodList.svelte';
-  import { MII_SCHEMA, type SchemaLeaf } from '@alexislours/ltd-savedata/schema';
+  import { randomizeFoodRanks } from './randomizeFoodRanks';
   import { miiAccessor } from './miiEditor.svelte';
 
   type Props = {
@@ -9,33 +8,10 @@
   };
   let { index }: Props = $props();
 
-  const FOOD_LEAVES: readonly SchemaLeaf[] = [
-    MII_SCHEMA.Mii.MiiMisc.EatInfo.UltraBestId,
-    MII_SCHEMA.Mii.MiiMisc.EatInfo.BestId,
-    MII_SCHEMA.Mii.MiiMisc.EatInfo.UltraWorstId,
-    MII_SCHEMA.Mii.MiiMisc.EatInfo.WorstId,
-  ];
-
   function randomize() {
-    const foods = allFoods();
-    if (foods.length === 0) return;
     const mii = miiAccessor();
     if (!mii) return;
-    const chosen: number[] = [];
-    for (const leaf of FOOD_LEAVES) {
-      if (!mii.has(leaf)) continue;
-      let hash = 0;
-      for (let attempt = 0; attempt < 16; attempt++) {
-        hash = foods[Math.floor(Math.random() * foods.length)].hash;
-        if (!chosen.includes(hash)) break;
-      }
-      chosen.push(hash);
-      try {
-        mii.setElement(leaf, index, hash);
-      } catch {
-        /* schema mismatch handled upstream */
-      }
-    }
+    randomizeFoodRanks(mii, index);
   }
 </script>
 

@@ -17,9 +17,10 @@ const HE = murmur3_x86_32('He') >>> 0;
 const BOY = murmur3_x86_32('Boy') >>> 0;
 const JPJA = murmur3_x86_32('JPja') >>> 0;
 
-const CLOTH_OWN_STRIDE = 1200;
-const COORDINATE_OWN_STRIDE = 400;
-const CLOTH_OWN_SUBINDICES = [77, 246, 339, 382];
+export const CLOTH_OWN_STRIDE = 1200;
+export const COORDINATE_OWN_STRIDE = 400;
+export const CLOTH_OWN_SUBINDICES = [77, 246, 339, 382];
+export const STARTER_COORDINATE = 6956255;
 const RELATION_METER = 100;
 
 function isSchemaLeaf(node: unknown): node is SchemaLeaf {
@@ -39,7 +40,7 @@ function collectLeaves(node: unknown, out: SchemaLeaf[]): SchemaLeaf[] {
 
 const BELONGINGS_LEAVES = collectLeaves(M.Belongings, []);
 
-function clearBelongings(mii: MiiAccessor, index: number, capacity: number): void {
+export function clearBelongings(mii: MiiAccessor, index: number, capacity: number): void {
   for (const leaf of BELONGINGS_LEAVES) {
     if (!mii.has(leaf)) continue;
     const len = (mii.get(leaf) as unknown[]).length;
@@ -72,7 +73,13 @@ function relationSlot(a: number, b: number, capacity: number): number {
   return (a * (2 * capacity - a - 1)) / 2 + (b - a - 1);
 }
 
-function linkMii(mii: MiiAccessor, a: number, b: number, capacity: number, now: bigint): void {
+export function linkMii(
+  mii: MiiAccessor,
+  a: number,
+  b: number,
+  capacity: number,
+  now: bigint,
+): void {
   if (!mii.has(REL.RelationId.Id_a) || !mii.has(REL.RelationId.Id_b)) return;
   const slot = relationSlot(a, b, capacity);
   mii.setElement(REL.RelationId.Id_a, slot, a);
@@ -188,7 +195,7 @@ export function addMii(mii: MiiAccessor): number {
     mii.setElement(M.MiiMisc.ClothInfo.ClothStyle, index, MALE);
   }
   if (mii.has(M.MiiMisc.ClothInfo.Coordinate.KeyHash)) {
-    mii.setElement(M.MiiMisc.ClothInfo.Coordinate.KeyHash, index, 6956255);
+    mii.setElement(M.MiiMisc.ClothInfo.Coordinate.KeyHash, index, STARTER_COORDINATE);
   }
 
   if (mii.has(M.MiiMisc.EatInfo.BestId)) mii.setElement(M.MiiMisc.EatInfo.BestId, index, 483471761);

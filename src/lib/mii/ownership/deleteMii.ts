@@ -70,7 +70,7 @@ function resetRelationSlot(mii: MiiAccessor, slot: number): void {
   }
 }
 
-function clearTroubleTargeting(mii: MiiAccessor, miiIndex: number): void {
+export function clearTroubleTargeting(mii: MiiAccessor, miiIndex: number): void {
   const tf = TROUBLE_FIELDS.targetMii;
   if (!mii.has(tf.leaf)) return;
   for (const host of populatedMiiIndices(mii)) {
@@ -246,7 +246,7 @@ for (const [name, entry] of Object.entries(INTERIOR)) {
   if (entry && entry.OwnNum) STYLE_HASH_TO_INTERIOR.set(murmur3_x86_32(name) >>> 0, entry);
 }
 
-function recoverInteriorStyles(
+export function recoverInteriorStyles(
   player: PlayerAccessor,
   styleHashes: Iterable<number>,
   nowSec: bigint,
